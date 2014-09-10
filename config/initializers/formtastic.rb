@@ -65,6 +65,7 @@
 # You can add custom inputs or override parts of Formtastic by subclassing Formtastic::FormBuilder and
 # specifying that class here.  Defaults to Formtastic::FormBuilder.
 # Formtastic::Helpers::FormHelper.builder = MyCustomBuilder
+Formtastic::Helpers::FormHelper.builder = FormtasticBootstrap::FormBuilder 
 
 # All formtastic forms have a class that indicates that they are just that. You
 # can change it to any class you want.
