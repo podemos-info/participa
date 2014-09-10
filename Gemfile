@@ -41,3 +41,4 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
+gem 'pg'
