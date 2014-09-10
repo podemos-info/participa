@@ -15,4 +15,4 @@
 /log/*.log
 /tmp
 
-config/database.yml 
+./config/database.yml 
