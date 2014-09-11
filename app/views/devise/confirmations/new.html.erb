@@ -1,0 +1,10 @@
+<% @title ||= t("devise.titles.confirmation_instructions") %>
+
+<%= semantic_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: {method: :post}) do |f| %>
+  <%= f.input :email, input_html: {autofocus: true} %>
+  <%= f.actions do %>
+    <%= f.action :submit, label: t("devise.buttons.confirmation_instructions") %>
+  <% end %>
+<% end %>
+
+<%= render "devise/shared/links" %>

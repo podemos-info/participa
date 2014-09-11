@@ -1,0 +1,33 @@
+<% @title ||= t("devise.titles.my_account", 
+  model: resource_name.to_s.humanize, 
+  downcase_model: resource_name.to_s.humanize.downcase) %>
+
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+  <%= f.input :email, input_html: {autofocus: true} %>
+  
+  <%# if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
+    <div><%# t("devise.messages.waiting_confirmation", email: resource.unconfirmed_email) %></div>
+  <%# end %>
+  
+  <%= f.input :password, input_html: {autocomplete: "off"}, hint: t("devise.hints.password") %>
+  <%= f.input :password_confirmation %>
+  <%= f.input :current_password, required: true, hint: t("devise.hints.current_password") %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, label: "Update" %>
+  <% end %>
+<% end %>
+
+<%= content_tag(:h2, t("devise.titles.cancel_account")) %>
+
+<p><%= 
+  button_to(
+    t("devise.buttons.cancel_account"), 
+    registration_path(resource_name), data: {
+      confirm: t("devise.messages.cancel_account_confirmation"), 
+      method: :delete
+    }
+  )
+%></p>
+
+<p><%= link_to t("devise.links.back"), :back %></p>

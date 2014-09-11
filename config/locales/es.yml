@@ -12,10 +12,12 @@ es:
               blank: "Tu tipo de documento no puede estar en blanco"
             document_vatid: 
               blank: "Tu documento no puede estar en blanco"
+              taken: "Ya estas registrado con tu documento. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
             born_at: 
               blank: "Tu fecha de nacimiento no puede estar en blanco"
             email: 
               blank: "Tu correo electrónico no puede estar en blanco"
+              taken: "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
             password: 
               blank: "Tu contraseña no puede estar en blanco"
             password_confirmation: "Contraseña (repetir)"
