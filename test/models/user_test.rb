@@ -26,5 +26,9 @@ class UserTest < ActiveSupport::TestCase
     u = User.new(first_name: "Juan", last_name: "Perez")
     assert_equal(u.full_name, "Juan Perez")
   end
+
+  test "should .is_admin? method work" do
+    skip("TODO")
+  end
     
 end

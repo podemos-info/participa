@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def is_admin?
+    admin == 1
+  end
+
 end
