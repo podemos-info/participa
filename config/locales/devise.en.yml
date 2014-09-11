@@ -47,6 +47,42 @@ en:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions about how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+    buttons:
+      sign_in: "Sign in"
+      sign_up: "Sign up"
+      cancel_account: "Cancel my account"
+      reset_password: "Send me reset password instructions"
+      change_password: "Change password"
+      confirmation_instructions: "Resend confirmation instructions"
+      unlock_instructions: "Resend unlock instructions"
+    hints:
+      password: "(leave blank if you don't want to change it)"
+      current_password: "(we need your current password to confirm your changes)"
+    labels:
+      new_password: "New password"
+      new_password_confirmation: "Confirm new password"
+    links:
+      sign_in: "Sign in"
+      sign_in_with: "Sign in with %{provider}"
+      sign_up: "Sign up"
+      sign_out: "Sign out"
+      my_account: "My account"
+      back: "Back"
+      forgot_password: "Forgot your password?"
+      confirmation_instructions: "Didn't receive confirmation instructions?"
+      unlock_instructions: "Didn't receive unlock instructions?"
+    messages:
+      cancel_account_confirmation: "Are you sure?"
+      waiting_confirmation: "Currently waiting confirmation for %{email}"
+    titles:
+      sign_in: "Sign in"
+      sign_up: "Sign up"
+      my_account: "My %{downcase_model} account"
+      cancel_account: "Cancel my account"
+      forgot_password: "Forgot your password?"
+      change_password: "Change your password"
+      confirmation_instructions: "Resend confirmation instructions"
+      unlock_instructions: "Resend unlock instructions"
   errors:
     messages:
       already_confirmed: "was already confirmed, please try signing in"
