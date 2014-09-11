@@ -8,6 +8,44 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar navbar-inverse navbar-fixed navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Cambiar navegación</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">PODEMOS</a>
+      </div>
+
+      <% if user_signed_in? %>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <%= link_to tools_index_path do %>
+                <i class="glyphicon glyphicon-link"></i>
+                Herramientas
+              <% end %>
+            </li>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <i class="glyphicon glyphicon-cog"></i>
+                Perfil
+              <% end %>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li> <%= link_to "Cerrar sesión", destroy_user_session_path, :method => :delete %> </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      <% end %>
+
+    </div><!-- /.container-fluid -->
+  </nav>
+
   <div class="container-fluid">
     <% flash.each do |type, message| %>
       <div class="alert <%= bootstrap_class_for(type) %> fade in">
