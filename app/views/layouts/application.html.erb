@@ -17,7 +17,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">PODEMOS</a>
+        <%= link_to "PODEMOS", unauthenticated_root_path, class: "navbar-brand" %>
       </div>
 
       <% if user_signed_in? %>
@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active">
-              <%= link_to tools_index_path do %>
+              <%= link_to authenticated_root_path do %>
                 <i class="glyphicon glyphicon-link"></i>
                 Herramientas
               <% end %>
