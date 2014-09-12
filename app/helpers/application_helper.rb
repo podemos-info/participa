@@ -16,4 +16,11 @@ module ApplicationHelper
     end
   end
 
+  def bootstrap_nav_link(text, path, icon)
+    options = current_page?(path) ? { class: "active" } : {}
+    content_tag(:li, options) do
+      link_to content_tag(:i, "", class: "glyphicon #{icon}") + " " + text, path
+    end
+  end
+
 end

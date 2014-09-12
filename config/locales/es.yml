@@ -50,5 +50,8 @@ es:
         password_confirmation: "Contraseña (repetir)"
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
         terms_of_service: "Acepto las condiciones generales"
-
+  podemos:
+    tools: "Herramientas"
+    profile: "Perfil"
+    home_address: "Domicilio"
 
