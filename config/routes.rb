@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  ActiveAdmin.routes(self)
+ 
   devise_for :users, :controllers => { registrations: 'registrations' } 
 
   # http://stackoverflow.com/a/8884605/319241 
