@@ -12,6 +12,11 @@ class UserTest < ActiveSupport::TestCase
     assert(u.errors[:document_type].include? "Tu tipo de documento no puede estar en blanco")
     assert(u.errors[:document_vatid].include? "Tu documento no puede estar en blanco")
     assert(u.errors[:born_at].include? "Tu fecha de nacimiento no puede estar en blanco")
+    assert(u.errors[:address].include? "Tu dirección no puede estar en blanco")
+    assert(u.errors[:town].include? "Tu municipio o localidad no puede estar en blanco")
+    assert(u.errors[:postal_code].include? "Tu código postal no puede estar en blanco")
+    assert(u.errors[:province].include? "Tu provincia no puede estar en blanco")
+    assert(u.errors[:country].include? "Tu país no puede estar en blanco")
   end
 
   test "should email and document_vatid be unique" do

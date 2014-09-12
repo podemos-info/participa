@@ -45,3 +45,5 @@ gem 'pg'
 gem 'devise'
 gem 'rb-readline'
 gem 'cancancan', '~> 1.9'
+
+gem 'carmen-rails'

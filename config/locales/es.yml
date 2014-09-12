@@ -15,6 +15,16 @@ es:
               taken: "Ya estas registrado con tu documento. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
             born_at: 
               blank: "Tu fecha de nacimiento no puede estar en blanco"
+            address:
+              blank: "Tu dirección no puede estar en blanco"
+            town:
+              blank: "Tu municipio o localidad no puede estar en blanco"
+            postal_code:
+              blank: "Tu código postal no puede estar en blanco"
+            province: 
+              blank: "Tu provincia no puede estar en blanco"
+            country: 
+              blank: "Tu país no puede estar en blanco"
             email: 
               blank: "Tu correo electrónico no puede estar en blanco"
               taken: "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
@@ -31,6 +41,11 @@ es:
         document_vatid: "Nº de documento"
         born_at: "Fecha de nacimiento"
         email: "Correo electrónico"
+        address: "Dirección"
+        town: "Municipio / Localidad"
+        province: "Provincia"
+        postal_code: "Código postal"
+        country: "País"
         password: "Contraseña"
         password_confirmation: "Contraseña (repetir)"
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
