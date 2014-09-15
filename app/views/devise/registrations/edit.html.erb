@@ -2,32 +2,72 @@
   model: resource_name.to_s.humanize, 
   downcase_model: resource_name.to_s.humanize.downcase) %>
 
-<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
-  <%= f.input :email, input_html: {autofocus: true} %>
-  
-  <%# if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
-    <div><%# t("devise.messages.waiting_confirmation", email: resource.unconfirmed_email) %></div>
-  <%# end %>
-  
-  <%= f.input :password, input_html: {autocomplete: "off"}, hint: t("devise.hints.password") %>
-  <%= f.input :password_confirmation %>
-  <%= f.input :current_password, required: true, hint: t("devise.hints.current_password") %>
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Inscripción</a></li>
+  <li><a href="#">Colaboración económica</a></li>
+  <li><a href="#">Banco de talentos</a></li>
+</ul>
 
-  <%= f.actions do %>
-    <%= f.action :submit, label: "Update" %>
-  <% end %>
-<% end %>
+<hr>
 
-<%= content_tag(:h2, t("devise.titles.cancel_account")) %>
+<div class="row">
+  <div class="col-md-5">
 
-<p><%= 
-  button_to(
-    t("devise.buttons.cancel_account"), 
-    registration_path(resource_name), data: {
-      confirm: t("devise.messages.cancel_account_confirmation"), 
-      method: :delete
-    }
-  )
-%></p>
+    <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+      <%= f.input :email, input_html: {autofocus: true} %>
+      
+      <%# if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
+        <div><%# t("devise.messages.waiting_confirmation", email: resource.unconfirmed_email) %></div>
+      <%# end %>
 
-<p><%= link_to t("devise.links.back"), :back %></p>
+          <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true} %>
+        <%= f.input :last_name, required: true, input_html: {required: true} %>
+        <%= f.input :document_type, required: true, as: :radio, collection: User::DOCUMENTS_TYPE, input_html: {required: true, class: 'js-registration-document'} %>
+        <div class="js-registration-document-wrapper hidden">
+          <%= f.input :document_vatid, required: true, input_html: {required: true} %>
+        </div>
+        <div class="js-registration-document-passport hidden">
+          Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción.
+        </div>
+        <%= f.input :born_at, required: true, input_html: {required: true}, start_year: 1920, end_year: 2015 %>
+        <%= f.input :email, required: true, input_html: {required: true} %>
+        <%= f.inputs t("podemos.home_address") do %>
+          <%= f.input :address, required: true, input_html: {required: true} %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.input :town, required: true, input_html: {required: true} %>
+            <%= f.input :postal_code, required: true, input_html: {required: true} %>
+          </div>
+          <div class="col-md-6">
+            <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+            <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"}, selected: "ES" %>
+          </div>
+        </div>
+      <% end %>
+        <%= f.input :wants_newsletter, required: true, input_html: {checked: 'checked'} %>
+      
+      <%= f.input :password, input_html: {autocomplete: "off"}, hint: t("devise.hints.password") %>
+      <%= f.input :password_confirmation %>
+      <%= f.input :current_password, required: true, hint: t("devise.hints.current_password") %>
+
+      <%= f.actions do %>
+        <%= f.action :submit, label: "Update" %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag(:h2, t("devise.titles.cancel_account")) %>
+
+    <p><%= 
+      button_to(
+        t("devise.buttons.cancel_account"), 
+        registration_path(resource_name), data: {
+          confirm: t("devise.messages.cancel_account_confirmation"), 
+          method: :delete
+        }
+      )
+    %></p>
+
+    <p><%= link_to t("devise.links.back"), :back %></p>
+
+  </div>
+</div>
