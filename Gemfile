@@ -48,3 +48,4 @@ gem 'cancancan', '~> 1.9'
 gem 'carmen-rails'
 gem 'factory_girl_rails'
 gem 'mailcatcher', group: :development
+gem 'debugger'
