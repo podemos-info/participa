@@ -45,6 +45,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    daemons (1.1.9)
     devise (3.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -52,6 +53,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -62,6 +64,8 @@ GEM
       actionpack (>= 3.2.13)
     formtastic-bootstrap (3.0.0)
       formtastic (>= 2.2)
+    haml (4.0.5)
+      tilt
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.1.3)
@@ -74,6 +78,16 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mailcatcher (0.2.4)
+      eventmachine
+      haml
+      i18n
+      json
+      mail
+      sinatra
+      skinny (>= 0.1.2)
+      sqlite3-ruby
+      thin
     mime-types (1.25.1)
     minitest (5.4.1)
     multi_json (1.10.1)
@@ -81,6 +95,8 @@ GEM
     pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.5)
@@ -111,6 +127,13 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    skinny (0.2.3)
+      eventmachine (~> 1.0.0)
+      thin (~> 1.5.0)
     spring (1.1.3)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -122,6 +145,12 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.9)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -153,6 +182,7 @@ DEPENDENCIES
   formtastic-bootstrap
   jbuilder (~> 2.0)
   jquery-rails
+  mailcatcher
   pg
   rails (= 4.1.5)
   rb-readline
