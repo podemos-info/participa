@@ -10,7 +10,11 @@
       <abbr title="required">*</abbr>
       <% end %>
     <span class="form-wrapper">
-      <%= subregion_select(:user, :province, parent_region, {}, {required: "required", class: "form-control"}) %>
+      <% if current_user %>
+        <%= subregion_select(:user, :province, parent_region, {selected: current_user.province}, {required: "required", class: "form-control"}) %>
+      <% else %>
+        <%= subregion_select(:user, :province, parent_region, {}, {required: "required", class: "form-control"}) %>
+      <% end %>
     </span>
   <% else %>
     <%= text_field(:user, :province) %>

@@ -31,6 +31,10 @@ init_registrations = () ->
   $('select.js-registration-country').change (event) ->
     subregion_change($(this))
 
+  if ( $('.js-registration-document:checked').length > 0 )
+    document_type = $('.js-registration-document:checked').parents('label').text()
+    document_change(document_type)
+
   $('.js-registration-document').change (event) ->
     document_type = $(this).parents('label').text()
     document_change(document_type)
