@@ -8,12 +8,22 @@ class User < ActiveRecord::Base
   validates :email, :document_vatid, uniqueness: true
   validates :terms_of_service, acceptance: true
 
-  #validates :document_type, inclusion: { in: %w(1 2),
-  #                              message: "tipo de documento no válido" }
+  #validates :document_type, inclusion: { in: %w(1 2 3), message: "tipo de documento no válido" }
   validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
-                                   message: "debes haber nacido antes de 1920" }
+                                   message: "debes haber nacido después de 1920" }
 
-  DOCUMENTS_TYPE = [["DNI/NIE", 1], ["Pasaporte", 2]]
+  DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
+
+  validates :document_vatid, valid_nif: true, if: :is_document_dni?
+  validates :document_vatid, valid_nie: true, if: :is_document_nie?
+
+  def is_document_dni?
+    document_type == 1
+  end
+
+  def is_document_nie?
+    document_type == 2
+  end
 
   def full_name
     "#{self.first_name} #{self.last_name}"

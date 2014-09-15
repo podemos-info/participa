@@ -49,3 +49,4 @@ gem 'carmen-rails'
 gem 'factory_girl_rails'
 gem 'mailcatcher', group: :development
 gem 'debugger'
+gem 'spanish_vat_validators'

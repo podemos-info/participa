@@ -23,13 +23,40 @@ class UserTest < ActiveSupport::TestCase
     assert(u.errors[:country].include? "Tu país no puede estar en blanco")
   end
 
-  test "should email and document_vatid be unique" do
-    user1 = FactoryGirl.create(:user, email: "foo@example.com", document_vatid: "2222111X")
-    user2 = FactoryGirl.create(:user, email: "foo@example.com", document_vatid: "1111111X")
-    debugger
-    assert(user2.errors[:email].include? "Correo electrónico Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña.")
-    user2 = FactoryGirl.create(:user, email: "foo888@example.com")
-    assert(user2.errors[:email].valid?)
+  test "should document_vatid validates with DNI/NIE" do 
+    u = User.new(document_type: 1, document_vatid: "222222E")
+    u.valid?
+    assert(u.errors[:document_vatid].include? "El DNI no es válido")
+
+    u = User.new(document_type: 2, document_vatid: "222222E")
+    u.valid?
+    assert(u.errors[:document_vatid].include? "El NIE no es válido")
+
+    u = User.new(document_type: 1, document_vatid: "99115002K")
+    u.valid?
+    assert(u.errors[:document_vatid] == [])
+
+    u = User.new(document_type: 2, document_vatid: "Z4901305X")
+    u.valid?
+    assert(u.errors[:document_vatid] == [])
+  end
+
+  test "should email be unique" do
+    user2 = FactoryGirl.build(:user, email: @user.email)
+    user2.valid?
+    assert(user2.errors[:email].include? "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña.")
+
+    user2 = FactoryGirl.build(:user, document_vatid: "17623610K")
+    assert(user2.errors[:email] == [])
+  end
+
+  test "should document_vatid be unique" do
+    user1 = FactoryGirl.create(:user, email: "foo222@example.com", document_vatid: "26502303R")
+    user2 = FactoryGirl.build(:user, email: "foo222@example.com", document_vatid: "26502303R")
+    user2.valid?
+    assert(user2.errors[:email].include? "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña.")
+    user2 = FactoryGirl.build(:user, email: "foo888@example.com")
+    assert(user2.errors[:email] == [])
   end
 
   test "should accept terms of service" do
@@ -39,10 +66,10 @@ class UserTest < ActiveSupport::TestCase
   test "should have valid born_at" do
     u = User.new(born_at: Date.civil(1908, 2, 1))
     u.valid?
-    assert(u.errors[:born_at].include? "debes haber nacido antes de 1920")
+    assert(u.errors[:born_at].include? "debes haber nacido después de 1920")
     u = User.new(born_at: Date.civil(2017, 2, 1))
     u.valid?
-    assert(u.errors[:born_at].include? "debes haber nacido antes de 1920")
+    assert(u.errors[:born_at].include? "debes haber nacido después de 1920")
     u = User.new(born_at: Date.civil(1988, 2, 1))
     u.valid?
     assert(u.errors[:born_at], [])

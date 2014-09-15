@@ -1,4 +1,10 @@
 es: 
+  errors:
+    messages:
+      not_valid_spanish_vat: El número de identificación fiscal no es válido
+      not_valid_nif: El DNI no es válido
+      not_valid_cif: El CIF no es válido
+      not_valid_nie: El NIE no es válido
   activerecord:
     errors:
       models: 

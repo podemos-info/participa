@@ -13,7 +13,7 @@ FactoryGirl.define do
     born_at Date.civil(1983, 2, 1) 
     wants_newsletter true
     document_type 1
-    document_vatid '2222X'
+    document_vatid '83482396D'
     admin false
     address "C/ Inventada, 123" 
     town "Madrid"
