@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => { registrations: 'registrations' } 
+  devise_for :users, controllers: { registrations: 'registrations', confirmations: 'confirmations' } 
 
   # http://stackoverflow.com/a/8884605/319241 
   devise_scope :user do
-    get '/registrations/subregion_options' => 'registrations#subregion_options'
+    get '/registrations/subregion_options', to: 'registrations#subregion_options'
 
     authenticated :user do
       root 'tools#index', as: :authenticated_root
