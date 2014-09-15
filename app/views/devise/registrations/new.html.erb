@@ -1,16 +1,10 @@
 <% @title ||= t("devise.titles.sign_up") %>
 
-<div class="row">
-  <div class="col-md-5">
-    <p>
-    Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. 
-    </p>
-    <p>
-    Rellenando este formulario con tus datos y pasarás a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos.
-    </p>
-  </div>
   <div class="col-md-5">
     <div class="well">
+      <p>
+      Rellenando este formulario con tus datos y pasarás a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos.
+      </p>
       <p>
       Completa el siguiente formulario para registrarte en PODEMOS. Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación. Si te equivocas en alguno de tus datos, puedes completar el formulario otra vez con tu código y se sobrescribirán, el sistema evita duplicados de registro.
       </p>
@@ -25,6 +19,8 @@
       *El código de verificación no es la contraseña de la Plaza Podemos. Lee este manual para saber como registrarte y participar en ella.
       </p>
     </div>
+  </div>
+  <div class="col-md-5">
     <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true} %>
     <%= f.input :last_name, required: true, input_html: {required: true} %>
@@ -59,7 +55,6 @@
       <%= f.action :submit, label: t("devise.buttons.sign_up"), button_html: {class: "btn btn-primary"} %>
   <% end %>
   <% end %>
-  </div>
-</div>
 
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
+</div>

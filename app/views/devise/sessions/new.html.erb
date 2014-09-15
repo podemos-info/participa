@@ -1,16 +1,30 @@
 <% @title ||= t("devise.titles.sign_in") %>
 
-<%= semantic_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <%= f.input :email, input_html: {autofocus: true} %>
-  <%= f.input :password %>
-  
-  <% if devise_mapping.rememberable? -%>
-    <%= f.input :remember_me, as: :boolean, label: false %>
-  <% end -%>
-  
-  <%= f.actions do %>
-    <%= f.action :submit, label: t("devise.buttons.sign_in"), button_html: {class: 'btn btn-primary'} %>
-  <% end %>
-<% end %>
+<div class="well">
+  Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. 
+</div>
 
-<%= render "devise/shared/links" %>
+<div class="row">
+
+  <div class="col-md-5">
+  <%= semantic_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= f.input :email, input_html: {autofocus: true} %>
+    <%= f.input :password %>
+    
+    <% if devise_mapping.rememberable? -%>
+      <%= f.input :remember_me, as: :boolean, label: false %>
+    <% end -%>
+    
+    <%= f.actions do %>
+      <%= f.action :submit, label: t("devise.buttons.sign_in"), button_html: {class: 'btn btn-primary'} %>
+    <% end %>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+  </div>
+
+  <div class="col-md-5">
+    <%= link_to "¿No estás inscripto? ¡Inscribete!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+  </div>
+
+</div>
