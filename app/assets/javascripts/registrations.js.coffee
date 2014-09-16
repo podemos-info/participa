@@ -5,7 +5,11 @@ subregion_change = ($country_select) ->
   $('select', select_wrapper).attr('disabled', true)
   country_code = $country_select.val()
   url = "/registrations/subregion_options?parent_region=#{country_code}"
-  select_wrapper.load(url)
+  select_wrapper.load(url, ->
+    if ( $('.js-registration-province').html().length > 1 )
+      province = $('.js-registration-province').html()
+      $('#user_province').val(province)
+  )
 
 document_change = (document_type) ->
   $('.js-registration-document-wrapper').removeClass('hidden')

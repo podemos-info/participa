@@ -32,7 +32,6 @@
       Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción.
     </div>
     <%= f.input :born_at, required: true, input_html: {required: true}, start_year: 1920, end_year: 2015 %>
-    <%= f.input :email, required: true, input_html: {required: true} %>
     <%= f.inputs t("podemos.home_address") do %>
       <%= f.input :address, required: true, input_html: {required: true} %>
     <div class="row">
@@ -41,11 +40,13 @@
         <%= f.input :postal_code, required: true, input_html: {required: true} %>
       </div>
       <div class="col-md-6">
+        <div class="js-registration-province hidden"><%= f.object.province %></div>
         <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
         <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"}, selected: "ES" %>
       </div>
     </div>
   <% end %>
+    <%= f.input :email, required: true, input_html: {required: true} %>
     <%= f.input :password, required: true, input_html: {required: true} %>
     <%= f.input :password_confirmation, required: true, input_html: {required: true} %>
     <%= f.input :wants_newsletter, required: true, input_html: {checked: 'checked'} %>
