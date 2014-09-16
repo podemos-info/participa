@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :address, :postal_code, :town, :province, :country, presence: true
   validates :email, :document_vatid, uniqueness: true
   validates :terms_of_service, acceptance: true
-  validates :phone, numericality: true
+#  validates :phone, numericality: true
 
   #validates :document_type, inclusion: { in: %w(1 2 3), message: "tipo de documento no válido" }
   validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
