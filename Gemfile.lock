@@ -27,6 +27,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    airbrake (4.0.0)
+      builder
+      multi_json
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     bootstrap-sass (3.2.0.2)
@@ -224,6 +227,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   bootstrap-sass
   cancancan (~> 1.9)
   capistrano-bundler

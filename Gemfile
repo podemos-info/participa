@@ -15,6 +15,7 @@ gem 'spring',        group: :development
 gem 'unicorn'
 gem 'pg'
 gem 'rb-readline'
+gem 'airbrake'
 
 gem 'devise'
 gem 'cancancan', '~> 1.9'
