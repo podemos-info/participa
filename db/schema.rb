@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916001253) do
+ActiveRecord::Schema.define(version: 20140916140124) do
+
+  create_table "notices", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "link"
+    t.datetime "final_valid_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "simple_captcha_data", force: true do |t|
     t.string   "key",        limit: 40

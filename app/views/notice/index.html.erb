@@ -1,0 +1,8 @@
+<% @notices.each do |notice| %>
+  <div class="col-md-5">
+    <h4><a href="#"><%= notice.title %></a></h4>
+    <p><%= notice.text %></p>
+    <p><%= notice.created_at %></p>
+  </div>
+  <hr>
+<% end %>

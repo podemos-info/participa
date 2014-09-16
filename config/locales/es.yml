@@ -58,8 +58,10 @@ es:
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
         terms_of_service: "Acepto las condiciones generales"
   podemos:
-    tools: "Herramientas"
-    profile: "Perfil"
+    navbar: 
+      tools: "Herramientas"
+      profile: "Perfil"
+      notice: "Avisos"
     home_address: "Domicilio"
     home: 
       button: "¿No estás inscripto? ¡Inscríbete!"

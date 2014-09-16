@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
   end
 
+  get :notices, to: 'notice#index', as: 'notices'
+
   # http://stackoverflow.com/a/8884605/319241 
   devise_scope :user do
     get '/registrations/subregion_options', to: 'registrations#subregion_options'

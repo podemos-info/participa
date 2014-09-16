@@ -26,8 +26,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <% if current_user.is_valid_user? %>
             <ul class="nav navbar-nav">
-              <%= bootstrap_nav_link("Herramientas", authenticated_root_path, "glyphicon-link") %>
-              <%= bootstrap_nav_link("Perfil", edit_user_registration_path, "glyphicon-cog") %>
+              <%= bootstrap_nav_link(t('podemos.navbar.tools'), authenticated_root_path, "glyphicon-link") %>
+              <%= bootstrap_nav_link(t('podemos.navbar.profile'), edit_user_registration_path, "glyphicon-cog") %>
+              <%= bootstrap_nav_link(t('podemos.navbar.notice'), notices_path, "glyphicon-exclamation-sign") %>
             </ul>
           <% end %>
           <ul class="nav navbar-nav navbar-right">
