@@ -1,14 +1,14 @@
 <%= render partial: "steps", locals: {step: 3} %>
 
 <div class="well col-md-6 col-md-offset-3">
-  <div class="alert alert-info">
-    Introduce el código que hayas recibido por SMS para confirmarlo
-  </div>
   <%= semantic_form_for(:sms_token, url: sms_validator_valid_path, html: {method: :post}) do |f| %>
-    <%= f.input :sms_user_token %>
+    <p><%= t('podemos.valid.phone.p5') %></p>
+    <hr>
+    <%= f.input :sms_user_token, label: t('podemos.valid.phone.token') %>
+    <hr>
 
     <%= f.actions do %>
-      <%= f.action :submit, label: "Comprobar", button_html: {class: "btn btn-primary btn-lg"} %>
+      <%= f.action :submit, label: t('podemos.valid.phone.button'), button_html: {class: "btn btn-primary btn-lg"} %>
     <% end %>
   <% end %>
 </div>

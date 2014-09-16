@@ -47,6 +47,7 @@ es:
         document_vatid: "Nº de documento"
         born_at: "Fecha de nacimiento"
         email: "Correo electrónico"
+        phone: "Teléfono móvil"
         address: "Dirección"
         town: "Municipio / Localidad"
         province: "Provincia"
@@ -60,4 +61,27 @@ es:
     tools: "Herramientas"
     profile: "Perfil"
     home_address: "Domicilio"
+    home: 
+      button: "¿No estás inscripto? ¡Inscríbete!"
+      p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
+    valid: 
+      phone:
+        p1: Si ya has participado en alguna votación de PODEMOS, te enviaremos el código por e-mail.
+        p2: Si el teléfono es extranjero, pon el prefijo sin el + ni los 0. 
+        p3: Recibirás el código en unos segundos.
+        p4: Introduce el texto que aparece en la imagen.
+        p5: Introduce el código que hayas recibido por SMS para confirmarlo
+        valid: "Has validado correctamente."
+        invalid: "El código que has puesto no corresponde con el que te enviamos por SMS."
+        captcha: "Validar Captcha"
+        token: Código SMS
+        button: "Comprobar"
+        captcha_invalid: "Captcha invalido"
 
+    registration:
+      passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
+      p1: "Rellenando este formulario con tus datos y pasarás a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
+      p2: "Completa el siguiente formulario para registrarte en PODEMOS. Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación. Si te equivocas en alguno de tus datos, puedes completar el formulario otra vez con tu código y se sobrescribirán, el sistema evita duplicados de registro."
+      p3: "¿Es seguro el sistema de inscripción?"
+      p4: "Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos."
+      p5: "*El código de verificación no es la contraseña de la Plaza Podemos. Lee este manual para saber como registrarte y participar en ella."

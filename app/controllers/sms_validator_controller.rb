@@ -37,7 +37,7 @@ class SmsValidatorController < ApplicationController
       current_user.send_sms_token!
       render action: "step3"
     else
-      flash.now[:error] = "Captcha invalido"
+      flash.now[:error] = t('podemos.valid.phone.captcha_invalid') 
       render action: "step2"
     end
   end
@@ -45,10 +45,10 @@ class SmsValidatorController < ApplicationController
   # POST /validator/captcha
   def valid
     if current_user.check_sms_token(params[:sms_token][:sms_user_token])
-      flash.now[:notice] = "Has validado correctamente."
+      flash.now[:notice] = t('podemos.valid.phone.valid') 
       redirect_to authenticated_root_path
     else
-      flash.now[:error] = "El código que has puesto no corresponde con el que te enviamos por SMS."
+      flash.now[:error] = t('podemos.valid.phone.invalid') 
       render action: "step3"
     end
   end
