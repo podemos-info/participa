@@ -1,5 +1,5 @@
 working_directory "/var/www/beta.juntos.podemos.info/current"
-pid "/var/www/beta.juntos.podemos.info/shared/pids/unicorn.pid"
+pid "/var/www/beta.juntos.podemos.info/current/tmp/pids/unicorn.pid"
 stderr_path "/var/www/beta.juntos.podemos.info/shared/log/unicorn.log"
 stdout_path "/var/www/beta.juntos.podemos.info/shared/log/unicorn.log"
 listen "/tmp/unicorn.beta.juntos.podemos.info.sock"
