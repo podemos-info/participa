@@ -24,10 +24,12 @@
       <% if user_signed_in? %>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <%= bootstrap_nav_link("Herramientas", authenticated_root_path, "glyphicon-link") %>
-            <%= bootstrap_nav_link("Perfil", edit_user_registration_path, "glyphicon-cog") %>
-          </ul>
+          <% if current_user.is_valid_user? %>
+            <ul class="nav navbar-nav">
+              <%= bootstrap_nav_link("Herramientas", authenticated_root_path, "glyphicon-link") %>
+              <%= bootstrap_nav_link("Perfil", edit_user_registration_path, "glyphicon-cog") %>
+            </ul>
+          <% end %>
           <ul class="nav navbar-nav navbar-right">
             <li class="navbar-text"><%= current_user.full_name %></li>
             <li> <%= link_to "Cerrar sesión", destroy_user_session_path, :method => :delete %> </li>

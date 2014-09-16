@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     self.admin == 1
   end
 
+  def is_valid_user?
+    self.phone? and self.sms_confirmed_at?
+  end
+
   def is_valid_phone?
     self.sms_confirmed_at?
   end
