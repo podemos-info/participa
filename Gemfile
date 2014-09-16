@@ -50,3 +50,5 @@ gem 'factory_girl_rails'
 gem 'mailcatcher', group: :development
 gem 'debugger'
 gem 'spanish_vat_validators'
+gem 'esendex'
+gem 'simple_captcha2', require: 'simple_captcha'

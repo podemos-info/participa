@@ -23,4 +23,14 @@ module ApplicationHelper
     end
   end
 
+  def bootstrap_class_for_steps(step_n, step_current)
+    if step_current == step_n
+      "active"
+    elsif step_current > step_n
+      ""
+    else
+      "disabled"
+    end
+  end
+
 end

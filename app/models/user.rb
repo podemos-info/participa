@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :address, :postal_code, :town, :province, :country, presence: true
   validates :email, :document_vatid, uniqueness: true
   validates :terms_of_service, acceptance: true
+  validates :phone, numericality: true
 
   #validates :document_type, inclusion: { in: %w(1 2 3), message: "tipo de documento no válido" }
   validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
@@ -18,11 +19,11 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
 
   def is_document_dni?
-    document_type == 1
+    self.document_type == 1
   end
 
   def is_document_nie?
-    document_type == 2
+    self.document_type == 2
   end
 
   def full_name
@@ -30,7 +31,34 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    admin == 1
+    self.admin == 1
+  end
+
+  def is_valid_phone?
+    self.sms_confirmed_at?
+  end
+
+  def generate_sms_token
+    SecureRandom.hex(3).upcase
+  end
+
+  def set_sms_token!
+    self.update_attribute(:sms_confirmation_token, generate_sms_token)
+  end
+
+  def send_sms_token!
+    require 'sms'
+    self.update_attribute(:confirmation_sms_sent_at, DateTime.now)
+    SMS::Sender.send_message(self.phone, self.sms_confirmation_token)
+  end
+
+  def check_sms_token(token)
+    if token == self.sms_confirmation_token
+      self.update_attribute(:sms_confirmed_at, DateTime.now)
+      true
+    else 
+      false
+    end
   end
 
 end

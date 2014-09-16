@@ -60,6 +60,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    esendex (0.3.2)
+      nestful (~> 0.0.8)
+      nokogiri (>= 1.4.4.1)
     eventmachine (1.0.3)
     execjs (2.2.1)
     factory_girl (4.4.0)
@@ -96,8 +99,13 @@ GEM
       sqlite3-ruby
       thin
     mime-types (1.25.1)
+    mini_portile (0.6.0)
     minitest (5.4.1)
     multi_json (1.10.1)
+    nestful (0.0.8)
+      activesupport (>= 3.0.0.beta)
+    nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.5)
@@ -134,6 +142,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simple_captcha2 (0.3.2)
+      rails (>= 4.1)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -186,6 +196,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   debugger
   devise
+  esendex
   factory_girl_rails
   formtastic
   formtastic-bootstrap
@@ -197,6 +208,7 @@ DEPENDENCIES
   rb-readline
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  simple_captcha2
   spanish_vat_validators
   spring
   sqlite3

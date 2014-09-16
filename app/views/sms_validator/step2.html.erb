@@ -1,0 +1,21 @@
+<% resource = current_user %>
+<% resource_name = :user %>
+
+<%= render partial: "steps", locals: {step: 2} %>
+
+<div class="well col-md-6 col-md-offset-3">
+  <div class="alert alert-info">
+    Vamos a enviar un SMS a tu número de móvil <b><%= current_user.phone %></b>
+    <%= link_to "cambiar, es incorrecto", sms_validator_step1_path, class: "label label-primary" %>
+    <br>
+    Si este es tu número correcto por favor rellena el siguiente captcha para que te enviemos un SMS y lo validemos.
+  </div>
+
+  <%= semantic_form_for(:captcha, url: sms_validator_captcha_path, html: {method: :post}) do |f| %>
+    <%= show_simple_captcha %>
+
+    <%= f.actions do %>
+      <%= f.action :submit, label: "Update" %>
+    <% end %>
+  <% end %>
+</div>

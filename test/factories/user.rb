@@ -20,6 +20,7 @@ FactoryGirl.define do
     province "Madrid"
     postal_code "28021"
     country "ES"
+    phone "003466111111111"
   end
 
   factory :admin, class: User do

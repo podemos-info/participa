@@ -88,4 +88,36 @@ class UserTest < ActiveSupport::TestCase
     skip("TODO")
   end
 
+  test "should .is_valid_phone? work" do
+    u = User.new
+    assert_not(u.is_valid_phone?)
+    u.sms_confirmed_at = DateTime.now
+    assert(u.is_valid_phone?)
+  end
+
+  test "should .generate_sms_token work" do
+    u = User.new
+    token = u.generate_sms_token
+    assert(!!(token.match(/^[[:alnum:]]+$/)))
+  end
+
+  test "should .set_sms_token! work" do
+    u = User.new
+    assert(u.sms_confirmation_token.nil?)
+    u.set_sms_token!
+    assert(u.sms_confirmation_token?)
+  end
+
+  test "should .send_sms_token! work" do
+    skip("TODO")
+  end
+
+  test "should .check_sms_token work" do
+    u = User.new
+    u.set_sms_token!
+    token = u.sms_confirmation_token
+    assert(u.check_sms_token(token))
+    assert_not(u.check_sms_token("LALALAAL"))
+  end
+
 end

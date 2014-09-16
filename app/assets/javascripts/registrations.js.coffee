@@ -18,7 +18,7 @@ document_change = (document_type) ->
 
 has_dni = () ->
   # TODO 
-  console.log('validate')
+  $('.js-registration-document-passport').addClass('hidden')
 
 has_passport = () ->
   $('.js-registration-document-passport').removeClass('hidden')
