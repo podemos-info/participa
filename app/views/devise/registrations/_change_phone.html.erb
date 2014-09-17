@@ -1,0 +1,5 @@
+<%= content_tag(:h2, t("podemos.user.change_phone")) %>
+
+<p> <%= t('podemos.user.change_phone_explain', phone: resource.phone) %> </p>
+
+<%= link_to t("podemos.user.change_phone"), sms_validator_step1_path, class: "btn btn-primary" %>

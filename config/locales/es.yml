@@ -6,6 +6,11 @@ es:
       not_valid_cif: El CIF no es válido
       not_valid_nie: El NIE no es válido
   activerecord:
+    models:
+      user: Usuario
+      users: Usuarios
+      notice: Aviso
+      notices: Avisos
     errors:
       models: 
         user:
@@ -40,6 +45,9 @@ es:
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
             terms_of_service: "Acepto las condiciones generales"
     attributes:
+      notice:
+        title: "Título"
+        body: "Mensaje" 
       user:
         first_name: "Nombre"
         last_name: "Apellidos"
@@ -60,6 +68,17 @@ es:
   podemos:
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
+    user:
+      general_data: "Datos generales"
+      collaborations: "Colaboraciones económicas"
+      personal_data: "Datos personales"
+      change_email: "Cambiar correo electrónico"
+      change_email_explain: "Si cambias tu correo electrónico te enviaremos otro correo para que lo confirmes."
+      change_phone: "Cambiar teléfono móvil"
+      change_phone_explain: "Ahora mismo tienes el móvil #{phone}"
+      change_password: "Cambiar contraseña"
+      cancel_account: "Cancelar mi cuenta"
+      cancel_account_account: "Si borras tu cuenta no podrás acceder más"
     devise:
       mailer:
         hello: "Hola"
