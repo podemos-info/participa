@@ -12,7 +12,7 @@ FactoryGirl.define do
     confirmed_at Time.now
     born_at Date.civil(1983, 2, 1) 
     wants_newsletter true
-    document_type 1
+    document_type 3
     document_vatid '83482396D'
     admin false
     address "C/ Inventada, 123" 
@@ -21,6 +21,7 @@ FactoryGirl.define do
     postal_code "28021"
     country "ES"
     phone "003466111111111"
+    sms_confirmed_at DateTime.now
   end
 
   factory :admin, class: User do
@@ -31,14 +32,16 @@ FactoryGirl.define do
     confirmed_at Time.now
     born_at Date.civil(1983, 2, 1) 
     wants_newsletter true
-    document_type 1
+    document_type 3
     document_vatid '2221X'
-    admin false
+    admin true
     address "C/ Inventada, 123" 
     town "Madrid"
     province "Madrid"
     postal_code "28021"
     country "ES"
+    phone "00346666666"
+    sms_confirmed_at DateTime.now
   end
 
 end

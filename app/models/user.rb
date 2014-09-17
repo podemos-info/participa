@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    self.admin == 1
+    self.admin
   end
 
   def is_valid_user?

@@ -4,6 +4,7 @@ class UserTest < ActiveSupport::TestCase
 
   setup do 
     @user = FactoryGirl.create(:user)
+    @admin = FactoryGirl.create(:admin)
   end
 
   test "should validate presence:true" do
@@ -85,7 +86,14 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should .is_admin? method work" do
-    skip("TODO")
+    u = User.new
+    assert_not u.is_admin?
+    assert_not @user.is_admin?
+    assert @admin.is_admin?
+    new_admin = FactoryGirl.create(:user, document_type: 3, document_vatid: '2222222')
+    assert_not new_admin.is_admin?
+    new_admin.update_attribute(:admin, true)
+    assert new_admin.is_admin?
   end
 
   test "should .is_valid_phone? work" do

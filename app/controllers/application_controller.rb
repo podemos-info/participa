@@ -21,4 +21,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  def access_denied exception
+    redirect_to root_url, :alert => exception.message
+  end
+
+  def authenticate_admin_user!
+    unless signed_in? && current_user.is_admin?
+      redirect_to root_url, flash: { error: t('podemos.unauthorized') }
+    end
+  end 
+
 end
