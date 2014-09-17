@@ -118,7 +118,6 @@ es:
         token: Código SMS
         button: "Comprobar"
         captcha_invalid: "Captcha invalido"
-
     registration:
       passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
       p1: "Rellenando este formulario con tus datos y pasarás a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
@@ -126,3 +125,7 @@ es:
       p3: "¿Es seguro el sistema de inscripción?"
       p4: "Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos."
       p5: "*El código de verificación no es la contraseña de la Plaza Podemos. Lee este manual para saber como registrarte y participar en ella."
+      terms_of_service:
+        title: 'Condiciones generales'
+        p1: 'Los derechos y deberes políticos derivados de esta inscripción, así como la forma de su ejercicio, son los reconocidos por la vigente legislación de Partidos Políticos y los propios estatutos del partido, sujetos a las decisiones que se adopten en las Asambleas, los recogidos en los Compromisos Éticos que se aprueben en la Asamblea Ciudadana y por los Acuerdos de los órganos del partido acordados. Esta inscripción supone así mismo la aceptación de los métodos de participación y formulas de decisión que legitimamente se establezcan.'
+        p2_html: 'Al enviar este Formulario y cumplimentar el proceso de inscripción, habrás dado también tu consentimiento para que tus datos se incorporen a un Fichero cuyo Responsable es el partido Político PODEMOS, con los únicos fines de mantener la comunicación y facilitar la participación. Salvo por imperativo legal, PODEMOS nunca cederá tus datos a terceros sin tu consentimiento expreso. Podrás en cualquier momento ejercer tus derechos de Acceso, Rectificación, Cancelación y Oposición dirigiéndote a la dirección electrónica <a href="mailto:lopd@podemos.info">lopd@podemos.info</a> desde la misma dirección de correo que consta verificada en esta inscripción o por cualquier otro medio que deje constancia de tu voluntad y de tu identidad'

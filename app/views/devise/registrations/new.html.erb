@@ -43,7 +43,11 @@
     <%= f.input :password_confirmation, required: true, input_html: {required: true} %>
     <%= f.input :wants_newsletter, required: true, input_html: {checked: 'checked'} %>
     <%= f.input :terms_of_service, as: :boolean, required: true %>
-    <%= render partial: "terms_of_service" %>
+    <small>
+    <h3> <%= t('podemos.registration.terms_of_service.title')%> </h3>
+    <p> <%= t('podemos.registration.terms_of_service.p1')%> </p>
+    <p> <%= t('podemos.registration.terms_of_service.p2_html')%> </p>
+    </small>
     <%= f.actions do %>
       <%= f.action :submit, label: t("devise.buttons.sign_up"), button_html: {class: "btn btn-primary"} %>
   <% end %>
