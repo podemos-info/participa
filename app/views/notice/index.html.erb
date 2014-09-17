@@ -1,7 +1,7 @@
 <% @notices.each do |notice| %>
-  <div class="col-md-5">
+  <div class="alert alert-info">
     <h4><a href="#"><%= notice.title %></a></h4>
-    <p><%= notice.text %></p>
+    <p><%= notice.body %></p>
     <p><%= notice.created_at %></p>
   </div>
   <hr>
