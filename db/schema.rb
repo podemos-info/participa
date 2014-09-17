@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20140916140124) do
     t.datetime "updated_at"
   end
 
+  create_table "active_admin_comments", force: true do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
+    t.integer  "author_id"
+    t.string   "author_type"
+  end
+
   create_table "simple_captcha_data", force: true do |t|
     t.string   "key",        limit: 40
     t.string   "value",      limit: 6
@@ -30,6 +39,9 @@ ActiveRecord::Schema.define(version: 20140916140124) do
   end
 
   add_index "simple_captcha_data", ["key"], name: "idx_key"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                    default: "", null: false

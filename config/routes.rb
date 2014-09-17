@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { registrations: 'registrations', confirmations: 'confirmations' } 
+  get :notices, to: 'notice#index', as: 'notices'
 
   scope :validator do
     get :step1, to: 'sms_validator#step1', as: 'sms_validator_step1'
@@ -11,8 +11,10 @@ Rails.application.routes.draw do
     post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
   end
 
-  get :notices, to: 'notice#index', as: 'notices'
+  ActiveAdmin.routes(self)
 
+  devise_for :users, controllers: { registrations: 'registrations', confirmations: 'confirmations' } 
+ 
   # http://stackoverflow.com/a/8884605/319241 
   devise_scope :user do
     get '/registrations/subregion_options', to: 'registrations#subregion_options'

@@ -26,6 +26,7 @@ gem 'spanish_vat_validators'
 gem 'simple_captcha2', require: 'simple_captcha'
 gem 'carmen-rails'
 gem 'esendex'
+gem 'activeadmin', github: 'activeadmin'
 
 group :development, :test do
   gem 'capistrano-rvm'
