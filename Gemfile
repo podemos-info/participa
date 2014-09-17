@@ -27,6 +27,7 @@ gem 'simple_captcha2', require: 'simple_captcha'
 gem 'carmen-rails'
 gem 'esendex'
 gem 'activeadmin', github: 'activeadmin'
+gem 'active_skin'
 
 group :development, :test do
   gem 'capistrano-rvm'
