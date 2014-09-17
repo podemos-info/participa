@@ -60,7 +60,7 @@ es:
       unlock_instructions: "Reenviar instrucciones de desbloqueo"
     hints:
       password: "(déjala en blanco si no quieres cambiarla)" 
-      current_password: "(necesitamos tu contraseña actual para confirmar tus cambios"
+      current_password: "(necesitamos tu contraseña actual para confirmar tus cambios)"
     labels:
       new_password: "Contraseña nueva"
       new_password_confirmation: "Confirmar contraseña nueva"
@@ -76,7 +76,7 @@ es:
       unlock_instructions: "¿No has recibido las instrucciones de desbloqueo?"
     messages:
       cancel_account_confirmation: "¿Estás seguro?"
-      waiting_confirmation: "Actualmetne esperando instrucciones para %{email}"
+      waiting_confirmation: "Actualmente esperando instrucciones para %{email}"
     titles:
       sign_in: "Iniciar sesión"
       sign_up: "Inscribirse"

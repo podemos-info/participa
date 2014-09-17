@@ -65,6 +65,7 @@ es:
         password_confirmation: "Contraseña (repetir)"
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
         terms_of_service: "Acepto las condiciones generales"
+        current_password: "Contraseña actual"
   podemos:
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
@@ -75,10 +76,10 @@ es:
       change_email: "Cambiar correo electrónico"
       change_email_explain: "Si cambias tu correo electrónico te enviaremos otro correo para que lo confirmes."
       change_phone: "Cambiar teléfono móvil"
-      change_phone_explain: "Ahora mismo tienes el móvil #{phone}"
+      change_phone_explain: "Ahora mismo tienes el móvil %{phone}"
       change_password: "Cambiar contraseña"
       cancel_account: "Cancelar mi cuenta"
-      cancel_account_account: "Si borras tu cuenta no podrás acceder más"
+      cancel_account_explain: "Si borras tu cuenta no podrás acceder más"
     devise:
       mailer:
         hello: "Hola"
@@ -102,6 +103,7 @@ es:
     home: 
       button: "¿No estás inscripto? ¡Inscríbete!"
       p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
+      p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
     valid: 
       phone:
         p1: "Pon tu número de telefóno móvil para que te enviemos un código de confirmación."
