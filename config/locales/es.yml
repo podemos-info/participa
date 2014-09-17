@@ -58,11 +58,28 @@ es:
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
         terms_of_service: "Acepto las condiciones generales"
   podemos:
+    home_address: "Domicilio"
+    unauthorized: "No tienes permisos para acceder a esa sección"
+    devise:
+      mailer:
+        hello: "Hola"
+        welcome: "Bienvenida"
+        lock: 
+          p1: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
+          p2: "Click the link below to unlock your account:"
+          link: 'Unlock my account'
+        confirm:
+          p1: "You can confirm your account email through the link below:"
+          link: 'Confirm my account'
+        password: 
+          p1: "Someone has requested a link to change your password. You can do this through the link below."
+          p2: "If you didn't request this, please ignore this email."
+          p3: "Your password won't change until you access the link above and create a new one."
+          link: 'Change your password' 
     navbar: 
       tools: "Herramientas"
       profile: "Perfil"
       notice: "Avisos"
-    home_address: "Domicilio"
     home: 
       button: "¿No estás inscripto? ¡Inscríbete!"
       p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "

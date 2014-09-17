@@ -1,0 +1,7 @@
+<p><%= t('podemos.devise.mailer.hello') %> <%= @resource.email %>!</p>
+
+<p><%= t('podemos.devise.mailer.lock.p1') %></p>
+
+<p><%= t('podemos.devise.mailer.lock.p2') %></p>
+
+<p><%= link_to t('podemos.devise.mailer.lock.link'), unlock_url(@resource, unlock_token: @token) %></p>

@@ -1,0 +1,5 @@
+<p><%= t('podemos.devise.mailer.welcome') %> <%= @email %>!</p>
+
+<p><%= t('podemos.devise.mailer.confirm.p1') %></p>
+
+<p><%= link_to t('podemos.devise.mailer.confirm.link'), confirmation_url(@resource, confirmation_token: @token) %></p>
