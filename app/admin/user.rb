@@ -19,8 +19,17 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs "Admin Details" do
       f.input :email
-      f.input :password
-      f.input :password_confirmation
+      f.input :first_name
+      f.input :last_name
+      f.input :document_type
+      f.input :document_vatid
+      f.input :born_at
+      f.input :address
+      f.input :town
+      f.input :postal_code
+      f.input :province
+      f.input :country
+      f.input :wants_newsletter
     end
     f.actions
   end
