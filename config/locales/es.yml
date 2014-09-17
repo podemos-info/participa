@@ -63,6 +63,7 @@ es:
         country: "País"
         password: "Contraseña"
         password_confirmation: "Contraseña (repetir)"
+        remember_me: "Recordarme"
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
         terms_of_service: "Acepto las condiciones generales"
         current_password: "Contraseña actual"

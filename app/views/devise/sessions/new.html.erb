@@ -4,22 +4,38 @@
 </div>
 <div class="row">
   <div class="col-md-4 col-md-offset-1">
-    <div class="alert alert-info">
-    <%= t('podemos.home.p2') %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= t("devise.links.sign_up") %></h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <%= t('podemos.home.p2') %>
+        </p>
+        <%= link_to t('podemos.home.button'), new_user_registration_path, class: "btn btn-lg btn-primary" %>
+      </div>
     </div>
-    <%= link_to t('podemos.home.button'), new_user_registration_path, class: "btn btn-lg btn-primary" %>
   </div>
   <div class="col-md-4 col-md-offset-1">
-  <%= semantic_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <%= f.input :email, input_html: {autofocus: true} %>
-    <%= f.input :password %>
-    <% if devise_mapping.rememberable? -%>
-      <%= f.input :remember_me, as: :boolean, label: false %>
-    <% end -%>
-    <%= f.actions do %>
-      <%= f.action :submit, label: t("devise.buttons.sign_in"), button_html: {class: 'btn btn-primary'} %>
-    <% end %>
-  <% end %>
-  <%= render "devise/shared/links" %>
+
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= t("devise.links.sign_in") %></h3>
+      </div>
+      <div class="panel-body">
+        <%= semantic_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= f.input :email, input_html: {autofocus: true} %>
+          <%= f.input :password %>
+          <% if devise_mapping.rememberable? -%>
+            <%= f.input :remember_me, as: :boolean, label: false %>
+          <% end -%>
+          <%= f.actions do %>
+            <%= f.action :submit, label: t("devise.buttons.sign_in"), button_html: {class: 'btn btn-primary'} %>
+          <% end %>
+        <% end %>
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
   </div>
 </div>
