@@ -1,11 +1,15 @@
-<%= content_tag(:h2, t("podemos.user.change_email"))%>
-
-<p> <%= t('podemos.user.change_email_explain') %> </p>
-
-<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
-  <%= f.input :email %>
-  <%= f.input :current_password, required: true, hint: t("devise.hints.current_password") %>
-  <%= f.actions do %>
-    <%= f.action :submit, label: t("podemos.user.change_email"), button_html: {class: "btn btn-primary"} %>
+<div class="col-md-5">
+  <%= content_tag(:h2, t("podemos.user.change_email"))%>
+  <hr>
+  <p> <%= t('podemos.user.change_email_explain') %> </p>
+  <% if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
+    <div class="alert alert-info"><%= t("devise.messages.waiting_confirmation", email: resource.unconfirmed_email) %></div>
   <% end %>
-<% end %>
+  <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+    <%= f.input :email %>
+    <%= f.input :current_password, required: true, hint: t("devise.hints.current_password") %>
+    <%= f.actions do %>
+      <%= f.action :submit, label: t("podemos.user.change_email"), button_html: {class: "btn btn-primary"} %>
+    <% end %>
+  <% end %>
+</div>
