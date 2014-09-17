@@ -104,11 +104,11 @@ es:
       p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
     valid: 
       phone:
-        p1: Si ya has participado en alguna votación de PODEMOS, te enviaremos el código por e-mail.
-        p2: Si el teléfono es extranjero, pon el prefijo sin el + ni los 0. 
-        p3: Recibirás el código en unos segundos.
-        p4: Introduce el texto que aparece en la imagen.
-        p5: Introduce el código que hayas recibido por SMS para confirmarlo
+        p1: "Pon tu número de telefóno móvil para que te enviemos un código de confirmación."
+        p2: "Recibirás el código en unos segundos."
+        p3: "Si ya has participado en alguna votación de PODEMOS, te enviaremos el código por e-mail."
+        p4: "Introduce el texto que aparece en la imagen."
+        p5: "Introduce el código que hayas recibido por SMS para confirmarlo"
         valid: "Has validado correctamente."
         invalid: "El código que has puesto no corresponde con el que te enviamos por SMS."
         captcha: "Validar Captcha"

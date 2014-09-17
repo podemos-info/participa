@@ -12,10 +12,12 @@
     <p><%= t('podemos.valid.phone.p1') %></p>
     <p><%= t('podemos.valid.phone.p2') %></p>
     <p><%= t('podemos.valid.phone.p3') %></p>
-    <%= f.input :phone, input_html: {autofocus: true} %>
+
+    <div class="hidden js-registration-country"><%= resource.country.downcase %></div>
+    <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
 
     <%= f.actions do %>
-      <%= f.action :submit, label: "Guardar móvil", button_html: { class: "btn btn-primary" } %>
+      <%= f.action :submit, label: "Guardar móvil", button_html: { class: "btn btn-primary js-registration-button-phone" } %>
     <% end %>
   <% end %>
 </div>
