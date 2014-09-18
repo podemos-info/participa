@@ -18,6 +18,12 @@ Una vez se tenga configurado el rvm o rbenv los pasos a seguir serían los sigui
 ```
 bundle install
 cp config/database.yml.example config/database.yml 
+cp config/secrets.yml.example config/secrets.yml 
 rake db:migrate
 rails server 
 ```
+
+APIs externas
+-------------
+
+* Para el envío de SMS usamos [esendex](http://esendex.es/). 
