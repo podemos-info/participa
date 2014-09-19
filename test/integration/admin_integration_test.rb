@@ -12,6 +12,10 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to root_path
     assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
+    get '/admin/resque'
+    assert_response :redirect
+    assert_redirected_to root_path
+    assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
   end
 
   test "should not get /admin as normal user" do
@@ -20,11 +24,17 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to authenticated_root_path
     assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
+    get '/admin/resque'
+    assert_response :redirect
+    assert_redirected_to authenticated_root_path
+    assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
   end
 
   test "should get /admin as admin user" do
     post_via_redirect user_session_path, 'user[email]' => @admin.email, 'user[password]' => @admin.password 
     get '/admin'
+    assert_response :success
+    get '/admin/resque'
     assert_response :success
   end
 

@@ -1,9 +1,9 @@
-# password length: 7
-# staging mailcatcher
-# born_at presende: false
-# born_at inclusion without presence
-
 class PodemosImport
+  # Importa los contenidos desde un CSV a la aplicación
+  # La contraseña es el token enviado por SMS
+  #
+  # PodemosImport.init('/home/capistrano/juntos.csv')
+  #
   require 'csv'
 
   def self.convert_document_type(doc_type, doc_number)
@@ -73,9 +73,8 @@ class PodemosImport
   def self.init csv_file
     now = DateTime.now
     CSV.foreach(csv_file, headers: true, encoding: 'windows-1251:utf-8') do |row|
-      PodemosImport.process_row(row, now)
+      PodemosImportWorker.perform(row, now)
     end
   end
-end
 
-PodemosImport.init('/home/capistrano/juntos.csv')
+end
