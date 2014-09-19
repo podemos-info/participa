@@ -73,7 +73,7 @@ class PodemosImport
   def self.init csv_file
     now = DateTime.now
     CSV.foreach(csv_file, headers: true, encoding: 'windows-1251:utf-8') do |row|
-      PodemosImportWorker.perform(row, now)
+      Resque.enqueue(PodemosImportWorker, [row, now])
     end
   end
 
