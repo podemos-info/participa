@@ -28,13 +28,13 @@ gem 'carmen-rails'
 gem 'esendex'
 gem 'activeadmin', github: 'activeadmin'
 gem 'active_skin'
+gem 'mailcatcher' # for staging too
 
 group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
-  gem 'mailcatcher'
   gem 'factory_girl_rails'
   gem 'debugger'
   gem 'better_errors'
