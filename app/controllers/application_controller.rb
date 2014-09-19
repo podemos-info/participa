@@ -2,12 +2,21 @@ class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers
 
   before_filter :set_phone
+  before_action :set_locale
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def default_url_options(options={})
+    { locale: I18n.locale }
+  end
 
   def set_phone
     # FIXME: por cada request estamos comprobando esto, debería ser algun tipo de validación dentro
     #        de ActiveRecord after_login 
     if current_user and current_user.phone.nil? and current_user.sms_confirmed_at.nil?
-      unless params[:controller] == 'sms_validator'
+      unless params[:controller] == 'sms_validator' or params[:controller] == 'devise/sessions'
         redirect_to sms_validator_step1_path
       end
     end

@@ -1,4 +1,4 @@
-es: 
+ca: 
   errors:
     messages:
       not_valid_spanish_vat: El número de identificación fiscal no es válido
@@ -54,21 +54,21 @@ es:
         document_type: "Tipo de documento"
         document_vatid: "Nº de documento"
         born_at: "Fecha de nacimiento"
-        email: "Correo electrónico"
+        email: "Correu electrònic"
         phone: "Teléfono móvil"
         address: "Dirección"
         town: "Municipio / Localidad"
         province: "Provincia"
         postal_code: "Código postal"
         country: "País"
-        password: "Contraseña"
-        password_confirmation: "Contraseña (repetir)"
-        remember_me: "Recordarme"
+        password: "Contrasenya"
+        password_confirmation: "Contrasenya (repetir)"
+        remember_me: "Recordar"
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
         terms_of_service: "Acepto las condiciones generales"
         current_password: "Contraseña actual"
   podemos:
-    other_locales: "Otros idiomas"
+    other_locales: "Altres idiomes"
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
     user:
@@ -103,9 +103,9 @@ es:
       profile: "Perfil"
       notice: "Avisos"
     home: 
-      button: "¿No estás inscripto? ¡Inscríbete!"
-      p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
-      p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
+      button: "No vostè recluta? Inscriu-te!"
+      p1: "Podem neix amb la voluntat de construir una forma nova de fer política, i per això necessitem desenvolupar estructures organitzatives diferents de les tradicionals, per no repetir errors del passat, per avançar cap a una societat més democràtica. Estem construint una estructura transparent, ciutadana, oberta, democràtica, eficaç. Una organització que respongui a l'impuls democratitzador de Podem, en la qual discutim, debatem i decidim entre tots."
+      p2: "Passar a formar part del cens d'inscrits de Podem, des del qual es realitzaran a partir d'ara totes les votacions. És un procediment senzill i ràpid que et permetrà ser part activa de la comunitat Podem. Junts Podem, és clar que podem."
     valid: 
       phone:
         p1: "Pon tu número de telefóno móvil para que te enviemos un código de confirmación."
