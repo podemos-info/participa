@@ -30,6 +30,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'active_skin'
 gem 'mailcatcher' # for staging too
 gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/server'
+gem 'resque-pool'
 
 group :development, :test do
   gem 'capistrano-rvm'
