@@ -20,23 +20,11 @@ class PodemosImport
   end
 
   def self.invalid_record(u, row)
-    error_email = {:email=>["Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña.", "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."]}
-    error_document = {:email=>["Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña.", "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."]}
-    logger_mail = Logger.new("#{Rails.root}/log/users_invalid_email.log")
-    logger_doc = Logger.new("#{Rails.root}/log/users_invalid_document.log")
-    logger_all = Logger.new("#{Rails.root}/log/users_invalid.log")
-    case u.errors 
-    when error_email 
-      logger_mail.info row
-    when error_document 
-      logger_doc.info row
-    else
-      puts u.errors.messages
-      puts row
-      puts "*" * 10
-      logger_all.info u.errors.messages
-      logger_all.info row
-    end
+    logger = Logger.new("#{Rails.root}/log/users_invalid.log")
+    logger.info "*" * 10
+    logger.info u.errors.messages
+    logger.info row
+    raise "InvalidRecordError - #{u.errors.messages} - #{row}"
   end
 
   def self.process_row(row)
