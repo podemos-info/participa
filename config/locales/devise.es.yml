@@ -4,8 +4,8 @@
 es:
   devise:
     confirmations:
-      confirmed: "Tu cuenta ya ha sido confirmada."
-      confirmed_and_signed_in: "Tu cuenta ya ha sido confirmada. Has sido identificado."
+      confirmed: "Tu dirección de correo electrónico ya ha sido confirmada."
+      confirmed_and_signed_in: "Tu dirección de correo electrónico ya ha sido confirmada. Has sido identificado."
       send_instructions: "Recibirás un correo electrónico en unos minutos con instrucciones sobre cómo restablecer tu contraseña."
       send_paranoid_instructions: "Si tu correo electrónico existe en nuestra base de datos recibirás un correo electrónico en unos minutos con instrucciones sobre cómo reiniciar tu contraseña."
     failure:
@@ -21,11 +21,11 @@ es:
       last_attempt: "Tienes un intento más antes que tu cuenta quede bloqueada."
     mailer:
       confirmation_instructions:
-        subject: "Instrucciones de confirmación"
+        subject: "[participa.podemos.info] Instrucciones de confirmación"
       reset_password_instructions:
-        subject: "Instrucciones para restablecer tu contraseña"
+        subject: "[participa.podemos.info] Instrucciones para restablecer tu contraseña"
       unlock_instructions:
-        subject: "Instrucciones de desbloqueo"
+        subject: "[participa.podemos.info] Instrucciones de desbloqueo"
     omniauth_callbacks:
       failure: "No se te pudo autorizar de %{kind} debido a \"%{reason}\"."
       success: "Identificado correctamente de %{kind}."
