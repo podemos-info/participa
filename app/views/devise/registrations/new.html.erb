@@ -14,16 +14,18 @@
   </div>
   <div class="col-md-5">
     <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true} %>
+      <%= f.semantic_errors *f.object.errors.keys %>
+    <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true} %>
     <%= f.input :last_name, required: true, input_html: {required: true} %>
     <%= f.input :document_type, required: true, as: :radio, collection: User::DOCUMENTS_TYPE, input_html: {required: true, class: 'js-registration-document'} %>
     <div class="js-registration-document-wrapper hidden">
       <%= f.input :document_vatid, required: true, input_html: {required: true} %>
     </div>
-    <div class="js-registration-document-passport hidden">
+    <p class="js-registration-document-passport help-block hidden">
       <%= t('podemos.registration.passport') %>
-    </div>
+    </p>
     <%= f.input :born_at, required: true, input_html: {required: true}, start_year: 1920, end_year: 2015 %>
+    <%= f.input :email, required: true, input_html: {required: true} %>
     <%= f.inputs t("podemos.home_address") do %>
       <%= f.input :address, required: true, input_html: {required: true} %>
     <div class="row">
@@ -38,9 +40,6 @@
       </div>
     </div>
   <% end %>
-    <%= f.input :email, required: true, input_html: {required: true} %>
-    <%= f.input :password, required: true, input_html: {required: true} %>
-    <%= f.input :password_confirmation, required: true, input_html: {required: true} %>
     <%= f.input :wants_newsletter, required: true, input_html: {checked: 'checked'} %>
     <%= f.input :terms_of_service, as: :boolean, required: true %>
     <small>

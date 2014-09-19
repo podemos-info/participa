@@ -18,6 +18,26 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
 
+  # https://github.com/plataformatec/devise/wiki/How-To:-Email-only-sign-up
+  def password_required?
+    super if confirmed?
+  end
+
+  # https://github.com/plataformatec/devise/wiki/How-To:-Email-only-sign-up
+  def password_match?
+    self.errors[:password] << "can't be blank" if password.blank?
+    self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
+    self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
+    password == password_confirmation && !password.blank?
+  end
+
+  def generate_reset_password_token
+    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+    self.update_attribute(:reset_password_token, hashed_token)
+    self.update_attribute(:reset_password_sent_at, Time.now.utc)
+    return raw_token
+  end
+
   def is_document_dni?
     self.document_type == 1
   end
