@@ -3,15 +3,15 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-  validates :first_name, :last_name, :document_type, :document_vatid, :born_at, presence: true
+  validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, presence: true
   validates :email, :document_vatid, uniqueness: true
   validates :terms_of_service, acceptance: true
-#  validates :phone, numericality: true
 
+  #validates :phone, numericality: true
   #validates :document_type, inclusion: { in: %w(1 2 3), message: "tipo de documento no válido" }
-  validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
-                                   message: "debes haber nacido después de 1920" }
+  #validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
+  #                                 message: "debes haber nacido después de 1920" }
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
