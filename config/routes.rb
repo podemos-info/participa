@@ -13,8 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
-  ActiveAdmin.routes(self)
-
   devise_for :users, controllers: { 
     registrations: 'registrations', 
     confirmations: 'confirmations'
@@ -31,6 +29,13 @@ Rails.application.routes.draw do
     unauthenticated do
       root 'devise/sessions#new', as: :root
     end
+  end
+
+  # /admin
+  ActiveAdmin.routes(self)
+
+  authenticate :user, lambda {|u| u.is_admin?  } do
+    mount Resque::Server.new, :at => "/admin/resque"
   end
 
 end
