@@ -226,6 +226,10 @@ GEM
     ref (1.0.5)
     responders (1.0.0)
       railties (>= 3.2, < 5)
+    resque-pool (0.3.0)
+      rake
+      resque (~> 1.20)
+      trollop (~> 1.16)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -275,6 +279,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (1.16.2)
     turbolinks (2.3.0)
       coffee-rails
     tzinfo (1.2.2)
@@ -322,6 +327,7 @@ DEPENDENCIES
   rails (= 4.1.5)
   rb-readline
   resque!
+  resque-pool
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   simple_captcha2
