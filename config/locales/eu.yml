@@ -1,4 +1,4 @@
-es: 
+eu: 
   errors:
     messages:
       not_valid_spanish_vat: El número de identificación fiscal no es válido
@@ -54,21 +54,20 @@ es:
         document_type: "Tipo de documento"
         document_vatid: "Nº de documento"
         born_at: "Fecha de nacimiento"
-        email: "Correo electrónico"
+        email: "Email"
         phone: "Teléfono móvil"
         address: "Dirección"
         town: "Municipio / Localidad"
         province: "Provincia"
         postal_code: "Código postal"
         country: "País"
-        password: "Contraseña"
+        password: "Pasahitza"
         password_confirmation: "Contraseña (repetir)"
         remember_me: "Recordarme"
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
         terms_of_service: "Acepto las condiciones generales"
         current_password: "Contraseña actual"
   podemos:
-    other_locales: "Otros idiomas"
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
     user:
@@ -103,9 +102,9 @@ es:
       profile: "Perfil"
       notice: "Avisos"
     home: 
-      button: "¿No estás inscripto? ¡Inscríbete!"
-      p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
-      p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
+      button: "¿Ez al duzu kontratatu? ¡Izena eman!"
+      p1: "Gogoa politika egiteko modu berri bat eraikitzeko egiten dugu jaio daitezke, eta antolaketa egiturak ezberdinak garatzeko tradizionalaren behar dugu, ez da akatsak iragana errepika, gizartean gehiago demokratiko baten bidean aurrera. ,, Egitura gardena, publikoak open demokratiko, eraginkorra eraikitzen ari gara. Hori demokratizatzeko bultzada daiteke, non eztabaidatu dugu, eztabaidatuko dugu eta elkarrekin erabakitzeko erantzuten antolaketa." 
+      p2: "Emandakoek erroldan zati bilakatu daiteke, behar aurrerantzean feedback guztietatik ospatu. Prozedura sinple eta azkar bat duen komunitatea dugu parte aktiboa izan ahal izango da. Elkarrekin, ahal dugu, jakina, ahal dugun."
     valid: 
       phone:
         p1: "Pon tu número de telefóno móvil para que te enviemos un código de confirmación."

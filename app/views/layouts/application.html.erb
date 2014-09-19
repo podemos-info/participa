@@ -50,5 +50,20 @@
     <% end %>
     <%= yield %>
   </div>
-</body>
-</html>
+  <div class="footer">
+    <div class="container">
+      <small>
+        <p><%= t('podemos.other_locales') %>:
+          <%= link_to_if(I18n.locale != :es, "Castellano", url_for(locale: "es"))%> | 
+          <%= link_to_if(I18n.locale != :ca, "Catalá", url_for(locale: "ca"))%> | 
+          <%= link_to_if(I18n.locale != :eu, "Euskera", url_for(locale: "eu"))%>
+        </p>
+        <p>
+        2014 podemos.info - Aviso legal - Privacidad - Baja de bases de datos y colaboraciones - Uso de Cookies
+        </p>
+      </small>
+    </div>
+  </div>
+
+  </body>
+  </html>
