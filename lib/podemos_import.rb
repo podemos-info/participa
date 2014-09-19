@@ -42,31 +42,36 @@ class PodemosImport
   def self.process_row(row)
     now = DateTime.now
     u = User.new
-    u.last_name = row[3]
-    u.first_name = row[4]
-    u.document_vatid = row[6] == "" ? row[7] : row[6]
-    u.document_type = PodemosImport.convert_document_type(row[5], u.document_vatid)
-    u.email = row[9]
-    u.phone = row[10].sub('+','00')
-    u.sms_confirmation_token = row[11]
-    u.address = row[12] 
+    u.last_name = row[3][1]
+    u.first_name = row[4][1]
+    u.document_vatid = row[6][1] == "" ? row[7][1] : row[6][1]
+    logger = Logger.new("#{Rails.root}/log/users_invalid.log")
+    logger.info row[3][1]
+    logger.info row[4]
+    logger.info row[6]
+    logger.info row[7]
+    u.document_type = PodemosImport.convert_document_type(row[5][1], u.document_vatid)
+    u.email = row[9][1]
+    u.phone = row[10][1].sub('+','00')
+    u.sms_confirmation_token = row[11][1]
+    u.address = row[12][1]
     # legacy: un usuario puso una carta (literalmente)
-    if row[13].length < 250 
-      u.town = row[13]
+    if row[13][1].length < 250 
+      u.town = row[13][1]
     end
-    u.postal_code = row[15]
-    u.province = row[14] # TODO: convert to carmen
-    u.country = row[16]  # TODO: convert to carmen
+    u.postal_code = row[15][1]
+    u.province = row[14][1] # TODO: convert to carmen
+    u.country = row[16][1]  # TODO: convert to carmen
     # legacy: al principio no se preguntaba fecha de nacimiento
-    unless row[8] == ""
-      u.born_at = Date.parse row[8] # 1943-10-15 
+    unless row[8][1] == ""
+      u.born_at = Date.parse row[8][1] # 1943-10-15 
     end
     # legacy: al principio no se preguntaba para recibir la newsletter
-    if row[18] == 1
+    if row[18][1] == 1
       u.wants_newsletter = true
     end
-    u.password = row[11]
-    u.password_confirmation = row[11]
+    u.password = row[11][1]
+    u.password_confirmation = row[11][1]
     u.confirmed_at = now
     u.sms_confirmed_at = now
     #u.has_legacy_password = true
