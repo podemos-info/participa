@@ -4,8 +4,8 @@ class PodemosImportWorker
 
   @queue = :podemos_import_queue
 
-  def self.perform row, now
-    PodemosImport.process_row(row, now)
+  def self.perform row
+    PodemosImport.process_row(row)
   end
 
 end

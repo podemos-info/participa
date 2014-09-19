@@ -2,7 +2,12 @@ class PodemosImport
   # Importa los contenidos desde un CSV a la aplicación
   # La contraseña es el token enviado por SMS
   #
-  # PodemosImport.init('/home/capistrano/juntos.csv')
+  # $ rails console staging
+  # > require 'podemos_import'
+  # > PodemosImport.init('/home/capistrano/juntos.csv')
+  #
+  # $ bundle exec rake environment resque:work QUEUE=* RAILS_ENV=staging 
+  #
   #
   require 'csv'
 
@@ -34,7 +39,8 @@ class PodemosImport
     end
   end
 
-  def self.process_row(row, now)
+  def self.process_row(row)
+    now = DateTime.now
     u = User.new
     u.last_name = row[3]
     u.first_name = row[4]
@@ -71,9 +77,8 @@ class PodemosImport
   end
 
   def self.init csv_file
-    now = DateTime.now
     CSV.foreach(csv_file, headers: true, encoding: 'windows-1251:utf-8') do |row|
-      Resque.enqueue(PodemosImportWorker, [row, now])
+      Resque.enqueue(PodemosImportWorker, row)
     end
   end
 
