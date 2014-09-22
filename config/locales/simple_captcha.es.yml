@@ -1,5 +1,0 @@
-es:
-  simple_captcha:
-    label: "Rellenar"
-    placeholder: "Código"
-    refresh: "Refrescar"
