@@ -9,7 +9,6 @@ class PodemosImport
   # $ bundle exec rake environment resque:work QUEUE=* RAILS_ENV=staging 
   #
   #
-  require 'csv'
 
   def self.convert_document_type(doc_type, doc_number)
     # doctypes: 
@@ -33,11 +32,6 @@ class PodemosImport
     u.last_name = row[3][1]
     u.first_name = row[4][1]
     u.document_vatid = row[6][1] == "" ? row[7][1] : row[6][1]
-    logger = Logger.new("#{Rails.root}/log/users_invalid.log")
-    logger.info row[3][1]
-    logger.info row[4]
-    logger.info row[6]
-    logger.info row[7]
     u.document_type = PodemosImport.convert_document_type(row[5][1], u.document_vatid)
     u.email = row[9][1]
     u.phone = row[10][1].sub('+','00')

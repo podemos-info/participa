@@ -38,7 +38,9 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
   gem 'factory_girl_rails'
-  gem 'debugger'
+  gem 'byebug'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rails-perftest'
+  gem 'ruby-prof'
 end
