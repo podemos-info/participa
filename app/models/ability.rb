@@ -8,8 +8,10 @@ class Ability
     if user.is_admin?
       can :manage, :all
       can :manage, Notice
+      can :manage, Resque
     else
       can [:show, :update], User, id: user.id
+      cannot :manage, Resque
       can :show, Notice
     end
 
