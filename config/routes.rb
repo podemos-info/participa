@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get '', to: redirect("/#{I18n.locale}")
   
-  scope ":locale", locale: /es|ca|eu/ do 
+  scope "/(:locale)", locale: /es|ca|eu/ do 
     get :notices, to: 'notice#index', as: 'notices'
     scope :validator do
       scope :sms do 
@@ -31,4 +31,10 @@ Rails.application.routes.draw do
   end
   # /admin
   ActiveAdmin.routes(self)
+
+  constraints CanAccessResque.new do
+    mount Resque::Server.new, at: '/admin/resque', as: :resque
+  end
+
 end
+
