@@ -29,4 +29,22 @@ class PodemosImportTest < ActiveSupport::TestCase
     #PodemosImport.process_row(logger)
   end
 
+  test "should #convert_province work" do
+    assert_equal PodemosImport.convert_province("28002", "España", "Madrid"), "m"
+    assert_equal PodemosImport.convert_province("48002", "Spain", "Bilbao"), "bi"
+    assert_equal PodemosImport.convert_province("48002", "España", "Bilbao"), "bi" 
+    assert_equal PodemosImport.convert_province("48002", "bla", "Tanganika"), "Tanganika"
+  end
+  
+  test "should #convert_country work" do
+    assert_equal PodemosImport.convert_country("Germany"), "DE"
+    assert_equal PodemosImport.convert_country("France"), "FR"
+    assert_equal PodemosImport.convert_country("Ireland"), "IE"
+    assert_equal PodemosImport.convert_country("Brazil"), "BR"
+    assert_equal PodemosImport.convert_country("Norway"), "NO"
+    assert_equal PodemosImport.convert_country("España"), "ES"
+    assert_equal PodemosImport.convert_country("Bélgica"), "BE"
+    assert_equal PodemosImport.convert_country("Invalid"), "Invalid"
+  end
+  
 end

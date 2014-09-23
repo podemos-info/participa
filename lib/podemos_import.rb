@@ -18,6 +18,35 @@ class PodemosImport
     ( doc_type == "Pasaporte" ) ? 3 : ( doc_number.starts_with?("Z", "X", "Y") ? 2 : 1 )
   end
 
+  def self.convert_country(country)
+    # normalizamos paises usando Carmen 
+    I18n.locale = :ca # locale sin traducciones para que nos devuelva lo de :en
+    country_c = Carmen::Country.named(country)
+    if country_c.nil? 
+      I18n.locale = :es
+      country_c = Carmen::Country.named(country)
+      if country_c.nil? 
+        return country
+      else 
+        return country_c.code
+      end
+    else 
+      return country_c.code
+    end
+  end
+
+  def self.convert_province(postal_code, country, province)
+    # intentamos  convertir por postal_code, si es de españa y el CP corresponde con alguno devolvemos la provincia.
+    # si no encuentra la provincia basada en el postal_code + country, devuelve la provincia que ya esta puesta
+    # normalizamos provincias
+    all_pcs = {"01"=>"vi", "02"=>"ab", "03"=>"a", "04"=>"al", "05"=>"av", "06"=>"ba", "07"=>"bi", "08"=>"b", "09"=>"bu", "10"=>"cc", "11"=>"ca", "12"=>"cs", "13"=>"cr", "14"=>"co", "15"=>"c", "16"=>"cu", "17"=>"gi", "18"=>"gr", "19"=>"gu", "20"=>"ss", "21"=>"h", "22"=>"hu", "23"=>"j", "24"=>"le", "25"=>"l", "26"=>"lo", "27"=>"lu", "28"=>"m", "29"=>"ma", "30"=>"mu", "31"=>"na", "32"=>"or", "33"=>"o", "34"=>"p", "35"=>"gc", "36"=>"po", "37"=>"sa", "38"=>"tf", "39"=>"s", "40"=>"sg", "41"=>"se", "42"=>"so", "43"=>"t", "44"=>"te", "45"=>"to", "46"=>"v", "47"=>"va", "48"=>"bi", "49"=>"z", "50"=>"za", "51"=>"ce", "52"=>"ml"}
+    if ["España", "Spain"].include? country
+      return all_pcs[postal_code[0..1]] 
+    else
+      return province
+    end
+  end
+
   def self.invalid_record(u, row)
     logger = Logger.new("#{Rails.root}/log/users_invalid.log")
     logger.info "*" * 10
@@ -42,8 +71,8 @@ class PodemosImport
       u.town = row[13][1]
     end
     u.postal_code = row[15][1]
-    u.province = row[14][1] # TODO: convert to carmen
-    u.country = row[16][1]  # TODO: convert to carmen
+    u.province = PodemosImport.convert_province row[15][1], row[16][1], row[14][1]
+    u.country = PodemosImport.convert_country row[16][1]
     # legacy: al principio no se preguntaba fecha de nacimiento
     unless row[8][1] == ""
       u.born_at = Date.parse row[8][1] # 1943-10-15 

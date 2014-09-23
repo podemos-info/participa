@@ -17,7 +17,7 @@ FactoryGirl.define do
     admin false
     address "C/ Inventada, 123" 
     town "Madrid"
-    province "Madrid"
+    province "M"
     postal_code "28021"
     country "ES"
     phone "003466111111111"
@@ -37,7 +37,7 @@ FactoryGirl.define do
     admin true
     address "C/ Inventada, 123" 
     town "Madrid"
-    province "Madrid"
+    province "M"
     postal_code "28021"
     country "ES"
     phone "00346666666"

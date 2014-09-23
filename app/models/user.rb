@@ -3,22 +3,23 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, presence: true
   validates :email, :document_vatid, uniqueness: true
   validates :terms_of_service, acceptance: true
-
-  #validates :phone, numericality: true
-  #validates :document_type, inclusion: { in: %w(1 2 3), message: "tipo de documento no válido" }
-  #validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
-  #                                 message: "debes haber nacido después de 1920" }
-
-  DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
-
+  validates :country, length: {minimum: 1, maximum: 2}
+  #validates :phone, numericality: true, allow_blank: true
+  # TODO: phone - cambiamos el + por el 00 al guardar 
+  validates :document_type, inclusion: { in: [1, 2, 3], message: "tipo de documento no válido" }
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
+  validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
+                                   message: "debes haber nacido después de 1920" }, allow_blank: true
 
   has_many :votes 
+
+  DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
   def get_or_create_vote election_id
     Vote.where(user_id: self.id, election_id: election_id).first_or_create
