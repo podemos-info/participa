@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
       end
     end
+    get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     devise_for :users, controllers: { 
       registrations: 'registrations', 
       confirmations: 'confirmations'

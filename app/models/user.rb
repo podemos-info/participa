@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
 
+  has_many :votes 
+
+  def get_or_create_vote election_id
+    Vote.where(user_id: self.id, election_id: election_id).first_or_create
+  end
+
   # https://github.com/plataformatec/devise/wiki/How-To:-Email-only-sign-up
   def password_required?
     super if confirmed?
