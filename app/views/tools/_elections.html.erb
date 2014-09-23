@@ -1,0 +1,17 @@
+<div class="well">
+  Hay una votación en curso ¡participa!. Recuerda que sólo tu último voto es válido
+
+  <div class="list-group">
+    <% Election.actived.each do |election| %>
+      <%= link_to create_vote_path(election_id: election.id), class: "list-group-item" do %>
+        <%= election.title %>
+        <small>
+        (<%= l election.starts_at, format: :long %> al <%= l election.ends_at, format: :long %>)
+        </small>
+        <span class="label label-info col-md-offset-5">
+          Votar en Agora Voting
+        </span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
