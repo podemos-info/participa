@@ -39,10 +39,7 @@ Todos deberían dar OK o SKIP (significa que se ipasa de alto, y que hay que pro
 APIs externas
 -------------
 
-* Para las votaciones de los usuarios usamos [Agora Voting](https://agoravoting.com/), que han realizado una integración con la plataforma de Podemos. La configuración del secreto compartido se encuentra en una clave de `secrets.yml`. Documentación:
-** Sobre la integración, al momento de escribir esto: https://github.com/agoravoting/agora-core-view/blob/9dfbbf5252b2eb119463d2dcaa2c01391b232653/INTEGRATION.md
-** Sobre la integración, versión más actualizada: https://github.com/agoravoting/agora-core-view/blob/master/INTEGRATION.md
-** Sobre la API REST general de AgoraVoting: https://agora-ciudadana.readthedocs.org/
+* Para las votaciones de los usuarios usamos [Agora Voting](https://agoravoting.com/), que han realizado una integración con la plataforma de Podemos. La configuración del secreto compartido se encuentra en una clave de `secrets.yml`. Documentación: [Sobre la integración, al momento de escribir esto](https://github.com/agoravoting/agora-core-view/blob/9dfbbf5252b2eb119463d2dcaa2c01391b232653/INTEGRATION.md), [Sobre la integración, versión más actualizada](https://github.com/agoravoting/agora-core-view/blob/master/INTEGRATION.md), [Sobre la API REST general de AgoraVoting](https://agora-ciudadana.readthedocs.org/).
 
 * Para el envío de SMS usamos [esendex](http://esendex.es/). Puede comprobarse con el comando `rake esendex:validate[username,password,account_reference]`. La configuración de la autenticación se encuentra en unas claves de `secrets.yml`.
 
@@ -52,3 +49,34 @@ APIs externas
 
 * En desarrollo, para comprobar el envio de correos, utilizamos [mailcatcher](http://mailcatcher.me/), una gema que levanta un servidor SMTP en el puerto 1025 y una interfaz web para ver los correo s que se envían en en el puerto 1080. Para levantarlo ejecutar el comando `mailcatcher`
 
+Dependencias
+------------
+
+Para ejecutar la aplicación en su totalidad hay que tener los siguientes servicios en funcionamiento: 
+
+```
+sudo apt-get install postgres                       # para la base de datos, o mysql-server si lo prefieres
+sudo apt-get install imagemagick                    # para la generación del captcha
+sudo apt-get install redis-server                   # para la gestión de las colas de trabajo (resque)
+```
+
+Configuraciones
+---------------
+
+Se ha intentado que todas las configuraciones esten accessibles con los ficheros de configuración
+
+```
+config/databases.yml
+config/secrets.yml
+```
+
+Ver ejemplos en `config/databases.yml.example` y `config/secrets.yml`.
+
+i18n
+----
+
+Para modificar los distintos idiomas, revisar los ficheros de `config/locales/` 
+Para agregar uno nuevo se deben seguir los siguientes pasos: 
+* Agregarlo en la línea de 'scope locale' en `config/routes` 
+* Agregarlo en la UI de cambio de idiomas del footer en `app/views/layouts/application.html.erb`
+* Agregarlo en la configuración para idiomas válidos en `config/application.rb`
