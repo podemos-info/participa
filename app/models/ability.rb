@@ -9,9 +9,11 @@ class Ability
       can :manage, :all
       can :manage, Notice
       can :manage, Resque
+      can :manage, ActiveAdmin
     else
       can [:show, :update], User, id: user.id
       cannot :manage, Resque
+      cannot :manage, ActiveAdmin
       can :show, Notice
     end
 
