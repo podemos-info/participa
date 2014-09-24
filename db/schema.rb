@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922150118) do
+ActiveRecord::Schema.define(version: 20140924082332) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20140922150118) do
     t.string   "sms_confirmation_token"
     t.datetime "confirmation_sms_sent_at"
     t.datetime "sms_confirmed_at"
+    t.boolean  "has_legacy_password"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
