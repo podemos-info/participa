@@ -81,7 +81,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = { host: 'juntos.podemos.info' }
-  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :ses
 end
 
 Rails.application.routes.default_url_options[:host] = 'juntos.podemos.info'
