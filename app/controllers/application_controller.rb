@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers
 
   before_filter :set_phone
+  before_filter :set_new_password
   before_action :set_locale
   before_filter :allow_iframe_requests
 
@@ -17,10 +18,18 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }
   end
 
+  def set_new_password
+    if current_user and current_user.has_legacy_password? and current_user.sms_confirmed_at?
+      unless params[:controller] == 'legacy_password' or params[:controller] == 'devise/sessions'
+        redirect_to new_legacy_password_path
+      end
+    end
+  end
+
   def set_phone
     # FIXME: por cada request estamos comprobando esto, debería ser algun tipo de validación dentro
     #        de ActiveRecord after_login 
-    if current_user and current_user.phone.nil? and current_user.sms_confirmed_at.nil?
+    if current_user and current_user.sms_confirmed_at.nil?
       unless params[:controller] == 'sms_validator' or params[:controller] == 'devise/sessions'
         redirect_to sms_validator_step1_path
       end

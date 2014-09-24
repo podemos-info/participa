@@ -1,0 +1,16 @@
+<% @title ||= t('podemos.legacy.password.title') %>
+
+<div class="col-md-5">
+  <%= content_tag(:h2, t('podemos.legacy.password.title')) %>
+  <hr>
+  <div class="well">
+    <%= t('podemos.legacy.password.explain') %>
+  </div>
+  <%= semantic_form_for(:legacy_password, url: legacy_password_path(id: current_user), html: {method: :put}) do |f| %>
+    <%= f.input :password, label: t("devise.labels.new_password"), input_html: {autofocus: true} %>
+    <%= f.input :password_confirmation, label: t("devise.labels.new_password_confirmation"), required: true %>
+    <%= f.actions do %>
+      <%= f.action :submit, label: t("devise.buttons.change_password"), button_html: {class: 'btn btn-primary'} %>
+    <% end %>
+  <% end %>
+</div>

@@ -71,7 +71,9 @@ class PodemosImport
       u.town = row[13][1]
     end
     u.postal_code = row[15][1]
+    # TODO: staging test 
     u.province = row[14][1]  #PodemosImport.convert_province row[15][1], row[16][1], row[14][1]
+    # TODO: staging test 
     u.country = row[16][1]  # PodemosImport.convert_country row[16][1]
     # legacy: al principio no se preguntaba fecha de nacimiento
     unless row[8][1] == ""
@@ -85,7 +87,7 @@ class PodemosImport
     u.password_confirmation = row[11][1]
     u.confirmed_at = now
     u.sms_confirmed_at = now
-    #u.has_legacy_password = true
+    u.has_legacy_password = true
     u.save
     unless u.valid? 
       PodemosImport.invalid_record(u, row)
