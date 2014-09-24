@@ -4,7 +4,6 @@
   <title>PodemosJuntos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -24,16 +23,35 @@
       <% if user_signed_in? %>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <% if current_user.is_valid_user? %>
-            <ul class="nav navbar-nav">
-              <%= bootstrap_nav_link(t('podemos.navbar.tools'), authenticated_root_path, "glyphicon-link") %>
-              <%= bootstrap_nav_link(t('podemos.navbar.profile'), edit_user_registration_path, "glyphicon-cog") %>
-              <%= bootstrap_nav_link(t('podemos.navbar.notice'), notices_path, "glyphicon-exclamation-sign") %>
-            </ul>
-          <% end %>
+          <ul class="nav navbar-nav">
+            <%= bootstrap_nav_link(t('podemos.navbar.tools'), authenticated_root_path, "glyphicon-link") %>
+            <%= bootstrap_nav_link(t('podemos.navbar.profile'), edit_user_registration_path, "glyphicon-cog") %>
+            <%= bootstrap_nav_link(t('podemos.navbar.notice'), notices_path, "glyphicon-exclamation-sign") %>
+            <% if can? :manage, ActiveAdmin %>
+              <li>
+                <%= link_to admin_root_path, target: '_blank' do %>
+                  <i class="glyphicon glyphicon-pencil"></i>
+                  Admin
+                <% end %>
+              </li>
+            <% end %>
+            <% if can? :manage, Resque %>
+              <li>
+                <%= link_to resque_path, target: '_blank' do %>
+                  <i class="glyphicon glyphicon-align-justify"></i>
+                  Colas
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="navbar-text"><%= current_user.full_name %></li>
-            <li> <%= link_to "Cerrar sesión", destroy_user_session_path, :method => :delete %> </li>
+            <li>
+            <%= link_to destroy_user_session_path, :method => :delete do %>
+              <i class="glyphicon glyphicon-log-out"></i>
+              Cerrar sesión
+            <% end %>
+            </li>
           </ul>
         </div><!-- /.navbar-collapse -->
       <% end %>
@@ -59,11 +77,12 @@
           <%= link_to_if(I18n.locale != :eu, "Euskera", url_for(locale: "eu"))%>
         </p>
         <p>
-        2014 podemos.info - Aviso legal - Privacidad - Baja de bases de datos y colaboraciones - Uso de Cookies
+        2014 podemos.info 
         </p>
       </small>
     </div>
   </div>
 
-  </body>
-  </html>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</body>
+</html>
