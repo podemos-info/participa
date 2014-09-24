@@ -71,8 +71,8 @@ class PodemosImport
       u.town = row[13][1]
     end
     u.postal_code = row[15][1]
-    u.province = PodemosImport.convert_province row[15][1], row[16][1], row[14][1]
-    u.country = PodemosImport.convert_country row[16][1]
+    u.province = row[14][1]  #PodemosImport.convert_province row[15][1], row[16][1], row[14][1]
+    u.country = row[16][1]  # PodemosImport.convert_country row[16][1]
     # legacy: al principio no se preguntaba fecha de nacimiento
     unless row[8][1] == ""
       u.born_at = Date.parse row[8][1] # 1943-10-15 
