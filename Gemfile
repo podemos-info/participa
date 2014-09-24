@@ -31,6 +31,7 @@ gem 'active_skin'
 gem 'mailcatcher' # for staging too
 gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/server'
 gem 'resque-pool'
+gem "aws-ses", "~> 0.5.0", :require => 'aws/ses'
 
 group :development, :test do
   gem 'capistrano-rvm'
