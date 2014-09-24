@@ -17,5 +17,8 @@ module PodemosJuntos
     config.i18n.available_locales = ['es', 'ca', 'eu']
     config.i18n.fallbacks = [:en] # https://github.com/jim/carmen-rails/issues/13 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'overlay', 'en', 'world', '*.{rb,yml}').to_s]
+    config.action_mailer.default_url_options = { host: Rails.application.secrets.host }
   end
 end
+
+Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host
