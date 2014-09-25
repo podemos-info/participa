@@ -6,7 +6,8 @@
   <div class="well">
     <%= t('podemos.legacy.password.explain') %>
   </div>
-  <%= semantic_form_for(:legacy_password, url: legacy_password_path(id: current_user), html: {method: :put}) do |f| %>
+  <%= semantic_form_for(current_user, url: update_legacy_password_path, html: {method: :post}) do |f| %>
+      <%= f.semantic_errors *f.object.errors.keys %>
     <%= f.input :password, label: t("devise.labels.new_password"), input_html: {autofocus: true} %>
     <%= f.input :password_confirmation, label: t("devise.labels.new_password_confirmation"), required: true %>
     <%= f.actions do %>

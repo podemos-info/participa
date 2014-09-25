@@ -24,7 +24,8 @@ Rails.application.routes.draw do
       get '/registrations/subregion_options', to: 'registrations#subregion_options'
       authenticated :user do
         root 'tools#index', as: :authenticated_root
-        resources :legacy_password, only: [:new, :update]
+        get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
+        post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
       end
       unauthenticated do
         root 'devise/sessions#new', as: :root

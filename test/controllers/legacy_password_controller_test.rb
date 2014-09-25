@@ -6,27 +6,32 @@ class LegacyPasswordControllerTest < ActionController::TestCase
   end
 
   test "should not get new as anon" do
-    skip("TODO")
-   # get :new
-   # assert_response :redirect
-   # assert_redirected_to new_user_session_path, locale: :es # FIXME i18n test
-   # assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
+    get :new
+    assert_response :redirect
+    assert_redirected_to "/users/sign_in" # FIXME bug con locales 
+    assert_equal I18n.t('devise.failure.unauthenticated'), flash[:alert]
   end
 
-  test "should not redirect as user with not legacy password" do
-    skip("TODO")
-   # user = FactoryGirl.create(:user)
-   # sign_in user
-   # get :new
-   # assert_response :redirect
-   # assert_redirected_to authenticated_root
+  test "should redirect to root as user if user has not legacy password" do
+    user = FactoryGirl.create(:user)
+    sign_in user
+    get :new
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 
   test "should redirect as user with legacy password" do
-    skip("TODO")
+    user = FactoryGirl.create(:legacy_password_user)
+    sign_in user
+    get :new
+    assert_response :success
   end
 
-  test "should change the password" do
+  test "should test if both passwords are equal" do
+    user = FactoryGirl.create(:legacy_password_user)
+    sign_in user
+    post :update, user: { password: "lalalilo", password_confirmation: "error" }
+    assert_response :success
     skip("TODO")
   end
 
