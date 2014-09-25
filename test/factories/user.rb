@@ -62,7 +62,7 @@ FactoryGirl.define do
     country "ES"
     phone "00346666666"
     sms_confirmed_at DateTime.now
-    has_password_legacy true
+    has_legacy_password true
   end
 
   factory :sms_confirmed_user, class: User do
