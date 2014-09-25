@@ -1,7 +1,7 @@
 class NoticeController < ApplicationController
 
   def index
-    @notices = Notice.all
+    @notices = Notice.page params[:page]
   end
 
 end
