@@ -9,6 +9,8 @@ es:
     models:
       user: Usuario
       users: Usuarios
+      election: Elección
+      elections: Elecciones
       notice: Aviso
       notices: Avisos
     errors:
@@ -45,6 +47,11 @@ es:
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
             terms_of_service: "Acepto las condiciones generales"
     attributes:
+      election: 
+        title: "Título"
+        agora_election_id: "ID en AgoraVoting"
+        starts_at: "Empieza"
+        ends_at: "Termina"
       notice:
         title: "Título"
         body: "Mensaje" 

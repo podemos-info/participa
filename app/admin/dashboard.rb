@@ -8,16 +8,36 @@ ActiveAdmin.register_page "Dashboard" do
       column do
         panel "Últimos usuarios dados de alta" do
           ul do
-            User.limit(15).map do |user|
+            User.limit(30).map do |user|
               li link_to(user.full_name, admin_user_path(user)) + "- #{user.created_at}"
             end
           end
         end
       end
-
       column do
-        panel "Notificaciones" do
-          link_to("Enviar notificación a todos", new_admin_notice_path, class: "button") 
+        div do
+          panel "Avisos" do
+            ul do
+              Notice.limit(5).map do |notice|
+                li link_to(notice.title, admin_notice_path(notice)) +  "- #{notice.created_at}"
+              end
+            end
+            div do
+              link_to("Enviar aviso a todos", new_admin_notice_path, class: "button") 
+            end
+          end
+        end
+        div do
+          panel "Elecciones" do
+            ul do
+              Election.limit(5).map do |election|
+                li link_to(election.title, admin_election_path(election)) +  "- #{election.created_at}"
+              end
+            end
+            div do
+              link_to("Dar de alta nueva elección", new_admin_election_path, class: "button") 
+            end
+          end
         end
       end
     end
