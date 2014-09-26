@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
                                    message: "debes haber nacido después de 1920" }, allow_blank: true
+  # TODO: al crear setear has_legacy_password = true
+  # TODO: validacion if country == ES then postal_code /(\d5)/
+  attr_accessor :sms_user_token_given
 
   has_many :votes 
 

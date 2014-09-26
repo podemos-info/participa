@@ -65,7 +65,7 @@ FactoryGirl.define do
     has_legacy_password true
   end
 
-  factory :sms_confirmed_user, class: User do
+  factory :sms_non_confirmed_user, class: User do
     last_name "Juan"
     first_name "SMS confirmed user"
     email 
