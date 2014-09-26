@@ -1,19 +1,13 @@
-<% resource = current_user %>
-<% resource_name = :user %>
-
-<% @title ||= t("devise.titles.my_account", 
-  model: resource_name.to_s.humanize, 
-  downcase_model: resource_name.to_s.humanize.downcase) %>
 
 <%= render partial: "steps", locals: {step: 1} %>
 
 <div class="well col-md-6 col-md-offset-3">
-  <%= semantic_form_for(resource, as: resource_name, url: sms_validator_phone_path, html: {method: :post}) do |f| %>
+  <%= semantic_form_for(current_user, url: sms_validator_phone_path, html: {method: :post}) do |f| %>
     <p><%= t('podemos.valid.phone.p1') %></p>
     <p><%= t('podemos.valid.phone.p2') %></p>
     <p><%= t('podemos.valid.phone.p3') %></p>
 
-    <div class="hidden js-registration-country"><%= resource.country.downcase %></div>
+    <div class="hidden js-registration-country"><%= current_user.country.downcase %></div>
     <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
 
     <%= f.actions do %>
