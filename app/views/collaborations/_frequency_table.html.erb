@@ -1,0 +1,31 @@
+<dl class="dl-horizontal">
+  <dt>Importe</dt>
+  <dd><%= number_to_euro @collaboration.amount %></dd>
+  <dt>Frecuencia de pago</dt>
+  <dd>cada <%= @collaboration.frequency * 30 %> días</dd>
+</dl>
+
+<% if @collaboration.frequency > 0 %>
+<table class="table table-striped table-hover text-left">
+  <thead>
+    <th>Fecha de pago</th>
+    <th>Importe</th>
+  </thead>
+  <tbody>
+  <% freq = @collaboration.frequency * 30 %>
+  <% (0..(freq -1)).each do |f| %>
+    <tr>
+      <td> <%= l(@collaboration.created_at + @collaboration.frequency.days * f, format: :long) %> </td>
+      <td> <%= number_to_euro @collaboration.amount %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>Total</th>
+      <th><%= number_to_euro(freq * @collaboration.amount) %></th>
+    </tr>
+  </tfoot>
+</table>
+<% end %>
+

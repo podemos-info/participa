@@ -1,0 +1,18 @@
+<ul class="nav nav-pills">
+  <li><%= link_to t("podemos.user.general_data"), edit_user_registration_path %></li>
+  <li class="active"><%= link_to t("podemos.user.collaborations"), "#" %></li>
+</ul>
+
+<div class="row">
+  <%= content_tag(:h2, t("podemos.collaboration.title")) %>
+  <hr>
+
+  <%= render partial: "steps", locals: {step: 3} %>
+  <div class="col-md-12">
+    <div class="jumbotron">
+      <div class="alert alert-success"><%= t("podemos.collaboration.ok.p1") %></div>
+      <p><%= t("podemos.collaboration.ok.p2") %></p>
+    </div>
+  </div>
+</div>
+
