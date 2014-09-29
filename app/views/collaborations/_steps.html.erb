@@ -1,0 +1,24 @@
+<div class="row form-group">
+  <div class="col-xs-12">
+    <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+      <li class="<%= bootstrap_class_for_steps(1, step) %>">
+        <%= link_to "#" do %>
+          <h4 class="list-group-item-heading">Paso 1</h4>
+          <p class="list-group-item-text">Introduce cuánto y cómo quieres colaborar</p>
+        <% end %>
+      </li>
+      <li class="<%= bootstrap_class_for_steps(2, step) %>">
+        <%= link_to "#" do %>
+          <h4 class="list-group-item-heading">Paso 2</h4>
+          <p class="list-group-item-text">Confirmación</p>
+        <% end %>
+      </li>
+      <li class="<%= bootstrap_class_for_steps(3, step) %>">
+        <%= link_to "#" do %>
+          <h4 class="list-group-item-heading">Paso 3</h4>
+          <p class="list-group-item-text">Realiza el pago con Redsys</p>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>

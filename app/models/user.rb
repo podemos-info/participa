@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   attr_accessor :sms_user_token_given
 
   has_many :votes 
+  has_one :collaboration
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 

@@ -3,8 +3,8 @@
   downcase_model: resource_name.to_s.humanize.downcase) %>
 
 <ul class="nav nav-pills">
-  <li class="active"><a href="#"><%= t("podemos.user.general_data") %></a></li>
-  <li><a href="#"><%= t("podemos.user.collaborations") %></a></li>
+  <li class="active"><%= link_to t("podemos.user.general_data"), "#" %></li>
+  <li><%= link_to t("podemos.user.collaborations"), new_or_edit_collaboration_path(current_user.collaboration) %></li>
 </ul>
 
 <hr>

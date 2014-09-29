@@ -1,0 +1,38 @@
+<ul class="nav nav-pills">
+  <li><%= link_to t("podemos.user.general_data"), edit_user_registration_path %></li>
+  <li class="active"><%= link_to t("podemos.user.collaborations"), "#" %></li>
+</ul>
+
+<div class="row">
+  <%= content_tag(:h2, t("podemos.collaboration.title")) %>
+  <hr>
+
+  <%= render partial: "steps", locals: {step: 1} %>
+  <div class="col-md-5">
+    <div class="well">
+      <p><%= t("podemos.collaboration.p1") %></p>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post} do |f| %>
+      <%= f.inputs do %>
+        <%= f.input :amount, required: true, as: :radio, collection: Collaboration::AMOUNTS, input_html: {required: true, class: 'js-collaboration-amount'} %>
+        <%= f.input :frequency, required: true, as: :radio, collection: Collaboration::FREQUENCIES, input_html: {required: true, class: 'js-collaboration-frequency'} %>
+      <% end %>
+    <%= f.input :minimal_year_old, as: :boolean, required: true %>
+    <%= f.input :terms_of_service, as: :boolean, required: true %>
+      <small>
+      <h3> <%= t('podemos.collaboration.terms_of_service.title')%> </h3>
+      <p> <%= t('podemos.collaboration.terms_of_service.p1_title')%> </p>
+      <p> <%= t('podemos.collaboration.terms_of_service.p1')%> </p>
+      <p> <%= t('podemos.collaboration.terms_of_service.p2_title')%> </p>
+      <p> <%= t('podemos.collaboration.terms_of_service.p2')%> </p>
+      <p> <%= t('podemos.collaboration.terms_of_service.p3_title')%> </p>
+      <p> <%= t('podemos.collaboration.terms_of_service.p3')%> </p>
+      </small>
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :input, button_html: {class: 'btn btn-primary'} %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
