@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924082332) do
+ActiveRecord::Schema.define(version: 20140930091837) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20140924082332) do
     t.integer  "agora_election_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notice_registrars", force: true do |t|
+    t.string   "registration_id"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
