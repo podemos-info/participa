@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post 'api/v1/gcm/registrars', to: 'notice_registrar#registrate'
+
   get '', to: redirect("/#{I18n.locale}")
   
   scope "/(:locale)", locale: /es|ca|eu/ do 
