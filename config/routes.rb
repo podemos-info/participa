@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   post 'api/v1/gcm/registrars', to: 'notice_registrar#registrate'
+  delete 'api/v1/gcm/registrars/:registrar_id', to: 'notice_registrar#unregister'
 
   get '', to: redirect("/#{I18n.locale}")
   
