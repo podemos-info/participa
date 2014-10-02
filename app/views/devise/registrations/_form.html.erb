@@ -24,8 +24,8 @@
     </div>
     <div class="col-md-6">
       <div class="js-registration-province hidden"><%= f.object.province %></div>
-      <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
-      <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"}, selected: "ES" %>
+      <%= render partial: 'subregion_select', locals: {parent_region: f.object.country, subregion: f.object.province} %>
+      <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
     </div>
   </div>
   <% end %>
