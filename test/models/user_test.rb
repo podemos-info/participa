@@ -142,6 +142,8 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "España", @user.country_name
     @user.update_attribute(:country, "AR")
     assert_equal "Argentina", @user.country_name
+    @user.update_attribute(:country, "Testing")
+    assert_equal "Testing", @user.country_name
   end
 
   test "should .province_name work" do 
@@ -151,6 +153,8 @@ class UserTest < ActiveSupport::TestCase
     @user.update_attribute(:country, "AR")
     @user.update_attribute(:province, "C")
     assert_equal "Ciudad Autónoma de Buenos Aires", @user.province_name
+    @user.update_attribute(:province, "Testing")
+    assert_equal "Testing", @user.province_name
   end
 
 
