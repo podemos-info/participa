@@ -41,4 +41,17 @@ ActiveAdmin.register User do
 
   form partial: "form"
 
+  collection_action :download_newsletter_csv, :method => :get do
+    users = User.wants_newsletter
+    csv = CSV.generate(encoding: 'utf-8') do |csv|
+      users.each { |user| csv << [ user.email ] }
+    end
+    # send file to user
+    send_data csv.encode('utf-8'), type: 'text/csv; charset=utf-8; header=present', disposition: "attachment; filename=newsletter.csv"
+  end
+
+  action_item only: :index do
+    link_to('Descargar correos para Newsletter', params.merge(:action => :download_newsletter_csv))
+  end 
+
 end
