@@ -128,4 +128,30 @@ class UserTest < ActiveSupport::TestCase
     assert_not(u.check_sms_token("LALALAAL"))
   end
 
+  test "should .document_type_name work" do 
+    @user.update_attribute(:document_type, 1)
+    assert_equal "DNI", @user.document_type_name
+    @user.update_attribute(:document_type, 2)
+    assert_equal "NIE", @user.document_type_name
+    @user.update_attribute(:document_type, 3)
+    assert_equal "Pasaporte", @user.document_type_name
+  end
+
+  test "should .country_name work" do 
+    @user.update_attribute(:country, "ES")
+    assert_equal "España", @user.country_name
+    @user.update_attribute(:country, "AR")
+    assert_equal "Argentina", @user.country_name
+  end
+
+  test "should .province_name work" do 
+    @user.update_attribute(:country, "ES")
+    @user.update_attribute(:province, "C")
+    assert_equal "A Coruña", @user.province_name
+    @user.update_attribute(:country, "AR")
+    @user.update_attribute(:province, "C")
+    assert_equal "Ciudad Autónoma de Buenos Aires", @user.province_name
+  end
+
+
 end

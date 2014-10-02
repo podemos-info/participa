@@ -95,4 +95,24 @@ class User < ActiveRecord::Base
     end
   end
 
+  def document_type_name
+    User::DOCUMENTS_TYPE.select{|v| v[1] == self.document_type }[0][0]
+  end
+
+  def country_name
+    if self.country.length > 3 
+      self.country
+    else
+      Carmen::Country.coded(self.country).name
+    end
+  end
+
+  def province_name
+    if self.province.length > 3 
+      self.province
+    else
+      Carmen::Country.coded(self.country).subregions.coded(self.province).name
+    end
+  end
+
 end
