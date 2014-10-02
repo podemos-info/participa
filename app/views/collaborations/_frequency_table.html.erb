@@ -12,10 +12,10 @@
     <th>Importe</th>
   </thead>
   <tbody>
-  <% freq = @collaboration.frequency * 30 %>
+  <% freq = @collaboration.frequency %>
   <% (0..(freq -1)).each do |f| %>
     <tr>
-      <td> <%= l(@collaboration.created_at + @collaboration.frequency.days * f, format: :long) %> </td>
+      <td> <%= l(@collaboration.created_at + @collaboration.frequency.days * (30 * f), format: :long) %> </td>
       <td> <%= number_to_euro @collaboration.amount %> </td>
     </tr>
   <% end %>

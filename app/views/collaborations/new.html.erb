@@ -19,6 +19,9 @@
         <%= f.input :amount, required: true, as: :radio, collection: Collaboration::AMOUNTS, input_html: {required: true, class: 'js-collaboration-amount'} %>
         <%= f.input :frequency, required: true, as: :radio, collection: Collaboration::FREQUENCIES, input_html: {required: true, class: 'js-collaboration-frequency'} %>
       <% end %>
+      <div class="alert alert-info">
+        El total de tu colaboración es <span id="js-collaboration-alert-amount"></span> €
+      </div>
     <%= f.input :minimal_year_old, as: :boolean, required: true %>
     <%= f.input :terms_of_service, as: :boolean, required: true %>
       <small>
