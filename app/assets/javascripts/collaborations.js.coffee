@@ -14,7 +14,7 @@ show_collaboration_ajax_loader = () ->
   $('.js-collaboration-confirm').attr('disabled', 'disabled')
   $('.js-collaboration-confirm-ajax').show().removeClass('hide')
 
-check_collaboration_by_ajax = () ->
+check_collaboration_by_ajax = () -> 
   order = $('.js-collaboration-order').attr('value')
   timeOutId = 0
   ajaxFn = ->
@@ -47,14 +47,22 @@ start_collaboration_confirm = () ->
   open_redsys_window()
   check_collaboration_by_ajax()
 
+calculate_collaboration = () ->
+  total = $('.js-collaboration-amount').val() / 100.0 * $('.js-collaboration-frequency').val()
+  console.log(total)
+  $('#js-collaboration-alert-amount').text(total)
+
 init_collaborations = () ->
   $('.js-collaboration-confirm').on 'click', (event) ->
     event.preventDefault()
     start_collaboration_confirm()
 
+  $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
+    calculate_collaboration()
+
 $(window).bind 'page:change', ->
   init_collaborations()
 
-#$ ->
-#  init_collaborations()
+$ ->
+  init_collaborations()
 
