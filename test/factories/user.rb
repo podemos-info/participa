@@ -48,7 +48,7 @@ FactoryGirl.define do
     last_name "Juan"
     first_name "Password Legacy"
     email 
-    password '123456789'
+    password "XXXXXXX"
     confirmed_at Time.now
     born_at Date.civil(1983, 2, 1) 
     wants_newsletter true
@@ -61,6 +61,7 @@ FactoryGirl.define do
     postal_code "28021"
     country "ES"
     phone "00346666666"
+    sms_confirmation_token "XXXXXXX"
     sms_confirmed_at DateTime.now
     has_legacy_password true
   end
