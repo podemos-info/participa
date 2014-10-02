@@ -10,13 +10,13 @@ class User < ActiveRecord::Base
   validates :terms_of_service, acceptance: true
   validates :country, length: {minimum: 1, maximum: 2}
   #validates :phone, numericality: true, allow_blank: true
+  #validates :phone, uniqueness: true
   # TODO: phone - cambiamos el + por el 00 al guardar 
   validates :document_type, inclusion: { in: [1, 2, 3], message: "tipo de documento no válido" }
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
                                    message: "debes haber nacido después de 1920" }, allow_blank: true
-  # TODO: al crear setear has_legacy_password = true
   # TODO: validacion if country == ES then postal_code /(\d5)/
   attr_accessor :sms_user_token_given
 
@@ -28,26 +28,6 @@ class User < ActiveRecord::Base
 
   def get_or_create_vote election_id
     Vote.where(user_id: self.id, election_id: election_id).first_or_create
-  end
-
-  # https://github.com/plataformatec/devise/wiki/How-To:-Email-only-sign-up
-  def password_required?
-    super if confirmed?
-  end
-
-  # https://github.com/plataformatec/devise/wiki/How-To:-Email-only-sign-up
-  def password_match?
-    self.errors[:password] << "can't be blank" if password.blank?
-    self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
-    self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
-    password == password_confirmation && !password.blank?
-  end
-
-  def generate_reset_password_token
-    raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
-    self.update_attribute(:reset_password_token, hashed_token)
-    self.update_attribute(:reset_password_sent_at, Time.now.utc)
-    return raw_token
   end
 
   def is_document_dni?

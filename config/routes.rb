@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     devise_for :users, controllers: { 
       registrations: 'registrations', 
+      passwords:     'passwords', 
       confirmations: 'confirmations'
     } 
     # http://stackoverflow.com/a/8884605/319241 

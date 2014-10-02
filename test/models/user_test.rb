@@ -11,7 +11,7 @@ class UserTest < ActiveSupport::TestCase
     u = User.new
     u.valid?
     assert(u.errors[:email].include? "Tu correo electrónico no puede estar en blanco")
-    #assert(u.errors[:password].include? "Tu contraseña no puede estar en blanco")
+    assert(u.errors[:password].include? "Tu contraseña no puede estar en blanco")
     assert(u.errors[:first_name].include? "Tu nombre no puede estar en blanco")
     assert(u.errors[:last_name].include? "Tu apellido no puede estar en blanco")
     assert(u.errors[:document_type].include? "Tu tipo de documento no puede estar en blanco")
