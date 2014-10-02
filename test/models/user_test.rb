@@ -157,5 +157,12 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "Testing", @user.province_name
   end
 
+  test "should scope .wants_newsletter work" do 
+    assert_equal 2, User.wants_newsletter.count
+    FactoryGirl.create(:no_newsletter_user)
+    assert_equal 2, User.wants_newsletter.count
+    FactoryGirl.create(:newsletter_user)
+    assert_equal 3, User.wants_newsletter.count
+  end
 
 end

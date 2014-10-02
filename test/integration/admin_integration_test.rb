@@ -52,4 +52,37 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
     assert_redirected_to '/admin/resque/overview'
   end
 
+  test "should not download newsletter CSV as user" do
+    login @user
+    get '/admin/users/download_newsletter_csv'
+    assert_response :redirect
+    assert_redirected_to root_path
+    assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
+  end
+    
+  test "should download newsletter CSV as admin and not download wants_newsletter = false" do
+    login @admin
+    get '/admin/users/download_newsletter_csv'
+    assert_response :success
+    assert response["Content-Type"].include? "text/csv"
+    csv = CSV.parse response.body
+    assert_equal 2, csv.count
+
+    # should not change count with a no_newsletter_user
+    FactoryGirl.create(:no_newsletter_user)
+    get '/admin/users/download_newsletter_csv'
+    assert_response :success
+    assert response["Content-Type"].include? "text/csv"
+    csv = CSV.parse response.body
+    assert_equal 2, csv.count
+
+    # should change count with a newsletter_user
+    FactoryGirl.create(:newsletter_user)
+    get '/admin/users/download_newsletter_csv'
+    assert_response :success
+    assert response["Content-Type"].include? "text/csv"
+    csv = CSV.parse response.body
+    assert_equal 3, csv.count
+  end
+
 end

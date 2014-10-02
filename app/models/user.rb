@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :votes 
 
+  scope :wants_newsletter, -> {where(wants_newsletter: true)}
+
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
   def get_or_create_vote election_id
