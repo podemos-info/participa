@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   scope "/(:locale)", locale: /es|ca|eu/ do 
     get :notices, to: 'notice#index', as: 'notices'
+    get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     scope :validator do
       scope :sms do 
         get :step1, to: 'sms_validator#step1', as: 'sms_validator_step1'
@@ -17,7 +18,6 @@ Rails.application.routes.draw do
         post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
       end
     end
-    get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     devise_for :users, controllers: { 
       registrations: 'registrations', 
       passwords:     'passwords', 
