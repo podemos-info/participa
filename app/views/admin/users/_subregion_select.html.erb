@@ -1,0 +1,23 @@
+<li id="js-registration-subregion-wrapper" class="input required form-group">
+  <% subregion ||= params[:subregion] %>
+  <% parent_region ||= params[:parent_region] %>
+  <% country = Carmen::Country.coded(parent_region) %>
+
+  <% if country.nil? %>
+    <em>Por favor selecciona un país</em>
+  <% elsif country.subregions? %>
+    <%= label :user, :province, class: "control-label", required: :required do %>
+      Provincia
+      <abbr title="required">*</abbr>
+      <% end %>
+    <span class="form-wrapper">
+      <%= subregion_select_tag("user[province]", subregion, parent_region, {}, {required: "required", class: "form-control"}) %>
+    </span>
+  <% else %>
+    <%= label :user, :province, class: "control-label", required: :required do %>
+      Provincia
+      <abbr title="required">*</abbr>
+    <% end %>
+    <%= f.input :province %>
+  <% end %>
+</li>

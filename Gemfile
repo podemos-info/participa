@@ -33,6 +33,7 @@ gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/se
 gem 'resque-pool'
 gem "aws-ses", "~> 0.5.0", :require => 'aws/ses'
 gem 'kaminari'
+gem 'pushmeup'
 
 group :development, :test do
   gem 'capistrano-rvm'

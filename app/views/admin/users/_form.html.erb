@@ -1,0 +1,19 @@
+
+<%= semantic_form_for([:admin, @user], builder: Formtastic::FormBuilder) do |f| %>
+  <%= f.inputs "Admin Details" do %>
+    <%= f.input :email %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :document_type, as: :radio, collection: User::DOCUMENTS_TYPE %>
+    <%= f.input :document_vatid %>
+    <%= f.input :born_at %>
+    <%= f.input :address %>
+    <%= f.input :town %>
+    <%= f.input :postal_code %>
+    <div class="js-registration-province hidden" style="display:none;"><%= f.object.province %></div>
+    <%= render partial: 'subregion_select', locals: {parent_region: f.object.country, subregion: f.object.province} %>
+    <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
+    <%= f.input :wants_newsletter %>
+  <% end %>
+  <%= f.actions %>
+<% end %>

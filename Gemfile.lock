@@ -144,6 +144,9 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hike (1.2.3)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.11)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
@@ -180,6 +183,7 @@ GEM
     minitest (5.4.1)
     mono_logger (1.1.0)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
     nestful (0.0.8)
       activesupport (>= 3.0.0.beta)
     net-scp (1.2.1)
@@ -192,6 +196,9 @@ GEM
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     polyglot (0.3.5)
+    pushmeup (0.3.0)
+      httparty
+      json
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -332,6 +339,7 @@ DEPENDENCIES
   kaminari
   mailcatcher
   pg
+  pushmeup
   rails (= 4.1.5)
   rails-perftest
   rb-readline
