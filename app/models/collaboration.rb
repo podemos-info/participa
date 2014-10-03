@@ -10,6 +10,32 @@ class Collaboration < ActiveRecord::Base
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
+  TYPES = [
+    ["Suscripción con Tarjeta de Crédito/Débito", 1], 
+    ["Domiciliación en cuenta bancaria (CCC)", 2], 
+    ["Domiciliación en cuenta extranjera (IBAN)", 3], 
+  ]
+
+  def is_credit_card?
+    self.payment_type == 1
+  end
+
+  def is_national?
+    self.payment_type == 2
+  end
+
+  def is_international?
+    self.payment_type == 3
+  end
+
+  def payment_type_name
+    "Tarjeta de crédito"
+    # TODO
+  end
+
+  def ccc_full 
+    "#{ccc_entity} #{ccc_office} #{ccc_dc} #{ccc_account}"
+  end
 
   def merchant_currency
     978

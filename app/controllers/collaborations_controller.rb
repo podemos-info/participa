@@ -14,6 +14,12 @@ class CollaborationsController < ApplicationController
   def confirm
   end
 
+  # POST /colabora/confirmar_banco
+  # POST /collaborations/confirm_bank
+  def confirm_bank
+
+  end
+
   # POST /collaborations/validate/callback
   # POST /colabora/validar/callback
   def callback
@@ -85,6 +91,6 @@ class CollaborationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:user_id, :amount, :frequency, :terms_of_service, :minimal_year_old)
+    params.require(:collaboration).permit(:user_id, :amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
   end
 end
