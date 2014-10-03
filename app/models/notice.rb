@@ -9,18 +9,14 @@ class Notice < ActiveRecord::Base
     self.update_attribute(:sent_at, DateTime.now)
   end
 
-  def broadcast_gcm(title, message, link=false) 
+  def broadcast_gcm(title, message, link) 
     # TODO: lib / worker async
     require 'pushmeup'
     GCM.host = 'https://android.googleapis.com/gcm/send'
     GCM.format = :json
     GCM.key = Rails.application.secrets.gcm["key"]
     destination = NoticeRegistrar.pluck(:registration_id)
-    if link
-      data = { title: title, message: message, msgcnt: "1", soundname: "beep.wav" }
-    else
-      data = { title: title, message: message, url: link, msgcnt: "1", soundname: "beep.wav" }
-    end
+    data = { title: title, message: message, url: link, msgcnt: "1", soundname: "beep.wav" }
     # TODO: if destination.count > 1000 then split 
     GCM.send_notification( destination, data)
   end
