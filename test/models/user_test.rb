@@ -11,7 +11,7 @@ class UserTest < ActiveSupport::TestCase
     u = User.new
     u.valid?
     assert(u.errors[:email].include? "Tu correo electrónico no puede estar en blanco")
-    #assert(u.errors[:password].include? "Tu contraseña no puede estar en blanco")
+    assert(u.errors[:password].include? "Tu contraseña no puede estar en blanco")
     assert(u.errors[:first_name].include? "Tu nombre no puede estar en blanco")
     assert(u.errors[:last_name].include? "Tu apellido no puede estar en blanco")
     assert(u.errors[:document_type].include? "Tu tipo de documento no puede estar en blanco")
@@ -126,6 +126,43 @@ class UserTest < ActiveSupport::TestCase
     token = u.sms_confirmation_token
     assert(u.check_sms_token(token))
     assert_not(u.check_sms_token("LALALAAL"))
+  end
+
+  test "should .document_type_name work" do 
+    @user.update_attribute(:document_type, 1)
+    assert_equal "DNI", @user.document_type_name
+    @user.update_attribute(:document_type, 2)
+    assert_equal "NIE", @user.document_type_name
+    @user.update_attribute(:document_type, 3)
+    assert_equal "Pasaporte", @user.document_type_name
+  end
+
+  test "should .country_name work" do 
+    @user.update_attribute(:country, "ES")
+    assert_equal "España", @user.country_name
+    @user.update_attribute(:country, "AR")
+    assert_equal "Argentina", @user.country_name
+    @user.update_attribute(:country, "Testing")
+    assert_equal "Testing", @user.country_name
+  end
+
+  test "should .province_name work" do 
+    @user.update_attribute(:country, "ES")
+    @user.update_attribute(:province, "C")
+    assert_equal "A Coruña", @user.province_name
+    @user.update_attribute(:country, "AR")
+    @user.update_attribute(:province, "C")
+    assert_equal "Ciudad Autónoma de Buenos Aires", @user.province_name
+    @user.update_attribute(:province, "Testing")
+    assert_equal "Testing", @user.province_name
+  end
+
+  test "should scope .wants_newsletter work" do 
+    assert_equal 2, User.wants_newsletter.count
+    FactoryGirl.create(:no_newsletter_user)
+    assert_equal 2, User.wants_newsletter.count
+    FactoryGirl.create(:newsletter_user)
+    assert_equal 3, User.wants_newsletter.count
   end
 
 end

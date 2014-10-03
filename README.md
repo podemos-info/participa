@@ -82,3 +82,8 @@ Para agregar uno nuevo se deben seguir los siguientes pasos:
 * Agregarlo en la línea de 'scope locale' en `config/routes` 
 * Agregarlo en la UI de cambio de idiomas del footer en `app/views/layouts/application.html.erb`
 * Agregarlo en la configuración para idiomas válidos en `config/application.rb`
+
+Newsletter
+----------
+
+En el admin se puede descargar un CSV de todos los correos de usuarios que hayan aceptado recibir la newsletter. *Atención* No hay integración con Sendit o la plataforma de envío de boletines que utiliza Podemos, por lo que no hay ningún tipo de sincronización (si un usuario se da de baja de Sendit puede volver a darse de alta de forma automática por la importación del CSV).

@@ -2,8 +2,105 @@
 en:
   world:
     es:
-      nc:
-        name: Navarra
-      vc:
-        name: Comunidad Valenciana
-
+      vi:
+        name: Araba/Álava
+      ab:
+        name: Albacete
+      a:
+        name: Alicante
+      al:
+        name: Almería
+      av:
+        name: Ávila
+      ba:
+        name: Badajoz
+      bi:
+        name: Bizkaia
+      b:
+        name: Barcelona
+      bu:
+        name: Burgos
+      cc:
+        name: Cáceres
+      ca:
+        name: Cádiz
+      cs:
+        name: Castellón
+      cr:
+        name: Ciudad Real
+      co:
+        name: Córdoba
+      c:
+        name: A Coruña
+      cu:
+        name: Cuenca
+      gi:
+        name: Girona
+      gr:
+        name: Granada
+      gu:
+        name: Guadalajara
+      ss:
+        name: Gipuzkoa
+      h:
+        name: Huelva
+      hu:
+        name: Huesca
+      j:
+        name: Jaén
+      le:
+        name: León
+      l:
+        name: Lleida
+      lo:
+        name: La Rioja
+      lu:
+        name: Lugo
+      m:
+        name: Madrid
+      ma:
+        name: Málaga
+      mu:
+        name: Murcia
+      na:
+        name: Navarre
+      or:
+        name: Ourense
+      o:
+        name: Asturias
+      p:
+        name: Palencia
+      gc:
+        name: Las Palmas
+      po:
+        name: Pontevedra
+      sa:
+        name: Salamanca
+      tf:
+        name: Santa Cruz de Tenerife
+      s:
+        name: Cantabria
+      sg:
+        name: Segovia
+      se:
+        name: Seville
+      so:
+        name: Soria
+      t:
+        name: Tarragona
+      te:
+        name: Teruel
+      to:
+        name: Toledo
+      v:
+        name: Valencia
+      va:
+        name: Valladolid
+      z:
+        name: Zamora
+      za:
+        name: Zaragoza
+      ce:
+        name: Ceuta
+      ml:
+        name: Melilla

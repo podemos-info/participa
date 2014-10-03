@@ -48,7 +48,7 @@ FactoryGirl.define do
     last_name "Juan"
     first_name "Password Legacy"
     email 
-    password '123456789'
+    password "XXXXXXX"
     confirmed_at Time.now
     born_at Date.civil(1983, 2, 1) 
     wants_newsletter true
@@ -61,6 +61,7 @@ FactoryGirl.define do
     postal_code "28021"
     country "ES"
     phone "00346666666"
+    sms_confirmation_token "XXXXXXX"
     sms_confirmed_at DateTime.now
     has_legacy_password true
   end
@@ -81,6 +82,46 @@ FactoryGirl.define do
     province "M"
     postal_code "28021"
     country "ES"
+  end
+
+  factory :no_newsletter_user, class: User do 
+    last_name "Pepito"
+    first_name "Perez"
+    email 
+    password '123456789'
+    confirmed_at Time.now
+    born_at Date.civil(1983, 2, 1) 
+    wants_newsletter false
+    document_type 3
+    document_vatid '83482396E'
+    admin false
+    address "C/ Inventada, 123" 
+    town "Madrid"
+    province "M"
+    postal_code "28021"
+    country "ES"
+    phone "003466111111111"
+    sms_confirmed_at DateTime.now
+  end
+
+  factory :newsletter_user, class: User do 
+    last_name "Pepito"
+    first_name "Perez"
+    email 
+    password '123456789'
+    confirmed_at Time.now
+    born_at Date.civil(1983, 2, 1) 
+    wants_newsletter true
+    document_type 3
+    document_vatid '83482396F'
+    admin false
+    address "C/ Inventada, 123" 
+    town "Madrid"
+    province "M"
+    postal_code "28021"
+    country "ES"
+    phone "003466111111111"
+    sms_confirmed_at DateTime.now
   end
 
 end

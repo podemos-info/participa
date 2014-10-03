@@ -11,27 +11,47 @@ ActiveAdmin.register User do
     actions
   end
 
+  show do 
+    attributes_table do
+      row :first_name
+      row :last_name
+      row :document_type do 
+        user.document_type_name
+      end
+      row :document_vatid
+      row :born_at
+      row :email
+      row :town
+      row :postal_code
+      row :province do
+        user.province_name
+      end
+      row :country do
+        user.country_name
+      end
+      row :wants_newsletter
+    end
+    active_admin_comments
+  end
+
   filter :email
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
 
-  form do |f|
-    f.inputs "Admin Details" do
-      f.input :email
-      f.input :first_name
-      f.input :last_name
-      f.input :document_type
-      f.input :document_vatid
-      f.input :born_at
-      f.input :address
-      f.input :town
-      f.input :postal_code
-      f.input :province
-      f.input :country
-      f.input :wants_newsletter
+  form partial: "form"
+
+  collection_action :download_newsletter_csv, :method => :get do
+    users = User.wants_newsletter
+    csv = CSV.generate(encoding: 'utf-8') do |csv|
+      users.each { |user| csv << [ user.email ] }
     end
-    f.actions
+    # send file to user
+    send_data csv.encode('utf-8'), type: 'text/csv; charset=utf-8; header=present', disposition: "attachment; filename=newsletter.csv"
   end
+
+  action_item only: :index do
+    link_to('Descargar correos para Newsletter', params.merge(:action => :download_newsletter_csv))
+  end 
 
 end

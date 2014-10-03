@@ -48,18 +48,26 @@ class PodemosImport
   end
 
   def self.invalid_record(u, row)
-    logger = Logger.new("#{Rails.root}/log/users_invalid.log")
-    logger.info "*" * 10
-    logger.info u.errors.messages
-    logger.info row
-    raise "InvalidRecordError - #{u.errors.messages} - #{row}"
+    debugger
+    if u.errors[:email].include? "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
+      logger = Logger.new("#{Rails.root}/log/users_email.log")
+      logger.info "*" * 10
+      logger.info u.errors.messages
+      logger.info row
+    else
+      logger = Logger.new("#{Rails.root}/log/users_invalid.log")
+      logger.info "*" * 10
+      logger.info u.errors.messages
+      logger.info row
+      raise "InvalidRecordError - #{u.errors.messages} - #{row}"
+    end
   end
 
   def self.process_row(row)
     now = DateTime.now
     u = User.new
-    u.last_name = row[3][1]
-    u.first_name = row[4][1]
+    u.first_name = row[3][1]
+    u.last_name = row[4][1]
     u.document_vatid = row[6][1] == "" ? row[7][1] : row[6][1]
     u.document_type = PodemosImport.convert_document_type(row[5][1], u.document_vatid)
     u.email = row[9][1]
@@ -69,12 +77,12 @@ class PodemosImport
     # legacy: un usuario puso una carta (literalmente)
     if row[13][1].length < 250 
       u.town = row[13][1]
+    else 
+      u.town = "A"
     end
     u.postal_code = row[15][1]
-    # TODO: staging test 
-    u.province = row[14][1]  #PodemosImport.convert_province row[15][1], row[16][1], row[14][1]
-    # TODO: staging test 
-    u.country = row[16][1]  # PodemosImport.convert_country row[16][1]
+    u.province = PodemosImport.convert_province row[15][1], row[16][1], row[14][1]
+    u.country = PodemosImport.convert_country row[16][1]
     # legacy: al principio no se preguntaba fecha de nacimiento
     unless row[8][1] == ""
       u.born_at = Date.parse row[8][1] # 1943-10-15 
@@ -95,6 +103,8 @@ class PodemosImport
   end
 
   def self.init csv_file
+    File.delete("#{Rails.root}/log/users_invalid.log") 
+    File.delete("#{Rails.root}/log/users_email.log") 
     CSV.foreach(csv_file, headers: true, encoding: 'windows-1251:utf-8') do |row|
       Resque.enqueue(PodemosImportWorker, row)
     end
