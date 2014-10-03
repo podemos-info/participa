@@ -16,15 +16,29 @@
   <div class="col-md-5">
     <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post} do |f| %>
       <%= f.inputs do %>
-        <%= f.input :amount, required: true, as: :radio, collection: Collaboration::AMOUNTS, input_html: {required: true, class: 'js-collaboration-amount'} %>
-        <%= f.input :frequency, required: true, as: :radio, collection: Collaboration::FREQUENCIES, input_html: {required: true, class: 'js-collaboration-frequency'} %>
-      <% end %>
-      <div class="alert alert-info">
-        El total de tu colaboración es <span id="js-collaboration-alert-amount"></span> €
-      </div>
+      <%= f.input :amount, required: true, as: :radio, collection: Collaboration::AMOUNTS, input_html: {required: true, class: 'js-collaboration-amount'} %>
+    <%= f.input :frequency, required: true, as: :radio, collection: Collaboration::FREQUENCIES, input_html: {required: true, class: 'js-collaboration-frequency'} %>
+    <%= f.input :payment_type, required: true, as: :radio, collection: Collaboration::TYPES, input_html: {required: true, class: 'js-collaboration-type'} %>
+  <% end %>
+
+    <div class="js-collaboration-type-form-2" style="display: none;">
+      <%= f.input :ccc_entity, input_html: {maxlength: 4} %>
+      <%= f.input :ccc_office, input_html: {maxlength: 4}  %>
+      <%= f.input :ccc_dc, input_html: {maxlength: 2}  %>
+      <%= f.input :ccc_account, input_html: {maxlength: 10}  %>
+    </div>
+
+    <div class="js-collaboration-type-form-3" style="display: none;">
+      <%= f.input :iban_account %>
+      <%= f.input :iban_bic %>
+    </div>
+
+    <div class="alert alert-info">
+      El total de tu colaboración es <span id="js-collaboration-alert-amount"></span> €
+    </div>
     <%= f.input :minimal_year_old, as: :boolean, required: true %>
     <%= f.input :terms_of_service, as: :boolean, required: true %>
-      <small>
+    <small>
       <h3> <%= t('podemos.collaboration.terms_of_service.title')%> </h3>
       <p> <%= t('podemos.collaboration.terms_of_service.p1_title')%> </p>
       <p> <%= t('podemos.collaboration.terms_of_service.p1')%> </p>
@@ -32,10 +46,10 @@
       <p> <%= t('podemos.collaboration.terms_of_service.p2')%> </p>
       <p> <%= t('podemos.collaboration.terms_of_service.p3_title')%> </p>
       <p> <%= t('podemos.collaboration.terms_of_service.p3')%> </p>
-      </small>
+    </small>
     <%= f.actions do %>
       <%= f.action :submit, :as => :input, button_html: {class: 'btn btn-primary'} %>
-    <% end %>
+  <% end %>
   <% end %>
   </div>
 </div>

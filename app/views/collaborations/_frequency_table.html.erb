@@ -3,6 +3,19 @@
   <dd><%= number_to_euro @collaboration.amount %></dd>
   <dt>Frecuencia de pago</dt>
   <dd>cada <%= @collaboration.frequency * 30 %> días</dd>
+  <dt>Método de pago</dt>
+  <dd><%= @collaboration.payment_type_name %></dd>
+  <dt>Cuenta bancaria</dt>
+  <dd>
+  <% if @collaboration.is_national? %>
+    <%= @collaboration.ccc_full %>
+  <% end %>
+  <% if @collaboration.is_international? %>
+    IBAN: <%= @collaboration.iban_account %> <br>
+    BIC: <%= @collaboration.iban_bic %>
+  <% end %>
+  </dd>
+
 </dl>
 
 <% if @collaboration.frequency > 0 %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926101756) do
+ActiveRecord::Schema.define(version: 20141002171800) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20140926101756) do
     t.text     "response"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "payment_type"
+    t.integer  "ccc_entity"
+    t.integer  "ccc_office"
+    t.integer  "ccc_dc"
+    t.integer  "ccc_account"
+    t.string   "iban_account"
+    t.string   "iban_bic"
   end
 
   create_table "elections", force: true do |t|
@@ -50,6 +57,13 @@ ActiveRecord::Schema.define(version: 20140926101756) do
     t.datetime "updated_at"
   end
 
+  create_table "notice_registrars", force: true do |t|
+    t.string   "registration_id"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "notices", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -57,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140926101756) do
     t.datetime "final_valid_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "sent_at"
   end
 
   create_table "simple_captcha_data", force: true do |t|

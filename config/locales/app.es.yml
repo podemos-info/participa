@@ -58,6 +58,13 @@ es:
         minimal_year_old: "Edad mínima requerida" 
         terms_of_service: "Acuerdo legal"
         order_id: "Número de orden en Redsys"
+        payment_type: "Método de pago"
+        ccc_entity: "Entidad"
+        ccc_office: "Oficina"
+        ccc_dc: "DC"
+        ccc_account: "Número de cuenta"
+        iban_account: "IBAN"
+        iban_bic: "BIC/SWIFT"
       election: 
         title: "Título"
         agora_election_id: "ID en AgoraVoting"

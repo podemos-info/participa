@@ -52,7 +52,27 @@ calculate_collaboration = () ->
   console.log(total)
   $('#js-collaboration-alert-amount').text(total)
 
+change_payment_type = (type) ->
+  switch type
+    when "2"
+      $('.js-collaboration-type-form-3').hide()
+      $('.js-collaboration-type-form-2').show()
+    when "3"
+      $('.js-collaboration-type-form-2').hide()
+      $('.js-collaboration-type-form-3').show()
+    when "1"
+      $('.js-collaboration-type-form-2').hide()
+      $('.js-collaboration-type-form-3').hide()
+    else
+      $('.js-collaboration-type-form-2').hide()
+      $('.js-collaboration-type-form-3').hide()
+
 init_collaborations = () ->
+
+  $('.js-collaboration-type').on 'change', (event) ->
+    type = $(this).val()
+    change_payment_type(type)
+
   $('.js-collaboration-confirm').on 'click', (event) ->
     event.preventDefault()
     start_collaboration_confirm()
