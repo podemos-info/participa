@@ -1,6 +1,6 @@
 class CollaborationsController < ApplicationController
   before_action :authenticate_user! 
-  before_action :set_collaboration, only: [:confirm, :edit, :destroy]
+  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy]
 
   # GET /collaborations/new
   # GET /colabora/
@@ -17,7 +17,10 @@ class CollaborationsController < ApplicationController
   # POST /colabora/confirmar_banco
   # POST /collaborations/confirm_bank
   def confirm_bank
-
+    unless @collaboration.is_credit_card?
+      @collaboration.update_attribute(:response_status, "OK")
+      redirect_to :validate_ok_collaboration
+    end
   end
 
   # POST /collaborations/validate/callback

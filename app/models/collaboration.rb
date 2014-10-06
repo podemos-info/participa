@@ -6,15 +6,22 @@ class Collaboration < ActiveRecord::Base
   validates :order, uniqueness: true
   validates :user, uniqueness: true
 
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_national?
+  validates :iban_account, :iban_bic, presence: true, if: :is_international?
+
   before_validation :set_order
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
   TYPES = [
-    ["Suscripción con Tarjeta de Crédito/Débito", 1], 
+   # ["Suscripción con Tarjeta de Crédito/Débito", 1], 
     ["Domiciliación en cuenta bancaria (CCC)", 2], 
     ["Domiciliación en cuenta extranjera (IBAN)", 3], 
   ]
+
+  scope :credit_cards, -> {where(payment_type: 1)}
+  scope :bank_nationals, -> {where(payment_type: 2)}
+  scope :bank_internationals, -> {where(payment_type: 3)}
 
   def is_credit_card?
     self.payment_type == 1
@@ -29,7 +36,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def payment_type_name
-    "Tarjeta de crédito"
+    Collaboration::TYPES.select{|v| v[1] == self.payment_type }[0][0]
     # TODO
   end
 
@@ -95,10 +102,10 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def redsys_valid?
+  def is_valid?
     self.response_status == "OK"
   end
-  
+
   private 
 
   def set_order

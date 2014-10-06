@@ -2,24 +2,18 @@
   <li><%= link_to t("podemos.user.general_data"), edit_user_registration_path %></li>
   <li class="active"><%= link_to t("podemos.user.collaborations"), "#" %></li>
 </ul>
-
-
 <div class="row">
   <%= content_tag(:h2, t("podemos.collaboration.title")) %>
   <hr>
-
   <div class="col-md-5">
     <div class="well">
       <p><%= t("podemos.collaboration.p1") %></p>
     </div>
   </div>
   <div class="col-md-5">
-
     <p> Ya tienes una colaboración.  Es la siguiente: </p>
-
     <%= render partial: "frequency_table" %>
-
-    <% if @collaboration.redsys_valid? %>
+    <% if @collaboration.is_valid? %>
       <p> Sólo puedes tener una colaboración a la vez. Si quieres cambiar o cancelar tu colaboración: </p>
       <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'btn btn-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?" } %>
     <% else %>
@@ -28,6 +22,5 @@
       </div>
       <%= link_to "Confirmar colaboración", confirm_collaboration_path, class: 'btn btn-primary' %>
     <% end %>
-
   </div>
 </div>
