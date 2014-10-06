@@ -34,7 +34,6 @@ check_collaboration_by_ajax = () ->
               clearTimeout timeOutId
         else
           timeOutId = setTimeout(ajaxFn, 10000)
-          console.log "call"
         return
 
     return
@@ -48,18 +47,19 @@ start_collaboration_confirm = () ->
   check_collaboration_by_ajax()
 
 calculate_collaboration = () ->
-  total = $('.js-collaboration-amount').val() / 100.0 * $('.js-collaboration-frequency').val()
-  console.log(total)
-  $('#js-collaboration-alert-amount').text(total)
+  if (($('.js-collaboration-amount:checked').length > 0) && ($('.js-collaboration-frequency:checked').length > 0))
+    total = $('.js-collaboration-amount:checked').val() / 100.0 * $('.js-collaboration-frequency:checked').val()
+    $('.js-collaboration-alert').show()
+    $('#js-collaboration-alert-amount').text(total)
 
 change_payment_type = (type) ->
   switch type
     when "2"
       $('.js-collaboration-type-form-3').hide()
-      $('.js-collaboration-type-form-2').show()
+      $('.js-collaboration-type-form-2').show('fast')
     when "3"
       $('.js-collaboration-type-form-2').hide()
-      $('.js-collaboration-type-form-3').show()
+      $('.js-collaboration-type-form-3').show('fast')
     when "1"
       $('.js-collaboration-type-form-2').hide()
       $('.js-collaboration-type-form-3').hide()
@@ -69,6 +69,7 @@ change_payment_type = (type) ->
 
 init_collaborations = () ->
 
+  change_payment_type($('.js-collaboration-type:checked').val())
   $('.js-collaboration-type').on 'change', (event) ->
     type = $(this).val()
     change_payment_type(type)
@@ -77,11 +78,13 @@ init_collaborations = () ->
     event.preventDefault()
     start_collaboration_confirm()
 
+  calculate_collaboration()
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
     calculate_collaboration()
 
-$(window).bind 'page:change', ->
-  init_collaborations()
+
+#$(window).bind 'page:change', ->
+#  init_collaborations()
 
 $ ->
   init_collaborations()

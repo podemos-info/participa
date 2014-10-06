@@ -1,4 +1,3 @@
-
-<%= semantic_form_for confirm_bank_collaboration_path(@collaboration), method: :post do |f| %>
+<%= semantic_form_for @collaboration, url: confirm_bank_collaboration_path, method: :post do |f| %>
   <%= f.action :submit, button_html: {class: 'btn btn-primary btn-lg'} %>
 <% end %>
