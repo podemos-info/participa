@@ -20,6 +20,9 @@ init_registrations_subregions = () ->
   $('select.js-registration-country').change (event) ->
     subregion_change($(this))
 
+  if ( $('select.js-registration-country').val() == "" ) 
+    $('select.js-registration-country').val('ES').trigger('change') 
+
 $(window).bind 'page:change', ->
   init_registrations_subregions()
 
