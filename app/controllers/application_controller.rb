@@ -5,17 +5,31 @@ class ApplicationController < ActionController::Base
   before_filter :set_new_password
   before_action :set_locale
   before_filter :allow_iframe_requests
+  before_filter :admin_logger
 
   def allow_iframe_requests
     response.headers.delete('X-Frame-Options')
   end
 
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+  def admin_logger
+    if params["controller"].starts_with? "admin/"
+      tracking = Logger.new(File.join(Rails.root, "log", "activeadmin.log"))
+      if user_signed_in?
+        tracking.info "** #{current_user.full_name} ** #{request.method()} #{request.path}"
+      else
+        tracking.info "** Anonimous ** #{request.method()} #{request.path}"
+      end
+      tracking.info params.to_s
+      tracking.info request
+    end
   end
 
   def default_url_options(options={})
     { locale: I18n.locale }
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
   end
 
   def set_new_password
