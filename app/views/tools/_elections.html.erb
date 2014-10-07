@@ -3,7 +3,7 @@
 
   <div class="list-group">
     <% Election.actived.each do |election| %>
-      <%= link_to create_vote_path(election_id: election.id), class: "list-group-item" do %>
+      <%= link_to create_vote_path(election_id: election.id), class: "list-group-item", target: "_blank" do %>
         <%= election.title %>
         <small>
         (<%= l election.starts_at, format: :long %> al <%= l election.ends_at, format: :long %>)
