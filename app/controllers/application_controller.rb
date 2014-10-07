@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_phone
   before_filter :set_new_password
   before_action :set_locale
@@ -67,5 +68,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, flash: { error: t('podemos.unauthorized') }
     end
   end 
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :document_vatid, :email, :password, :remember_me) }
+  end
 
 end

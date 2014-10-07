@@ -17,15 +17,13 @@
     </div>
   </div>
   <div class="col-md-4 col-md-offset-1">
-
-
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><%= t("devise.links.sign_in") %></h3>
       </div>
       <div class="panel-body">
         <%= semantic_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <%= f.input :email, input_html: {autofocus: true} %>
+          <%= f.input :login, input_html: {autofocus: true} %>
           <%= f.input :password %>
           <% if devise_mapping.rememberable? -%>
             <%= f.input :remember_me, as: :boolean, label: false %>

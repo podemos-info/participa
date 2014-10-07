@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, presence: true
-  validates :email, :document_vatid, uniqueness: true
+  validates :email, :document_vatid, uniqueness: { case_sensitive: false }
   validates :terms_of_service, acceptance: true
-  validates :country, length: {minimum: 1, maximum: 2}
+  #validates :country, length: {minimum: 1, maximum: 2}
   #validates :phone, numericality: true, allow_blank: true
   #validates :phone, uniqueness: true
   # TODO: phone - cambiamos el + por el 00 al guardar 
@@ -19,12 +19,23 @@ class User < ActiveRecord::Base
                                    message: "debes haber nacido después de 1920" }, allow_blank: true
   # TODO: validacion if country == ES then postal_code /(\d5)/
   attr_accessor :sms_user_token_given
+  attr_accessor :login
 
   has_many :votes 
 
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
+
+  # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(document_vatid) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
 
   def get_or_create_vote election_id
     Vote.where(user_id: self.id, election_id: election_id).first_or_create
