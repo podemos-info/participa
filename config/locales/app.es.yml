@@ -142,3 +142,7 @@ es:
         title: "Cambiar contraseña antigua"
         explain: "Debes cambiar tu contraseña"
         changed: "Has cambiado tu contraseña"
+  simple_captcha:
+    placeholder: ""
+    label: "rellena con los caracteres"
+    invalid: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
