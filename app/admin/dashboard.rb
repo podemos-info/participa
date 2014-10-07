@@ -5,13 +5,16 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc{ I18n.t("active_admin.dashboard") } do
     columns do
       column do
-        panel "Aviso legal" do 
-          div do 
-            "Aviso importante a todos los usuarios"
-          end
+        panel "Información importante" do 
+          div "Condiciones de uso y aviso legal"
+          div "Manual de uso de la aplicación"
           div do
-            link_to "Leer Aviso Legal", "/pdf/aviso_legal.pdf", target: "_blank"
+            link_to "Manual de uso de datos de carácter personal", "/pdf/PODEMOS_LOPD_-_MANUAL_DE_USUARIO_DE_BASES_DE_DATOS_DE_PODEMOS_v.2014.09.10.pdf", target: "_blank"
           end
+          div "Documento de seguridad"
+          div "Funciones y obligaciones del personal"
+          div "Relación de administradores"
+          div "Relación de usuarios autorizados"
         end
       end
     end
