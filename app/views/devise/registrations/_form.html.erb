@@ -37,6 +37,7 @@
     <p> <%= t('podemos.registration.terms_of_service.p1')%> </p>
     <p> <%= t('podemos.registration.terms_of_service.p2_html')%> </p>
     </small>
+    <%= show_simple_captcha %>
     <%= f.actions do %>
       <%= f.action :submit, label: t("devise.buttons.sign_up"), button_html: {class: "btn btn-primary"} %>
     <% end %>
