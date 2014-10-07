@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   has_many :votes 
+  has_one :collaboration
 
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
 

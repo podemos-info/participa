@@ -28,6 +28,26 @@ ActiveRecord::Schema.define(version: 20141006122009) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
+  create_table "collaborations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.integer  "frequency"
+    t.string   "order"
+    t.datetime "response_recieved_at"
+    t.string   "response_code"
+    t.string   "response_status"
+    t.text     "response"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "payment_type"
+    t.integer  "ccc_entity"
+    t.integer  "ccc_office"
+    t.integer  "ccc_dc"
+    t.integer  "ccc_account"
+    t.string   "iban_account"
+    t.string   "iban_bic"
+  end
+
   create_table "elections", force: true do |t|
     t.string   "title"
     t.integer  "agora_election_id"
