@@ -3,7 +3,18 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
   content title: proc{ I18n.t("active_admin.dashboard") } do
-
+    columns do
+      column do
+        panel "Aviso legal" do 
+          div do 
+            "Aviso importante a todos los usuarios"
+          end
+          div do
+            link_to "Leer Aviso Legal", "/pdf/aviso_legal.pdf", target: "_blank"
+          end
+        end
+      end
+    end
     columns do
       column do
         panel "Últimos usuarios dados de alta" do
