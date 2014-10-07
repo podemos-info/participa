@@ -105,7 +105,7 @@ class PodemosImport
   def self.init csv_file
     File.delete("#{Rails.root}/log/users_invalid.log") 
     File.delete("#{Rails.root}/log/users_email.log") 
-    CSV.foreach(csv_file, headers: true, encoding: 'windows-1251:utf-8') do |row|
+    CSV.foreach(csv_file, headers: true) do |row|
       Resque.enqueue(PodemosImportWorker, row)
     end
   end
