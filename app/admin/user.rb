@@ -46,12 +46,13 @@ ActiveAdmin.register User do
     csv = CSV.generate(encoding: 'utf-8') do |csv|
       users.each { |user| csv << [ user.email ] }
     end
-    # send file to user
-    send_data csv.encode('utf-8'), type: 'text/csv; charset=utf-8; header=present', disposition: "attachment; filename=newsletter.csv"
+    send_data csv.encode('utf-8'), 
+      type: 'text/csv; charset=utf-8; header=present', 
+      disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
   end
 
   action_item only: :index do
-    link_to('Descargar correos para Newsletter', params.merge(:action => :download_newsletter_csv))
+    link_to('Descargar correos para Newsletter (CSV)', params.merge(:action => :download_newsletter_csv))
   end 
 
 end

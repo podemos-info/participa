@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   delete 'api/v1/gcm/registrars/:registrar_id', to: 'notice_registrar#unregister'
 
   get '', to: redirect("/#{I18n.locale}")
+
+  # para redsys
+  post '/collaborations/validate/callback', to: 'collaborations#callback', as: 'callback_collaboration'
   
   scope "/(:locale)", locale: /es|ca|eu/ do 
     get :notices, to: 'notice#index', as: 'notices'
@@ -27,6 +30,19 @@ Rails.application.routes.draw do
     devise_scope :user do
       get '/registrations/subregion_options', to: 'registrations#subregion_options'
       authenticated :user do
+        scope :collaborations do
+          delete 'destroy', to: 'collaborations#destroy', as: 'destroy_collaboration'
+          get 'edit', to: 'collaborations#edit', as: 'edit_collaboration'
+          get 'new', to: 'collaborations#new', as: 'new_collaboration'
+          get 'confirm', to: 'collaborations#confirm', as: 'confirm_collaboration'
+          post 'confirm_bank', to: 'collaborations#confirm_bank', as: 'confirm_bank_collaboration'
+          post 'create', to: 'collaborations#create', as: 'create_collaboration'
+          scope :validate do
+            get 'OK', to: 'collaborations#OK', as: 'validate_ok_collaboration'
+            get 'KO', to: 'collaborations#KO', as: 'validate_ko_collaboration'
+            get 'status/:order', to: 'collaborations#status', as: 'validate_status_collaboration'
+          end
+        end
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
