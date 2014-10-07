@@ -56,6 +56,7 @@ es:
         title: "Título"
         body: "Mensaje" 
       user:
+        login: "Correo elctrónico o Nº de documento"
         first_name: "Nombre"
         last_name: "Apellidos"
         document_type: "Tipo de documento"
