@@ -2,7 +2,7 @@ role :app, %w{capistrano@juntos.podemos.info}
 role :web, %w{capistrano@juntos.podemos.info}
 role :db,  %w{capistrano@juntos.podemos.info}
 
-set :branch, :production
+set :branch, :master
 set :deploy_to, '/var/www/participa.podemos.info'
 
 after 'deploy:publishing', 'deploy:restart'
