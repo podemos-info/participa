@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  include SimpleCaptcha::ControllerHelpers
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_phone

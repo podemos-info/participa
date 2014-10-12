@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    if simple_captcha_valid? 
+    if verify_recaptcha
       super
     else
       build_resource(sign_up_params)
