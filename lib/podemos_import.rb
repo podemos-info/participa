@@ -1,4 +1,7 @@
 class PodemosImport
+  # Legacy WP Gravity Forms
+  # =======================
+  #
   # Importa los contenidos desde un CSV a la aplicación
   # La contraseña es el token enviado por SMS
   #
@@ -96,6 +99,8 @@ class PodemosImport
     u.confirmed_at = now
     u.sms_confirmed_at = now
     u.has_legacy_password = true
+    u.created_at = Date.parse row[1][1] # FIXME 
+    u.circle = row[20][1] # FIXME 
     u.save
     unless u.valid? 
       PodemosImport.invalid_record(u, row)

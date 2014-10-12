@@ -13,6 +13,7 @@
     <div class="js-registration-province hidden" style="display:none;"><%= f.object.province %></div>
     <%= render partial: 'subregion_select', locals: {parent_region: f.object.country, subregion: f.object.province} %>
     <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
+    <%= f.input :circle %>
     <%= f.input :wants_newsletter %>
   <% end %>
   <%= f.actions %>
