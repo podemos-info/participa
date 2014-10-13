@@ -442,7 +442,11 @@ a.button:hover,
 input.button:hover{
   background: #269283;
 }
-
+.buttonbox{
+  border:0;
+  clear:both;
+  padding:1em 0;
+}
 /* -----------------------------------
 columns
 ----------------------------------- */
@@ -503,12 +507,18 @@ layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 /*
 elementos
 */
-.intro,
+.intro {
+  margin:0;
+  padding-bottom:2em;
+}
 .login-box{
   margin:0;
 }
 .intro p{
   padding:0 4%;
+}
+.intro .buttonbox{
+  padding:1em 4%;
 }
 .menu ul li{
   display:none;
@@ -597,12 +607,18 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin:0;
+    padding-bottom:2em;
+  }
   .login-box{
     margin:0;
   }
   .intro p{
     padding:0 4%;
+  }
+  .intro .buttonbox{
+    padding:1em 4%;
   }
   .menu ul li{
     display:none;
@@ -686,12 +702,18 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin:0;
+    padding-bottom:2em;
+  }
   .login-box{
     margin:0;
   }
   .intro p{
     padding:0 4%;
+  }
+  .intro .buttonbox{
+    padding:1em 4%;
   }
   .menu ul li{
     display:block;
@@ -773,7 +795,10 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin-top:3em;
+    padding-bottom:2em;
+  }
   .login-box{
     margin-top:3em;
   }
@@ -787,6 +812,12 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .intro p{
     padding:0 2.5% 0 25%;
+  }
+  .intro a.intro-indent{
+    margin: 0 2.5% 0 25%;
+  }
+  .intro .buttonbox {
+    padding:1em 0;
   }
   .menu ul li{
     display:block;
@@ -870,7 +901,10 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin-top:3em;
+    padding-bottom:2em;
+  }
   .login-box{
     margin-top:3em;
   }
@@ -879,6 +913,12 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   }
   .intro p{
     padding:0 2.5% 0 25%;
+  }
+  .intro a.intro-indent{
+    margin:0 2.5% 0 25%
+  }
+  .intro .buttonbox{
+    padding:1em 0;
   }
   .menu ul li{
     display:block;
