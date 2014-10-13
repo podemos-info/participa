@@ -69,40 +69,40 @@ class PodemosImport
   def self.process_row(row)
     now = DateTime.now
     u = User.new
-    u.first_name = row[3][1]
-    u.last_name = row[4][1]
-    u.document_vatid = row[6][1] == "" ? row[7][1] : row[6][1]
-    u.document_type = PodemosImport.convert_document_type(row[5][1], u.document_vatid)
-    u.email = row[9][1]
-    u.phone = row[10][1].sub('+','00')
-    u.sms_confirmation_token = row[11][1]
-    u.address = row[12][1]
+    u.first_name = row[0][1]
+    u.last_name = row[1][1]
+    u.document_vatid =  row[3][1] == "" ? row[4][1] : row[3][1]
+    u.document_type = PodemosImport.convert_document_type(row[2][1], u.document_vatid)
+    # legacy: al principio no se preguntaba fecha de nacimiento
+    unless row[5][1] == "" or row[5][1].nil?
+      u.born_at = Date.parse row[5][1] # 1943-10-15
+    end
+    u.email = row[6][1]
+    u.phone = row[7][1].sub('+','00')
+    u.sms_confirmation_token = row[8][1]
+    u.address = row[9][1]
     # legacy: un usuario puso una carta (literalmente)
-    if row[13][1].length < 250 
-      u.town = row[13][1]
-    else 
+    if row[10][1].length < 250
+      u.town = row[10][1]
+    else
       u.town = "A"
     end
-    u.postal_code = row[15][1]
-    u.province = PodemosImport.convert_province row[15][1], row[16][1], row[14][1]
-    u.country = PodemosImport.convert_country row[16][1]
-    # legacy: al principio no se preguntaba fecha de nacimiento
-    unless row[8][1] == ""
-      u.born_at = Date.parse row[8][1] # 1943-10-15 
-    end
+    u.postal_code = row[12][1]
+    u.province = PodemosImport.convert_province row[12][1], row[13][1], row[11][1]
+    u.country = PodemosImport.convert_country row[13][1]
     # legacy: al principio no se preguntaba para recibir la newsletter
-    if row[18][1] == 1
+    if row[16][1] == 1
       u.wants_newsletter = true
     end
-    u.password = row[11][1]
-    u.password_confirmation = row[11][1]
+    u.password = row[8][1]
+    u.password_confirmation = row[8][1]
     u.confirmed_at = now
     u.sms_confirmed_at = now
     u.has_legacy_password = true
-    u.created_at = row[1][1].to_datetime
-    u.circle = row[17][1]
+    u.created_at = row[22][1].to_datetime
+    u.circle = row[15][1] == "" ? row[14][1] : row[15][1]
     u.save
-    unless u.valid? 
+    unless u.valid?
       PodemosImport.invalid_record(u, row)
     end
   end
