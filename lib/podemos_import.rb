@@ -99,8 +99,8 @@ class PodemosImport
     u.confirmed_at = now
     u.sms_confirmed_at = now
     u.has_legacy_password = true
-    u.created_at = Date.parse row[1][1] # FIXME 
-    u.circle = row[20][1] # FIXME 
+    u.created_at = row[1][1].to_datetime
+    u.circle = row[17][1]
     u.save
     unless u.valid? 
       PodemosImport.invalid_record(u, row)
