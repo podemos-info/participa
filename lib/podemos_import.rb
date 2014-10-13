@@ -69,7 +69,6 @@ class PodemosImport
   def self.process_row(row)
     now = DateTime.now
     u = User.new
-    "Juan Carlos","Silvestre Cano","DNI / NIE","52346050M",,"1971-08-08","podemoscoslada@gmx.com","+34667313191","POKDBNX","C/ Colombia Nº15 1º3","Coslada","Madrid","28820","España","Círculo no listado","Podemos Coslada-Madrid","1",,"1","1",,"1","2014-10-13 10:41:51","79.156.51.105"
     u.first_name = row[1][1]
     u.last_name = row[2][1]
     u.document_vatid = row[4][1]
