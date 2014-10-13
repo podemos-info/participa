@@ -359,30 +359,35 @@ header & menu
 .menu-hamb a{
   background: image-url("ico.menu-hamb-off.png") 0 0 no-repeat;
 }
+.menu-hamb a.active,
 .menu-hamb a:hover{
   background: image-url("ico.menu-hamb-on.png") 0 0 no-repeat;
 }
 .menu-logout a{
   background: image-url("ico.menu-logout-off.png") 0 0 no-repeat;
 }
+.menu-logout a.active,
 .menu-logout a:hover{
   background: image-url("ico.menu-logout-on.png") 0 0 no-repeat;
 }
 .menu-tools a{
   background: image-url("ico.menu-tools-off.png") 0 0 no-repeat;
 }
+.menu-tools a.active,
 .menu-tools a:hover{
   background: image-url("ico.menu-tools-on.png") 0 0 no-repeat;
 }
 .menu-notif a{
   background: image-url("ico.menu-notif-off.png") 0 0 no-repeat;
 }
+.menu-notif a.active,
 .menu-notif a:hover{
   background: image-url("ico.menu-notif-on.png") 0 0 no-repeat;
 }
 .menu-notif a.claim{
   background: image-url("ico.menu-notif-claim-off.png") 0 0 no-repeat;
 }
+.menu-notif a.claim.active,
 .menu-notif a.claim:hover{
   background: image-url("ico.menu-notif-claim-on.png") 0 0 no-repeat;
 }
@@ -395,6 +400,7 @@ header & menu
 .menu-profile a{
   background: image-url("ico.menu-profile-off.png") 0 0 no-repeat;
 }
+.menu-profile a.active,
 .menu-profile a:hover{
   background: image-url("ico.menu-profile-on.png") 0 0 no-repeat;
 }
