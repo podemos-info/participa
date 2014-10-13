@@ -289,7 +289,7 @@ footer
   background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
   margin-top:1em;
   padding-top:1em;
-+}
+}
 .footer-contact .languages ul li{
   display:block;
   float:left;
@@ -434,8 +434,14 @@ input.button{
   border-radius:3px;
   text-transform:uppercase;
   margin-bottom:1em;
+  cursor:pointer;
+  cursor:hand;
 }
-
+.button:hover,
+a.button:hover,
+input.button:hover{
+  background: #269283;
+}
 
 /* -----------------------------------
 columns
