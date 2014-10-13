@@ -78,7 +78,7 @@ class PodemosImport
     u.document_vatid =  row[3][1] == "" ? row[4][1] : row[3][1]
     u.document_type = PodemosImport.convert_document_type(row[2][1], u.document_vatid)
     # legacy: al principio no se preguntaba fecha de nacimiento
-    unless row[5][1] == "" 
+    unless row[5][1] == "" or row[5][1].nil?
       u.born_at = Date.parse row[5][1] # 1943-10-15
     end
     u.email = row[6][1]
