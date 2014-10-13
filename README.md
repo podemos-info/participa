@@ -74,6 +74,15 @@ config/secrets.yml
 
 Ver ejemplos en `config/databases.yml.example` y `config/secrets.yml`.
 
+Textos
+------
+
+Cuando se ponga el nombre del partido, deberá ponerse de la siguiente forma:
+
+```html
+<em class="podemos">Podemos</em>
+```
+
 i18n
 ----
 
