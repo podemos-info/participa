@@ -845,11 +845,6 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     margin-top:3em;
   }
   .intro:before{
-    display: inline-block;
-    margin: 0 .1em;
-    content: image-url("ico.ropes-white.png");
-    position:absolute;
-    top: 2em;
     left: 1.5em;
   }
   .intro p{
