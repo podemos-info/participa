@@ -22,7 +22,9 @@
     <% end %>
   </div>
 
-  <%= yield %>
+  <div class="content">
+    <%= yield %>
+  </div>
 
   <%= render partial: 'footer' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
