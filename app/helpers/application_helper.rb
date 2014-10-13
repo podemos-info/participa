@@ -45,4 +45,16 @@ module ApplicationHelper
     # If so, return "claim"
     ""
   end
+
+  def current_lang? lang
+    I18n.locale.to_s.downcase == lang.to_s.downcase
+  end
+
+  def current_lang_class lang
+    if current_lang? lang
+      "active"
+    else
+      ""
+    end
+  end
 end

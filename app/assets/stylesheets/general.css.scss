@@ -283,6 +283,26 @@ footer
 .footer-contact p{
   font-family:Montserrat,Arial,sans-serif;
 }
+.footer-contact .languages{
+  width:auto;
+  display:inline-block;
+  background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
+  margin-top:1em;
+  padding-top:1em;
++}
+.footer-contact .languages ul li{
+  display:block;
+  float:left;
+  margin-right:0.5em;
+  color:#8e618c;
+}
+.footer-contact .languages ul li a{
+  color:#8e618c;
+}
+.footer-contact .languages ul li a.active,
+.footer-contact .languages ul li a:hover{
+  color:#c3a6cf;
+}
 .disclaimer-links{
   background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
   padding:3em 0 0;
@@ -499,7 +519,8 @@ font sizes
 .button,
 .login-box form input,
 .login-box form div.remember label,
-.footer-contact p{
+.footer-contact p,
+.footer .languages a{
   font-size:1.2em;
 }
 .content .login-box p,
@@ -593,7 +614,8 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .button,
   .login-box form input,
   .login-box form div.remember label,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.2em;
   }
   .content .login-box p,
@@ -679,7 +701,8 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .button,
   .login-box form input,
   .login-box form div.remember label,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.3em;
   }
   .content .login-box p,
@@ -773,7 +796,8 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .button,
   .login-box form input,
   .login-box form div.remember label,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.3em;
   }
   .content .login-box p,
@@ -866,7 +890,8 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .login-box form input,
   .login-box form div.remember label,
   .footer ul li a,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.4em;
   }
   .content .login-box p,
