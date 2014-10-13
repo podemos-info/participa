@@ -113,17 +113,17 @@ es:
         hello: "Hola"
         welcome: "Bienvenida"
         lock: 
-          p1: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
-          p2: "Click the link below to unlock your account:"
-          link: 'Unlock my account'
+          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de inscripciones@podemos.info."
+          p2: "Haz click en el link de aquí abjao para desbloquear tu cuenta:"
+          link: 'Desbloquear mi cuenta'
         confirm:
           p1: "Te has dado de alta o has cambiado tu correo electrónico en el entorno PODEMOS. Si no es ese el caso, ignora este correo. Puedes confirmar que esta es tu dirección de correo a través del siguiente enlace:"
           link: 'Confirmar mi cuenta'
         password: 
-          p1: "Someone has requested a link to change your password. You can do this through the link below."
-          p2: "If you didn't request this, please ignore this email."
-          p3: "Your password won't change until you access the link above and create a new one."
-          link: 'Change your password' 
+          p1: "Alguien ha pedido que cambies tu contraseña. Puedes hacerlo a través del siguiente enlace:"
+          p2: "Si no has sido tú, por favor ignora este correo."
+          p3: "Tu contraseña no cambiará hasta que accedas a este enlace y crees una nueva."
+          link: 'Cambiar contraseña'
     navbar: 
       tools: "Herramientas"
       profile: "Perfil"
