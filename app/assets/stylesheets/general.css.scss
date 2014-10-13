@@ -1,0 +1,892 @@
+/*
+Author: wakalaka
+Author URI: http://wakalaka.es/
+Description: Responsive theme by wakalaka for Juntos Podemos
+Version: 1.0
+*/
+
+/* -----------------------------------
+corporate colours
+----------------------------------- */
+/*
+Purple 1 (main):   #612d62;
+Purple 2 (interm): #954e99;
+Purple 3 (light):  #c3a6cf;
+Purple 3 (60%):    #9c76a3;
+Green 1 (interm):  #269283;
+Green 2 (light):   #97c2b8;
+*/
+
+/* -----------------------------------
+other colours
+----------------------------------- */
+/*
+ALERT - Red:       #f5bfc9;
+ALERT - Green:     #d0e0c9;
+Secondary grey:    #999;
+Form fields bg:    #eaeaea;
+Transparent black: #333; (opacity 0.55)
+*/
+
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------
+base
+-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+*,html{margin:0;padding:0;}
+body{font:62.5%/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif;text-align:center;color:#333;background:#612d62;}
+ul,ol,dl{margin:0;list-style:none;}
+li,dt,dd{list-style:none;}
+img{border:0;}
+a img, a.img, h1 a{border:none;}
+a{color:#269283;text-decoration:none;}
+a:hover{text-decoration:none;}
+:focus{outline:0;}
+h1,h2,h3,h4,h5,h6{font-size:1em;clear:left;}
+caption,th,td {text-align:left;font-weight:normal;}
+input,select,textarea{color:#1d1d1b;}
+fieldset{border:none;padding:0;}
+.invisible, legend.invisible{display:none;}
+hr{}
+object{border:none;margin-bottom:1em;}
+iframe{}
+.clear{float:none;clear:both;width:100%;}
+
+em.podemos{font-family:"Montserrat",sans-serif;font-style:normal;text-transform:uppercase;font-weight:bold;}
+.content p{margin-bottom:1em;}
+
+
+/* -----------------------------------
+columnas responsive (diseño)
+----------------------------------- */
+
+.col-h-4a12{
+  display:block;
+  overflow:hidden;
+  float:left;
+}
+.col-h-4a12{
+  display:block;
+  overflow:hidden;
+  float:right;
+}
+.col-bhome-1a6,
+.col-bhome-9a12{
+  display:block;
+  overflow:hidden;
+  margin:0;
+}
+
+
+/* -----------------------------------
+general
+----------------------------------- */
+
+.wrap{
+  position:relative;
+  margin: 0 auto;
+  text-align:left;
+  width:100%;
+  padding:0;
+  overflow: hidden;
+  clear:both;
+}
+.header{
+  margin: auto;
+  width: 100%;
+  position:relative;
+  overflow:hidden;
+  background:#612d62;
+}
+.header-content{
+  margin: auto;
+  width: 96%;
+  padding: 0 2%;
+  max-width: 96em;
+  position:relative;
+  overflow:hidden;
+}
+.content{
+  background:#fff;
+  margin: auto;
+  width: 100%;
+  position:relative;
+  overflow:hidden;
+}
+.content-content{
+  margin: auto;
+  width: 96%;
+  padding: 0 2%;
+  max-width: 96em;
+  position:relative;
+  overflow:hidden;
+}
+.content-content-home{
+  margin: auto;
+  width: 96%;
+  padding: 0 2%;
+  max-width: 96em;
+  position:relative;
+  overflow:hidden;
+}
+.footer{
+  margin: auto;
+  width: 96%;
+  padding: 0 2%;
+  max-width: 96em;
+  position:relative;
+  overflow:hidden;
+}
+.footer-content{
+  margin: auto;
+  width: 100%;
+  max-width: 96em;
+  position:relative;
+  overflow:hidden;
+}
+
+.row{
+  clear:both;
+  overflow:hidden;
+  zoom:1;
+  margin:0;
+  display:block;
+}
+
+
+/* -----------------------------------
+home
+----------------------------------- */
+.people-bg{
+  background-image: image-url("img.gente.jpg");
+  width:100%;
+  background-size: cover;
+  background-position: center;
+}
+.intro{
+  background: image-url("bg.333-op55.png") 0 0 repeat;
+  width:auto;
+  padding:1.5em 0 0.5em;
+  color:#fff;
+  position:visible;
+  display:block;
+}
+.intro p.total{
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+  background:#612d62;
+}
+.intro p.total span{
+  font-family:Montserrat,Arial,sans-serif;
+  font-size:1.25em;
+}
+.login-box{
+  background: image-url("bg.purple-op80.png") 0 0 repeat;
+  width:auto;
+  padding:1.5em 4%;
+  color:#fff;
+  display:block;
+}
+.login-box p{
+  margin-bottom:0.2em;
+  text-align:right;
+}
+.login-box a{
+  width:100%;
+  color:#c3a6cf;
+  border-bottom:2px solid #8e618c;
+}
+.login-box .button{
+  float:right;
+  clear:both;
+}
+.login-box form legend{
+  clear:both;
+  margin-bottom:1em;
+  text-transform:uppercase;
+  text-align:right;
+  font-weight:bold;
+  font-family:Montserrat,Arial,sans-serif;
+}
+.login-box form div{
+  clear:both;
+}
+.login-box form div input{
+  width:96%;
+  padding:0.5em 2%;
+  margin-bottom:1em;
+  border:0;
+}
+.login-box form div.enter input.button{
+  width:auto;
+  padding:1em 3em;
+}
+.login-box form div.remember{
+  margin-bottom:1em;
+  overflow:hidden;
+}
+.login-box form div.remember input.checkbox{
+  width:auto;
+  margin:0.2em 0 0 0.3em;
+  float:right;
+}
+.login-box form div.remember label{
+  width:90%;
+  float:left;
+  text-align:right;
+}
+
+
+/* -----------------------------------
+footer
+----------------------------------- */
+
+.footer{
+  padding:3em 0;
+}
+.footer a{
+  color:#c3a6cf;
+}
+.footer strong{
+  text-transform:uppercase;
+  font-weight:bold;
+}
+.footer-content h2{
+  text-transform:uppercase;
+  font-family:Montserrat,Arial,sans-serif;
+  color:#c3a6cf;
+  font-weight:bold;
+  margin-top:1.1em;
+  margin-bottom:0.5em;
+}
+.footer-content h2.footer-logo{
+  margin-top:0;
+}
+.footer-content .footer-logo p{
+  margin-bottom:0.3em;
+}
+.footer-content ul{
+  overflow:hidden;
+}
+.footer-content .footer-siguenos li{
+  float:left;
+  margin-right:1em;
+}
+.footer-content .footer-siguenos li:nth-child(4){
+  margin-right:0;
+}
+.footer-contact{
+  color:#c3a6cf;
+  margin-bottom:1em;
+}
+.footer-contact p{
+  font-family:Montserrat,Arial,sans-serif;
+}
+.disclaimer-links{
+  background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
+  padding:3em 0 0;
+  margin:3em 0 0;
+  clear:both;
+  float:none;
+  overflow:hidden;
+}
+.disclaimer-links li{
+  float:left;
+  margin-right:1em;
+}
+
+
+/* -----------------------------------
+header & menu
+----------------------------------- */
+
+.logo{
+  float:left;
+  width:98%;
+  max-width:17.4em;
+  height:3em;
+  padding:1.5em 0;
+}
+.logo img{
+  max-width:100%;
+}
+
+.menu ul{
+  width:100%;
+  overflow:hidden;
+  padding:1.5em 0;
+  float:right;
+}
+.menu ul li{
+  width:auto;
+  float:right;
+}
+.menu ul li a{
+  display:inline-block;
+  font-family:Arial,sans-serif;
+  margin:0 0 0 1.5em;
+  padding:1.5em;
+  font-weight:bold;;
+  color:#000;
+}
+.menu li span{
+  display:none;
+}
+.menu-logout{
+  background: image-url("bg.purple-divide-v.png") 0 0 no-repeat;
+}
+.menu-hamb a{
+  background: image-url("ico.menu-hamb-off.png") 0 0 no-repeat;
+}
+.menu-hamb a:hover{
+  background: image-url("ico.menu-hamb-on.png") 0 0 no-repeat;
+}
+.menu-logout a{
+  background: image-url("ico.menu-logout-off.png") 0 0 no-repeat;
+}
+.menu-logout a:hover{
+  background: image-url("ico.menu-logout-on.png") 0 0 no-repeat;
+}
+.menu-tools a{
+  background: image-url("ico.menu-tools-off.png") 0 0 no-repeat;
+}
+.menu-tools a:hover{
+  background: image-url("ico.menu-tools-on.png") 0 0 no-repeat;
+}
+.menu-notif a{
+  background: image-url("ico.menu-notif-off.png") 0 0 no-repeat;
+}
+.menu-notif a:hover{
+  background: image-url("ico.menu-notif-on.png") 0 0 no-repeat;
+}
+.menu-notif a.claim{
+  background: image-url("ico.menu-notif-claim-off.png") 0 0 no-repeat;
+}
+.menu-notif a.claim:hover{
+  background: image-url("ico.menu-notif-claim-on.png") 0 0 no-repeat;
+}
+.menu-econ a{
+  background: image-url("ico.menu-econ-off.png") 0 0 no-repeat;
+}
+.menu-econ a:hover{
+  background: image-url("ico.menu-econ-on.png") 0 0 no-repeat;
+}
+.menu-profile a{
+  background: image-url("ico.menu-profile-off.png") 0 0 no-repeat;
+}
+.menu-profile a:hover{
+  background: image-url("ico.menu-profile-on.png") 0 0 no-repeat;
+}
+.menu li.menu-name a span{
+  display:block;
+  float:right;
+  clear:both;
+  color:#c3a6cf;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:1.4em;
+  line-height:1.1em;
+  font-style:italic;
+  font-weight:normal;
+}
+.menu li.menu-name a{
+  display:inline-block;
+  font-family:Arial,sans-serif;
+  margin:0;
+  padding:0;
+}
+.profile-name span{
+  display:block;
+}
+
+
+/* -----------------------------------
+body elements
+----------------------------------- */
+
+.button,
+a.button,
+input.button{
+  padding:1em 3em;
+  background:#97c2b8;
+  color:#fff;
+  border:0;
+  border-radius:3px;
+  text-transform:uppercase;
+  margin-bottom:1em;
+}
+
+
+/* -----------------------------------
+columns
+----------------------------------- */
+
+.col-f-1a3,
+.col-f-4a5,
+.col-f-6a7,
+.col-f-8a9,
+.col-f-10a12{
+  float:left;
+}
+.col-f-1a12{
+  width:100%;
+}
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------
+layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.col-h-1a3{
+  width:70%;
+}
+.col-h-4a12{
+  width:30%;
+}
+.col-bhome-1a6{
+  width:100%;
+  float:left;
+}
+.col-bhome-9a12{
+  width:100%;
+  float:right;
+}
+
+.col-f-1a3{
+  width:100%;
+}
+.col-f-4a5,
+.col-f-6a7,
+.col-f-8a9{
+  display:none;
+}
+.col-f-10a12{
+  width:100%;
+}
+
+.content-content-home{
+  margin: auto;
+  width: 100%;
+  padding: 0;
+  max-width: 96em;
+  position:relative;
+  overflow:hidden;
+}
+
+
+/*
+elementos
+*/
+.intro,
+.login-box{
+  margin:0;
+}
+.intro p{
+  padding:0 4%;
+}
+.menu ul li{
+  display:none;
+}
+.menu ul li.menu-hamb{
+  display:block;
+}
+
+
+/*
+font sizes
+*/
+.content p,
+.button,
+.login-box form input,
+.login-box form div.remember label,
+.footer-contact p{
+  font-size:1.2em;
+}
+.content .login-box p,
+.footer ul.disclaimer-links li a{
+  font-size:1em;
+}
+.login-box form legend,
+.footer-content h2{
+  font-size:1.4em;
+  line-height:1em;
+}
+.login-box form legend{
+  display:block;
+}
+.footer-content h2{
+  display:none;
+}
+.footer-content h2.footer-logo{
+  display:block;
+  font-size:3em;
+  margin-bottom:0.33em;
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------
+layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 460px) and (max-width: 600px)
+{
+  .col-h-1a3{
+    width:70%;
+  }
+  .col-h-4a12{
+    width:30%;
+  }
+  .col-bhome-1a6{
+    width:100%;
+    float:left;
+  }
+  .col-bhome-9a12{
+    width:100%;
+    float:right;
+  }
+  .col-f-1a3{
+    width:50%;
+  }
+  .col-f-4a5,
+  .col-f-6a7,
+  .col-f-8a9{
+    display:none;
+  }
+  .col-f-10a12{
+    width:50%;
+  }
+
+  .content-content-home{
+    margin: auto;
+    width: 100%;
+    padding: 0;
+    max-width: 96em;
+    position:relative;
+    overflow:hidden;
+  }
+
+
+  /*
+  elementos
+  */
+  .intro,
+  .login-box{
+    margin:0;
+  }
+  .intro p{
+    padding:0 4%;
+  }
+  .menu ul li{
+    display:none;
+  }
+  .menu ul li.menu-hamb{
+    display:block;
+  }
+
+
+
+  /*
+  font sizes
+  */
+  .content p,
+  .button,
+  .login-box form input,
+  .login-box form div.remember label,
+  .footer-contact p{
+    font-size:1.2em;
+  }
+  .content .login-box p,
+  .footer ul.disclaimer-links li a{
+    font-size:1.1em;
+  }
+  .login-box form legend,
+  .footer-content h2{
+    display:block;
+    font-size:1.4em;
+  }
+  .footer-content h2.footer-logo{
+    font-size:3em;
+    margin-bottom:0.33em;
+  }
+
+}
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------
+layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 600px) and (max-width: 768px)
+{
+  .col-h-1a3{
+    width:35%;
+  }
+  .col-h-4a12{
+    width:65%;
+  }
+  .col-bhome-1a6{
+    width:50%;
+    float:left;
+  }
+  .col-bhome-9a12{
+    width:50%;
+    float:right;
+  }
+  .col-f-1a3{
+    width:50%;
+  }
+  .col-f-4a5,
+  .col-f-6a7,
+  .col-f-8a9{
+    display:none;
+  }
+  .col-f-10a12{
+    width:50%;
+  }
+
+  .content-content-home{
+    margin: auto;
+    width: 100%;
+    padding: 0;
+    max-width: 96em;
+    position:relative;
+    overflow:hidden;
+  }
+
+
+  /*
+  elementos
+  */
+  .intro,
+  .login-box{
+    margin:0;
+  }
+  .intro p{
+    padding:0 4%;
+  }
+  .menu ul li{
+    display:block;
+  }
+  .menu ul li.menu-hamb{
+    display:none;
+  }
+
+  /*
+  font sizes
+  */
+  .content p,
+  .button,
+  .login-box form input,
+  .login-box form div.remember label,
+  .footer-contact p{
+    font-size:1.3em;
+  }
+  .content .login-box p,
+  .footer ul.disclaimer-links li a{
+    font-size:1.1em;
+  }
+  .login-box form legend,
+  .footer-content h2{
+    display:block;
+    font-size:1.5em;
+    line-height:1em;
+  }
+  .footer-content h2.footer-logo{
+    font-size:3em;
+    margin-bottom:0.33em;
+  }
+
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------
+layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 769px)
+{
+  .col-h-1a3{
+    width:25%;
+  }
+  .col-h-4a12{
+    width:75%;
+  }
+  .col-bhome-1a6{
+    width:50%;
+    float:left;
+  }
+  .col-bhome-9a12{
+    width:33%;
+    float:right;
+  }
+  .col-f-1a3{
+    width:50%;
+  }
+  .col-f-4a5,
+  .col-f-6a7,
+  .col-f-8a9{
+    display:none;
+  }
+  .col-f-10a12{
+    width:50%;
+  }
+
+  .content-content-home{
+    margin: auto;
+    width: 96%;
+    padding: 0 2%;
+    max-width: 96em;
+    position:relative;
+    overflow:hidden;
+  }
+
+
+  /*
+  elementos
+  */
+  .intro,
+  .login-box{
+    margin-top:3em;
+  }
+  .intro:before{
+    display: inline-block;
+    margin: 0 .1em;
+    content: image-url("ico.ropes-white.png");
+    position:absolute;
+    top: 2em;
+    left: 0.5em;
+  }
+  .intro p{
+    padding:0 2.5% 0 25%;
+  }
+  .menu ul li{
+    display:block;
+  }
+  .menu ul li.menu-hamb{
+    display:none;
+  }
+
+  /*
+  font sizes
+  */
+  .content p,
+  .button,
+  .login-box form input,
+  .login-box form div.remember label,
+  .footer-contact p{
+    font-size:1.3em;
+  }
+  .content .login-box p,
+  .footer ul.disclaimer-links li a{
+    font-size:1.2em;
+  }
+  .login-box form legend,
+  .footer-content h2{
+    display:block;
+    font-size:1.5em;
+    line-height:1em;
+  }
+  .footer-content h2.footer-logo{
+    font-size:3em;
+    margin-bottom:0.33em;
+  }
+
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------
+layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+-------------------------------------------------------------------------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 978px)
+{
+  .col-h-1a3{
+    width:25%;
+  }
+  .col-h-4a12{
+    width:75%;
+  }
+  .col-bhome-1a6{
+    width:50%;
+    float:left;
+  }
+  .col-bhome-9a12{
+    width:33%;
+    float:right;
+  }
+  .col-f-1a3{
+    width:25%;
+  }
+  .col-f-4a5,
+  .col-f-6a7,
+  .col-f-8a9{
+    display:block;
+    width:16.5%;
+  }
+  .col-f-10a12{
+    width:25%;
+  }
+
+  .content-content-home{
+    margin: auto;
+    width: 96%;
+    padding: 0 2%;
+    max-width: 96em;
+    position:relative;
+    overflow:hidden;
+  }
+
+
+
+  /*
+  elementos
+  */
+  .intro,
+  .login-box{
+    margin-top:3em;
+  }
+  .intro:before{
+    display: inline-block;
+    margin: 0 .1em;
+    content: image-url("ico.ropes-white.png");
+    position:absolute;
+    top: 2em;
+    left: 1.5em;
+  }
+  .intro p{
+    padding:0 2.5% 0 25%;
+  }
+  .menu ul li{
+    display:block;
+  }
+  .menu ul li.menu-hamb{
+    display:none;
+  }
+
+
+  /*
+  font sizes
+  */
+  .content p,
+  .button,
+  .login-box form input,
+  .login-box form div.remember label,
+  .footer ul li a,
+  .footer-contact p{
+    font-size:1.4em;
+  }
+  .content .login-box p,
+  .footer ul.disclaimer-links li a{
+    font-size:1.2em;
+  }
+  .login-box form legend,
+  .footer-content h2{
+    display:block;
+    font-size:1.8em;
+    line-height:1em;
+  }
+  .footer-content h2.footer-logo{
+    font-size:4em;
+    margin-bottom:0.25em;
+  }
+
+}

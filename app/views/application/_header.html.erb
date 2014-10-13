@@ -1,0 +1,65 @@
+<div class="header">
+
+  <div class="header-content">
+
+    <div class="col-h-1a3">
+      <figure class="logo">
+        <a href="/">
+          <h1>
+            <%= image_tag "logo.podemos-220-w.png", alt: "PODEMOS" %>
+          </h1>
+        </a>
+      </figure>
+    </div><!--col-h-1-->
+
+    <% if user_signed_in? %>
+    <div class="col-h-4a12">
+      <nav class="menu">
+        <ul>
+          <li class="menu-hamb">
+            <a href="#">
+              <span>Menú</span>
+            </a>
+          </li>
+          <li class="menu-logout">
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <span>Salir</span>
+            <% end %>
+          </li>
+          <li class="menu-tools">
+           <%= link_to root_path do %>
+              <span>Herramientas</span>
+            <% end %>
+          </li>
+          <li class="menu-notif">
+            <%= link_to admin_notices_path, class: 'claim' do %>
+              <span>Avisos</span>
+            <% end %>
+          </li>
+          <li class="menu-econ">
+            <a href="#"><%# TODO %>
+              <span>Colaboración económica</span>
+            </a>
+          </li>
+          <li class="menu-profile">
+            <% link_to edit_admin_user_path(current_user), class: 'active' do %>
+              <span>Perfil</span>
+            <% end %>
+          </li>
+          <li class="menu-name">
+            <% link_to edit_admin_user_path(current_user) do %>
+              <span class="name">
+                <%= current_user.first_name %>
+              </span>
+              <span class="surname">
+                <%= current_user.last_name %>
+              </span>
+            <% end %>
+          </li>
+        </ul>
+      </nav><%#.menu%>
+    </div><%#.col-h-2a4%>
+    <% end %>
+
+  </div><!--.header-content-->
+</div><!--#header-->

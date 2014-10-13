@@ -2,62 +2,16 @@
 <html>
 <head>
   <title>PodemosJuntos</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-  <nav class="navbar navbar-inverse navbar-fixed navbar-default" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Cambiar navegación</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <%= link_to "PODEMOS", root_path, class: "navbar-brand" %>
-      </div>
-
-      <% if user_signed_in? %>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <%= bootstrap_nav_link(t('podemos.navbar.tools'), authenticated_root_path, "glyphicon-link") %>
-            <%= bootstrap_nav_link(t('podemos.navbar.profile'), edit_user_registration_path, "glyphicon-cog") %>
-            <%= bootstrap_nav_link(t('podemos.navbar.notice'), notices_path, "glyphicon-exclamation-sign") %>
-            <% if can? :manage, ActiveAdmin %>
-              <li>
-                <%= link_to admin_root_path, target: '_blank' do %>
-                  <i class="glyphicon glyphicon-pencil"></i>
-                  Admin
-                <% end %>
-              </li>
-            <% end %>
-            <% if can? :manage, Resque %>
-              <li>
-                <%= link_to resque_path, target: '_blank' do %>
-                  <i class="glyphicon glyphicon-align-justify"></i>
-                  Colas
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="navbar-text"><%= current_user.full_name %></li>
-            <li>
-            <%= link_to destroy_user_session_path, :method => :delete do %>
-              <i class="glyphicon glyphicon-log-out"></i>
-              Cerrar sesión
-            <% end %>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      <% end %>
-
-    </div><!-- /.container-fluid -->
-  </nav>
+<div class="wrap">
+  <%= render partial: 'header' %>
 
   <div class="container-fluid">
     <% flash.each do |type, message| %>
@@ -66,23 +20,12 @@
         <%= message %>
       </div>
     <% end %>
-    <%= yield %>
-  </div>
-  <div class="footer">
-    <div class="container">
-      <small>
-        <p><%= t('podemos.other_locales') %>:
-          <%= link_to_if(I18n.locale != :es, "Castellano", url_for(locale: "es"))%> | 
-          <%= link_to_if(I18n.locale != :ca, "Catalá", url_for(locale: "ca"))%> | 
-          <%= link_to_if(I18n.locale != :eu, "Euskera", url_for(locale: "eu"))%>
-        </p>
-        <p>
-        2014 podemos.info 
-        </p>
-      </small>
-    </div>
   </div>
 
+  <%= yield %>
+
+  <%= render partial: 'footer' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  </div>
 </body>
 </html>
