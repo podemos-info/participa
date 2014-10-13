@@ -75,10 +75,10 @@ class PodemosImport
     u = User.new
     u.first_name = row[0][1]
     u.last_name = row[1][1]
-    u.document_vatid =  row[3][1] == "" ? row[4][1] : row[3][1]
+    u.document_vatid =  row[3][1].nil? ? row[4][1] : row[3][1]
     u.document_type = PodemosImport.convert_document_type(row[2][1], u.document_vatid)
     # legacy: al principio no se preguntaba fecha de nacimiento
-    unless row[5][1] == "" or row[5][1].nil?
+    unless row[5][1].nil?
       u.born_at = Date.parse row[5][1] # 1943-10-15
     end
     u.email = row[6][1]
@@ -104,7 +104,7 @@ class PodemosImport
     u.sms_confirmed_at = now
     u.has_legacy_password = true
     u.created_at = row[22][1].to_datetime
-    u.circle = row[15][1] == "" ? row[14][1] : row[15][1]
+    u.circle = row[15][1].nil? ? row[14][1] : row[15][1]
     u.save
     unless u.valid?
       PodemosImport.invalid_record(u, row)
