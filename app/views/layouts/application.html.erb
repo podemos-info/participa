@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>PodemosJuntos</title>
+  <link rel="shortcut icon" href="<%= image_url("favicon.png") %>" type="image/png">
+  <link rel="icon" href="<%= image_url("favicon.png") %>" type="image/png">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -22,7 +24,9 @@
     <% end %>
   </div>
 
-  <%= yield %>
+  <div class="content">
+    <%= yield %>
+  </div>
 
   <%= render partial: 'footer' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>

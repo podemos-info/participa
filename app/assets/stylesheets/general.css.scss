@@ -283,6 +283,26 @@ footer
 .footer-contact p{
   font-family:Montserrat,Arial,sans-serif;
 }
+.footer-contact .languages{
+  width:auto;
+  display:inline-block;
+  background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
+  margin-top:1em;
+  padding-top:1em;
+}
+.footer-contact .languages ul li{
+  display:block;
+  float:left;
+  margin-right:0.5em;
+  color:#8e618c;
+}
+.footer-contact .languages ul li a{
+  color:#8e618c;
+}
+.footer-contact .languages ul li a.active,
+.footer-contact .languages ul li a:hover{
+  color:#c3a6cf;
+}
 .disclaimer-links{
   background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
   padding:3em 0 0;
@@ -339,30 +359,35 @@ header & menu
 .menu-hamb a{
   background: image-url("ico.menu-hamb-off.png") 0 0 no-repeat;
 }
+.menu-hamb a.active,
 .menu-hamb a:hover{
   background: image-url("ico.menu-hamb-on.png") 0 0 no-repeat;
 }
 .menu-logout a{
   background: image-url("ico.menu-logout-off.png") 0 0 no-repeat;
 }
+.menu-logout a.active,
 .menu-logout a:hover{
   background: image-url("ico.menu-logout-on.png") 0 0 no-repeat;
 }
 .menu-tools a{
   background: image-url("ico.menu-tools-off.png") 0 0 no-repeat;
 }
+.menu-tools a.active,
 .menu-tools a:hover{
   background: image-url("ico.menu-tools-on.png") 0 0 no-repeat;
 }
 .menu-notif a{
   background: image-url("ico.menu-notif-off.png") 0 0 no-repeat;
 }
+.menu-notif a.active,
 .menu-notif a:hover{
   background: image-url("ico.menu-notif-on.png") 0 0 no-repeat;
 }
 .menu-notif a.claim{
   background: image-url("ico.menu-notif-claim-off.png") 0 0 no-repeat;
 }
+.menu-notif a.claim.active,
 .menu-notif a.claim:hover{
   background: image-url("ico.menu-notif-claim-on.png") 0 0 no-repeat;
 }
@@ -375,6 +400,7 @@ header & menu
 .menu-profile a{
   background: image-url("ico.menu-profile-off.png") 0 0 no-repeat;
 }
+.menu-profile a.active,
 .menu-profile a:hover{
   background: image-url("ico.menu-profile-on.png") 0 0 no-repeat;
 }
@@ -414,9 +440,19 @@ input.button{
   border-radius:3px;
   text-transform:uppercase;
   margin-bottom:1em;
+  cursor:pointer;
+  cursor:hand;
 }
-
-
+.button:hover,
+a.button:hover,
+input.button:hover{
+  background: #269283;
+}
+.buttonbox{
+  border:0;
+  clear:both;
+  padding:1em 0;
+}
 /* -----------------------------------
 columns
 ----------------------------------- */
@@ -477,12 +513,18 @@ layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 /*
 elementos
 */
-.intro,
+.intro {
+  margin:0;
+  padding-bottom:2em;
+}
 .login-box{
   margin:0;
 }
 .intro p{
   padding:0 4%;
+}
+.intro .buttonbox{
+  padding:1em 4%;
 }
 .menu ul li{
   display:none;
@@ -499,7 +541,8 @@ font sizes
 .button,
 .login-box form input,
 .login-box form div.remember label,
-.footer-contact p{
+.footer-contact p,
+.footer .languages a{
   font-size:1.2em;
 }
 .content .login-box p,
@@ -570,12 +613,18 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin:0;
+    padding-bottom:2em;
+  }
   .login-box{
     margin:0;
   }
   .intro p{
     padding:0 4%;
+  }
+  .intro .buttonbox{
+    padding:1em 4%;
   }
   .menu ul li{
     display:none;
@@ -593,7 +642,8 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .button,
   .login-box form input,
   .login-box form div.remember label,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.2em;
   }
   .content .login-box p,
@@ -658,12 +708,18 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin:0;
+    padding-bottom:2em;
+  }
   .login-box{
     margin:0;
   }
   .intro p{
     padding:0 4%;
+  }
+  .intro .buttonbox{
+    padding:1em 4%;
   }
   .menu ul li{
     display:block;
@@ -679,7 +735,8 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .button,
   .login-box form input,
   .login-box form div.remember label,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.3em;
   }
   .content .login-box p,
@@ -744,7 +801,10 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin-top:3em;
+    padding-bottom:2em;
+  }
   .login-box{
     margin-top:3em;
   }
@@ -758,6 +818,12 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .intro p{
     padding:0 2.5% 0 25%;
+  }
+  .intro a.intro-indent{
+    margin: 0 2.5% 0 25%;
+  }
+  .intro .buttonbox {
+    padding:1em 0;
   }
   .menu ul li{
     display:block;
@@ -773,7 +839,8 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .button,
   .login-box form input,
   .login-box form div.remember label,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.3em;
   }
   .content .login-box p,
@@ -840,20 +907,24 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   /*
   elementos
   */
-  .intro,
+  .intro{
+    margin-top:3em;
+    padding-bottom:2em;
+  }
   .login-box{
     margin-top:3em;
   }
   .intro:before{
-    display: inline-block;
-    margin: 0 .1em;
-    content: image-url("ico.ropes-white.png");
-    position:absolute;
-    top: 2em;
     left: 1.5em;
   }
   .intro p{
     padding:0 2.5% 0 25%;
+  }
+  .intro a.intro-indent{
+    margin:0 2.5% 0 25%
+  }
+  .intro .buttonbox{
+    padding:1em 0;
   }
   .menu ul li{
     display:block;
@@ -871,7 +942,8 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .login-box form input,
   .login-box form div.remember label,
   .footer ul li a,
-  .footer-contact p{
+  .footer-contact p,
+  .footer .languages a{
     font-size:1.4em;
   }
   .content .login-box p,
