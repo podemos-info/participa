@@ -1,6 +1,6 @@
 <% @title ||= t("devise.titles.sign_in") %>
 
-<div class="content people-bg">
+<div class="people-bg">
   <div class="content-content-home">
 
     <div class="row">
@@ -49,6 +49,9 @@
           <%# TODO: Add total %>
           <p class="total">Ya somos <span>108.201</span> personas inscritas.</p>
           <p>Puedes inscribirte para recibir nuestras comunicaciones, colaborar económicamente o dar de alta tus habilidades en nuestra bolsa de trabajo.</p>
+          <div class="buttonbox">
+            <%= link_to "Inscribirme", new_user_registration_path, class: 'button intro-indent clear' %>
+          </div>
         </article><!--.intro-->
 
       </div><!--.col-b-1a3-->
