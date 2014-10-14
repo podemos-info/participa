@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/collaborations/validate/callback', to: 'collaborations#callback', as: 'callback_collaboration'
   
   scope "/(:locale)", locale: /es|ca|eu/ do 
+    get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     scope :validator do
