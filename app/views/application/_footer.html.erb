@@ -8,6 +8,20 @@
           <p>C/ Zurita, 21</p>
           <p>28012 Madrid</p>
           <p><a href="mailto:contacto@podemos.info">contacto@podemos.info</a></p>
+
+          <nav class="languages">
+            <ul>
+              <li class="lang-castellano">
+                <%= link_to "Castellano", url_for(locale: :es), class: current_lang_class(:es) %>
+              </li>
+              <li class="lang-catala">
+                <%= link_to "Català", url_for(locale: :ca), class: current_lang_class(:ca) %>
+              </li>
+              <li class="lang-euskara">
+                <%= link_to "Euskara", url_for(locale: :eu), class: current_lang_class(:eu) %>
+              </li>
+            </ul>
+          </nav>
         </div><%#!--.footer-contact--%>
       </div><%#!--.col-f-1a3--%>
 
