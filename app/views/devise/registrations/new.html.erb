@@ -1,20 +1,20 @@
 <% @title ||= t("devise.titles.sign_up") %>
 
-  <%= content_tag(:h2, t("devise.titles.sign_up")) %>
-  <hr>
 
-  <div class="col-md-5">
-    <div class="well">
-      <p><%= t('podemos.registration.p1') %></p>
-      <p><%= t('podemos.registration.p2') %></p>
-      <p><b><%= t('podemos.registration.p3') %></b></p>
-      <p><%= t('podemos.registration.p4') %></p>
-      <p><%= t('podemos.registration.p5') %></p>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("devise.titles.sign_up")) %>
+
+      <%= info_box do %>
+          <p><%= t('podemos.registration.p1') %></p>
+          <p><%= t('podemos.registration.p2') %></p>
+          <p><b><%= t('podemos.registration.p3') %></b></p>
+          <p><%= t('podemos.registration.p4') %></p>
+          <p><%= t('podemos.registration.p5') %></p>
+      <% end %>
+
+      <%= render partial: "form", locals: {action: "new"} %>
     </div>
   </div>
-  <div class="col-md-5">
-    <%= render partial: "form", locals: {action: "new"} %>
-    <%= render "devise/shared/links" %>
-  </div>
-
 </div>

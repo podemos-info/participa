@@ -36,6 +36,7 @@ gem 'kaminari'
 gem 'pushmeup'
 
 group :development, :test do
+  gem 'pry'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
