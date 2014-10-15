@@ -15,7 +15,7 @@ class VoteControllerTest < ActionController::TestCase
     sign_in @user
     get :create, election_id: e.id
     assert_response :redirect
-    assert response.header["Location"].starts_with? "http://agoravoting.org/agora-core-view/"
+    assert response.header["Location"].starts_with? "https://vota.podemos.info/"
   end
 
 end
