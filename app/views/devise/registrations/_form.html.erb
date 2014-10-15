@@ -55,6 +55,7 @@
       <% end %>
       <%= f.input :born_at,
                   required: true,
+                  placeholder: '',
                   input_html: {required: true},
                   start_year: 1920,
                   end_year: 2015 %>
@@ -133,23 +134,25 @@
     </div>
 
     <% if action == "new" %>
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:terms_of_service) %>
-          <%= field_notice_box %>
-      <% end %>
-      <%= f.label :terms_of_service %>
-      <%= f.check_box :terms_of_service, class: 'checkbox' %>
-    </div>
+        <div class="inputlabel-box">
+          <% if resource.errors.include?(:terms_of_service) %>
+              <%= field_notice_box %>
+          <% end %>
+          <%= f.label :terms_of_service %>
+          <%= f.check_box :terms_of_service, class: 'checkbox' %>
+        </div>
 
-    <small>
-      <h3> <%= t('podemos.registration.terms_of_service.title')%> </h3>
-      <p> <%= t('podemos.registration.terms_of_service.p1')%> </p>
-      <p> <%= t('podemos.registration.terms_of_service.p2_html')%> </p>
-    </small>
-    <%= recaptcha_tags %>
-    <% f.actions class: 'enter' do %>
-        <%= f.action :submit, label: t("devise.buttons.sign_up"), button_html: {class: "button"} %>
-    <% end %>
+        <small>
+          <h3> <%= t('podemos.registration.terms_of_service.title')%> </h3>
+          <p> <%= t('podemos.registration.terms_of_service.p1')%> </p>
+          <p> <%= t('podemos.registration.terms_of_service.p2_html')%> </p>
+        </small>
+
+        <%= recaptcha_tags %>
+
+        <%= f.actions class: 'enter' do %>
+            <%= f.action :submit, label: t("devise.buttons.sign_up"), button_html: {class: "button"} %>
+        <% end %>
     <% end %> <%# if action == "new" %>
 
     <% if action == "edit" %>
