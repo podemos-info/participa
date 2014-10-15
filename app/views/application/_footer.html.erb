@@ -9,7 +9,7 @@
           <p>28012 Madrid</p>
           <p><a href="mailto:contacto@podemos.info">contacto@podemos.info</a></p>
 
-          <nav class="languages">
+          <!-- nav class="languages">
             <ul>
               <li class="lang-castellano">
                 <%= link_to "Castellano", url_for(locale: :es), class: current_lang_class(:es) %>
@@ -21,7 +21,7 @@
                 <%= link_to "Euskara", url_for(locale: :eu), class: current_lang_class(:eu) %>
               </li>
             </ul>
-          </nav>
+          </nav -->
         </div><%#!--.footer-contact--%>
       </div><%#!--.col-f-1a3--%>
 
@@ -31,19 +31,16 @@
           <h2>Conoce</h2>
           <ul>
             <li>
-              <a href="#">Candidatos</a>
+              <a href="http://asambleaciudadana.podemos.info/">Asamblea Ciudadana</a>
             </li>
             <li>
-              <a href="#">Proyecto</a>
+              <a href="http://podemos.info/wordpress/programa/">Programa</a>
             </li>
             <li>
-              <a href="#">Programa</a>
+              <a href="http://podemos.info/wordpress/cuentas-claras/">Cuentas Claras</a> 
             </li>
             <li>
-              <a href="#">Cuentas</a>
-            </li>
-            <li>
-              <a href="#">Equipo</a>
+              <a href="http://podemos.info/circulos/">Círculos</a>
             </li>
           </ul>
         </div><%#!--.footer-conoce--%>
@@ -52,19 +49,16 @@
       <%# TODO: Add proper links %>
       <div class="col-f-6a7">
         <div class="footer-participa">
-          <h2>Participa</h2>
+          <h2>Infórmate</h2>
           <ul>
             <li>
-              <%= link_to "Vota", '#' %>
+              <a href="http://podemos.info/prensa/">Prensa</a>
             </li>
             <li>
-              <%= link_to "Participa", '#' %>
+              <a href="http://podemos.info/demoblog/">DemoBlog</a>
             </li>
             <li>
-              <%= link_to "Círculos Podemos", '#' %>
-            </li>
-            <li>
-              <%= link_to "Contacto", '#' %>
+              <a href="http://podemos.info/blog">Blog Europa</a>
             </li>
           </ul>
         </div><%#!--.footer-participa--%>
@@ -73,16 +67,13 @@
       <%# TODO: Add proper links %>
       <div class="col-f-8a9">
         <div class="footer-informate">
-          <h2>Infórmate</h2>
+          <h2>Colabora</h2>
           <ul>
             <li>
-              <%= link_to "Actos y agenda", '#' %>
+              <a href="http://crowdfunding.podemos.info/">Crowdfunding</a>
             </li>
             <li>
-              <%= link_to "Prensa", '#' %>
-            </li>
-            <li>
-              <%= link_to "Materiales", '#' %>
+              <a href="http://tienda.podemos.info/">Tienda</a>
             </li>
           </ul>
         </div><%#!--.footer-participa--%>
@@ -105,11 +96,6 @@
             <li>
               <%= link_to "https://twitter.com/ahorapodemos" do %>
                 <%= image_tag "ico.social45-twitter-on.png", alt: "Twitter" %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to "https://plus.google.com/+CirculosPodemos/" do %>
-                <%= image_tag "ico.social45-gplus-on.png", alt: "Google +" %>
               <% end %>
             </li>
           </ul>
