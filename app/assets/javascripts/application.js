@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require jquery.sidr.min
 //= require intlTelInput
+//= require cookie_policy
 //= require_tree .
