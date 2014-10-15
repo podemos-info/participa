@@ -29,14 +29,14 @@
             <%= nav_menu_link_to "Herramientas", root_path, [root_path] %>
           </li>
           <li class="menu-notif">
-            <%= nav_menu_link_to "Avisos", admin_notices_path, [admin_notices_path], class: new_notifications_class %>
+            <%= nav_menu_link_to "Avisos", notices_path, [notices_path], class: new_notifications_class %>
           </li>
-          <li class="menu-econ">
+          <%#li class="menu-econ">
             <%# TODO add route %>
-            <%= nav_menu_link_to "Colaboración económica", root_path, [root_path] %>
-          </li>
+            <%#= nav_menu_link_to "Colaboración económica", root_path, [root_path] %>
+          <%#/li%>
           <li class="menu-profile">
-            <%= nav_menu_link_to "Perfil", edit_admin_user_path(current_user), [edit_admin_user_path(current_user)] %>
+            <%= nav_menu_link_to "Perfil", edit_user_registration_path, [edit_user_registration_path] %>
           </li>
           <li class="menu-name">
             <% link_to edit_admin_user_path(current_user) do %>
