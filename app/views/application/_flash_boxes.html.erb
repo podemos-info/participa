@@ -1,0 +1,23 @@
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <% if flash[:error].present? %>
+          <%= error_box "Error" do %>
+              <p><%= flash[:error] %></p>
+          <% end %>
+      <% end %>
+
+      <% if flash[:recaptcha_error].present? %>
+          <%= error_box "Error" do %>
+              <p><%= flash[:recaptcha_error] %></p>
+          <% end %>
+      <% end %>
+
+      <% if flash[:alert].present? %>
+          <%= alert_box "Info" do %>
+              <p><%= flash[:alert] %></p>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
