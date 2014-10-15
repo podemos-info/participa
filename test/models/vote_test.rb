@@ -46,10 +46,10 @@ class VoteTest < ActiveSupport::TestCase
     e = FactoryGirl.create(:election)
     v = Vote.create(user_id: 1, election_id: e.id)
     message = v.generate_message
-    assert_equal(message.split(':')[0], v.voter_id)
-    assert_equal(message.split(':')[1], v.election_id.to_s)
+    assert_equal(message.split('-')[2].split(':')[0], v.voter_id)
+    assert_equal(message.split('-')[1], v.election_id.to_s)
     # es un timestamp que no podemos comprobar mas que sea epoch valido
-    timestamp = message.split(':')[2]
+    timestamp = message.split('-')[2].split(':')[1]
     assert_equal(timestamp.to_i.to_s, timestamp)
   end
 
@@ -61,8 +61,18 @@ class VoteTest < ActiveSupport::TestCase
   test "should .url work" do
     e = FactoryGirl.create(:election)
     v = Vote.create(user_id: 1, election_id: e.id)
-    assert(v.url.starts_with? "http://")
+    assert(v.url.starts_with? "https://")
     assert(v.url.length > 64)
+  end
+
+  test "should .test_url work" do
+    e = FactoryGirl.create(:election)
+    v = Vote.create(user_id: 1, election_id: e.id)
+    assert(v.test_url.starts_with? "https://")
+    assert(v.test_url.length > 64)
+    result = Net::HTTP.get(URI.parse(v.test_url))
+    assert(result.include? "IE10 viewport hack for Surface/desktop Windows 8 bug")
+    # no podemos comprobar más ya que en agoravoting no permiten ejecutarlo sin JS
   end
 
 end
