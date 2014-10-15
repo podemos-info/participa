@@ -1,0 +1,4 @@
+es:
+  application:
+    cookie_policy:
+      cookie_html: "Al navegar por esta página usted está usando cookies, puede leer más sobre nuestra <a href=\"#\">política de navegación</a>."
