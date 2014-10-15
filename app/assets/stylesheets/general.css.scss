@@ -77,6 +77,12 @@ columnas responsive (diseño)
   overflow:hidden;
   margin:0;
 }
+.col-b-4a12{
+  display:block;
+  margin:0;
+  float:right;
+  position:relative;
+}
 
 
 /* -----------------------------------
@@ -102,8 +108,8 @@ general
 .header-content{
   margin: auto;
   width: 96%;
-  padding: 0 2%;
-  max-width: 96em;
+  padding: 0 1%;
+  max-width: 94em;
   position:relative;
   overflow:hidden;
 }
@@ -117,31 +123,31 @@ general
 .content-content{
   margin: auto;
   width: 96%;
-  padding: 0 2%;
-  max-width: 96em;
+  padding: 0 1%;
+  max-width: 94em;
   position:relative;
   overflow:hidden;
 }
 .content-content-home{
   margin: auto;
   width: 96%;
-  padding: 0 2%;
-  max-width: 96em;
+  padding: 0 1%;
+  max-width: 94em;
   position:relative;
   overflow:hidden;
 }
 .footer{
   margin: auto;
   width: 96%;
-  padding: 0 2%;
-  max-width: 96em;
+  padding: 0 1%;
+  max-width: 94em;
   position:relative;
   overflow:hidden;
 }
 .footer-content{
   margin: auto;
   width: 100%;
-  max-width: 96em;
+  max-width: 94em;
   position:relative;
   overflow:hidden;
 }
@@ -453,6 +459,18 @@ input.button:hover{
   clear:both;
   padding:1em 0;
 }
+
+.content-content h2{
+  font-family:Montserrat,Arial,sans-serif;
+  text-transform:uppercase;
+  color:#612d62;
+  margin-bottom:1em;
+}
+.content-content h2 span{
+  color:#666;
+}
+
+
 /* -----------------------------------
 columns
 ----------------------------------- */
@@ -497,6 +515,9 @@ layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   display:none;
 }
 .col-f-10a12{
+  width:100%;
+}
+.col-b-4a12{
   width:100%;
 }
 
@@ -560,6 +581,9 @@ font sizes
 .footer-content h2{
   display:none;
 }
+.content-content h2{
+  font-size:1.6em;
+}
 .footer-content h2.footer-logo{
   display:block;
   font-size:3em;
@@ -598,6 +622,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .col-f-10a12{
     width:50%;
+  }
+  .col-b-4a12{
+    width:100%;
   }
 
   .content-content-home{
@@ -655,6 +682,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
     display:block;
     font-size:1.4em;
   }
+  .content-content h2{
+    font-size:1.6em;
+  }
   .footer-content h2.footer-logo{
     font-size:3em;
     margin-bottom:0.33em;
@@ -693,6 +723,9 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .col-f-10a12{
     width:50%;
+  }
+  .col-b-4a12{
+    width:100%;
   }
 
   .content-content-home{
@@ -749,6 +782,9 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     font-size:1.5em;
     line-height:1em;
   }
+  .content-content h2{
+    font-size:1.8em;
+  }
   .footer-content h2.footer-logo{
     font-size:3em;
     margin-bottom:0.33em;
@@ -786,6 +822,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .col-f-10a12{
     width:50%;
+  }
+  .col-b-4a12{
+    width:75%;
   }
 
   .content-content-home{
@@ -853,6 +892,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     font-size:1.5em;
     line-height:1em;
   }
+  .content-content h2{
+    font-size:2em;
+  }
   .footer-content h2.footer-logo{
     font-size:3em;
     margin-bottom:0.33em;
@@ -891,6 +933,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   }
   .col-f-10a12{
     width:25%;
+  }
+  .col-b-4a12{
+    width:75%;
   }
 
   .content-content-home{
@@ -955,6 +1000,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     display:block;
     font-size:1.8em;
     line-height:1em;
+  }
+  .content-content h2{
+    font-size:2.4em;
   }
   .footer-content h2.footer-logo{
     font-size:4em;

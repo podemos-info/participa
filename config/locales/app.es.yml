@@ -90,9 +90,13 @@ es:
         password: "Contraseña"
         password_confirmation: "Contraseña (repetir)"
         remember_me: "Recordarme"
-        wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
+        wants_newsletter: 'Newsletter'
         terms_of_service: "Acepto las condiciones generales"
         current_password: "Contraseña actual"
+  formtastic:
+    hints:
+      user:
+        wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante."
   podemos:
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
