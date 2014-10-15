@@ -114,14 +114,13 @@ fieldset .inputlabel-box span.no-label{
   float:left;
   border:none;
   color:#612d62;
-  padding:0.8em 0;
-  background:lime;
+  padding:0.55em 0;
 }
 fieldset .inputlabel-box input{
   background:#eaeaea;
   float:left;
   border:none;
-  padding:0.8em 1.5%;
+  padding:0.85em 1.5%;
   color:#555;
 }
 fieldset .inputlabel-box input.input-xl{
@@ -133,12 +132,49 @@ fieldset .inputlabel-box input.input-m{
 fieldset .inputlabel-box input.input-s{
   width:21%;
 }
-fieldset .inputlabel-box input.checkbox{
+fieldset .inputlabel-box .input-box{
+  float:left;
+  border:none;
+  width:63%;
+}
+fieldset .inputlabel-box .checkbox-box{
+  float:left;
+  border:none;
+  width:63%;
+}
+fieldset .inputlabel-box .input-box p{
+  padding-top:0.5em;
+  float:left;
+  border:none;
+}
+fieldset .inputlabel-box .input-box input.input-xl{
+  width:99%;
+}
+fieldset .inputlabel-box .input-box input.input-m{
+  width:62%;
+  margin-right:2%;
+}
+fieldset .inputlabel-box .input-box input.input-s{
+  width:29%;
+  margin-right:2%;
+}
+fieldset .inputlabel-box .input-box p.text-xl{
+  width:90%;
+}
+fieldset .inputlabel-box .input-box p.text-m{
+  width:66%;
+}
+fieldset .inputlabel-box .input-box p.text-s{
+  width:33%;
+}
+
+fieldset .inputlabel-box input.checkbox,
+fieldset .inputlabel-box input.radio{
   background:#fff;
   float:left;
   border:none;
   padding:0;
-  margin:1em 0.9% 1em 0;
+  margin:1em 0.5em 1em 0;
   width:auto;
 }
 fieldset .inputlabel-box p{
@@ -183,6 +219,42 @@ fieldset .alert-nexttolabel .alert ico{
   height:2.2em;
 }
 
+fieldset .inputlabel-box .rb-unit{
+  float:left;
+}
+fieldset .inputlabel-box .rb-unit input{
+  float:left;
+}
+fieldset .inputlabel-box .rb-unit label{
+  float:left;
+  display:block;
+  width:auto;
+  white-space:nowrap;
+}
+.rb-box-1col .rb-unit{
+  width:63%;
+}
+.rb-box-2col .rb-unit{
+  width:29.5%;
+  margin-right:2%;
+}
+.rb-box-3col .rb-unit{
+  width:19%;
+  margin-right:2%;
+}
+.rb-box-4col .rb-unit{
+  width:13.75%;
+  margin-right:2%;
+}
+.rb-box-5col .rb-unit{
+  width:12.6%;
+  margin-right:2%;
+}
+.rb-box-6col .rb-unit{
+  width:10.5%;
+  margin-right:2%;
+}
+
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------
 layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -211,6 +283,9 @@ font sizes
 }
 .alert-nexttolabel p{
   font-size:1.2em;
+}
+.input-box p {
+  font-size: 1em;
 }
 legend span{
   font-size:1.6em;
@@ -249,6 +324,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .alert-nexttolabel p{
     font-size:1.2em;
+  }
+  .input-box p {
+    font-size: 1.1em;
   }
   legend span{
     font-size:1.6em;
@@ -289,6 +367,9 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .alert-nexttolabel p{
     font-size:1.3em;
   }
+  .input-box p {
+    font-size: 1.1em;
+  }
   legend span{
     font-size:1.7em;
   }
@@ -327,6 +408,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .alert-nexttolabel p{
     font-size:1.4em;
   }
+  .input-box p {
+    font-size: 1.2em;
+  }
   legend span{
     font-size:1.8em;
   }
@@ -364,6 +448,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   }
   .alert-nexttolabel p{
     font-size:1.4em;
+  }
+  .input-box p {
+    font-size: 1.2em;
   }
   legend span{
     font-size:2em;
