@@ -35,6 +35,7 @@ gem 'aws-ses', '~> 0.5.0', :require => 'aws/ses'
 gem 'kaminari'
 gem 'pushmeup'
 gem 'date_validator'
+gem 'paranoia', '~> 2.0'
 
 group :development, :test do
   gem 'pry'
@@ -48,3 +49,4 @@ group :development, :test do
   gem 'rails-perftest'
   gem 'ruby-prof'
 end
+
