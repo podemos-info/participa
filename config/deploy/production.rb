@@ -1,6 +1,6 @@
-role :app, %w{capistrano@juntos.podemos.info}
-role :web, %w{capistrano@juntos.podemos.info}
-role :db,  %w{capistrano@juntos.podemos.info}
+role :app, %w{capistrano@participa.podemos.info}
+role :web, %w{capistrano@participa.podemos.info}
+role :db,  %w{capistrano@participa.podemos.info}
 
 set :branch, :master
 set :deploy_to, '/var/www/participa.podemos.info'

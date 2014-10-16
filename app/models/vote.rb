@@ -14,7 +14,7 @@ class Vote < ActiveRecord::Base
   end
 
   def generate_message
-    "#{self.voter_id}:#{self.election.agora_election_id}:#{Time.now.to_i}"
+    "voter-#{self.election.agora_election_id}-#{self.voter_id}:#{Time.now.to_i}"
   end
 
   def generate_hash(message)
@@ -26,7 +26,14 @@ class Vote < ActiveRecord::Base
     key = Rails.application.secrets.agora["shared_key"]
     message =  self.generate_message
     hash = self.generate_hash message
-    "http://agoravoting.org/agora-core-view/dist#/test_hmac/#{key}/#{hash}/#{message}"
+    "https://vota.podemos.info/#/election/#{self.election.agora_election_id}/vote/#{hash}/#{message}"
+  end
+
+  def test_url
+    key = Rails.application.secrets.agora["shared_key"]
+    message =  self.generate_message
+    hash = self.generate_hash message
+    "https://vota.podemos.info/#/test_hmac/#{key}/#{hash}/#{message}"
   end
 
   private

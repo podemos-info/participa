@@ -1,37 +1,34 @@
-<% if Election.actived.count > 0 %>
-  <%= render 'elections' %>
-<% end %>
-
-<h1>Herramientas</h1>
-<div class="row">
-  <div class="col-md-4 panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-heading">Plaza Podemos (Reddit)</h3>
-    </div>
-    <div class="panel-body">
-      El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos, todo y mucho más. 
-      <hr>
-      <%= link_to "Ir", "http://reddit.com/r/podemos", class: "btn btn-lg btn-primary", target: "_blank" %>
-    </div>
-  </div>
-  <div class="col-md-4 panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-heading">Agora Voting</h3>
-    </div>
-    <div class="panel-body">
-      El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos, todo y mucho más. 
-      <hr>
-      <%= link_to "Ir", "https://agoravoting.com/", class: "btn btn-lg btn-primary", target: "_blank" %>
-    </div>
-  </div>
-  <div class="col-md-4 panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-heading">AppGree</h3>
-    </div>
-    <div class="panel-body">
-      El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos, todo y mucho más. 
-      <hr>
-      <%= link_to "Descargar", "http://www.appgree.com/descarga-appgree/", class: "btn btn-lg btn-primary", target: "_blank" %>
+<% content_for :title, "Herramientas de participación ciudadana" %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
+      <% if Election.actived.count > 0 %>
+        <%= render 'elections' %>
+      <% end %>
+      <div class="row">
+        <div class="well">
+          <h2>Plaza Podemos (Reddit)</h2>
+          <p>
+          El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos, todo y mucho más. 
+          </p>
+          <%= link_to "Ir a Plaza Podemos", "http://reddit.com/r/podemos", class: "button", target: "_blank" %>
+        </div>
+        <div class="well">
+          <h2>Agora Voting</h2>
+          <p>
+          El lugar de votación de Podemos.
+          </p>
+          <%= link_to "Ir a Agora Voting", "https://agoravoting.com/", class: "button", target: "_blank" %>
+        </div>
+        <div class="well">
+          <h2>AppGree</h2>
+          <p>
+          La aplicación para opinar y proponer en tiempo real.
+          </p>
+          <%= link_to "Descargar APP", "http://www.appgree.com/descarga-appgree/", class: "button", target: "_blank" %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

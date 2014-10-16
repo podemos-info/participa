@@ -34,8 +34,10 @@ gem 'resque-pool'
 gem 'aws-ses', '~> 0.5.0', :require => 'aws/ses'
 gem 'kaminari'
 gem 'pushmeup'
+gem 'date_validator'
 
 group :development, :test do
+  gem 'pry'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'

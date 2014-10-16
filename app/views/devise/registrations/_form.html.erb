@@ -1,51 +1,184 @@
-<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.semantic_errors *f.object.errors.keys %>
-  <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true} %>
-  <%= f.input :last_name, required: true, input_html: {required: true} %>
-  <%= f.input :document_type, required: true, as: :radio, collection: User::DOCUMENTS_TYPE, input_html: {required: true, class: 'js-registration-document'} %>
-  <div class="js-registration-document-wrapper hidden">
-    <%= f.input :document_vatid, required: true, input_html: {required: true} %>
-  </div>
-  <p class="js-registration-document-passport help-block hidden">
-    <%= t('podemos.registration.passport') %>
-  </p>
-  <%= f.input :born_at, required: true, input_html: {required: true}, start_year: 1920, end_year: 2015 %>
-  <%= f.input :email, required: true, input_html: {required: true} %>
-  <% if action == "new" %>
-    <%= f.input :password, required: true, input_html: {required: true} %>
-    <%= f.input :password_confirmation, required: true, input_html: {required: true} %>
-  <% end %>
-  <%= f.inputs t("podemos.home_address") do %>
-  <%= f.input :address, required: true, input_html: {required: true} %>
-  <div class="row">
-    <div class="col-md-6">
-      <%= f.input :town, required: true, input_html: {required: true} %>
-      <%= f.input :postal_code, required: true, input_html: {required: true} %>
+<% if resource.errors.present? %>
+    <%= error_box "No se pudo salvar" do %>
+        <p>Ocurrieron los siguientes errores</p>
+        <% resource.errors.each do |attr, msg| %>
+          <p><b><%= I18n.t "activerecord.attributes.user." + attr.to_s %></b>: <%= msg %></p>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {novalidate: true}) do |f| %>
+  <fieldset>
+    <legend class="invisible">
+      <span>Completar perfil</span>
+    </legend>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:first_name) %>
+        <%= field_notice_box %>
+      <% end %>
+      <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true, class: 'input-xl'} %>
+    </div><%#--.inputlabel-box--%>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:last_name) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :last_name, required: true, input_html: {required: true, class: 'input-xl'} %>
+    </div><%#--.inputlabel-box--%>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:document_type) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :document_type,
+                  required: true,
+                  as: :select,
+                  collection: User::DOCUMENTS_TYPE,
+                  input_html: {required: true, class: 'js-registration-document'} %>
     </div>
-    <div class="col-md-6">
-      <div class="js-registration-province hidden"><%= f.object.province %></div>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:document_vatid) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :document_vatid, required: true, input_html: {required: true, class: 'input-s'} %>
+
+      <p class="js-registration-document-passport text-m invisible">
+        <%= t('podemos.registration.passport') %>
+      </p>
+    </div>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:born_at) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :born_at,
+                  as: :string,
+                  required: true,
+                  placeholder: 'dd/mm/aaaa',
+                  input_html: { required: true, class: 'input-s', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
+                  start_year: 1920,
+                  end_year: 2015 %>
+      <p class="text-m">
+     Debes poner tu fecha nacimiento con el formato dd/mm/aaaa, es decir para el 15 de Diciembre de 1978 sería 15/12/1978
+      </p>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><span>Domicilio</span></legend>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:address) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :address, required: true, input_html: {required: true, class: 'input-xl'} %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:town) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :town, required: true, input_html: {required: true, class: 'input-xl'} %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:postal_code) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :postal_code, required: true, input_html: {required: true, class: 'input-s'} %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:province) %>
+          <%= field_notice_box %>
+      <% end %>
+      <div class="js-registration-province invisible"><%= f.object.province %></div>
       <%= render partial: 'subregion_select', locals: {parent_region: f.object.country, subregion: f.object.province} %>
+    </div>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:country) %>
+          <%= field_notice_box %>
+      <% end %>
       <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
     </div>
-  </div>
-  <% end %>
-  <%= f.input :wants_newsletter, required: true, input_html: {checked: 'checked'} %>
-  <% if action == "new" %>
-    <%= f.input :terms_of_service, as: :boolean, required: true %>
-    <small>
-    <h3> <%= t('podemos.registration.terms_of_service.title')%> </h3>
-    <p> <%= t('podemos.registration.terms_of_service.p1')%> </p>
-    <p> <%= t('podemos.registration.terms_of_service.p2_html')%> </p>
-    </small>
-    <%= recaptcha_tags %>
-    <%= f.actions do %>
-      <%= f.action :submit, label: t("devise.buttons.sign_up"), button_html: {class: "btn btn-primary"} %>
+  </fieldset>
+
+
+  <fieldset>
+
+    <% if action == "new" %>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:email) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :email, required: true, input_html: {required: true, class: 'input-m'} %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:password) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :password, required: true, input_html: {required: true, class: 'input-m'} %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:password_confirmation) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :password_confirmation, required: true, input_html: {required: true, class: 'input-m'} %>
+    </div>
     <% end %>
-  <% end %>
-  <% if action == "edit" %>
-    <%= f.input :current_password, required: true, hint: t("devise.hints.current_password") %>
-    <%= f.actions do %>
-      <%= f.action :submit, button_html: {class: "btn btn-primary"} %>
-    <% end %>
-  <% end %>
+    <!-- div class="inputlabel-box">
+      <% if resource.errors.include?(:wants_newsletter) %>
+          <%= field_notice_box %>
+      <% end %>
+      <div class="input-box">
+        <%= f.label :wants_newsletter %>
+        <%= f.check_box :wants_newsletter, checked: true, class: 'checkbox' %>
+        <p class="text-xl">Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante</p>
+      </div>
+    </div -->
+
+    <% if action == "new" %>
+
+        <small>
+          <p> <%= t('podemos.registration.terms_of_service.p1_html')%> </p>
+        </small>
+
+        <div class="inputlabel-box">
+          <% if resource.errors.include?(:terms_of_service) %>
+              <%= field_notice_box %>
+          <% end %>
+          <%= f.label :terms_of_service %>
+          <%= f.check_box :terms_of_service, class: 'checkbox' %>
+        </div>
+
+        <div class="inputlabel-box">
+          <% if resource.errors.include?(:over_18) %>
+              <%= field_notice_box %>
+          <% end %>
+          <%= f.label :over_18 %>
+          <%= f.check_box :over_18, class: 'checkbox' %>
+        </div>
+
+        <%= recaptcha_tags %>
+
+        <%= f.actions class: 'enter' do %>
+            <%= f.action :submit, label: t("devise.buttons.sign_up"), button_html: {class: "button"} %>
+        <% end %>
+    <% end %> <%# if action == "new" %>
+
+    <% if action == "edit" %>
+        <div class="inputlabel-box">
+          <% if resource.errors.include?(:current_password) %>
+              <%= field_notice_box %>
+          <% end %>
+          <%= f.input :current_password, required: true %>
+          <p class="text-m">
+            <%= t("devise.hints.current_password") %>
+          </p>
+        </div>
+        <%= f.actions class: 'enter' do %>
+            <%= f.action :submit, button_html: {class: "button"} %>
+        <% end %>
+    <% end %><%# if action == "edit" %>
+  </fieldset>
 <% end %>

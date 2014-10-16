@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require bootstrap-sprockets
+//= require jquery.sidr.min
 //= require intlTelInput
+//= require select2
+//= require cookie_policy
+//= require bootstrap
 //= require_tree .

@@ -1,17 +1,17 @@
-<% @title ||= t('podemos.legacy.password.title') %>
+<% content_tag :title, t('podemos.legacy.password.title') %>
 
-<div class="col-md-5">
-  <%= content_tag(:h2, t('podemos.legacy.password.title')) %>
-  <hr>
-  <div class="well">
-    <%= t('podemos.legacy.password.explain') %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t('podemos.legacy.password.title')) %>
+      <%= semantic_form_for(current_user, url: update_legacy_password_path, html: {method: :post}) do |f| %>
+        <%= f.semantic_errors *f.object.errors.keys %>
+        <%= f.input :password, label: t("devise.labels.new_password"), input_html: {autofocus: true} %>
+        <%= f.input :password_confirmation, label: t("devise.labels.new_password_confirmation"), required: true %>
+        <%= f.actions do %>
+          <%= f.action :submit, label: t("devise.buttons.change_password"), button_html: {class: 'button'} %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-  <%= semantic_form_for(current_user, url: update_legacy_password_path, html: {method: :post}) do |f| %>
-      <%= f.semantic_errors *f.object.errors.keys %>
-    <%= f.input :password, label: t("devise.labels.new_password"), input_html: {autofocus: true} %>
-    <%= f.input :password_confirmation, label: t("devise.labels.new_password_confirmation"), required: true %>
-    <%= f.actions do %>
-      <%= f.action :submit, label: t("devise.buttons.change_password"), button_html: {class: 'btn btn-primary'} %>
-    <% end %>
-  <% end %>
 </div>

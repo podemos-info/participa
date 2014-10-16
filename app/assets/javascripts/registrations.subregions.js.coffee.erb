@@ -9,12 +9,17 @@ subregion_change = ($country_select) ->
     if ( $('.js-registration-province').length > 1 )
       province = $('.js-registration-province').html()
       $('#user_province').val(province)
+
+    $('#user_province').select2({
+      minimumResultsForSearch: -1,
+      width: 'resolve'
+    })
   )
 
 
 init_registrations_subregions = () ->
   # change to subregion on first load
-#  subregion_change($('select.js-registration-country'))
+  # subregion_change($('select.js-registration-country'))
 
   # change to subregion on country change
   $('select.js-registration-country').change (event) ->
