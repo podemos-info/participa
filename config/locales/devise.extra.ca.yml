@@ -1,6 +1,6 @@
 # adicionales a devise
 
-es:
+ca:
   devise:
     buttons:
       sign_in: "Iniciar sesión"

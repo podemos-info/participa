@@ -4,20 +4,17 @@
   <div class="row">
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("devise.titles.forgot_password")) %>
-
       <%= semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
           <fieldset>
             <legend class="invisible">
               <span>Recuperar contraseña</span>
             </legend>
-
             <div class="inputlabel-box">
               <% if resource.errors.include?(:email) %>
                 <%= field_notice_box %>
               <% end %>
               <%= f.input :email, input_html: {autofocus: true, class: 'input-m'} %>
             </div>
-
             <%= f.actions class: 'enter' do %>
                 <%= f.action :submit, label: t("devise.buttons.reset_password"), button_html: {class: "button"} %>
             <% end %>
