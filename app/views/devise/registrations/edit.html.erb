@@ -1,34 +1,25 @@
-<% @title ||= t("devise.titles.my_account", 
-  model: resource_name.to_s.humanize, 
-  downcase_model: resource_name.to_s.humanize.downcase) %>
+<%= content_for :title, t("podemos.user.personal_data") %>
+<br>
+<br>
 
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
-      <ul class="nav nav-pills">
-        <li class="active"><%= link_to t("podemos.user.general_data"), "#" %></li>
-        <li><%= link_to t("podemos.user.collaborations"), new_or_edit_collaboration_path(current_user.collaboration) %></li>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#personal-data" role="tab" data-toggle="tab"><%= t("podemos.user.personal_data")%></a></li>
+        <li><a href="#change-password" role="tab" data-toggle="tab"><%=t("podemos.user.change_password") %></a></li>
+        <li><a href="#change-email" role="tab" data-toggle="tab"><%=t("podemos.user.change_email") %></a></li>
+        <li><a href="#change-phone" role="tab" data-toggle="tab"><%=t("podemos.user.change_phone") %></a></li>
+        <li><a href="#cancel-account" role="tab" data-toggle="tab"><%= t("podemos.user.cancel_account") %></a></li>
       </ul>
-      <hr>
-      <div class="row">
-        <div class="col-md-12">
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="#personal-data" role="tab" data-toggle="tab"><%= t("podemos.user.personal_data")%></a></li>
-            <li><a href="#change-password" role="tab" data-toggle="tab"><%=t("podemos.user.change_password") %></a></li>
-            <li><a href="#change-email" role="tab" data-toggle="tab"><%=t("podemos.user.change_email") %></a></li>
-            <li><a href="#change-phone" role="tab" data-toggle="tab"><%=t("podemos.user.change_phone") %></a></li>
-            <li><a href="#cancel-account" role="tab" data-toggle="tab"><%= t("podemos.user.cancel_account") %></a></li>
-          </ul>
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div class="tab-pane active" id="personal-data"> <%= render partial: 'personal_data' %> </div>
-            <div class="tab-pane" id="change-password"> <%= render partial: 'change_password' %> </div>
-            <div class="tab-pane" id="change-email"> <%= render partial: 'change_email' %> </div>
-            <div class="tab-pane" id="change-phone"> <%= render partial: 'change_phone' %> </div>
-            <div class="tab-pane" id="cancel-account"> <%= render partial: 'cancel_account' %> </div>
-          </div>
-        </div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="personal-data"> <%= render partial: 'personal_data' %> </div>
+        <div class="tab-pane" id="change-password"> <%= render partial: 'change_password' %> </div>
+        <div class="tab-pane" id="change-email"> <%= render partial: 'change_email' %> </div>
+        <div class="tab-pane" id="change-phone"> <%= render partial: 'change_phone' %> </div>
+        <div class="tab-pane" id="cancel-account"> <%= render partial: 'cancel_account' %> </div>
       </div>
     </div>
   </div>

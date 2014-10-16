@@ -2,10 +2,12 @@
 
 es:
   devise:
+    registrations: 
+      ok: "Te has registrado correctamente. Recibirás un correo que tendrás que confirmar para continuar con el proceso. Revisa tu correo."
     buttons:
       sign_in: "Iniciar sesión"
       sign_up: "Registrarse"
-      cancel_account: "Borrar mi cuenta"
+      cancel_account: "Darme de baja"
       reset_password: "Enviarme las instrucciones por correo electrónico"
       change_password: "Cambiar contraseña"
       confirmation_instructions: "Reenviar instrucciones de confirmación"

@@ -10,7 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
     else
       build_resource(sign_up_params)
       clean_up_passwords(resource)
-      flash.now[:alert] = t('simple_captcha.invalid')
       render :new
     end
   end
@@ -19,12 +18,11 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :address, :town, :province, :postal_code, :country)
-
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :postal_code, :country)
   end
 
   def account_update_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :document_type, :document_vatid, :address, :town, :province, :postal_code, :country)
-
   end
+
 end

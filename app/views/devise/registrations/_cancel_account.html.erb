@@ -1,14 +1,15 @@
-<div class="col-md-5">
-  <%= content_tag(:h2, t("podemos.user.cancel_account")) %>
-  <hr>
-  <p> <%= t('podemos.user.cancel_account_explain') %> </p>
-  <p><%= 
-  button_to(
-    t("devise.buttons.cancel_account"), 
-    registration_path(resource_name), data: {
+<div class="content-content cols">
+  <div class="row">
+    <%= content_tag(:h2, t("podemos.user.cancel_account")) %>
+    <p> <%= t('podemos.user.cancel_account_explain_html') %> </p>
+    <p><%= 
+    button_to(
+      t("devise.buttons.cancel_account"), 
+      registration_path(resource_name), data: {
       confirm: t("devise.messages.cancel_account_confirmation"), 
       method: :delete
-    }, class: "btn btn-danger"
-  )
-  %></p>
+    }, class: "button"
+    )
+    %></p>
+  </div>
 </div>

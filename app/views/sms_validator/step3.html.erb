@@ -1,14 +1,16 @@
+<% content_for :title, t('podemos.valid.phone.p5') %>
 <%= render partial: "steps", locals: {step: 3} %>
 
-<div class="well col-md-6 col-md-offset-3">
-  <%= semantic_form_for(current_user, url: sms_validator_valid_path, html: {method: :post}) do |f| %>
-    <p><%= t('podemos.valid.phone.p5') %></p>
-    <hr>
-    <%= f.input :sms_user_token_given, label: t('podemos.valid.phone.token') %>
-    <hr>
+<div class="content-content cols">
+  <div class="well col-md-6 col-md-offset-3">
+    <%= semantic_form_for(current_user, url: sms_validator_valid_path, html: {method: :post}) do |f| %>
+      <p><%= t('podemos.valid.phone.p5') %></p>
+      <%= f.input :sms_user_token_given, label: t('podemos.valid.phone.token') %>
+      <br>
 
-    <%= f.actions do %>
-      <%= f.action :submit, label: t('podemos.valid.phone.button'), button_html: {class: "btn btn-primary btn-lg"} %>
+      <%= f.actions do %>
+        <%= f.action :submit, label: t('podemos.valid.phone.button'), button_html: {class: "button"} %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>

@@ -6,7 +6,11 @@
               <p><%= flash[:error] %></p>
           <% end %>
       <% end %>
-
+      <% if flash[:notice].present? %>
+          <%= error_box "Info" do %>
+              <p><%= flash[:notice] %></p>
+          <% end %>
+      <% end %>
       <% if flash[:recaptcha_error].present? %>
           <%= error_box "Error" do %>
               <p><%= flash[:recaptcha_error] %></p>
