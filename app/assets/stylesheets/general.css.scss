@@ -136,6 +136,13 @@ general
   position:relative;
   overflow:hidden;
 }
+.content-text{
+  width: 100%;
+  clear:both;
+  float:none;
+  overflow:hidden;
+  padding:1em 0;
+}
 .footer{
   margin: auto;
   width: 96%;
@@ -433,6 +440,40 @@ header & menu
 
 
 /* -----------------------------------
+submenu
+----------------------------------- */
+
+.submenu{
+  margin:0 0 1.5em;
+}
+.submenu li{
+  font-family:Montserrat,Arial,sans-serif;
+  text-transform:uppercase;
+  float:left;
+  margin:0 0.5em 0.5em 0;
+}
+.submenu li a{
+  display:inline-block;
+  padding:0.5em 0.75em;
+  background:#d7cad8;
+  color:#612d62;
+}
+.submenu li a:hover{
+  background:#8e618c;
+  color:#d7cad8;
+}
+.submenu li.active{
+  text-transform:Montserrat,Arial,sans-serif;
+  background:#d7cad8;
+  float:left;
+}
+.submenu li.active a{
+  background:#612d62;
+  color:#fff;
+}
+
+
+/* -----------------------------------
 body elements
 ----------------------------------- */
 
@@ -454,6 +495,26 @@ a.button:hover,
 input.button:hover{
   background: #269283;
 }
+
+.button-danger,
+a.button-danger,
+input.button-danger{
+  padding:1em 3em;
+  background:#e96161;
+  color:#fff;
+  border:0;
+  border-radius:3px;
+  text-transform:uppercase;
+  margin-bottom:1em;
+  cursor:pointer;
+  cursor:hand;
+}
+.button-danger:hover,
+a.button-danger:hover,
+input.button-danger:hover{
+  background:#e21111;
+}
+
 .buttonbox{
   border:0;
   clear:both;
@@ -563,7 +624,8 @@ font sizes
 .login-box form input,
 .login-box form div.remember label,
 .footer-contact p,
-.footer .languages a{
+.footer .languages a,
+.submenu li a{
   font-size:1.2em;
 }
 .content .login-box p,
@@ -670,7 +732,8 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .login-box form input,
   .login-box form div.remember label,
   .footer-contact p,
-  .footer .languages a{
+  .footer .languages a,
+  .submenu li a{
     font-size:1.2em;
   }
   .content .login-box p,
@@ -769,7 +832,8 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .login-box form input,
   .login-box form div.remember label,
   .footer-contact p,
-  .footer .languages a{
+  .footer .languages a,
+  .submenu li a{
     font-size:1.3em;
   }
   .content .login-box p,
@@ -879,7 +943,8 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .login-box form input,
   .login-box form div.remember label,
   .footer-contact p,
-  .footer .languages a{
+  .footer .languages a,
+  .submenu li a{
     font-size:1.3em;
   }
   .content .login-box p,
@@ -988,7 +1053,8 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .login-box form div.remember label,
   .footer ul li a,
   .footer-contact p,
-  .footer .languages a{
+  .footer .languages a,
+  .submenu li a{
     font-size:1.4em;
   }
   .content .login-box p,
