@@ -1,37 +1,38 @@
-<div class="content-content cols">
-  <br>
-  <div class="row">
-    <%= content_tag(:h2, t("podemos.user.change_email"))%>
-    <p> <%= t('podemos.user.change_email_explain') %> </p>
-    <% if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
-      <div class="alert alert-info"><%= t("devise.messages.waiting_confirmation", email: resource.unconfirmed_email) %></div>
+<%= content_tag(:h2, t("podemos.user.change_email"))%>
+
+<p> <%= t('podemos.user.change_email_explain') %> </p>
+
+<% if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
+    <%= alert_box "" do %>
+        <%= t("devise.messages.waiting_confirmation", email: resource.unconfirmed_email) %>
     <% end %>
-    <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
-      <fieldset>
+<% end %>
+
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+    <fieldset>
+      <legend class="invisible">
+        <span>Cambiar correo</span>
+      </legend>
 
       <div class="inputlabel-box">
         <% if resource.errors.include?(:email) %>
-          <%= field_notice_box %>
+            <%= field_notice_box %>
         <% end %>
-        <%= f.input :email, input_html: {autocomplete: "off", class: 'input-m'}, label: "Correo electrónico nuevo" %>
+        <%= f.input :email, input_html: {class: 'input-m'} %>
       </div>
 
       <div class="inputlabel-box">
-        <% if resource.errors.include?(:urrent_password) %>
-          <%= field_notice_box %>
+        <% if resource.errors.include?(:current_password) %>
+            <%= field_notice_box %>
         <% end %>
         <%= f.input :current_password,
-          required: true,
-          input_html: {class: 'input-m'} %>
-          <p class="text-m">
-            <%= t("devise.hints.current_password") %>
-          </p>
+                    required: true,
+                    hint: t("devise.hints.current_password"),
+                    input_html: { class: 'input-m' } %>
       </div>
 
-          <%= f.actions do %>
-            <%= f.action :submit, label: t("podemos.user.change_email"), button_html: {class: "button"} %>
-          <% end %>
-        </fieldset>
-        <% end %>
-      </div>
-    </div>
+      <%= f.actions class: 'enter' do %>
+          <%= f.action :submit, label: t("podemos.user.change_email"), button_html: {class: "button"} %>
+      <% end %>
+    </fieldset>
+<% end %>
