@@ -44,17 +44,22 @@ box info & alerts
   padding:1.5em 3em 1.5em 9em;
   margin:0 0 1.5em
 }
-.box-info:before{
-  display: inline-block;
-  margin: 0;
-  content:image-url("ico.ropes-purple.png");
-  position:absolute;
-  top: -0.5em;
-  left: -0.5em;
-}
 .box-info p{
   color:#612d62;
 }
+
+.box-notif{
+  background:#d7cad8;
+  padding:1.5em 3em 1.5em 1.5em;
+  margin:0 0 1.5em
+}
+.box-notif p{
+  margin-bottom:0.3em;
+}
+.box-notif p.date span{
+  font-size:0.8em;
+}
+
 
 .box .box-close{
   position:absolute;
@@ -188,7 +193,7 @@ fieldset .inputlabel-box p{
 fieldset .alert-nexttolabel{
   display:inline-block;
   background:#d7cad8;
-  width:25%;
+  width:30%;
   clear:right;
   float:none;
   position:absolute;
@@ -202,21 +207,26 @@ fieldset .alert-nexttolabel .alert-ico{
   background:#612d62 image-url("ico.alert-exclam.png") 50% 50% no-repeat;
   display:inline-block;
   float:right;
+  position:relative;
+}
+fieldset .alert-nexttolabel .alert-ico span{
+  background:url(../imgs/bg.purple-tip-h.png) 50% 50% no-repeat;
+  display:block;
+  width:1.1em;
+  height:2.2em;
+  position:absolute;
+  top:30%;
+  right:-1em;
 }
 fieldset .alert-nexttolabel p{
-  background:red;
   color:#612d62;
-  width:80%;
+  margin:1.1em 0 0.5em 3%;
+  width:75%;
   text-align:center;
   float:left;
 }
 fieldset .alert-nexttolabel p:last-child{
   margin:0;
-}
-fieldset .alert-nexttolabel .alert ico{
-  display:block;
-  width:1.1em;
-  height:2.2em;
 }
 
 fieldset .inputlabel-box .rb-unit{
