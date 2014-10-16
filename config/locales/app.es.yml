@@ -91,7 +91,8 @@ es:
         password_confirmation: "Contraseña (repetir)"
         remember_me: "Recordarme"
         wants_newsletter: 'Newsletter'
-        terms_of_service: "Acepto las condiciones generales"
+        terms_of_service: "He leído y acepto las condiciones generales"
+        over_18: "Declaro ser mayor de 18 años"
         current_password: "Contraseña actual"
   formtastic:
     hints:
@@ -169,14 +170,46 @@ es:
     registration:
       passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
       p1: "Rellenando este formulario con tus datos y pasarás a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
-      p2: "Completa el siguiente formulario para registrarte en PODEMOS. Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación. Si te equivocas en alguno de tus datos, puedes completar el formulario otra vez con tu código y se sobrescribirán, el sistema evita duplicados de registro."
+      p2: "Completa el siguiente formulario para registrarte en PODEMOS. Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación."
       p3: "¿Es seguro el sistema de inscripción?"
       p4: "Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos."
       p5: "*El código de verificación no es la contraseña de la Plaza Podemos. Lee este manual para saber como registrarte y participar en ella."
       terms_of_service:
         title: 'Condiciones generales'
-        p1: 'Los derechos y deberes políticos derivados de esta inscripción, así como la forma de su ejercicio, son los reconocidos por la vigente legislación de Partidos Políticos y los propios estatutos del partido, sujetos a las decisiones que se adopten en las Asambleas, los recogidos en los Compromisos Éticos que se aprueben en la Asamblea Ciudadana y por los Acuerdos de los órganos del partido acordados. Esta inscripción supone así mismo la aceptación de los métodos de participación y formulas de decisión que legitimamente se establezcan.'
-        p2_html: 'Al enviar este Formulario y cumplimentar el proceso de inscripción, habrás dado también tu consentimiento para que tus datos se incorporen a un Fichero cuyo Responsable es el partido Político PODEMOS, con los únicos fines de mantener la comunicación y facilitar la participación. Salvo por imperativo legal, PODEMOS nunca cederá tus datos a terceros sin tu consentimiento expreso. Podrás en cualquier momento ejercer tus derechos de Acceso, Rectificación, Cancelación y Oposición dirigiéndote a la dirección electrónica <a href="mailto:lopd@podemos.info">lopd@podemos.info</a> desde la misma dirección de correo que consta verificada en esta inscripción o por cualquier otro medio que deje constancia de tu voluntad y de tu identidad'
+        p1_html: '
+<h2>Condiciones generales de inscripción y política de privacidad</h2>
+<p><b> 1. Condiciones legales de la inscripción en Podemos Partido Político</b></p>
+<p>
+Al cumplimentar y enviar el formulario de inscripción el interesado pasará a ser miembro de PODEMOS partido político con CIF G86976941 y será titular de los derechos y obligaciones reconocidos por la legislación española a todos los inscritos en partidos políticos.
+</p>
+<p>
+La inscripción supone la aceptación expresa de los estatutos del partido y los acuerdos éticos, organizativos y políticos que apruebe la Asamblea Ciudadana y demás órganos del partido, así como de los métodos de participación y las fórmulas de decisión que legítimamente se establezcan.
+</p>
+<p><b>2. Protección de datos personales</b></p>
+<p>
+PODEMOS, de acuerdo con la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal, informa a las personas que quieran inscribirse de que los datos personales que faciliten en el formulario de inscripción serán incorporados al fichero de “afiliados” del que es responsable PODEMOS Partido Político, con CIF G86976941, que los utilizará para gestionar los perfiles de los inscritos, contactar con ellos para gestionar su registro y hacerles llegar toda la información necesaria sobre su inscripción.
+</p>
+<p>
+El inscrito acepta y consiente expresamente el tratamiento de sus datos personales y la recepción de comunicaciones electrónicas para los fines indicados.
+</p>
+<p>
+Salvo imperativo legal, los datos personales de los inscritos no serán cedidos a terceras personas sin su consentimiento expreso.
+</p>
+<p>
+PODEMOS cumple con todas las medidas de seguridad para la protección de datos personales exigidas por el Real Decreto 1720/2007, de 21 de diciembre, por el que se aprueba el Reglamento de desarrollo de la Ley Orgánica 15/1999, de 13 de diciembre, de protección de datos de carácter personal.
+</p>
+<p>
+<p><b>3. Ejercicios de los derechos de acceso, rectificación, cancelación y oposición</b></p>
+<p>
+Para ejercer los derechos de acceso, rectificación, cancelación y posición el inscrito podrá utilizar los formularios disponibles en la página web del perfil de usuario de la web participa.podemos.info o dirigirse por correo electrónico a lopd@podemos.info indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación.
+</p>
+<p><b>4. Aceptación de las presentes condiciones generales</b></p>
+<p>
+Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO declara haber leído este aviso legal y estar conforme con su contenido.
+</p>
+<p> <b> Podemos </b></p>
+<p> <b>Versión 7 de octubre de 2014 16:01 </b> </p>
+'
     legacy:
       password:
         title: "Cambiar contraseña antigua"
@@ -332,14 +365,12 @@ PODEMOS no responderá ante los USUARIOS por los daños y perjuicios de cualqu
 </ul>
 
 <h5>¿Qué cookies utiliza esta web?  </h5>
+<ul>
+<li><b>Cookies de Piwik (__utma, __utmb, __utmc, __utmz) </b>: Estas cuatro cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). Además de bloquear estas cookies por medio del navegador, el usuario puede utilizar este complemento facilitado por el propio Google para inhabilitar el servicio de Google Analytics en su visita.
+<li><b>Cookies de Ruby On Rails (__utma, __utmb, __utmc, __utmz) </b>: Estas cuatro cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). Además de bloquear estas cookies por medio del navegador, el usuario puede utilizar este complemento facilitado por el propio Google para inhabilitar el servicio de Google Analytics en su visita.
+  </li>
 
-Cookies de Google Analytics (__utma, __utmb, __utmc, __utmz)   
-Estas cuatro cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). Además de bloquear estas cookies por medio del navegador, el usuario puede utilizar este complemento facilitado por el propio Google para inhabilitar el servicio de Google Analytics en su visita.
-PREF, VISITOR_INFO1_LIVE, YSC: cookies de Youtube utilizadas en la reproducción de vídeos a través de la web.
-Cookies de autenticación de podemos.info – WordPress-(LOGIN_INFO, edd_wp_session, has_js)
-Estas cookies son empleadas por la página y tienen como objetivo permitir la visita a la página.
-Cookies de Google (APISID, BEAT, HSID, NID, OTZ, PREF, SAPISID, SID, SSID)   
-Se trata de cookies introducidas por Google en aquellas páginas que utilizan el botón “G+” y sirven para identificar al usuario en Google+.
+</ul>
  
 <h5>¿Cómo impedir el uso de cookies y cómo borrar las cookies?</h5>
 <p>La mayoría de navegadores te permiten desactivar completamente las cookies. Los navegadores también te permiten borrar las cookies creadas por una web específica.</p>

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates :address, :postal_code, :town, :province, :country, presence: true
   validates :email, :document_vatid, uniqueness: { case_sensitive: false }
   validates :terms_of_service, acceptance: true
+  validates :over_18, acceptance: true
   #validates :country, length: {minimum: 1, maximum: 2}
   #validates :phone, numericality: true, allow_blank: true
   #validates :phone, uniqueness: true
@@ -15,6 +16,7 @@ class User < ActiveRecord::Base
   validates :document_type, inclusion: { in: [1, 2, 3], message: "tipo de documento no válido" }
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
+  validates :born_at, date: true # gem date_validator
   validates :born_at, inclusion: { in: Date.civil(1920, 1, 1)..Date.civil(2015, 1, 1),
                                    message: "debes haber nacido después de 1920" }, allow_blank: true
   # TODO: validacion if country == ES then postal_code /(\d5)/
