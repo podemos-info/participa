@@ -31,7 +31,7 @@ es:
       waiting_confirmation: "Actualmente esperando instrucciones para %{email}"
     titles:
       sign_in: "Iniciar sesión"
-      sign_up: "Inscribirse"
+      sign_up: "Formulario de inscripción en Podemos partido político CIF G86976941"
       my_account: "Mi cuenta de %{downcase_model}"
       cancel_account: "Cancelar mi cuenta"
       forgot_password: "¿Has olvidado tu contraseña?"

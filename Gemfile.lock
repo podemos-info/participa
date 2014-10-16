@@ -115,6 +115,8 @@ GEM
     colorize (0.7.3)
     columnize (0.8.9)
     daemons (1.1.9)
+    date_validator (0.7.1)
+      activemodel
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     devise (3.3.0)
@@ -333,6 +335,7 @@ DEPENDENCIES
   capistrano-rvm
   carmen-rails
   coffee-rails (~> 4.0.0)
+  date_validator
   devise
   esendex
   factory_girl_rails
