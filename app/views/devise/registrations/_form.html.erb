@@ -54,12 +54,15 @@
           <%= field_notice_box %>
       <% end %>
       <%= f.input :born_at,
-                  as: :datetime_picker,
+                  as: :date_picker,
                   required: true,
-                  placeholder: '',
+                  placeholder: 'aaaa-mm-dd',
                   input_html: {required: true},
                   start_year: 1920,
                   end_year: 2015 %>
+      <p class="text-m">
+     Debes poner tu fecha nacimiento con el formato aaaa-mm-dd, es decir para el 15 de Diciembre de 1978 sería 1978-12-15
+      </p>
     </div>
   </fieldset>
 

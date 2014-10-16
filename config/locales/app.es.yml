@@ -30,6 +30,7 @@ es:
               taken: "Ya estas registrado con tu documento. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
             born_at: 
               blank: "Tu fecha de nacimiento no puede estar en blanco"
+              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto: aaaa-mm-dd, es decir para el 15 de Diciembre de 1978 sería 1978-12-15" 
             address:
               blank: "Tu dirección no puede estar en blanco"
             town:
@@ -111,8 +112,10 @@ es:
       change_phone: "Cambiar teléfono móvil"
       change_phone_explain: "Ahora mismo tienes el móvil %{phone}"
       change_password: "Cambiar contraseña"
-      cancel_account: "Cancelar mi cuenta"
-      cancel_account_explain: "Si borras tu cuenta no podrás acceder más"
+      cancel_account: "Darme de baja"
+      cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal. </p>
+<p> A partir de este momento tu cuenta de acceso a esta página web quedará eliminada.</p>
+<p> De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Protección de Datos, la cancelación dará lugar al bloqueo de los datos, conservándose únicamente a disposición de las Administraciones públicas, Jueces y Tribunales, para la atención de las posibles responsabilidades nacidas del tratamiento, durante el plazo de prescripción de éstas. Cumplido el citado plazo se procederá a la supresión de los datos.</p>"
     devise:
       mailer:
         hello: "Hola"
@@ -169,11 +172,16 @@ es:
         p3: 'Al pulsar el botón “ENVIAR” usted autoriza a Podemos y a su entidad bancaria a efectuar las operaciones de cobro mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera que usted nos ha facilitado, por el importe y con la frecuencia que nos ha indicado en el formulario. Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 10 de cada mes, trimestre o año dependiendo de la frecuencia de pago que ha elegido.'
     registration:
       passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
-      p1: "Rellenando este formulario con tus datos y pasarás a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
-      p2: "Completa el siguiente formulario para registrarte en PODEMOS. Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación."
-      p3: "¿Es seguro el sistema de inscripción?"
-      p4: "Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos."
-      p5: "*El código de verificación no es la contraseña de la Plaza Podemos. Lee este manual para saber como registrarte y participar en ella."
+      p1_html: "<p>
+Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos. 
+</p> <p>
+Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación. Si te equivocas en alguno de tus datos, puedes completar el formulario otra vez con tu código y se sobrescribirán, el sistema evita duplicados de registro. 
+</p> <p><b>¿Es seguro el sistema de inscripción?</b></p> <p>
+Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.
+</p> <p>
+*El código de verificación no es la contraseña de la Plaza Podemos. <a href='http://redd.it/2dfd5h'>Lee este manual para saber como registrarte y participar en ella</a>.
+</p>
+"
       terms_of_service:
         title: 'Condiciones generales'
         p1_html: '
@@ -428,7 +436,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos 
 </p>
 <p> <b> PODEMOS Partido Político<br> CIF G86976941<br> Versión 7 de octubre de 2014 12:55<br> </b> </p>
 '
-  simple_captcha:
-    placeholder: ""
-    label: "rellena con los caracteres"
-    invalid: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
+  recaptcha:
+    errors:
+      verification_failed: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
+      recaptcha_unreachable: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"

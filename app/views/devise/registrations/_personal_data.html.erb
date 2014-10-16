@@ -1,6 +1,3 @@
-<div class="col-md-5">
-  <%= content_tag(:h2, t("podemos.user.personal_data")) %>
-  <hr>
+<%= content_tag(:h2, t("podemos.user.personal_data")) %>
 
-  <%= render partial: "form", locals: {action: "edit"} %>
-</div>
+<%= render partial: "form", locals: {action: "edit"} %>
