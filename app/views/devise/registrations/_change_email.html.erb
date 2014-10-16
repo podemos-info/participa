@@ -1,4 +1,5 @@
 <div class="content-content cols">
+  <br>
   <div class="row">
     <%= content_tag(:h2, t("podemos.user.change_email"))%>
     <p> <%= t('podemos.user.change_email_explain') %> </p>
@@ -21,8 +22,10 @@
         <% end %>
         <%= f.input :current_password,
           required: true,
-          hint: t("devise.hints.current_password"),
           input_html: {class: 'input-m'} %>
+          <p class="text-m">
+            <%= t("devise.hints.current_password") %>
+          </p>
       </div>
 
           <%= f.actions do %>

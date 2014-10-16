@@ -1,6 +1,13 @@
-<%= content_tag(:h2, t("podemos.user.change_phone")) %>
-<p> <%= t('podemos.user.change_phone_explain', phone: resource.phone) %> </p>
-<%= link_to t("podemos.user.change_phone"), sms_validator_step1_path, class: "button" %>
-<br>
-<br>
-<br>
+<div class="content-content cols">
+  <br>
+  <div class="row">
+    <%= content_tag(:h2, t("podemos.user.change_phone")) %>
+    <p> <%= t('podemos.user.change_phone_explain_html', phone: resource.phone) %> </p>
+    <br>
+    <%= link_to t("podemos.user.change_phone"), sms_validator_step1_path, class: "button" %>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>

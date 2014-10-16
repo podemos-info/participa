@@ -1,3 +1,7 @@
-<%= content_tag(:h2, t("podemos.user.personal_data")) %>
-
-<%= render partial: "form", locals: {action: "edit"} %>
+<div class="content-content cols">
+  <br>
+  <div class="row">
+    <%= content_tag(:h2, t("podemos.user.personal_data")) %>
+    <%= render partial: "form", locals: {action: "edit"} %>
+  </div>
+</div>
