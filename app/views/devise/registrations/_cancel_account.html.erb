@@ -3,14 +3,7 @@
   <div class="row">
     <%= content_tag(:h2, t("podemos.user.cancel_account")) %>
     <p> <%= t('podemos.user.cancel_account_explain_html') %> </p>
-    <p><%= 
-    button_to(
-      t("devise.buttons.cancel_account"), 
-      registration_path(resource_name), data: {
-      confirm: t("devise.messages.cancel_account_confirmation"), 
-      method: :delete
-    }, class: "button"
-    )
-    %></p>
+    <p> <%= link_to t("devise.buttons.cancel_account"), user_registration_path, confirm: t("devise.messages.cancel_account_confirmation"), method: :delete, class: "button" %>
+    </p>
   </div>
 </div>
