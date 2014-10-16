@@ -31,10 +31,11 @@
           <li class="menu-notif">
             <%= nav_menu_link_to "Avisos", notices_path, [notices_path], class: new_notifications_class %>
           </li>
-          <%#li class="menu-econ">
-            <%# TODO add route %>
-            <%#= nav_menu_link_to "Colaboración económica", root_path, [root_path] %>
-          <%#/li%>
+          <% if Rails.env.development? %>
+              <li class="menu-econ">
+                <%= nav_menu_link_to "Colaboración económica", new_collaboration_path, [new_collaboration_path] %>
+              </li>
+          <% end %>
           <li class="menu-profile">
             <%= nav_menu_link_to "Perfil", edit_user_registration_path, [edit_user_registration_path] %>
           </li>
