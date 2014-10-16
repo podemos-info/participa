@@ -221,7 +221,7 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARI
     legacy:
       password:
         title: "Cambiar contraseña antigua"
-        explain: "Debes cambiar tu contraseña"
+        explain: "Por motivos de seguridad tienes que cambiar la contraseña."
         changed: "Has cambiado tu contraseña"
     legal: 
       title1: "WEB PARTICIPA.PODEMOS.INFO"
