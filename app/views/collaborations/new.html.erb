@@ -1,51 +1,135 @@
-<ul class="nav nav-pills">
-  <li><%= link_to t("podemos.user.general_data"), edit_user_registration_path %></li>
-  <li class="active"><%= link_to t("podemos.user.collaborations"), "#" %></li>
-</ul>
-<div class="row">
-  <%= content_tag(:h2, t("podemos.collaboration.title")) %>
-  <hr>
-  <%= render partial: "steps", locals: {step: 1} %>
-  <div class="col-md-5">
-    <div class="well">
-      <p><%= t("podemos.collaboration.p1") %></p>
-    </div>
-  </div>
-  <div class="col-md-5">
-    <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post} do |f| %>
-      <%= f.semantic_errors *f.object.errors.keys %>
-      <%= f.inputs do %>
-        <%= f.input :amount, required: true, as: :radio, collection: Collaboration::AMOUNTS, input_html: {required: true, class: 'js-collaboration-amount'} %>
-        <%= f.input :frequency, required: true, as: :radio, collection: Collaboration::FREQUENCIES, input_html: {required: true, class: 'js-collaboration-frequency'} %>
-        <%= f.input :payment_type, required: true, as: :radio, collection: Collaboration::TYPES, input_html: {required: true, class: 'js-collaboration-type'} %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <%= content_tag(:h2, t("podemos.collaboration.title")) %>
+
+      <%= steps_nav 1,
+                    "Introduce cuánto y cómo quieres colaborar",
+                    "Confirmación",
+                    "Resultado" %>
+
+      <%= info_box do %>
+          <p><%= t("podemos.collaboration.p1") %></p>
       <% end %>
-      <div class="js-collaboration-type-form-2" style="display: none;">
-        <%= f.input :ccc_entity, input_html: {maxlength: 4} %>
-        <%= f.input :ccc_office, input_html: {maxlength: 4}  %>
-        <%= f.input :ccc_dc, input_html: {maxlength: 2}  %>
-        <%= f.input :ccc_account, input_html: {maxlength: 10}  %>
-      </div>
-      <div class="js-collaboration-type-form-3" style="display: none;">
-        <%= f.input :iban_account %>
-        <%= f.input :iban_bic %>
-      </div>
-      <div class="alert alert-info js-collaboration-alert" style="display: none;">
-        El total de tu colaboración es <span id="js-collaboration-alert-amount"></span> €
-      </div>
-      <%= f.input :minimal_year_old, as: :boolean, required: true %>
-      <%= f.input :terms_of_service, as: :boolean, required: true %>
-    <small>
-      <h3> <%= t('podemos.collaboration.terms_of_service.title')%> </h3>
-      <p> <%= t('podemos.collaboration.terms_of_service.p1_title')%> </p>
-      <p> <%= t('podemos.collaboration.terms_of_service.p1')%> </p>
-      <p> <%= t('podemos.collaboration.terms_of_service.p2_title')%> </p>
-      <p> <%= t('podemos.collaboration.terms_of_service.p2')%> </p>
-      <p> <%= t('podemos.collaboration.terms_of_service.p3_title')%> </p>
-      <p> <%= t('podemos.collaboration.terms_of_service.p3')%> </p>
-    </small>
-    <%= f.actions do %>
-      <%= f.action :submit, :as => :input, button_html: {class: 'btn btn-primary'} %>
-    <% end %>
-  <% end %>
+
+      <% if @collaboration.errors.present? %>
+          <%= error_box "No se pudo salvar" do %>
+              <p>Ocurrieron los siguientes errores</p>
+              <% @collaboration.errors.each do |attr, msg| %>
+                  <p><%= attr %>: <%= msg %></p>
+              <% end %>
+          <% end %>
+      <% end %>
+
+      <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post} do |f| %>
+          <fieldset>
+            <legend class="invisible">Nueva colaboración</legend>
+          </fieldset>
+
+          <div class="inputlabel-box">
+            <% if @collaboration.errors.include?(:amount) %>
+                <%= field_notice_box %>
+            <% end %>
+            <%= f.input :amount,
+                        required: true,
+                        as: :select,
+                        collection: Collaboration::AMOUNTS,
+                        input_html: {required: true, class: 'js-collaboration-amount'} %>
+          </div>
+
+          <div class="inputlabel-box">
+            <% if @collaboration.errors.include?(:frequency) %>
+                <%= field_notice_box %>
+            <% end %>
+            <%= f.input :frequency,
+                        required: true,
+                        as: :select,
+                        collection: Collaboration::FREQUENCIES,
+                        input_html: {required: true, class: 'js-collaboration-frequency'} %>
+          </div>
+
+          <div class="inputlabel-box">
+            <% if @collaboration.errors.include?(:payment_type) %>
+                <%= field_notice_box %>
+            <% end %>
+            <%= f.input :payment_type,
+                        required: true,
+                        as: :select,
+                        collection: Collaboration::TYPES,
+                        input_html: {required: true, class: 'js-collaboration-type'} %>
+          </div>
+
+          <div class="inputlabel-box ccc_account js-collaboration-type-form-2">
+            <% if @collaboration.errors.include?(:ccc_entity) ||
+                    @collaboration.errors.include?(:ccc_office) ||
+                    @collaboration.errors.include?(:ccc_dc) ||
+                    @collaboration.errors.include?(:ccc_account) %>
+                <%= field_notice_box %>
+            <% end %>
+            <div>
+              <%= f.input :ccc_entity, input_html: {maxlength: 4} %>
+              <%= f.input :ccc_office, input_html: {maxlength: 4}  %>
+              <%= f.input :ccc_dc, input_html: {maxlength: 2}  %>
+              <%= f.input :ccc_account, input_html: {maxlength: 10}  %>
+            </div>
+          </div>
+
+          <div class="inputlabel-box iban_account js-collaboration-type-form-3">
+            <% if @collaboration.errors.include?(:ccc_entity) ||
+                    @collaboration.errors.include?(:ccc_office) ||
+                    @collaboration.errors.include?(:ccc_dc) ||
+                    @collaboration.errors.include?(:ccc_account) %>
+                <%= field_notice_box %>
+            <% end %>
+            <div>
+              <%= f.input :iban_account %>
+              <%= f.input :iban_bic %>
+            </div>
+          </div>
+
+          <p class="js-collaboration-alert">
+            El total de tu colaboración es <span id="js-collaboration-alert-amount"></span> €
+          </p>
+
+          <div class="inputlabel-box">
+            <% if @collaboration.errors.include?(:minimal_year_old) %>
+                <%= field_notice_box %>
+            <% end %>
+            <div class="input-box">
+              <%= f.label :minimal_year_old %>
+              <%= f.check_box :minimal_year_old, checked: true, class: 'checkbox' %>
+              <p class="text-xl"></p>
+            </div>
+          </div>
+
+          <div class="inputlabel-box">
+            <% if @collaboration.errors.include?(:terms_of_service) %>
+                <%= field_notice_box %>
+            <% end %>
+
+            <div class="input-box">
+              <%= f.label :terms_of_service %>
+              <%= f.check_box :terms_of_service, checked: true, class: 'checkbox' %>
+              <p class="text-xl"></p>
+            </div>
+          </div>
+
+          <small>
+            <h3> <%= t('podemos.collaboration.terms_of_service.title')%> </h3>
+            <p> <%= t('podemos.collaboration.terms_of_service.p1_title')%> </p>
+            <p> <%= t('podemos.collaboration.terms_of_service.p1')%> </p>
+            <p> <%= t('podemos.collaboration.terms_of_service.p2_title')%> </p>
+            <p> <%= t('podemos.collaboration.terms_of_service.p2')%> </p>
+            <p> <%= t('podemos.collaboration.terms_of_service.p3_title')%> </p>
+            <p> <%= t('podemos.collaboration.terms_of_service.p3')%> </p>
+          </small>
+
+
+          <%= f.actions class: 'enter' do %>
+              <%= f.action :submit, :as => :input, button_html: {class: 'button'} %>
+          <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

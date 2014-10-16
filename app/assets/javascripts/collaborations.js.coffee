@@ -47,8 +47,10 @@ start_collaboration_confirm = () ->
   check_collaboration_by_ajax()
 
 calculate_collaboration = () ->
-  if (($('.js-collaboration-amount:checked').length > 0) && ($('.js-collaboration-frequency:checked').length > 0))
-    total = $('.js-collaboration-amount:checked').val() / 100.0 * $('.js-collaboration-frequency:checked').val()
+  $amount = $('.js-collaboration-amount option:selected')
+  $freq = $('.js-collaboration-frequency option:selected')
+  if (($amount.length > 0) && ($freq.length > 0))
+    total = $amount.val() / 100.0 * $freq.val()
     $('.js-collaboration-alert').show()
     $('#js-collaboration-alert-amount').text(total)
 
@@ -69,7 +71,7 @@ change_payment_type = (type) ->
 
 init_collaborations = () ->
 
-  change_payment_type($('.js-collaboration-type:checked').val())
+  change_payment_type($('.js-collaboration-type:selected').val())
   $('.js-collaboration-type').on 'change', (event) ->
     type = $(this).val()
     change_payment_type(type)
