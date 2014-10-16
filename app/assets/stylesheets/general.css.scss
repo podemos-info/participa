@@ -474,6 +474,92 @@ submenu
 
 
 /* -----------------------------------
+steps
++----------------------------------- */
+
+.steps3 ul{
+  display:block;
+  margin:0 0 1.5em;
+  overflow:hidden;
+  width:100%;
+}
+.steps3 li{
+  font-family:Montserrat,Arial,sans-serif;
+  text-transform:lowercase;
+  display:block;
+  float:left;
+  clear:none;
+  width:33.3%;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  background:#d7cad8;
+}
+.steps3 li:nth-child(1),
+.steps3 li:nth-child(2){
+  background:#d7cad8 image-url("bg.steps-tip-left.png") right 50% no-repeat;
+}
+.steps3 li:nth-child(2) a,
+.steps3 li:nth-child(3) a{
+  background:image-url("bg.steps-tip-right.png") -5em 50% no-repeat;
+}
+.steps3 li a{
+  display:block;
+  color:#612d62;
+  width:100%;
+  overflow:hidden;
+}
+.steps3 li a span.tab-number{
+  display:block;
+  width:15%;
+  float:left;
+}
+.steps3 li a span.tab-text{
+  padding-top:0.15em;
+  display:block;
+  width:85%;
+  float:left;
+}
+.steps3 li:nth-child(1) a span.tab-number{
+  margin-left:5%;
+  width:15%;
+}
+.steps3 li:nth-child(2) a span.tab-number,
+.steps3 li:nth-child(3) a span.tab-number{
+  margin-left:15%;
+  width:15%;
+}
+.steps3 li:nth-child(1) a span.tab-text{
+  width:65%;
+  margin-right:15%;
+}
+.steps3 li:nth-child(2) a span.tab-text{
+  width:55%;
+  margin-right:15%;
+}
+.steps3 li:nth-child(3) a span.tab-text{
+  width:70%;
+}
+.steps3 li a:hover{
+  background:#8e618c;
+  color:#d7cad8;
+}
+.steps3 li:nth-child(1):hover,
+.steps3 li:nth-child(2):hover{
+  background:#8e618c image-url("bg.steps-tip-left.png") right 50% no-repeat;
+}
+.steps3 li.active{
+  text-transform:Montserrat,Arial,sans-serif;
+  background:#d7cad8;
+  float:left;
+}
+.steps3 li.active a{
+  background:#612d62;
+  color:#fff;
+}
+
+
+/* -----------------------------------
 body elements
 ----------------------------------- */
 
