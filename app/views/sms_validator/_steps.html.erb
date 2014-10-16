@@ -1,24 +1,4 @@
-<div class="row form-group">
-  <div class="col-xs-12">
-    <ul class="nav nav-pills nav-justified thumbnail setup-panel">
-      <li class="<%= bootstrap_class_for_steps(1, step) %>">
-        <%= link_to sms_validator_step1_path do %>
-          <h4 class="list-group-item-heading">Paso 1</h4>
-          <p class="list-group-item-text">Introduce tu número de teléfono</p>
-        <% end %>
-      </li>
-      <li class="<%= bootstrap_class_for_steps(2, step) %>">
-        <%= link_to sms_validator_step2_path do %>
-          <h4 class="list-group-item-heading">Paso 2</h4>
-          <p class="list-group-item-text">Rellena el captcha</p>
-        <% end %>
-      </li>
-      <li class="<%= bootstrap_class_for_steps(3, step) %>">
-        <%= link_to sms_validator_step3_path do %>
-          <h4 class="list-group-item-heading">Paso 3</h4>
-          <p class="list-group-item-text">Pon el código del SMS</p>
-        <% end %>
-      </li>
-    </ul>
-  </div>
-</div>
+<%= steps_nav step,
+              "Introduce tu número de teléfono",
+              "Rellena el captcha",
+              "Pon el código del SMS" %>
