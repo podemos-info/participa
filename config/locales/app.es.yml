@@ -30,7 +30,7 @@ es:
               taken: "Ya estas registrado con tu documento. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
             born_at: 
               blank: "Tu fecha de nacimiento no puede estar en blanco"
-              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto: aaaa-mm-dd, es decir para el 15 de Diciembre de 1978 sería 1978-12-15" 
+              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto: dd/mm/aaaa, es decir para el 15 de Diciembre de 1978 sería 15/12/1978" 
             address:
               blank: "Tu dirección no puede estar en blanco"
             town:
@@ -110,7 +110,7 @@ es:
       change_email: "Cambiar correo electrónico"
       change_email_explain: "Si cambias tu correo electrónico te enviaremos otro correo para que lo confirmes."
       change_phone: "Cambiar teléfono móvil"
-      change_phone_explain: "Ahora mismo tienes el móvil %{phone}"
+      change_phone_explain_html: "Ahora mismo tienes el móvil <b> %{phone} </b>"
       change_password: "Cambiar contraseña"
       cancel_account: "Darme de baja"
       cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal. </p>
@@ -438,5 +438,6 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos 
 '
   recaptcha:
     errors:
+      incorrect-captcha-sol: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
       verification_failed: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
       recaptcha_unreachable: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"

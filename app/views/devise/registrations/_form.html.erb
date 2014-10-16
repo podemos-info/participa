@@ -2,7 +2,7 @@
     <%= error_box "No se pudo salvar" do %>
         <p>Ocurrieron los siguientes errores</p>
         <% resource.errors.each do |attr, msg| %>
-            <p><%= attr %>: <%= msg %></p>
+          <p><b><%= I18n.t "activerecord.attributes.user." + attr.to_s %></b>: <%= msg %></p>
         <% end %>
     <% end %>
 <% end %>
@@ -56,12 +56,12 @@
       <%= f.input :born_at,
                   as: :string,
                   required: true,
-                  placeholder: 'aaaa-mm-dd',
-                  input_html: {required: true},
+                  placeholder: 'dd/mm/aaaa',
+                  input_html: { required: true, class: 'input-s', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
                   start_year: 1920,
                   end_year: 2015 %>
       <p class="text-m">
-     Debes poner tu fecha nacimiento con el formato aaaa-mm-dd, es decir para el 15 de Diciembre de 1978 sería 1978-12-15
+     Debes poner tu fecha nacimiento con el formato dd/mm/aaaa, es decir para el 15 de Diciembre de 1978 sería 15/12/1978
       </p>
     </div>
   </fieldset>
@@ -106,13 +106,13 @@
 
   <fieldset>
 
+    <% if action == "new" %>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:email) %>
           <%= field_notice_box %>
       <% end %>
       <%= f.input :email, required: true, input_html: {required: true, class: 'input-m'} %>
     </div>
-    <% if action == "new" %>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:password) %>
           <%= field_notice_box %>
@@ -171,7 +171,10 @@
           <% if resource.errors.include?(:current_password) %>
               <%= field_notice_box %>
           <% end %>
-          <%= f.input :current_password, required: true, hint: t("devise.hints.current_password") %>
+          <%= f.input :current_password, required: true %>
+          <p class="text-m">
+            <%= t("devise.hints.current_password") %>
+          </p>
         </div>
         <%= f.actions class: 'enter' do %>
             <%= f.action :submit, button_html: {class: "button"} %>
