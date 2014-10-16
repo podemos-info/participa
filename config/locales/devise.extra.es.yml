@@ -25,7 +25,7 @@ es:
       sign_out: "Cerrar sesión"
       my_account: "Mi cuenta"
       back: "Volver"
-      forgot_password: "¿Has olvidado tu contraseña?"
+      forgot_password: "He olvidado mi código de verificación"
       confirmation_instructions: "¿No has recibido las instrucciones de confirmación?"
       unlock_instructions: "¿No has recibido las instrucciones de desbloqueo?"
     messages:
@@ -36,8 +36,7 @@ es:
       sign_up: "Formulario de inscripción en Podemos partido político CIF G86976941"
       my_account: "Mi cuenta de %{downcase_model}"
       cancel_account: "Cancelar mi cuenta"
-      forgot_password: "¿Has olvidado tu contraseña?"
+      forgot_password: "¿Has olvidado tu código de verificación?"
       change_password: "Cambiar tu contraseña"
       confirmation_instructions: "Reenviar instrucciones de confirmación"
       unlock_instructions: "Reenviar instrucciones de desbloqueo"
-
