@@ -1,11 +1,8 @@
 <% @title ||= t("devise.titles.sign_up") %>
-
-
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("devise.titles.sign_up")) %>
-
       <%= info_box do %>
           <p><%= t('podemos.registration.p1') %></p>
           <p><%= t('podemos.registration.p2') %></p>
@@ -13,7 +10,6 @@
           <p><%= t('podemos.registration.p4') %></p>
           <p><%= t('podemos.registration.p5') %></p>
       <% end %>
-
       <%= render partial: "form", locals: {action: "new"} %>
     </div>
   </div>
