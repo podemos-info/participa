@@ -16,4 +16,5 @@
 //= require intlTelInput
 //= require select2
 //= require cookie_policy
+//= require registrations_submenu
 //= require_tree .
