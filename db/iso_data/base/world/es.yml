@@ -43,6 +43,8 @@
   type: province
 - code: HU
   type: province
+- code: IB
+  type: province
 - code: J 
   type: province
 - code: LE
@@ -92,8 +94,6 @@
 - code: V 
   type: province
 - code: VA
-  type: province
-- code: BI
   type: province
 - code: Z 
   type: province

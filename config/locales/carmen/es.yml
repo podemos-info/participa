@@ -14,10 +14,10 @@ es:
         name: Ávila
       ba:
         name: Badajoz
-      bi:
-        name: Bizkaia
       b:
         name: Barcelona
+      bi: 
+        name: Bizkaia
       bu:
         name: Burgos
       cc:
@@ -46,6 +46,8 @@ es:
         name: Huelva
       hu:
         name: Huesca
+      ib:
+        name: Islas Baleares
       j:
         name: Jaén
       le:
