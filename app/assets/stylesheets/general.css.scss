@@ -123,7 +123,7 @@ general
 .content-content{
   margin: auto;
   width: 96%;
-  padding: 0 1%;
+  padding: 3em 1%;
   max-width: 94em;
   position:relative;
   overflow:hidden;
@@ -137,7 +137,7 @@ general
   overflow:hidden;
 }
 .content-text{
-  width: 100%;
+  width: 100%%;
   clear:both;
   float:none;
   overflow:hidden;
@@ -172,13 +172,13 @@ general
 home
 ----------------------------------- */
 .people-bg{
-  background-image: image-url("img.gente.jpg");
+  background-image:image-url("img.gente.jpg");
   width:100%;
   background-size: cover;
   background-position: center;
 }
 .intro{
-  background: image-url("bg.333-op55.png") 0 0 repeat;
+  background:image-url("bg.333-op55.png") 0 0 repeat;
   width:auto;
   padding:1.5em 0 0.5em;
   color:#fff;
@@ -195,7 +195,7 @@ home
   font-size:1.25em;
 }
 .login-box{
-  background: image-url("bg.purple-op80.png") 0 0 repeat;
+  background:image-url("bg.purple-op80.png") 0 0 repeat;
   width:auto;
   padding:1.5em 4%;
   color:#fff;
@@ -299,7 +299,7 @@ footer
 .footer-contact .languages{
   width:auto;
   display:inline-block;
-  background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
+  background:image-url("bg.purple-divide-h.png") 0 0 repeat-x;
   margin-top:1em;
   padding-top:1em;
 }
@@ -317,7 +317,7 @@ footer
   color:#c3a6cf;
 }
 .disclaimer-links{
-  background: image-url("bg.purple-divide-h.png") 0 0 repeat-x;
+  background:image-url("bg.purple-divide-h.png") 0 0 repeat-x;
   padding:3em 0 0;
   margin:3em 0 0;
   clear:both;
@@ -367,55 +367,56 @@ header & menu
   display:none;
 }
 .menu-logout{
-  background: image-url("bg.purple-divide-v.png") 0 0 no-repeat;
+  background:image-url("bg.purple-divide-v.png") 0 0 no-repeat;
 }
 .menu-hamb a{
-  background: image-url("ico.menu-hamb-off.png") 0 0 no-repeat;
+  background:image-url("ico.menu-hamb-off.png") 0 0 no-repeat;
 }
 .menu-hamb a.active,
 .menu-hamb a:hover{
-  background: image-url("ico.menu-hamb-on.png") 0 0 no-repeat;
+  background:image-url("ico.menu-hamb-on.png") 0 0 no-repeat;
 }
 .menu-logout a{
-  background: image-url("ico.menu-logout-off.png") 0 0 no-repeat;
+  background:image-url("ico.menu-logout-off.png") 0 0 no-repeat;
 }
 .menu-logout a.active,
 .menu-logout a:hover{
-  background: image-url("ico.menu-logout-on.png") 0 0 no-repeat;
+  background:image-url("ico.menu-logout-on.png") 0 0 no-repeat;
 }
 .menu-tools a{
-  background: image-url("ico.menu-tools-off.png") 0 0 no-repeat;
+  background:image-url("ico.menu-tools-off.png") 0 0 no-repeat;
 }
 .menu-tools a.active,
 .menu-tools a:hover{
-  background: image-url("ico.menu-tools-on.png") 0 0 no-repeat;
+  background:image-url("ico.menu-tools-on.png") 0 0 no-repeat;
 }
 .menu-notif a{
-  background: image-url("ico.menu-notif-off.png") 0 0 no-repeat;
+  background:image-url("ico.menu-notif-off.png") 0 0 no-repeat;
 }
 .menu-notif a.active,
 .menu-notif a:hover{
-  background: image-url("ico.menu-notif-on.png") 0 0 no-repeat;
+  background:image-url("ico.menu-notif-on.png") 0 0 no-repeat;
 }
 .menu-notif a.claim{
-  background: image-url("ico.menu-notif-claim-off.png") 0 0 no-repeat;
+  background:image-url("ico.menu-notif-claim-off.png") 0 0 no-repeat;
 }
 .menu-notif a.claim.active,
 .menu-notif a.claim:hover{
-  background: image-url("ico.menu-notif-claim-on.png") 0 0 no-repeat;
+  background:image-url("ico.menu-notif-claim-on.png") 0 0 no-repeat;
 }
 .menu-econ a{
-  background: image-url("ico.menu-econ-off.png") 0 0 no-repeat;
+  background:image-url("ico.menu-econ-off.png") 0 0 no-repeat;
 }
+.menu-econ a.active,
 .menu-econ a:hover{
-  background: image-url("ico.menu-econ-on.png") 0 0 no-repeat;
+  background:image-url("ico.menu-econ-on.png") 0 0 no-repeat;
 }
 .menu-profile a{
-  background: image-url("ico.menu-profile-off.png") 0 0 no-repeat;
+  background:image-url("ico.menu-profile-off.png") 0 0 no-repeat;
 }
 .menu-profile a.active,
 .menu-profile a:hover{
-  background: image-url("ico.menu-profile-on.png") 0 0 no-repeat;
+  background:image-url("ico.menu-profile-on.png") 0 0 no-repeat;
 }
 .menu li.menu-name a span{
   display:block;
@@ -475,7 +476,7 @@ submenu
 
 /* -----------------------------------
 steps
-+----------------------------------- */
+----------------------------------- */
 
 .steps3 ul{
   display:block;
@@ -497,64 +498,71 @@ steps
 }
 .steps3 li:nth-child(1),
 .steps3 li:nth-child(2){
-  background:#d7cad8 image-url("bg.steps-tip-left.png") right 50% no-repeat;
+  background:#d7cad8 image-url("bg.steps-tip-right.png") right 50% no-repeat;
 }
-.steps3 li:nth-child(2) a,
-.steps3 li:nth-child(3) a{
-  background:image-url("bg.steps-tip-right.png") -5em 50% no-repeat;
+.steps3 li:nth-child(2) span.block,
+.steps3 li:nth-child(3) span.block{
+  background:image-url("bg.steps-tip-left.png") -5em 50% no-repeat;
 }
-.steps3 li a{
+.steps3 li span.block{
   display:block;
   color:#612d62;
   width:100%;
   overflow:hidden;
 }
-.steps3 li a span.tab-number{
+.steps3 li span.block span.tab-number{
   display:block;
   width:15%;
   float:left;
 }
-.steps3 li a span.tab-text{
+.steps3 li span.block span.tab-text{
   padding-top:0.15em;
   display:block;
   width:85%;
   float:left;
 }
-.steps3 li:nth-child(1) a span.tab-number{
+.steps3 li:nth-child(1) span.block span.tab-number{
   margin-left:5%;
-  width:15%;
 }
-.steps3 li:nth-child(2) a span.tab-number,
-.steps3 li:nth-child(3) a span.tab-number{
+.steps3 li:nth-child(2) span.block span.tab-number,
+.steps3 li:nth-child(3) span.block span.tab-number{
   margin-left:15%;
-  width:15%;
 }
-.steps3 li:nth-child(1) a span.tab-text{
+.steps3 li:nth-child(1) span.block span.tab-text{
   width:65%;
   margin-right:15%;
 }
-.steps3 li:nth-child(2) a span.tab-text{
+.steps3 li:nth-child(2) span.block span.tab-text{
   width:55%;
   margin-right:15%;
 }
-.steps3 li:nth-child(3) a span.tab-text{
+.steps3 li:nth-child(3) span.block span.tab-text{
   width:70%;
 }
-.steps3 li a:hover{
-  background:#8e618c;
-  color:#d7cad8;
-}
-.steps3 li:nth-child(1):hover,
-.steps3 li:nth-child(2):hover{
-  background:#8e618c image-url("bg.steps-tip-left.png") right 50% no-repeat;
-}
-.steps3 li.active{
+.steps3 li:nth-child(1).active{
   text-transform:Montserrat,Arial,sans-serif;
-  background:#d7cad8;
+  background:#612d62 image-url("bg.steps-tip-right.png") right 50% no-repeat;
   float:left;
 }
-.steps3 li.active a{
+.steps3 li:nth-child(1).active span.block{
+  color:#fff;
+}
+.steps3 li:nth-child(2).active{
+  text-transform:Montserrat,Arial,sans-serif;
+  background:#612d62 image-url("bg.steps-tip-right.png") right 50% no-repeat;
+  float:left;
+}
+.steps3 li:nth-child(2).active span.block{
+  background:image-url("bg.steps-tip-left.png") -5em 50% no-repeat;
+  color:#fff;
+}
+.steps3 li:nth-child(3).active{
+  text-transform:Montserrat,Arial,sans-serif;
   background:#612d62;
+  float:left;
+}
+.steps3 li:nth-child(3).active span.block{
+  background:image-url("bg.steps-tip-left.png") -5em 50% no-repeat;
   color:#fff;
 }
 
@@ -579,7 +587,7 @@ input.button{
 .button:hover,
 a.button:hover,
 input.button:hover{
-  background: #269283;
+  background:#269283;
 }
 
 .button-danger,
@@ -699,7 +707,7 @@ layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 /*
 elementos
 */
-.intro {
+.intro{
   margin:0;
   padding-bottom:2em;
 }
@@ -718,6 +726,21 @@ elementos
 .menu ul li.menu-hamb{
   display:block;
 }
+.steps3 li a{
+  height:3em;
+}
+.steps3 li span.block span.tab-text{
+  display:none;
+}
+.steps3 li:nth-child(1) span.block span.tab-number{
+  width:70%;
+  text-align:center;
+}
+.steps3 li:nth-child(2) span.block span.tab-number,
+.steps3 li:nth-child(3) span.block span.tab-number{
+  width:70%;
+  text-align:center;
+}
 
 
 /*
@@ -729,8 +752,12 @@ font sizes
 .login-box form div.remember label,
 .footer-contact p,
 .footer .languages a,
-.submenu li a{
+.submenu li a,
+.steps3 li span.block span.tab-text{
   font-size:1.2em;
+}
+.steps3 li span.block span.tab-number{
+  font-size:2em;
 }
 .content .login-box p,
 .footer ul.disclaimer-links li a{
@@ -828,7 +855,21 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .menu ul li.menu-hamb{
     display:block;
   }
-
+  .steps3 li a{
+    height:3em;
+  }
+  .steps3 li span.block span.tab-text{
+    display:none;
+  }
+  .steps3 li:nth-child(1) span.block span.tab-number{
+    width:70%;
+    text-align:center;
+  }
+  .steps3 li:nth-child(2) span.block span.tab-number,
+  .steps3 li:nth-child(3) span.block span.tab-number{
+    width:70%;
+    text-align:center;
+  }
 
 
   /*
@@ -840,8 +881,12 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .login-box form div.remember label,
   .footer-contact p,
   .footer .languages a,
-  .submenu li a{
+  .submenu li a,
+  .steps3 li span.block span.tab-text{
     font-size:1.2em;
+  }
+  .steps3 li span.block span.tab-number{
+    font-size:2em;
   }
   .content .login-box p,
   .footer ul.disclaimer-links li a{
@@ -909,6 +954,22 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     position:relative;
     overflow:hidden;
   }
+  .steps3 li a{
+    height:3.75em;
+  }
+  .steps3 li span.block span.tab-text{
+    display:block;
+    line-height:1.1em;
+  }
+  .steps3 li:nth-child(1) span.block span.tab-number{
+    width:15%;
+    text-align:left;
+  }
+  .steps3 li:nth-child(2) span.block span.tab-number,
+  .steps3 li:nth-child(3) span.block span.tab-number{
+    width:15%;
+    text-align:left;
+  }
 
 
   /*
@@ -933,6 +994,16 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .menu ul li.menu-hamb{
     display:none;
   }
+  .steps3 li:nth-child(1) span.block span.tab-number{
+    width:12%;
+  }
+  .steps3 li:nth-child(1) span.block span.tab-text{
+    width:68%;
+  }
+  .steps3 li:nth-child(2) span.block span.tab-number,
+  .steps3 li:nth-child(3) span.block span.tab-number{
+    width:15%;
+  }
 
   /*
   font sizes
@@ -943,8 +1014,12 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .login-box form div.remember label,
   .footer-contact p,
   .footer .languages a,
-  .submenu li a{
+  .submenu li a,
+  .steps3 li span.block span.tab-text{
     font-size:1.3em;
+  }
+  .steps3 li span.block span.tab-number{
+    font-size:2.4em;
   }
   .content .login-box p,
   .footer ul.disclaimer-links li a{
@@ -1027,7 +1102,7 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .intro:before{
     display: inline-block;
     margin: 0 .1em;
-    content: image-url("ico.ropes-white.png");
+    content:image-url("ico.ropes-white.png");
     position:absolute;
     top: 2em;
     left: 0.5em;
@@ -1038,7 +1113,7 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .intro a.intro-indent{
     margin: 0 2.5% 0 25%;
   }
-  .intro .buttonbox {
+  .intro .buttonbox{
     padding:1em 0;
   }
   .menu ul li{
@@ -1046,6 +1121,22 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .menu ul li.menu-hamb{
     display:none;
+  }
+  .steps3 li a{
+    height:4.2em;
+  }
+  .steps3 li span.block span.tab-text{
+    display:block;
+    line-height:1.3em;
+  }
+  .steps3 li:nth-child(1) span.block span.tab-number{
+    width:15%;
+    text-align:left;
+  }
+  .steps3 li:nth-child(2) span.block span.tab-number,
+  .steps3 li:nth-child(3) span.block span.tab-number{
+    width:15%;
+    text-align:left;
   }
 
   /*
@@ -1057,8 +1148,12 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .login-box form div.remember label,
   .footer-contact p,
   .footer .languages a,
-  .submenu li a{
-    font-size:1.3em;
+  .submenu li a,
+  .steps3 li span.block span.tab-text{
+    font-size:1.2em;
+  }
+  .steps3 li span.block span.tab-number{
+    font-size:2.8em;
   }
   .content .login-box p,
   .footer ul.disclaimer-links li a{
@@ -1129,7 +1224,6 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   }
 
 
-
   /*
   elementos
   */
@@ -1147,7 +1241,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     padding:0 2.5% 0 25%;
   }
   .intro a.intro-indent{
-    margin:0 2.5% 0 25%
+    margin: 0 2.5% 0 25%;
   }
   .intro .buttonbox{
     padding:1em 0;
@@ -1157,6 +1251,22 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   }
   .menu ul li.menu-hamb{
     display:none;
+  }
+  .steps3 li a{
+    height:4.2em;
+  }
+  .steps3 li span.block span.tab-text{
+    display:block;
+    line-height:1.3em;
+  }
+  .steps3 li:nth-child(1) span.block span.tab-number{
+    width:15%;
+    text-align:left;
+  }
+  .steps3 li:nth-child(2) span.block span.tab-number,
+  .steps3 li:nth-child(3) span.block span.tab-number{
+    width:15%;
+    text-align:left;
   }
 
 
@@ -1170,8 +1280,12 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .footer ul li a,
   .footer-contact p,
   .footer .languages a,
-  .submenu li a{
+  .submenu li a,
+  .steps3 li span.block span.tab-text{
     font-size:1.4em;
+  }
+  .steps3 li span.block span.tab-number{
+    font-size:3em;
   }
   .content .login-box p,
   .footer ul.disclaimer-links li a{
