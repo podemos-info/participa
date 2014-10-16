@@ -531,6 +531,24 @@ input.button-danger:hover{
   color:#666;
 }
 
+.content-content h3{
+  font-family:Montserrat,Arial,sans-sefif;
+  display:block;
+  width:100%;
+  border-bottom:1px solid #d7cad8;
+  position:relative;
+  margin:0 0 1.5em;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+.content-content h3 span{
+  background:#fff;
+  padding:0 0.1em 0 0;
+  position:relative;
+  top:0.3em;
+  color:#612d62;
+}
+
 
 /* -----------------------------------
 columns
@@ -646,6 +664,9 @@ font sizes
 .content-content h2{
   font-size:1.6em;
 }
+.content-content h3{
+  font-size:1.6em;
+}
 .footer-content h2.footer-logo{
   display:block;
   font-size:3em;
@@ -748,6 +769,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content h2{
     font-size:1.6em;
   }
+  .content-content h3{
+    font-size:1.6em;
+  }
   .footer-content h2.footer-logo{
     font-size:3em;
     margin-bottom:0.33em;
@@ -848,6 +872,9 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .content-content h2{
     font-size:1.8em;
+  }
+  .content-content h3{
+    font-size:1.7em;
   }
   .footer-content h2.footer-logo{
     font-size:3em;
@@ -960,6 +987,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content h2{
     font-size:2em;
   }
+  .content-content h3{
+    font-size:1.8em;
+  }
   .footer-content h2.footer-logo{
     font-size:3em;
     margin-bottom:0.33em;
@@ -1069,6 +1099,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   }
   .content-content h2{
     font-size:2.4em;
+  }
+  .content-content h3{
+    font-size:2em;
   }
   .footer-content h2.footer-logo{
     font-size:4em;
