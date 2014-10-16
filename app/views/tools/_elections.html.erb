@@ -4,7 +4,7 @@
   Recuerda que sólo tu último voto es válido
   </p>
   <div class="list-group">
-    <% Election.actived.each do |election| %>
+    <% Election.all.each do |election| %>
       <%= link_to create_vote_path(election_id: election.id), target: "_blank" do %>
           <p class="box-info">
           <b> <%= election.title %> </b>
