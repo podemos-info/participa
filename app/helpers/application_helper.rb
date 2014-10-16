@@ -87,11 +87,12 @@ module ApplicationHelper
     render partial: 'form_field_notice'
   end
 
-  def steps_nav current_step, first_step, second_step, third_step
+  def steps_nav current_step, *steps_text
     render partial: 'steps_nav',
-           locals: { first_step: first_step,
-                     second_step: second_step,
-                     third_step: third_step,
+           locals: { first_step: steps_text[0],
+                     second_step: steps_text[1],
+                     third_step: steps_text[2],
+                     steps_text: steps_text,
                      current_step: current_step }
   end
 end
