@@ -1,6 +1,6 @@
 class SmsValidatorController < ApplicationController
   before_action :authenticate_user! 
-  layout 'simple'
+#  layout 'simple'
 
   # GET /validator/step1
   def step1 

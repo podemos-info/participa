@@ -30,6 +30,7 @@ es:
               taken: "Ya estas registrado con tu documento. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
             born_at: 
               blank: "Tu fecha de nacimiento no puede estar en blanco"
+              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto: dd/mm/aaaa, es decir para el 15 de Diciembre de 1978 sería 15/12/1978" 
             address:
               blank: "Tu dirección no puede estar en blanco"
             town:
@@ -90,9 +91,14 @@ es:
         password: "Contraseña"
         password_confirmation: "Contraseña (repetir)"
         remember_me: "Recordarme"
-        wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
-        terms_of_service: "Acepto las condiciones generales"
+        wants_newsletter: 'Newsletter'
+        terms_of_service: "He leído y acepto las condiciones generales"
+        over_18: "Declaro ser mayor de 18 años"
         current_password: "Contraseña actual"
+  formtastic:
+    hints:
+      user:
+        wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante."
   podemos:
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
@@ -104,10 +110,12 @@ es:
       change_email: "Cambiar correo electrónico"
       change_email_explain: "Si cambias tu correo electrónico te enviaremos otro correo para que lo confirmes."
       change_phone: "Cambiar teléfono móvil"
-      change_phone_explain: "Ahora mismo tienes el móvil %{phone}"
+      change_phone_explain_html: "Ahora mismo tienes el móvil <b> %{phone} </b>"
       change_password: "Cambiar contraseña"
-      cancel_account: "Cancelar mi cuenta"
-      cancel_account_explain: "Si borras tu cuenta no podrás acceder más"
+      cancel_account: "Darme de baja"
+      cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal. </p>
+<p> A partir de este momento tu cuenta de acceso a esta página web quedará eliminada.</p>
+<p> De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Protección de Datos, la cancelación dará lugar al bloqueo de los datos, conservándose únicamente a disposición de las Administraciones públicas, Jueces y Tribunales, para la atención de las posibles responsabilidades nacidas del tratamiento, durante el plazo de prescripción de éstas. Cumplido el citado plazo se procederá a la supresión de los datos.</p>"
     devise:
       mailer:
         hello: "Hola"
@@ -164,21 +172,272 @@ es:
         p3: 'Al pulsar el botón “ENVIAR” usted autoriza a Podemos y a su entidad bancaria a efectuar las operaciones de cobro mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera que usted nos ha facilitado, por el importe y con la frecuencia que nos ha indicado en el formulario. Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 10 de cada mes, trimestre o año dependiendo de la frecuencia de pago que ha elegido.'
     registration:
       passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
-      p1: "Rellenando este formulario con tus datos y pasarás a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
-      p2: "Completa el siguiente formulario para registrarte en PODEMOS. Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación. Si te equivocas en alguno de tus datos, puedes completar el formulario otra vez con tu código y se sobrescribirán, el sistema evita duplicados de registro."
-      p3: "¿Es seguro el sistema de inscripción?"
-      p4: "Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos."
-      p5: "*El código de verificación no es la contraseña de la Plaza Podemos. Lee este manual para saber como registrarte y participar en ella."
+      p1_html: "<p>
+Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos. 
+</p> <p>
+Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación. Si te equivocas en alguno de tus datos, puedes completar el formulario otra vez con tu código y se sobrescribirán, el sistema evita duplicados de registro. 
+</p> <p><b>¿Es seguro el sistema de inscripción?</b></p> <p>
+Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.
+</p> <p>
+*El código de verificación no es la contraseña de la Plaza Podemos. <a href='http://redd.it/2dfd5h'>Lee este manual para saber como registrarte y participar en ella</a>.
+</p>
+"
       terms_of_service:
         title: 'Condiciones generales'
-        p1: 'Los derechos y deberes políticos derivados de esta inscripción, así como la forma de su ejercicio, son los reconocidos por la vigente legislación de Partidos Políticos y los propios estatutos del partido, sujetos a las decisiones que se adopten en las Asambleas, los recogidos en los Compromisos Éticos que se aprueben en la Asamblea Ciudadana y por los Acuerdos de los órganos del partido acordados. Esta inscripción supone así mismo la aceptación de los métodos de participación y formulas de decisión que legitimamente se establezcan.'
-        p2_html: 'Al enviar este Formulario y cumplimentar el proceso de inscripción, habrás dado también tu consentimiento para que tus datos se incorporen a un Fichero cuyo Responsable es el partido Político PODEMOS, con los únicos fines de mantener la comunicación y facilitar la participación. Salvo por imperativo legal, PODEMOS nunca cederá tus datos a terceros sin tu consentimiento expreso. Podrás en cualquier momento ejercer tus derechos de Acceso, Rectificación, Cancelación y Oposición dirigiéndote a la dirección electrónica <a href="mailto:lopd@podemos.info">lopd@podemos.info</a> desde la misma dirección de correo que consta verificada en esta inscripción o por cualquier otro medio que deje constancia de tu voluntad y de tu identidad'
+        p1_html: '
+<h2>Condiciones generales de inscripción y política de privacidad</h2>
+<p><b> 1. Condiciones legales de la inscripción en Podemos Partido Político</b></p>
+<p>
+Al cumplimentar y enviar el formulario de inscripción el interesado pasará a ser miembro de PODEMOS partido político con CIF G86976941 y será titular de los derechos y obligaciones reconocidos por la legislación española a todos los inscritos en partidos políticos.
+</p>
+<p>
+La inscripción supone la aceptación expresa de los estatutos del partido y los acuerdos éticos, organizativos y políticos que apruebe la Asamblea Ciudadana y demás órganos del partido, así como de los métodos de participación y las fórmulas de decisión que legítimamente se establezcan.
+</p>
+<p><b>2. Protección de datos personales</b></p>
+<p>
+PODEMOS, de acuerdo con la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal, informa a las personas que quieran inscribirse de que los datos personales que faciliten en el formulario de inscripción serán incorporados al fichero de “afiliados” del que es responsable PODEMOS Partido Político, con CIF G86976941, que los utilizará para gestionar los perfiles de los inscritos, contactar con ellos para gestionar su registro y hacerles llegar toda la información necesaria sobre su inscripción.
+</p>
+<p>
+El inscrito acepta y consiente expresamente el tratamiento de sus datos personales y la recepción de comunicaciones electrónicas para los fines indicados.
+</p>
+<p>
+Salvo imperativo legal, los datos personales de los inscritos no serán cedidos a terceras personas sin su consentimiento expreso.
+</p>
+<p>
+PODEMOS cumple con todas las medidas de seguridad para la protección de datos personales exigidas por el Real Decreto 1720/2007, de 21 de diciembre, por el que se aprueba el Reglamento de desarrollo de la Ley Orgánica 15/1999, de 13 de diciembre, de protección de datos de carácter personal.
+</p>
+<p>
+<p><b>3. Ejercicios de los derechos de acceso, rectificación, cancelación y oposición</b></p>
+<p>
+Para ejercer los derechos de acceso, rectificación, cancelación y posición el inscrito podrá utilizar los formularios disponibles en la página web del perfil de usuario de la web participa.podemos.info o dirigirse por correo electrónico a lopd@podemos.info indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación.
+</p>
+<p><b>4. Aceptación de las presentes condiciones generales</b></p>
+<p>
+Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO declara haber leído este aviso legal y estar conforme con su contenido.
+</p>
+<p> <b> Podemos </b></p>
+<p> <b>Versión 7 de octubre de 2014 16:01 </b> </p>
+'
     legacy:
       password:
         title: "Cambiar contraseña antigua"
         explain: "Debes cambiar tu contraseña"
         changed: "Has cambiado tu contraseña"
-  simple_captcha:
-    placeholder: ""
-    label: "rellena con los caracteres"
-    invalid: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
+    legal: 
+      title1: "WEB PARTICIPA.PODEMOS.INFO"
+      title2: "AVISO LEGAL"
+      title3: "CONDICIONES GENERALES DE ACCESO, EMPLEO DE COOKIES Y POLÍTICA DE PRIVACIDAD"
+      p1:
+        title: "Información general"
+        p1: 
+          subtitle: "Identificación del propietario de la web"
+          text_html: "PODEMOS PARTIDO POLÍTICO (en adelante PODEMOS) <br> CIF G86976941 <br> Calle Zurita, núm. 21 <br> 28012 Madrid"
+        p2: 
+          subtitle: "Contacto"
+          text_html: "Información general: contacto@podemos.info <br> Incidencias inscripciones: partido@podemos.info <br> Protección de datos: lopd@podemos.info <br>"
+      p2: 
+        title: "Condiciones generales de acceso y uso de la web participa.podemos.info"
+        p1:
+          subtitle: "Usuarios y derecho de acceso"
+          text_html: "
+  <p>El acceso a esta web está reservado a los inscritos en PODEMOS y que se registren en la misma conforme al procedimiento establecido en el apartado 2.4 de estas condiciones.
+  </p>
+  <p>
+  El acceso a esta web atribuye la condición de USUARIO e implica la aceptación expresa y sin reservas de todas y cada una de las condiciones generales que se publican en este aviso legal, sin perjuicio de la aceptación concreta de las condiciones particulares que se incluyan en las páginas del sitio.
+  </p>
+  <p>
+  El derecho a acceder y utilizar esta web queda condicionado al buen uso de la misma y al cumplimiento de las presentes condiciones generales y las condiciones particulares incluidas en las páginas del sitio.
+  </p>
+  <p>
+  PODEMOS denegará y retirará el acceso y uso de la web en cualquier momento y sin previo aviso a toda persona que incumpla las condiciones generales o particulares que se publiquen en este sitio web o que haga un mal uso de las herramientas y servicios que se facilitan a los usuarios.
+  </p>
+  "
+        p2: 
+          subtitle: "Modificaciones del sitio y de los servicios"
+          text_html: "<p>
+PODEMOS se reserva el derecho de modificar unilateralmente en cualquier momento y sin previo aviso las presentes condiciones generales, las condiciones particulares y las condiciones de uso y los servicios que se prestan en esta página web. 
+</p>
+
+<p>
+También se reserva el derecho a modificar unilateralmente en cualquier momento y sin previo aviso la presentación, diseño y configuración del sitio web.
+</p>
+
+<p>
+Las modificaciones serán publicadas oportunamente a todos los usuarios mediante avisos en la propia página web.
+</p>"
+        p3:
+          subtitle: "Accesibilidad a la web"
+          text_html: "La web ha sido diseñada y programada siguiendo las técnicas y directrices de accesibilidad internacional, para hacer posible su uso a todo tipo de usuarios, incluidos los que sufren algún tipo de discapacidad."
+        p4:
+          subtitle: "Acceso y uso de la web"
+          text_html: "
+<p>
+El acceso y uso de la web tiene carácter gratuito para los USUARIOS y está reservado para los inscritos en PODEMOS.
+</p>
+
+<p>
+Para acceder a los servicios es necesario estar inscrito previamente como miembro de PODEMOS y registrarse posteriormente en la web con el nombre de usuario y la contraseña que sean requeridos y facilitados por PODEMOS. 
+</p>
+<p>
+Para el acceso deberán seguirse las instrucciones de registro que particularmente se establezcan en la página de inicio.
+</p>
+
+<p>
+El USUARIO se compromete a hacer un uso diligente y a no poner a disposición de terceros su nombre de usuario y contraseña, así como a comunicar a PODEMOS con la mayor brevedad, la pérdida, robo o cualquier riesgo de acceso a los mismos por un tercero.
+</p>
+
+<p>
+El acceso y uso de la web tienen, en principio, una duración indefinida. No obstante, PODEMOS se reservará el derecho a suspender el acceso a la web y su uso en cualquier momento. En estos casos lo comunicará a los usuarios por correo electrónico o mediante aviso en la página de inicio.
+</p>
+"
+        p5:
+          subtitle: "Uso del contenido y servicios de la web"
+          text_html: "<p>
+El USUARIO sólo está autorizado a acceder a las páginas y servicios incluidos en su cuenta de usuario y para los que se le ha dado derecho de acceso. </p>
+<p>
+Cuando el USUARIO accede a su página de perfil queda expresamente autorizado para visualizar y modificar toda la información personal contenida en su perfil personal así como para efectuar reproducciones privadas de sus datos en sus sistemas informáticos.
+El uso de las herramientas de votación y participación incluidas en la web estarán reguladas por las condiciones particulares que se publiquen en cada momento y para cada uso en concreto.
+</p>
+<p>
+Cuando el uso de estas herramientas implique el enlace a otros sitios web de terceros, deberán cumplirse las condiciones de uso, empleo de cookies y política de privacidad del prestador de servicios de la web de destino.
+</p>
+<p>
+El USUARIO no está autorizado a reproducir o copiar, distribuir, modificar, ceder o comunicar públicamente la información contenida en la web a menos que se cuente con la autorización del titular de los correspondientes derechos o que resulte legalmente permitido.
+</p>
+<p>
+El USUARIO no está autorizado para emplear la información contenida en la web con fines comerciales, enviar mensajes no solicitados dirigidos a una pluralidad de personas con independencia de su finalidad, así como comercializar de cualquier modo dicha información.
+</p>
+"
+        p6:
+          subtitle: "Titularidad de los contenidos."
+          text_html: "<p>
+Toda la información contenida en esta web, incluyendo imágenes, diseños gráficos o códigos informáticos, nombres comerciales, marcas y signos distintivos, entre otros, es propiedad intelectual e industrial de PODEMOS.  </p>
+<p>
+PODEMOS no cede total ni parcialmente, ni concede licencia o autorización alguna a los usuarios sobre los derechos de propiedad intelectual o industrial o de cualquier otra forma relativa a la web.
+</p>
+<p>
+Supone una infracción de los derechos de propiedad intelectual e industrial protegidos por la ley copiar, reproducir, comunicar, distribuir, modificar o ceder la información contenida en la web, a menos que se cuente con la autorización del titular de los correspondientes derechos o que resulte legalmente permitido. 
+</p>"
+        p7:
+          subtitle: "Traducción a los idiomas oficiales"
+          text_html: "<p>
+La web podrá contar con versiones en otros idiomas, en especial en catalán, eusquera y gallego.  </p>
+<p> Ante cualquier discrepancia de traducción entre los textos de las diferentes versiones que afecte a la comprensión de las condiciones de uso y contenido de la web prevalecerá siempre el texto publicado en la versión en castellano.
+</p>"
+        p8:
+          subtitle: "Exclusión de garantías y responsabilidades"
+          text_html: "<p>
+PODEMOS no responderá ante los USUARIOS por los daños y perjuicios de cualquier clase y naturaleza causados por:
+</p>
+<ol>
+  <li>los contenidos, productos y servicios prestados por terceras personas, empresas o entidades a través de esta web, y en particular, por los servicios y herramientas de votación y participación prestados por las empresas enlazadas en sus páginas;</li>
+  <li>la falta funcionamiento de la web o de los servicios que se prestan y de los fallos en el acceso a las distintas páginas web o a aquellas desde las que se prestan los servicios;</li>
+  <li>la existencia de virus en el sistema informático, documentos electrónicos o ficheros de los usuarios;</li>
+  <li> la presencia de virus en los servicios prestados por terceras personas, empresas o entidades a través de esta web;</li>
+  <li>el acceso a la web por personas no autorizadas utilizando los nombres de usuario y contraseñas del USUARIO o saltándose las medidas de seguridad legalmente establecidas e implementadas por
+  PODEMOS;</li>
+  <li>el incumplimiento por parte de los USUARIOS de las obligaciones de privacidad y de protección de datos de carácter personal propios y de terceras personas;</li>
+  <li>el mal uso de la web o de los servicios de votación y participación prestados por PODEMOS y por las empresas enlazadas en sus páginas;</li>
+  <li>el incumplimiento de las presentes condiciones generales y particulares y las publicadas en cualquier página de esta web y en las de terceros;</li>
+</ol>
+"
+        p9:
+          subtitle: "Empleo de COOKIES"
+          text_html: '<p> PODEMOS utiliza en la web cookies de empresas colaboradoras para mejorar su experiencia de usuario y ofrecerle los mejores servicios.  <p>
+<p> Navegar por esta web con las cookies activadas en el navegador conlleva de manera imprescindible la aceptación del uso de las mismas conforme las presentes condiciones.  Si no aceptas el uso de cookies puedes bloquearlas en el navegador.  </p>
+
+<p> Las cookies permiten a la web recordar tus preferencias y reconocerte en sucesivas visitas. Esto se consigue almacenando en tu equipo de navegación cierta información sobre tu uso de la web.  </p>
+
+<h5> ¿Qué son las cookies?  </h5>
+
+<p> Las “cookies” son pequeños ficheros temporales que se crean en tu dispositivo de navegación (ordenador, teléfono, tableta, etc.) cuando visitas una web, y que permiten a la misma almacenar información, por ejemplo para guardar tus preferencias de uso o para reconocerte en sucesivas visitas.  </p>
+
+<p> Cuando una web crea una cookie en tu dispositivo, se almacena lo siguiente: </p>
+
+<ul>
+  <li>La dirección/dominio de la web que ha creado la cookie</li>
+  <li>La duración de la cookie, que puede ir de escasos minutos a varios años.</li>
+  <li>El contenido de la cookie.</li>
+</ul>
+ 
+<p> En todo momento puedes configurar tu programa de navegación para impedir (bloquear) el uso de cookies por parte de determinadas webs, así como borrar las cookies almacenadas previamente.</p>
+
+<h5>¿Para qué se usan las cookies?</h5>
+<ul>
+  <li> Cookiesesenciales.Setratadecookiestécnicasnecesariasparagestionarelflujodenavegacióndentro de la web o para mantenerte conectado a la misma. Si las deshabilitas, es posible que algún apartado de  la web no funcione correctamente.</li>
+  <li> Cookies de personalización. Necesarias para recordar determinadas preferencias del usuario.</li>
+  <li> Cookies analíticas. Nos ayudan a nosotros y a terceros a recopilar información de la procedencia de los usuarios y su navegación dentro de la web, a efectos de realizar un análisis estadístico para poder  mejorar su estructura y contenidos.</li>
+  <li>Cookies publicitarias. Utilizadas para gestionar los anuncios que aparecen en la web, decidir el contenido  o la frecuencia de los anuncios.</li>
+  <li>Cookies publicitarias comportamentales. Ayudan a recopilar tus hábitos de navegación para crear un  perfil de intereses que sirve para mostrarte anuncios más relevantes.</li>
+  <li>Cookies para compartición social. Estas cookies son necesarias para identificarte en tus redes sociales y  así permitirte compartir contenidos.</li>
+</ul>
+
+<h5>¿Qué cookies utiliza esta web?  </h5>
+<ul>
+<li><b>Cookies de Piwik (__utma, __utmb, __utmc, __utmz) </b>: Estas cuatro cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). Además de bloquear estas cookies por medio del navegador, el usuario puede utilizar este complemento facilitado por el propio Google para inhabilitar el servicio de Google Analytics en su visita.
+<li><b>Cookies de Ruby On Rails (__utma, __utmb, __utmc, __utmz) </b>: Estas cuatro cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). Además de bloquear estas cookies por medio del navegador, el usuario puede utilizar este complemento facilitado por el propio Google para inhabilitar el servicio de Google Analytics en su visita.
+  </li>
+
+</ul>
+ 
+<h5>¿Cómo impedir el uso de cookies y cómo borrar las cookies?</h5>
+<p>La mayoría de navegadores te permiten desactivar completamente las cookies. Los navegadores también te permiten borrar las cookies creadas por una web específica.</p>
+
+<p> Recuerda que en caso de bloquear las cookies es posible que determinados servicios o funciones de la web no funcionen correctamente.  </p>
+
+<p> Hay que tener en cuenta que las diferentes versiones de los navegadores de internet pueden modificar los sistemas de desactivación y borrado de cookies y por ello es imprescindible que el USUARIO consulte en cada momento las preferencias del navegador que utilice en su equipo y las instrucciones publicadas en sus páginas web.  </p>
+
+<h5> ¿Dónde encontrar información sobre uso y bloqueo de cookies? </h5>
+<p>
+Puedes encontrar información en las webs de los principales navegadores:
+</p>
+<ul>
+  <li><a href="http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647">Chrome</a><li>
+  <li><a href="http://windows.microsoft.com/es-es/windows7/how-to-manage-cookies-in-internet-explorer-9">Explorer</a></li>
+  <li><a href="http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we">Firefox</a></li>
+  <li><a href="http://support.apple.com/kb/ph5042">Safari</a></li>
+  <li><a href="http://support.apple.com/kb/HT1677?viewlocale=es_ES&locale=es_ES"> Safari para IOS </a></li>
+  <li><a href="http://help.opera.com/Windows/11.50/es-ES/cookies.html">Opera</a></li>
+</ul>
+'
+        p10:
+          subtitle: "Legislación aplicable y jurisdicción"
+          text_html: "<p> Las condiciones generales y particulares de uso, empleo de cookies y política de privacidad de esta página web se regirán por la legislación española.  </p> 
+<p> PODEMOS y el USUARIO, con renuncia expresa al fuero que pudiera corresponderles, se someten a los juzgados y tribunales del domicilio del usuario, para cualquier controversia que pudiera surgir de la prestación de los servicios objeto de estas condiciones generales. En el supuesto de que el usuario tuviera su domicilio fuera del territorio español, PODEMOS y el USUARIO se someten, con renuncia expresa al fuero que pudiera corresponderles, a los juzgados y tribunales de Madrid (España).
+</p>"
+      p3:
+        title: "Política de privacidad"
+        p1:
+          subtitle: "Protección de datos personales"
+          text_html: "<p>
+PODEMOS, de acuerdo con la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal, informa a los USUARIOS de que los datos personales que constan en los perfiles personales de esta página web están incorporados en los ficheros de “afiliados” y “aportaciones”, de los que es responsable PODEMOS Partido Político, CIF G86976941, que los utiliza para gestionar los perfiles de los inscritos, contactar con ellos para gestionar su registro, votación y participación en la web, hacerles llegar información sobre las incidencias y cambios de condiciones de uso y prestarles toda la información relativa a las votaciones y participación en el proyecto de PODEMOS.
+</p>
+
+<p>
+El USUARIO acepta y consiente expresamente el tratamiento de sus datos personales y la recepción de comunicaciones electrónicas para los fines indicados.
+</p>
+
+<p>
+Los datos no serán cedidos a terceras personas sin el consentimiento expreso del USUARIO.
+</p>
+
+<p>
+PODEMOS cumple con todas las medidas de seguridad para la protección de datos personales exigidas por el Real Decreto 1720/2007, de 21 de diciembre, por el que se aprueba el Reglamento de desarrollo de la Ley Orgánica 15/1999, de 13 de diciembre, de protección de datos de carácter personal.
+</p>"
+        p2:
+          subtitle: "Ejercicios de los derechos de acceso, rectificación, cancelación y oposición"
+          text_html: "Para ejercer los derechos de acceso, rectificación, cancelación y posición el USUARIO puede utilizar los formularios disponibles en la página web del perfil de usuario o dirigirse por correo electrónico a lopd@podemos.info indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación."
+      p4:
+        title: "Aceptación de las presentes condiciones generales"
+        p1: 
+          subtitle: "Protección de datos personales"
+          text_html: '
+<p> Al marcar la casilla “He leído y acepto las condiciones de uso, empleo de cookies y política de privacidad" el USUARIO declara haber leído este aviso legal y estar conforme con su contenido.
+</p>
+<p> <b> PODEMOS Partido Político<br> CIF G86976941<br> Versión 7 de octubre de 2014 12:55<br> </b> </p>
+'
+  recaptcha:
+    errors:
+      incorrect-captcha-sol: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
+      verification_failed: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
+      recaptcha_unreachable: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"

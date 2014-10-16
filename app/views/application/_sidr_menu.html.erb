@@ -1,0 +1,20 @@
+<div id="sidr-menu" class="invisible">
+<ul>
+  <li class="menu-profile">
+    <%= link_to "Perfil", edit_user_registration_path %>
+  </li>
+  <%#li class="menu-econ">
+    <%# TODO add route %>
+    <%#= link_to "Colaboración económica", root_path %>
+  <%#/li%>
+  <!-- li class="menu-notif">
+    <%= link_to "Avisos", notices_path %>
+  </li -->
+  <li class="menu-tools">
+    <%= link_to "Herramientas", root_path %>
+  </li>
+  <li class="menu-logout">
+    <%= link_to "Salir", destroy_user_session_path, method: :delete %>
+  </li>
+</ul>
+</div>

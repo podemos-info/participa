@@ -1,17 +1,19 @@
+<% content_for :title, "Comprueba tu teléfono móvil" %>
 
-<%= render partial: "steps", locals: {step: 1} %>
-
-<div class="well col-md-6 col-md-offset-3">
-  <%= semantic_form_for(current_user, url: sms_validator_phone_path, html: {method: :post}) do |f| %>
-    <p><%= t('podemos.valid.phone.p1') %></p>
-    <p><%= t('podemos.valid.phone.p2') %></p>
-    <p><%= t('podemos.valid.phone.p3') %></p>
-
-    <div class="hidden js-registration-country"><%= current_user.country.downcase %></div>
-    <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
-
-    <%= f.actions do %>
-      <%= f.action :submit, label: "Guardar móvil", button_html: { class: "btn btn-primary js-registration-button-phone" } %>
-    <% end %>
-  <% end %>
+<div class="content-content cols">
+  <div class="row">
+    <%= render partial: "steps", locals: {step: 1} %>
+    <div class="well col-md-6 col-md-offset-3">
+      <%= semantic_form_for(current_user, url: sms_validator_phone_path, html: {method: :post}) do |f| %>
+        <p><%= t('podemos.valid.phone.p1') %></p>
+        <p><%= t('podemos.valid.phone.p2') %></p>
+        <div class="hidden js-registration-country"><%= current_user.country.downcase %></div>
+        <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
+        <br>
+        <%= f.actions do %>
+          <%= f.action :submit, label: "Guardar móvil", button_html: { class: "button js-registration-button-phone" } %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

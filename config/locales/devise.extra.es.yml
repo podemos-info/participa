@@ -2,10 +2,12 @@
 
 es:
   devise:
+    registrations: 
+      ok: "Te has registrado correctamente. Recibirás un correo que tendrás que confirmar para continuar con el proceso. Revisa tu correo."
     buttons:
       sign_in: "Iniciar sesión"
       sign_up: "Registrarse"
-      cancel_account: "Borrar mi cuenta"
+      cancel_account: "Darme de baja"
       reset_password: "Enviarme las instrucciones por correo electrónico"
       change_password: "Cambiar contraseña"
       confirmation_instructions: "Reenviar instrucciones de confirmación"
@@ -31,7 +33,7 @@ es:
       waiting_confirmation: "Actualmente esperando instrucciones para %{email}"
     titles:
       sign_in: "Iniciar sesión"
-      sign_up: "Inscribirse"
+      sign_up: "Formulario de inscripción en Podemos partido político CIF G86976941"
       my_account: "Mi cuenta de %{downcase_model}"
       cancel_account: "Cancelar mi cuenta"
       forgot_password: "¿Has olvidado tu contraseña?"

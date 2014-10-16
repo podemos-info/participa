@@ -22,7 +22,7 @@ ActiveAdmin.register Election do
       row :starts_at
       row :ends_at
       row "Crear Aviso" do
-        link_to "Crear aviso para móviles para esta votación", new_admin_notice_path(notice: { link: create_vote_url(election_id: election.agora_election_id), title: "Podemos", body: "Nueva votación disponible: #{election.title}" }), class: "button"
+        link_to "Crear aviso para móviles para esta votación", new_admin_notice_path(notice: { link: create_vote_url(election_id: election.id), title: "Podemos", body: "Nueva votación disponible: #{election.title}" }), class: "button"
       end
     end
     active_admin_comments

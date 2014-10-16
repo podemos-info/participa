@@ -1,6 +1,6 @@
 
 document_change = (document_type) ->
-  $('.js-registration-document-wrapper').removeClass('hidden')
+  $('.js-registration-document-wrapper').removeClass('invisible')
   $('.js-registration-document-wrapper label').html("#{document_type} <abbr title='required'>*</abbr>")
 
   switch document_type
@@ -10,10 +10,10 @@ document_change = (document_type) ->
 
 has_dni = () ->
   # TODO 
-  $('.js-registration-document-passport').addClass('hidden')
+  $('.js-registration-document-passport').addClass('invisible')
 
 has_passport = () ->
-  $('.js-registration-document-passport').removeClass('hidden')
+  $('.js-registration-document-passport').removeClass('invisible')
 
 telephone_flags = () ->
   telInput = $('.js-registration-input-phone')
@@ -45,13 +45,13 @@ telephone_flags = () ->
 init_registrations = () ->
 
   if ( $('.js-registration-document:checked').length > 0 )
-    document_type = $('.js-registration-document:checked').parents('label').text()
+    document_type = $('.js-registration-document:checked').find('option:selected').text()
     document_change(document_type)
 
   telephone_flags()
 
   $('.js-registration-document').change (event) ->
-    document_type = $(this).parents('label').text()
+    document_type = $(this).find('option:selected').text()
     document_change(document_type)
 
 $(window).bind 'page:change', ->
