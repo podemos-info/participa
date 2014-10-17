@@ -82,6 +82,8 @@ Cuando se ponga el nombre del partido, deberá ponerse de la siguiente forma:
 ```html
 <em class="podemos">Podemos</em>
 ```
+En los steps, se deberá prestar atención a tener textos de longitud similar
+para mantener el aspecto de los steps uniforme.
 
 i18n
 ----
