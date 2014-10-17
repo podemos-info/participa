@@ -10,7 +10,7 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body <%= if user_signed_in? then 'class=signed-in' else 'class=logged-out' end %>>
 
 <div class="wrap">
   <%= render partial: 'header' %>
