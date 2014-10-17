@@ -3,8 +3,11 @@
     <p><strong><%= title %></strong></p>
 
     <p><%= content %></p>
-    <a class="box-close" href="#">
-      <span><%= close_text %></span>
-    </a>
+
+    <% if close_text %>
+        <a class="box-close" href="#">
+          <span><%= close_text %></span>
+        </a>
+    <% end %>
   </div><%# .box-ko %>
 </div><%# .box %>
