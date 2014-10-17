@@ -1,11 +1,4 @@
-<% if resource.errors.present? %>
-    <%= error_box "No se pudo salvar" do %>
-        <p>Ocurrieron los siguientes errores</p>
-        <% resource.errors.each do |attr, msg| %>
-          <p><b><%= I18n.t "activerecord.attributes.user." + attr.to_s %></b>: <%= msg %></p>
-        <% end %>
-    <% end %>
-<% end %>
+<%= errors_in_form resource %>
 
 <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {novalidate: true}) do |f| %>
   <fieldset>
