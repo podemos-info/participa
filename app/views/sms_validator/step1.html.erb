@@ -9,7 +9,7 @@
         <p><%= t('podemos.valid.phone.p2') %></p>
         <div class="hidden js-registration-country"><%= current_user.country.downcase %></div>
         <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
-        <br>
+
         <%= f.actions do %>
           <%= f.action :submit, label: "Guardar móvil", button_html: { class: "button js-registration-button-phone" } %>
         <% end %>
