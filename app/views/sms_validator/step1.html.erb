@@ -2,17 +2,30 @@
 
 <div class="content-content cols">
   <div class="row">
-    <%= render partial: "steps", locals: {step: 1} %>
-    <div class="well col-md-6 col-md-offset-3">
-      <%= semantic_form_for(current_user, url: sms_validator_phone_path, html: {method: :post}) do |f| %>
-        <p><%= t('podemos.valid.phone.p1') %></p>
-        <p><%= t('podemos.valid.phone.p2') %></p>
-        <div class="hidden js-registration-country"><%= current_user.country.downcase %></div>
-        <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
 
-        <%= f.actions do %>
-          <%= f.action :submit, label: "Guardar móvil", button_html: { class: "button js-registration-button-phone" } %>
-        <% end %>
+    <div class="col-b-4a12">
+    <%= render partial: "steps", locals: {step: 1} %>
+
+      <%= semantic_form_for(current_user, url: sms_validator_phone_path, html: {method: :post}) do |f| %>
+          <fieldset>
+            <legend class="invisible">Cambia tu móvil</legend>
+            <p><%= t('podemos.valid.phone.p1') %></p>
+
+            <p><%= t('podemos.valid.phone.p2') %></p>
+
+            <div class="invisible js-registration-country"><%= current_user.country.downcase %></div>
+
+            <div class="inputlabel-box">
+              <% if current_user.errors.include?(:phone) %>
+                  <%= field_notice_box %>
+              <% end %>
+              <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
+            </div>
+
+            <%= f.actions do %>
+                <%= f.action :submit, label: "Guardar móvil", button_html: {class: "button js-registration-button-phone"} %>
+            <% end %>
+          </fieldset>
       <% end %>
     </div>
   </div>
