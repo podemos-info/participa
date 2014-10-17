@@ -1,19 +1,26 @@
-<div class="well">
-  <h2>Hay una votación en curso ¡participa!</h2> 
-  <p>
-  Recuerda que sólo tu último voto es válido
-  </p>
-  <div class="list-group">
+<div class="box">
+  <div class="box-vote">
+    <h3><strong>Hay una votación en curso. ¡Participa!</strong></h3>
+    <p class="sub-h3">Recuerda que sólo tu último voto es válido.</p>
+
+
     <% Election.all.each do |election| %>
-      <%= link_to create_vote_path(election_id: election.id), target: "_blank" do %>
-          <p class="box-info">
-          <b> <%= election.title %> </b>
-          <small> (<%= l election.starts_at, format: :long %> al <%= l election.ends_at, format: :long %>) </small>
-          </p>
-        <span class="button">
-          Votar en Agora Voting
-        </span>
-      <% end %>
+        <div class="box-poll">
+          <div>
+            <p class="poll-q"><%= election.title %></p>
+
+            <p class="date">
+              <%= l election.starts_at, format: :short %>
+              -
+              <%= l election.ends_at, format: :short %>
+            </p>
+          </div>
+
+          <%= link_to create_vote_path(election_id: election.id), target: '_blank', class: 'button button-vote' do %>
+            <span>Votar en</span>
+            <span>Ágora Voting</span>
+          <% end %>
+        </div>
     <% end %>
   </div>
 </div>

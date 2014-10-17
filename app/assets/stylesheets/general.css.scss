@@ -569,7 +569,7 @@ steps
 
 /* -----------------------------------
 pagination
-+----------------------------------- */
+----------------------------------- */
 
 .pagination{
   overflow:hidden;
@@ -592,6 +592,113 @@ pagination
 .pagination li.active a{
   background:#612d62;
   color:#fff;
+}
+
+
+/* -----------------------------------
+tools
+----------------------------------- */
+
+.box-vote{
+  overflow:hidden;
+  background:#eaeaea image-url("ico.vote-box.png") 2em 1.5em no-repeat;
+  padding:1.5em 3em 1.5em 9em;
+  margin:0 0 1.5em
+}
+.content-content .box-vote h3{
+  color:#612d62;
+  margin:0;
+  border:0;
+}
+.content-content .box-vote .sub-h3{
+  font-style:italic;
+  color:#555;
+}
+.box-poll{
+  overflow:hidden;
+  margin:0 0 1em;
+  width:100%;
+  float:none;
+  clear:both;
+}
+.box-poll div{
+  background:#d7cad8;
+  border-radius:3px;
+  overflow:hidden;
+  margin:0;
+  float:left;
+  width:65%;
+  padding:0.5em 2.5%;
+  margin-right:5%;
+}
+.content-content .box-poll div p{
+  margin-bottom:0;
+}
+.content-content .box-poll div p.poll-q{
+  font-weight:bold;
+  font-style:italic;
+}
+.content-content .box-poll div p.date span{
+  font-size:0.8em;
+}
+.box-poll .button{
+  width:25%;
+  float:right;
+  text-align:center;
+  padding:0.5em 0;
+  margin-bottom:0;
+}
+.box-poll .button span{
+  display:block;
+  clear:both;
+}
+
+.tools ul{
+  position:relative;
+}
+.tools li{
+  width:97%;
+  position:relative;
+  display:block;
+  background:#eaeaea;
+  float:left;
+  padding:1.5%;
+  margin-bottom:1.5em;
+}
+.tools li:nth-child(3n+0){
+  margin-right:0;
+  clear:right;
+}
+.tools li div.box-tool{
+  position:relative;
+}
+.tools li div.tool-text{
+  padding-top:7em;
+}
+.tools li div.box-tool:before{
+  display: inline-block;
+  margin: 0;
+  content:image-url("ico.ropes-purple.png");
+  position:absolute;
+  top: -1.7em;
+  left: -1.7em;
+}
+.tools li h3{
+  position: absolute;
+  width: 60%;
+  top: 0;
+  right: 0;
+  border-bottom:0;
+  line-height:1em;
+}
+.tools li .button{
+  display:block;
+  width: 100%;
+  padding:1em 0;
+  text-align:center;
+}
+.tools li .buttonbox{
+  padding-bottom:0;
 }
 
 
@@ -754,7 +861,7 @@ elementos
 .menu ul li.menu-hamb{
   display:block;
 }
-.steps3 li a{
+.steps3 li span.block{
   height:3em;
 }
 .steps3 li span.block span.tab-text{
@@ -768,6 +875,9 @@ elementos
 .steps3 li:nth-child(3) span.block span.tab-number{
   width:70%;
   text-align:center;
+}
+.tools li h3{
+  width:75%;
 }
 
 
@@ -884,7 +994,7 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .menu ul li.menu-hamb{
     display:block;
   }
-  .steps3 li a{
+  .steps3 li span.block{
     height:3em;
   }
   .steps3 li span.block span.tab-text{
@@ -898,6 +1008,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .steps3 li:nth-child(3) span.block span.tab-number{
     width:70%;
     text-align:center;
+  }
+  .tools li h3{
+    width:80%;
   }
 
 
@@ -984,7 +1097,7 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     position:relative;
     overflow:hidden;
   }
-  .steps3 li a{
+  .steps3 li span.block{
     height:3.75em;
   }
   .steps3 li span.block span.tab-text{
@@ -1034,6 +1147,10 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .steps3 li:nth-child(3) span.block span.tab-number{
     width:15%;
   }
+  .tools li h3{
+    width:85%;
+  }
+
 
   /*
   font sizes
@@ -1153,7 +1270,7 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .menu ul li.menu-hamb{
     display:none;
   }
-  .steps3 li a{
+  .steps3 li span.block{
     height:4.2em;
   }
   .steps3 li span.block span.tab-text{
@@ -1169,6 +1286,17 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     width:15%;
     text-align:left;
   }
+  .tools li{
+    width:29%;
+    margin-right:2%;
+  }
+  .tools li div.tool-text{
+    height:20em;
+  }
+  .tools li h3{
+    width:60%;
+  }
+
 
   /*
   font sizes
@@ -1284,7 +1412,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .menu ul li.menu-hamb{
     display:none;
   }
-  .steps3 li a{
+  .steps3 li span.block{
     height:4.2em;
   }
   .steps3 li span.block span.tab-text{
@@ -1299,6 +1427,16 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .steps3 li:nth-child(3) span.block span.tab-number{
     width:15%;
     text-align:left;
+  }
+  .tools li{
+    width:29%;
+    margin-right:2%;
+  }
+  .tools li div.tool-text{
+    height:20em;
+  }
+  .tools li h3{
+    width:60%;
   }
 
 

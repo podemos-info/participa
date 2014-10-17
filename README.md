@@ -85,6 +85,10 @@ Cuando se ponga el nombre del partido, deberá ponerse de la siguiente forma:
 En los steps, se deberá prestar atención a tener textos de longitud similar
 para mantener el aspecto de los steps uniforme.
 
+En las cajas de herramientas el título permite tres palabras "cortas" ("Plaza Podemos", "Ágora Voting" o "AppGree")
+
+A ancho completo, la altura de las cajas está fija. Dicha limitación no está en responsive.
+
 i18n
 ----
 
