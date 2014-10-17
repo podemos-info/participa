@@ -568,6 +568,34 @@ steps
 
 
 /* -----------------------------------
+pagination
++----------------------------------- */
+
+.pagination{
+  overflow:hidden;
+  padding:0.5em 0;
+}
+.pagination li{
+  float:left;
+  margin-right:1em;
+  position:relative;
+}
+.pagination li a{
+  padding:0.5em;
+  color:#612d62;
+  background:#d7cad8;
+}
+.pagination li a:hover{
+  background:#8e618c;
+  color:#fff;
+}
+.pagination li.active a{
+  background:#612d62;
+  color:#fff;
+}
+
+
+/* -----------------------------------
 body elements
 ----------------------------------- */
 
@@ -760,7 +788,8 @@ font sizes
   font-size:2em;
 }
 .content .login-box p,
-.footer ul.disclaimer-links li a{
+.footer ul.disclaimer-links li a,
+.pagination li a{
   font-size:1em;
 }
 .login-box form legend,
@@ -889,7 +918,8 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
     font-size:2em;
   }
   .content .login-box p,
-  .footer ul.disclaimer-links li a{
+  .footer ul.disclaimer-links li a,
+  .pagination li a{
     font-size:1.1em;
   }
   .login-box form legend,
@@ -1022,7 +1052,8 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     font-size:2.4em;
   }
   .content .login-box p,
-  .footer ul.disclaimer-links li a{
+  .footer ul.disclaimer-links li a,
+  .pagination li a{
     font-size:1.1em;
   }
   .login-box form legend,
@@ -1156,7 +1187,8 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     font-size:2.8em;
   }
   .content .login-box p,
-  .footer ul.disclaimer-links li a{
+  .footer ul.disclaimer-links li a,
+  .pagination li a{
     font-size:1.2em;
   }
   .login-box form legend,
@@ -1288,7 +1320,8 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     font-size:3em;
   }
   .content .login-box p,
-  .footer ul.disclaimer-links li a{
+  .footer ul.disclaimer-links li a,
+  .pagination li a{
     font-size:1.2em;
   }
   .login-box form legend,
