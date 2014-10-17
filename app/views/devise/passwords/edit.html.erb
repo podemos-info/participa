@@ -3,45 +3,46 @@
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
-      <%= content_tag(:h2, t("devise.titles.change_password")) %>
+      <section class="content-text">
+        <%= content_tag(:h2, t("devise.titles.change_password")) %>
 
-      <%= semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}) do |f| %>
-          <fieldset>
-            <legend class="invisible">
-              <span>Recuperar contraseña</span>
-            </legend>
+        <%= semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}) do |f| %>
+            <fieldset>
+              <legend class="invisible">
+                <span>Recuperar contraseña</span>
+              </legend>
 
-            <%= f.hidden_field :reset_password_token %>
+              <%= f.hidden_field :reset_password_token %>
 
-            <div class="inputlabel-box">
-              <% if resource.errors.include?(:password) %>
-                  <%= field_notice_box %>
+              <div class="inputlabel-box">
+                <% if resource.errors.include?(:password) %>
+                    <%= field_notice_box %>
+                <% end %>
+                <%= f.input :password,
+                            label: t("devise.labels.new_password"),
+                            input_html: {autofocus: true, class: 'input-m'} %>
+              </div>
+
+
+              <div class="inputlabel-box">
+                <% if resource.errors.include?(:password_confirmation) %>
+                    <%= field_notice_box %>
+                <% end %>
+
+                <%= f.input :password_confirmation,
+                            label: t("devise.labels.new_password_confirmation"),
+                            required: true,
+                            input_html: {class: 'input-m'} %>
+              </div>
+
+              <%= f.actions class: 'enter' do %>
+                  <%= f.action :submit, label: t("devise.buttons.change_password"), button_html: {class: 'button'} %>
               <% end %>
-              <%= f.input :password,
-                          label: t("devise.labels.new_password"),
-                          input_html: {autofocus: true, class: 'input-m'} %>
-            </div>
+            </fieldset>
 
+        <% end %>
 
-            <div class="inputlabel-box">
-              <% if resource.errors.include?(:password_confirmation) %>
-                  <%= field_notice_box %>
-              <% end %>
-
-              <%= f.input :password_confirmation,
-                          label: t("devise.labels.new_password_confirmation"),
-                          required: true,
-                          input_html: {class: 'input-m'} %>
-            </div>
-
-            <%= f.actions class: 'enter' do %>
-                <%= f.action :submit, label: t("devise.buttons.change_password"), button_html: {class: 'button'} %>
-            <% end %>
-          </fieldset>
-
-      <% end %>
-
-      <%= render "devise/shared/links" %>
+      </section>
     </div>
   </div>
 </div>
