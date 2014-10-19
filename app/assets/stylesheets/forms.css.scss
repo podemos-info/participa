@@ -113,13 +113,17 @@ fieldset .inputlabel-box *{
   font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
 }
 fieldset .inputlabel-box label,
-fieldset .inputlabel-box span.no-label{
+fieldset .inputlabel-box span.no-label,
+.content-content span.no-input{
   display:block;
   background:none;
   float:left;
   border:none;
   color:#612d62;
   padding:0.55em 0;
+}
+.content-content span.no-input{
+  font-weight:bold;
 }
 fieldset .inputlabel-box input{
   background:#eaeaea;
@@ -129,13 +133,13 @@ fieldset .inputlabel-box input{
   color:#555;
 }
 fieldset .inputlabel-box input.input-xl{
-  width:63%;
+  width:100%;
 }
 fieldset .inputlabel-box input.input-m{
-  width:42%;
+  width:66%;
 }
 fieldset .inputlabel-box input.input-s{
-  width:21%;
+  width:33%;
 }
 fieldset .inputlabel-box .input-box{
   float:left;
@@ -163,6 +167,13 @@ fieldset .inputlabel-box .input-box input.input-s{
   width:29%;
   margin-right:2%;
 }
+
+fieldset .inputlabel-box input.input-m{
+  width:42%;
+}
+fieldset .inputlabel-box input.input-s{
+  width:21%;
+}
 fieldset .inputlabel-box .input-box p.text-xl{
   width:90%;
 }
@@ -178,7 +189,7 @@ fieldset .inputlabel-box input.radio{
   float:left;
   border:none;
   padding:0;
-  margin:1em 0.5em 1em 0;
+  margin:0.85em 0.5em 0.85em 0;
   width:auto;
 }
 fieldset .inputlabel-box p{
@@ -325,6 +336,7 @@ elementos
 */
 .content-content label,
 .content-content span.no-label,
+.content-content span.no-input,
 .dl-horizontal dt{
   width:100%;
   clear:both;
@@ -342,7 +354,8 @@ elementos
 font sizes
 */
 .content-content label,
-.content-content span.no-label{
+.content-content span.no-label,
+.content-content span.no-input{
   font-size:1.4em;
 }
 .content-content input,
@@ -382,6 +395,10 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
     clear:none;
   }
+  .content-content span.no-input{
+    width:63%;
+    clear:none;
+  }
   .table-collaborations{
     margin-left:34%;
     width:63%;
@@ -389,13 +406,23 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .dl-horizontal dd{
     margin-bottom:0;
   }
+  fieldset .inputlabel-box input.input-xl{
+    width:63%;
+  }
+  fieldset .inputlabel-box input.input-m{
+    width:42%;
+  }
+  fieldset .inputlabel-box input.input-s{
+    width:21%;
+  }
 
 
   /*
   font sizes
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .content-content span.no-input{
     font-size:1.4em;
   }
   .content-content input,
@@ -436,6 +463,10 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
     clear:none;
   }
+  .content-content span.no-input{
+    width:63%;
+    clear:none;
+  }
   .table-collaborations{
     margin-left:34%;
     width:63%;
@@ -443,13 +474,23 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .dl-horizontal dd{
     margin-bottom:0;
   }
+  fieldset .inputlabel-box input.input-xl{
+    width:63%;
+  }
+  fieldset .inputlabel-box input.input-m{
+    width:42%;
+  }
+  fieldset .inputlabel-box input.input-s{
+    width:21%;
+  }
 
 
   /*
   font sizes
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .content-content span.no-input{
     font-size:1.5em;
   }
   .content-content input,
@@ -489,6 +530,10 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
     clear:none;
   }
+  .content-content span.no-input{
+    width:63%;
+    clear:none;
+  }
   .table-collaborations{
     margin-left:34%;
     width:63%;
@@ -496,13 +541,23 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .dl-horizontal dd{
     margin-bottom:0;
   }
+  fieldset .inputlabel-box input.input-xl{
+    width:63%;
+  }
+  fieldset .inputlabel-box input.input-m{
+    width:42%;
+  }
+  fieldset .inputlabel-box input.input-s{
+    width:21%;
+  }
 
 
   /*
   font sizes
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .content-content span.no-input{
     font-size:1.6em;
   }
   .content-content input,
@@ -542,6 +597,10 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     margin-right:2%;
     clear:none;
   }
+  .content-content span.no-input{
+    width:63%;
+    clear:none;
+  }
   .table-collaborations{
     margin-left:34%;
     width:63%;
@@ -549,13 +608,23 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .dl-horizontal dd{
     margin-bottom:0;
   }
+  fieldset .inputlabel-box input.input-xl{
+    width:63%;
+  }
+  fieldset .inputlabel-box input.input-m{
+    width:42%;
+  }
+  fieldset .inputlabel-box input.input-s{
+    width:21%;
+  }
 
 
   /*
   font sizes
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .content-content span.no-input{
     font-size:1.8em;
   }
   .content-content input,
