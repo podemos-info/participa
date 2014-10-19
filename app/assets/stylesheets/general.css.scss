@@ -120,6 +120,9 @@ general
   position:relative;
   overflow:hidden;
 }
+.logged-out .content{
+  background:#612d62;
+}
 .content-content{
   margin: auto;
   width: 96%;
@@ -127,6 +130,10 @@ general
   max-width: 94em;
   position:relative;
   overflow:hidden;
+}
+.logged-out .content-content{
+  background:#612d62;
+  padding: 0 1%;
 }
 .content-content-home{
   margin: auto;
@@ -217,6 +224,7 @@ home
 .login-box form legend{
   clear:both;
   margin-bottom:1em;
+  border:0;
   text-transform:uppercase;
   text-align:right;
   font-weight:bold;
@@ -296,6 +304,12 @@ footer
 .footer-contact p{
   font-family:Montserrat,Arial,sans-serif;
 }
+.footer-contact a{
+  font-style: italic;
+  font-weight: normal;
+  font-family: "Helvetica Neue",Arial,sans-serif;
+}
+
 .footer-contact .languages{
   width:auto;
   display:inline-block;
@@ -337,7 +351,7 @@ header & menu
 .logo{
   float:left;
   width:98%;
-  max-width:17.4em;
+  max-width:22em;
   height:3em;
   padding:1.5em 0;
 }
