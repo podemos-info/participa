@@ -49,7 +49,7 @@
         <p class="total">Ya somos
         <span>
           <% cache("total_users", expires_in: 30.minutes) do %>
-            <%= number_with_delimiter User.all.count %>
+            <%= number_with_delimiter User.where.not(sms_confirmed_at: nil).count %>
           <% end %>
         </span>
         personas inscritas.</p>
