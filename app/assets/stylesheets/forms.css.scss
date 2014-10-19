@@ -35,17 +35,31 @@ box info & alerts
 }
 
 .box-ko{
-  background:#f5bfc9 image-url("ico.alert-circle.png") 2em 1.5em no-repeat;
+  background:#f5bfc9 image-url("ico.alert-circle.png") 2.5em 1.25em no-repeat;
   padding:1.5em 3em 1.5em 9em;
   margin:0 0 1.5em
 }
 .box-ok{
-  background:#d0e0c9 image-url("ico.alert-circle.png") 2em 1.5em no-repeat;
+  background:#d0e0c9 image-url("ico.alert-circle.png") 2.5em 1.25em no-repeat;
   padding:1.5em 3em 1.5em 9em;
   margin:0 0 1.5em
 }
+.logged-out .content-content .col-b-4a12{
+  width:100%;
+
+}
 .box-info p{
   color:#612d62;
+}
+.box-ko p:last-of-type,
+.box-ok p:last-of-type,
+.box-info p:last-of-type{
+  margin:0;
+}
+.logged-out .box-ko p,
+.logged-out .box-ok p,
+.logged-out .box-info p{
+  margin:0;
 }
 
 .box-notif{
