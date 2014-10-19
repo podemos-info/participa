@@ -87,7 +87,7 @@ module ApplicationHelper
     render partial: 'form_field_notice'
   end
 
-  def errors_in_forms resource
+  def errors_in_form resource
     render partial: 'errors_in_form', locals: {resource: resource}
   end
 

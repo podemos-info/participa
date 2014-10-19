@@ -4,23 +4,13 @@
 
       <%= content_tag(:h2, t("podemos.collaboration.title")) %>
 
-      <%= steps_nav 1,
-                    "Cómo y con cuánto quieres colaborar",
-                    "Confirmación",
-                    "Resultado" %>
+      <%= render partial: 'steps', locals: { step: 1 } %>
 
       <%= info_box do %>
           <p><%= t("podemos.collaboration.p1") %></p>
       <% end %>
 
-      <% if @collaboration.errors.present? %>
-          <%= error_box "No se pudo salvar" do %>
-              <p>Ocurrieron los siguientes errores</p>
-              <% @collaboration.errors.each do |attr, msg| %>
-                  <p><%= attr %>: <%= msg %></p>
-              <% end %>
-          <% end %>
-      <% end %>
+      <%= errors_in_form @collaboration %>
 
       <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post} do |f| %>
           <fieldset>

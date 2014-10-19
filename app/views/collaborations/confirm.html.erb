@@ -1,19 +1,20 @@
-<ul class="nav nav-pills">
-  <li><%= link_to t("podemos.user.general_data"), edit_user_registration_path %></li>
-  <li class="active"><%= link_to t("podemos.user.collaborations"), "#" %></li>
-</ul>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.collaboration.title")) %>
 
-<div class="row">
-  <%= content_tag(:h2, t("podemos.collaboration.title")) %>
-  <hr>
-  <%= render partial: "steps", locals: {step: 2} %>
-  <div class="well col-md-6 col-md-offset-3 text-center jumbotron row">
-    <p> Confirma los datos</p>
-    <%= render partial: "frequency_table" %>
-    <% if @collaboration.is_credit_card? %>
-      <%= render partial: "form_redsys" %>
-    <% else %>
-      <%= render partial: "form_bank" %>
-    <% end %>
+      <%= render partial: "steps", locals: {step: 2} %>
+
+
+      <p> Confirma los datos</p>
+
+      <%= render partial: "frequency_table" %>
+
+      <% if @collaboration.is_credit_card? %>
+        <%= render partial: "form_redsys" %>
+      <% else %>
+        <%= render partial: "form_bank" %>
+        <% end %>
+    </div>
   </div>
 </div>

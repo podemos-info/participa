@@ -172,7 +172,6 @@ fieldset .inputlabel-box .input-box p.text-m{
 fieldset .inputlabel-box .input-box p.text-s{
   width:33%;
 }
-
 fieldset .inputlabel-box input.checkbox,
 fieldset .inputlabel-box input.radio{
   background:#fff;
@@ -210,7 +209,7 @@ fieldset .alert-nexttolabel .alert-ico{
   position:relative;
 }
 fieldset .alert-nexttolabel .alert-ico span{
-  background:url(../imgs/bg.purple-tip-h.png) 50% 50% no-repeat;
+  background:image-url("bg.purple-tip-h.png") 50% 50% no-repeat;
   display:block;
   width:1.1em;
   height:2.2em;
@@ -265,6 +264,56 @@ fieldset .inputlabel-box .rb-unit label{
   margin-right:2%;
 }
 
+/*
+*/
+
+.dl-horizontal{
+  overflow:hidden;
+  margin-bottom:1em;
+}
+.dl-horizontal dt,
+.dl-horizontal dd{
+  display:block;
+  background:none;
+  float:left;
+  clear:right;
+  border:none;
+  color:#612d62;
+  padding:0.55em 0;
+}
+fieldset .inputlabel-box input{
+  background:#eaeaea;
+  float:left;
+  border:none;
+  padding:0.85em 1.5%;
+  color:#555;
+}
+
+.table-collaborations{
+  border-collapse:collapse;
+  margin-bottom:1em;
+}
+
+.dl-horizontal dd{
+  width:63%;
+  font-weight:bold;
+}
+.table-collaborations th,
+.table-collaborations td{
+  margin:0;
+  color:#612d62;
+  border:none;
+  padding:0.55em 0;
+}
+.table-collaborations thead th{
+  font-weight:bold;
+  border-bottom:1px solid #d7cad8;
+}
+.table-collaborations tfoot th{
+  font-weight:bold;
+  font-style:italic;
+  border-top:1px solid #d7cad8;
+}
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------
 layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -275,9 +324,17 @@ layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 elementos
 */
 .content-content label,
-.content-content span.no-label{
+.content-content span.no-label,
+.dl-horizontal dt{
   width:100%;
   clear:both;
+}
+.dl-horizontal dd{
+  margin-bottom:0.5em;
+}
+.table-collaborations{
+  margin-left:0;
+  width:100%;
 }
 
 
@@ -288,14 +345,18 @@ font sizes
 .content-content span.no-label{
   font-size:1.4em;
 }
-.content-content input{
+.content-content input,
+.dl-horizontal dt,
+.dl-horizontal dd,
+.table-collaborations th,
+.table-collaborations td{
   font-size:1.3em;
 }
 .alert-nexttolabel p{
   font-size:1.2em;
 }
-.input-box p {
-  font-size: 1em;
+.input-box p{
+  font-size:1em;
 }
 legend span{
   font-size:1.6em;
@@ -315,10 +376,18 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   elementos
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .dl-horizontal dt{
     width:32%;
     margin-right:2%;
     clear:none;
+  }
+  .table-collaborations{
+    margin-left:34%;
+    width:63%;
+  }
+  .dl-horizontal dd{
+    margin-bottom:0;
   }
 
 
@@ -329,14 +398,18 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content span.no-label{
     font-size:1.4em;
   }
-  .content-content input{
+  .content-content input,
+  .dl-horizontal dt,
+  .dl-horizontal dd,
+  .table-collaborations th,
+  .table-collaborations td{
     font-size:1.3em;
   }
   .alert-nexttolabel p{
     font-size:1.2em;
   }
-  .input-box p {
-    font-size: 1.1em;
+  .input-box p{
+    font-size:1.1em;
   }
   legend span{
     font-size:1.6em;
@@ -357,10 +430,18 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   elementos
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .dl-horizontal dt{
     width:32%;
     margin-right:2%;
     clear:none;
+  }
+  .table-collaborations{
+    margin-left:34%;
+    width:63%;
+  }
+  .dl-horizontal dd{
+    margin-bottom:0;
   }
 
 
@@ -371,14 +452,18 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content span.no-label{
     font-size:1.5em;
   }
-  .content-content input{
+  .content-content input,
+  .dl-horizontal dt,
+  .dl-horizontal dd,
+  .table-collaborations th,
+  .table-collaborations td{
     font-size:1.4em;
   }
   .alert-nexttolabel p{
     font-size:1.3em;
   }
-  .input-box p {
-    font-size: 1.1em;
+  .input-box p{
+    font-size:1.1em;
   }
   legend span{
     font-size:1.7em;
@@ -398,10 +483,18 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   elementos
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .dl-horizontal dt{
     width:32%;
     margin-right:2%;
     clear:none;
+  }
+  .table-collaborations{
+    margin-left:34%;
+    width:63%;
+  }
+  .dl-horizontal dd{
+    margin-bottom:0;
   }
 
 
@@ -412,14 +505,18 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content span.no-label{
     font-size:1.6em;
   }
-  .content-content input{
+  .content-content input,
+  .dl-horizontal dt,
+  .dl-horizontal dd,
+  .table-collaborations th,
+  .table-collaborations td{
     font-size:1.5em;
   }
   .alert-nexttolabel p{
     font-size:1.4em;
   }
-  .input-box p {
-    font-size: 1.2em;
+  .input-box p{
+    font-size:1.2em;
   }
   legend span{
     font-size:1.8em;
@@ -439,10 +536,18 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   elementos
   */
   .content-content label,
-  .content-content span.no-label{
+  .content-content span.no-label,
+  .dl-horizontal dt{
     width:32%;
     margin-right:2%;
     clear:none;
+  }
+  .table-collaborations{
+    margin-left:34%;
+    width:63%;
+  }
+  .dl-horizontal dd{
+    margin-bottom:0;
   }
 
 
@@ -453,14 +558,18 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .content-content span.no-label{
     font-size:1.8em;
   }
-  .content-content input{
+  .content-content input,
+  .dl-horizontal dt,
+  .dl-horizontal dd,
+  .table-collaborations th,
+  .table-collaborations td{
     font-size:1.6em;
   }
   .alert-nexttolabel p{
     font-size:1.4em;
   }
-  .input-box p {
-    font-size: 1.2em;
+  .input-box p{
+    font-size:1.2em;
   }
   legend span{
     font-size:2em;
