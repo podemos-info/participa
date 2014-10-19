@@ -1,22 +1,24 @@
-<div class="row">
-  <%= content_tag(:h2, t("podemos.collaboration.title")) %>
-  <hr>
-  <div class="col-md-5">
-    <div class="well">
-      <p><%= t("podemos.collaboration.p1") %></p>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <%= info_box do %>
+          <p><%= t("podemos.collaboration.p1") %></p>
+      <% end %>
+
+
+
+      <p> Ya tienes una colaboración. Es la siguiente: </p>
+      <%= render partial: "frequency_table" %>
+      <% if @collaboration.is_valid? %>
+          <p> Sólo puedes tener una colaboración a la vez. Si quieres cambiar o cancelar tu colaboración: </p>
+          <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?"} %>
+      <% else %>
+          <div class="alert alert-warning">
+            Vemos que hubo un error con tu colaboración, puedes intentar de confirmarla de nuevo:
+          </div>
+          <%= link_to "Confirmar colaboración", confirm_collaboration_path, class: 'button' %>
+      <% end %>
     </div>
-  </div>
-  <div class="col-md-5">
-    <p> Ya tienes una colaboración.  Es la siguiente: </p>
-    <%= render partial: "frequency_table" %>
-    <% if @collaboration.is_valid? %>
-      <p> Sólo puedes tener una colaboración a la vez. Si quieres cambiar o cancelar tu colaboración: </p>
-      <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'btn btn-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?" } %>
-    <% else %>
-      <div class="alert alert-warning">
-      Vemos que hubo un error con tu colaboración, puedes intentar de confirmarla de nuevo: 
-      </div>
-      <%= link_to "Confirmar colaboración", confirm_collaboration_path, class: 'btn btn-primary' %>
-    <% end %>
   </div>
 </div>

@@ -10,13 +10,15 @@
   <%= f.input "SumTotal", as: :hidden, input_html: {name: "Ds_Merchant_SumTotal", id: "Ds_Merchant_SumTotal", value: @collaboration.merchant_sumtotal } %>
   <%= f.input "DateFrecuency", as: :hidden, input_html: {name: "Ds_Merchant_DateFrecuency", id: "Ds_Merchant_DateFrecuency", value: @collaboration.merchant_date_frequency } %>
   <%= f.input "MerchantSignature", as: :hidden, input_html: {name: "Ds_Merchant_MerchantSignature", id: "Ds_Merchant_MerchantSignature", value: @collaboration.merchant_signature } %>
-  <div class="col-md-12">
-    <%= link_to "Confirmar", "#", class: "btn btn-lg btn-primary js-collaboration-confirm" %>
+
+  <fieldset class="enter">
+    <legend class="invisible">Acciones</legend>
+    <%= link_to "Confirmar", "#", class: "button js-collaboration-confirm" %>
     <div class="js-collaboration-confirm-ajax hide">
       <hr>
       <%= image_tag "ajax-loader.gif" %>
       <hr>
       <div class="alert alert-info">Hemos abieto una ventana para que realices el pago con RedSYS. Por favor completa ese proceso y vuelve aquí cuando hayas terminado </div>
     </div>
-  </div>
+  </fieldset>
 <% end %>
