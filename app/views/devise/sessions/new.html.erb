@@ -48,8 +48,8 @@
         <p><em class="podemos">Podemos</em> nace con la voluntad de construir una forma nueva de hacer política, y para ello estamos construyendo una estructura transparente, ciudadana, abierta, democrática y eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos y todas.
         <p class="total">Ya somos
         <span>
-          <% cache "total_users" do %>
-            <%= User.all.count %>
+          <% cache("total_users", expires_in: 30.minutes) do %>
+            <%= number_with_delimiter User.all.count %>
           <% end %>
         </span>
         personas inscritas.</p>
