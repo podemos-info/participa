@@ -6,7 +6,7 @@
   <link rel="icon" href="<%= image_path("favicon.png") %>" type="image/png">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
@@ -16,6 +16,11 @@
   <%= render partial: 'header' %>
 
   <div class="content">
+    <div class="js-mobile-bug" style="display: none;">
+      <%= error_box "Error" do %>
+        <p>Puedes tener problemas para abrir los documentos externos si accedes desde la aplicación para Android. Estamos trabajando en solucionarlo a la mayor brevedad posible. Como solución temporal puedes acceder a través del <a href="https://play.google.com/store/apps/details?id=org.mozilla.firefox">Mozilla Firefox</a> o <a href="https://play.google.com/store/apps/details?id=com.android.chrome">Google Chrome</a> para Android.</p>
+      <% end %>
+    </div>
     <%= render partial: 'flash_boxes' %>
     <%= yield %>
   </div>
