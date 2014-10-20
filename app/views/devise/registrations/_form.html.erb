@@ -47,11 +47,11 @@
           <%= field_notice_box %>
       <% end %>
       <%= f.input :born_at,
-                  as: :string,
+                  as: :date_picker,
                   required: true,
                   placeholder: 'dd/mm/aaaa',
                   hint: "Debes poner tu fecha nacimiento con el formato dd/mm/aaaa, es decir para el 15 de Diciembre de 1978 sería 15/12/1978",
-                  input_html: {  required: true, class: 'input-s', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
+                  input_html: {  required: true, class: 'input-m', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
                   start_year: 1920,
                   end_year: 2015 %>
     </div>
@@ -162,7 +162,7 @@
           <% if resource.errors.include?(:current_password) %>
               <%= field_notice_box %>
           <% end %>
-          <%= f.input :current_password, hint: t("devise.hints.current_password"), required: true %>
+          <%= f.input :current_password, hint: t("devise.hints.current_password"), input_html: {required: true, class: 'input-m'} %>
         </div>
         <%= f.actions class: 'enter' do %>
             <%= f.action :submit, button_html: {class: "button"} %>
