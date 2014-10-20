@@ -112,15 +112,29 @@
               <span class="no-input"><span id="js-collaboration-alert-amount"></span> €</span>
             </div>
 
+          </fieldset>
+
+          <fieldset class="with-tos">
+
+            <legend><span>Consentimiento</span></legend>
+
             <div class="inputlabel-box">
-              <% if @collaboration.errors.include?(:minimal_year_old) %>
-                  <%= field_notice_box %>
-              <% end %>
-              <div class="input-box">
-                <%= f.label :minimal_year_old %>
-                <%= f.check_box :minimal_year_old, checked: true, class: 'checkbox' %>
-                <p class="text-xl"></p>
-              </div>
+              <span class="no-label"><%= t('podemos.collaboration.terms_of_service.title') %></span>
+              <span class="no-input">
+                <div class="tos">
+                  <p> <%= t('podemos.collaboration.terms_of_service.p1_title') %> </p>
+
+                  <p> <%= t('podemos.collaboration.terms_of_service.p1') %> </p>
+
+                  <p> <%= t('podemos.collaboration.terms_of_service.p2_title') %> </p>
+
+                  <p> <%= t('podemos.collaboration.terms_of_service.p2') %> </p>
+
+                  <p> <%= t('podemos.collaboration.terms_of_service.p3_title') %> </p>
+
+                  <p> <%= t('podemos.collaboration.terms_of_service.p3') %> </p>
+                </div>
+              </span>
             </div>
 
             <div class="inputlabel-box">
@@ -128,28 +142,23 @@
                   <%= field_notice_box %>
               <% end %>
 
+              <%= f.label :terms_of_service %>
               <div class="input-box">
-                <%= f.label :terms_of_service %>
                 <%= f.check_box :terms_of_service, checked: true, class: 'checkbox' %>
-                <p class="text-xl"></p>
+                <p class="text-xl">Acepto las condiciones generales.</p>
               </div>
             </div>
 
-            <small>
-              <h3> <%= t('podemos.collaboration.terms_of_service.title') %> </h3>
-
-              <p> <%= t('podemos.collaboration.terms_of_service.p1_title') %> </p>
-
-              <p> <%= t('podemos.collaboration.terms_of_service.p1') %> </p>
-
-              <p> <%= t('podemos.collaboration.terms_of_service.p2_title') %> </p>
-
-              <p> <%= t('podemos.collaboration.terms_of_service.p2') %> </p>
-
-              <p> <%= t('podemos.collaboration.terms_of_service.p3_title') %> </p>
-
-              <p> <%= t('podemos.collaboration.terms_of_service.p3') %> </p>
-            </small>
+            <div class="inputlabel-box">
+              <% if @collaboration.errors.include?(:minimal_year_old) %>
+                  <%= field_notice_box %>
+              <% end %>
+              <%= f.label :minimal_year_old %>
+              <div class="input-box">
+                <%= f.check_box :minimal_year_old, checked: true, class: 'checkbox' %>
+                <p class="text-xl">Declaro ser mayor de 18 años.</p>
+              </div>
+            </div>
 
 
             <%= f.actions class: 'enter' do %>

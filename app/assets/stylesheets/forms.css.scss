@@ -155,10 +155,11 @@ fieldset .inputlabel-box input.input-m{
 fieldset .inputlabel-box input.input-s{
   width:33%;
 }
-fieldset .inputlabel-box .input-box{
+fieldset .inputlabel-box .input-box,
+fieldset .inputlabel-box .form-wrapper{
   float:left;
   border:none;
-  width:63%;
+  width:100%;
 }
 fieldset .inputlabel-box .checkbox-box{
   float:left;
@@ -166,27 +167,20 @@ fieldset .inputlabel-box .checkbox-box{
   width:63%;
 }
 fieldset .inputlabel-box .input-box p{
-  padding-top:0.5em;
+  padding-top:0.9em;
   float:left;
   border:none;
 }
-fieldset .inputlabel-box .input-box input.input-xl{
+fieldset .inputlabel-box input.input-xl{
   width:99%;
 }
-fieldset .inputlabel-box .input-box input.input-m{
+fieldset .inputlabel-box input.input-m{
   width:62%;
   margin-right:2%;
 }
-fieldset .inputlabel-box .input-box input.input-s{
+fieldset .inputlabel-box input.input-s{
   width:29%;
   margin-right:2%;
-}
-
-fieldset .inputlabel-box input.input-m{
-  width:42%;
-}
-fieldset .inputlabel-box input.input-s{
-  width:21%;
 }
 fieldset .inputlabel-box .input-box p.text-xl{
   width:90%;
@@ -340,6 +334,22 @@ fieldset .inputlabel-box input{
   border-top:1px solid #d7cad8;
 }
 
+.tos{
+  overflow:auto;
+  height:20em;
+  width:94%;
+  padding:3%;
+  font-size:1em;
+  background:#eaeaea;
+  font-weight:normal;
+}
+fieldset.with-tos .inputlabel-box .tos p{
+  margin-bottom:1em;
+}
+fieldset.with-tos .inputlabel-box .tos p:last-of-type{
+  margin-bottom:0;
+}
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------
 layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 -------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -372,6 +382,9 @@ font sizes
 .content-content span.no-input{
   font-size:1.4em;
 }
+fieldset.with-tos .inputlabel-box span.no-input{
+  font-size:1em;
+}
 .content-content input,
 .dl-horizontal dt,
 .dl-horizontal dd,
@@ -382,7 +395,9 @@ font sizes
 .alert-nexttolabel p{
   font-size:1.2em;
 }
-.input-box p{
+.input-box p,
+span.help-block,
+fieldset.with-tos .inputlabel-box .tos p{
   font-size:1em;
 }
 legend span{
@@ -409,7 +424,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
     clear:none;
   }
-  .content-content span.no-input{
+  .content-content span.no-input,
+  fieldset .inputlabel-box .input-box,
+  fieldset .inputlabel-box .form-wrapper{
     width:63%;
     clear:none;
   }
@@ -421,13 +438,16 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
     margin-bottom:0;
   }
   fieldset .inputlabel-box input.input-xl{
-    width:63%;
+    width:99%;
+    margin-right:0;
   }
   fieldset .inputlabel-box input.input-m{
-    width:42%;
+    width:48%;
+    margin-right:2%;
   }
   fieldset .inputlabel-box input.input-s{
-    width:21%;
+    width:23%;
+    margin-right:2%;
   }
 
 
@@ -439,6 +459,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content span.no-input{
     font-size:1.4em;
   }
+  fieldset.with-tos .inputlabel-box span.no-input{
+    font-size:1em;
+  }
   .content-content input,
   .dl-horizontal dt,
   .dl-horizontal dd,
@@ -449,7 +472,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .alert-nexttolabel p{
     font-size:1.2em;
   }
-  .input-box p{
+  .input-box p,
+  span.help-block,
+  fieldset.with-tos .inputlabel-box .tos p{
     font-size:1.1em;
   }
   legend span{
@@ -477,7 +502,9 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
     clear:none;
   }
-  .content-content span.no-input{
+  .content-content span.no-input,
+  fieldset .inputlabel-box .input-box,
+  fieldset .inputlabel-box .form-wrapper{
     width:63%;
     clear:none;
   }
@@ -489,13 +516,16 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     margin-bottom:0;
   }
   fieldset .inputlabel-box input.input-xl{
-    width:63%;
+    width:99%;
+    margin-right:0;
   }
   fieldset .inputlabel-box input.input-m{
-    width:42%;
+    width:48%;
+    margin-right:2%;
   }
   fieldset .inputlabel-box input.input-s{
-    width:21%;
+    width:23%;
+    margin-right:2%;
   }
 
 
@@ -507,6 +537,9 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content span.no-input{
     font-size:1.5em;
   }
+  fieldset.with-tos .inputlabel-box span.no-input{
+    font-size:1em;
+  }
   .content-content input,
   .dl-horizontal dt,
   .dl-horizontal dd,
@@ -517,7 +550,9 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .alert-nexttolabel p{
     font-size:1.3em;
   }
-  .input-box p{
+  .input-box p,
+  span.help-block,
+  fieldset.with-tos .inputlabel-box .tos p{
     font-size:1.1em;
   }
   legend span{
@@ -544,7 +579,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
     clear:none;
   }
-  .content-content span.no-input{
+  .content-content span.no-input,
+  fieldset .inputlabel-box .input-box,
+  fieldset .inputlabel-box .form-wrapper{
     width:63%;
     clear:none;
   }
@@ -556,13 +593,16 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     margin-bottom:0;
   }
   fieldset .inputlabel-box input.input-xl{
-    width:63%;
+    width:99%;
+    margin-right:0;
   }
   fieldset .inputlabel-box input.input-m{
-    width:42%;
+    width:48%;
+    margin-right:2%;
   }
   fieldset .inputlabel-box input.input-s{
-    width:21%;
+    width:23%;
+    margin-right:2%;
   }
 
 
@@ -574,6 +614,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .content-content span.no-input{
     font-size:1.6em;
   }
+  fieldset.with-tos .inputlabel-box span.no-input{
+    font-size:1em;
+  }
   .content-content input,
   .dl-horizontal dt,
   .dl-horizontal dd,
@@ -584,7 +627,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .alert-nexttolabel p{
     font-size:1.4em;
   }
-  .input-box p{
+  .input-box p,
+  span.help-block,
+  fieldset.with-tos .inputlabel-box .tos p{
     font-size:1.2em;
   }
   legend span{
@@ -611,7 +656,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     margin-right:2%;
     clear:none;
   }
-  .content-content span.no-input{
+  .content-content span.no-input,
+  fieldset .inputlabel-box .input-box,
+  fieldset .inputlabel-box .form-wrapper{
     width:63%;
     clear:none;
   }
@@ -623,13 +670,16 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     margin-bottom:0;
   }
   fieldset .inputlabel-box input.input-xl{
-    width:63%;
+    width:99%;
+    margin-right:0;
   }
   fieldset .inputlabel-box input.input-m{
-    width:42%;
+    width:48%;
+    margin-right:2%;
   }
   fieldset .inputlabel-box input.input-s{
-    width:21%;
+    width:23%;
+    margin-right:2%;
   }
 
 
@@ -641,6 +691,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .content-content span.no-input{
     font-size:1.8em;
   }
+  fieldset.with-tos .inputlabel-box span.no-input{
+    font-size:1em;
+  }
   .content-content input,
   .dl-horizontal dt,
   .dl-horizontal dd,
@@ -651,7 +704,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .alert-nexttolabel p{
     font-size:1.4em;
   }
-  .input-box p{
+  .input-box p,
+  span.help-block,
+  fieldset.with-tos .inputlabel-box .tos p{
     font-size:1.2em;
   }
   legend span{
