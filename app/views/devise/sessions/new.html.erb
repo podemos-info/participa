@@ -14,11 +14,11 @@
               </legend>
               <div>
                 <%= f.label :login, class: 'invisible' %>
-                <%= f.text_field :login, autofocus: true, class: 'input-100', placeholder: 'Documento (DNI / NIE / Pasaporte)' %>
+                <%= f.text_field :login, autofocus: true, class: 'input-100', placeholder: 'Email o Documento (DNI / NIE / Pasaporte)' %>
               </div>
               <div>
                 <%= f.label :password, class: 'invisible' %>
-                <%= f.password_field :password, class: 'input-100', placeholder: 'Código de verificación' %>
+                <%= f.password_field :password, class: 'input-100', placeholder: 'Contraseña' %>
               </div>
 
               <% if devise_mapping.rememberable? %>
