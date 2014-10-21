@@ -1,58 +1,60 @@
 <%= content_for :title, t("podemos.user.personal_data") %>
 
-<div class="content-content cols">
-  <div class="row">
-    <div class="col-b-4a12">
-      <h2>
-        <%= t("devise.titles.my_account",
-              model: resource_name.to_s.humanize,
-              downcase_model: resource_name.to_s.humanize.downcase) %>
-      </h2>
+<div class="content">
+  <div class="content-content cols">
+    <div class="row">
+      <div class="col-b-4a12">
+        <h2>
+          <%= t("devise.titles.my_account",
+                model: resource_name.to_s.humanize,
+                downcase_model: resource_name.to_s.humanize.downcase)%>
+        </h2>
 
-      <nav id="personal-data-submenu" class="submenu">
-        <ul>
-          <li class="active">
-            <a href="#personal-data">
-              <span><%= t("podemos.user.personal_data") %></span>
-            </a>
-          </li>
-          <li>
-            <a href="#change-password">
-              <span><%= t("podemos.user.change_password") %></span>
-            </a>
-          </li>
-          <li>
-            <a href="#change-email">
-              <span><%= t("podemos.user.change_email") %></span></a></li>
-          <li>
-            <a href="#change-phone">
-              <span><%= t("podemos.user.change_phone") %></span>
-            </a>
-          </li>
-          <li>
-            <a href="#cancel-account">
-              <span><%= t("podemos.user.cancel_account") %></span>
-            </a>
-          </li>
-        </ul>
-      </nav><%#!--.submenu--%>
+        <nav id="personal-data-submenu" class="submenu">
+          <ul>
+            <li class="active">
+              <a href="#personal-data">
+                <span><%= t("podemos.user.personal_data")%></span>
+              </a>
+            </li>
+            <li>
+              <a href="#change-password">
+                <span><%=t("podemos.user.change_password") %></span>
+              </a>
+            </li>
+            <li>
+              <a href="#change-email">
+                <span><%=t("podemos.user.change_email") %></span></a></li>
+            <li>
+              <a href="#change-phone">
+                <span><%=t("podemos.user.change_phone") %></span>
+              </a>
+            </li>
+            <li>
+              <a href="#cancel-account">
+                <span><%= t("podemos.user.cancel_account") %></span>
+              </a>
+            </li>
+          </ul>
+        </nav><%#!--.submenu--%>
 
 
-      <div id="personal-data-content">
-        <div class="js-personal-content" id="personal-data">
-          <%= render partial: 'personal_data' %>
-        </div>
-        <div id="change-password" class="invisible js-personal-content">
-          <%= render partial: 'change_password' %>
-        </div>
-        <div id="change-email" class="invisible js-personal-content">
-          <%= render partial: 'change_email' %>
-        </div>
-        <div id="change-phone" class="invisible js-personal-content">
-          <%= render partial: 'change_phone' %>
-        </div>
-        <div id="cancel-account" class="invisible js-personal-content">
-          <%= render partial: 'cancel_account' %>
+        <div id="personal-data-content">
+          <div class="js-personal-content" id="personal-data">
+            <%= render partial: 'personal_data' %>
+          </div>
+          <div id="change-password" class="invisible js-personal-content">
+            <%= render partial: 'change_password' %>
+          </div>
+          <div id="change-email" class="invisible js-personal-content">
+            <%= render partial: 'change_email' %>
+          </div>
+          <div id="change-phone" class="invisible js-personal-content">
+            <%= render partial: 'change_phone' %>
+          </div>
+          <div id="cancel-account" class="invisible js-personal-content">
+            <%= render partial: 'cancel_account' %>
+          </div>
         </div>
       </div>
     </div>
