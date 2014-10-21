@@ -130,16 +130,31 @@
 
     <% if action == "new" %>
 
-        <small>
-          <p> <%= t('podemos.registration.terms_of_service.p1_html')%> </p>
-        </small>
+      </fieldset>
+
+      <fieldset class="with-tos">
+
+        <legend><span>Consentimiento</span></legend>
+        <div class="inputlabel-box">
+          <span class="no-label">
+            Condiciones generales de inscripción y política de privacidad.
+          </span>
+          <span class="no-input">
+            <div class="tos">
+              <%= t('podemos.registration.terms_of_service.p1_html')%>
+            </div>
+          </span>
+        </div>
 
         <div class="inputlabel-box">
           <% if resource.errors.include?(:terms_of_service) %>
               <%= field_notice_box %>
           <% end %>
           <%= f.label :terms_of_service %>
-          <%= f.check_box :terms_of_service, class: 'checkbox' %>
+          <div class="input-box">
+            <%= f.check_box :terms_of_service, class: 'checkbox' %>
+            <p class="text-xl">Acepto las condiciones generales.</p>
+          </div>
         </div>
 
         <div class="inputlabel-box">
@@ -147,7 +162,10 @@
               <%= field_notice_box %>
           <% end %>
           <%= f.label :over_18 %>
-          <%= f.check_box :over_18, class: 'checkbox' %>
+          <div class="input-box">
+            <%= f.check_box :over_18, class: 'checkbox' %>
+            <p class="text-xl">Declaro ser mayor de 18 años</p>
+          </div>
         </div>
 
         <%= recaptcha_tags %>
