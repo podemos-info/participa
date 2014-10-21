@@ -97,4 +97,12 @@ module ApplicationHelper
                      steps_text: steps_text,
                      current_step: current_step }
   end
+
+  def body_class signed_in, controller, action
+    if !signed_in && controller == "sessions" && action == "new"
+      "logged-out"
+    else
+      "signed-in"
+    end
+  end
 end
