@@ -49,44 +49,24 @@
                           input_html: {required: true, class: 'js-collaboration-type'} %>
             </div>
 
-            <div class="js-collaboration-type-form-2">
-              <div class="inputlabel-box">
-                <% if @collaboration.errors.include?(:ccc_entity) %>
-                    <%= field_notice_box %>
-                <% end %>
-                <%= f.input :ccc_entity,
-                            hint: "Las cuatro primeras cifras de tu cuenta",
-                            input_html: { maxlength: 4,
-                                          hint: "Las cuatro primeras cifras de tu cuenta"} %>
-              </div>
+            <div class="inputlabel-box js-collaboration-type-form-2">
+              <% if @collaboration.errors.include?(:ccc_entity) ||
+                      @collaboration.errors.include?(:ccc_office) ||
+                      @collaboration.errors.include?(:ccc_dc) ||
+                      @collaboration.errors.include?(:ccc_account) %>
+                  <%= field_notice_box %>
+              <% end %>
 
-              <div class="inputlabel-box">
-                <% if @collaboration.errors.include?(:ccc_office) %>
-                    <%= field_notice_box %>
-                <% end %>
-                <%= f.input :ccc_office,
-                            hint: "Las cuatro cifras a partir de la quinta posición",
-                            input_html: { maxlength: 4 } %>
-              </div>
-
-              <div class="inputlabel-box">
-                <% if @collaboration.errors.include?(:ccc_dc) %>
-                    <%= field_notice_box %>
-                <% end %>
-
-                <%= f.input :ccc_dc,
-                            hint: "Las cifras novena y décima",
-                            input_html: { maxlength: 2} %>
-              </div>
-
-              <div class="inputlabel-box">
-                 <% if @collaboration.errors.include?(:ccc_account) %>
-                    <%= field_notice_box %>
-                 <% end %>
-
-                 <%= f.input :ccc_account,
-                             hint: "Las últimas diez cifras",
-                             input_html: { maxlength: 10} %>
+              <div class="input required form-group">
+                <label class="control-label" for="account">
+                  CCC<abbr title="requerido">*</abbr>
+                </label>
+                <span class="form-wrapper">
+                  <%= f.text_field :ccc_entity, maxlength: 4, class: 'input-account-4 form-control', required: true, placeholder: 'xxxx' %>
+                  <%= f.text_field :ccc_office, maxlength: 4, class: 'input-account-4 form-control', required: true, placeholder: 'xxxx' %>
+                  <%= f.text_field :ccc_dc, maxlength: 2, class: 'input-account-2 form-control', required: true, placeholder: 'xx' %>
+                  <%= f.text_field :ccc_account, maxlength: 10, class: 'input-account-10 form-control', required: true, placeholder: 'xxxxxxxxxx' %>
+                </span>
               </div>
             </div>
 
