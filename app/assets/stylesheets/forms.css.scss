@@ -75,6 +75,19 @@ box info & alerts
 }
 
 
+.box-notif{
+  background:#d7cad8;
+  padding:1.5em 3em 1.5em 1.5em;
+  margin:0 0 1.5em
+}
+.box-notif p{
+  margin-bottom:0.3em;
+}
+.box-notif p.date span{
+  font-size:0.8em;
+}
+
+
 .box .box-close{
   position:absolute;
   top: 0.5em;
