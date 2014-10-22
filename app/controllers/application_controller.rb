@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
         tracking.info "** Anonimous ** #{request.method()} #{request.path}"
       end
       tracking.info params.to_s
-      tracking.info request
+      #tracking.info request
     end
   end
 
