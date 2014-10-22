@@ -61,6 +61,7 @@ ActiveAdmin.register User do
   filter :province
   filter :country
   filter :circle
+  filter :last_signed_ip
 
   form partial: "form"
 
