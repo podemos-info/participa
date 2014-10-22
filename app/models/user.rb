@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :over_18, acceptance: true
   #validates :country, length: {minimum: 1, maximum: 2}
   #validates :phone, numericality: true, allow_blank: true
-  #validates :phone, uniqueness: true
+  validates :phone, uniqueness: true, allow_blank: true, allow_nil: true
   # TODO: phone - cambiamos el + por el 00 al guardar 
   validates :document_type, inclusion: { in: [1, 2, 3], message: "tipo de documento no válido" }
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_sms_token
-    SecureRandom.hex(3).upcase
+    SecureRandom.hex(4).upcase
   end
 
   def set_sms_token!
