@@ -21,6 +21,7 @@ ActiveAdmin.register User do
       row :document_vatid
       row :born_at
       row :email
+      row :address
       row :town
       row :postal_code
       row :province do
@@ -29,8 +30,10 @@ ActiveAdmin.register User do
       row :country do
         user.country_name
       end
-      raw :circle
+      row :admin
+      row :circle
       row :created_at
+      row :updated_at
       row :confirmation_sent_at
       row :confirmed_at
       row :unconfirmed_email
@@ -45,6 +48,9 @@ ActiveAdmin.register User do
       row :current_sign_in_at
       row :last_sign_in_at
       row :last_sign_in_ip
+      row :current_sign_in_ip
+      row :remember_created_at
+      row :deleted_at
     end
     active_admin_comments
   end
@@ -56,6 +62,7 @@ ActiveAdmin.register User do
   filter :phone
   filter :born_at
   filter :created_at
+  filter :address
   filter :town
   filter :postal_code
   filter :province
@@ -63,6 +70,7 @@ ActiveAdmin.register User do
   filter :circle
   filter :last_sign_in_at
   filter :last_sign_in_ip
+  filter :has_legacy_password
 
   form partial: "form"
 
