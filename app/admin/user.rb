@@ -35,19 +35,25 @@ ActiveAdmin.register User do
       row :confirmed_at
       row :unconfirmed_email
       row :has_legacy_password
+      row :phone
       row :sms_confirmation_token
       row :confirmation_sms_sent_at
       row :sms_confirmed_at
       row :failed_attempts
       row :locked_at
+      row :sign_in_count
+      row :current_sign_in_at
+      row :last_sign_in_at
+      row :last_sign_in_ip
     end
     active_admin_comments
   end
 
-  filter :last_name
   filter :email
   filter :document_vatid
   filter :admin
+  filter :last_name
+  filter :phone
   filter :born_at
   filter :created_at
   filter :town
