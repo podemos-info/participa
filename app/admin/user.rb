@@ -30,15 +30,31 @@ ActiveAdmin.register User do
         user.country_name
       end
       raw :circle
-      row :wants_newsletter
+      row :created_at
+      row :confirmation_sent_at
+      row :confirmed_at
+      row :unconfirmed_email
+      row :has_legacy_password
+      row :sms_confirmation_token
+      row :confirmation_sms_sent_at
+      row :sms_confirmed_at
+      row :failed_attempts
+      row :locked_at
     end
     active_admin_comments
   end
 
+  filter :last_name
   filter :email
   filter :document_vatid
   filter :admin
+  filter :born_at
   filter :created_at
+  filter :town
+  filter :postal_code
+  filter :province
+  filter :country
+  filter :circle
 
   form partial: "form"
 
