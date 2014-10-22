@@ -7,51 +7,37 @@
 
       <% if Election.all.count > 0 %>
         <%= render 'elections' %>
+      <% else %>
+        <section class="tools">
+          <ul>
+            <li class="box-tool">
+              <div class="box-tool">
+                <h3>Plaza Podemos</h3>
+                <div class="tool-text">
+                  <p>El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos todo y mucho más.</p>
+                  <p>Rueda de Masas durante unas horas de nuestros representantes.</p>
+                </div><!--.tool-text-->
+
+                <div class="buttonbox">
+                  <%= link_to "Ir a Plaza Podemos", "http://reddit.com/r/podemos", class: "button", target: "_blank" %>
+                </div>
+              </div><!--.box-tool-->
+            </li>
+            <li class="box-tool">
+              <div class="box-tool">
+                <h3>AppGree</h3>
+                <div class="tool-text">
+                  <p>La aplicación para opinar y proponer en tiempo real.</p>
+                </div><!--.tool-text-->
+                <div class="buttonbox">
+                  <%= link_to "Descargar APP", "http://www.appgree.com/descarga-appgree/", class: "button", target: "_blank" %>
+                </div><!--.buttonbox-->
+              </div><!--.box-tool-->
+            </li>
+          </ul>
+        </section><!--.tools-->
       <% end %>
 
-      <section class="tools">
-        <ul>
-          <li class="box-tool">
-            <div class="box-tool">
-              <h3>Plaza Podemos</h3>
-              <div class="tool-text">
-                <p>El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos todo y mucho más.</p>
-                <p>Rueda de Masas durante unas horas de nuestros representantes.</p>
-              </div><!--.tool-text-->
-
-              <div class="buttonbox">
-                <%= link_to "Ir a Plaza Podemos", "http://reddit.com/r/podemos", class: "button", target: "_blank" %>
-              </div>
-            </div><!--.box-tool-->
-          </li>
-
-
-          <li class="box-tool">
-            <div class="box-tool">
-              <h3>Ágora Voting</h3>
-              <div class="tool-text">
-                <p>El lugar de votación de Podemos.</p>
-              </div><!--.tool-text-->
-
-              <div class="buttonbox">
-                <%= link_to "Ir a Agora Voting", "https://agoravoting.com/", class: "button", target: "_blank" %>
-              </div><!--.buttonbox-->
-            </div><!--.box-tool-->
-          </li>
-
-          <li class="box-tool">
-            <div class="box-tool">
-              <h3>AppGree</h3>
-              <div class="tool-text">
-                <p>La aplicación para opinar y proponer en tiempo real.</p>
-              </div><!--.tool-text-->
-              <div class="buttonbox">
-                <%= link_to "Descargar APP", "http://www.appgree.com/descarga-appgree/", class: "button", target: "_blank" %>
-              </div><!--.buttonbox-->
-            </div><!--.box-tool-->
-          </li>
-        </ul>
-      </section><!--.tools-->
     </div>
   </div>
 </div>
