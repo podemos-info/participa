@@ -84,8 +84,15 @@ ActiveAdmin.register User do
       disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
   end
 
-  action_item only: :index do
-    link_to('Descargar correos para Newsletter (CSV)', params.merge(:action => :download_newsletter_csv))
-  end 
+  csv do
+    column :id
+    column("Nombre") { |u| u.full_name }
+    column :email
+  end
+
+  # FIXME: bug, only 2 mails
+  #  action_item only: :index do
+  #    link_to('Descargar correos para Newsletter (CSV)', params.merge(:action => :download_newsletter_csv))
+  #  end 
 
 end
