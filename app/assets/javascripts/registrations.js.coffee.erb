@@ -4,15 +4,24 @@ document_change = (document_type) ->
   $('.js-registration-document-wrapper label').html("#{document_type} <abbr title='required'>*</abbr>")
 
   switch document_type
-    when "DNI/NIE" then has_dni()
+    when "DNI" then has_dni()
+    when "NIE" then has_nie()
     when "Pasaporte" then has_passport()
     else has_dni()
 
 has_dni = () ->
-  # TODO 
   $('.js-registration-document-passport').addClass('invisible')
+  $('.js-registration-document-nie').addClass('invisible')
+  $('.js-registration-document-dni').removeClass('invisible')
+
+has_nie = () ->
+  $('.js-registration-document-passport').addClass('invisible')
+  $('.js-registration-document-dni').addClass('invisible')
+  $('.js-registration-document-nie').removeClass('invisible')
 
 has_passport = () ->
+  $('.js-registration-document-dni').addClass('invisible')
+  $('.js-registration-document-nie').addClass('invisible')
   $('.js-registration-document-passport').removeClass('invisible')
 
 telephone_flags = () ->
