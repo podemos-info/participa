@@ -225,7 +225,7 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARI
         changed: "Has cambiado tu contraseña"
     legal: 
       title1: "WEB PARTICIPA.PODEMOS.INFO"
-      title2: "AVISO LEGAL"
+      title2: "Aviso legal"
       title3: "CONDICIONES GENERALES DE ACCESO, EMPLEO DE COOKIES Y POLÍTICA DE PRIVACIDAD"
       p1:
         title: "Información general"
@@ -364,7 +364,7 @@ PODEMOS no responderá ante los USUARIOS por los daños y perjuicios de cualqu
 
 <h5>¿Para qué se usan las cookies?</h5>
 <ul>
-  <li> Cookiesesenciales.Setratadecookiestécnicasnecesariasparagestionarelflujodenavegacióndentro de la web o para mantenerte conectado a la misma. Si las deshabilitas, es posible que algún apartado de  la web no funcione correctamente.</li>
+  <li> Cookies esenciales.Se trata de cookies técnicas necesarias para gestionar el flujo de navegación dentro de la web o para mantenerte conectado a la misma. Si las deshabilitas, es posible que algún apartado de la web no funcione correctamente.</li>
   <li> Cookies de personalización. Necesarias para recordar determinadas preferencias del usuario.</li>
   <li> Cookies analíticas. Nos ayudan a nosotros y a terceros a recopilar información de la procedencia de los usuarios y su navegación dentro de la web, a efectos de realizar un análisis estadístico para poder  mejorar su estructura y contenidos.</li>
   <li>Cookies publicitarias. Utilizadas para gestionar los anuncios que aparecen en la web, decidir el contenido  o la frecuencia de los anuncios.</li>
@@ -374,8 +374,11 @@ PODEMOS no responderá ante los USUARIOS por los daños y perjuicios de cualqu
 
 <h5>¿Qué cookies utiliza esta web?  </h5>
 <ul>
-<li><b>Cookies de Piwik (__utma, __utmb, __utmc, __utmz) </b>: Estas cuatro cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). Además de bloquear estas cookies por medio del navegador, el usuario puede utilizar este complemento facilitado por el propio Google para inhabilitar el servicio de Google Analytics en su visita.
-<li><b>Cookies de Ruby On Rails (__utma, __utmb, __utmc, __utmz) </b>: Estas cuatro cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). Además de bloquear estas cookies por medio del navegador, el usuario puede utilizar este complemento facilitado por el propio Google para inhabilitar el servicio de Google Analytics en su visita.
+<li><b>CloudFlare (__cfduid)</b>: Esta cookie es servida por CloudFlare, una red de entrega de contenidos (CDN). </li>
+<li><b>Google Analytics (__utma, __utmz)</b>: Estas cookies son servidas por Google Analytics para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). </li>
+<li><b>Piwik (cookies que empiezan con los prefijos _pk_id, _pk_ref, _pk_ses)</b>: Estas cookies son servidas por Piwik para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). </li>
+<li><b>Ruby On Rails (_podemos-juntos_session, cookie_law, cookiepolicy, request_method)</b>: estas cookies son para la sesión de usuario de la herramienta y comprobar si el visitante ha aceptado o no la política de cookies.</li>
+<li><b>Recaptcha (AID, APISID, CAL, GAPS, HSID, I4SUserLocale, NID, OGPC, OTZ, PREF, PREF, SAPISID, SID, SNID, SSID)</b> Estas cookies son servidas por Google, para el correcto funcionamiento de su servicio de <a href="https://www.google.com/recaptcha/">Recaptcha</a>.</li>
   </li>
 
 </ul>
