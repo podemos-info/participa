@@ -37,6 +37,14 @@
       <% end %>
       <%= f.input :document_vatid, required: true, input_html: {required: true, class: 'input-s'} %>
 
+      <p class="js-registration-document-dni text-m invisible">
+        El formato deben ser 8 números y una letra, sin guiones ni espacios.
+      </p>
+
+      <p class="js-registration-document-nie text-m invisible">
+        El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios.
+      </p>
+
       <p class="js-registration-document-passport text-m invisible">
         <%= t('podemos.registration.passport') %>
       </p>
