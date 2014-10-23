@@ -1,13 +1,10 @@
-<% @title ||= t("devise.titles.confirmation_instructions") %>
+<% content_for :title, t("devise.titles.confirmation_instructions") %>
 
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("devise.titles.confirmation_instructions")) %>
-
-
       <%= semantic_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: {method: :post}) do |f| %>
-
           <fieldset>
             <legend class="invisible">
               <span>Confirmación de contraseña</span>
