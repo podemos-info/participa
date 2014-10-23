@@ -5,7 +5,7 @@
       <br>
       <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
 
-      <% if Election.all.count > 0 %>
+      <% if Election.actived.count > 0 %>
         <%= render 'elections' %>
       <% else %>
         <section class="tools">

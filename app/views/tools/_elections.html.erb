@@ -3,8 +3,7 @@
     <h3><strong>Hay una votación en curso. ¡Participa!</strong></h3>
     <p class="sub-h3">Recuerda que sólo tu último voto es válido.</p>
 
-
-    <% Election.all.each do |election| %>
+    <% Election.actived.each do |election| %>
         <div class="box-poll">
           <div>
             <p class="poll-q"><%= election.title %></p>
