@@ -1,5 +1,13 @@
 ActiveAdmin.register User do
   scope_to :current_user, :association_method => :users_with_deleted
+
+  scope :users_with_deleted
+  scope :created
+  scope :deleted
+  scope :unconfirmed_mail
+  scope :unconfirmed_phone
+  scope :legacy_password
+
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :wants_newsletter
 
   index do
@@ -7,9 +15,13 @@ ActiveAdmin.register User do
     id_column
     column :full_name
     column :email
-    column :deleted?
-    column :sign_in_count
-    column :created_at
+    column :status do |user|
+      user.deleted? ? status_tag("Borrado", :error) : ""
+    end
+    column :validations do |user|
+      user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
+      user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
+    end
     actions
   end
 
@@ -86,6 +98,9 @@ ActiveAdmin.register User do
   filter :last_sign_in_at
   filter :last_sign_in_ip
   filter :has_legacy_password
+  filter :created_at
+  filter :confirmed_at
+  filter :sms_confirmed_at
 
   form partial: "form"
 

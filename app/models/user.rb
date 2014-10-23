@@ -30,7 +30,14 @@ class User < ActiveRecord::Base
   has_many :votes 
   has_one :collaboration
 
+  scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
+  scope :users_with_deleted, -> { where "deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
+  scope :created, -> { where "deleted_at is null"  }
+  scope :deleted, -> { where "deleted_at is not null" }
+  scope :unconfirmed_mail, -> { where "confirmed_at is null" }
+  scope :unconfirmed_phone, -> { where "sms_confirmed_at is null" }
+  scope :legacy_password, -> { where "has_legacy_password is 1" }
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
