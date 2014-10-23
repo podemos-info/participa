@@ -165,4 +165,35 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 3, User.wants_newsletter.count
   end
 
+  test "should act_as_paranoid" do 
+    @user.destroy
+    assert_not User.exists?(@user.id)
+    assert User.with_deleted.exists?(@user.id)
+    @user.restore
+    assert User.exists?(@user.id)
+  end
+
+  test "should scope uniqueness with paranoia" do 
+    @user.destroy
+    # allow save after the @user is destroyed but is with deleted_at
+    user1 = FactoryGirl.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    assert user1.valid?
+    user1.save
+
+    # don't allow save after the @user is created again (uniqueness is working)
+    user2 = FactoryGirl.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    assert_not user2.valid?
+  end
+
+  test "should uniqueness work" do 
+    user = FactoryGirl.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    assert_not user.valid?
+    assert_not_nil user.errors.include? :email
+    assert_not_nil user.errors.include? :document_vatid
+    assert_not_nil user.errors.include? :phone
+
+    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", document_vatid: "222222X", phone: "00344444444")
+    assert user.valid?
+  end
+
 end

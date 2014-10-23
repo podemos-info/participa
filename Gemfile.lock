@@ -16,6 +16,14 @@ GIT
       sass-rails
 
 GIT
+  remote: git://github.com/codeodor/paranoia.git
+  revision: db7c3b8b03c899321f03323c00043c75d9171063
+  branch: rails4
+  specs:
+    paranoia (2.0.2)
+      activerecord (~> 4.0)
+
+GIT
   remote: git://github.com/resque/resque.git
   revision: 41469a3eaa9394a60a2ff249c4d00a41f06b4b22
   branch: 1-x-stable
@@ -195,8 +203,6 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
-    paranoia (2.0.2)
-      activerecord (~> 4.0)
     pg (0.17.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
@@ -347,7 +353,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mailcatcher
-  paranoia (~> 2.0)
+  paranoia!
   pg
   pry
   pushmeup

@@ -8,12 +8,13 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, presence: true
-  validates :email, :document_vatid, uniqueness: { case_sensitive: false }
+  validates :email, uniqueness: { case_sensitive: false, scope: :deleted_at }
+  validates :document_vatid, uniqueness: { case_sensitive: false, scope: :deleted_at }
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
   #validates :country, length: {minimum: 1, maximum: 2}
   #validates :phone, numericality: true, allow_blank: true
-  validates :phone, uniqueness: true, allow_blank: true, allow_nil: true
+  validates :phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   # TODO: phone - cambiamos el + por el 00 al guardar 
   validates :document_type, inclusion: { in: [1, 2, 3], message: "tipo de documento no válido" }
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
@@ -21,6 +22,7 @@ class User < ActiveRecord::Base
   validates :born_at, date: true, allow_blank: true # gem date_validator
   validates :born_at, inclusion: { in: Date.civil(1900, 1, 1)..Date.civil(1998, 1, 1),
                                    message: "debes haber nacido después de 1900" }, allow_blank: true
+  
   # TODO: validacion if country == ES then postal_code /(\d5)/
   attr_accessor :sms_user_token_given
   attr_accessor :login
@@ -111,6 +113,10 @@ class User < ActiveRecord::Base
     else
       Carmen::Country.coded(self.country).subregions.coded(self.province).name
     end
+  end
+
+  def users_with_deleted
+    User.with_deleted
   end
 
 end
