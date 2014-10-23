@@ -4,6 +4,10 @@ FactoryGirl.define do
     "foo#{n}@example.com"
   end
 
+  sequence :phone do |n|
+    "0034661111111#{n}"
+  end
+
   factory :user do
     last_name "Pepito"
     first_name "Perez"
@@ -20,7 +24,7 @@ FactoryGirl.define do
     province "M"
     postal_code "28021"
     country "ES"
-    phone "003466111111111"
+    phone
     sms_confirmed_at DateTime.now
   end
 
@@ -40,7 +44,7 @@ FactoryGirl.define do
     province "M"
     postal_code "28021"
     country "ES"
-    phone "00346666666"
+    phone
     sms_confirmed_at DateTime.now
   end
 
@@ -60,7 +64,7 @@ FactoryGirl.define do
     province "M"
     postal_code "28021"
     country "ES"
-    phone "00346666666"
+    phone
     sms_confirmation_token "XXXXXXX"
     sms_confirmed_at DateTime.now
     has_legacy_password true
@@ -100,7 +104,7 @@ FactoryGirl.define do
     province "M"
     postal_code "28021"
     country "ES"
-    phone "003466111111111"
+    phone
     sms_confirmed_at DateTime.now
   end
 
@@ -120,7 +124,7 @@ FactoryGirl.define do
     province "M"
     postal_code "28021"
     country "ES"
-    phone "003466111111111"
+    phone
     sms_confirmed_at DateTime.now
   end
 
