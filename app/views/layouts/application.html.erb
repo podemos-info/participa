@@ -16,11 +16,6 @@
   <%= render partial: 'header' %>
 
   <div class="content">
-    <div class="js-mobile-bug" style="display: none;">
-      <%= error_box "Error" do %>
-        <p>Puedes tener problemas para abrir los documentos externos si accedes desde la aplicación para Android. Estamos trabajando en solucionarlo a la mayor brevedad posible. Como solución temporal puedes acceder a través del <a href="https://play.google.com/store/apps/details?id=org.mozilla.firefox">Mozilla Firefox</a> o <a href="https://play.google.com/store/apps/details?id=com.android.chrome">Google Chrome</a> para Android.</p>
-      <% end %>
-    </div>
     <%= render partial: 'flash_boxes' %>
     <%= yield %>
   </div>
