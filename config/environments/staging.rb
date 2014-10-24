@@ -84,18 +84,18 @@ Rails.application.configure do
   #config.action_mailer.delivery_method = :ses
   config.action_mailer.delivery_method = :smtp
 
-  ActionMailer::Base.smtp_settings = {
-    :address              => Rails.application.secrets.smtp["address"],
-    :user_name            => Rails.application.secrets.smtp["user_name"],
-    :password             => Rails.application.secrets.smtp["password"],
-    :domain               => Rails.application.secrets.smtp["domain"],
-    :port                 => 25,
-    :authentication       => :login,
-    :enable_starttls_auto => false
-  }
+#  ActionMailer::Base.smtp_settings = {
+#    :address              => Rails.application.secrets.smtp["address"],
+#    :user_name            => Rails.application.secrets.smtp["user_name"],
+#    :password             => Rails.application.secrets.smtp["password"],
+#    :domain               => Rails.application.secrets.smtp["domain"],
+#    :port                 => 25,
+#    :authentication       => :login,
+#    :enable_starttls_auto => false
+#  }
   #config.action_mailer.delivery_method = :sendmail
   # mailcatcher for testing purposes - DISABLED
   #config.action_mailer.delivery_method = :smtp
-  #config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
 end
