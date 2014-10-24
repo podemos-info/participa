@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   scope :deleted, -> { where "deleted_at is not null" }
   scope :unconfirmed_mail, -> { where "confirmed_at is null" }
   scope :unconfirmed_phone, -> { where "sms_confirmed_at is null" }
-  scope :legacy_password, -> { where "has_legacy_password is true" }
+  scope :legacy_password, -> { where(has_legacy_password: true) }
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 

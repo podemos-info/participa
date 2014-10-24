@@ -113,9 +113,12 @@ es:
       change_phone_explain_html: "Ahora mismo tienes el móvil <b> %{phone} </b>"
       change_password: "Cambiar contraseña"
       cancel_account: "Darme de baja"
-      cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal. </p>
-<p> A partir de este momento tu cuenta de acceso a esta página web quedará eliminada.</p>
-<p> De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Protección de Datos, la cancelación dará lugar al bloqueo de los datos, conservándose únicamente a disposición de las Administraciones públicas, Jueces y Tribunales, para la atención de las posibles responsabilidades nacidas del tratamiento, durante el plazo de prescripción de éstas. Cumplido el citado plazo se procederá a la supresión de los datos.</p>"
+      cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal.</p>
+<p> A partir de este momento tu cuenta de acceso al portal de participación de Podemos quedará eliminada.</p>
+<p>
+De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Protección de Datos, la cancelación dará lugar al bloqueo de los datos, conservándose únicamente a disposición de las Administraciones públicas, Jueces y Tribunales, para la atención de las posibles responsabilidades nacidas del tratamiento, durante el plazo de prescripción de éstas. Cumplido el citado plazo se procederá a la supresión de los datos.
+</p>
+"
     devise:
       mailer:
         hello: "Hola"
@@ -142,8 +145,8 @@ es:
       p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
     valid: 
       phone:
-        p1: "Pon tu número de telefóno móvil para que te enviemos un código de confirmación."
-        p2: "Recibirás el código en unos segundos."
+        p1: "Introduce tu nuevo número de teléfono móvil."
+        p2: "Recibirás el código de verificación para validar el nuevo número en unos segundos."
         p3: "Si ya has participado en alguna votación de PODEMOS, te enviaremos el código por e-mail."
         p4: "Introduce el texto que aparece en la imagen."
         p5: "Introduce el código que hayas recibido por SMS para confirmarlo"
@@ -172,16 +175,11 @@ es:
         p3: 'Al pulsar el botón “ENVIAR” usted autoriza a Podemos y a su entidad bancaria a efectuar las operaciones de cobro mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera que usted nos ha facilitado, por el importe y con la frecuencia que nos ha indicado en el formulario. Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 10 de cada mes, trimestre o año dependiendo de la frecuencia de pago que ha elegido.'
     registration:
       passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
-      p1_html: "<p>
-Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos. 
-</p> <p>
-Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción. Al finalizar el registro, te enviaremos un correo electrónico de confirmación. Si te equivocas en alguno de tus datos, puedes completar el formulario otra vez con tu código y se sobrescribirán, el sistema evita duplicados de registro. 
-</p> <p><b>¿Es seguro el sistema de inscripción?</b></p> <p>
-Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.
-</p> <p>
-*El código de verificación no es la contraseña de la Plaza Podemos. <a href='http://redd.it/2dfd5h'>Lee este manual para saber como registrarte y participar en ella</a>.
-</p>
-"
+      p1_html: "<p> Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos.  </p>
+<p> Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción.  </p>
+<p><b> ¿Es seguro el sistema de inscripción? </b> </p>
+<p> Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.  </p>
+<p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>"
       terms_of_service:
         title: 'Condiciones generales'
         p1_html: '
