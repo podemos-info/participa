@@ -7,14 +7,15 @@ es:
     buttons:
       sign_in: "Iniciar sesión"
       sign_up: "Registrarse"
+      edit: "Actualizar datos" 
       cancel_account: "Darme de baja"
       reset_password: "Enviarme las instrucciones por correo electrónico"
       change_password: "Cambiar contraseña"
       confirmation_instructions: "Reenviar instrucciones de confirmación"
       unlock_instructions: "Reenviar instrucciones de desbloqueo"
     hints:
-      password: "(déjala en blanco si no quieres cambiarla)" 
-      current_password: "(necesitamos tu contraseña actual para confirmar tus cambios)"
+      password: ""
+      current_password: "Introduce tu contraseña para validar los cambios"
     labels:
       new_password: "Contraseña nueva"
       new_password_confirmation: "Confirmar contraseña nueva"
