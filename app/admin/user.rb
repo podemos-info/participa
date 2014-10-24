@@ -1,18 +1,45 @@
 ActiveAdmin.register User do
+  scope_to :current_user, :association_method => :users_with_deleted
+
+  scope :users_with_deleted
+  scope :created
+  scope :deleted
+  scope :unconfirmed_mail
+  scope :unconfirmed_phone
+  scope :legacy_password
+
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :wants_newsletter
 
   index do
     selectable_column
     id_column
+    column :full_name
     column :email
-    column :circle
-    column :sign_in_count
-    column :created_at
+    column :status do |user|
+      user.deleted? ? status_tag("Borrado", :error) : ""
+    end
+    column :validations do |user|
+      user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
+      user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
+    end
     actions
   end
 
   show do 
     attributes_table do
+      row :status do 
+        user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
+        if user.confirmed_at? 
+          status_tag("El usuario ha confirmado por correo electrónico", :ok)
+        else
+          status_tag("El usuario NO ha confirmado por correo electrónico", :error)
+        end
+        if user.sms_confirmed_at? 
+          status_tag("El usuario ha confirmado por SMS", :ok)
+        else
+          status_tag("El usuario NO ha confirmado por SMS", :error)
+        end
+      end
       row :first_name
       row :last_name
       row :document_type do 
@@ -71,6 +98,9 @@ ActiveAdmin.register User do
   filter :last_sign_in_at
   filter :last_sign_in_ip
   filter :has_legacy_password
+  filter :created_at
+  filter :confirmed_at
+  filter :sms_confirmed_at
 
   form partial: "form"
 
@@ -88,6 +118,17 @@ ActiveAdmin.register User do
     column :id
     column("Nombre") { |u| u.full_name }
     column :email
+  end
+
+  action_item :only => :show do
+    link_to('Recuperar usuario borrado', recover_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer recuperar este usuario?" }) if user.deleted?
+  end
+
+  member_action :recover, :method => :post do
+    user = User.with_deleted.find(params[:id])
+    user.restore
+    flash[:notice] = "Ya se ha recuperado el usuario"
+    redirect_to action: :show
   end
 
   # FIXME: bug, only 2 mails

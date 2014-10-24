@@ -35,7 +35,18 @@ gem 'aws-ses', '~> 0.5.0', :require => 'aws/ses'
 gem 'kaminari'
 gem 'pushmeup'
 gem 'date_validator'
-gem 'paranoia', '~> 2.0'
+
+# FIXME we use a fork for this issue with uniqueness
+# https://github.com/radar/paranoia/issues/114
+# https://github.com/radar/paranoia/pull/121
+# 
+# In the future it'll be merged and everything will be OK. Meanwhile check:
+# * the validations on user uniqueness (scope: deleted_at), 
+# * active_admin default scope
+# * and tests on test/models/user_test.rb ("should act_as_paranoid" and "should scope uniqueness with paranoia")
+# 
+# gem 'paranoia', '~> 2.0' 
+gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
 group :development, :test do
   gem 'pry'
