@@ -20,35 +20,37 @@
       <%= f.input :last_name, required: true, input_html: {required: true, class: 'input-xl'} %>
     </div><%#--.inputlabel-box--%>
 
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:document_type) %>
-          <%= field_notice_box %>
-      <% end %>
-      <%= f.input :document_type,
-                  required: true,
-                  as: :select,
-                  collection: User::DOCUMENTS_TYPE,
-                  input_html: {required: true, class: 'js-registration-document'} %>
-    </div>
+    <% if action == "new" %>
+      <div class="inputlabel-box">
+        <% if resource.errors.include?(:document_type) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :document_type,
+                    required: true,
+                    as: :select,
+                    collection: User::DOCUMENTS_TYPE,
+                    input_html: {required: true, class: 'js-registration-document'} %>
+      </div>
 
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:document_vatid) %>
-          <%= field_notice_box %>
-      <% end %>
-      <%= f.input :document_vatid, required: true, input_html: {required: true, class: 'input-s'} %>
+      <div class="inputlabel-box">
+        <% if resource.errors.include?(:document_vatid) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :document_vatid, required: true, input_html: {required: true, class: 'input-s'} %>
 
-      <p class="js-registration-document-dni text-m invisible">
-        El formato deben ser 8 números y una letra, sin guiones ni espacios.
-      </p>
+        <p class="js-registration-document-dni text-m invisible">
+          El formato deben ser 8 números y una letra, sin guiones ni espacios.
+        </p>
 
-      <p class="js-registration-document-nie text-m invisible">
-        El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios.
-      </p>
+        <p class="js-registration-document-nie text-m invisible">
+          El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios.
+        </p>
 
-      <p class="js-registration-document-passport text-m invisible">
-        <%= t('podemos.registration.passport') %>
-      </p>
-    </div>
+        <p class="js-registration-document-passport text-m invisible">
+          <%= t('podemos.registration.passport') %>
+        </p>
+      </div>
+    <% end %>
 
     <div class="inputlabel-box">
       <% if resource.errors.include?(:born_at) %>
