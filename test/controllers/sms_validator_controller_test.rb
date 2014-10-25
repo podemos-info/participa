@@ -33,11 +33,20 @@ class SmsValidatorControllerTest < ActionController::TestCase
     assert_redirected_to sms_validator_step1_path
   end
 
-  test "should set phone on step1, save it and go to step2" do
-    phone = '0034668892522'
+  test "should set phone on step1 save it and go to step2" do
+    phone = '666666666'
+    sign_in @user
+    post :phone, user: { phone: phone } 
+    assert_equal phone, @user.phone
+    assert_redirected_to sms_validator_step2_path
+  end
+
+  test "should set phone on step1 on update save it as unconfirmed and go to step2" do
+    @user.update_attribute(:phone, '633333333')
+    phone = '666666666'
     sign_in @user
     post :phone, user: { phone: phone } # FIXME
-    assert_equal phone, @user.phone
+    assert_equal phone, @user.unconfirmed_phone
     assert_redirected_to sms_validator_step2_path
   end
 

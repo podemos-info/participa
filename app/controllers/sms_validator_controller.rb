@@ -4,6 +4,10 @@ class SmsValidatorController < ApplicationController
 
   # GET /validator/step1
   def step1 
+    # FIXME: doesn't work
+    #if current_user.sms_confirmed_at.nil? 
+    #  redirect_to root_path, flash: {notice: "Ya has confirmado tu número en los últimos 6 meses." }
+    #end
   end
 
   # GET /validator/step2
@@ -28,7 +32,13 @@ class SmsValidatorController < ApplicationController
 
   # POST /validator/phone
   def phone
-    current_user.update(phone_params)
+    if current_user.sms_confirmed_at?
+      # it's an update
+      current_user.unconfirmed_phone = phone_params[:phone] 
+    else
+      # it's a new phone
+      current_user.update(phone_params)
+    end
     if current_user.save
       current_user.set_sms_token!
       redirect_to sms_validator_step2_path
