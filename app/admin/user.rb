@@ -85,6 +85,7 @@ ActiveAdmin.register User do
   filter :email
   filter :document_vatid
   filter :admin
+  filter :first_name
   filter :last_name
   filter :phone
   filter :born_at
