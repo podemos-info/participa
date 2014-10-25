@@ -52,7 +52,18 @@ class User < ActiveRecord::Base
   end
 
   def get_or_create_vote election_id
-    Vote.where(user_id: self.id, election_id: election_id).first_or_create
+    # FIXME bug with NoMethodError: undefined method `paranoia_column' for #<Class:0x00000005a466b8>
+    #Vote.where(user_id: self.id, election_id: election_id).first_or_create
+    user_id = self.id
+
+    if Vote.exists?({election_id: election_id, user_id: user_id})
+      Vote.where({election_id: election_id, user_id: user_id}).first
+    else
+      v = Vote.new({election_id: election_id, user_id: user_id})
+      v.voter_id = v.generate_voter_id
+      v.save(validate: false)
+      v
+    end
   end
 
   def is_document_dni?
