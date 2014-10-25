@@ -8,7 +8,7 @@ class PasswordsIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   def login user
-    post_via_redirect user_session_path, 'user[email]' => user.email, 'user[password]' => user.password 
+    post_via_redirect user_session_path, 'user[login]' => user.email, 'user[password]' => user.password 
   end
 
   test "should login with password as user" do

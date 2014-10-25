@@ -104,15 +104,15 @@ ActiveAdmin.register User do
 
   form partial: "form"
 
-  collection_action :download_newsletter_csv, :method => :get do
-    users = User.wants_newsletter
-    csv = CSV.generate(encoding: 'utf-8') do |csv|
-      users.each { |user| csv << [ user.email ] }
-    end
-    send_data csv.encode('utf-8'), 
-      type: 'text/csv; charset=utf-8; header=present', 
-      disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
-  end
+  #collection_action :download_newsletter_csv, :method => :get do
+  #  users = User.wants_newsletter
+  #  csv = CSV.generate(encoding: 'utf-8') do |csv|
+  #    users.each { |user| csv << [ user.email ] }
+  #  end
+  #  send_data csv.encode('utf-8'), 
+  #    type: 'text/csv; charset=utf-8; header=present', 
+  #    disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
+  #end
 
   csv do
     column :id
