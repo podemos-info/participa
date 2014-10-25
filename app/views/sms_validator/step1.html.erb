@@ -19,7 +19,7 @@
               <% if current_user.errors.include?(:phone) %>
                   <%= field_notice_box %>
               <% end %>
-              <%= f.input :phone, input_html: {autofocus: true, class: "js-registration-input-phone"} %>
+              <%= f.input :phone, input_html: {autofocus: true, required: true} %>
             </div>
 
             <%= f.actions do %>
