@@ -3,7 +3,7 @@ require 'test_helper'
 class SmsValidatorControllerTest < ActionController::TestCase
 
   setup do 
-    @user = FactoryGirl.create(:sms_non_confirmed_user)
+    @user = FactoryGirl.create(:user, :sms_non_confirmed_user)
   end
 
   test "should not get steps as anonimous" do
