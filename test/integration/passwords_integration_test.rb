@@ -4,7 +4,7 @@ class PasswordsIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
     @user = FactoryGirl.create(:user)
-    @legacy_password_user = FactoryGirl.create(:legacy_password_user)
+    @legacy_password_user = FactoryGirl.create(:user, :legacy_password_user)
   end
 
   def login user

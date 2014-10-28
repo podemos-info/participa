@@ -4,7 +4,7 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
     @user = FactoryGirl.create(:user)
-    @admin = FactoryGirl.create(:admin)
+    @admin = FactoryGirl.create(:user, :admin)
   end
 
   def login user

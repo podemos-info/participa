@@ -5,7 +5,7 @@ class AbilityTest < ActiveSupport::TestCase
   setup do 
     @user1 = FactoryGirl.create(:user)
     @user2 = FactoryGirl.create(:user, document_type: 3, document_vatid: "22222D")
-    @admin = FactoryGirl.create(:admin)
+    @admin = FactoryGirl.create(:user, :admin)
     @notice = FactoryGirl.create(:notice)
   end
 
