@@ -27,7 +27,7 @@ es:
               blank: "Tu tipo de documento no puede estar en blanco"
             document_vatid: 
               blank: "Tu documento no puede estar en blanco"
-              taken: "Ya estas registrado con tu documento. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
+              taken: "Ya estas inscrito con tu documento. <a href='/'>Prueba a iniciar sesión</a> o a <a href='/users/password/new'>pedir que te recordemos la contraseña</a>."
             born_at: 
               blank: "Tu fecha de nacimiento no puede estar en blanco"
               not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto: dd/mm/aaaa, es decir para el 15 de Diciembre de 1978 sería 15/12/1978" 
@@ -43,7 +43,7 @@ es:
               blank: "Tu país no puede estar en blanco"
             email: 
               blank: "Tu correo electrónico no puede estar en blanco"
-              taken: "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña."
+              taken: "Ya estas inscrito con tu correo electrónico. <a href='/'>Prueba a iniciar sesión</a> o a <a href='/users/password/new'>pedir que te recordemos la contraseña</a>."
             password: 
               blank: "Tu contraseña no puede estar en blanco"
             password_confirmation: "Contraseña (repetir)"
@@ -71,6 +71,7 @@ es:
         agora_election_id: "ID en AgoraVoting"
         starts_at: "Empieza"
         ends_at: "Termina"
+        close_message: "Mensaje de cierre"
       notice:
         title: "Título"
         body: "Mensaje" 
@@ -82,6 +83,7 @@ es:
         document_vatid: "Nº de documento"
         born_at: "Fecha de nacimiento"
         email: "Correo electrónico"
+        email_confirmation: "Correo electrónico (repetir)"
         phone: "Teléfono móvil"
         address: "Dirección"
         town: "Municipio / Localidad"
@@ -174,12 +176,17 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         p3_title: "Consentimiento orden de domiciliación y cargos en tarjeta de crédito o débito."
         p3: 'Al pulsar el botón “ENVIAR” usted autoriza a Podemos y a su entidad bancaria a efectuar las operaciones de cobro mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera que usted nos ha facilitado, por el importe y con la frecuencia que nos ha indicado en el formulario. Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 10 de cada mes, trimestre o año dependiendo de la frecuencia de pago que ha elegido.'
     registration:
-      passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
+      message: 
+        dni: "El formato deben ser 8 números y una letra, sin guiones ni espacios."
+        nie: "El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios."
+        passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
       p1_html: "<p> Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos.  </p>
 <p> Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción.  </p>
 <p><b> ¿Es seguro el sistema de inscripción? </b> </p>
 <p> Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.  </p>
-<p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>"
+<p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>
+<p><a href='/es/preguntas-frecuentes'>¿Problemas con la inscripción?</a></p>
+"
       terms_of_service:
         title: 'Condiciones generales'
         p1_html: '
@@ -442,3 +449,5 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos 
       incorrect-captcha-sol: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
       verification_failed: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
       recaptcha_unreachable: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
+  election:
+    close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
