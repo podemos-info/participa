@@ -1,6 +1,6 @@
 ActiveAdmin.register Election do
 
-  permit_params :title, :agora_election_id, :starts_at, :ends_at
+  permit_params :title, :agora_election_id, :starts_at, :ends_at, :close_message
 
   index do
     selectable_column
@@ -21,6 +21,9 @@ ActiveAdmin.register Election do
       row :agora_election_id
       row :starts_at
       row :ends_at
+      row :close_message do 
+        raw election.close_message
+      end
       row "Crear Aviso" do
         link_to "Crear aviso para móviles para esta votación", new_admin_notice_path(notice: { link: create_vote_url(election_id: election.id), title: "Podemos", body: "Nueva votación disponible: #{election.title}" }), class: "button"
       end
@@ -34,6 +37,7 @@ ActiveAdmin.register Election do
       f.input :agora_election_id
       f.input :starts_at
       f.input :ends_at
+      f.input :close_message
     end
     f.actions
   end
