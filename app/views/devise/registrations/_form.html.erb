@@ -39,15 +39,15 @@
         <%= f.input :document_vatid, required: true, input_html: {required: true, class: 'input-s'} %>
 
         <p class="js-registration-document-dni text-m invisible">
-          El formato deben ser 8 números y una letra, sin guiones ni espacios.
+          <%= t('podemos.registration.message.dni') %>
         </p>
 
         <p class="js-registration-document-nie text-m invisible">
-          El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios.
+          <%= t('podemos.registration.message.nie') %>
         </p>
 
         <p class="js-registration-document-passport text-m invisible">
-          <%= t('podemos.registration.passport') %>
+          <%= t('podemos.registration.message.passport') %>
         </p>
       </div>
     <% end %>
@@ -57,12 +57,11 @@
           <%= field_notice_box %>
       <% end %>
       <%= f.input :born_at,
-                  as: :date_picker,
+                  as: :date,
                   required: true,
-                  placeholder: 'dd/mm/aaaa',
-                  input_html: {  required: true, class: 'input-m', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
-                  start_year: 1900,
-                  end_year: 2015 %>
+                  input_html: { required: true, class: 'input-s', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
+                  start_year: 1999,
+                  end_year: 1900 %>
     </div>
   </fieldset>
 
@@ -111,7 +110,13 @@
       <% if resource.errors.include?(:email) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :email, required: true, input_html: {required: true, class: 'input-m'} %>
+      <%= f.input :email, as: :email, required: true, input_html: {required: true, class: 'input-m'} %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:email_confirmation) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :email_confirmation, as: :email, required: true, input_html: {required: true, class: 'input-m'} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:password) %>
