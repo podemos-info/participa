@@ -18,4 +18,5 @@
 //= require cookie_policy
 //= require registrations_submenu
 //= require ccc
+//= require zfixes
 //= require_tree .
