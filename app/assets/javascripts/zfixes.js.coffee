@@ -11,7 +11,7 @@ born_at_format = () ->
   $('#select2-chosen-4').html('año')
 
 init_zfixes = () ->
-  # born_at_format()
+  born_at_format()
 
 
 $(window).bind 'page:change', ->
