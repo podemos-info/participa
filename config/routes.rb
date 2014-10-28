@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   
   scope "/(:locale)", locale: /es|ca|eu/ do 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
+    get '/faq', to: 'page#faq', as: 'faq'
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     scope :validator do
