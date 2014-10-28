@@ -96,6 +96,7 @@ es:
         wants_newsletter: 'Newsletter'
         terms_of_service: "He leído y acepto las condiciones generales"
         over_18: "Declaro ser mayor de 18 años"
+        captcha: "Código de seguridad (captcha)"
         current_password: "Contraseña actual"
   formtastic:
     hints:
@@ -446,8 +447,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos 
 '
   recaptcha:
     errors:
-      incorrect-captcha-sol: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
-      verification_failed: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
-      recaptcha_unreachable: "Hubo un error con el captcha (el código de seguridad), por favor completalo de nuevo"
+      incorrect-captcha-sol: "Hubo un error con el código de seguridad (captcha), por favor completalo de nuevo"
+      verification_failed: "Hubo un error con el código de seguridad (captcha), por favor completalo de nuevo"
+      recaptcha_unreachable: "Hubo un error con el código de seguridad (captcha), por favor completalo de nuevo"
   election:
     close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
