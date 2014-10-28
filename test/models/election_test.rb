@@ -22,4 +22,18 @@ class ElectionTest < ActiveSupport::TestCase
     assert_equal(Election.actived.count, 1)
   end
 
+  test "sould .is_actived? work" do 
+    # votacion ya cerrada
+    e1 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now-30.days, ends_at: DateTime.now-7.days)
+    assert_not e1.is_actived?
+
+    # votacion activa
+    e2 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now-30.days, ends_at: DateTime.now+7.days)
+    assert e2.is_actived?
+
+    # votacion del futuro, todavia no esta activada
+    e3 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now+30.days, ends_at: DateTime.now+90.days)
+    assert_not e3.is_actived?
+  end
+
 end
