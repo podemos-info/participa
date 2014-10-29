@@ -57,9 +57,8 @@
           <%= field_notice_box %>
       <% end %>
       <%= f.input :born_at,
-                  as: :date,
                   required: true,
-                  input_html: { required: true, class: 'input-s', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
+                  input_html: { required: true, class: 'input-s' },
                   start_year: 1999,
                   end_year: 1900 %>
     </div>
