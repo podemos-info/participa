@@ -1,11 +1,16 @@
 class ApplicationController < ActionController::Base
 
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_phone
   before_filter :set_new_password
   before_action :set_locale
   before_filter :allow_iframe_requests
   before_filter :admin_logger
+  before_filter :check_born_at
 
   def allow_iframe_requests
     response.headers.delete('X-Frame-Options')
@@ -50,9 +55,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  def check_born_at
+    if current_user and current_user.sms_confirmed_at? and current_user.born_at == Date.civil(1900,1,1) 
+      if params[:controller] == 'registrations' 
+        flash[:error] = "Por favor revisa tu fecha de nacimiento"
+      else
+        redirect_to edit_user_registration_url, flash: {error: "Por favor revisa tu fecha de nacimiento" }
+      end
+    end
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
