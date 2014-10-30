@@ -52,6 +52,22 @@
       </div>
     <% end %>
 
+    <% if action == "edit" %>
+      <div class="inputlabel-box">
+        <%= f.input :document_type,
+                    required: true,
+                    as: :select,
+                    collection: User::DOCUMENTS_TYPE,
+                    input_html: {required: true, disabled: true, class: 'js-registration-document'} %>
+        <p class="text-m">No puedes modificar este campo</p>
+      </div>
+
+      <div class="inputlabel-box">
+        <%= f.input :document_vatid, required: true, input_html: {disabled: true, required: true, class: 'input-s'} %>
+        <p class="text-m">No puedes modificar este campo</p>
+      </div>
+    <% end %>
+
     <div class="inputlabel-box">
       <% if resource.errors.include?(:born_at) %>
           <%= field_notice_box %>
