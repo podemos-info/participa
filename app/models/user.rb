@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, presence: true
+  validates :email, confirmation: true
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
   #validates :country, length: {minimum: 1, maximum: 2}
@@ -15,8 +16,9 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, date: true, allow_blank: true # gem date_validator
-  validates :born_at, inclusion: { in: Date.civil(1900, 1, 1)..Date.civil(1998, 1, 1),
-                                   message: "debes haber nacido después de 1900" }, allow_blank: true
+  validates :born_at, inclusion: { in: Date.civil(1900, 1, 1)..Date.today-18.years,
+    message: "debes ser mayor de 18 años" }, allow_blank: true
+
   # TODO: validacion if country == ES then postal_code /(\d5)/
   
 
@@ -36,11 +38,15 @@ class User < ActiveRecord::Base
   scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
   scope :users_with_deleted, -> { where "deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
-  scope :created, -> { where "deleted_at is null"  }
-  scope :deleted, -> { where "deleted_at is not null" }
-  scope :unconfirmed_mail, -> { where "confirmed_at is null" }
-  scope :unconfirmed_phone, -> { where "sms_confirmed_at is null" }
+  scope :created, -> { where(deleted_at: nil)  }
+  scope :deleted, -> { where.not(deleted_at: nil) }
+  scope :unconfirmed_mail, -> { where(confirmed_at: nil)  }
+  scope :unconfirmed_phone, -> { where(sms_confirmed_at: nil) }
+  scope :confirmed_mail, -> { where.not(confirmed_at: nil) }
+  scope :confirmed_phone, -> { where.not(sms_confirmed_at: nil) }
   scope :legacy_password, -> { where(has_legacy_password: true) }
+  scope :confirmed, -> { where.not(confirmed_at: nil).where.not(sms_confirmed_at: nil) }
+  scope :signed_in, -> { where.not(sign_in_count: nil) }
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
@@ -55,7 +61,22 @@ class User < ActiveRecord::Base
   end
 
   def get_or_create_vote election_id
-    Vote.where(user_id: self.id, election_id: election_id).first_or_create
+    # FIXME bug with NoMethodError: undefined method `paranoia_column' for #<Class:0x00000005a466b8>
+    #Vote.where(user_id: self.id, election_id: election_id).first_or_create
+    user_id = self.id
+
+    if Vote.exists?({election_id: election_id, user_id: user_id})
+      Vote.where({election_id: election_id, user_id: user_id}).first
+    else
+      v = Vote.new({election_id: election_id, user_id: user_id})
+      v.voter_id = v.generate_voter_id
+      v.save(validate: false)
+      v
+    end
+  end
+
+  def document_vatid=(val)
+    self[:document_vatid] = val.upcase.strip
   end
 
   def is_document_dni?
@@ -64,6 +85,10 @@ class User < ActiveRecord::Base
 
   def is_document_nie?
     self.document_type == 2
+  end
+
+  def is_passport?
+    self.document_type == 3
   end
 
   def full_name

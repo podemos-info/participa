@@ -4,7 +4,7 @@ class UserTest < ActiveSupport::TestCase
 
   setup do 
     @user = FactoryGirl.create(:user)
-    @admin = FactoryGirl.create(:admin)
+    @admin = FactoryGirl.create(:user, :admin)
   end
 
   test "should validate presence:true" do
@@ -43,41 +43,77 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should email be unique" do
+    error_message = I18n.t "activerecord.errors.models.user.attributes.email.taken"
     user2 = FactoryGirl.build(:user, email: @user.email)
     user2.valid?
-    assert(user2.errors[:email].include? "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña.")
+    assert(user2.errors[:email].include? error_message)
 
-    user2 = FactoryGirl.build(:user, document_vatid: "17623610K")
+    user2 = FactoryGirl.build(:user, email: "newuniqueemail@example.com")
     assert(user2.errors[:email] == [])
   end
 
   test "should document_vatid be unique" do
-    user1 = FactoryGirl.create(:user, email: "foo222@example.com", document_vatid: "26502303R")
-    user2 = FactoryGirl.build(:user, email: "foo222@example.com", document_vatid: "26502303R")
+    error_message = I18n.t "activerecord.errors.models.user.attributes.document_vatid.taken"
+
+    # try to save with the same document
+    user1 = FactoryGirl.create(:user, document_vatid: "26502303R")
+    user2 = FactoryGirl.build(:user, document_vatid: "26502303R")
     user2.valid?
-    assert(user2.errors[:email].include? "Ya estas registrado con tu correo electrónico. Prueba a iniciar sesión o a pedir que te recordemos la contraseña.")
-    user2 = FactoryGirl.build(:user, email: "foo888@example.com")
-    assert(user2.errors[:email] == [])
+    assert(user2.errors[:document_vatid].include? error_message)
+
+    # downcase ( minusculas )
+    user3 = FactoryGirl.build(:user, document_vatid: "26502303r")
+    user3.valid?
+    assert(user3.errors[:document_vatid].include? error_message)
+
+    # spaces
+    user4 = FactoryGirl.build(:user, document_vatid: " 26502303r ")
+    user4.valid?
+    assert(user4.errors[:document_vatid].include? error_message)
+
+    user5 = FactoryGirl.build(:user, document_vatid: "1111111H")
+    assert(user5.valid?)
   end
 
-  test "should accept terms of service" do
-    skip("TODO")
+  test "should accept terms of service and over_18" do
+    u = User.new(terms_of_service: false, over_18: false)
+    u.valid?
+    u.errors[:terms_of_service].include? ["debe ser aceptado"]
+    u.errors[:over_18].include? ["debe ser aceptado"]
   end
 
-  #test "should have valid born_at" do
-  #  u = User.new(born_at: Date.civil(1908, 2, 1))
-  #  u.valid?
-  #  assert(u.errors[:born_at].include? "debes haber nacido después de 1920")
-  #  u = User.new(born_at: Date.civil(2017, 2, 1))
-  #  u.valid?
-  #  assert(u.errors[:born_at].include? "debes haber nacido después de 1920")
-  #  u = User.new(born_at: Date.civil(1988, 2, 1))
-  #  u.valid?
-  #  assert(u.errors[:born_at], [])
-  #end
+  test "should have valid born_at" do
+    u = User.new(born_at: Date.civil(2017, 2, 1))
+    u.valid?
+    assert(u.errors[:born_at].include? "debes ser mayor de 18 años")
+    u = User.new(born_at: Date.civil(1888, 2, 1))
+    u.valid?
+    assert(u.errors[:born_at].include? "debes ser mayor de 18 años")
+    u = User.new(born_at: Date.civil(1988, 2, 1))
+    u.valid?
+    assert(u.errors[:born_at], [])
+  end
 
   test "should document_type inclusion work" do
-    skip("TODO")
+    u = User.new(document_type: 4)
+    u.valid? 
+    assert(u.errors[:document_type].include?  "tipo de documento no válido")
+
+    u = User.new(document_type: 0)
+    u.valid? 
+    assert(u.errors[:document_type].include?  "tipo de documento no válido")
+
+    u = User.new(document_type: 1)
+    u.valid? 
+    assert(u.errors[:document_type], [])
+
+    u = User.new(document_type: 2)
+    u.valid? 
+    assert(u.errors[:document_type], [])
+
+    u = User.new(document_type: 3)
+    u.valid? 
+    assert(u.errors[:document_type], [])
   end
 
   test "should .full_name work" do
@@ -117,7 +153,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should .send_sms_token! work" do
-    skip("TODO")
+    @user.send_sms_token!
+    # comprobamos que el SMS se haya enviado en los últimos 10 segundos
+    assert( @user.confirmation_sms_sent_at - DateTime.now  > -10 )
   end
 
   test "should .check_sms_token work" do
@@ -159,9 +197,9 @@ class UserTest < ActiveSupport::TestCase
 
   test "should scope .wants_newsletter work" do 
     assert_equal 2, User.wants_newsletter.count
-    FactoryGirl.create(:no_newsletter_user)
+    FactoryGirl.create(:user, :no_newsletter_user)
     assert_equal 2, User.wants_newsletter.count
-    FactoryGirl.create(:newsletter_user)
+    FactoryGirl.create(:user, :newsletter_user)
     assert_equal 3, User.wants_newsletter.count
   end
 
@@ -176,7 +214,8 @@ class UserTest < ActiveSupport::TestCase
   test "should scope uniqueness with paranoia" do 
     @user.destroy
     # allow save after the @user is destroyed but is with deleted_at
-    user1 = FactoryGirl.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    user1 = FactoryGirl.build(:user, email: @user.email, email_confirmation: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    user1.valid?
     assert user1.valid?
     user1.save
 
@@ -195,5 +234,39 @@ class UserTest < ActiveSupport::TestCase
     user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", document_vatid: "222222X", phone: "00344444444")
     assert user.valid?
   end
+
+  test "should uniqueness not be case sensitive" do 
+    user = FactoryGirl.build(:user, document_vatid: @user.document_vatid.downcase)
+    assert_not user.valid?
+    user = FactoryGirl.build(:user, document_vatid: @user.document_vatid.upcase)
+    assert_not user.valid?
+  end
+
+  test "should email confirmation work" do 
+    user = FactoryGirl.build(:user, email_confirmation: "notthesameemail@gmail.com")
+    user.valid?
+    assert_not user.valid?
+    assert user.errors[:email_confirmation].include? "no coincide con la confirmación"
+  end
+
+  test "should be over 18 on born_at" do 
+    user = FactoryGirl.build(:user, born_at: Date.civil(2000, 1, 1))
+    user.valid?
+    assert_not user.valid?
+    assert user.errors[:born_at].include? "debes ser mayor de 18 años"
+  end 
+
+  #test "should all scopes work" do 
+  #  skip("TODO")
+  #end
+  #
+  #scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
+  #scope :users_with_deleted, -> { where "deleted_at IS NOT null"  }
+  #scope :wants_newsletter, -> {where(wants_newsletter: true)}
+  #scope :created, -> { where "deleted_at is null"  }
+  #scope :deleted, -> { where "deleted_at is not null" }
+  #scope :unconfirmed_mail, -> { where "confirmed_at is null" }
+  #scope :unconfirmed_phone, -> { where "sms_confirmed_at is null" }
+  #scope :legacy_password, -> { where(has_legacy_password: true) }
 
 end
