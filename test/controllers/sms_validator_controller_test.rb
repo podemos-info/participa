@@ -41,6 +41,15 @@ class SmsValidatorControllerTest < ActionController::TestCase
     assert_redirected_to sms_validator_step2_path
   end
 
+  test "should not get step1 if can't change phone" do
+    # see user.can_change_phone? method
+    sign_in @user
+    get :step1
+    assert_response :redirect
+    assert_redirected_to root_url
+    assert_equal("Ya has confirmado tu número en los últimos meses.", flash[:error])
+  end
+
   test "should set phone on step1 on update save it as unconfirmed and go to step2" do
     @user.update_attribute(:phone, '633333333')
     phone = '666666666'

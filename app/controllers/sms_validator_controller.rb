@@ -1,13 +1,11 @@
 class SmsValidatorController < ApplicationController
   before_action :authenticate_user! 
-#  layout 'simple'
 
   # GET /validator/step1
   def step1 
-    # FIXME: doesn't work
-    #if current_user.sms_confirmed_at.nil? 
-    #  redirect_to root_path, flash: {notice: "Ya has confirmado tu número en los últimos 6 meses." }
-    #end
+    if current_user.can_change_phone?
+      redirect_to root_path, flash: {error: "Ya has confirmado tu número en los últimos meses." }
+    end
   end
 
   # GET /validator/step2
