@@ -79,7 +79,11 @@ class User < ActiveRecord::Base
   end
 
   def is_valid_phone?
-    self.sms_confirmed_at?
+    self.sms_confirmed_at? && self.sms_confirmed_at? > self.confirmation_sms_sent_at
+  end
+
+  def can_change_phone?
+    self.sms_confirmed_at < DateTime.now-3.months
   end
 
   def generate_sms_token
