@@ -3,7 +3,7 @@
 es:
   devise:
     registrations: 
-      ok: "Te has registrado correctamente. Recibirás un correo que tendrás que confirmar para continuar con el proceso. Revisa tu correo."
+      ok: "Te has inscrito correctamente. Recibirás un correo que tendrás que confirmar para continuar con el proceso. Revisa tu correo."
     buttons:
       sign_in: "Iniciar sesión"
       sign_up: "Registrarse"

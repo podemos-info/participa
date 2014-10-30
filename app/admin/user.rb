@@ -1,12 +1,15 @@
 ActiveAdmin.register User do
   scope_to :current_user, :association_method => :users_with_deleted
 
-  scope :users_with_deleted
   scope :created
+  scope :confirmed
   scope :deleted
   scope :unconfirmed_mail
   scope :unconfirmed_phone
   scope :legacy_password
+  scope :confirmed_mail
+  scope :confirmed_phone
+  scope :signed_in
 
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :wants_newsletter
 
@@ -69,6 +72,9 @@ ActiveAdmin.register User do
       row :sms_confirmation_token
       row :confirmation_sms_sent_at
       row :sms_confirmed_at
+      #row :sms_confirmation do
+      #  link_to "Ver en Esendex (proveedor SMS)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue="
+      #end
       row :failed_attempts
       row :locked_at
       row :sign_in_count
@@ -85,6 +91,7 @@ ActiveAdmin.register User do
   filter :email
   filter :document_vatid
   filter :admin
+  filter :first_name
   filter :last_name
   filter :phone
   filter :born_at
@@ -101,18 +108,19 @@ ActiveAdmin.register User do
   filter :created_at
   filter :confirmed_at
   filter :sms_confirmed_at
+  filter :sign_in_count
 
   form partial: "form"
 
-  collection_action :download_newsletter_csv, :method => :get do
-    users = User.wants_newsletter
-    csv = CSV.generate(encoding: 'utf-8') do |csv|
-      users.each { |user| csv << [ user.email ] }
-    end
-    send_data csv.encode('utf-8'), 
-      type: 'text/csv; charset=utf-8; header=present', 
-      disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
-  end
+  #collection_action :download_newsletter_csv, :method => :get do
+  #  users = User.wants_newsletter
+  #  csv = CSV.generate(encoding: 'utf-8') do |csv|
+  #    users.each { |user| csv << [ user.email ] }
+  #  end
+  #  send_data csv.encode('utf-8'), 
+  #    type: 'text/csv; charset=utf-8; header=present', 
+  #    disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
+  #end
 
   csv do
     column :id

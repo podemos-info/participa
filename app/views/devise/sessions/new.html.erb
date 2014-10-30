@@ -38,6 +38,7 @@
             <p>
               <%= link_to "No he recibido el correo de confirmación", new_confirmation_path(resource_name) %>
             </p>
+            <p><a href="/es/preguntas-frecuentes">¿Problemas con la inscripción?</a></p>
           <% end %>
         </div><!--.login-box-->
       </div><!--.col-b-9a12-->
@@ -50,7 +51,7 @@
         <p class="total">Ya somos
         <span>
           <% cache("total_users", expires_in: 30.minutes) do %>
-            <%= number_with_delimiter User.where.not(sms_confirmed_at: nil).count %>
+            <%= number_with_delimiter User.confirmed.count %>
           <% end %>
         </span>
         personas inscritas.</p>

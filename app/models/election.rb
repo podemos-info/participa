@@ -5,4 +5,8 @@ class Election < ActiveRecord::Base
 
   scope :actived, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
 
+  def is_actived?
+    ( self.starts_at .. self.ends_at ).cover? DateTime.now
+  end
+
 end

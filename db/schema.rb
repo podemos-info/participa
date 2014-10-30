@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024222849) do
+ActiveRecord::Schema.define(version: 20141028121426) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20141024222849) do
     t.datetime "ends_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "close_message"
   end
 
   create_table "notice_registrars", force: true do |t|
@@ -126,6 +127,9 @@ ActiveRecord::Schema.define(version: 20141024222849) do
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["deleted_at", "document_vatid"], name: "index_users_on_deleted_at_and_document_vatid", unique: true
+  add_index "users", ["deleted_at", "email"], name: "index_users_on_deleted_at_and_email", unique: true
+  add_index "users", ["deleted_at", "phone"], name: "index_users_on_deleted_at_and_phone", unique: true
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
   add_index "users", ["email"], name: "index_users_on_email"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -137,6 +141,9 @@ ActiveRecord::Schema.define(version: 20141024222849) do
     t.string   "voter_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
+
+  add_index "votes", ["deleted_at"], name: "index_votes_on_deleted_at"
 
 end

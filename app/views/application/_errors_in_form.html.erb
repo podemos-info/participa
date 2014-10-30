@@ -2,7 +2,7 @@
     <%= error_box "No se pudo salvar" do %>
         <p>Ocurrieron los siguientes errores</p>
         <% resource.errors.each do |attr, msg| %>
-            <p><b><%= resource.class.human_attribute_name attr %></b>: <%= msg %></p>
+            <p><b><%= resource.class.human_attribute_name attr %></b>: <%= sanitize msg, tags: ["a"] %></p>
         <% end %>
     <% end %>
 <% end %>

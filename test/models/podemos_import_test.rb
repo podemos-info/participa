@@ -3,13 +3,13 @@ require 'podemos_import'
 
 class PodemosImportTest < ActiveSupport::TestCase
 
-  test "should #init work" do
-    skip("TODO")
-    csv_file = "#{Rails.root}/test/lib/juntos_test.csv"
-    PodemosImport.init(csv_file)
-    # User.difference N
-    User.count
-  end
+#  test "should #init work" do
+#    skip("TODO")
+#    csv_file = "#{Rails.root}/test/lib/juntos_test.csv"
+#    PodemosImport.init(csv_file)
+#    # User.difference N
+#    User.count
+#  end
 
   # DOCUMENT: Pasaporte NIE DNI 
 
@@ -19,20 +19,20 @@ class PodemosImportTest < ActiveSupport::TestCase
     assert_equal 3, PodemosImport.convert_document_type("Pasaporte", "D888888")
   end
 
-  test "should #invalid_record work" do
-    skip("TODO")
-    #PodemosImport.invalid_record(logger)
-  end
-
-  test "should #process_row work" do
-    skip("TODO")
-    #PodemosImport.process_row(logger)
-  end
+#  test "should #invalid_record work" do
+#    skip("TODO")
+#    #PodemosImport.invalid_record(logger)
+#  end
+#
+#  test "should #process_row work" do
+#    skip("TODO")
+#    #PodemosImport.process_row(logger)
+#  end
 
   test "should #convert_province work" do
-    assert_equal PodemosImport.convert_province("28002", "España", "Madrid"), "m"
-    assert_equal PodemosImport.convert_province("48002", "Spain", "Bilbao"), "bi"
-    assert_equal PodemosImport.convert_province("48002", "España", "Bilbao"), "bi" 
+    assert_equal PodemosImport.convert_province("28002", "España", "Madrid"), "M"
+    assert_equal PodemosImport.convert_province("48002", "Spain", "Bilbao"), "BI"
+    assert_equal PodemosImport.convert_province("48002", "España", "Bilbao"), "BI" 
     assert_equal PodemosImport.convert_province("48002", "bla", "Tanganika"), "Tanganika"
   end
   

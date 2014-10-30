@@ -80,7 +80,7 @@ module ApplicationHelper
   # Generalization from render_alert and render_error
   def render_flash partial_name, title, close_text="", &block
     content = with_output_buffer(&block)
-    render partial: partial_name, locals: {title: title, content: content, close_text: close_text}
+    render partial: partial_name, locals: {title: title, content: sanitize(content, :tags => %w(a p b)), close_text: close_text}
   end
 
   def field_notice_box
