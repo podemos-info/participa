@@ -18,16 +18,46 @@ class User < ActiveRecord::Base
   validates :born_at, date: true, allow_blank: true # gem date_validator
   validates :born_at, inclusion: { in: Date.civil(1900, 1, 1)..Date.today-18.years,
     message: "debes ser mayor de 18 años" }, allow_blank: true
-
-  # TODO: validacion if country == ES then postal_code /(\d5)/
-  
-
-  validates :email, uniqueness: {if: :created, case_sensitive: false, scope: :deleted_at }
-  validates :document_vatid, uniqueness: {if: :created, case_sensitive: false, scope: :deleted_at }
-  validates :phone, uniqueness: {if: :created, scope: :deleted_at}, allow_blank: true, allow_nil: true
-
   validates :phone, numericality: true, allow_blank: true
+  validates :unconfirmed_phone, numericality: true, allow_blank: true
+
+  #validates :phone, Phoner::Phone.valid?
+  #validates :unconfirmed_phone, Phoner::Phone.valid?
+  # TODO: validacion if country == ES then postal_code /(\d5)/
+
+  validates :email, uniqueness: {case_sensitive: false, scope: :deleted_at }
+  validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
+  validates :phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
+  validates :unconfirmed_phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   
+  validate :validates_phone_format
+  validate :validates_unconfirmed_phone_format
+  validate :validates_unconfirmed_phone_uniqueness 
+
+  def validates_unconfirmed_phone_uniqueness 
+    if self.unconfirmed_phone.present? 
+      if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
+        self.update_attribute(:unconfirmed_phone, nil
+        self.errors.add(:phone, "Ya hay alguien con ese número de teléfono")
+      end
+    end
+  end
+
+  def validates_phone_format
+    if self.phone.present? 
+      self.errors.add(:phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.phone) 
+    end
+  end
+
+  def validates_unconfirmed_phone_format
+    if self.unconfirmed_phone.present? 
+      self.errors.add(:unconfirmed_phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.unconfirmed_phone) 
+      if self.country.downcase == "es" and not self.unconfirmed_phone.starts_with?('00346')
+        self.errors.add(:unconfirmed_phone, "Debes poner un teléfono móvil válido de España empezando por 6.") 
+      end
+    end
+  end
+
   # TODO: phone - cambiamos el + por el 00 al guardar 
   attr_accessor :sms_user_token_given
   attr_accessor :login
@@ -104,11 +134,11 @@ class User < ActiveRecord::Base
   end
 
   def is_valid_phone?
-    self.sms_confirmed_at? && self.sms_confirmed_at? > self.confirmation_sms_sent_at
+    self.sms_confirmed_at? && self.sms_confirmed_at > self.confirmation_sms_sent_at || false
   end
 
   def can_change_phone?
-    self.sms_confirmed_at < DateTime.now-3.months
+    self.sms_confirmed_at? ? self.sms_confirmed_at < DateTime.now-3.months : true
   end
 
   def generate_sms_token
@@ -136,6 +166,43 @@ class User < ActiveRecord::Base
     else 
       false
     end
+  end
+
+  def phone_normalize(phone_number, country_iso=nil)
+    Phoner::Country.load
+    cc = country_iso.nil? ? self.country : country_iso
+    country = Phoner::Country.find_by_country_isocode(cc.downcase)
+    phoner = Phoner::Phone.parse(phone_number, :country_code => country.country_code)
+    phoner.nil? ? nil : "00" + phoner.country_code + phoner.area_code + phoner.number
+  end
+
+  def unconfirmed_phone_number
+    Phoner::Country.load
+    country = Phoner::Country.find_by_country_isocode(self.country.downcase)
+    if Phoner::Phone.valid?(self.unconfirmed_phone)
+      phoner = Phoner::Phone.parse(self.unconfirmed_phone, :country_code => country.country_code)
+      phoner.area_code + phoner.number
+    else
+      nil
+    end
+  end
+
+  def phone_prefix 
+    Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
+  end
+
+  def phone_country_name
+    if Phoner::Phone.valid?(self.phone)
+      country_code = Phoner::Phone.parse(self.phone).country_code
+      Carmen::Country.coded(Phoner::Country.find_by_country_code(country_code).char_3_code).name
+    else
+      Carmen::Country.coded(self.country).name
+    end
+  end
+
+  def phone_no_prefix
+    phone = Phoner::Phone.parse(self.phone)
+    phone.area_code + phone.number
   end
 
   def document_type_name

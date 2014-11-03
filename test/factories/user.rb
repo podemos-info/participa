@@ -9,7 +9,7 @@ FactoryGirl.define do
   end
 
   sequence :phone do |n|
-    "0034661111111#{n}"
+    "003466111111#{n}"
   end
 
   factory :user do

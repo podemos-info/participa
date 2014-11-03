@@ -18,8 +18,25 @@ class SmsValidatorControllerTest < ActionController::TestCase
     assert_redirected_to "/users/sign_in"
   end
 
-  test "should get steps as sms_confirmed user" do
+  test "should not get steps as sms_confirmed user if already confirmed" do
     user = FactoryGirl.create(:user)
+    user.update_attribute(:sms_confirmed_at, DateTime.now-1.week)
+    sign_in user
+    get :step1
+    assert_response :redirect
+    assert_redirected_to root_url 
+    assert_equal "Ya has confirmado tu número en los últimos meses.", flash[:error]
+  end
+
+  test "should get steps as user" do
+    user = FactoryGirl.create(:user)
+    user.update_attribute(:sms_confirmed_at, nil)
+    sign_in user
+    get :step1
+    assert_response :success
+
+    user = FactoryGirl.create(:user)
+    user.update_attribute(:sms_confirmed_at, DateTime.now-1.month)
     sign_in user
     get :step1
     assert_response :success
@@ -36,26 +53,18 @@ class SmsValidatorControllerTest < ActionController::TestCase
   test "should set phone on step1 save it and go to step2" do
     phone = '666666666'
     sign_in @user
-    post :phone, user: { phone: phone } 
-    assert_equal phone, @user.phone
+    post :phone, user: { unconfirmed_phone: phone } 
+    @user = User.find @user.id # relaod @user data
+    assert_equal "0034#{phone}", @user.unconfirmed_phone
     assert_redirected_to sms_validator_step2_path
   end
 
-  test "should not get step1 if can't change phone" do
-    # see user.can_change_phone? method
-    sign_in @user
-    get :step1
-    assert_response :redirect
-    assert_redirected_to root_url
-    assert_equal("Ya has confirmado tu número en los últimos meses.", flash[:error])
-  end
-
   test "should set phone on step1 on update save it as unconfirmed and go to step2" do
-    @user.update_attribute(:phone, '633333333')
     phone = '666666666'
     sign_in @user
-    post :phone, user: { phone: phone } # FIXME
-    assert_equal phone, @user.unconfirmed_phone
+    post :phone, user: { unconfirmed_phone: phone }
+    @user = User.find @user.id # relaod @user data
+    assert_equal "0034#{phone}", @user.unconfirmed_phone
     assert_redirected_to sms_validator_step2_path
   end
 
@@ -67,6 +76,8 @@ class SmsValidatorControllerTest < ActionController::TestCase
   end
 
   test "should not get step2 as user with no phone" do
+    @user.update_attribute(:phone, nil)
+    @user.update_attribute(:unconfirmed_phone, nil)
     sign_in @user
     get :step2 
     assert_response :redirect
@@ -74,6 +85,8 @@ class SmsValidatorControllerTest < ActionController::TestCase
   end
 
   test "should not get step3 as user with no phone" do
+    @user.update_attribute(:phone, nil)
+    @user.update_attribute(:unconfirmed_phone, nil)
     sign_in @user
     get :step3 
     assert_response :redirect
@@ -88,16 +101,22 @@ class SmsValidatorControllerTest < ActionController::TestCase
     assert_redirected_to sms_validator_step2_path
   end
 
-  test "should validate captcha" do
-    skip("TODO")
-  end
-
   test "should confirm sms token if user give it OK" do
-    skip("TODO")
+    token = 'AAA123'
+    @user.update_attribute(:sms_confirmation_token, token)
+    sign_in @user
+    post :valid, user: { sms_user_token_given: token } 
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 
   test "should not confirm sms token if user give it wrong" do
-    skip("TODO")
+    token = 'AAA123'
+    @user.update_attribute(:sms_confirmation_token, 'BBB123')
+    sign_in @user
+    post :valid, user: { sms_user_token_given: token } 
+    assert_response :success
+    assert_equal "El código que has puesto no corresponde con el que te enviamos por SMS.", flash[:error]
   end
 
 end

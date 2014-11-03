@@ -132,13 +132,73 @@ class UserTest < ActiveSupport::TestCase
     assert new_admin.is_admin?
   end
 
-  test "should .is_valid_phone? work" do
-    u = User.new
-    assert_not(u.is_valid_phone?)
-    u.sms_confirmed_at = DateTime.now
-    assert(u.is_valid_phone?)
+  test "should validates_phone_format work" do
+    @user.phone = "12345"
+    assert_not @user.valid?
+    @user.errors[:phone].include?("Revisa el formato de tu teléfono")
   end
 
+  test "should validates_unconfirmed_phone_format work" do 
+    @user.unconfirmed_phone = "12345"
+    assert_not @user.valid?
+    assert @user.errors[:unconfirmed_phone].include?("Revisa el formato de tu teléfono")
+  end
+
+  test "should validates_unconfirmed_phone_phone_uniqueness work" do
+    phone = "0034612345678"
+    @user.update_attribute(:phone, phone)
+    user = FactoryGirl.create(:user)
+    user.unconfirmed_phone = phone
+    assert_not user.valid?
+    assert user.errors[:phone].include?("Ya hay alguien con ese número de teléfono")
+  end
+
+  #test "should .is_valid_phone? work" do
+  #  u = User.new
+  #  assert_not(u.is_valid_phone?)
+  #  u.sms_confirmed_at = DateTime.now
+  #  assert(u.is_valid_phone?)
+  #end
+
+  test "should .can_change_phone? work" do 
+    @user.update_attribute(:sms_confirmed_at, DateTime.now-1.month )
+    assert_not @user.can_change_phone?
+    @user.update_attribute(:sms_confirmed_at, DateTime.now-7.month )
+    assert @user.can_change_phone?
+    @user.update_attribute(:sms_confirmed_at, nil)
+    assert @user.can_change_phone?
+  end
+
+  test "should .phone_normalize work" do 
+    assert_equal( "0034661234567", @user.phone_normalize("661234567", "ES") ) 
+    assert_equal( "0034661234567", @user.phone_normalize("0034661234567", "ES") )
+    assert_equal( "0034661234567", @user.phone_normalize("+34661234567", "ES") )
+    assert_equal( "0034661234567", @user.phone_normalize("+34 661 23 45 67", "ES") )
+    assert_equal( "0034661234567", @user.phone_normalize("0034661234567") )
+    assert_equal( "0034661234567", @user.phone_normalize("+34661234567") )
+    assert_equal( "0034661234567", @user.phone_normalize("+34 661 23 45 67") )
+    assert_equal( "0054661234567", @user.phone_normalize("661234567", "AR") )
+  end
+
+  test "should .phone_prefix work" do 
+    assert_equal "34", @user.phone_prefix
+    @user.update_attribute(:country, "AR")
+    assert_equal "54", @user.phone_prefix
+  end
+
+  test "should .phone_country_name work" do 
+    assert_equal "España", @user.phone_country_name
+    @user.update_attribute(:phone, "005446311234")
+    assert_equal "Argentina", @user.phone_country_name
+  end
+
+  test "should .phone_no_prefix work" do 
+    @user.update_attribute(:phone, "00346611111222")
+    assert_equal "6611111222", @user.phone_no_prefix
+    @user.update_attribute(:phone, "005446311234")
+    assert_equal "46311234", @user.phone_no_prefix
+  end
+   
   test "should .generate_sms_token work" do
     u = User.new
     token = u.generate_sms_token
@@ -231,7 +291,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil user.errors.include? :document_vatid
     assert_not_nil user.errors.include? :phone
 
-    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", document_vatid: "222222X", phone: "00344444444")
+    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", document_vatid: "222222X", phone: "0034661234567")
     assert user.valid?
   end
 
