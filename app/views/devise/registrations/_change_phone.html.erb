@@ -3,16 +3,20 @@
 </h2>
 
 <section class="content-text">
-  <p><%= t('podemos.user.change_phone_explain_html', phone: resource.phone) %></p>
+  <p>Te has validado con el teléfono móvil <b><%= resource.phone_no_prefix %></b> de <b><%= resource.phone_country_name %></b> (prefijo internacional <%= resource.phone_prefix %>). </p>
 
-  <div class="buttonbox">
-    <%=
-        button_to(
-                t("podemos.user.change_phone"),
-                sms_validator_step1_path,
-                method: :get,
-                class: "button"
-        )
-    %>
-  </div>
+  <% if resource.can_change_phone? %>
+    <div class="buttonbox">
+      <%=
+          button_to(
+                  t("podemos.user.change_phone"),
+                  sms_validator_step1_path,
+                  method: :get,
+                  class: "button"
+          )
+      %>
+    </div>
+  <% else %>
+    <p>Lo has confirmado en los últimos tres meses, así que todavía no puedes cambiarlo.</p>
+  <% end %>
 </section>

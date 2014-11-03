@@ -27,10 +27,10 @@ es:
               blank: "Tu tipo de documento no puede estar en blanco"
             document_vatid: 
               blank: "Tu documento no puede estar en blanco"
-              taken: "Ya estas inscrito con tu documento. <a href='/'>Prueba a iniciar sesión</a> o a <a href='/users/password/new'>pedir que te recordemos la contraseña</a>."
+              taken: "Hubo un error al guardar este dato. Inténtalo de nuevo" 
             born_at: 
               blank: "Tu fecha de nacimiento no puede estar en blanco"
-              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto: dd/mm/aaaa, es decir para el 15 de Diciembre de 1978 sería 15/12/1978" 
+              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto" 
             address:
               blank: "Tu dirección no puede estar en blanco"
             town:
@@ -43,7 +43,7 @@ es:
               blank: "Tu país no puede estar en blanco"
             email: 
               blank: "Tu correo electrónico no puede estar en blanco"
-              taken: "Ya estas inscrito con tu correo electrónico. <a href='/'>Prueba a iniciar sesión</a> o a <a href='/users/password/new'>pedir que te recordemos la contraseña</a>."
+              taken: "Hubo un error al guardar este dato. Inténtalo de nuevo"
             password: 
               blank: "Tu contraseña no puede estar en blanco"
             password_confirmation: "Contraseña (repetir)"

@@ -1,11 +1,15 @@
 class SmsValidatorController < ApplicationController
   before_action :authenticate_user! 
+  before_action :can_change_phone
+
+  def can_change_phone
+    unless current_user.can_change_phone?
+      redirect_to root_path, flash: {error: "Ya has confirmado tu número en los últimos meses." }
+    end
+  end
 
   # GET /validator/step1
   def step1 
-    if current_user.can_change_phone?
-      redirect_to root_path, flash: {error: "Ya has confirmado tu número en los últimos meses." }
-    end
   end
 
   # GET /validator/step2
@@ -30,12 +34,11 @@ class SmsValidatorController < ApplicationController
 
   # POST /validator/phone
   def phone
-    if current_user.sms_confirmed_at?
-      # it's an update
-      current_user.unconfirmed_phone = phone_params[:phone] 
+    phone = current_user.phone_normalize(phone_params[:unconfirmed_phone])
+    if phone.nil? 
+      current_user.unconfirmed_phone = phone_params[:unconfirmed_phone]
     else
-      # it's a new phone
-      current_user.update(phone_params)
+      current_user.unconfirmed_phone = phone
     end
     if current_user.save
       current_user.set_sms_token!
@@ -71,7 +74,7 @@ class SmsValidatorController < ApplicationController
   private
 
   def phone_params
-    params.require(:user).permit(:phone)
+    params.require(:user).permit(:unconfirmed_phone)
   end
 
   def sms_token_params

@@ -35,6 +35,7 @@ gem 'aws-ses', '~> 0.5.0', :require => 'aws/ses'
 gem 'kaminari'
 gem 'pushmeup'
 gem 'date_validator'
+gem 'phone'
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
@@ -49,7 +50,7 @@ gem 'date_validator'
 gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
 group :development, :test do
-  gem 'pry'
+  gem 'pry-rails'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'

@@ -204,6 +204,7 @@ GEM
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
+    phone (1.2.3)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     polyglot (0.3.5)
@@ -211,6 +212,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     pushmeup (0.3.0)
       httparty
       json
@@ -355,7 +358,8 @@ DEPENDENCIES
   mailcatcher
   paranoia!
   pg
-  pry
+  phone
+  pry-rails
   pushmeup
   rails (= 4.1.5)
   rails-perftest
