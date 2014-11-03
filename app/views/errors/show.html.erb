@@ -1,10 +1,11 @@
+<% content_for :title, t(".#{@code}.title") %>
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
 
         <%= error_box t(".#{@code}.title"), false do %>
             <p>
-                <%= t(".#{@code}.message") %>
+                <%= t(".#{@code}.message_html") %>
             </p>
         <% end %>
 

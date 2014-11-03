@@ -1,5 +1,12 @@
 es: 
   errors:
+    show:
+      "404":
+        title: "Página no encontrada" 
+        message_html: "No pudimos encontrar esa página. Vuelvelo a intenarlo más tarde o <a href='/'>prueba desde la página principal</a>."
+      "500":
+        title: "Error en el servidor" 
+        message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='mailto:soportevotaciones@podemos.info'>soportevotaciones@podemos.info</a>"
     messages:
       not_valid_spanish_vat: El número de identificación fiscal no es válido
       not_valid_nif: El DNI no es válido
