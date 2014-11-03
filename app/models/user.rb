@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   def validates_unconfirmed_phone_uniqueness 
     if self.unconfirmed_phone.present? 
       if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
-        self.update_attribute(:unconfirmed_phone, nil
+        self.update_attribute(:unconfirmed_phone, nil)
         self.errors.add(:phone, "Ya hay alguien con ese número de teléfono")
       end
     end
