@@ -188,11 +188,17 @@ class User < ActiveRecord::Base
   end
 
   def phone_prefix 
-    Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
+    if self.country.length < 2 
+      Phoner::Country.load
+      Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
+    else
+      "34"
+    end
   end
 
   def phone_country_name
     if Phoner::Phone.valid?(self.phone)
+      Phoner::Country.load
       country_code = Phoner::Phone.parse(self.phone).country_code
       Carmen::Country.coded(Phoner::Country.find_by_country_code(country_code).char_3_code).name
     else
