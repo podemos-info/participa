@@ -92,6 +92,7 @@ es:
         email: "Correo electrónico"
         email_confirmation: "Correo electrónico (repetir)"
         phone: "Teléfono móvil"
+        unconfirmed_phone: "Teléfono móvil"
         address: "Dirección"
         town: "Municipio / Localidad"
         province: "Provincia"

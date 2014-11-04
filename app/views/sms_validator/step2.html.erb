@@ -14,8 +14,12 @@
 
             <p><%= t('podemos.valid.phone.p4') %></p>
 
-            <%= recaptcha_tags %>
-
+            <div class="inputlabel-box">
+              <%= f.label :captcha %>
+              <div class="input-box">
+                <%= recaptcha_tags %>
+              </div>
+            </div>
 
             <%= f.actions class: 'enter' do %>
                 <%= f.action :submit, label: t('podemos.valid.phone.captcha'), button_html: {class: 'button'} %>
