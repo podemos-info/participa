@@ -69,7 +69,7 @@ class SmsValidatorControllerTest < ActionController::TestCase
   end
 
   test "should get step2 as user with phone" do
-    @user.update_attribute(:phone, "0034666888999")
+    @user.update_attribute(:unconfirmed_phone, "0034666888999")
     sign_in @user
     get :step2 
     assert_response :success
@@ -85,7 +85,6 @@ class SmsValidatorControllerTest < ActionController::TestCase
   end
 
   test "should not get step3 as user with no phone" do
-    @user.update_attribute(:phone, nil)
     @user.update_attribute(:unconfirmed_phone, nil)
     sign_in @user
     get :step3 
@@ -94,7 +93,8 @@ class SmsValidatorControllerTest < ActionController::TestCase
   end
 
   test "should not get step3 as user with no sms_confirmation_token" do
-    @user.update_attribute(:phone, '0034666888999')
+    @user.update_attribute(:unconfirmed_phone, '0034666888999')
+    @user.update_attribute(:sms_confirmation_token, nil)
     sign_in @user
     get :step3 
     assert_response :redirect

@@ -22,8 +22,6 @@ class User < ActiveRecord::Base
   validates :phone, numericality: true, allow_blank: true
   validates :unconfirmed_phone, numericality: true, allow_blank: true
 
-  #validates :phone, Phoner::Phone.valid?
-  #validates :unconfirmed_phone, Phoner::Phone.valid?
   # TODO: validacion if country == ES then postal_code /(\d5)/
 
   validates :email, uniqueness: {case_sensitive: false, scope: :deleted_at }
@@ -59,7 +57,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # TODO: phone - cambiamos el + por el 00 al guardar 
   attr_accessor :sms_user_token_given
   attr_accessor :login
 
@@ -189,7 +186,7 @@ class User < ActiveRecord::Base
   end
 
   def phone_prefix 
-    if self.country.length < 2 
+    if self.country.length < 3 
       Phoner::Country.load
       Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
     else

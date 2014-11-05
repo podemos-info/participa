@@ -14,13 +14,13 @@ class SmsValidatorController < ApplicationController
 
   # GET /validator/step2
   def step2
-    redirect_to sms_validator_step1_path if current_user.phone.nil? 
+    redirect_to sms_validator_step1_path if current_user.unconfirmed_phone.nil? 
     @user = current_user
   end
 
   # GET /validator/step3
   def step3
-    if current_user.phone.nil? 
+    if current_user.unconfirmed_phone.nil? 
       redirect_to sms_validator_step1_path 
       return
     end
@@ -34,7 +34,11 @@ class SmsValidatorController < ApplicationController
 
   # POST /validator/phone
   def phone
-    phone = current_user.phone_normalize(phone_params[:unconfirmed_phone])
+    begin 
+      phone = current_user.phone_normalize(phone_params[:unconfirmed_phone])
+    rescue
+      current_user.errors.add(:unconfirmed_phone, "Revisa el formato")
+    end
     if phone.nil? 
       current_user.unconfirmed_phone = phone_params[:unconfirmed_phone]
     else
