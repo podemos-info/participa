@@ -34,4 +34,27 @@ input::-webkit-inner-spin-button {
 }
 // unconfirmed_phone on validator/sms/step1 end
 
+// born_at selects start
+.col-xs-3 div, .col-xs-4 div {
+  width: 75%;
+}
 
+.col-xs-5 div {
+  width: 85%;
+}
+
+.col-xs-3 {
+  width: 100px;
+  float: left;
+}
+
+.col-xs-4 {
+  width: 150px;
+  float: left;
+ }
+
+.col-xs-5 {
+  width: 175px;
+  float: left;
+}
+// born_at selects end
