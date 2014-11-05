@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, presence: true
-  validates :email, confirmation: true
+  validates :email, confirmation: true, on: :create
+  validates :email_confirmation, presence: true, on: :create
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
   #validates :country, length: {minimum: 1, maximum: 2}
