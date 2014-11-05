@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028121426) do
+ActiveRecord::Schema.define(version: 20141104164531) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -46,7 +46,10 @@ ActiveRecord::Schema.define(version: 20141028121426) do
     t.integer  "ccc_account"
     t.string   "iban_account"
     t.string   "iban_bic"
+    t.datetime "deleted_at"
   end
+
+  add_index "collaborations", ["deleted_at"], name: "index_collaborations_on_deleted_at"
 
   create_table "elections", force: true do |t|
     t.string   "title"
