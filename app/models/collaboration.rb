@@ -11,6 +11,8 @@ class Collaboration < ActiveRecord::Base
 
   before_validation :set_order
 
+  acts_as_paranoid
+
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
   TYPES = [
