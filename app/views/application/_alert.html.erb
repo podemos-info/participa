@@ -1,7 +1,11 @@
 <div class="box">
   <div class="box-ok">
     <p><strong><%= title %></strong></p>
-    <p><%= content %></p>
+    <% if content.strip == t("devise.failure.unauthenticated").strip %>
+      <p><%= t("devise.failure.unauthenticated_html") %></p>
+    <% else %>
+      <p><%= content %></p>
+    <% end %>
     <a class="box-close" href="#">
       <span><%= close_text %></span>
     </a>
