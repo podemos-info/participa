@@ -11,34 +11,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class user_signed_in?, controller_name, action_name %>">
-
-<div class="wrap">
-  <%= render partial: 'header' %>
-
-  <div class="content">
-    <%= render partial: 'flash_boxes' %>
-    <%= yield %>
+  <div class="wrap">
+    <%= render partial: 'header' %>
+    <div class="content">
+      <%= render partial: 'flash_boxes' %>
+      <%= yield %>
+    </div>
+    <%= render partial: 'footer' %>
+    <%= render partial: 'cookie_policy' %>
+    <%= render partial: 'analytics' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   </div>
-
-  <%= render partial: 'footer' %>
-
-  <%= render partial: 'cookie_policy' %>
-  <!-- Piwik -->
-  <script type="text/javascript">
-      var _paq = _paq || [];
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-          var u="//piwik.circulospodemos.info/piwik/";
-          _paq.push(['setTrackerUrl', u+'piwik.php']);
-          _paq.push(['setSiteId', 16]);
-          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-      })();
-  </script>
-  <noscript><p><img src="//piwik.circulospodemos.info/piwik/piwik.php?idsite=16" style="border:0;" alt="" /></p></noscript>
-  <!-- End Piwik Code -->
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-</div>
 </body>
 </html>

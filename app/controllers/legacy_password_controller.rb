@@ -1,6 +1,5 @@
 class LegacyPasswordController < ApplicationController
   before_action :authenticate_user! 
-#  layout 'simple'
 
   def new
     redirect_to root_path unless current_user.has_legacy_password? 
