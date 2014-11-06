@@ -53,7 +53,7 @@
     <% end %>
 
     <% if action == "edit" %>
-      <div class="inputlabel-box">
+      <div class="inputlabel-box inputlabel-box-hint">
         <%= f.input :document_type,
                     required: true,
                     as: :select,
@@ -62,7 +62,7 @@
         <p class="text-m">No puedes modificar este campo</p>
       </div>
 
-      <div class="inputlabel-box">
+      <div class="inputlabel-box inputlabel-box-hint">
         <%= f.input :document_vatid, required: true, input_html: {disabled: true, required: true, class: 'input-s'} %>
         <p class="text-m">No puedes modificar este campo</p>
       </div>

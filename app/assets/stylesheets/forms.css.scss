@@ -139,6 +139,9 @@ fieldset .inputlabel-box{
 fieldset .inputlabel-box *{
   font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
 }
+fieldset .inputlabel-box-hint label {
+  height: 28px;
+}
 fieldset .inputlabel-box label,
 fieldset .inputlabel-box span.no-label,
 .content-content span.no-input{
