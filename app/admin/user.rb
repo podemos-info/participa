@@ -43,6 +43,10 @@ ActiveAdmin.register User do
           status_tag("El usuario NO ha confirmado por SMS", :error)
         end
       end
+      row :esendex_status do 
+        link_to "Ver en panel de Elementos Enviados de Esendex", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}"
+      end
+      row :full_name
       row :first_name
       row :last_name
       row :document_type do 
