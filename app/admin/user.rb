@@ -134,6 +134,7 @@ ActiveAdmin.register User do
 
   action_item :only => :show do
     link_to('Recuperar usuario borrado', recover_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer recuperar este usuario?" }) if user.deleted?
+    #link_to('Ver histórico de usuario', history_admin_user_path(user)) 
   end
 
   member_action :recover, :method => :post do
@@ -142,6 +143,23 @@ ActiveAdmin.register User do
     flash[:notice] = "Ya se ha recuperado el usuario"
     redirect_to action: :show
   end
+
+  controller do
+    def show
+      @user = User.find(params[:id])
+      @versions = @user.versions 
+      @user = @user.versions[params[:version].to_i].reify if params[:version]
+      show! #it seems to need this
+    end
+  end
+
+  sidebar :versionate, :partial => "admin/version", :only => :show
+
+  #member_action :history do
+  #  @user = User.find(params[:id])
+  #  @versions = @user.versions
+  #  render "admin/history"
+  #end
 
   # FIXME: bug, only 2 mails
   #  action_item only: :index do
