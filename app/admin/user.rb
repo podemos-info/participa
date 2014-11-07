@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+
   scope_to :current_user, :association_method => :users_with_deleted
 
   scope :created
@@ -44,7 +45,8 @@ ActiveAdmin.register User do
         end
       end
       row :esendex_status do 
-        link_to "Ver en panel de Elementos Enviados de Esendex", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}"
+        link_to "Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.unconfirmed_phone.sub(/^00/,'')}" if user.unconfirmed_phone
+        link_to "Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}" if user.phone
       end
       row :full_name
       row :first_name
@@ -72,7 +74,12 @@ ActiveAdmin.register User do
       row :confirmed_at
       row :unconfirmed_email
       row :has_legacy_password
-      row :phone
+      row "Teléfono móvil (confirmado)" do 
+        user.phone
+      end
+      row "Teléfono móvil (sin confirmar)" do 
+        user.unconfirmed_phone
+      end
       row :sms_confirmation_token
       row :confirmation_sms_sent_at
       row :sms_confirmed_at
@@ -141,6 +148,22 @@ ActiveAdmin.register User do
     user.restore
     flash[:notice] = "Ya se ha recuperado el usuario"
     redirect_to action: :show
+  end
+
+  sidebar :votes, only: :show do
+    if user.votes.any?
+      table_for user.votes
+    else
+      "No hay votos asociados a este usuario."
+    end
+  end
+
+  sidebar :collaborations, only: :show do
+    if user.collaboration
+      table_for user.collaboration
+    else
+      "No hay colaboraciones asociadas a este usuario."
+    end
   end
 
   # FIXME: bug, only 2 mails
