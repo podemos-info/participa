@@ -84,22 +84,10 @@
     <legend><span>Domicilio</span></legend>
 
     <div class="inputlabel-box">
-      <% if resource.errors.include?(:address) %>
+      <% if resource.errors.include?(:country) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :address, required: true, input_html: {required: true, class: 'input-xl'} %>
-    </div>
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:town) %>
-          <%= field_notice_box %>
-      <% end %>
-      <%= f.input :town, required: true, input_html: {required: true, class: 'input-xl'} %>
-    </div>
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:postal_code) %>
-          <%= field_notice_box %>
-      <% end %>
-      <%= f.input :postal_code, required: true, input_html: {required: true, class: 'input-s'} %>
+      <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:province) %>
@@ -108,13 +96,25 @@
       <div class="js-registration-province invisible"><%= f.object.province %></div>
       <%= render partial: 'subregion_select', locals: {parent_region: f.object.country, subregion: f.object.province} %>
     </div>
-
     <div class="inputlabel-box">
-      <% if resource.errors.include?(:country) %>
+      <% if resource.errors.include?(:town) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
+      <%= render partial: 'municipies_select', locals: {parent_region: f.object.province, subregion: f.object.town, f: f} %>
     </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:postal_code) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :postal_code, required: true, input_html: {required: true, class: 'input-s'} %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:address) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :address, required: true, input_html: {required: true, class: 'input-xl'} %>
+    </div>
+
   </fieldset>
 
 

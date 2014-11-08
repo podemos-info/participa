@@ -11,7 +11,7 @@
       <abbr title="required">*</abbr>
       <% end %>
     <span class="form-wrapper">
-      <%= subregion_select_tag("user[province]", subregion, parent_region, {}, {required: "required", class: "form-control"}) %>
+      <%= subregion_select_tag("user[province]", subregion, parent_region, {}, {required: "required"}) %>
     </span>
   <% else %>
     <%= label :user, :province, class: "control-label", required: :required do %>

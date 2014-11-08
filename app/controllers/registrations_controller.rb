@@ -1,7 +1,14 @@
 class RegistrationsController < Devise::RegistrationsController
 
-  def subregion_options
+  def regions_provinces
     render partial: 'subregion_select'
+  end
+
+  def regions_municipies
+    if params[:parent_region]
+      @municipies = Carmen::Country.coded("ES").subregions.coded(params[:parent_region]).subregions
+    end
+    render partial: 'municipies_select'
   end
 
   def create
