@@ -1,0 +1,113 @@
+---
+es:
+  world:
+    es:
+      tf:
+        m_38_001_2:
+          name: "Adeje"
+        m_38_002_7:
+          name: "Agulo"
+        m_38_003_3:
+          name: "Alajeró"
+        m_38_004_8:
+          name: "Arafo"
+        m_38_005_1:
+          name: "Arico"
+        m_38_006_4:
+          name: "Arona"
+        m_38_007_0:
+          name: "Barlovento"
+        m_38_008_6:
+          name: "Breña Alta"
+        m_38_009_9:
+          name: "Breña Baja"
+        m_38_010_3:
+          name: "Buenavista del Norte"
+        m_38_011_0:
+          name: "Candelaria"
+        m_38_012_5:
+          name: "Fasnia"
+        m_38_013_1:
+          name: "Frontera"
+        m_38_014_6:
+          name: "Fuencaliente de la Palma"
+        m_38_015_9:
+          name: "Garachico"
+        m_38_016_2:
+          name: "Garafía"
+        m_38_017_8:
+          name: "Granadilla de Abona"
+        m_38_018_4:
+          name: "Guancha, La"
+        m_38_019_7:
+          name: "Guía de Isora"
+        m_38_020_1:
+          name: "Güímar"
+        m_38_021_8:
+          name: "Hermigua"
+        m_38_022_3:
+          name: "Icod de los Vinos"
+        m_38_024_4:
+          name: "Llanos de Aridane, Los"
+        m_38_025_7:
+          name: "Matanza de Acentejo, La"
+        m_38_026_0:
+          name: "Orotava, La"
+        m_38_027_6:
+          name: "Paso, El"
+        m_38_901_3:
+          name: "Pinar de El Hierro, El"
+        m_38_028_2:
+          name: "Puerto de la Cruz"
+        m_38_029_5:
+          name: "Puntagorda"
+        m_38_030_9:
+          name: "Puntallana"
+        m_38_031_6:
+          name: "Realejos, Los"
+        m_38_032_1:
+          name: "Rosario, El"
+        m_38_033_7:
+          name: "San Andrés y Sauces"
+        m_38_023_9:
+          name: "San Cristóbal de La Laguna"
+        m_38_034_2:
+          name: "San Juan de la Rambla"
+        m_38_035_5:
+          name: "San Miguel de Abona"
+        m_38_036_8:
+          name: "San Sebastián de la Gomera"
+        m_38_037_4:
+          name: "Santa Cruz de la Palma"
+        m_38_038_0:
+          name: "Santa Cruz de Tenerife"
+        m_38_039_3:
+          name: "Santa Úrsula"
+        m_38_040_7:
+          name: "Santiago del Teide"
+        m_38_041_4:
+          name: "Sauzal, El"
+        m_38_042_9:
+          name: "Silos, Los"
+        m_38_043_5:
+          name: "Tacoronte"
+        m_38_044_0:
+          name: "Tanque, El"
+        m_38_045_3:
+          name: "Tazacorte"
+        m_38_046_6:
+          name: "Tegueste"
+        m_38_047_2:
+          name: "Tijarafe"
+        m_38_049_1:
+          name: "Valle Gran Rey"
+        m_38_050_4:
+          name: "Vallehermoso"
+        m_38_048_8:
+          name: "Valverde"
+        m_38_051_1:
+          name: "Victoria de Acentejo, La"
+        m_38_052_6:
+          name: "Vilaflor"
+        m_38_053_2:
+          name: "Villa de Mazo"

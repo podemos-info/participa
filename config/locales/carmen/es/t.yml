@@ -1,0 +1,373 @@
+---
+es:
+  world:
+    es:
+      t:
+        m_43_001_7:
+          name: "Aiguamúrcia"
+        m_43_002_2:
+          name: "Albinyana"
+        m_43_003_8:
+          name: "Albiol, L'"
+        m_43_004_3:
+          name: "Alcanar"
+        m_43_005_6:
+          name: "Alcover"
+        m_43_904_4:
+          name: "Aldea, L'"
+        m_43_006_9:
+          name: "Aldover"
+        m_43_007_5:
+          name: "Aleixar, L'"
+        m_43_008_1:
+          name: "Alfara de Carles"
+        m_43_009_4:
+          name: "Alforja"
+        m_43_010_8:
+          name: "Alió"
+        m_43_011_5:
+          name: "Almoster"
+        m_43_012_0:
+          name: "Altafulla"
+        m_43_013_6:
+          name: "Ametlla de Mar, L'"
+        m_43_906_0:
+          name: "Ampolla, L'"
+        m_43_014_1:
+          name: "Amposta"
+        m_43_016_7:
+          name: "Arboç, L'"
+        m_43_015_4:
+          name: "Arbolí"
+        m_43_017_3:
+          name: "Argentera, L'"
+        m_43_018_9:
+          name: "Arnes"
+        m_43_019_2:
+          name: "Ascó"
+        m_43_020_6:
+          name: "Banyeres del Penedès"
+        m_43_021_3:
+          name: "Barberà de la Conca"
+        m_43_022_8:
+          name: "Batea"
+        m_43_023_4:
+          name: "Bellmunt del Priorat"
+        m_43_024_9:
+          name: "Bellvei"
+        m_43_025_2:
+          name: "Benifallet"
+        m_43_026_5:
+          name: "Benissanet"
+        m_43_027_1:
+          name: "Bisbal de Falset, La"
+        m_43_028_7:
+          name: "Bisbal del Penedès, La"
+        m_43_029_0:
+          name: "Blancafort"
+        m_43_030_4:
+          name: "Bonastre"
+        m_43_031_1:
+          name: "Borges del Camp, Les"
+        m_43_032_6:
+          name: "Bot"
+        m_43_033_2:
+          name: "Botarell"
+        m_43_034_7:
+          name: "Bràfim"
+        m_43_035_0:
+          name: "Cabacés"
+        m_43_036_3:
+          name: "Cabra del Camp"
+        m_43_037_9:
+          name: "Calafell"
+        m_43_903_9:
+          name: "Camarles"
+        m_43_038_5:
+          name: "Cambrils"
+        m_43_907_6:
+          name: "Canonja, La"
+        m_43_039_8:
+          name: "Capafonts"
+        m_43_040_2:
+          name: "Capçanes"
+        m_43_041_9:
+          name: "Caseres"
+        m_43_042_4:
+          name: "Castellvell del Camp"
+        m_43_043_0:
+          name: "Catllar, El"
+        m_43_045_8:
+          name: "Colldejou"
+        m_43_046_1:
+          name: "Conesa"
+        m_43_047_7:
+          name: "Constantí"
+        m_43_048_3:
+          name: "Corbera d'Ebre"
+        m_43_049_6:
+          name: "Cornudella de Montsant"
+        m_43_050_9:
+          name: "Creixell"
+        m_43_051_6:
+          name: "Cunit"
+        m_43_901_8:
+          name: "Deltebre"
+        m_43_053_7:
+          name: "Duesaigües"
+        m_43_054_2:
+          name: "Espluga de Francolí, L'"
+        m_43_055_5:
+          name: "Falset"
+        m_43_056_8:
+          name: "Fatarella, La"
+        m_43_057_4:
+          name: "Febró, La"
+        m_43_058_0:
+          name: "Figuera, La"
+        m_43_059_3:
+          name: "Figuerola del Camp"
+        m_43_060_7:
+          name: "Flix"
+        m_43_061_4:
+          name: "Forès"
+        m_43_062_9:
+          name: "Freginals"
+        m_43_063_5:
+          name: "Galera, La"
+        m_43_064_0:
+          name: "Gandesa"
+        m_43_065_3:
+          name: "Garcia"
+        m_43_066_6:
+          name: "Garidells, Els"
+        m_43_067_2:
+          name: "Ginestar"
+        m_43_068_8:
+          name: "Godall"
+        m_43_069_1:
+          name: "Gratallops"
+        m_43_070_5:
+          name: "Guiamets, Els"
+        m_43_071_2:
+          name: "Horta de Sant Joan"
+        m_43_072_7:
+          name: "Lloar, El"
+        m_43_073_3:
+          name: "Llorac"
+        m_43_074_8:
+          name: "Llorenç del Penedès"
+        m_43_076_4:
+          name: "Marçà"
+        m_43_075_1:
+          name: "Margalef"
+        m_43_077_0:
+          name: "Mas de Barberans"
+        m_43_078_6:
+          name: "Masdenverge"
+        m_43_079_9:
+          name: "Masllorenç"
+        m_43_080_3:
+          name: "Masó, La"
+        m_43_081_0:
+          name: "Maspujols"
+        m_43_082_5:
+          name: "Masroig, El"
+        m_43_083_1:
+          name: "Milà, El"
+        m_43_084_6:
+          name: "Miravet"
+        m_43_085_9:
+          name: "Molar, El"
+        m_43_086_2:
+          name: "Montblanc"
+        m_43_088_4:
+          name: "Montbrió del Camp"
+        m_43_089_7:
+          name: "Montferri"
+        m_43_090_1:
+          name: "Montmell, El"
+        m_43_091_8:
+          name: "Mont-ral"
+        m_43_092_3:
+          name: "Mont-roig del Camp"
+        m_43_093_9:
+          name: "Móra d'Ebre"
+        m_43_094_4:
+          name: "Móra la Nova"
+        m_43_095_7:
+          name: "Morell, El"
+        m_43_096_0:
+          name: "Morera de Montsant, La"
+        m_43_097_6:
+          name: "Nou de Gaià, La"
+        m_43_098_2:
+          name: "Nulles"
+        m_43_100_9:
+          name: "Pallaresos, Els"
+        m_43_099_5:
+          name: "Palma d'Ebre, La"
+        m_43_101_6:
+          name: "Passanant i Belltall"
+        m_43_102_1:
+          name: "Paüls"
+        m_43_103_7:
+          name: "Perafort"
+        m_43_104_2:
+          name: "Perelló, El"
+        m_43_105_5:
+          name: "Piles, Les"
+        m_43_106_8:
+          name: "Pinell de Brai, El"
+        m_43_107_4:
+          name: "Pira"
+        m_43_108_0:
+          name: "Pla de Santa Maria, El"
+        m_43_109_3:
+          name: "Pobla de Mafumet, La"
+        m_43_110_7:
+          name: "Pobla de Massaluca, La"
+        m_43_111_4:
+          name: "Pobla de Montornès, La"
+        m_43_112_9:
+          name: "Poboleda"
+        m_43_113_5:
+          name: "Pont d'Armentera, El"
+        m_43_141_8:
+          name: "Pontils"
+        m_43_114_0:
+          name: "Porrera"
+        m_43_115_3:
+          name: "Pradell de la Teixeta"
+        m_43_116_6:
+          name: "Prades"
+        m_43_117_2:
+          name: "Prat de Comte"
+        m_43_118_8:
+          name: "Pratdip"
+        m_43_119_1:
+          name: "Puigpelat"
+        m_43_120_5:
+          name: "Querol"
+        m_43_121_2:
+          name: "Rasquera"
+        m_43_122_7:
+          name: "Renau"
+        m_43_123_3:
+          name: "Reus"
+        m_43_124_8:
+          name: "Riba, La"
+        m_43_125_1:
+          name: "Riba-roja d'Ebre"
+        m_43_126_4:
+          name: "Riera de Gaià, La"
+        m_43_127_0:
+          name: "Riudecanyes"
+        m_43_128_6:
+          name: "Riudecols"
+        m_43_129_9:
+          name: "Riudoms"
+        m_43_130_3:
+          name: "Rocafort de Queralt"
+        m_43_131_0:
+          name: "Roda de Berà"
+        m_43_132_5:
+          name: "Rodonyà"
+        m_43_133_1:
+          name: "Roquetes"
+        m_43_134_6:
+          name: "Rourell, El"
+        m_43_135_9:
+          name: "Salomó"
+        m_43_905_7:
+          name: "Salou"
+        m_43_136_2:
+          name: "Sant Carles de la Ràpita"
+        m_43_137_8:
+          name: "Sant Jaume dels Domenys"
+        m_43_902_3:
+          name: "Sant Jaume d'Enveja"
+        m_43_138_4:
+          name: "Santa Bàrbara"
+        m_43_139_7:
+          name: "Santa Coloma de Queralt"
+        m_43_140_1:
+          name: "Santa Oliva"
+        m_43_142_3:
+          name: "Sarral"
+        m_43_143_9:
+          name: "Savallà del Comtat"
+        m_43_144_4:
+          name: "Secuita, La"
+        m_43_145_7:
+          name: "Selva del Camp, La"
+        m_43_146_0:
+          name: "Senan"
+        m_43_044_5:
+          name: "Sénia, La"
+        m_43_147_6:
+          name: "Solivella"
+        m_43_148_2:
+          name: "Tarragona"
+        m_43_149_5:
+          name: "Tivenys"
+        m_43_150_8:
+          name: "Tivissa"
+        m_43_151_5:
+          name: "Torre de Fontaubella, La"
+        m_43_152_0:
+          name: "Torre de l'Espanyol, La"
+        m_43_153_6:
+          name: "Torredembarra"
+        m_43_154_1:
+          name: "Torroja del Priorat"
+        m_43_155_4:
+          name: "Tortosa"
+        m_43_156_7:
+          name: "Ulldecona"
+        m_43_157_3:
+          name: "Ulldemolins"
+        m_43_158_9:
+          name: "Vallclara"
+        m_43_159_2:
+          name: "Vallfogona de Riucorb"
+        m_43_160_6:
+          name: "Vallmoll"
+        m_43_161_3:
+          name: "Valls"
+        m_43_162_8:
+          name: "Vandellòs i l'Hospitalet de l'Infant"
+        m_43_163_4:
+          name: "Vendrell, El"
+        m_43_164_9:
+          name: "Vespella de Gaià"
+        m_43_165_2:
+          name: "Vilabella"
+        m_43_175_0:
+          name: "Vilalba dels Arcs"
+        m_43_166_5:
+          name: "Vilallonga del Camp"
+        m_43_168_7:
+          name: "Vilanova de Prades"
+        m_43_167_1:
+          name: "Vilanova d'Escornalbou"
+        m_43_169_0:
+          name: "Vilaplana"
+        m_43_170_4:
+          name: "Vila-rodona"
+        m_43_171_1:
+          name: "Vila-seca"
+        m_43_172_6:
+          name: "Vilaverd"
+        m_43_173_2:
+          name: "Vilella Alta, La"
+        m_43_174_7:
+          name: "Vilella Baixa, La"
+        m_43_176_3:
+          name: "Vimbodí i Poblet"
+        m_43_177_9:
+          name: "Vinebre"
+        m_43_178_5:
+          name: "Vinyols i els Arcs"
+        m_43_052_1:
+          name: "Xerta"

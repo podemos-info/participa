@@ -1,0 +1,627 @@
+---
+es:
+  world:
+    es:
+      b:
+        m_08_001_8:
+          name: "Abrera"
+        m_08_002_3:
+          name: "Aguilar de Segarra"
+        m_08_014_2:
+          name: "Aiguafreda"
+        m_08_003_9:
+          name: "Alella"
+        m_08_004_4:
+          name: "Alpens"
+        m_08_005_7:
+          name: "Ametlla del Vallès, L'"
+        m_08_006_0:
+          name: "Arenys de Mar"
+        m_08_007_6:
+          name: "Arenys de Munt"
+        m_08_008_2:
+          name: "Argençola"
+        m_08_009_5:
+          name: "Argentona"
+        m_08_010_9:
+          name: "Artés"
+        m_08_011_6:
+          name: "Avià"
+        m_08_012_1:
+          name: "Avinyó"
+        m_08_013_7:
+          name: "Avinyonet del Penedès"
+        m_08_015_5:
+          name: "Badalona"
+        m_08_904_5:
+          name: "Badia del Vallès"
+        m_08_016_8:
+          name: "Bagà"
+        m_08_017_4:
+          name: "Balenyà"
+        m_08_018_0:
+          name: "Balsareny"
+        m_08_252_0:
+          name: "Barberà del Vallès"
+        m_08_019_3:
+          name: "Barcelona"
+        m_08_020_7:
+          name: "Begues"
+        m_08_021_4:
+          name: "Bellprat"
+        m_08_022_9:
+          name: "Berga"
+        m_08_023_5:
+          name: "Bigues i Riells"
+        m_08_024_0:
+          name: "Borredà"
+        m_08_025_3:
+          name: "Bruc, El"
+        m_08_026_6:
+          name: "Brull, El"
+        m_08_027_2:
+          name: "Cabanyes, Les"
+        m_08_028_8:
+          name: "Cabrera d'Anoia"
+        m_08_029_1:
+          name: "Cabrera de Mar"
+        m_08_030_5:
+          name: "Cabrils"
+        m_08_031_2:
+          name: "Calaf"
+        m_08_034_8:
+          name: "Calders"
+        m_08_033_3:
+          name: "Caldes de Montbui"
+        m_08_032_7:
+          name: "Caldes d'Estrac"
+        m_08_035_1:
+          name: "Calella"
+        m_08_037_0:
+          name: "Calldetenes"
+        m_08_038_6:
+          name: "Callús"
+        m_08_036_4:
+          name: "Calonge de Segarra"
+        m_08_039_9:
+          name: "Campins"
+        m_08_040_3:
+          name: "Canet de Mar"
+        m_08_041_0:
+          name: "Canovelles"
+        m_08_042_5:
+          name: "Cànoves i Samalús"
+        m_08_043_1:
+          name: "Canyelles"
+        m_08_044_6:
+          name: "Capellades"
+        m_08_045_9:
+          name: "Capolat"
+        m_08_046_2:
+          name: "Cardedeu"
+        m_08_047_8:
+          name: "Cardona"
+        m_08_048_4:
+          name: "Carme"
+        m_08_049_7:
+          name: "Casserres"
+        m_08_057_5:
+          name: "Castell de l'Areny"
+        m_08_052_2:
+          name: "Castellar de n'Hug"
+        m_08_050_0:
+          name: "Castellar del Riu"
+        m_08_051_7:
+          name: "Castellar del Vallès"
+        m_08_053_8:
+          name: "Castellbell i el Vilar"
+        m_08_054_3:
+          name: "Castellbisbal"
+        m_08_055_6:
+          name: "Castellcir"
+        m_08_056_9:
+          name: "Castelldefels"
+        m_08_058_1:
+          name: "Castellet i la Gornal"
+        m_08_060_8:
+          name: "Castellfollit de Riubregós"
+        m_08_059_4:
+          name: "Castellfollit del Boix"
+        m_08_061_5:
+          name: "Castellgalí"
+        m_08_062_0:
+          name: "Castellnou de Bages"
+        m_08_063_6:
+          name: "Castellolí"
+        m_08_064_1:
+          name: "Castellterçol"
+        m_08_065_4:
+          name: "Castellví de la Marca"
+        m_08_066_7:
+          name: "Castellví de Rosanes"
+        m_08_067_3:
+          name: "Centelles"
+        m_08_268_7:
+          name: "Cercs"
+        m_08_266_5:
+          name: "Cerdanyola del Vallès"
+        m_08_068_9:
+          name: "Cervelló"
+        m_08_069_2:
+          name: "Collbató"
+        m_08_070_6:
+          name: "Collsuspina"
+        m_08_071_3:
+          name: "Copons"
+        m_08_072_8:
+          name: "Corbera de Llobregat"
+        m_08_073_4:
+          name: "Cornellà de Llobregat"
+        m_08_074_9:
+          name: "Cubelles"
+        m_08_075_2:
+          name: "Dosrius"
+        m_08_076_5:
+          name: "Esparreguera"
+        m_08_077_1:
+          name: "Esplugues de Llobregat"
+        m_08_078_7:
+          name: "Espunyola, L'"
+        m_08_079_0:
+          name: "Estany, L'"
+        m_08_134_7:
+          name: "Figaró-Montmany"
+        m_08_080_4:
+          name: "Fígols"
+        m_08_082_6:
+          name: "Fogars de la Selva"
+        m_08_081_1:
+          name: "Fogars de Montclús"
+        m_08_083_2:
+          name: "Folgueroles"
+        m_08_084_7:
+          name: "Fonollosa"
+        m_08_085_0:
+          name: "Font-rubí"
+        m_08_086_3:
+          name: "Franqueses del Vallès, Les"
+        m_08_090_2:
+          name: "Gaià"
+        m_08_087_9:
+          name: "Gallifa"
+        m_08_088_5:
+          name: "Garriga, La"
+        m_08_089_8:
+          name: "Gavà"
+        m_08_091_9:
+          name: "Gelida"
+        m_08_092_4:
+          name: "Gironella"
+        m_08_093_0:
+          name: "Gisclareny"
+        m_08_094_5:
+          name: "Granada, La"
+        m_08_095_8:
+          name: "Granera"
+        m_08_096_1:
+          name: "Granollers"
+        m_08_097_7:
+          name: "Gualba"
+        m_08_099_6:
+          name: "Guardiola de Berguedà"
+        m_08_100_0:
+          name: "Gurb"
+        m_08_101_7:
+          name: "Hospitalet de Llobregat, L'"
+        m_08_162_9:
+          name: "Hostalets de Pierola, Els"
+        m_08_102_2:
+          name: "Igualada"
+        m_08_103_8:
+          name: "Jorba"
+        m_08_104_3:
+          name: "Llacuna, La"
+        m_08_105_6:
+          name: "Llagosta, La"
+        m_08_107_5:
+          name: "Lliçà d'Amunt"
+        m_08_108_1:
+          name: "Lliçà de Vall"
+        m_08_106_9:
+          name: "Llinars del Vallès"
+        m_08_109_4:
+          name: "Lluçà"
+        m_08_110_8:
+          name: "Malgrat de Mar"
+        m_08_111_5:
+          name: "Malla"
+        m_08_112_0:
+          name: "Manlleu"
+        m_08_113_6:
+          name: "Manresa"
+        m_08_242_3:
+          name: "Marganell"
+        m_08_114_1:
+          name: "Martorell"
+        m_08_115_4:
+          name: "Martorelles"
+        m_08_116_7:
+          name: "Masies de Roda, Les"
+        m_08_117_3:
+          name: "Masies de Voltregà, Les"
+        m_08_118_9:
+          name: "Masnou, El"
+        m_08_119_2:
+          name: "Masquefa"
+        m_08_120_6:
+          name: "Matadepera"
+        m_08_121_3:
+          name: "Mataró"
+        m_08_122_8:
+          name: "Mediona"
+        m_08_138_5:
+          name: "Moià"
+        m_08_123_4:
+          name: "Molins de Rei"
+        m_08_124_9:
+          name: "Mollet del Vallès"
+        m_08_128_7:
+          name: "Monistrol de Calders"
+        m_08_127_1:
+          name: "Monistrol de Montserrat"
+        m_08_125_2:
+          name: "Montcada i Reixac"
+        m_08_130_4:
+          name: "Montclar"
+        m_08_131_1:
+          name: "Montesquiu"
+        m_08_126_5:
+          name: "Montgat"
+        m_08_132_6:
+          name: "Montmajor"
+        m_08_133_2:
+          name: "Montmaneu"
+        m_08_135_0:
+          name: "Montmeló"
+        m_08_136_3:
+          name: "Montornès del Vallès"
+        m_08_137_9:
+          name: "Montseny"
+        m_08_129_0:
+          name: "Muntanyola"
+        m_08_139_8:
+          name: "Mura"
+        m_08_140_2:
+          name: "Navarcles"
+        m_08_141_9:
+          name: "Navàs"
+        m_08_142_4:
+          name: "Nou de Berguedà, La"
+        m_08_143_0:
+          name: "Òdena"
+        m_08_145_8:
+          name: "Olèrdola"
+        m_08_146_1:
+          name: "Olesa de Bonesvalls"
+        m_08_147_7:
+          name: "Olesa de Montserrat"
+        m_08_148_3:
+          name: "Olivella"
+        m_08_149_6:
+          name: "Olost"
+        m_08_144_5:
+          name: "Olvan"
+        m_08_150_9:
+          name: "Orís"
+        m_08_151_6:
+          name: "Oristà"
+        m_08_152_1:
+          name: "Orpí"
+        m_08_153_7:
+          name: "Òrrius"
+        m_08_154_2:
+          name: "Pacs del Penedès"
+        m_08_155_5:
+          name: "Palafolls"
+        m_08_156_8:
+          name: "Palau-solità i Plegamans"
+        m_08_157_4:
+          name: "Pallejà"
+        m_08_905_8:
+          name: "Palma de Cervelló, La"
+        m_08_158_0:
+          name: "Papiol, El"
+        m_08_159_3:
+          name: "Parets del Vallès"
+        m_08_160_7:
+          name: "Perafita"
+        m_08_161_4:
+          name: "Piera"
+        m_08_163_5:
+          name: "Pineda de Mar"
+        m_08_164_0:
+          name: "Pla del Penedès, El"
+        m_08_165_3:
+          name: "Pobla de Claramunt, La"
+        m_08_166_6:
+          name: "Pobla de Lillet, La"
+        m_08_167_2:
+          name: "Polinyà"
+        m_08_182_5:
+          name: "Pont de Vilomara i Rocafort, El"
+        m_08_168_8:
+          name: "Pontons"
+        m_08_169_1:
+          name: "Prat de Llobregat, El"
+        m_08_171_2:
+          name: "Prats de Lluçanès"
+        m_08_170_5:
+          name: "Prats de Rei, Els"
+        m_08_230_3:
+          name: "Premià de Dalt"
+        m_08_172_7:
+          name: "Premià de Mar"
+        m_08_174_8:
+          name: "Puigdàlber"
+        m_08_175_1:
+          name: "Puig-reig"
+        m_08_176_4:
+          name: "Pujalt"
+        m_08_177_0:
+          name: "Quar, La"
+        m_08_178_6:
+          name: "Rajadell"
+        m_08_179_9:
+          name: "Rellinars"
+        m_08_180_3:
+          name: "Ripollet"
+        m_08_181_0:
+          name: "Roca del Vallès, La"
+        m_08_183_1:
+          name: "Roda de Ter"
+        m_08_184_6:
+          name: "Rubí"
+        m_08_185_9:
+          name: "Rubió"
+        m_08_901_9:
+          name: "Rupit i Pruit"
+        m_08_187_8:
+          name: "Sabadell"
+        m_08_188_4:
+          name: "Sagàs"
+        m_08_190_1:
+          name: "Saldes"
+        m_08_191_8:
+          name: "Sallent"
+        m_08_194_4:
+          name: "Sant Adrià de Besòs"
+        m_08_195_7:
+          name: "Sant Agustí de Lluçanès"
+        m_08_196_0:
+          name: "Sant Andreu de la Barca"
+        m_08_197_6:
+          name: "Sant Andreu de Llavaneres"
+        m_08_198_2:
+          name: "Sant Antoni de Vilamajor"
+        m_08_199_5:
+          name: "Sant Bartomeu del Grau"
+        m_08_200_9:
+          name: "Sant Boi de Llobregat"
+        m_08_201_6:
+          name: "Sant Boi de Lluçanès"
+        m_08_203_7:
+          name: "Sant Cebrià de Vallalta"
+        m_08_202_1:
+          name: "Sant Celoni"
+        m_08_204_2:
+          name: "Sant Climent de Llobregat"
+        m_08_205_5:
+          name: "Sant Cugat del Vallès"
+        m_08_206_8:
+          name: "Sant Cugat Sesgarrigues"
+        m_08_207_4:
+          name: "Sant Esteve de Palautordera"
+        m_08_208_0:
+          name: "Sant Esteve Sesrovires"
+        m_08_210_7:
+          name: "Sant Feliu de Codines"
+        m_08_211_4:
+          name: "Sant Feliu de Llobregat"
+        m_08_212_9:
+          name: "Sant Feliu Sasserra"
+        m_08_209_3:
+          name: "Sant Fost de Campsentelles"
+        m_08_213_5:
+          name: "Sant Fruitós de Bages"
+        m_08_215_3:
+          name: "Sant Hipòlit de Voltregà"
+        m_08_193_9:
+          name: "Sant Iscle de Vallalta"
+        m_08_216_6:
+          name: "Sant Jaume de Frontanyà"
+        m_08_218_8:
+          name: "Sant Joan de Vilatorrada"
+        m_08_217_2:
+          name: "Sant Joan Despí"
+        m_08_903_0:
+          name: "Sant Julià de Cerdanyola"
+        m_08_220_5:
+          name: "Sant Julià de Vilatorta"
+        m_08_221_2:
+          name: "Sant Just Desvern"
+        m_08_222_7:
+          name: "Sant Llorenç d'Hortons"
+        m_08_223_3:
+          name: "Sant Llorenç Savall"
+        m_08_225_1:
+          name: "Sant Martí d'Albars"
+        m_08_224_8:
+          name: "Sant Martí de Centelles"
+        m_08_226_4:
+          name: "Sant Martí de Tous"
+        m_08_227_0:
+          name: "Sant Martí Sarroca"
+        m_08_228_6:
+          name: "Sant Martí Sesgueioles"
+        m_08_229_9:
+          name: "Sant Mateu de Bages"
+        m_08_231_0:
+          name: "Sant Pere de Ribes"
+        m_08_232_5:
+          name: "Sant Pere de Riudebitlles"
+        m_08_233_1:
+          name: "Sant Pere de Torelló"
+        m_08_234_6:
+          name: "Sant Pere de Vilamajor"
+        m_08_189_7:
+          name: "Sant Pere Sallavinera"
+        m_08_235_9:
+          name: "Sant Pol de Mar"
+        m_08_236_2:
+          name: "Sant Quintí de Mediona"
+        m_08_237_8:
+          name: "Sant Quirze de Besora"
+        m_08_238_4:
+          name: "Sant Quirze del Vallès"
+        m_08_239_7:
+          name: "Sant Quirze Safaja"
+        m_08_240_1:
+          name: "Sant Sadurní d'Anoia"
+        m_08_241_8:
+          name: "Sant Sadurní d'Osormort"
+        m_08_098_3:
+          name: "Sant Salvador de Guardiola"
+        m_08_262_8:
+          name: "Sant Vicenç de Castellet"
+        m_08_264_9:
+          name: "Sant Vicenç de Montalt"
+        m_08_265_2:
+          name: "Sant Vicenç de Torelló"
+        m_08_263_4:
+          name: "Sant Vicenç dels Horts"
+        m_08_243_9:
+          name: "Santa Cecília de Voltregà"
+        m_08_244_4:
+          name: "Santa Coloma de Cervelló"
+        m_08_245_7:
+          name: "Santa Coloma de Gramenet"
+        m_08_246_0:
+          name: "Santa Eugènia de Berga"
+        m_08_247_6:
+          name: "Santa Eulàlia de Riuprimer"
+        m_08_248_2:
+          name: "Santa Eulàlia de Ronçana"
+        m_08_249_5:
+          name: "Santa Fe del Penedès"
+        m_08_250_8:
+          name: "Santa Margarida de Montbui"
+        m_08_251_5:
+          name: "Santa Margarida i els Monjos"
+        m_08_253_6:
+          name: "Santa Maria de Besora"
+        m_08_254_1:
+          name: "Santa Maria de Corcó"
+        m_08_256_7:
+          name: "Santa Maria de Martorelles"
+        m_08_255_4:
+          name: "Santa Maria de Merlès"
+        m_08_257_3:
+          name: "Santa Maria de Miralles"
+        m_08_259_2:
+          name: "Santa Maria de Palautordera"
+        m_08_258_9:
+          name: "Santa Maria d'Oló"
+        m_08_260_6:
+          name: "Santa Perpètua de Mogoda"
+        m_08_261_3:
+          name: "Santa Susanna"
+        m_08_192_3:
+          name: "Santpedor"
+        m_08_267_1:
+          name: "Sentmenat"
+        m_08_269_0:
+          name: "Seva"
+        m_08_270_4:
+          name: "Sitges"
+        m_08_271_1:
+          name: "Sobremunt"
+        m_08_272_6:
+          name: "Sora"
+        m_08_273_2:
+          name: "Subirats"
+        m_08_274_7:
+          name: "Súria"
+        m_08_276_3:
+          name: "Tagamanent"
+        m_08_277_9:
+          name: "Talamanca"
+        m_08_278_5:
+          name: "Taradell"
+        m_08_275_0:
+          name: "Tavèrnoles"
+        m_08_280_2:
+          name: "Tavertet"
+        m_08_281_9:
+          name: "Teià"
+        m_08_279_8:
+          name: "Terrassa"
+        m_08_282_4:
+          name: "Tiana"
+        m_08_283_0:
+          name: "Tona"
+        m_08_284_5:
+          name: "Tordera"
+        m_08_285_8:
+          name: "Torelló"
+        m_08_286_1:
+          name: "Torre de Claramunt, La"
+        m_08_287_7:
+          name: "Torrelavit"
+        m_08_288_3:
+          name: "Torrelles de Foix"
+        m_08_289_6:
+          name: "Torrelles de Llobregat"
+        m_08_290_0:
+          name: "Ullastrell"
+        m_08_291_7:
+          name: "Vacarisses"
+        m_08_292_2:
+          name: "Vallbona d'Anoia"
+        m_08_293_8:
+          name: "Vallcebre"
+        m_08_294_3:
+          name: "Vallgorguina"
+        m_08_295_6:
+          name: "Vallirana"
+        m_08_296_9:
+          name: "Vallromanes"
+        m_08_297_5:
+          name: "Veciana"
+        m_08_298_1:
+          name: "Vic"
+        m_08_299_4:
+          name: "Vilada"
+        m_08_301_5:
+          name: "Viladecans"
+        m_08_300_8:
+          name: "Viladecavalls"
+        m_08_305_4:
+          name: "Vilafranca del Penedès"
+        m_08_306_7:
+          name: "Vilalba Sasserra"
+        m_08_303_6:
+          name: "Vilanova de Sau"
+        m_08_302_0:
+          name: "Vilanova del Camí"
+        m_08_902_4:
+          name: "Vilanova del Vallès"
+        m_08_307_3:
+          name: "Vilanova i la Geltrú"
+        m_08_214_0:
+          name: "Vilassar de Dalt"
+        m_08_219_1:
+          name: "Vilassar de Mar"
+        m_08_304_1:
+          name: "Vilobí del Penedès"
+        m_08_308_9:
+          name: "Viver i Serrateix"

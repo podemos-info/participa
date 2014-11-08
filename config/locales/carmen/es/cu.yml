@@ -1,0 +1,481 @@
+---
+es:
+  world:
+    es:
+      cu:
+        m_16_001_4:
+          name: "Abia de la Obispalía"
+        m_16_002_9:
+          name: "Acebrón, El"
+        m_16_003_5:
+          name: "Alarcón"
+        m_16_004_0:
+          name: "Albaladejo del Cuende"
+        m_16_005_3:
+          name: "Albalate de las Nogueras"
+        m_16_006_6:
+          name: "Albendea"
+        m_16_007_2:
+          name: "Alberca de Záncara, La"
+        m_16_008_8:
+          name: "Alcalá de la Vega"
+        m_16_009_1:
+          name: "Alcantud"
+        m_16_010_5:
+          name: "Alcázar del Rey"
+        m_16_011_2:
+          name: "Alcohujate"
+        m_16_012_7:
+          name: "Alconchel de la Estrella"
+        m_16_013_3:
+          name: "Algarra"
+        m_16_014_8:
+          name: "Aliaguilla"
+        m_16_015_1:
+          name: "Almarcha, La"
+        m_16_016_4:
+          name: "Almendros"
+        m_16_017_0:
+          name: "Almodóvar del Pinar"
+        m_16_018_6:
+          name: "Almonacid del Marquesado"
+        m_16_019_9:
+          name: "Altarejos"
+        m_16_020_3:
+          name: "Arandilla del Arroyo"
+        m_16_905_4:
+          name: "Arcas"
+        m_16_022_5:
+          name: "Arcos de la Sierra"
+        m_16_024_6:
+          name: "Arguisuelas"
+        m_16_025_9:
+          name: "Arrancacepas"
+        m_16_026_2:
+          name: "Atalaya del Cañavate"
+        m_16_027_8:
+          name: "Barajas de Melo"
+        m_16_029_7:
+          name: "Barchín del Hoyo"
+        m_16_030_1:
+          name: "Bascuñana de San Pedro"
+        m_16_031_8:
+          name: "Beamud"
+        m_16_032_3:
+          name: "Belinchón"
+        m_16_033_9:
+          name: "Belmonte"
+        m_16_034_4:
+          name: "Belmontejo"
+        m_16_035_7:
+          name: "Beteta"
+        m_16_036_0:
+          name: "Boniches"
+        m_16_038_2:
+          name: "Buciegas"
+        m_16_039_5:
+          name: "Buenache de Alarcón"
+        m_16_040_9:
+          name: "Buenache de la Sierra"
+        m_16_041_6:
+          name: "Buendía"
+        m_16_042_1:
+          name: "Campillo de Altobuey"
+        m_16_043_7:
+          name: "Campillos-Paravientos"
+        m_16_044_2:
+          name: "Campillos-Sierra"
+        m_16_901_5:
+          name: "Campos del Paraíso"
+        m_16_045_5:
+          name: "Canalejas del Arroyo"
+        m_16_046_8:
+          name: "Cañada del Hoyo"
+        m_16_047_4:
+          name: "Cañada Juncosa"
+        m_16_048_0:
+          name: "Cañamares"
+        m_16_049_3:
+          name: "Cañavate, El"
+        m_16_050_6:
+          name: "Cañaveras"
+        m_16_051_3:
+          name: "Cañaveruelas"
+        m_16_052_8:
+          name: "Cañete"
+        m_16_053_4:
+          name: "Cañizares"
+        m_16_055_2:
+          name: "Carboneras de Guadazaón"
+        m_16_056_5:
+          name: "Cardenete"
+        m_16_057_1:
+          name: "Carrascosa"
+        m_16_058_7:
+          name: "Carrascosa de Haro"
+        m_16_060_4:
+          name: "Casas de Benítez"
+        m_16_061_1:
+          name: "Casas de Fernando Alonso"
+        m_16_062_6:
+          name: "Casas de Garcimolina"
+        m_16_063_2:
+          name: "Casas de Guijarro"
+        m_16_064_7:
+          name: "Casas de Haro"
+        m_16_065_0:
+          name: "Casas de los Pinos"
+        m_16_066_3:
+          name: "Casasimarro"
+        m_16_067_9:
+          name: "Castejón"
+        m_16_068_5:
+          name: "Castillejo de Iniesta"
+        m_16_070_2:
+          name: "Castillejo-Sierra"
+        m_16_072_4:
+          name: "Castillo de Garcimuñoz"
+        m_16_071_9:
+          name: "Castillo-Albaráñez"
+        m_16_073_0:
+          name: "Cervera del Llano"
+        m_16_023_1:
+          name: "Chillarón de Cuenca"
+        m_16_081_7:
+          name: "Chumillas"
+        m_16_074_5:
+          name: "Cierva, La"
+        m_16_078_3:
+          name: "Cuenca"
+        m_16_079_6:
+          name: "Cueva del Hierro"
+        m_16_082_2:
+          name: "Enguídanos"
+        m_16_083_8:
+          name: "Fresneda de Altarejos"
+        m_16_084_3:
+          name: "Fresneda de la Sierra"
+        m_16_085_6:
+          name: "Frontera, La"
+        m_16_086_9:
+          name: "Fuente de Pedro Naharro"
+        m_16_087_5:
+          name: "Fuentelespino de Haro"
+        m_16_088_1:
+          name: "Fuentelespino de Moya"
+        m_16_904_1:
+          name: "Fuentenava de Jábaga"
+        m_16_089_4:
+          name: "Fuentes"
+        m_16_091_5:
+          name: "Fuertescusa"
+        m_16_092_0:
+          name: "Gabaldón"
+        m_16_093_6:
+          name: "Garaballa"
+        m_16_094_1:
+          name: "Gascueña"
+        m_16_095_4:
+          name: "Graja de Campalbo"
+        m_16_096_7:
+          name: "Graja de Iniesta"
+        m_16_097_3:
+          name: "Henarejos"
+        m_16_098_9:
+          name: "Herrumblar, El"
+        m_16_099_2:
+          name: "Hinojosa, La"
+        m_16_100_6:
+          name: "Hinojosos, Los"
+        m_16_101_3:
+          name: "Hito, El"
+        m_16_102_8:
+          name: "Honrubia"
+        m_16_103_4:
+          name: "Hontanaya"
+        m_16_104_9:
+          name: "Hontecillas"
+        m_16_106_5:
+          name: "Horcajo de Santiago"
+        m_16_107_1:
+          name: "Huélamo"
+        m_16_108_7:
+          name: "Huelves"
+        m_16_109_0:
+          name: "Huérguina"
+        m_16_110_4:
+          name: "Huerta de la Obispalía"
+        m_16_111_1:
+          name: "Huerta del Marquesado"
+        m_16_112_6:
+          name: "Huete"
+        m_16_113_2:
+          name: "Iniesta"
+        m_16_115_0:
+          name: "Laguna del Marquesado"
+        m_16_116_3:
+          name: "Lagunaseca"
+        m_16_117_9:
+          name: "Landete"
+        m_16_118_5:
+          name: "Ledaña"
+        m_16_119_8:
+          name: "Leganiel"
+        m_16_121_9:
+          name: "Majadas, Las"
+        m_16_122_4:
+          name: "Mariana"
+        m_16_123_0:
+          name: "Masegosa"
+        m_16_124_5:
+          name: "Mesas, Las"
+        m_16_125_8:
+          name: "Minglanilla"
+        m_16_126_1:
+          name: "Mira"
+        m_16_128_3:
+          name: "Monreal del Llano"
+        m_16_129_6:
+          name: "Montalbanejo"
+        m_16_130_0:
+          name: "Montalbo"
+        m_16_131_7:
+          name: "Monteagudo de las Salinas"
+        m_16_132_2:
+          name: "Mota de Altarejos"
+        m_16_133_8:
+          name: "Mota del Cuervo"
+        m_16_134_3:
+          name: "Motilla del Palancar"
+        m_16_135_6:
+          name: "Moya"
+        m_16_137_5:
+          name: "Narboneta"
+        m_16_139_4:
+          name: "Olivares de Júcar"
+        m_16_140_8:
+          name: "Olmeda de la Cuesta"
+        m_16_141_5:
+          name: "Olmeda del Rey"
+        m_16_142_0:
+          name: "Olmedilla de Alarcón"
+        m_16_143_6:
+          name: "Olmedilla de Eliz"
+        m_16_145_4:
+          name: "Osa de la Vega"
+        m_16_146_7:
+          name: "Pajarón"
+        m_16_147_3:
+          name: "Pajaroncillo"
+        m_16_148_9:
+          name: "Palomares del Campo"
+        m_16_149_2:
+          name: "Palomera"
+        m_16_150_5:
+          name: "Paracuellos"
+        m_16_151_2:
+          name: "Paredes"
+        m_16_152_7:
+          name: "Parra de las Vegas, La"
+        m_16_153_3:
+          name: "Pedernoso, El"
+        m_16_154_8:
+          name: "Pedroñeras, Las"
+        m_16_155_1:
+          name: "Peral, El"
+        m_16_156_4:
+          name: "Peraleja, La"
+        m_16_157_0:
+          name: "Pesquera, La"
+        m_16_158_6:
+          name: "Picazo, El"
+        m_16_159_9:
+          name: "Pinarejo"
+        m_16_160_3:
+          name: "Pineda de Gigüela"
+        m_16_161_0:
+          name: "Piqueras del Castillo"
+        m_16_162_5:
+          name: "Portalrubio de Guadamejud"
+        m_16_163_1:
+          name: "Portilla"
+        m_16_165_9:
+          name: "Poyatos"
+        m_16_166_2:
+          name: "Pozoamargo"
+        m_16_908_9:
+          name: "Pozorrubielos de la Mancha"
+        m_16_167_8:
+          name: "Pozorrubio de Santiago"
+        m_16_169_7:
+          name: "Pozuelo, El"
+        m_16_170_1:
+          name: "Priego"
+        m_16_171_8:
+          name: "Provencio, El"
+        m_16_172_3:
+          name: "Puebla de Almenara"
+        m_16_174_4:
+          name: "Puebla del Salvador"
+        m_16_175_7:
+          name: "Quintanar del Rey"
+        m_16_176_0:
+          name: "Rada de Haro"
+        m_16_177_6:
+          name: "Reíllo"
+        m_16_181_6:
+          name: "Rozalén del Monte"
+        m_16_185_5:
+          name: "Saceda-Trasierra"
+        m_16_186_8:
+          name: "Saelices"
+        m_16_187_4:
+          name: "Salinas del Manzano"
+        m_16_188_0:
+          name: "Salmeroncillos"
+        m_16_189_3:
+          name: "Salvacañete"
+        m_16_190_7:
+          name: "San Clemente"
+        m_16_191_4:
+          name: "San Lorenzo de la Parrilla"
+        m_16_192_9:
+          name: "San Martín de Boniches"
+        m_16_193_5:
+          name: "San Pedro Palmiches"
+        m_16_194_0:
+          name: "Santa Cruz de Moya"
+        m_16_196_6:
+          name: "Santa María de los Llanos"
+        m_16_195_3:
+          name: "Santa María del Campo Rus"
+        m_16_197_2:
+          name: "Santa María del Val"
+        m_16_198_8:
+          name: "Sisante"
+        m_16_199_1:
+          name: "Solera de Gabaldón"
+        m_16_909_2:
+          name: "Sotorribas"
+        m_16_202_7:
+          name: "Talayuelas"
+        m_16_203_3:
+          name: "Tarancón"
+        m_16_204_8:
+          name: "Tébar"
+        m_16_205_1:
+          name: "Tejadillos"
+        m_16_206_4:
+          name: "Tinajas"
+        m_16_209_9:
+          name: "Torralba"
+        m_16_211_0:
+          name: "Torrejoncillo del Rey"
+        m_16_212_5:
+          name: "Torrubia del Campo"
+        m_16_213_1:
+          name: "Torrubia del Castillo"
+        m_16_215_9:
+          name: "Tragacete"
+        m_16_216_2:
+          name: "Tresjuncos"
+        m_16_217_8:
+          name: "Tribaldos"
+        m_16_218_4:
+          name: "Uclés"
+        m_16_219_7:
+          name: "Uña"
+        m_16_906_7:
+          name: "Valdecolmenas, Los"
+        m_16_224_4:
+          name: "Valdemeca"
+        m_16_225_7:
+          name: "Valdemorillo de la Sierra"
+        m_16_227_6:
+          name: "Valdemoro-Sierra"
+        m_16_228_2:
+          name: "Valdeolivas"
+        m_16_902_0:
+          name: "Valdetórtola"
+        m_16_903_6:
+          name: "Valeras, Las"
+        m_16_231_6:
+          name: "Valhermoso de la Fuente"
+        m_16_173_9:
+          name: "Valle de Altomira, El"
+        m_16_234_2:
+          name: "Valsalobre"
+        m_16_236_8:
+          name: "Valverde de Júcar"
+        m_16_237_4:
+          name: "Valverdejo"
+        m_16_238_0:
+          name: "Vara de Rey"
+        m_16_239_3:
+          name: "Vega del Codorno"
+        m_16_240_7:
+          name: "Vellisca"
+        m_16_242_9:
+          name: "Villaconejos de Trabaque"
+        m_16_243_5:
+          name: "Villaescusa de Haro"
+        m_16_244_0:
+          name: "Villagarcía del Llano"
+        m_16_245_3:
+          name: "Villalba de la Sierra"
+        m_16_246_6:
+          name: "Villalba del Rey"
+        m_16_247_2:
+          name: "Villalgordo del Marquesado"
+        m_16_248_8:
+          name: "Villalpardo"
+        m_16_249_1:
+          name: "Villamayor de Santiago"
+        m_16_250_4:
+          name: "Villanueva de Guadamejud"
+        m_16_251_1:
+          name: "Villanueva de la Jara"
+        m_16_253_2:
+          name: "Villar de Cañas"
+        m_16_254_7:
+          name: "Villar de Domingo García"
+        m_16_255_0:
+          name: "Villar de la Encina"
+        m_16_263_0:
+          name: "Villar de Olalla"
+        m_16_258_5:
+          name: "Villar del Humo"
+        m_16_259_8:
+          name: "Villar del Infantado"
+        m_16_910_6:
+          name: "Villar y Velasco"
+        m_16_264_5:
+          name: "Villarejo de Fuentes"
+        m_16_265_8:
+          name: "Villarejo de la Peñuela"
+        m_16_266_1:
+          name: "Villarejo-Periesteban"
+        m_16_269_6:
+          name: "Villares del Saz"
+        m_16_270_0:
+          name: "Villarrubio"
+        m_16_271_7:
+          name: "Villarta"
+        m_16_272_2:
+          name: "Villas de la Ventosa"
+        m_16_273_8:
+          name: "Villaverde y Pasaconsol"
+        m_16_274_3:
+          name: "Víllora"
+        m_16_275_6:
+          name: "Vindel"
+        m_16_276_9:
+          name: "Yémeda"
+        m_16_277_5:
+          name: "Zafra de Záncara"
+        m_16_278_1:
+          name: "Zafrilla"
+        m_16_279_4:
+          name: "Zarza de Tajo"
+        m_16_280_8:
+          name: "Zarzuela"

@@ -1,0 +1,363 @@
+---
+es:
+  world:
+    es:
+      m:
+        m_28_001_4:
+          name: "Acebeda, La"
+        m_28_002_9:
+          name: "Ajalvir"
+        m_28_003_5:
+          name: "Alameda del Valle"
+        m_28_004_0:
+          name: "Álamo, El"
+        m_28_005_3:
+          name: "Alcalá de Henares"
+        m_28_006_6:
+          name: "Alcobendas"
+        m_28_007_2:
+          name: "Alcorcón"
+        m_28_008_8:
+          name: "Aldea del Fresno"
+        m_28_009_1:
+          name: "Algete"
+        m_28_010_5:
+          name: "Alpedrete"
+        m_28_011_2:
+          name: "Ambite"
+        m_28_012_7:
+          name: "Anchuelo"
+        m_28_013_3:
+          name: "Aranjuez"
+        m_28_014_8:
+          name: "Arganda del Rey"
+        m_28_015_1:
+          name: "Arroyomolinos"
+        m_28_016_4:
+          name: "Atazar, El"
+        m_28_017_0:
+          name: "Batres"
+        m_28_018_6:
+          name: "Becerril de la Sierra"
+        m_28_019_9:
+          name: "Belmonte de Tajo"
+        m_28_021_0:
+          name: "Berrueco, El"
+        m_28_020_3:
+          name: "Berzosa del Lozoya"
+        m_28_022_5:
+          name: "Boadilla del Monte"
+        m_28_023_1:
+          name: "Boalo, El"
+        m_28_024_6:
+          name: "Braojos"
+        m_28_025_9:
+          name: "Brea de Tajo"
+        m_28_026_2:
+          name: "Brunete"
+        m_28_027_8:
+          name: "Buitrago del Lozoya"
+        m_28_028_4:
+          name: "Bustarviejo"
+        m_28_029_7:
+          name: "Cabanillas de la Sierra"
+        m_28_030_1:
+          name: "Cabrera, La"
+        m_28_031_8:
+          name: "Cadalso de los Vidrios"
+        m_28_032_3:
+          name: "Camarma de Esteruelas"
+        m_28_033_9:
+          name: "Campo Real"
+        m_28_034_4:
+          name: "Canencia"
+        m_28_035_7:
+          name: "Carabaña"
+        m_28_036_0:
+          name: "Casarrubuelos"
+        m_28_037_6:
+          name: "Cenicientos"
+        m_28_038_2:
+          name: "Cercedilla"
+        m_28_039_5:
+          name: "Cervera de Buitrago"
+        m_28_051_3:
+          name: "Chapinería"
+        m_28_052_8:
+          name: "Chinchón"
+        m_28_040_9:
+          name: "Ciempozuelos"
+        m_28_041_6:
+          name: "Cobeña"
+        m_28_046_8:
+          name: "Collado Mediano"
+        m_28_047_4:
+          name: "Collado Villalba"
+        m_28_043_7:
+          name: "Colmenar de Oreja"
+        m_28_042_1:
+          name: "Colmenar del Arroyo"
+        m_28_045_5:
+          name: "Colmenar Viejo"
+        m_28_044_2:
+          name: "Colmenarejo"
+        m_28_048_0:
+          name: "Corpa"
+        m_28_049_3:
+          name: "Coslada"
+        m_28_050_6:
+          name: "Cubas de la Sagra"
+        m_28_053_4:
+          name: "Daganzo de Arriba"
+        m_28_054_9:
+          name: "Escorial, El"
+        m_28_055_2:
+          name: "Estremera"
+        m_28_056_5:
+          name: "Fresnedillas de la Oliva"
+        m_28_057_1:
+          name: "Fresno de Torote"
+        m_28_058_7:
+          name: "Fuenlabrada"
+        m_28_059_0:
+          name: "Fuente el Saz de Jarama"
+        m_28_060_4:
+          name: "Fuentidueña de Tajo"
+        m_28_061_1:
+          name: "Galapagar"
+        m_28_062_6:
+          name: "Garganta de los Montes"
+        m_28_063_2:
+          name: "Gargantilla del Lozoya y Pinilla de Buitrago"
+        m_28_064_7:
+          name: "Gascones"
+        m_28_065_0:
+          name: "Getafe"
+        m_28_066_3:
+          name: "Griñón"
+        m_28_067_9:
+          name: "Guadalix de la Sierra"
+        m_28_068_5:
+          name: "Guadarrama"
+        m_28_069_8:
+          name: "Hiruela, La"
+        m_28_070_2:
+          name: "Horcajo de la Sierra-Aoslos"
+        m_28_071_9:
+          name: "Horcajuelo de la Sierra"
+        m_28_072_4:
+          name: "Hoyo de Manzanares"
+        m_28_073_0:
+          name: "Humanes de Madrid"
+        m_28_074_5:
+          name: "Leganés"
+        m_28_075_8:
+          name: "Loeches"
+        m_28_076_1:
+          name: "Lozoya"
+        m_28_901_5:
+          name: "Lozoyuela-Navas-Sieteiglesias"
+        m_28_078_3:
+          name: "Madarcos"
+        m_28_079_6:
+          name: "Madrid"
+        m_28_080_0:
+          name: "Majadahonda"
+        m_28_082_2:
+          name: "Manzanares el Real"
+        m_28_083_8:
+          name: "Meco"
+        m_28_084_3:
+          name: "Mejorada del Campo"
+        m_28_085_6:
+          name: "Miraflores de la Sierra"
+        m_28_086_9:
+          name: "Molar, El"
+        m_28_087_5:
+          name: "Molinos, Los"
+        m_28_088_1:
+          name: "Montejo de la Sierra"
+        m_28_089_4:
+          name: "Moraleja de Enmedio"
+        m_28_090_8:
+          name: "Moralzarzal"
+        m_28_091_5:
+          name: "Morata de Tajuña"
+        m_28_092_0:
+          name: "Móstoles"
+        m_28_093_6:
+          name: "Navacerrada"
+        m_28_094_1:
+          name: "Navalafuente"
+        m_28_095_4:
+          name: "Navalagamella"
+        m_28_096_7:
+          name: "Navalcarnero"
+        m_28_097_3:
+          name: "Navarredonda y San Mamés"
+        m_28_099_2:
+          name: "Navas del Rey"
+        m_28_100_6:
+          name: "Nuevo Baztán"
+        m_28_101_3:
+          name: "Olmeda de las Fuentes"
+        m_28_102_8:
+          name: "Orusco de Tajuña"
+        m_28_104_9:
+          name: "Paracuellos de Jarama"
+        m_28_106_5:
+          name: "Parla"
+        m_28_107_1:
+          name: "Patones"
+        m_28_108_7:
+          name: "Pedrezuela"
+        m_28_109_0:
+          name: "Pelayos de la Presa"
+        m_28_110_4:
+          name: "Perales de Tajuña"
+        m_28_111_1:
+          name: "Pezuela de las Torres"
+        m_28_112_6:
+          name: "Pinilla del Valle"
+        m_28_113_2:
+          name: "Pinto"
+        m_28_114_7:
+          name: "Piñuécar-Gandullas"
+        m_28_115_0:
+          name: "Pozuelo de Alarcón"
+        m_28_116_3:
+          name: "Pozuelo del Rey"
+        m_28_117_9:
+          name: "Prádena del Rincón"
+        m_28_118_5:
+          name: "Puebla de la Sierra"
+        m_28_902_0:
+          name: "Puentes Viejas"
+        m_28_119_8:
+          name: "Quijorna"
+        m_28_120_2:
+          name: "Rascafría"
+        m_28_121_9:
+          name: "Redueña"
+        m_28_122_4:
+          name: "Ribatejada"
+        m_28_123_0:
+          name: "Rivas-Vaciamadrid"
+        m_28_124_5:
+          name: "Robledillo de la Jara"
+        m_28_125_8:
+          name: "Robledo de Chavela"
+        m_28_126_1:
+          name: "Robregordo"
+        m_28_127_7:
+          name: "Rozas de Madrid, Las"
+        m_28_128_3:
+          name: "Rozas de Puerto Real"
+        m_28_129_6:
+          name: "San Agustín del Guadalix"
+        m_28_130_0:
+          name: "San Fernando de Henares"
+        m_28_131_7:
+          name: "San Lorenzo de El Escorial"
+        m_28_132_2:
+          name: "San Martín de la Vega"
+        m_28_133_8:
+          name: "San Martín de Valdeiglesias"
+        m_28_134_3:
+          name: "San Sebastián de los Reyes"
+        m_28_135_6:
+          name: "Santa María de la Alameda"
+        m_28_136_9:
+          name: "Santorcaz"
+        m_28_137_5:
+          name: "Santos de la Humosa, Los"
+        m_28_138_1:
+          name: "Serna del Monte, La"
+        m_28_140_8:
+          name: "Serranillos del Valle"
+        m_28_141_5:
+          name: "Sevilla la Nueva"
+        m_28_143_6:
+          name: "Somosierra"
+        m_28_144_1:
+          name: "Soto del Real"
+        m_28_145_4:
+          name: "Talamanca de Jarama"
+        m_28_146_7:
+          name: "Tielmes"
+        m_28_147_3:
+          name: "Titulcia"
+        m_28_148_9:
+          name: "Torrejón de Ardoz"
+        m_28_149_2:
+          name: "Torrejón de la Calzada"
+        m_28_150_5:
+          name: "Torrejón de Velasco"
+        m_28_151_2:
+          name: "Torrelaguna"
+        m_28_152_7:
+          name: "Torrelodones"
+        m_28_153_3:
+          name: "Torremocha de Jarama"
+        m_28_154_8:
+          name: "Torres de la Alameda"
+        m_28_903_6:
+          name: "Tres Cantos"
+        m_28_155_1:
+          name: "Valdaracete"
+        m_28_156_4:
+          name: "Valdeavero"
+        m_28_157_0:
+          name: "Valdelaguna"
+        m_28_158_6:
+          name: "Valdemanco"
+        m_28_159_9:
+          name: "Valdemaqueda"
+        m_28_160_3:
+          name: "Valdemorillo"
+        m_28_161_0:
+          name: "Valdemoro"
+        m_28_162_5:
+          name: "Valdeolmos-Alalpardo"
+        m_28_163_1:
+          name: "Valdepiélagos"
+        m_28_164_6:
+          name: "Valdetorres de Jarama"
+        m_28_165_9:
+          name: "Valdilecha"
+        m_28_166_2:
+          name: "Valverde de Alcalá"
+        m_28_167_8:
+          name: "Velilla de San Antonio"
+        m_28_168_4:
+          name: "Vellón, El"
+        m_28_169_7:
+          name: "Venturada"
+        m_28_171_8:
+          name: "Villa del Prado"
+        m_28_170_1:
+          name: "Villaconejos"
+        m_28_172_3:
+          name: "Villalbilla"
+        m_28_173_9:
+          name: "Villamanrique de Tajo"
+        m_28_174_4:
+          name: "Villamanta"
+        m_28_175_7:
+          name: "Villamantilla"
+        m_28_176_0:
+          name: "Villanueva de la Cañada"
+        m_28_178_2:
+          name: "Villanueva de Perales"
+        m_28_177_6:
+          name: "Villanueva del Pardillo"
+        m_28_179_5:
+          name: "Villar del Olmo"
+        m_28_180_9:
+          name: "Villarejo de Salvanés"
+        m_28_181_6:
+          name: "Villaviciosa de Odón"
+        m_28_182_1:
+          name: "Villavieja del Lozoya"
+        m_28_183_7:
+          name: "Zarzalejo"

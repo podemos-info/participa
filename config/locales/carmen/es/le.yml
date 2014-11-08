@@ -1,0 +1,427 @@
+---
+es:
+  world:
+    es:
+      le:
+        m_24_001_6:
+          name: "Acebedo"
+        m_24_002_1:
+          name: "Algadefe"
+        m_24_003_7:
+          name: "Alija del Infantado"
+        m_24_004_2:
+          name: "Almanza"
+        m_24_005_5:
+          name: "Antigua, La"
+        m_24_006_8:
+          name: "Ardón"
+        m_24_007_4:
+          name: "Arganza"
+        m_24_008_0:
+          name: "Astorga"
+        m_24_009_3:
+          name: "Balboa"
+        m_24_010_7:
+          name: "Bañeza, La"
+        m_24_011_4:
+          name: "Barjas"
+        m_24_012_9:
+          name: "Barrios de Luna, Los"
+        m_24_014_0:
+          name: "Bembibre"
+        m_24_015_3:
+          name: "Benavides"
+        m_24_016_6:
+          name: "Benuza"
+        m_24_017_2:
+          name: "Bercianos del Páramo"
+        m_24_018_8:
+          name: "Bercianos del Real Camino"
+        m_24_019_1:
+          name: "Berlanga del Bierzo"
+        m_24_020_5:
+          name: "Boca de Huérgano"
+        m_24_021_2:
+          name: "Boñar"
+        m_24_022_7:
+          name: "Borrenes"
+        m_24_023_3:
+          name: "Brazuelo"
+        m_24_024_8:
+          name: "Burgo Ranero, El"
+        m_24_025_1:
+          name: "Burón"
+        m_24_026_4:
+          name: "Bustillo del Páramo"
+        m_24_027_0:
+          name: "Cabañas Raras"
+        m_24_028_6:
+          name: "Cabreros del Río"
+        m_24_029_9:
+          name: "Cabrillanes"
+        m_24_030_3:
+          name: "Cacabelos"
+        m_24_031_0:
+          name: "Calzada del Coto"
+        m_24_032_5:
+          name: "Campazas"
+        m_24_033_1:
+          name: "Campo de Villavidel"
+        m_24_034_6:
+          name: "Camponaraya"
+        m_24_036_2:
+          name: "Candín"
+        m_24_037_8:
+          name: "Cármenes"
+        m_24_038_4:
+          name: "Carracedelo"
+        m_24_039_7:
+          name: "Carrizo"
+        m_24_040_1:
+          name: "Carrocera"
+        m_24_041_8:
+          name: "Carucedo"
+        m_24_042_3:
+          name: "Castilfalé"
+        m_24_043_9:
+          name: "Castrillo de Cabrera"
+        m_24_044_4:
+          name: "Castrillo de la Valduerna"
+        m_24_046_0:
+          name: "Castrocalbón"
+        m_24_047_6:
+          name: "Castrocontrigo"
+        m_24_049_5:
+          name: "Castropodame"
+        m_24_050_8:
+          name: "Castrotierra de Valmadrigal"
+        m_24_051_5:
+          name: "Cea"
+        m_24_052_0:
+          name: "Cebanico"
+        m_24_053_6:
+          name: "Cebrones del Río"
+        m_24_065_2:
+          name: "Chozas de Abajo"
+        m_24_054_1:
+          name: "Cimanes de la Vega"
+        m_24_055_4:
+          name: "Cimanes del Tejar"
+        m_24_056_7:
+          name: "Cistierna"
+        m_24_057_3:
+          name: "Congosto"
+        m_24_058_9:
+          name: "Corbillos de los Oteros"
+        m_24_059_2:
+          name: "Corullón"
+        m_24_060_6:
+          name: "Crémenes"
+        m_24_061_3:
+          name: "Cuadros"
+        m_24_062_8:
+          name: "Cubillas de los Oteros"
+        m_24_063_4:
+          name: "Cubillas de Rueda"
+        m_24_064_9:
+          name: "Cubillos del Sil"
+        m_24_066_5:
+          name: "Destriana"
+        m_24_067_1:
+          name: "Encinedo"
+        m_24_068_7:
+          name: "Ercina, La"
+        m_24_069_0:
+          name: "Escobar de Campos"
+        m_24_070_4:
+          name: "Fabero"
+        m_24_071_1:
+          name: "Folgoso de la Ribera"
+        m_24_073_2:
+          name: "Fresno de la Vega"
+        m_24_074_7:
+          name: "Fuentes de Carbajal"
+        m_24_076_3:
+          name: "Garrafe de Torío"
+        m_24_077_9:
+          name: "Gordaliza del Pino"
+        m_24_078_5:
+          name: "Gordoncillo"
+        m_24_079_8:
+          name: "Gradefes"
+        m_24_080_2:
+          name: "Grajal de Campos"
+        m_24_081_9:
+          name: "Gusendos de los Oteros"
+        m_24_082_4:
+          name: "Hospital de Órbigo"
+        m_24_083_0:
+          name: "Igüeña"
+        m_24_084_5:
+          name: "Izagre"
+        m_24_086_1:
+          name: "Joarilla de las Matas"
+        m_24_087_7:
+          name: "Laguna Dalga"
+        m_24_088_3:
+          name: "Laguna de Negrillos"
+        m_24_089_6:
+          name: "León"
+        m_24_092_2:
+          name: "Llamas de la Ribera"
+        m_24_090_0:
+          name: "Lucillo"
+        m_24_091_7:
+          name: "Luyego"
+        m_24_093_8:
+          name: "Magaz de Cepeda"
+        m_24_094_3:
+          name: "Mansilla de las Mulas"
+        m_24_095_6:
+          name: "Mansilla Mayor"
+        m_24_096_9:
+          name: "Maraña"
+        m_24_097_5:
+          name: "Matadeón de los Oteros"
+        m_24_098_1:
+          name: "Matallana de Torío"
+        m_24_099_4:
+          name: "Matanza"
+        m_24_100_8:
+          name: "Molinaseca"
+        m_24_101_5:
+          name: "Murias de Paredes"
+        m_24_102_0:
+          name: "Noceda del Bierzo"
+        m_24_103_6:
+          name: "Oencia"
+        m_24_104_1:
+          name: "Omañas, Las"
+        m_24_105_4:
+          name: "Onzonilla"
+        m_24_106_7:
+          name: "Oseja de Sajambre"
+        m_24_107_3:
+          name: "Pajares de los Oteros"
+        m_24_108_9:
+          name: "Palacios de la Valduerna"
+        m_24_109_2:
+          name: "Palacios del Sil"
+        m_24_110_6:
+          name: "Páramo del Sil"
+        m_24_112_8:
+          name: "Peranzanes"
+        m_24_113_4:
+          name: "Pobladura de Pelayo García"
+        m_24_114_9:
+          name: "Pola de Gordón, La"
+        m_24_115_2:
+          name: "Ponferrada"
+        m_24_116_5:
+          name: "Posada de Valdeón"
+        m_24_117_1:
+          name: "Pozuelo del Páramo"
+        m_24_118_7:
+          name: "Prado de la Guzpeña"
+        m_24_119_0:
+          name: "Priaranza del Bierzo"
+        m_24_120_4:
+          name: "Prioro"
+        m_24_121_1:
+          name: "Puebla de Lillo"
+        m_24_122_6:
+          name: "Puente de Domingo Flórez"
+        m_24_123_2:
+          name: "Quintana del Castillo"
+        m_24_124_7:
+          name: "Quintana del Marco"
+        m_24_125_0:
+          name: "Quintana y Congosto"
+        m_24_127_9:
+          name: "Regueras de Arriba"
+        m_24_129_8:
+          name: "Reyero"
+        m_24_130_2:
+          name: "Riaño"
+        m_24_131_9:
+          name: "Riego de la Vega"
+        m_24_132_4:
+          name: "Riello"
+        m_24_133_0:
+          name: "Rioseco de Tapia"
+        m_24_134_5:
+          name: "Robla, La"
+        m_24_136_1:
+          name: "Roperuelos del Páramo"
+        m_24_137_7:
+          name: "Sabero"
+        m_24_139_6:
+          name: "Sahagún"
+        m_24_141_7:
+          name: "San Adrián del Valle"
+        m_24_142_2:
+          name: "San Andrés del Rabanedo"
+        m_24_144_3:
+          name: "San Cristóbal de la Polantera"
+        m_24_145_6:
+          name: "San Emiliano"
+        m_24_146_9:
+          name: "San Esteban de Nogales"
+        m_24_148_1:
+          name: "San Justo de la Vega"
+        m_24_149_4:
+          name: "San Millán de los Caballeros"
+        m_24_150_7:
+          name: "San Pedro Bercianos"
+        m_24_143_8:
+          name: "Sancedo"
+        m_24_151_4:
+          name: "Santa Colomba de Curueño"
+        m_24_152_9:
+          name: "Santa Colomba de Somoza"
+        m_24_153_5:
+          name: "Santa Cristina de Valmadrigal"
+        m_24_154_0:
+          name: "Santa Elena de Jamuz"
+        m_24_155_3:
+          name: "Santa María de la Isla"
+        m_24_158_8:
+          name: "Santa María de Ordás"
+        m_24_156_6:
+          name: "Santa María del Monte de Cea"
+        m_24_157_2:
+          name: "Santa María del Páramo"
+        m_24_159_1:
+          name: "Santa Marina del Rey"
+        m_24_160_5:
+          name: "Santas Martas"
+        m_24_161_2:
+          name: "Santiago Millas"
+        m_24_162_7:
+          name: "Santovenia de la Valdoncina"
+        m_24_163_3:
+          name: "Sariegos"
+        m_24_164_8:
+          name: "Sena de Luna"
+        m_24_165_1:
+          name: "Sobrado"
+        m_24_166_4:
+          name: "Soto de la Vega"
+        m_24_167_0:
+          name: "Soto y Amío"
+        m_24_168_6:
+          name: "Toral de los Guzmanes"
+        m_24_206_6:
+          name: "Toral de los Vados"
+        m_24_169_9:
+          name: "Toreno"
+        m_24_170_3:
+          name: "Torre del Bierzo"
+        m_24_171_0:
+          name: "Trabadelo"
+        m_24_172_5:
+          name: "Truchas"
+        m_24_173_1:
+          name: "Turcia"
+        m_24_174_6:
+          name: "Urdiales del Páramo"
+        m_24_185_7:
+          name: "Val de San Lorenzo"
+        m_24_175_9:
+          name: "Valdefresno"
+        m_24_176_2:
+          name: "Valdefuentes del Páramo"
+        m_24_177_8:
+          name: "Valdelugueros"
+        m_24_178_4:
+          name: "Valdemora"
+        m_24_179_7:
+          name: "Valdepiélago"
+        m_24_180_1:
+          name: "Valdepolo"
+        m_24_181_8:
+          name: "Valderas"
+        m_24_182_3:
+          name: "Valderrey"
+        m_24_183_9:
+          name: "Valderrueda"
+        m_24_184_4:
+          name: "Valdesamario"
+        m_24_187_6:
+          name: "Valdevimbre"
+        m_24_188_2:
+          name: "Valencia de Don Juan"
+        m_24_191_6:
+          name: "Vallecillo"
+        m_24_189_5:
+          name: "Valverde de la Virgen"
+        m_24_190_9:
+          name: "Valverde-Enrique"
+        m_24_193_7:
+          name: "Vecilla, La"
+        m_24_196_8:
+          name: "Vega de Espinareda"
+        m_24_197_4:
+          name: "Vega de Infanzones"
+        m_24_198_0:
+          name: "Vega de Valcarce"
+        m_24_194_2:
+          name: "Vegacervera"
+        m_24_199_3:
+          name: "Vegaquemada"
+        m_24_201_4:
+          name: "Vegas del Condado"
+        m_24_202_9:
+          name: "Villablino"
+        m_24_203_5:
+          name: "Villabraz"
+        m_24_205_3:
+          name: "Villadangos del Páramo"
+        m_24_207_2:
+          name: "Villademor de la Vega"
+        m_24_209_1:
+          name: "Villafranca del Bierzo"
+        m_24_210_5:
+          name: "Villagatón"
+        m_24_211_2:
+          name: "Villamandos"
+        m_24_901_7:
+          name: "Villamanín"
+        m_24_212_7:
+          name: "Villamañán"
+        m_24_213_3:
+          name: "Villamartín de Don Sancho"
+        m_24_214_8:
+          name: "Villamejil"
+        m_24_215_1:
+          name: "Villamol"
+        m_24_216_4:
+          name: "Villamontán de la Valduerna"
+        m_24_217_0:
+          name: "Villamoratiel de las Matas"
+        m_24_218_6:
+          name: "Villanueva de las Manzanas"
+        m_24_219_9:
+          name: "Villaobispo de Otero"
+        m_24_902_2:
+          name: "Villaornate y Castro"
+        m_24_221_0:
+          name: "Villaquejida"
+        m_24_222_5:
+          name: "Villaquilambre"
+        m_24_223_1:
+          name: "Villarejo de Órbigo"
+        m_24_224_6:
+          name: "Villares de Órbigo"
+        m_24_225_9:
+          name: "Villasabariego"
+        m_24_226_2:
+          name: "Villaselán"
+        m_24_227_8:
+          name: "Villaturiel"
+        m_24_228_4:
+          name: "Villazala"
+        m_24_229_7:
+          name: "Villazanzo de Valderaduey"
+        m_24_230_1:
+          name: "Zotes del Páramo"

@@ -1,0 +1,181 @@
+---
+es:
+  world:
+    es:
+      ss:
+        m_20_001_3:
+          name: "Abaltzisketa"
+        m_20_002_8:
+          name: "Aduna"
+        m_20_016_3:
+          name: "Aia"
+        m_20_003_4:
+          name: "Aizarnazabal"
+        m_20_004_9:
+          name: "Albiztur"
+        m_20_005_2:
+          name: "Alegia"
+        m_20_006_5:
+          name: "Alkiza"
+        m_20_906_6:
+          name: "Altzaga"
+        m_20_007_1:
+          name: "Altzo"
+        m_20_008_7:
+          name: "Amezketa"
+        m_20_009_0:
+          name: "Andoain"
+        m_20_010_4:
+          name: "Anoeta"
+        m_20_011_1:
+          name: "Antzuola"
+        m_20_012_6:
+          name: "Arama"
+        m_20_013_2:
+          name: "Aretxabaleta"
+        m_20_055_1:
+          name: "Arrasate/Mondragón"
+        m_20_014_7:
+          name: "Asteasu"
+        m_20_903_5:
+          name: "Astigarraga"
+        m_20_015_0:
+          name: "Ataun"
+        m_20_017_9:
+          name: "Azkoitia"
+        m_20_018_5:
+          name: "Azpeitia"
+        m_20_904_0:
+          name: "Baliarrain"
+        m_20_019_8:
+          name: "Beasain"
+        m_20_020_2:
+          name: "Beizama"
+        m_20_021_9:
+          name: "Belauntza"
+        m_20_022_4:
+          name: "Berastegi"
+        m_20_074_4:
+          name: "Bergara"
+        m_20_023_0:
+          name: "Berrobi"
+        m_20_024_5:
+          name: "Bidegoian"
+        m_20_029_6:
+          name: "Deba"
+        m_20_069_7:
+          name: "Donostia/San Sebastián"
+        m_20_030_0:
+          name: "Eibar"
+        m_20_031_7:
+          name: "Elduain"
+        m_20_033_8:
+          name: "Elgeta"
+        m_20_032_2:
+          name: "Elgoibar"
+        m_20_067_8:
+          name: "Errenteria"
+        m_20_066_2:
+          name: "Errezil"
+        m_20_034_3:
+          name: "Eskoriatza"
+        m_20_035_6:
+          name: "Ezkio-Itsaso"
+        m_20_038_1:
+          name: "Gabiria"
+        m_20_037_5:
+          name: "Gaintza"
+        m_20_907_2:
+          name: "Gaztelu"
+        m_20_039_4:
+          name: "Getaria"
+        m_20_040_8:
+          name: "Hernani"
+        m_20_041_5:
+          name: "Hernialde"
+        m_20_036_9:
+          name: "Hondarribia"
+        m_20_042_0:
+          name: "Ibarra"
+        m_20_043_6:
+          name: "Idiazabal"
+        m_20_044_1:
+          name: "Ikaztegieta"
+        m_20_045_4:
+          name: "Irun"
+        m_20_046_7:
+          name: "Irura"
+        m_20_047_3:
+          name: "Itsasondo"
+        m_20_048_9:
+          name: "Larraul"
+        m_20_902_9:
+          name: "Lasarte-Oria"
+        m_20_049_2:
+          name: "Lazkao"
+        m_20_050_5:
+          name: "Leaburu"
+        m_20_051_2:
+          name: "Legazpi"
+        m_20_052_7:
+          name: "Legorreta"
+        m_20_068_4:
+          name: "Leintz-Gatzaga"
+        m_20_053_3:
+          name: "Lezo"
+        m_20_054_8:
+          name: "Lizartza"
+        m_20_901_4:
+          name: "Mendaro"
+        m_20_057_0:
+          name: "Mutiloa"
+        m_20_056_4:
+          name: "Mutriku"
+        m_20_063_1:
+          name: "Oiartzun"
+        m_20_058_6:
+          name: "Olaberria"
+        m_20_059_9:
+          name: "Oñati"
+        m_20_076_0:
+          name: "Ordizia"
+        m_20_905_3:
+          name: "Orendain"
+        m_20_060_3:
+          name: "Orexa"
+        m_20_061_0:
+          name: "Orio"
+        m_20_062_5:
+          name: "Ormaiztegi"
+        m_20_064_6:
+          name: "Pasaia"
+        m_20_070_1:
+          name: "Segura"
+        m_20_065_9:
+          name: "Soraluze/Placencia de las Armas"
+        m_20_071_8:
+          name: "Tolosa"
+        m_20_072_3:
+          name: "Urnieta"
+        m_20_077_6:
+          name: "Urretxu"
+        m_20_073_9:
+          name: "Usurbil"
+        m_20_075_7:
+          name: "Villabona"
+        m_20_078_2:
+          name: "Zaldibia"
+        m_20_079_5:
+          name: "Zarautz"
+        m_20_025_8:
+          name: "Zegama"
+        m_20_026_1:
+          name: "Zerain"
+        m_20_027_7:
+          name: "Zestoa"
+        m_20_028_3:
+          name: "Zizurkil"
+        m_20_081_6:
+          name: "Zumaia"
+        m_20_080_9:
+          name: "Zumarraga"

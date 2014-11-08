@@ -1,0 +1,729 @@
+---
+es:
+  world:
+    es:
+      sa:
+        m_37_001_6:
+          name: "Abusejo"
+        m_37_002_1:
+          name: "Agallas"
+        m_37_003_7:
+          name: "Ahigal de los Aceiteros"
+        m_37_004_2:
+          name: "Ahigal de Villarino"
+        m_37_005_5:
+          name: "Alameda de Gardón, La"
+        m_37_006_8:
+          name: "Alamedilla, La"
+        m_37_007_4:
+          name: "Alaraz"
+        m_37_008_0:
+          name: "Alba de Tormes"
+        m_37_009_3:
+          name: "Alba de Yeltes"
+        m_37_010_7:
+          name: "Alberca, La"
+        m_37_011_4:
+          name: "Alberguería de Argañán, La"
+        m_37_012_9:
+          name: "Alconada"
+        m_37_015_3:
+          name: "Aldea del Obispo"
+        m_37_013_5:
+          name: "Aldeacipreste"
+        m_37_014_0:
+          name: "Aldeadávila de la Ribera"
+        m_37_016_6:
+          name: "Aldealengua"
+        m_37_017_2:
+          name: "Aldeanueva de Figueroa"
+        m_37_018_8:
+          name: "Aldeanueva de la Sierra"
+        m_37_019_1:
+          name: "Aldearrodrigo"
+        m_37_020_5:
+          name: "Aldearrubia"
+        m_37_021_2:
+          name: "Aldeaseca de Alba"
+        m_37_022_7:
+          name: "Aldeaseca de la Frontera"
+        m_37_023_3:
+          name: "Aldeatejada"
+        m_37_024_8:
+          name: "Aldeavieja de Tormes"
+        m_37_025_1:
+          name: "Aldehuela de la Bóveda"
+        m_37_026_4:
+          name: "Aldehuela de Yeltes"
+        m_37_027_0:
+          name: "Almenara de Tormes"
+        m_37_028_6:
+          name: "Almendra"
+        m_37_029_9:
+          name: "Anaya de Alba"
+        m_37_030_3:
+          name: "Añover de Tormes"
+        m_37_031_0:
+          name: "Arabayona de Mógica"
+        m_37_032_5:
+          name: "Arapiles"
+        m_37_033_1:
+          name: "Arcediano"
+        m_37_034_6:
+          name: "Arco, El"
+        m_37_035_9:
+          name: "Armenteros"
+        m_37_037_8:
+          name: "Atalaya, La"
+        m_37_038_4:
+          name: "Babilafuente"
+        m_37_039_7:
+          name: "Bañobárez"
+        m_37_040_1:
+          name: "Barbadillo"
+        m_37_041_8:
+          name: "Barbalos"
+        m_37_042_3:
+          name: "Barceo"
+        m_37_044_4:
+          name: "Barruecopardo"
+        m_37_045_7:
+          name: "Bastida, La"
+        m_37_046_0:
+          name: "Béjar"
+        m_37_047_6:
+          name: "Beleña"
+        m_37_049_5:
+          name: "Bermellar"
+        m_37_050_8:
+          name: "Berrocal de Huebra"
+        m_37_051_5:
+          name: "Berrocal de Salvatierra"
+        m_37_052_0:
+          name: "Boada"
+        m_37_054_1:
+          name: "Bodón, El"
+        m_37_055_4:
+          name: "Bogajo"
+        m_37_056_7:
+          name: "Bouza, La"
+        m_37_057_3:
+          name: "Bóveda del Río Almar"
+        m_37_058_9:
+          name: "Brincones"
+        m_37_059_2:
+          name: "Buenamadre"
+        m_37_060_6:
+          name: "Buenavista"
+        m_37_061_3:
+          name: "Cabaco, El"
+        m_37_063_4:
+          name: "Cabeza de Béjar, La"
+        m_37_065_2:
+          name: "Cabeza del Caballo"
+        m_37_062_8:
+          name: "Cabezabellosa de la Calzada"
+        m_37_067_1:
+          name: "Cabrerizos"
+        m_37_068_7:
+          name: "Cabrillas"
+        m_37_069_0:
+          name: "Calvarrasa de Abajo"
+        m_37_070_4:
+          name: "Calvarrasa de Arriba"
+        m_37_071_1:
+          name: "Calzada de Béjar, La"
+        m_37_072_6:
+          name: "Calzada de Don Diego"
+        m_37_073_2:
+          name: "Calzada de Valdunciel"
+        m_37_074_7:
+          name: "Campillo de Azaba"
+        m_37_077_9:
+          name: "Campo de Peñaranda, El"
+        m_37_078_5:
+          name: "Candelario"
+        m_37_079_8:
+          name: "Canillas de Abajo"
+        m_37_080_2:
+          name: "Cantagallo"
+        m_37_081_9:
+          name: "Cantalapiedra"
+        m_37_082_4:
+          name: "Cantalpino"
+        m_37_083_0:
+          name: "Cantaracillo"
+        m_37_085_8:
+          name: "Carbajosa de la Sagrada"
+        m_37_086_1:
+          name: "Carpio de Azaba"
+        m_37_087_7:
+          name: "Carrascal de Barregas"
+        m_37_088_3:
+          name: "Carrascal del Obispo"
+        m_37_089_6:
+          name: "Casafranca"
+        m_37_090_0:
+          name: "Casas del Conde, Las"
+        m_37_091_7:
+          name: "Casillas de Flores"
+        m_37_092_2:
+          name: "Castellanos de Moriscos"
+        m_37_185_7:
+          name: "Castellanos de Villiquera"
+        m_37_096_9:
+          name: "Castillejo de Martín Viejo"
+        m_37_097_5:
+          name: "Castraz"
+        m_37_098_1:
+          name: "Cepeda"
+        m_37_099_4:
+          name: "Cereceda de la Sierra"
+        m_37_100_8:
+          name: "Cerezal de Peñahorcada"
+        m_37_101_5:
+          name: "Cerralbo"
+        m_37_102_0:
+          name: "Cerro, El"
+        m_37_103_6:
+          name: "Cespedosa de Tormes"
+        m_37_114_9:
+          name: "Chagarcía Medianero"
+        m_37_104_1:
+          name: "Cilleros de la Bastida"
+        m_37_106_7:
+          name: "Cipérez"
+        m_37_107_3:
+          name: "Ciudad Rodrigo"
+        m_37_108_9:
+          name: "Coca de Alba"
+        m_37_109_2:
+          name: "Colmenar de Montemayor"
+        m_37_110_6:
+          name: "Cordovilla"
+        m_37_112_8:
+          name: "Cristóbal"
+        m_37_113_4:
+          name: "Cubo de Don Sancho, El"
+        m_37_115_2:
+          name: "Dios le Guarde"
+        m_37_116_5:
+          name: "Doñinos de Ledesma"
+        m_37_117_1:
+          name: "Doñinos de Salamanca"
+        m_37_118_7:
+          name: "Ejeme"
+        m_37_120_4:
+          name: "Encina de San Silvestre"
+        m_37_119_0:
+          name: "Encina, La"
+        m_37_121_1:
+          name: "Encinas de Abajo"
+        m_37_122_6:
+          name: "Encinas de Arriba"
+        m_37_123_2:
+          name: "Encinasola de los Comendadores"
+        m_37_124_7:
+          name: "Endrinal"
+        m_37_125_0:
+          name: "Escurial de la Sierra"
+        m_37_126_3:
+          name: "Espadaña"
+        m_37_127_9:
+          name: "Espeja"
+        m_37_128_5:
+          name: "Espino de la Orbada"
+        m_37_129_8:
+          name: "Florida de Liébana"
+        m_37_130_2:
+          name: "Forfoleda"
+        m_37_131_9:
+          name: "Frades de la Sierra"
+        m_37_132_4:
+          name: "Fregeneda, La"
+        m_37_133_0:
+          name: "Fresnedoso"
+        m_37_134_5:
+          name: "Fresno Alhándiga"
+        m_37_135_8:
+          name: "Fuente de San Esteban, La"
+        m_37_136_1:
+          name: "Fuenteguinaldo"
+        m_37_137_7:
+          name: "Fuenteliante"
+        m_37_138_3:
+          name: "Fuenterroble de Salvatierra"
+        m_37_139_6:
+          name: "Fuentes de Béjar"
+        m_37_140_0:
+          name: "Fuentes de Oñoro"
+        m_37_141_7:
+          name: "Gajates"
+        m_37_142_2:
+          name: "Galindo y Perahuy"
+        m_37_143_8:
+          name: "Galinduste"
+        m_37_144_3:
+          name: "Galisancho"
+        m_37_145_6:
+          name: "Gallegos de Argañán"
+        m_37_146_9:
+          name: "Gallegos de Solmirón"
+        m_37_147_5:
+          name: "Garcibuey"
+        m_37_148_1:
+          name: "Garcihernández"
+        m_37_149_4:
+          name: "Garcirrey"
+        m_37_150_7:
+          name: "Gejuelo del Barro"
+        m_37_151_4:
+          name: "Golpejas"
+        m_37_152_9:
+          name: "Gomecello"
+        m_37_154_0:
+          name: "Guadramiro"
+        m_37_155_3:
+          name: "Guijo de Ávila"
+        m_37_156_6:
+          name: "Guijuelo"
+        m_37_157_2:
+          name: "Herguijuela de Ciudad Rodrigo"
+        m_37_158_8:
+          name: "Herguijuela de la Sierra"
+        m_37_159_1:
+          name: "Herguijuela del Campo"
+        m_37_160_5:
+          name: "Hinojosa de Duero"
+        m_37_161_2:
+          name: "Horcajo de Montemayor"
+        m_37_162_7:
+          name: "Horcajo Medianero"
+        m_37_163_3:
+          name: "Hoya, La"
+        m_37_164_8:
+          name: "Huerta"
+        m_37_165_1:
+          name: "Iruelos"
+        m_37_166_4:
+          name: "Ituero de Azaba"
+        m_37_167_0:
+          name: "Juzbado"
+        m_37_168_6:
+          name: "Lagunilla"
+        m_37_169_9:
+          name: "Larrodrigo"
+        m_37_170_3:
+          name: "Ledesma"
+        m_37_171_0:
+          name: "Ledrada"
+        m_37_172_5:
+          name: "Linares de Riofrío"
+        m_37_173_1:
+          name: "Lumbrales"
+        m_37_175_9:
+          name: "Machacón"
+        m_37_174_6:
+          name: "Macotera"
+        m_37_176_2:
+          name: "Madroñal"
+        m_37_177_8:
+          name: "Maíllo, El"
+        m_37_178_4:
+          name: "Malpartida"
+        m_37_179_7:
+          name: "Mancera de Abajo"
+        m_37_180_1:
+          name: "Manzano, El"
+        m_37_181_8:
+          name: "Martiago"
+        m_37_183_9:
+          name: "Martín de Yeltes"
+        m_37_182_3:
+          name: "Martinamor"
+        m_37_184_4:
+          name: "Masueco"
+        m_37_186_0:
+          name: "Mata de Ledesma, La"
+        m_37_187_6:
+          name: "Matilla de los Caños del Río"
+        m_37_188_2:
+          name: "Maya, La"
+        m_37_189_5:
+          name: "Membribe de la Sierra"
+        m_37_190_9:
+          name: "Mieza"
+        m_37_191_6:
+          name: "Milano, El"
+        m_37_192_1:
+          name: "Miranda de Azán"
+        m_37_193_7:
+          name: "Miranda del Castañar"
+        m_37_194_2:
+          name: "Mogarraz"
+        m_37_195_5:
+          name: "Molinillo"
+        m_37_196_8:
+          name: "Monforte de la Sierra"
+        m_37_197_4:
+          name: "Monleón"
+        m_37_198_0:
+          name: "Monleras"
+        m_37_199_3:
+          name: "Monsagro"
+        m_37_200_7:
+          name: "Montejo"
+        m_37_201_4:
+          name: "Montemayor del Río"
+        m_37_202_9:
+          name: "Monterrubio de Armuña"
+        m_37_203_5:
+          name: "Monterrubio de la Sierra"
+        m_37_204_0:
+          name: "Morasverdes"
+        m_37_205_3:
+          name: "Morille"
+        m_37_206_6:
+          name: "Moríñigo"
+        m_37_207_2:
+          name: "Moriscos"
+        m_37_208_8:
+          name: "Moronta"
+        m_37_209_1:
+          name: "Mozárbez"
+        m_37_211_2:
+          name: "Narros de Matalayegua"
+        m_37_213_3:
+          name: "Nava de Béjar"
+        m_37_214_8:
+          name: "Nava de Francia"
+        m_37_215_1:
+          name: "Nava de Sotrobal"
+        m_37_212_7:
+          name: "Navacarros"
+        m_37_216_4:
+          name: "Navales"
+        m_37_217_0:
+          name: "Navalmoral de Béjar"
+        m_37_218_6:
+          name: "Navamorales"
+        m_37_219_9:
+          name: "Navarredonda de la Rinconada"
+        m_37_221_0:
+          name: "Navasfrías"
+        m_37_222_5:
+          name: "Negrilla de Palencia"
+        m_37_223_1:
+          name: "Olmedo de Camaces"
+        m_37_224_6:
+          name: "Orbada, La"
+        m_37_225_9:
+          name: "Pajares de la Laguna"
+        m_37_226_2:
+          name: "Palacios del Arzobispo"
+        m_37_228_4:
+          name: "Palaciosrubios"
+        m_37_229_7:
+          name: "Palencia de Negrilla"
+        m_37_230_1:
+          name: "Parada de Arriba"
+        m_37_231_8:
+          name: "Parada de Rubiales"
+        m_37_232_3:
+          name: "Paradinas de San Juan"
+        m_37_233_9:
+          name: "Pastores"
+        m_37_234_4:
+          name: "Payo, El"
+        m_37_235_7:
+          name: "Pedraza de Alba"
+        m_37_236_0:
+          name: "Pedrosillo de Alba"
+        m_37_237_6:
+          name: "Pedrosillo de los Aires"
+        m_37_238_2:
+          name: "Pedrosillo el Ralo"
+        m_37_239_5:
+          name: "Pedroso de la Armuña, El"
+        m_37_240_9:
+          name: "Pelabravo"
+        m_37_241_6:
+          name: "Pelarrodríguez"
+        m_37_242_1:
+          name: "Pelayos"
+        m_37_243_7:
+          name: "Peña, La"
+        m_37_244_2:
+          name: "Peñacaballera"
+        m_37_245_5:
+          name: "Peñaparda"
+        m_37_246_8:
+          name: "Peñaranda de Bracamonte"
+        m_37_247_4:
+          name: "Peñarandilla"
+        m_37_248_0:
+          name: "Peralejos de Abajo"
+        m_37_249_3:
+          name: "Peralejos de Arriba"
+        m_37_250_6:
+          name: "Pereña de la Ribera"
+        m_37_251_3:
+          name: "Peromingo"
+        m_37_252_8:
+          name: "Pinedas"
+        m_37_253_4:
+          name: "Pino de Tormes, El"
+        m_37_254_9:
+          name: "Pitiegua"
+        m_37_255_2:
+          name: "Pizarral"
+        m_37_256_5:
+          name: "Poveda de las Cintas"
+        m_37_257_1:
+          name: "Pozos de Hinojo"
+        m_37_258_7:
+          name: "Puebla de Azaba"
+        m_37_259_0:
+          name: "Puebla de San Medel"
+        m_37_260_4:
+          name: "Puebla de Yeltes"
+        m_37_261_1:
+          name: "Puente del Congosto"
+        m_37_262_6:
+          name: "Puertas"
+        m_37_263_2:
+          name: "Puerto de Béjar"
+        m_37_264_7:
+          name: "Puerto Seguro"
+        m_37_265_0:
+          name: "Rágama"
+        m_37_266_3:
+          name: "Redonda, La"
+        m_37_267_9:
+          name: "Retortillo"
+        m_37_268_5:
+          name: "Rinconada de la Sierra, La"
+        m_37_269_8:
+          name: "Robleda"
+        m_37_270_2:
+          name: "Robliza de Cojos"
+        m_37_271_9:
+          name: "Rollán"
+        m_37_272_4:
+          name: "Saelices el Chico"
+        m_37_273_0:
+          name: "Sagrada, La"
+        m_37_303_4:
+          name: "Sahugo, El"
+        m_37_274_5:
+          name: "Salamanca"
+        m_37_275_8:
+          name: "Saldeana"
+        m_37_276_1:
+          name: "Salmoral"
+        m_37_277_7:
+          name: "Salvatierra de Tormes"
+        m_37_278_3:
+          name: "San Cristóbal de la Cuesta"
+        m_37_284_3:
+          name: "San Esteban de la Sierra"
+        m_37_285_6:
+          name: "San Felices de los Gallegos"
+        m_37_286_9:
+          name: "San Martín del Castañar"
+        m_37_287_5:
+          name: "San Miguel de Valero"
+        m_37_036_2:
+          name: "San Miguel del Robledo"
+        m_37_288_1:
+          name: "San Morales"
+        m_37_289_4:
+          name: "San Muñoz"
+        m_37_291_5:
+          name: "San Pedro de Rozados"
+        m_37_290_8:
+          name: "San Pedro del Valle"
+        m_37_292_0:
+          name: "San Pelayo de Guareña"
+        m_37_280_0:
+          name: "Sanchón de la Ribera"
+        m_37_281_7:
+          name: "Sanchón de la Sagrada"
+        m_37_282_2:
+          name: "Sanchotello"
+        m_37_279_6:
+          name: "Sancti-Spíritus"
+        m_37_283_8:
+          name: "Sando"
+        m_37_293_6:
+          name: "Santa María de Sando"
+        m_37_294_1:
+          name: "Santa Marta de Tormes"
+        m_37_296_7:
+          name: "Santiago de la Puebla"
+        m_37_297_3:
+          name: "Santibáñez de Béjar"
+        m_37_298_9:
+          name: "Santibáñez de la Sierra"
+        m_37_299_2:
+          name: "Santiz"
+        m_37_300_6:
+          name: "Santos, Los"
+        m_37_301_3:
+          name: "Sardón de los Frailes"
+        m_37_302_8:
+          name: "Saucelle"
+        m_37_304_9:
+          name: "Sepulcro-Hilario"
+        m_37_305_2:
+          name: "Sequeros"
+        m_37_306_5:
+          name: "Serradilla del Arroyo"
+        m_37_307_1:
+          name: "Serradilla del Llano"
+        m_37_309_0:
+          name: "Sierpe, La"
+        m_37_310_4:
+          name: "Sieteiglesias de Tormes"
+        m_37_311_1:
+          name: "Sobradillo"
+        m_37_312_6:
+          name: "Sorihuela"
+        m_37_313_2:
+          name: "Sotoserrano"
+        m_37_314_7:
+          name: "Tabera de Abajo"
+        m_37_315_0:
+          name: "Tala, La"
+        m_37_316_3:
+          name: "Tamames"
+        m_37_317_9:
+          name: "Tarazona de Guareña"
+        m_37_318_5:
+          name: "Tardáguila"
+        m_37_319_8:
+          name: "Tejado, El"
+        m_37_320_2:
+          name: "Tejeda y Segoyuela"
+        m_37_321_9:
+          name: "Tenebrón"
+        m_37_322_4:
+          name: "Terradillos"
+        m_37_323_0:
+          name: "Topas"
+        m_37_324_5:
+          name: "Tordillos"
+        m_37_325_8:
+          name: "Tornadizo, El"
+        m_37_327_7:
+          name: "Torresmenudas"
+        m_37_328_3:
+          name: "Trabanca"
+        m_37_329_6:
+          name: "Tremedal de Tormes"
+        m_37_330_0:
+          name: "Valdecarros"
+        m_37_331_7:
+          name: "Valdefuentes de Sangusín"
+        m_37_332_2:
+          name: "Valdehijaderos"
+        m_37_333_8:
+          name: "Valdelacasa"
+        m_37_334_3:
+          name: "Valdelageve"
+        m_37_335_6:
+          name: "Valdelosa"
+        m_37_336_9:
+          name: "Valdemierque"
+        m_37_337_5:
+          name: "Valderrodrigo"
+        m_37_338_1:
+          name: "Valdunciel"
+        m_37_339_4:
+          name: "Valero"
+        m_37_343_6:
+          name: "Vallejera de Riofrío"
+        m_37_340_8:
+          name: "Valsalabroso"
+        m_37_341_5:
+          name: "Valverde de Valdelacasa"
+        m_37_342_0:
+          name: "Valverdón"
+        m_37_344_1:
+          name: "Vecinos"
+        m_37_345_4:
+          name: "Vega de Tirados"
+        m_37_346_7:
+          name: "Veguillas, Las"
+        m_37_347_3:
+          name: "Vellés, La"
+        m_37_348_9:
+          name: "Ventosa del Río Almar"
+        m_37_349_2:
+          name: "Vídola, La"
+        m_37_351_2:
+          name: "Villaflores"
+        m_37_352_7:
+          name: "Villagonzalo de Tormes"
+        m_37_353_3:
+          name: "Villalba de los Llanos"
+        m_37_354_8:
+          name: "Villamayor"
+        m_37_355_1:
+          name: "Villanueva del Conde"
+        m_37_356_4:
+          name: "Villar de Argañán"
+        m_37_357_0:
+          name: "Villar de Ciervo"
+        m_37_358_6:
+          name: "Villar de Gallimazo"
+        m_37_359_9:
+          name: "Villar de la Yegua"
+        m_37_360_3:
+          name: "Villar de Peralonso"
+        m_37_361_0:
+          name: "Villar de Samaniego"
+        m_37_362_5:
+          name: "Villares de la Reina"
+        m_37_363_1:
+          name: "Villares de Yeltes"
+        m_37_364_6:
+          name: "Villarino de los Aires"
+        m_37_365_9:
+          name: "Villarmayor"
+        m_37_366_2:
+          name: "Villarmuerto"
+        m_37_367_8:
+          name: "Villasbuenas"
+        m_37_368_4:
+          name: "Villasdardo"
+        m_37_369_7:
+          name: "Villaseco de los Gamitos"
+        m_37_370_1:
+          name: "Villaseco de los Reyes"
+        m_37_371_8:
+          name: "Villasrubias"
+        m_37_372_3:
+          name: "Villaverde de Guareña"
+        m_37_373_9:
+          name: "Villavieja de Yeltes"
+        m_37_374_4:
+          name: "Villoria"
+        m_37_375_7:
+          name: "Villoruela"
+        m_37_350_5:
+          name: "Vilvestre"
+        m_37_376_0:
+          name: "Vitigudino"
+        m_37_377_6:
+          name: "Yecla de Yeltes"
+        m_37_378_2:
+          name: "Zamarra"
+        m_37_379_5:
+          name: "Zamayón"
+        m_37_380_9:
+          name: "Zarapicos"
+        m_37_381_6:
+          name: "Zarza de Pumareda, La"
+        m_37_382_1:
+          name: "Zorita de la Frontera"

@@ -1,0 +1,447 @@
+---
+es:
+  world:
+    es:
+      gi:
+        m_17_001_0:
+          name: "Agullana"
+        m_17_002_5:
+          name: "Aiguaviva"
+        m_17_003_1:
+          name: "Albanyà"
+        m_17_004_6:
+          name: "Albons"
+        m_17_006_2:
+          name: "Alp"
+        m_17_007_8:
+          name: "Amer"
+        m_17_008_4:
+          name: "Anglès"
+        m_17_009_7:
+          name: "Arbúcies"
+        m_17_010_1:
+          name: "Argelaguer"
+        m_17_011_8:
+          name: "Armentera, L'"
+        m_17_012_3:
+          name: "Avinyonet de Puigventós"
+        m_17_015_7:
+          name: "Banyoles"
+        m_17_016_0:
+          name: "Bàscara"
+        m_17_013_9:
+          name: "Begur"
+        m_17_018_2:
+          name: "Bellcaire d'Empordà"
+        m_17_019_5:
+          name: "Besalú"
+        m_17_020_9:
+          name: "Bescanó"
+        m_17_021_6:
+          name: "Beuda"
+        m_17_022_1:
+          name: "Bisbal d'Empordà, La"
+        m_17_234_8:
+          name: "Biure"
+        m_17_023_7:
+          name: "Blanes"
+        m_17_029_3:
+          name: "Boadella i les Escaules"
+        m_17_024_2:
+          name: "Bolvir"
+        m_17_025_5:
+          name: "Bordils"
+        m_17_026_8:
+          name: "Borrassà"
+        m_17_027_4:
+          name: "Breda"
+        m_17_028_0:
+          name: "Brunyola"
+        m_17_031_4:
+          name: "Cabanelles"
+        m_17_030_7:
+          name: "Cabanes"
+        m_17_032_9:
+          name: "Cadaqués"
+        m_17_033_5:
+          name: "Caldes de Malavella"
+        m_17_034_0:
+          name: "Calonge"
+        m_17_035_3:
+          name: "Camós"
+        m_17_036_6:
+          name: "Campdevànol"
+        m_17_037_2:
+          name: "Campelles"
+        m_17_038_8:
+          name: "Campllong"
+        m_17_039_1:
+          name: "Camprodon"
+        m_17_040_5:
+          name: "Canet d'Adri"
+        m_17_041_2:
+          name: "Cantallops"
+        m_17_042_7:
+          name: "Capmany"
+        m_17_044_8:
+          name: "Cassà de la Selva"
+        m_17_046_4:
+          name: "Castellfollit de la Roca"
+        m_17_047_0:
+          name: "Castelló d'Empúries"
+        m_17_048_6:
+          name: "Castell-Platja d'Aro"
+        m_17_189_9:
+          name: "Cellera de Ter, La"
+        m_17_049_9:
+          name: "Celrà"
+        m_17_050_2:
+          name: "Cervià de Ter"
+        m_17_051_9:
+          name: "Cistella"
+        m_17_054_5:
+          name: "Colera"
+        m_17_055_8:
+          name: "Colomers"
+        m_17_057_7:
+          name: "Corçà"
+        m_17_056_1:
+          name: "Cornellà del Terri"
+        m_17_058_3:
+          name: "Crespià"
+        m_17_901_1:
+          name: "Cruïlles, Monells i Sant Sadurní de l'Heura"
+        m_17_060_0:
+          name: "Darnius"
+        m_17_061_7:
+          name: "Das"
+        m_17_062_2:
+          name: "Escala, L'"
+        m_17_063_8:
+          name: "Espinelves"
+        m_17_064_3:
+          name: "Espolla"
+        m_17_065_6:
+          name: "Esponellà"
+        m_17_005_9:
+          name: "Far d'Empordà, El"
+        m_17_066_9:
+          name: "Figueres"
+        m_17_067_5:
+          name: "Flaçà"
+        m_17_068_1:
+          name: "Foixà"
+        m_17_069_4:
+          name: "Fontanals de Cerdanya"
+        m_17_070_8:
+          name: "Fontanilles"
+        m_17_071_5:
+          name: "Fontcoberta"
+        m_17_902_6:
+          name: "Forallac"
+        m_17_073_6:
+          name: "Fornells de la Selva"
+        m_17_074_1:
+          name: "Fortià"
+        m_17_075_4:
+          name: "Garrigàs"
+        m_17_076_7:
+          name: "Garrigoles"
+        m_17_077_3:
+          name: "Garriguella"
+        m_17_078_9:
+          name: "Ger"
+        m_17_079_2:
+          name: "Girona"
+        m_17_080_6:
+          name: "Gombrèn"
+        m_17_081_3:
+          name: "Gualta"
+        m_17_082_8:
+          name: "Guils de Cerdanya"
+        m_17_083_4:
+          name: "Hostalric"
+        m_17_084_9:
+          name: "Isòvol"
+        m_17_085_2:
+          name: "Jafre"
+        m_17_086_5:
+          name: "Jonquera, La"
+        m_17_087_1:
+          name: "Juià"
+        m_17_088_7:
+          name: "Lladó"
+        m_17_089_0:
+          name: "Llagostera"
+        m_17_090_4:
+          name: "Llambilles"
+        m_17_091_1:
+          name: "Llanars"
+        m_17_092_6:
+          name: "Llançà"
+        m_17_093_2:
+          name: "Llers"
+        m_17_094_7:
+          name: "Llívia"
+        m_17_095_0:
+          name: "Lloret de Mar"
+        m_17_096_3:
+          name: "Llosses, Les"
+        m_17_102_4:
+          name: "Maçanet de Cabrenys"
+        m_17_103_0:
+          name: "Maçanet de la Selva"
+        m_17_097_9:
+          name: "Madremanya"
+        m_17_098_5:
+          name: "Maià de Montcal"
+        m_17_100_2:
+          name: "Masarac"
+        m_17_101_9:
+          name: "Massanes"
+        m_17_099_8:
+          name: "Meranges"
+        m_17_105_8:
+          name: "Mieres"
+        m_17_106_1:
+          name: "Mollet de Peralada"
+        m_17_107_7:
+          name: "Molló"
+        m_17_109_6:
+          name: "Montagut i Oix"
+        m_17_110_0:
+          name: "Mont-ras"
+        m_17_111_7:
+          name: "Navata"
+        m_17_112_2:
+          name: "Ogassa"
+        m_17_114_3:
+          name: "Olot"
+        m_17_115_6:
+          name: "Ordis"
+        m_17_116_9:
+          name: "Osor"
+        m_17_117_5:
+          name: "Palafrugell"
+        m_17_118_1:
+          name: "Palamós"
+        m_17_119_4:
+          name: "Palau de Santa Eulàlia"
+        m_17_121_5:
+          name: "Palau-sator"
+        m_17_120_8:
+          name: "Palau-saverdera"
+        m_17_123_6:
+          name: "Palol de Revardit"
+        m_17_124_1:
+          name: "Pals"
+        m_17_125_4:
+          name: "Pardines"
+        m_17_126_7:
+          name: "Parlavà"
+        m_17_128_9:
+          name: "Pau"
+        m_17_129_2:
+          name: "Pedret i Marzà"
+        m_17_130_6:
+          name: "Pera, La"
+        m_17_132_8:
+          name: "Peralada"
+        m_17_133_4:
+          name: "Planes d'Hostoles, Les"
+        m_17_134_9:
+          name: "Planoles"
+        m_17_135_2:
+          name: "Pont de Molins"
+        m_17_136_5:
+          name: "Pontós"
+        m_17_137_1:
+          name: "Porqueres"
+        m_17_140_4:
+          name: "Port de la Selva, El"
+        m_17_138_7:
+          name: "Portbou"
+        m_17_139_0:
+          name: "Preses, Les"
+        m_17_141_1:
+          name: "Puigcerdà"
+        m_17_142_6:
+          name: "Quart"
+        m_17_043_3:
+          name: "Queralbs"
+        m_17_143_2:
+          name: "Rabós"
+        m_17_144_7:
+          name: "Regencós"
+        m_17_145_0:
+          name: "Ribes de Freser"
+        m_17_146_3:
+          name: "Riells i Viabrea"
+        m_17_147_9:
+          name: "Ripoll"
+        m_17_148_5:
+          name: "Riudarenes"
+        m_17_149_8:
+          name: "Riudaura"
+        m_17_150_1:
+          name: "Riudellots de la Selva"
+        m_17_151_8:
+          name: "Riumors"
+        m_17_152_3:
+          name: "Roses"
+        m_17_153_9:
+          name: "Rupià"
+        m_17_154_4:
+          name: "Sales de Llierca"
+        m_17_155_7:
+          name: "Salt"
+        m_17_157_6:
+          name: "Sant Andreu Salou"
+        m_17_183_3:
+          name: "Sant Aniol de Finestres"
+        m_17_158_2:
+          name: "Sant Climent Sescebes"
+        m_17_159_5:
+          name: "Sant Feliu de Buixalleu"
+        m_17_160_9:
+          name: "Sant Feliu de Guíxols"
+        m_17_161_6:
+          name: "Sant Feliu de Pallerols"
+        m_17_162_1:
+          name: "Sant Ferriol"
+        m_17_163_7:
+          name: "Sant Gregori"
+        m_17_164_2:
+          name: "Sant Hilari Sacalm"
+        m_17_165_5:
+          name: "Sant Jaume de Llierca"
+        m_17_167_4:
+          name: "Sant Joan de les Abadesses"
+        m_17_168_0:
+          name: "Sant Joan de Mollet"
+        m_17_185_1:
+          name: "Sant Joan les Fonts"
+        m_17_166_8:
+          name: "Sant Jordi Desvalls"
+        m_17_169_3:
+          name: "Sant Julià de Ramis"
+        m_17_903_2:
+          name: "Sant Julià del Llor i Bonmatí"
+        m_17_171_4:
+          name: "Sant Llorenç de la Muga"
+        m_17_172_9:
+          name: "Sant Martí de Llémena"
+        m_17_173_5:
+          name: "Sant Martí Vell"
+        m_17_174_0:
+          name: "Sant Miquel de Campmajor"
+        m_17_175_3:
+          name: "Sant Miquel de Fluvià"
+        m_17_176_6:
+          name: "Sant Mori"
+        m_17_177_2:
+          name: "Sant Pau de Segúries"
+        m_17_178_8:
+          name: "Sant Pere Pescador"
+        m_17_180_5:
+          name: "Santa Coloma de Farners"
+        m_17_181_2:
+          name: "Santa Cristina d'Aro"
+        m_17_182_7:
+          name: "Santa Llogaia d'Àlguema"
+        m_17_184_8:
+          name: "Santa Pau"
+        m_17_186_4:
+          name: "Sarrià de Ter"
+        m_17_187_0:
+          name: "Saus, Camallera i Llampaies"
+        m_17_188_6:
+          name: "Selva de Mar, La"
+        m_17_190_3:
+          name: "Serinyà"
+        m_17_191_0:
+          name: "Serra de Daró"
+        m_17_192_5:
+          name: "Setcases"
+        m_17_193_1:
+          name: "Sils"
+        m_17_052_4:
+          name: "Siurana"
+        m_17_194_6:
+          name: "Susqueda"
+        m_17_195_9:
+          name: "Tallada d'Empordà, La"
+        m_17_196_2:
+          name: "Terrades"
+        m_17_197_8:
+          name: "Torrent"
+        m_17_198_4:
+          name: "Torroella de Fluvià"
+        m_17_199_7:
+          name: "Torroella de Montgrí"
+        m_17_200_1:
+          name: "Tortellà"
+        m_17_201_8:
+          name: "Toses"
+        m_17_202_3:
+          name: "Tossa de Mar"
+        m_17_204_4:
+          name: "Ullà"
+        m_17_205_7:
+          name: "Ullastret"
+        m_17_203_9:
+          name: "Ultramort"
+        m_17_206_0:
+          name: "Urús"
+        m_17_014_4:
+          name: "Vajol, La"
+        m_17_208_2:
+          name: "Vall de Bianya, La"
+        m_17_207_6:
+          name: "Vall d'en Bas, La"
+        m_17_170_7:
+          name: "Vallfogona de Ripollès"
+        m_17_209_5:
+          name: "Vall-llobrega"
+        m_17_210_9:
+          name: "Ventalló"
+        m_17_211_6:
+          name: "Verges"
+        m_17_212_1:
+          name: "Vidrà"
+        m_17_213_7:
+          name: "Vidreres"
+        m_17_214_2:
+          name: "Vilabertran"
+        m_17_215_5:
+          name: "Vilablareix"
+        m_17_217_4:
+          name: "Viladamat"
+        m_17_216_8:
+          name: "Viladasens"
+        m_17_218_0:
+          name: "Vilademuls"
+        m_17_220_7:
+          name: "Viladrau"
+        m_17_221_4:
+          name: "Vilafant"
+        m_17_223_5:
+          name: "Vilajuïga"
+        m_17_224_0:
+          name: "Vilallonga de Ter"
+        m_17_225_3:
+          name: "Vilamacolum"
+        m_17_226_6:
+          name: "Vilamalla"
+        m_17_227_2:
+          name: "Vilamaniscle"
+        m_17_228_8:
+          name: "Vilanant"
+        m_17_230_5:
+          name: "Vila-sacra"
+        m_17_222_9:
+          name: "Vilaür"
+        m_17_233_3:
+          name: "Vilobí d'Onyar"
+        m_17_232_7:
+          name: "Vilopriu"

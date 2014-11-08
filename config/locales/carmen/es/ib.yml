@@ -1,0 +1,139 @@
+---
+es:
+  world:
+    es:
+      ib:
+        m_07_002_7:
+          name: "Alaior"
+        m_07_001_2:
+          name: "Alaró"
+        m_07_003_3:
+          name: "Alcúdia"
+        m_07_004_8:
+          name: "Algaida"
+        m_07_005_1:
+          name: "Andratx"
+        m_07_901_3:
+          name: "Ariany"
+        m_07_006_4:
+          name: "Artà"
+        m_07_007_0:
+          name: "Banyalbufar"
+        m_07_008_6:
+          name: "Binissalem"
+        m_07_009_9:
+          name: "Búger"
+        m_07_010_3:
+          name: "Bunyola"
+        m_07_011_0:
+          name: "Calvià"
+        m_07_012_5:
+          name: "Campanet"
+        m_07_013_1:
+          name: "Campos"
+        m_07_014_6:
+          name: "Capdepera"
+        m_07_064_5:
+          name: "Castell, Es"
+        m_07_015_9:
+          name: "Ciutadella de Menorca"
+        m_07_016_2:
+          name: "Consell"
+        m_07_017_8:
+          name: "Costitx"
+        m_07_018_4:
+          name: "Deià"
+        m_07_026_0:
+          name: "Eivissa"
+        m_07_019_7:
+          name: "Escorca"
+        m_07_020_1:
+          name: "Esporles"
+        m_07_021_8:
+          name: "Estellencs"
+        m_07_022_3:
+          name: "Felanitx"
+        m_07_023_9:
+          name: "Ferreries"
+        m_07_024_4:
+          name: "Formentera"
+        m_07_025_7:
+          name: "Fornalutx"
+        m_07_027_6:
+          name: "Inca"
+        m_07_028_2:
+          name: "Lloret de Vistalegre"
+        m_07_029_5:
+          name: "Lloseta"
+        m_07_030_9:
+          name: "Llubí"
+        m_07_031_6:
+          name: "Llucmajor"
+        m_07_033_7:
+          name: "Manacor"
+        m_07_034_2:
+          name: "Mancor de la Vall"
+        m_07_032_1:
+          name: "Maó-Mahón"
+        m_07_035_5:
+          name: "Maria de la Salut"
+        m_07_036_8:
+          name: "Marratxí"
+        m_07_037_4:
+          name: "Mercadal, Es"
+        m_07_902_8:
+          name: "Migjorn Gran, Es"
+        m_07_038_0:
+          name: "Montuïri"
+        m_07_039_3:
+          name: "Muro"
+        m_07_040_7:
+          name: "Palma de Mallorca"
+        m_07_041_4:
+          name: "Petra"
+        m_07_044_0:
+          name: "Pobla, Sa"
+        m_07_042_9:
+          name: "Pollença"
+        m_07_043_5:
+          name: "Porreres"
+        m_07_045_3:
+          name: "Puigpunyent"
+        m_07_059_8:
+          name: "Salines, Ses"
+        m_07_046_6:
+          name: "Sant Antoni de Portmany"
+        m_07_049_1:
+          name: "Sant Joan"
+        m_07_050_4:
+          name: "Sant Joan de Labritja"
+        m_07_048_8:
+          name: "Sant Josep de sa Talaia"
+        m_07_051_1:
+          name: "Sant Llorenç des Cardassar"
+        m_07_052_6:
+          name: "Sant Lluís"
+        m_07_053_2:
+          name: "Santa Eugènia"
+        m_07_054_7:
+          name: "Santa Eulalia del Río"
+        m_07_055_0:
+          name: "Santa Margalida"
+        m_07_056_3:
+          name: "Santa María del Camí"
+        m_07_057_9:
+          name: "Santanyí"
+        m_07_058_5:
+          name: "Selva"
+        m_07_047_2:
+          name: "Sencelles"
+        m_07_060_2:
+          name: "Sineu"
+        m_07_061_9:
+          name: "Sóller"
+        m_07_062_4:
+          name: "Son Servera"
+        m_07_063_0:
+          name: "Valldemossa"
+        m_07_065_8:
+          name: "Vilafranca de Bonany"
