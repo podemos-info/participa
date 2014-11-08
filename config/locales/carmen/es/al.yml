@@ -1,0 +1,209 @@
+---
+es:
+  world:
+    es:
+      al:
+        m_04_001_0:
+          name: "Abla"
+        m_04_002_5:
+          name: "Abrucena"
+        m_04_003_1:
+          name: "Adra"
+        m_04_004_6:
+          name: "Albánchez"
+        m_04_005_9:
+          name: "Alboloduy"
+        m_04_006_2:
+          name: "Albox"
+        m_04_007_8:
+          name: "Alcolea"
+        m_04_008_4:
+          name: "Alcóntar"
+        m_04_009_7:
+          name: "Alcudia de Monteagud"
+        m_04_010_1:
+          name: "Alhabia"
+        m_04_011_8:
+          name: "Alhama de Almería"
+        m_04_012_3:
+          name: "Alicún"
+        m_04_013_9:
+          name: "Almería"
+        m_04_014_4:
+          name: "Almócita"
+        m_04_015_7:
+          name: "Alsodux"
+        m_04_016_0:
+          name: "Antas"
+        m_04_017_6:
+          name: "Arboleas"
+        m_04_018_2:
+          name: "Armuña de Almanzora"
+        m_04_019_5:
+          name: "Bacares"
+        m_04_020_9:
+          name: "Bayárcal"
+        m_04_021_6:
+          name: "Bayarque"
+        m_04_022_1:
+          name: "Bédar"
+        m_04_023_7:
+          name: "Beires"
+        m_04_024_2:
+          name: "Benahadux"
+        m_04_026_8:
+          name: "Benitagla"
+        m_04_027_4:
+          name: "Benizalón"
+        m_04_028_0:
+          name: "Bentarique"
+        m_04_029_3:
+          name: "Berja"
+        m_04_030_7:
+          name: "Canjáyar"
+        m_04_031_4:
+          name: "Cantoria"
+        m_04_032_9:
+          name: "Carboneras"
+        m_04_033_5:
+          name: "Castro de Filabres"
+        m_04_036_6:
+          name: "Chercos"
+        m_04_037_2:
+          name: "Chirivel"
+        m_04_034_0:
+          name: "Cóbdar"
+        m_04_035_3:
+          name: "Cuevas del Almanzora"
+        m_04_038_8:
+          name: "Dalías"
+        m_04_902_6:
+          name: "Ejido, El"
+        m_04_041_2:
+          name: "Enix"
+        m_04_043_3:
+          name: "Felix"
+        m_04_044_8:
+          name: "Fines"
+        m_04_045_1:
+          name: "Fiñana"
+        m_04_046_4:
+          name: "Fondón"
+        m_04_047_0:
+          name: "Gádor"
+        m_04_048_6:
+          name: "Gallardos, Los"
+        m_04_049_9:
+          name: "Garrucha"
+        m_04_050_2:
+          name: "Gérgal"
+        m_04_051_9:
+          name: "Huécija"
+        m_04_052_4:
+          name: "Huércal de Almería"
+        m_04_053_0:
+          name: "Huércal-Overa"
+        m_04_054_5:
+          name: "Illar"
+        m_04_055_8:
+          name: "Instinción"
+        m_04_056_1:
+          name: "Laroya"
+        m_04_057_7:
+          name: "Láujar de Andarax"
+        m_04_058_3:
+          name: "Líjar"
+        m_04_059_6:
+          name: "Lubrín"
+        m_04_060_0:
+          name: "Lucainena de las Torres"
+        m_04_061_7:
+          name: "Lúcar"
+        m_04_062_2:
+          name: "Macael"
+        m_04_063_8:
+          name: "María"
+        m_04_064_3:
+          name: "Mojácar"
+        m_04_903_2:
+          name: "Mojonera, La"
+        m_04_065_6:
+          name: "Nacimiento"
+        m_04_066_9:
+          name: "Níjar"
+        m_04_067_5:
+          name: "Ohanes"
+        m_04_068_1:
+          name: "Olula de Castro"
+        m_04_069_4:
+          name: "Olula del Río"
+        m_04_070_8:
+          name: "Oria"
+        m_04_071_5:
+          name: "Padules"
+        m_04_072_0:
+          name: "Partaloa"
+        m_04_073_6:
+          name: "Paterna del Río"
+        m_04_074_1:
+          name: "Pechina"
+        m_04_075_4:
+          name: "Pulpí"
+        m_04_076_7:
+          name: "Purchena"
+        m_04_077_3:
+          name: "Rágol"
+        m_04_078_9:
+          name: "Rioja"
+        m_04_079_2:
+          name: "Roquetas de Mar"
+        m_04_080_6:
+          name: "Santa Cruz de Marchena"
+        m_04_081_3:
+          name: "Santa Fe de Mondújar"
+        m_04_082_8:
+          name: "Senés"
+        m_04_083_4:
+          name: "Serón"
+        m_04_084_9:
+          name: "Sierro"
+        m_04_085_2:
+          name: "Somontín"
+        m_04_086_5:
+          name: "Sorbas"
+        m_04_087_1:
+          name: "Suflí"
+        m_04_088_7:
+          name: "Tabernas"
+        m_04_089_0:
+          name: "Taberno"
+        m_04_090_4:
+          name: "Tahal"
+        m_04_091_1:
+          name: "Terque"
+        m_04_092_6:
+          name: "Tíjola"
+        m_04_901_1:
+          name: "Tres Villas, Las"
+        m_04_093_2:
+          name: "Turre"
+        m_04_094_7:
+          name: "Turrillas"
+        m_04_095_0:
+          name: "Uleila del Campo"
+        m_04_096_3:
+          name: "Urrácal"
+        m_04_097_9:
+          name: "Velefique"
+        m_04_098_5:
+          name: "Vélez-Blanco"
+        m_04_099_8:
+          name: "Vélez-Rubio"
+        m_04_100_2:
+          name: "Vera"
+        m_04_101_9:
+          name: "Viator"
+        m_04_102_4:
+          name: "Vícar"
+        m_04_103_0:
+          name: "Zurgena"

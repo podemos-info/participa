@@ -1,0 +1,537 @@
+---
+es:
+  world:
+    es:
+      v:
+        m_46_001_8:
+          name: "Ademuz"
+        m_46_002_3:
+          name: "Ador"
+        m_46_004_4:
+          name: "Agullent"
+        m_46_042_5:
+          name: "Aielo de Malferit"
+        m_46_043_1:
+          name: "Aielo de Rugat"
+        m_46_005_7:
+          name: "Alaquàs"
+        m_46_006_0:
+          name: "Albaida"
+        m_46_007_6:
+          name: "Albal"
+        m_46_008_2:
+          name: "Albalat de la Ribera"
+        m_46_009_5:
+          name: "Albalat dels Sorells"
+        m_46_010_9:
+          name: "Albalat dels Tarongers"
+        m_46_011_6:
+          name: "Alberic"
+        m_46_012_1:
+          name: "Alborache"
+        m_46_013_7:
+          name: "Alboraya"
+        m_46_014_2:
+          name: "Albuixech"
+        m_46_016_8:
+          name: "Alcàntera de Xúquer"
+        m_46_015_5:
+          name: "Alcàsser"
+        m_46_018_0:
+          name: "Alcublas"
+        m_46_020_7:
+          name: "Alcúdia de Crespins, l'"
+        m_46_019_3:
+          name: "Alcúdia, l'"
+        m_46_021_4:
+          name: "Aldaia"
+        m_46_022_9:
+          name: "Alfafar"
+        m_46_024_0:
+          name: "Alfara de la Baronia"
+        m_46_025_3:
+          name: "Alfara del Patriarca"
+        m_46_026_6:
+          name: "Alfarp"
+        m_46_027_2:
+          name: "Alfarrasí"
+        m_46_023_5:
+          name: "Alfauir"
+        m_46_028_8:
+          name: "Algar de Palancia"
+        m_46_029_1:
+          name: "Algemesí"
+        m_46_030_5:
+          name: "Algimia de Alfara"
+        m_46_031_2:
+          name: "Alginet"
+        m_46_032_7:
+          name: "Almàssera"
+        m_46_033_3:
+          name: "Almiserà"
+        m_46_034_8:
+          name: "Almoines"
+        m_46_035_1:
+          name: "Almussafes"
+        m_46_036_4:
+          name: "Alpuente"
+        m_46_037_0:
+          name: "Alqueria de la Comtessa, l'"
+        m_46_017_4:
+          name: "Alzira"
+        m_46_038_6:
+          name: "Andilla"
+        m_46_039_9:
+          name: "Anna"
+        m_46_040_3:
+          name: "Antella"
+        m_46_041_0:
+          name: "Aras de los Olmos"
+        m_46_003_9:
+          name: "Atzeneta d'Albaida"
+        m_46_044_6:
+          name: "Ayora"
+        m_46_046_2:
+          name: "Barx"
+        m_46_045_9:
+          name: "Barxeta"
+        m_46_047_8:
+          name: "Bèlgida"
+        m_46_048_4:
+          name: "Bellreguard"
+        m_46_049_7:
+          name: "Bellús"
+        m_46_050_0:
+          name: "Benagéber"
+        m_46_051_7:
+          name: "Benaguasil"
+        m_46_052_2:
+          name: "Benavites"
+        m_46_053_8:
+          name: "Beneixida"
+        m_46_054_3:
+          name: "Benetússer"
+        m_46_055_6:
+          name: "Beniarjó"
+        m_46_056_9:
+          name: "Beniatjar"
+        m_46_057_5:
+          name: "Benicolet"
+        m_46_904_5:
+          name: "Benicull de Xúquer"
+        m_46_060_8:
+          name: "Benifaió"
+        m_46_059_4:
+          name: "Benifairó de la Valldigna"
+        m_46_058_1:
+          name: "Benifairó de les Valls"
+        m_46_061_5:
+          name: "Beniflá"
+        m_46_062_0:
+          name: "Benigànim"
+        m_46_063_6:
+          name: "Benimodo"
+        m_46_064_1:
+          name: "Benimuslem"
+        m_46_065_4:
+          name: "Beniparrell"
+        m_46_066_7:
+          name: "Benirredrà"
+        m_46_067_3:
+          name: "Benisanó"
+        m_46_068_9:
+          name: "Benissoda"
+        m_46_069_2:
+          name: "Benisuera"
+        m_46_070_6:
+          name: "Bétera"
+        m_46_071_3:
+          name: "Bicorp"
+        m_46_072_8:
+          name: "Bocairent"
+        m_46_073_4:
+          name: "Bolbaite"
+        m_46_074_9:
+          name: "Bonrepòs i Mirambell"
+        m_46_075_2:
+          name: "Bufali"
+        m_46_076_5:
+          name: "Bugarra"
+        m_46_077_1:
+          name: "Buñol"
+        m_46_078_7:
+          name: "Burjassot"
+        m_46_079_0:
+          name: "Calles"
+        m_46_080_4:
+          name: "Camporrobles"
+        m_46_081_1:
+          name: "Canals"
+        m_46_082_6:
+          name: "Canet d'En Berenguer"
+        m_46_083_2:
+          name: "Carcaixent"
+        m_46_084_7:
+          name: "Càrcer"
+        m_46_085_0:
+          name: "Carlet"
+        m_46_086_3:
+          name: "Carrícola"
+        m_46_087_9:
+          name: "Casas Altas"
+        m_46_088_5:
+          name: "Casas Bajas"
+        m_46_089_8:
+          name: "Casinos"
+        m_46_090_2:
+          name: "Castelló de Rugat"
+        m_46_091_9:
+          name: "Castellonet de la Conquesta"
+        m_46_092_4:
+          name: "Castielfabib"
+        m_46_093_0:
+          name: "Catadau"
+        m_46_094_5:
+          name: "Catarroja"
+        m_46_095_8:
+          name: "Caudete de las Fuentes"
+        m_46_096_1:
+          name: "Cerdà"
+        m_46_107_5:
+          name: "Chella"
+        m_46_106_9:
+          name: "Chelva"
+        m_46_108_1:
+          name: "Chera"
+        m_46_109_4:
+          name: "Cheste"
+        m_46_111_5:
+          name: "Chiva"
+        m_46_112_0:
+          name: "Chulilla"
+        m_46_097_7:
+          name: "Cofrentes"
+        m_46_098_3:
+          name: "Corbera"
+        m_46_099_6:
+          name: "Cortes de Pallás"
+        m_46_100_0:
+          name: "Cotes"
+        m_46_105_6:
+          name: "Cullera"
+        m_46_113_6:
+          name: "Daimús"
+        m_46_114_1:
+          name: "Domeño"
+        m_46_115_4:
+          name: "Dos Aguas"
+        m_46_116_7:
+          name: "Eliana, l'"
+        m_46_117_3:
+          name: "Emperador"
+        m_46_118_9:
+          name: "Enguera"
+        m_46_119_2:
+          name: "Ènova, l'"
+        m_46_120_6:
+          name: "Estivella"
+        m_46_121_3:
+          name: "Estubeny"
+        m_46_122_8:
+          name: "Faura"
+        m_46_123_4:
+          name: "Favara"
+        m_46_126_5:
+          name: "Foios"
+        m_46_128_7:
+          name: "Font de la Figuera, la"
+        m_46_127_1:
+          name: "Font d'En Carròs, la"
+        m_46_124_9:
+          name: "Fontanars dels Alforins"
+        m_46_125_2:
+          name: "Fortaleny"
+        m_46_129_0:
+          name: "Fuenterrobles"
+        m_46_131_1:
+          name: "Gandia"
+        m_46_902_4:
+          name: "Gátova"
+        m_46_130_4:
+          name: "Gavarda"
+        m_46_132_6:
+          name: "Genovés"
+        m_46_133_2:
+          name: "Gestalgar"
+        m_46_134_7:
+          name: "Gilet"
+        m_46_135_0:
+          name: "Godella"
+        m_46_136_3:
+          name: "Godelleta"
+        m_46_137_9:
+          name: "Granja de la Costera, la"
+        m_46_138_5:
+          name: "Guadasséquies"
+        m_46_139_8:
+          name: "Guadassuar"
+        m_46_140_2:
+          name: "Guardamar de la Safor"
+        m_46_141_9:
+          name: "Higueruelas"
+        m_46_142_4:
+          name: "Jalance"
+        m_46_144_5:
+          name: "Jarafuel"
+        m_46_154_2:
+          name: "Llanera de Ranes"
+        m_46_155_5:
+          name: "Llaurí"
+        m_46_147_7:
+          name: "Llíria"
+        m_46_152_1:
+          name: "Llocnou de la Corona"
+        m_46_153_7:
+          name: "Llocnou de Sant Jeroni"
+        m_46_151_6:
+          name: "Llocnou d'En Fenollet"
+        m_46_156_8:
+          name: "Llombai"
+        m_46_157_4:
+          name: "Llosa de Ranes, la"
+        m_46_150_9:
+          name: "Llutxent"
+        m_46_148_3:
+          name: "Loriguilla"
+        m_46_149_6:
+          name: "Losa del Obispo"
+        m_46_158_0:
+          name: "Macastre"
+        m_46_159_3:
+          name: "Manises"
+        m_46_160_7:
+          name: "Manuel"
+        m_46_161_4:
+          name: "Marines"
+        m_46_162_9:
+          name: "Massalavés"
+        m_46_163_5:
+          name: "Massalfassar"
+        m_46_164_0:
+          name: "Massamagrell"
+        m_46_165_3:
+          name: "Massanassa"
+        m_46_166_6:
+          name: "Meliana"
+        m_46_167_2:
+          name: "Millares"
+        m_46_168_8:
+          name: "Miramar"
+        m_46_169_1:
+          name: "Mislata"
+        m_46_170_5:
+          name: "Mogente/Moixent"
+        m_46_171_2:
+          name: "Moncada"
+        m_46_173_3:
+          name: "Montaverner"
+        m_46_174_8:
+          name: "Montesa"
+        m_46_175_1:
+          name: "Montitxelvo/Montichelvo"
+        m_46_176_4:
+          name: "Montroi/Montroy"
+        m_46_172_7:
+          name: "Montserrat"
+        m_46_177_0:
+          name: "Museros"
+        m_46_178_6:
+          name: "Náquera"
+        m_46_179_9:
+          name: "Navarrés"
+        m_46_180_3:
+          name: "Novelé/Novetlè"
+        m_46_181_0:
+          name: "Oliva"
+        m_46_183_1:
+          name: "Olleria, l'"
+        m_46_182_5:
+          name: "Olocau"
+        m_46_184_6:
+          name: "Ontinyent"
+        m_46_185_9:
+          name: "Otos"
+        m_46_186_2:
+          name: "Paiporta"
+        m_46_187_8:
+          name: "Palma de Gandía"
+        m_46_188_4:
+          name: "Palmera"
+        m_46_189_7:
+          name: "Palomar, el"
+        m_46_190_1:
+          name: "Paterna"
+        m_46_191_8:
+          name: "Pedralba"
+        m_46_192_3:
+          name: "Petrés"
+        m_46_193_9:
+          name: "Picanya"
+        m_46_194_4:
+          name: "Picassent"
+        m_46_195_7:
+          name: "Piles"
+        m_46_196_0:
+          name: "Pinet"
+        m_46_199_5:
+          name: "Pobla de Farnals, la"
+        m_46_202_1:
+          name: "Pobla de Vallbona, la"
+        m_46_200_9:
+          name: "Pobla del Duc, la"
+        m_46_203_7:
+          name: "Pobla Llarga, la"
+        m_46_197_6:
+          name: "Polinyà de Xúquer"
+        m_46_198_2:
+          name: "Potríes"
+        m_46_205_5:
+          name: "Puçol"
+        m_46_201_6:
+          name: "Puebla de San Miguel"
+        m_46_204_2:
+          name: "Puig de Santa Maria, el"
+        m_46_101_7:
+          name: "Quart de les Valls"
+        m_46_102_2:
+          name: "Quart de Poblet"
+        m_46_103_8:
+          name: "Quartell"
+        m_46_104_3:
+          name: "Quatretonda"
+        m_46_206_8:
+          name: "Quesa"
+        m_46_207_4:
+          name: "Rafelbunyol"
+        m_46_208_0:
+          name: "Rafelcofer"
+        m_46_209_3:
+          name: "Rafelguaraf"
+        m_46_210_7:
+          name: "Ráfol de Salem"
+        m_46_212_9:
+          name: "Real"
+        m_46_211_4:
+          name: "Real de Gandía"
+        m_46_213_5:
+          name: "Requena"
+        m_46_214_0:
+          name: "Riba-roja de Túria"
+        m_46_215_3:
+          name: "Riola"
+        m_46_216_6:
+          name: "Rocafort"
+        m_46_217_2:
+          name: "Rotglà i Corberà"
+        m_46_218_8:
+          name: "Rótova"
+        m_46_219_1:
+          name: "Rugat"
+        m_46_220_5:
+          name: "Sagunto/Sagunt"
+        m_46_221_2:
+          name: "Salem"
+        m_46_903_0:
+          name: "San Antonio de Benagéber"
+        m_46_222_7:
+          name: "Sant Joanet"
+        m_46_223_3:
+          name: "Sedaví"
+        m_46_224_8:
+          name: "Segart"
+        m_46_225_1:
+          name: "Sellent"
+        m_46_226_4:
+          name: "Sempere"
+        m_46_227_0:
+          name: "Senyera"
+        m_46_228_6:
+          name: "Serra"
+        m_46_229_9:
+          name: "Siete Aguas"
+        m_46_230_3:
+          name: "Silla"
+        m_46_231_0:
+          name: "Simat de la Valldigna"
+        m_46_232_5:
+          name: "Sinarcas"
+        m_46_233_1:
+          name: "Sollana"
+        m_46_234_6:
+          name: "Sot de Chera"
+        m_46_235_9:
+          name: "Sueca"
+        m_46_236_2:
+          name: "Sumacàrcer"
+        m_46_237_8:
+          name: "Tavernes Blanques"
+        m_46_238_4:
+          name: "Tavernes de la Valldigna"
+        m_46_239_7:
+          name: "Teresa de Cofrentes"
+        m_46_240_1:
+          name: "Terrateig"
+        m_46_241_8:
+          name: "Titaguas"
+        m_46_242_3:
+          name: "Torrebaja"
+        m_46_243_9:
+          name: "Torrella"
+        m_46_244_4:
+          name: "Torrent"
+        m_46_245_7:
+          name: "Torres Torres"
+        m_46_246_0:
+          name: "Tous"
+        m_46_247_6:
+          name: "Tuéjar"
+        m_46_248_2:
+          name: "Turís"
+        m_46_249_5:
+          name: "Utiel"
+        m_46_250_8:
+          name: "Valencia"
+        m_46_251_5:
+          name: "Vallada"
+        m_46_252_0:
+          name: "Vallanca"
+        m_46_253_6:
+          name: "Vallés"
+        m_46_254_1:
+          name: "Venta del Moro"
+        m_46_255_4:
+          name: "Vilallonga/Villalonga"
+        m_46_256_7:
+          name: "Vilamarxant"
+        m_46_257_3:
+          name: "Villanueva de Castellón"
+        m_46_258_9:
+          name: "Villar del Arzobispo"
+        m_46_259_2:
+          name: "Villargordo del Cabriel"
+        m_46_260_6:
+          name: "Vinalesa"
+        m_46_145_8:
+          name: "Xàtiva"
+        m_46_143_0:
+          name: "Xeraco"
+        m_46_146_1:
+          name: "Xeresa"
+        m_46_110_8:
+          name: "Xirivella"
+        m_46_261_3:
+          name: "Yátova"
+        m_46_262_8:
+          name: "Yesa, La"
+        m_46_263_4:
+          name: "Zarra"

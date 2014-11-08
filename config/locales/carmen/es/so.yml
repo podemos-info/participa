@@ -1,0 +1,371 @@
+---
+es:
+  world:
+    es:
+      so:
+        m_42_001_1:
+          name: "Abejar"
+        m_42_003_2:
+          name: "Adradas"
+        m_42_004_7:
+          name: "Ágreda"
+        m_42_006_3:
+          name: "Alconaba"
+        m_42_007_9:
+          name: "Alcubilla de Avellaneda"
+        m_42_008_5:
+          name: "Alcubilla de las Peñas"
+        m_42_009_8:
+          name: "Aldealafuente"
+        m_42_010_2:
+          name: "Aldealices"
+        m_42_011_9:
+          name: "Aldealpozo"
+        m_42_012_4:
+          name: "Aldealseñor"
+        m_42_013_0:
+          name: "Aldehuela de Periáñez"
+        m_42_014_5:
+          name: "Aldehuelas, Las"
+        m_42_015_8:
+          name: "Alentisque"
+        m_42_016_1:
+          name: "Aliud"
+        m_42_017_7:
+          name: "Almajano"
+        m_42_018_3:
+          name: "Almaluez"
+        m_42_019_6:
+          name: "Almarza"
+        m_42_020_0:
+          name: "Almazán"
+        m_42_021_7:
+          name: "Almazul"
+        m_42_022_2:
+          name: "Almenar de Soria"
+        m_42_023_8:
+          name: "Alpanseque"
+        m_42_024_3:
+          name: "Arancón"
+        m_42_025_6:
+          name: "Arcos de Jalón"
+        m_42_026_9:
+          name: "Arenillas"
+        m_42_027_5:
+          name: "Arévalo de la Sierra"
+        m_42_028_1:
+          name: "Ausejo de la Sierra"
+        m_42_029_4:
+          name: "Baraona"
+        m_42_030_8:
+          name: "Barca"
+        m_42_031_5:
+          name: "Barcones"
+        m_42_032_0:
+          name: "Bayubas de Abajo"
+        m_42_033_6:
+          name: "Bayubas de Arriba"
+        m_42_034_1:
+          name: "Beratón"
+        m_42_035_4:
+          name: "Berlanga de Duero"
+        m_42_036_7:
+          name: "Blacos"
+        m_42_037_3:
+          name: "Bliecos"
+        m_42_038_9:
+          name: "Borjabad"
+        m_42_039_2:
+          name: "Borobia"
+        m_42_041_3:
+          name: "Buberos"
+        m_42_042_8:
+          name: "Buitrago"
+        m_42_043_4:
+          name: "Burgo de Osma-Ciudad de Osma"
+        m_42_044_9:
+          name: "Cabrejas del Campo"
+        m_42_045_2:
+          name: "Cabrejas del Pinar"
+        m_42_046_5:
+          name: "Calatañazor"
+        m_42_048_7:
+          name: "Caltojar"
+        m_42_049_0:
+          name: "Candilichera"
+        m_42_050_3:
+          name: "Cañamaque"
+        m_42_051_0:
+          name: "Carabantes"
+        m_42_052_5:
+          name: "Caracena"
+        m_42_053_1:
+          name: "Carrascosa de Abajo"
+        m_42_054_6:
+          name: "Carrascosa de la Sierra"
+        m_42_055_9:
+          name: "Casarejos"
+        m_42_056_2:
+          name: "Castilfrío de la Sierra"
+        m_42_058_4:
+          name: "Castillejo de Robledo"
+        m_42_057_8:
+          name: "Castilruiz"
+        m_42_059_7:
+          name: "Centenera de Andaluz"
+        m_42_060_1:
+          name: "Cerbón"
+        m_42_061_8:
+          name: "Cidones"
+        m_42_062_3:
+          name: "Cigudosa"
+        m_42_063_9:
+          name: "Cihuela"
+        m_42_064_4:
+          name: "Ciria"
+        m_42_065_7:
+          name: "Cirujales del Río"
+        m_42_068_2:
+          name: "Coscurita"
+        m_42_069_5:
+          name: "Covaleda"
+        m_42_070_9:
+          name: "Cubilla"
+        m_42_071_6:
+          name: "Cubo de la Solana"
+        m_42_073_7:
+          name: "Cueva de Ágreda"
+        m_42_075_5:
+          name: "Dévanos"
+        m_42_076_8:
+          name: "Deza"
+        m_42_078_0:
+          name: "Duruelo de la Sierra"
+        m_42_079_3:
+          name: "Escobosa de Almazán"
+        m_42_080_7:
+          name: "Espeja de San Marcelino"
+        m_42_081_4:
+          name: "Espejón"
+        m_42_082_9:
+          name: "Estepa de San Juan"
+        m_42_083_5:
+          name: "Frechilla de Almazán"
+        m_42_084_0:
+          name: "Fresno de Caracena"
+        m_42_085_3:
+          name: "Fuentearmegil"
+        m_42_086_6:
+          name: "Fuentecambrón"
+        m_42_087_2:
+          name: "Fuentecantos"
+        m_42_088_8:
+          name: "Fuentelmonge"
+        m_42_089_1:
+          name: "Fuentelsaz de Soria"
+        m_42_090_5:
+          name: "Fuentepinilla"
+        m_42_092_7:
+          name: "Fuentes de Magaña"
+        m_42_093_3:
+          name: "Fuentestrún"
+        m_42_094_8:
+          name: "Garray"
+        m_42_095_1:
+          name: "Golmayo"
+        m_42_096_4:
+          name: "Gómara"
+        m_42_097_0:
+          name: "Gormaz"
+        m_42_098_6:
+          name: "Herrera de Soria"
+        m_42_100_3:
+          name: "Hinojosa del Campo"
+        m_42_103_1:
+          name: "Langa de Duero"
+        m_42_105_9:
+          name: "Liceras"
+        m_42_106_2:
+          name: "Losilla, La"
+        m_42_107_8:
+          name: "Magaña"
+        m_42_108_4:
+          name: "Maján"
+        m_42_110_1:
+          name: "Matalebreras"
+        m_42_111_8:
+          name: "Matamala de Almazán"
+        m_42_113_9:
+          name: "Medinaceli"
+        m_42_115_7:
+          name: "Miño de Medinaceli"
+        m_42_116_0:
+          name: "Miño de San Esteban"
+        m_42_117_6:
+          name: "Molinos de Duero"
+        m_42_118_2:
+          name: "Momblona"
+        m_42_119_5:
+          name: "Monteagudo de las Vicarías"
+        m_42_120_9:
+          name: "Montejo de Tiermes"
+        m_42_121_6:
+          name: "Montenegro de Cameros"
+        m_42_123_7:
+          name: "Morón de Almazán"
+        m_42_124_2:
+          name: "Muriel de la Fuente"
+        m_42_125_5:
+          name: "Muriel Viejo"
+        m_42_127_4:
+          name: "Nafría de Ucero"
+        m_42_128_0:
+          name: "Narros"
+        m_42_129_3:
+          name: "Navaleno"
+        m_42_130_7:
+          name: "Nepas"
+        m_42_131_4:
+          name: "Nolay"
+        m_42_132_9:
+          name: "Noviercas"
+        m_42_134_0:
+          name: "Ólvega"
+        m_42_135_3:
+          name: "Oncala"
+        m_42_139_1:
+          name: "Pinilla del Campo"
+        m_42_140_5:
+          name: "Portillo de Soria"
+        m_42_141_2:
+          name: "Póveda de Soria, La"
+        m_42_142_7:
+          name: "Pozalmuro"
+        m_42_144_8:
+          name: "Quintana Redonda"
+        m_42_145_1:
+          name: "Quintanas de Gormaz"
+        m_42_148_6:
+          name: "Quiñonería"
+        m_42_149_9:
+          name: "Rábanos, Los"
+        m_42_151_9:
+          name: "Rebollar"
+        m_42_152_4:
+          name: "Recuerda"
+        m_42_153_0:
+          name: "Rello"
+        m_42_154_5:
+          name: "Renieblas"
+        m_42_155_8:
+          name: "Retortillo de Soria"
+        m_42_156_1:
+          name: "Reznos"
+        m_42_157_7:
+          name: "Riba de Escalote, La"
+        m_42_158_3:
+          name: "Rioseco de Soria"
+        m_42_159_6:
+          name: "Rollamienta"
+        m_42_160_0:
+          name: "Royo, El"
+        m_42_161_7:
+          name: "Salduero"
+        m_42_162_2:
+          name: "San Esteban de Gormaz"
+        m_42_163_8:
+          name: "San Felices"
+        m_42_164_3:
+          name: "San Leonardo de Yagüe"
+        m_42_165_6:
+          name: "San Pedro Manrique"
+        m_42_166_9:
+          name: "Santa Cruz de Yanguas"
+        m_42_167_5:
+          name: "Santa María de Huerta"
+        m_42_168_1:
+          name: "Santa María de las Hoyas"
+        m_42_171_5:
+          name: "Serón de Nágima"
+        m_42_172_0:
+          name: "Soliedra"
+        m_42_173_6:
+          name: "Soria"
+        m_42_174_1:
+          name: "Sotillo del Rincón"
+        m_42_175_4:
+          name: "Suellacabras"
+        m_42_176_7:
+          name: "Tajahuerce"
+        m_42_177_3:
+          name: "Tajueco"
+        m_42_178_9:
+          name: "Talveila"
+        m_42_181_3:
+          name: "Tardelcuende"
+        m_42_182_8:
+          name: "Taroda"
+        m_42_183_4:
+          name: "Tejado"
+        m_42_184_9:
+          name: "Torlengua"
+        m_42_185_2:
+          name: "Torreblacos"
+        m_42_187_1:
+          name: "Torrubia de Soria"
+        m_42_188_7:
+          name: "Trévago"
+        m_42_189_0:
+          name: "Ucero"
+        m_42_190_4:
+          name: "Vadillo"
+        m_42_191_1:
+          name: "Valdeavellano de Tera"
+        m_42_192_6:
+          name: "Valdegeña"
+        m_42_193_2:
+          name: "Valdelagua del Cerro"
+        m_42_194_7:
+          name: "Valdemaluque"
+        m_42_195_0:
+          name: "Valdenebro"
+        m_42_196_3:
+          name: "Valdeprado"
+        m_42_197_9:
+          name: "Valderrodilla"
+        m_42_198_5:
+          name: "Valtajeros"
+        m_42_200_2:
+          name: "Velamazán"
+        m_42_201_9:
+          name: "Velilla de la Sierra"
+        m_42_202_4:
+          name: "Velilla de los Ajos"
+        m_42_204_5:
+          name: "Viana de Duero"
+        m_42_205_8:
+          name: "Villaciervos"
+        m_42_206_1:
+          name: "Villanueva de Gormaz"
+        m_42_207_7:
+          name: "Villar del Ala"
+        m_42_208_3:
+          name: "Villar del Campo"
+        m_42_209_6:
+          name: "Villar del Río"
+        m_42_211_7:
+          name: "Villares de Soria, Los"
+        m_42_212_2:
+          name: "Villasayas"
+        m_42_213_8:
+          name: "Villaseca de Arciel"
+        m_42_215_6:
+          name: "Vinuesa"
+        m_42_216_9:
+          name: "Vizmanos"
+        m_42_217_5:
+          name: "Vozmediano"
+        m_42_218_1:
+          name: "Yanguas"
+        m_42_219_4:
+          name: "Yelo"

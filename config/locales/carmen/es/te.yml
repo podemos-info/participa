@@ -1,0 +1,477 @@
+---
+es:
+  world:
+    es:
+      te:
+        m_44_001_2:
+          name: "Ababuj"
+        m_44_002_7:
+          name: "Abejuela"
+        m_44_003_3:
+          name: "Aguatón"
+        m_44_004_8:
+          name: "Aguaviva"
+        m_44_005_1:
+          name: "Aguilar del Alfambra"
+        m_44_006_4:
+          name: "Alacón"
+        m_44_007_0:
+          name: "Alba"
+        m_44_008_6:
+          name: "Albalate del Arzobispo"
+        m_44_009_9:
+          name: "Albarracín"
+        m_44_010_3:
+          name: "Albentosa"
+        m_44_011_0:
+          name: "Alcaine"
+        m_44_012_5:
+          name: "Alcalá de la Selva"
+        m_44_013_1:
+          name: "Alcañiz"
+        m_44_014_6:
+          name: "Alcorisa"
+        m_44_016_2:
+          name: "Alfambra"
+        m_44_017_8:
+          name: "Aliaga"
+        m_44_021_8:
+          name: "Allepuz"
+        m_44_022_3:
+          name: "Alloza"
+        m_44_023_9:
+          name: "Allueva"
+        m_44_018_4:
+          name: "Almohaja"
+        m_44_019_7:
+          name: "Alobras"
+        m_44_020_1:
+          name: "Alpeñés"
+        m_44_024_4:
+          name: "Anadón"
+        m_44_025_7:
+          name: "Andorra"
+        m_44_026_0:
+          name: "Arcos de las Salinas"
+        m_44_027_6:
+          name: "Arens de Lledó"
+        m_44_028_2:
+          name: "Argente"
+        m_44_029_5:
+          name: "Ariño"
+        m_44_031_6:
+          name: "Azaila"
+        m_44_032_1:
+          name: "Bádenas"
+        m_44_033_7:
+          name: "Báguena"
+        m_44_034_2:
+          name: "Bañón"
+        m_44_035_5:
+          name: "Barrachina"
+        m_44_036_8:
+          name: "Bea"
+        m_44_037_4:
+          name: "Beceite"
+        m_44_039_3:
+          name: "Bello"
+        m_44_038_0:
+          name: "Belmonte de San José"
+        m_44_040_7:
+          name: "Berge"
+        m_44_041_4:
+          name: "Bezas"
+        m_44_042_9:
+          name: "Blancas"
+        m_44_043_5:
+          name: "Blesa"
+        m_44_044_0:
+          name: "Bordón"
+        m_44_045_3:
+          name: "Bronchales"
+        m_44_046_6:
+          name: "Bueña"
+        m_44_047_2:
+          name: "Burbáguena"
+        m_44_048_8:
+          name: "Cabra de Mora"
+        m_44_049_1:
+          name: "Calaceite"
+        m_44_050_4:
+          name: "Calamocha"
+        m_44_051_1:
+          name: "Calanda"
+        m_44_052_6:
+          name: "Calomarde"
+        m_44_053_2:
+          name: "Camañas"
+        m_44_054_7:
+          name: "Camarena de la Sierra"
+        m_44_055_0:
+          name: "Camarillas"
+        m_44_056_3:
+          name: "Caminreal"
+        m_44_059_8:
+          name: "Cantavieja"
+        m_44_060_2:
+          name: "Cañada de Benatanduz"
+        m_44_061_9:
+          name: "Cañada de Verich, La"
+        m_44_062_4:
+          name: "Cañada Vellida"
+        m_44_063_0:
+          name: "Cañizar del Olivar"
+        m_44_064_5:
+          name: "Cascante del Río"
+        m_44_065_8:
+          name: "Castejón de Tornos"
+        m_44_066_1:
+          name: "Castel de Cabra"
+        m_44_070_0:
+          name: "Castellar, El"
+        m_44_071_7:
+          name: "Castellote"
+        m_44_067_7:
+          name: "Castelnou"
+        m_44_068_3:
+          name: "Castelserás"
+        m_44_074_3:
+          name: "Cedrillas"
+        m_44_075_6:
+          name: "Celadas"
+        m_44_076_9:
+          name: "Cella"
+        m_44_077_5:
+          name: "Cerollera, La"
+        m_44_080_8:
+          name: "Codoñera, La"
+        m_44_082_0:
+          name: "Corbalán"
+        m_44_084_1:
+          name: "Cortes de Aragón"
+        m_44_085_4:
+          name: "Cosa"
+        m_44_086_7:
+          name: "Cretas"
+        m_44_087_3:
+          name: "Crivillén"
+        m_44_088_9:
+          name: "Cuba, La"
+        m_44_089_2:
+          name: "Cubla"
+        m_44_090_6:
+          name: "Cucalón"
+        m_44_092_8:
+          name: "Cuervo, El"
+        m_44_093_4:
+          name: "Cuevas de Almudén"
+        m_44_094_9:
+          name: "Cuevas Labradas"
+        m_44_096_5:
+          name: "Ejulve"
+        m_44_097_1:
+          name: "Escorihuela"
+        m_44_099_0:
+          name: "Escucha"
+        m_44_100_4:
+          name: "Estercuel"
+        m_44_101_1:
+          name: "Ferreruela de Huerva"
+        m_44_102_6:
+          name: "Fonfría"
+        m_44_103_2:
+          name: "Formiche Alto"
+        m_44_105_0:
+          name: "Fórnoles"
+        m_44_106_3:
+          name: "Fortanete"
+        m_44_107_9:
+          name: "Foz-Calanda"
+        m_44_108_5:
+          name: "Fresneda, La"
+        m_44_109_8:
+          name: "Frías de Albarracín"
+        m_44_110_2:
+          name: "Fuenferrada"
+        m_44_111_9:
+          name: "Fuentes Calientes"
+        m_44_112_4:
+          name: "Fuentes Claras"
+        m_44_113_0:
+          name: "Fuentes de Rubielos"
+        m_44_114_5:
+          name: "Fuentespalda"
+        m_44_115_8:
+          name: "Galve"
+        m_44_116_1:
+          name: "Gargallo"
+        m_44_117_7:
+          name: "Gea de Albarracín"
+        m_44_118_3:
+          name: "Ginebrosa, La"
+        m_44_119_6:
+          name: "Griegos"
+        m_44_120_0:
+          name: "Guadalaviar"
+        m_44_121_7:
+          name: "Gúdar"
+        m_44_122_2:
+          name: "Híjar"
+        m_44_123_8:
+          name: "Hinojosa de Jarque"
+        m_44_124_3:
+          name: "Hoz de la Vieja, La"
+        m_44_125_6:
+          name: "Huesa del Común"
+        m_44_126_9:
+          name: "Iglesuela del Cid, La"
+        m_44_127_5:
+          name: "Jabaloyas"
+        m_44_128_1:
+          name: "Jarque de la Val"
+        m_44_129_4:
+          name: "Jatiel"
+        m_44_130_8:
+          name: "Jorcas"
+        m_44_131_5:
+          name: "Josa"
+        m_44_132_0:
+          name: "Lagueruela"
+        m_44_133_6:
+          name: "Lanzuela"
+        m_44_135_4:
+          name: "Libros"
+        m_44_136_7:
+          name: "Lidón"
+        m_44_137_3:
+          name: "Linares de Mora"
+        m_44_141_3:
+          name: "Lledó"
+        m_44_138_9:
+          name: "Loscos"
+        m_44_142_8:
+          name: "Maicas"
+        m_44_143_4:
+          name: "Manzanera"
+        m_44_144_9:
+          name: "Martín del Río"
+        m_44_145_2:
+          name: "Mas de las Matas"
+        m_44_146_5:
+          name: "Mata de los Olmos, La"
+        m_44_147_1:
+          name: "Mazaleón"
+        m_44_148_7:
+          name: "Mezquita de Jarque"
+        m_44_149_0:
+          name: "Mirambel"
+        m_44_150_3:
+          name: "Miravete de la Sierra"
+        m_44_151_0:
+          name: "Molinos"
+        m_44_152_5:
+          name: "Monforte de Moyuela"
+        m_44_153_1:
+          name: "Monreal del Campo"
+        m_44_154_6:
+          name: "Monroyo"
+        m_44_155_9:
+          name: "Montalbán"
+        m_44_156_2:
+          name: "Monteagudo del Castillo"
+        m_44_157_8:
+          name: "Monterde de Albarracín"
+        m_44_158_4:
+          name: "Mora de Rubielos"
+        m_44_159_7:
+          name: "Moscardón"
+        m_44_160_1:
+          name: "Mosqueruela"
+        m_44_161_8:
+          name: "Muniesa"
+        m_44_163_9:
+          name: "Noguera de Albarracín"
+        m_44_164_4:
+          name: "Nogueras"
+        m_44_165_7:
+          name: "Nogueruelas"
+        m_44_167_6:
+          name: "Obón"
+        m_44_168_2:
+          name: "Odón"
+        m_44_169_5:
+          name: "Ojos Negros"
+        m_44_171_6:
+          name: "Olba"
+        m_44_172_1:
+          name: "Oliete"
+        m_44_173_7:
+          name: "Olmos, Los"
+        m_44_174_2:
+          name: "Orihuela del Tremedal"
+        m_44_175_5:
+          name: "Orrios"
+        m_44_176_8:
+          name: "Palomar de Arroyos"
+        m_44_177_4:
+          name: "Pancrudo"
+        m_44_178_0:
+          name: "Parras de Castellote, Las"
+        m_44_179_3:
+          name: "Peñarroya de Tastavins"
+        m_44_180_7:
+          name: "Peracense"
+        m_44_181_4:
+          name: "Peralejos"
+        m_44_182_9:
+          name: "Perales del Alfambra"
+        m_44_183_5:
+          name: "Pitarque"
+        m_44_184_0:
+          name: "Plou"
+        m_44_185_3:
+          name: "Pobo, El"
+        m_44_187_2:
+          name: "Portellada, La"
+        m_44_189_1:
+          name: "Pozondón"
+        m_44_190_5:
+          name: "Pozuel del Campo"
+        m_44_191_2:
+          name: "Puebla de Híjar, La"
+        m_44_192_7:
+          name: "Puebla de Valverde, La"
+        m_44_193_3:
+          name: "Puertomingalvo"
+        m_44_194_8:
+          name: "Ráfales"
+        m_44_195_1:
+          name: "Rillo"
+        m_44_196_4:
+          name: "Riodeva"
+        m_44_197_0:
+          name: "Ródenas"
+        m_44_198_6:
+          name: "Royuela"
+        m_44_199_9:
+          name: "Rubiales"
+        m_44_200_3:
+          name: "Rubielos de la Cérida"
+        m_44_201_0:
+          name: "Rubielos de Mora"
+        m_44_203_1:
+          name: "Salcedillo"
+        m_44_204_6:
+          name: "Saldón"
+        m_44_205_9:
+          name: "Samper de Calanda"
+        m_44_206_2:
+          name: "San Agustín"
+        m_44_207_8:
+          name: "San Martín del Río"
+        m_44_208_4:
+          name: "Santa Cruz de Nogueras"
+        m_44_209_7:
+          name: "Santa Eulalia"
+        m_44_210_1:
+          name: "Sarrión"
+        m_44_211_8:
+          name: "Segura de los Baños"
+        m_44_212_3:
+          name: "Seno"
+        m_44_213_9:
+          name: "Singra"
+        m_44_215_7:
+          name: "Terriente"
+        m_44_216_0:
+          name: "Teruel"
+        m_44_217_6:
+          name: "Toril y Masegoso"
+        m_44_218_2:
+          name: "Tormón"
+        m_44_219_5:
+          name: "Tornos"
+        m_44_220_9:
+          name: "Torralba de los Sisones"
+        m_44_223_7:
+          name: "Torre de Arcas"
+        m_44_224_2:
+          name: "Torre de las Arcas"
+        m_44_225_5:
+          name: "Torre del Compte"
+        m_44_227_4:
+          name: "Torre los Negros"
+        m_44_221_6:
+          name: "Torrecilla de Alcañiz"
+        m_44_222_1:
+          name: "Torrecilla del Rebollar"
+        m_44_226_8:
+          name: "Torrelacárcel"
+        m_44_228_0:
+          name: "Torremocha de Jiloca"
+        m_44_229_3:
+          name: "Torres de Albarracín"
+        m_44_230_7:
+          name: "Torrevelilla"
+        m_44_231_4:
+          name: "Torrijas"
+        m_44_232_9:
+          name: "Torrijo del Campo"
+        m_44_234_0:
+          name: "Tramacastiel"
+        m_44_235_3:
+          name: "Tramacastilla"
+        m_44_236_6:
+          name: "Tronchón"
+        m_44_237_2:
+          name: "Urrea de Gaén"
+        m_44_238_8:
+          name: "Utrillas"
+        m_44_239_1:
+          name: "Valacloche"
+        m_44_240_5:
+          name: "Valbona"
+        m_44_241_2:
+          name: "Valdealgorfa"
+        m_44_243_3:
+          name: "Valdecuenca"
+        m_44_244_8:
+          name: "Valdelinares"
+        m_44_245_1:
+          name: "Valdeltormo"
+        m_44_246_4:
+          name: "Valderrobres"
+        m_44_247_0:
+          name: "Valjunquera"
+        m_44_249_9:
+          name: "Vallecillo, El"
+        m_44_250_2:
+          name: "Veguillas de la Sierra"
+        m_44_251_9:
+          name: "Villafranca del Campo"
+        m_44_252_4:
+          name: "Villahermosa del Campo"
+        m_44_256_1:
+          name: "Villanueva del Rebollar de la Sierra"
+        m_44_257_7:
+          name: "Villar del Cobo"
+        m_44_258_3:
+          name: "Villar del Salz"
+        m_44_260_0:
+          name: "Villarluengo"
+        m_44_261_7:
+          name: "Villarquemado"
+        m_44_262_2:
+          name: "Villarroya de los Pinares"
+        m_44_263_8:
+          name: "Villastar"
+        m_44_264_3:
+          name: "Villel"
+        m_44_265_6:
+          name: "Vinaceite"
+        m_44_266_9:
+          name: "Visiedo"
+        m_44_267_5:
+          name: "Vivel del Río Martín"
+        m_44_268_1:
+          name: "Zoma, La"

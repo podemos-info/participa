@@ -1,0 +1,467 @@
+---
+es:
+  world:
+    es:
+      l:
+        m_25_001_9:
+          name: "Abella de la Conca"
+        m_25_002_4:
+          name: "Àger"
+        m_25_003_0:
+          name: "Agramunt"
+        m_25_038_7:
+          name: "Aitona"
+        m_25_004_5:
+          name: "Alamús, Els"
+        m_25_005_8:
+          name: "Alàs i Cerc"
+        m_25_006_1:
+          name: "Albagés, L'"
+        m_25_007_7:
+          name: "Albatàrrec"
+        m_25_008_3:
+          name: "Albesa"
+        m_25_009_6:
+          name: "Albi, L'"
+        m_25_010_0:
+          name: "Alcanó"
+        m_25_011_7:
+          name: "Alcarràs"
+        m_25_012_2:
+          name: "Alcoletge"
+        m_25_013_8:
+          name: "Alfarràs"
+        m_25_014_3:
+          name: "Alfés"
+        m_25_015_6:
+          name: "Algerri"
+        m_25_016_9:
+          name: "Alguaire"
+        m_25_017_5:
+          name: "Alins"
+        m_25_019_4:
+          name: "Almacelles"
+        m_25_020_8:
+          name: "Almatret"
+        m_25_021_5:
+          name: "Almenar"
+        m_25_022_0:
+          name: "Alòs de Balaguer"
+        m_25_023_6:
+          name: "Alpicat"
+        m_25_024_1:
+          name: "Alt Àneu"
+        m_25_027_3:
+          name: "Anglesola"
+        m_25_029_2:
+          name: "Arbeca"
+        m_25_031_3:
+          name: "Arres"
+        m_25_032_8:
+          name: "Arsèguel"
+        m_25_033_4:
+          name: "Artesa de Lleida"
+        m_25_034_9:
+          name: "Artesa de Segre"
+        m_25_036_5:
+          name: "Aspa"
+        m_25_037_1:
+          name: "Avellanes i Santa Linya, Les"
+        m_25_039_0:
+          name: "Baix Pallars"
+        m_25_040_4:
+          name: "Balaguer"
+        m_25_041_1:
+          name: "Barbens"
+        m_25_042_6:
+          name: "Baronia de Rialb, La"
+        m_25_044_7:
+          name: "Bassella"
+        m_25_045_0:
+          name: "Bausen"
+        m_25_046_3:
+          name: "Belianes"
+        m_25_170_6:
+          name: "Bellaguarda"
+        m_25_047_9:
+          name: "Bellcaire d'Urgell"
+        m_25_048_5:
+          name: "Bell-lloc d'Urgell"
+        m_25_049_8:
+          name: "Bellmunt d'Urgell"
+        m_25_050_1:
+          name: "Bellpuig"
+        m_25_051_8:
+          name: "Bellver de Cerdanya"
+        m_25_052_3:
+          name: "Bellvís"
+        m_25_053_9:
+          name: "Benavent de Segrià"
+        m_25_055_7:
+          name: "Biosca"
+        m_25_057_6:
+          name: "Bòrdes, Es"
+        m_25_058_2:
+          name: "Borges Blanques, Les"
+        m_25_059_5:
+          name: "Bossòst"
+        m_25_056_0:
+          name: "Bovera"
+        m_25_060_9:
+          name: "Cabanabona"
+        m_25_061_6:
+          name: "Cabó"
+        m_25_062_1:
+          name: "Camarasa"
+        m_25_063_7:
+          name: "Canejan"
+        m_25_904_6:
+          name: "Castell de Mur"
+        m_25_064_2:
+          name: "Castellar de la Ribera"
+        m_25_067_4:
+          name: "Castelldans"
+        m_25_068_0:
+          name: "Castellnou de Seana"
+        m_25_069_3:
+          name: "Castelló de Farfanya"
+        m_25_070_7:
+          name: "Castellserà"
+        m_25_071_4:
+          name: "Cava"
+        m_25_072_9:
+          name: "Cervera"
+        m_25_073_5:
+          name: "Cervià de les Garrigues"
+        m_25_074_0:
+          name: "Ciutadilla"
+        m_25_075_3:
+          name: "Clariana de Cardener"
+        m_25_076_6:
+          name: "Cogul, El"
+        m_25_077_2:
+          name: "Coll de Nargó"
+        m_25_163_6:
+          name: "Coma i la Pedra, La"
+        m_25_161_5:
+          name: "Conca de Dalt"
+        m_25_078_8:
+          name: "Corbins"
+        m_25_079_1:
+          name: "Cubells"
+        m_25_081_2:
+          name: "Espluga Calba, L'"
+        m_25_082_7:
+          name: "Espot"
+        m_25_088_6:
+          name: "Estamariu"
+        m_25_085_1:
+          name: "Estaràs"
+        m_25_086_4:
+          name: "Esterri d'Àneu"
+        m_25_087_0:
+          name: "Esterri de Cardós"
+        m_25_089_9:
+          name: "Farrera"
+        m_25_908_4:
+          name: "Fígols i Alinyà"
+        m_25_092_5:
+          name: "Floresta, La"
+        m_25_093_1:
+          name: "Fondarella"
+        m_25_094_6:
+          name: "Foradada"
+        m_25_096_2:
+          name: "Fuliola, La"
+        m_25_097_8:
+          name: "Fulleda"
+        m_25_098_4:
+          name: "Gavet de la Conca"
+        m_25_912_3:
+          name: "Gimenells i el Pla de la Font"
+        m_25_099_7:
+          name: "Golmés"
+        m_25_100_1:
+          name: "Gósol"
+        m_25_101_8:
+          name: "Granadella, La"
+        m_25_102_3:
+          name: "Granja d'Escarp, La"
+        m_25_103_9:
+          name: "Granyanella"
+        m_25_105_7:
+          name: "Granyena de les Garrigues"
+        m_25_104_4:
+          name: "Granyena de Segarra"
+        m_25_109_5:
+          name: "Guimerà"
+        m_25_903_1:
+          name: "Guingueta d'Àneu, La"
+        m_25_110_9:
+          name: "Guissona"
+        m_25_111_6:
+          name: "Guixers"
+        m_25_115_5:
+          name: "Isona i Conca Dellà"
+        m_25_112_1:
+          name: "Ivars de Noguera"
+        m_25_113_7:
+          name: "Ivars d'Urgell"
+        m_25_114_2:
+          name: "Ivorra"
+        m_25_910_1:
+          name: "Josa i Tuixén"
+        m_25_118_0:
+          name: "Juncosa"
+        m_25_119_3:
+          name: "Juneda"
+        m_25_121_4:
+          name: "Les"
+        m_25_122_9:
+          name: "Linyola"
+        m_25_123_5:
+          name: "Lladorre"
+        m_25_124_0:
+          name: "Lladurs"
+        m_25_125_3:
+          name: "Llardecans"
+        m_25_126_6:
+          name: "Llavorsí"
+        m_25_120_7:
+          name: "Lleida"
+        m_25_127_2:
+          name: "Lles de Cerdanya"
+        m_25_128_8:
+          name: "Llimiana"
+        m_25_129_1:
+          name: "Llobera"
+        m_25_133_3:
+          name: "Maials"
+        m_25_130_5:
+          name: "Maldà"
+        m_25_131_2:
+          name: "Massalcoreig"
+        m_25_132_7:
+          name: "Massoteres"
+        m_25_134_8:
+          name: "Menàrguens"
+        m_25_135_1:
+          name: "Miralcamp"
+        m_25_137_0:
+          name: "Mollerussa"
+        m_25_136_4:
+          name: "Molsosa, La"
+        m_25_139_9:
+          name: "Montellà i Martinet"
+        m_25_140_3:
+          name: "Montferrer i Castellbò"
+        m_25_138_6:
+          name: "Montgai"
+        m_25_142_5:
+          name: "Montoliu de Lleida"
+        m_25_141_0:
+          name: "Montoliu de Segarra"
+        m_25_143_1:
+          name: "Montornès de Segarra"
+        m_25_145_9:
+          name: "Nalec"
+        m_25_025_4:
+          name: "Naut Aran"
+        m_25_146_2:
+          name: "Navès"
+        m_25_148_4:
+          name: "Odèn"
+        m_25_149_7:
+          name: "Oliana"
+        m_25_150_0:
+          name: "Oliola"
+        m_25_151_7:
+          name: "Olius"
+        m_25_152_2:
+          name: "Oluges, Les"
+        m_25_153_8:
+          name: "Omellons, Els"
+        m_25_154_3:
+          name: "Omells de na Gaia, Els"
+        m_25_155_6:
+          name: "Organyà"
+        m_25_156_9:
+          name: "Os de Balaguer"
+        m_25_157_5:
+          name: "Ossó de Sió"
+        m_25_158_1:
+          name: "Palau d'Anglesola, El"
+        m_25_164_1:
+          name: "Penelles"
+        m_25_165_4:
+          name: "Peramola"
+        m_25_166_7:
+          name: "Pinell de Solsonès"
+        m_25_167_3:
+          name: "Pinós"
+        m_25_911_8:
+          name: "Plans de Sió, Els"
+        m_25_168_9:
+          name: "Poal, El"
+        m_25_169_2:
+          name: "Pobla de Cérvoles, La"
+        m_25_171_3:
+          name: "Pobla de Segur, La"
+        m_25_030_6:
+          name: "Pont de Bar, El"
+        m_25_173_4:
+          name: "Pont de Suert, El"
+        m_25_172_8:
+          name: "Ponts"
+        m_25_174_9:
+          name: "Portella, La"
+        m_25_175_2:
+          name: "Prats i Sansor"
+        m_25_176_5:
+          name: "Preixana"
+        m_25_177_1:
+          name: "Preixens"
+        m_25_179_0:
+          name: "Prullans"
+        m_25_180_4:
+          name: "Puiggròs"
+        m_25_181_1:
+          name: "Puigverd d'Agramunt"
+        m_25_182_6:
+          name: "Puigverd de Lleida"
+        m_25_183_2:
+          name: "Rialp"
+        m_25_905_9:
+          name: "Ribera d'Ondara"
+        m_25_185_0:
+          name: "Ribera d'Urgellet"
+        m_25_186_3:
+          name: "Riner"
+        m_25_913_9:
+          name: "Riu de Cerdanya"
+        m_25_189_8:
+          name: "Rosselló"
+        m_25_190_2:
+          name: "Salàs de Pallars"
+        m_25_191_9:
+          name: "Sanaüja"
+        m_25_196_1:
+          name: "Sant Esteve de la Sarga"
+        m_25_192_4:
+          name: "Sant Guim de Freixenet"
+        m_25_197_7:
+          name: "Sant Guim de la Plana"
+        m_25_193_0:
+          name: "Sant Llorenç de Morunys"
+        m_25_902_5:
+          name: "Sant Martí de Riucorb"
+        m_25_194_5:
+          name: "Sant Ramon"
+        m_25_201_7:
+          name: "Sarroca de Bellera"
+        m_25_200_0:
+          name: "Sarroca de Lleida"
+        m_25_202_2:
+          name: "Senterada"
+        m_25_035_2:
+          name: "Sentiu de Sió, La"
+        m_25_204_3:
+          name: "Seròs"
+        m_25_203_8:
+          name: "Seu d'Urgell, La"
+        m_25_205_6:
+          name: "Sidamon"
+        m_25_206_9:
+          name: "Soleràs, El"
+        m_25_207_5:
+          name: "Solsona"
+        m_25_208_1:
+          name: "Soriguera"
+        m_25_209_4:
+          name: "Sort"
+        m_25_210_8:
+          name: "Soses"
+        m_25_211_5:
+          name: "Sudanell"
+        m_25_212_0:
+          name: "Sunyer"
+        m_25_215_4:
+          name: "Talarn"
+        m_25_216_7:
+          name: "Talavera"
+        m_25_217_3:
+          name: "Tàrrega"
+        m_25_218_9:
+          name: "Tarrés"
+        m_25_219_2:
+          name: "Tarroja de Segarra"
+        m_25_220_6:
+          name: "Térmens"
+        m_25_221_3:
+          name: "Tírvia"
+        m_25_222_8:
+          name: "Tiurana"
+        m_25_223_4:
+          name: "Torà"
+        m_25_224_9:
+          name: "Torms, Els"
+        m_25_225_2:
+          name: "Tornabous"
+        m_25_227_1:
+          name: "Torre de Cabdella, La"
+        m_25_226_5:
+          name: "Torrebesses"
+        m_25_228_7:
+          name: "Torrefarrera"
+        m_25_907_8:
+          name: "Torrefeta i Florejacs"
+        m_25_230_4:
+          name: "Torregrossa"
+        m_25_231_1:
+          name: "Torrelameu"
+        m_25_232_6:
+          name: "Torres de Segre"
+        m_25_233_2:
+          name: "Torre-serona"
+        m_25_234_7:
+          name: "Tremp"
+        m_25_043_2:
+          name: "Vall de Boí, La"
+        m_25_901_0:
+          name: "Vall de Cardós"
+        m_25_238_5:
+          name: "Vallbona de les Monges"
+        m_25_240_2:
+          name: "Vallfogona de Balaguer"
+        m_25_906_2:
+          name: "Valls d'Aguilar, Les"
+        m_25_239_8:
+          name: "Valls de Valira, Les"
+        m_25_909_7:
+          name: "Vansa i Fórnols, La"
+        m_25_242_4:
+          name: "Verdú"
+        m_25_243_0:
+          name: "Vielha e Mijaran"
+        m_25_244_5:
+          name: "Vilagrassa"
+        m_25_245_8:
+          name: "Vilaller"
+        m_25_247_7:
+          name: "Vilamòs"
+        m_25_248_3:
+          name: "Vilanova de Bellpuig"
+        m_25_254_2:
+          name: "Vilanova de la Barca"
+        m_25_249_6:
+          name: "Vilanova de l'Aguda"
+        m_25_250_9:
+          name: "Vilanova de Meià"
+        m_25_251_6:
+          name: "Vilanova de Segrià"
+        m_25_252_1:
+          name: "Vila-sana"
+        m_25_253_7:
+          name: "Vilosell, El"
+        m_25_255_5:
+          name: "Vinaixa"

@@ -1,0 +1,155 @@
+---
+es:
+  world:
+    es:
+      co:
+        m_14_001_8:
+          name: "Adamuz"
+        m_14_002_3:
+          name: "Aguilar de la Frontera"
+        m_14_003_9:
+          name: "Alcaracejos"
+        m_14_004_4:
+          name: "Almedinilla"
+        m_14_005_7:
+          name: "Almodóvar del Río"
+        m_14_006_0:
+          name: "Añora"
+        m_14_007_6:
+          name: "Baena"
+        m_14_008_2:
+          name: "Belalcázar"
+        m_14_009_5:
+          name: "Belmez"
+        m_14_010_9:
+          name: "Benamejí"
+        m_14_011_6:
+          name: "Blázquez, Los"
+        m_14_012_1:
+          name: "Bujalance"
+        m_14_013_7:
+          name: "Cabra"
+        m_14_014_2:
+          name: "Cañete de las Torres"
+        m_14_015_5:
+          name: "Carcabuey"
+        m_14_016_8:
+          name: "Cardeña"
+        m_14_017_4:
+          name: "Carlota, La"
+        m_14_018_0:
+          name: "Carpio, El"
+        m_14_019_3:
+          name: "Castro del Río"
+        m_14_020_7:
+          name: "Conquista"
+        m_14_021_4:
+          name: "Córdoba"
+        m_14_022_9:
+          name: "Doña Mencía"
+        m_14_023_5:
+          name: "Dos Torres"
+        m_14_024_0:
+          name: "Encinas Reales"
+        m_14_025_3:
+          name: "Espejo"
+        m_14_026_6:
+          name: "Espiel"
+        m_14_027_2:
+          name: "Fernán-Núñez"
+        m_14_028_8:
+          name: "Fuente la Lancha"
+        m_14_029_1:
+          name: "Fuente Obejuna"
+        m_14_030_5:
+          name: "Fuente Palmera"
+        m_14_031_2:
+          name: "Fuente-Tójar"
+        m_14_032_7:
+          name: "Granjuela, La"
+        m_14_033_3:
+          name: "Guadalcázar"
+        m_14_034_8:
+          name: "Guijo, El"
+        m_14_035_1:
+          name: "Hinojosa del Duque"
+        m_14_036_4:
+          name: "Hornachuelos"
+        m_14_037_0:
+          name: "Iznájar"
+        m_14_038_6:
+          name: "Lucena"
+        m_14_039_9:
+          name: "Luque"
+        m_14_040_3:
+          name: "Montalbán de Córdoba"
+        m_14_041_0:
+          name: "Montemayor"
+        m_14_042_5:
+          name: "Montilla"
+        m_14_043_1:
+          name: "Montoro"
+        m_14_044_6:
+          name: "Monturque"
+        m_14_045_9:
+          name: "Moriles"
+        m_14_046_2:
+          name: "Nueva Carteya"
+        m_14_047_8:
+          name: "Obejo"
+        m_14_048_4:
+          name: "Palenciana"
+        m_14_049_7:
+          name: "Palma del Río"
+        m_14_050_0:
+          name: "Pedro Abad"
+        m_14_051_7:
+          name: "Pedroche"
+        m_14_052_2:
+          name: "Peñarroya-Pueblonuevo"
+        m_14_053_8:
+          name: "Posadas"
+        m_14_054_3:
+          name: "Pozoblanco"
+        m_14_055_6:
+          name: "Priego de Córdoba"
+        m_14_056_9:
+          name: "Puente Genil"
+        m_14_057_5:
+          name: "Rambla, La"
+        m_14_058_1:
+          name: "Rute"
+        m_14_059_4:
+          name: "San Sebastián de los Ballesteros"
+        m_14_061_5:
+          name: "Santa Eufemia"
+        m_14_060_8:
+          name: "Santaella"
+        m_14_062_0:
+          name: "Torrecampo"
+        m_14_063_6:
+          name: "Valenzuela"
+        m_14_064_1:
+          name: "Valsequillo"
+        m_14_065_4:
+          name: "Victoria, La"
+        m_14_066_7:
+          name: "Villa del Río"
+        m_14_067_3:
+          name: "Villafranca de Córdoba"
+        m_14_068_9:
+          name: "Villaharta"
+        m_14_069_2:
+          name: "Villanueva de Córdoba"
+        m_14_070_6:
+          name: "Villanueva del Duque"
+        m_14_071_3:
+          name: "Villanueva del Rey"
+        m_14_072_8:
+          name: "Villaralto"
+        m_14_073_4:
+          name: "Villaviciosa de Córdoba"
+        m_14_074_9:
+          name: "Viso, El"
+        m_14_075_2:
+          name: "Zuheros"

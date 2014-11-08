@@ -1,0 +1,207 @@
+---
+es:
+  world:
+    es:
+      ma:
+        m_29_001_7:
+          name: "Alameda"
+        m_29_002_2:
+          name: "Alcaucín"
+        m_29_003_8:
+          name: "Alfarnate"
+        m_29_004_3:
+          name: "Alfarnatejo"
+        m_29_005_6:
+          name: "Algarrobo"
+        m_29_006_9:
+          name: "Algatocín"
+        m_29_007_5:
+          name: "Alhaurín de la Torre"
+        m_29_008_1:
+          name: "Alhaurín el Grande"
+        m_29_009_4:
+          name: "Almáchar"
+        m_29_010_8:
+          name: "Almargen"
+        m_29_011_5:
+          name: "Almogía"
+        m_29_012_0:
+          name: "Álora"
+        m_29_013_6:
+          name: "Alozaina"
+        m_29_014_1:
+          name: "Alpandeire"
+        m_29_015_4:
+          name: "Antequera"
+        m_29_016_7:
+          name: "Árchez"
+        m_29_017_3:
+          name: "Archidona"
+        m_29_018_9:
+          name: "Ardales"
+        m_29_019_2:
+          name: "Arenas"
+        m_29_020_6:
+          name: "Arriate"
+        m_29_021_3:
+          name: "Atajate"
+        m_29_022_8:
+          name: "Benadalid"
+        m_29_023_4:
+          name: "Benahavís"
+        m_29_024_9:
+          name: "Benalauría"
+        m_29_025_2:
+          name: "Benalmádena"
+        m_29_026_5:
+          name: "Benamargosa"
+        m_29_027_1:
+          name: "Benamocarra"
+        m_29_028_7:
+          name: "Benaoján"
+        m_29_029_0:
+          name: "Benarrabá"
+        m_29_030_4:
+          name: "Borge, El"
+        m_29_031_1:
+          name: "Burgo, El"
+        m_29_032_6:
+          name: "Campillos"
+        m_29_033_2:
+          name: "Canillas de Aceituno"
+        m_29_034_7:
+          name: "Canillas de Albaida"
+        m_29_035_0:
+          name: "Cañete la Real"
+        m_29_036_3:
+          name: "Carratraca"
+        m_29_037_9:
+          name: "Cartajima"
+        m_29_038_5:
+          name: "Cártama"
+        m_29_039_8:
+          name: "Casabermeja"
+        m_29_040_2:
+          name: "Casarabonela"
+        m_29_041_9:
+          name: "Casares"
+        m_29_042_4:
+          name: "Coín"
+        m_29_043_0:
+          name: "Colmenar"
+        m_29_044_5:
+          name: "Comares"
+        m_29_045_8:
+          name: "Cómpeta"
+        m_29_046_1:
+          name: "Cortes de la Frontera"
+        m_29_047_7:
+          name: "Cuevas Bajas"
+        m_29_049_6:
+          name: "Cuevas de San Marcos"
+        m_29_048_3:
+          name: "Cuevas del Becerro"
+        m_29_050_9:
+          name: "Cútar"
+        m_29_051_6:
+          name: "Estepona"
+        m_29_052_1:
+          name: "Faraján"
+        m_29_053_7:
+          name: "Frigiliana"
+        m_29_054_2:
+          name: "Fuengirola"
+        m_29_055_5:
+          name: "Fuente de Piedra"
+        m_29_056_8:
+          name: "Gaucín"
+        m_29_057_4:
+          name: "Genalguacil"
+        m_29_058_0:
+          name: "Guaro"
+        m_29_059_3:
+          name: "Humilladero"
+        m_29_060_7:
+          name: "Igualeja"
+        m_29_061_4:
+          name: "Istán"
+        m_29_062_9:
+          name: "Iznate"
+        m_29_063_5:
+          name: "Jimera de Líbar"
+        m_29_064_0:
+          name: "Jubrique"
+        m_29_065_3:
+          name: "Júzcar"
+        m_29_066_6:
+          name: "Macharaviaya"
+        m_29_067_2:
+          name: "Málaga"
+        m_29_068_8:
+          name: "Manilva"
+        m_29_069_1:
+          name: "Marbella"
+        m_29_070_5:
+          name: "Mijas"
+        m_29_071_2:
+          name: "Moclinejo"
+        m_29_072_7:
+          name: "Mollina"
+        m_29_073_3:
+          name: "Monda"
+        m_29_074_8:
+          name: "Montejaque"
+        m_29_075_1:
+          name: "Nerja"
+        m_29_076_4:
+          name: "Ojén"
+        m_29_077_0:
+          name: "Parauta"
+        m_29_079_9:
+          name: "Periana"
+        m_29_080_3:
+          name: "Pizarra"
+        m_29_081_0:
+          name: "Pujerra"
+        m_29_082_5:
+          name: "Rincón de la Victoria"
+        m_29_083_1:
+          name: "Riogordo"
+        m_29_084_6:
+          name: "Ronda"
+        m_29_085_9:
+          name: "Salares"
+        m_29_086_2:
+          name: "Sayalonga"
+        m_29_087_8:
+          name: "Sedella"
+        m_29_088_4:
+          name: "Sierra de Yeguas"
+        m_29_089_7:
+          name: "Teba"
+        m_29_090_1:
+          name: "Tolox"
+        m_29_901_8:
+          name: "Torremolinos"
+        m_29_091_8:
+          name: "Torrox"
+        m_29_092_3:
+          name: "Totalán"
+        m_29_093_9:
+          name: "Valle de Abdalajís"
+        m_29_094_4:
+          name: "Vélez-Málaga"
+        m_29_095_7:
+          name: "Villanueva de Algaidas"
+        m_29_902_3:
+          name: "Villanueva de la Concepción"
+        m_29_098_2:
+          name: "Villanueva de Tapia"
+        m_29_096_0:
+          name: "Villanueva del Rosario"
+        m_29_097_6:
+          name: "Villanueva del Trabuco"
+        m_29_099_5:
+          name: "Viñuela"
+        m_29_100_9:
+          name: "Yunquera"

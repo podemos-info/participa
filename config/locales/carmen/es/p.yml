@@ -1,0 +1,387 @@
+---
+es:
+  world:
+    es:
+      p:
+        m_34_001_4:
+          name: "Abarca de Campos"
+        m_34_003_5:
+          name: "Abia de las Torres"
+        m_34_004_0:
+          name: "Aguilar de Campoo"
+        m_34_005_3:
+          name: "Alar del Rey"
+        m_34_006_6:
+          name: "Alba de Cerrato"
+        m_34_009_1:
+          name: "Amayuelas de Arriba"
+        m_34_010_5:
+          name: "Ampudia"
+        m_34_011_2:
+          name: "Amusco"
+        m_34_012_7:
+          name: "Antigüedad"
+        m_34_015_1:
+          name: "Arconada"
+        m_34_017_0:
+          name: "Astudillo"
+        m_34_018_6:
+          name: "Autilla del Pino"
+        m_34_019_9:
+          name: "Autillo de Campos"
+        m_34_020_3:
+          name: "Ayuela"
+        m_34_022_5:
+          name: "Baltanás"
+        m_34_024_6:
+          name: "Baquerín de Campos"
+        m_34_025_9:
+          name: "Bárcena de Campos"
+        m_34_027_8:
+          name: "Barruelo de Santullán"
+        m_34_028_4:
+          name: "Báscones de Ojeda"
+        m_34_029_7:
+          name: "Becerril de Campos"
+        m_34_031_8:
+          name: "Belmonte de Campos"
+        m_34_032_3:
+          name: "Berzosilla"
+        m_34_033_9:
+          name: "Boada de Campos"
+        m_34_035_7:
+          name: "Boadilla de Rioseco"
+        m_34_034_4:
+          name: "Boadilla del Camino"
+        m_34_036_0:
+          name: "Brañosera"
+        m_34_037_6:
+          name: "Buenavista de Valdavia"
+        m_34_038_2:
+          name: "Bustillo de la Vega"
+        m_34_039_5:
+          name: "Bustillo del Páramo de Carrión"
+        m_34_041_6:
+          name: "Calahorra de Boedo"
+        m_34_042_1:
+          name: "Calzada de los Molinos"
+        m_34_045_5:
+          name: "Capillas"
+        m_34_046_8:
+          name: "Cardeñosa de Volpejera"
+        m_34_047_4:
+          name: "Carrión de los Condes"
+        m_34_048_0:
+          name: "Castil de Vela"
+        m_34_049_3:
+          name: "Castrejón de la Peña"
+        m_34_050_6:
+          name: "Castrillo de Don Juan"
+        m_34_051_3:
+          name: "Castrillo de Onielo"
+        m_34_052_8:
+          name: "Castrillo de Villavega"
+        m_34_053_4:
+          name: "Castromocho"
+        m_34_055_2:
+          name: "Cervatos de la Cueza"
+        m_34_056_5:
+          name: "Cervera de Pisuerga"
+        m_34_057_1:
+          name: "Cevico de la Torre"
+        m_34_058_7:
+          name: "Cevico Navero"
+        m_34_059_0:
+          name: "Cisneros"
+        m_34_060_4:
+          name: "Cobos de Cerrato"
+        m_34_061_1:
+          name: "Collazos de Boedo"
+        m_34_062_6:
+          name: "Congosto de Valdavia"
+        m_34_063_2:
+          name: "Cordovilla la Real"
+        m_34_066_3:
+          name: "Cubillas de Cerrato"
+        m_34_067_9:
+          name: "Dehesa de Montejo"
+        m_34_068_5:
+          name: "Dehesa de Romanos"
+        m_34_069_8:
+          name: "Dueñas"
+        m_34_070_2:
+          name: "Espinosa de Cerrato"
+        m_34_071_9:
+          name: "Espinosa de Villagonzalo"
+        m_34_072_4:
+          name: "Frechilla"
+        m_34_073_0:
+          name: "Fresno del Río"
+        m_34_074_5:
+          name: "Frómista"
+        m_34_076_1:
+          name: "Fuentes de Nava"
+        m_34_077_7:
+          name: "Fuentes de Valdepero"
+        m_34_079_6:
+          name: "Grijota"
+        m_34_080_0:
+          name: "Guardo"
+        m_34_081_7:
+          name: "Guaza de Campos"
+        m_34_082_2:
+          name: "Hérmedes de Cerrato"
+        m_34_083_8:
+          name: "Herrera de Pisuerga"
+        m_34_084_3:
+          name: "Herrera de Valdecañas"
+        m_34_086_9:
+          name: "Hontoria de Cerrato"
+        m_34_087_5:
+          name: "Hornillos de Cerrato"
+        m_34_088_1:
+          name: "Husillos"
+        m_34_089_4:
+          name: "Itero de la Vega"
+        m_34_091_5:
+          name: "Lagartos"
+        m_34_092_0:
+          name: "Lantadilla"
+        m_34_094_1:
+          name: "Ledigos"
+        m_34_903_6:
+          name: "Loma de Ucieza"
+        m_34_096_7:
+          name: "Lomas"
+        m_34_098_9:
+          name: "Magaz de Pisuerga"
+        m_34_099_2:
+          name: "Manquillos"
+        m_34_100_6:
+          name: "Mantinos"
+        m_34_101_3:
+          name: "Marcilla de Campos"
+        m_34_102_8:
+          name: "Mazariegos"
+        m_34_103_4:
+          name: "Mazuecos de Valdeginate"
+        m_34_104_9:
+          name: "Melgar de Yuso"
+        m_34_106_5:
+          name: "Meneses de Campos"
+        m_34_107_1:
+          name: "Micieces de Ojeda"
+        m_34_108_7:
+          name: "Monzón de Campos"
+        m_34_109_0:
+          name: "Moratinos"
+        m_34_110_4:
+          name: "Mudá"
+        m_34_112_6:
+          name: "Nogal de las Huertas"
+        m_34_113_2:
+          name: "Olea de Boedo"
+        m_34_114_7:
+          name: "Olmos de Ojeda"
+        m_34_116_3:
+          name: "Osornillo"
+        m_34_901_5:
+          name: "Osorno la Mayor"
+        m_34_120_2:
+          name: "Palencia"
+        m_34_121_9:
+          name: "Palenzuela"
+        m_34_122_4:
+          name: "Páramo de Boedo"
+        m_34_123_0:
+          name: "Paredes de Nava"
+        m_34_124_5:
+          name: "Payo de Ojeda"
+        m_34_125_8:
+          name: "Pedraza de Campos"
+        m_34_126_1:
+          name: "Pedrosa de la Vega"
+        m_34_127_7:
+          name: "Perales"
+        m_34_904_1:
+          name: "Pernía, La"
+        m_34_129_6:
+          name: "Pino del Río"
+        m_34_130_0:
+          name: "Piña de Campos"
+        m_34_131_7:
+          name: "Población de Arroyo"
+        m_34_132_2:
+          name: "Población de Campos"
+        m_34_133_8:
+          name: "Población de Cerrato"
+        m_34_134_3:
+          name: "Polentinos"
+        m_34_135_6:
+          name: "Pomar de Valdivia"
+        m_34_136_9:
+          name: "Poza de la Vega"
+        m_34_137_5:
+          name: "Pozo de Urama"
+        m_34_139_4:
+          name: "Prádanos de Ojeda"
+        m_34_140_8:
+          name: "Puebla de Valdavia, La"
+        m_34_141_5:
+          name: "Quintana del Puente"
+        m_34_143_6:
+          name: "Quintanilla de Onsoña"
+        m_34_146_7:
+          name: "Reinoso de Cerrato"
+        m_34_147_3:
+          name: "Renedo de la Vega"
+        m_34_149_2:
+          name: "Requena de Campos"
+        m_34_151_2:
+          name: "Respenda de la Peña"
+        m_34_152_7:
+          name: "Revenga de Campos"
+        m_34_154_8:
+          name: "Revilla de Collazos"
+        m_34_155_1:
+          name: "Ribas de Campos"
+        m_34_156_4:
+          name: "Riberos de la Cueza"
+        m_34_157_0:
+          name: "Saldaña"
+        m_34_158_6:
+          name: "Salinas de Pisuerga"
+        m_34_159_9:
+          name: "San Cebrián de Campos"
+        m_34_160_3:
+          name: "San Cebrián de Mudá"
+        m_34_161_0:
+          name: "San Cristóbal de Boedo"
+        m_34_163_1:
+          name: "San Mamés de Campos"
+        m_34_165_9:
+          name: "San Román de la Cuba"
+        m_34_167_8:
+          name: "Santa Cecilia del Alcor"
+        m_34_168_4:
+          name: "Santa Cruz de Boedo"
+        m_34_169_7:
+          name: "Santervás de la Vega"
+        m_34_170_1:
+          name: "Santibáñez de Ecla"
+        m_34_171_8:
+          name: "Santibáñez de la Peña"
+        m_34_174_4:
+          name: "Santoyo"
+        m_34_175_7:
+          name: "Serna, La"
+        m_34_177_6:
+          name: "Soto de Cerrato"
+        m_34_176_0:
+          name: "Sotobañado y Priorato"
+        m_34_178_2:
+          name: "Tabanera de Cerrato"
+        m_34_179_5:
+          name: "Tabanera de Valdavia"
+        m_34_180_9:
+          name: "Támara de Campos"
+        m_34_181_6:
+          name: "Tariego de Cerrato"
+        m_34_182_1:
+          name: "Torquemada"
+        m_34_184_2:
+          name: "Torremormojón"
+        m_34_185_5:
+          name: "Triollo"
+        m_34_186_8:
+          name: "Valbuena de Pisuerga"
+        m_34_189_3:
+          name: "Valdeolmillos"
+        m_34_190_7:
+          name: "Valderrábano"
+        m_34_192_9:
+          name: "Valde-Ucieza"
+        m_34_196_6:
+          name: "Valle de Cerrato"
+        m_34_902_0:
+          name: "Valle del Retortillo"
+        m_34_199_1:
+          name: "Velilla del Río Carrión"
+        m_34_023_1:
+          name: "Venta de Baños"
+        m_34_201_2:
+          name: "Vertavillo"
+        m_34_093_6:
+          name: "Vid de Ojeda, La"
+        m_34_202_7:
+          name: "Villabasta de Valdavia"
+        m_34_204_8:
+          name: "Villacidaler"
+        m_34_205_1:
+          name: "Villaconancio"
+        m_34_206_4:
+          name: "Villada"
+        m_34_208_6:
+          name: "Villaeles de Valdavia"
+        m_34_210_3:
+          name: "Villahán"
+        m_34_211_0:
+          name: "Villaherreros"
+        m_34_213_1:
+          name: "Villalaco"
+        m_34_214_6:
+          name: "Villalba de Guardo"
+        m_34_215_9:
+          name: "Villalcázar de Sirga"
+        m_34_216_2:
+          name: "Villalcón"
+        m_34_217_8:
+          name: "Villalobón"
+        m_34_218_4:
+          name: "Villaluenga de la Vega"
+        m_34_220_1:
+          name: "Villamartín de Campos"
+        m_34_221_8:
+          name: "Villamediana"
+        m_34_222_3:
+          name: "Villameriel"
+        m_34_223_9:
+          name: "Villamoronta"
+        m_34_224_4:
+          name: "Villamuera de la Cueza"
+        m_34_225_7:
+          name: "Villamuriel de Cerrato"
+        m_34_227_6:
+          name: "Villanueva del Rebollar"
+        m_34_228_2:
+          name: "Villanuño de Valdavia"
+        m_34_229_5:
+          name: "Villaprovedo"
+        m_34_230_9:
+          name: "Villarmentero de Campos"
+        m_34_231_6:
+          name: "Villarrabé"
+        m_34_232_1:
+          name: "Villarramiel"
+        m_34_233_7:
+          name: "Villasarracino"
+        m_34_234_2:
+          name: "Villasila de Valdavia"
+        m_34_236_8:
+          name: "Villaturde"
+        m_34_237_4:
+          name: "Villaumbrales"
+        m_34_238_0:
+          name: "Villaviudas"
+        m_34_240_7:
+          name: "Villerías de Campos"
+        m_34_241_4:
+          name: "Villodre"
+        m_34_242_9:
+          name: "Villodrigo"
+        m_34_243_5:
+          name: "Villoldo"
+        m_34_245_3:
+          name: "Villota del Páramo"
+        m_34_246_6:
+          name: "Villovieco"

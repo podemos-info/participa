@@ -1,0 +1,275 @@
+---
+es:
+  world:
+    es:
+      cs:
+        m_12_002_2:
+          name: "Aín"
+        m_12_003_8:
+          name: "Albocàsser"
+        m_12_004_3:
+          name: "Alcalà de Xivert"
+        m_12_005_6:
+          name: "Alcora, l'"
+        m_12_006_9:
+          name: "Alcudia de Veo"
+        m_12_007_5:
+          name: "Alfondeguilla"
+        m_12_008_1:
+          name: "Algimia de Almonacid"
+        m_12_009_4:
+          name: "Almazora/Almassora"
+        m_12_010_8:
+          name: "Almedíjar"
+        m_12_011_5:
+          name: "Almenara"
+        m_12_901_8:
+          name: "Alquerías del Niño Perdido"
+        m_12_012_0:
+          name: "Altura"
+        m_12_013_6:
+          name: "Arañuel"
+        m_12_014_1:
+          name: "Ares del Maestrat"
+        m_12_015_4:
+          name: "Argelita"
+        m_12_016_7:
+          name: "Artana"
+        m_12_001_7:
+          name: "Atzeneta del Maestrat"
+        m_12_017_3:
+          name: "Ayódar"
+        m_12_018_9:
+          name: "Azuébar"
+        m_12_020_6:
+          name: "Barracas"
+        m_12_022_8:
+          name: "Bejís"
+        m_12_024_9:
+          name: "Benafer"
+        m_12_025_2:
+          name: "Benafigos"
+        m_12_026_5:
+          name: "Benasal"
+        m_12_027_1:
+          name: "Benicarló"
+        m_12_028_7:
+          name: "Benicasim/Benicàssim"
+        m_12_029_0:
+          name: "Benlloch"
+        m_12_021_3:
+          name: "Betxí"
+        m_12_032_6:
+          name: "Borriana/Burriana"
+        m_12_031_1:
+          name: "Borriol"
+        m_12_033_2:
+          name: "Cabanes"
+        m_12_034_7:
+          name: "Càlig"
+        m_12_036_3:
+          name: "Canet lo Roig"
+        m_12_037_9:
+          name: "Castell de Cabres"
+        m_12_038_5:
+          name: "Castellfort"
+        m_12_039_8:
+          name: "Castellnovo"
+        m_12_040_2:
+          name: "Castellón de la Plana/Castelló de la Plana"
+        m_12_041_9:
+          name: "Castillo de Villamalefa"
+        m_12_042_4:
+          name: "Catí"
+        m_12_043_0:
+          name: "Caudiel"
+        m_12_044_5:
+          name: "Cervera del Maestre"
+        m_12_052_1:
+          name: "Chert/Xert"
+        m_12_053_7:
+          name: "Chilches/Xilxes"
+        m_12_055_5:
+          name: "Chodos/Xodos"
+        m_12_056_8:
+          name: "Chóvar"
+        m_12_045_8:
+          name: "Cinctorres"
+        m_12_046_1:
+          name: "Cirat"
+        m_12_048_3:
+          name: "Cortes de Arenoso"
+        m_12_049_6:
+          name: "Costur"
+        m_12_050_9:
+          name: "Coves de Vinromà, les"
+        m_12_051_6:
+          name: "Culla"
+        m_12_057_4:
+          name: "Eslida"
+        m_12_058_0:
+          name: "Espadilla"
+        m_12_059_3:
+          name: "Fanzara"
+        m_12_060_7:
+          name: "Figueroles"
+        m_12_061_4:
+          name: "Forcall"
+        m_12_063_5:
+          name: "Fuente la Reina"
+        m_12_064_0:
+          name: "Fuentes de Ayódar"
+        m_12_065_3:
+          name: "Gaibiel"
+        m_12_067_2:
+          name: "Geldo"
+        m_12_068_8:
+          name: "Herbés"
+        m_12_069_1:
+          name: "Higueras"
+        m_12_070_5:
+          name: "Jana, la"
+        m_12_071_2:
+          name: "Jérica"
+        m_12_074_8:
+          name: "Llosa, la"
+        m_12_072_7:
+          name: "Lucena del Cid"
+        m_12_073_3:
+          name: "Ludiente"
+        m_12_075_1:
+          name: "Mata de Morella, la"
+        m_12_076_4:
+          name: "Matet"
+        m_12_077_0:
+          name: "Moncofa"
+        m_12_078_6:
+          name: "Montán"
+        m_12_079_9:
+          name: "Montanejos"
+        m_12_080_3:
+          name: "Morella"
+        m_12_081_0:
+          name: "Navajas"
+        m_12_082_5:
+          name: "Nules"
+        m_12_083_1:
+          name: "Olocau del Rey"
+        m_12_084_6:
+          name: "Onda"
+        m_12_085_9:
+          name: "Oropesa del Mar/Orpesa"
+        m_12_087_8:
+          name: "Palanques"
+        m_12_088_4:
+          name: "Pavías"
+        m_12_089_7:
+          name: "Peníscola/Peñíscola"
+        m_12_090_1:
+          name: "Pina de Montalgrao"
+        m_12_093_9:
+          name: "Pobla de Benifassà, la"
+        m_12_094_4:
+          name: "Pobla Tornesa, la"
+        m_12_091_8:
+          name: "Portell de Morella"
+        m_12_092_3:
+          name: "Puebla de Arenoso"
+        m_12_095_7:
+          name: "Ribesalbes"
+        m_12_096_0:
+          name: "Rossell"
+        m_12_097_6:
+          name: "Sacañet"
+        m_12_098_2:
+          name: "Salzadella, la"
+        m_12_101_6:
+          name: "San Rafael del Río"
+        m_12_902_3:
+          name: "Sant Joan de Moró"
+        m_12_099_5:
+          name: "Sant Jordi/San Jorge"
+        m_12_100_9:
+          name: "Sant Mateu"
+        m_12_102_1:
+          name: "Santa Magdalena de Pulpis"
+        m_12_104_2:
+          name: "Segorbe"
+        m_12_103_7:
+          name: "Serratella, la"
+        m_12_105_5:
+          name: "Sierra Engarcerán"
+        m_12_106_8:
+          name: "Soneja"
+        m_12_107_4:
+          name: "Sot de Ferrer"
+        m_12_108_0:
+          name: "Sueras/Suera"
+        m_12_109_3:
+          name: "Tales"
+        m_12_110_7:
+          name: "Teresa"
+        m_12_111_4:
+          name: "Tírig"
+        m_12_112_9:
+          name: "Todolella"
+        m_12_113_5:
+          name: "Toga"
+        m_12_114_0:
+          name: "Torás"
+        m_12_115_3:
+          name: "Toro, El"
+        m_12_116_6:
+          name: "Torralba del Pinar"
+        m_12_119_1:
+          name: "Torre d'En Besora, la"
+        m_12_120_5:
+          name: "Torre d'en Doménec, la"
+        m_12_117_2:
+          name: "Torreblanca"
+        m_12_118_8:
+          name: "Torrechiva"
+        m_12_121_2:
+          name: "Traiguera"
+        m_12_122_7:
+          name: "Useras/Useres, les"
+        m_12_124_8:
+          name: "Vall d'Alba"
+        m_12_125_1:
+          name: "Vall de Almonacid"
+        m_12_126_4:
+          name: "Vall d'Uixó, la"
+        m_12_123_3:
+          name: "Vallat"
+        m_12_127_0:
+          name: "Vallibona"
+        m_12_128_6:
+          name: "Vilafamés"
+        m_12_132_5:
+          name: "Vilanova d'Alcolea"
+        m_12_134_6:
+          name: "Vilar de Canes"
+        m_12_135_9:
+          name: "Vila-real"
+        m_12_136_2:
+          name: "Vilavella, la"
+        m_12_129_9:
+          name: "Villafranca del Cid/Vilafranca"
+        m_12_130_3:
+          name: "Villahermosa del Río"
+        m_12_131_0:
+          name: "Villamalur"
+        m_12_133_1:
+          name: "Villanueva de Viver"
+        m_12_137_8:
+          name: "Villores"
+        m_12_138_4:
+          name: "Vinaròs"
+        m_12_139_7:
+          name: "Vistabella del Maestrazgo"
+        m_12_140_1:
+          name: "Viver"
+        m_12_141_8:
+          name: "Zorita del Maestrazgo"
+        m_12_142_3:
+          name: "Zucaina"

@@ -1,0 +1,229 @@
+---
+es:
+  world:
+    es:
+      bi:
+        m_48_001_0:
+          name: "Abadiño"
+        m_48_002_5:
+          name: "Abanto y Ciérvana-Abanto Zierbena"
+        m_48_911_9:
+          name: "Ajangiz"
+        m_48_912_4:
+          name: "Alonsotegi"
+        m_48_003_1:
+          name: "Amorebieta-Etxano"
+        m_48_004_6:
+          name: "Amoroto"
+        m_48_005_9:
+          name: "Arakaldo"
+        m_48_006_2:
+          name: "Arantzazu"
+        m_48_093_2:
+          name: "Areatza"
+        m_48_009_7:
+          name: "Arrankudiaga"
+        m_48_914_5:
+          name: "Arratzu"
+        m_48_010_1:
+          name: "Arrieta"
+        m_48_011_8:
+          name: "Arrigorriaga"
+        m_48_023_7:
+          name: "Artea"
+        m_48_008_4:
+          name: "Artzentales"
+        m_48_091_1:
+          name: "Atxondo"
+        m_48_070_8:
+          name: "Aulesti"
+        m_48_012_3:
+          name: "Bakio"
+        m_48_090_4:
+          name: "Balmaseda"
+        m_48_013_9:
+          name: "Barakaldo"
+        m_48_014_4:
+          name: "Barrika"
+        m_48_015_7:
+          name: "Basauri"
+        m_48_092_6:
+          name: "Bedia"
+        m_48_016_0:
+          name: "Berango"
+        m_48_017_6:
+          name: "Bermeo"
+        m_48_018_2:
+          name: "Berriatua"
+        m_48_019_5:
+          name: "Berriz"
+        m_48_020_9:
+          name: "Bilbao"
+        m_48_021_6:
+          name: "Busturia"
+        m_48_901_1:
+          name: "Derio"
+        m_48_026_8:
+          name: "Dima"
+        m_48_027_4:
+          name: "Durango"
+        m_48_028_0:
+          name: "Ea"
+        m_48_031_4:
+          name: "Elantxobe"
+        m_48_032_9:
+          name: "Elorrio"
+        m_48_902_6:
+          name: "Erandio"
+        m_48_033_5:
+          name: "Ereño"
+        m_48_034_0:
+          name: "Ermua"
+        m_48_079_2:
+          name: "Errigoiti"
+        m_48_029_3:
+          name: "Etxebarri"
+        m_48_030_7:
+          name: "Etxebarria"
+        m_48_906_3:
+          name: "Forua"
+        m_48_035_3:
+          name: "Fruiz"
+        m_48_036_6:
+          name: "Galdakao"
+        m_48_037_2:
+          name: "Galdames"
+        m_48_038_8:
+          name: "Gamiz-Fika"
+        m_48_039_1:
+          name: "Garai"
+        m_48_040_5:
+          name: "Gatika"
+        m_48_041_2:
+          name: "Gautegiz Arteaga"
+        m_48_046_4:
+          name: "Gernika-Lumo"
+        m_48_044_8:
+          name: "Getxo"
+        m_48_047_0:
+          name: "Gizaburuaga"
+        m_48_042_7:
+          name: "Gordexola"
+        m_48_043_3:
+          name: "Gorliz"
+        m_48_045_1:
+          name: "Güeñes"
+        m_48_048_6:
+          name: "Ibarrangelu"
+        m_48_094_7:
+          name: "Igorre"
+        m_48_049_9:
+          name: "Ispaster"
+        m_48_910_2:
+          name: "Iurreta"
+        m_48_050_2:
+          name: "Izurtza"
+        m_48_022_1:
+          name: "Karrantza Harana/Valle de Carranza"
+        m_48_907_9:
+          name: "Kortezubi"
+        m_48_051_9:
+          name: "Lanestosa"
+        m_48_052_4:
+          name: "Larrabetzu"
+        m_48_053_0:
+          name: "Laukiz"
+        m_48_054_5:
+          name: "Leioa"
+        m_48_057_7:
+          name: "Lekeitio"
+        m_48_055_8:
+          name: "Lemoa"
+        m_48_056_1:
+          name: "Lemoiz"
+        m_48_081_3:
+          name: "Lezama"
+        m_48_903_2:
+          name: "Loiu"
+        m_48_058_3:
+          name: "Mallabia"
+        m_48_059_6:
+          name: "Mañaria"
+        m_48_060_0:
+          name: "Markina-Xemein"
+        m_48_061_7:
+          name: "Maruri-Jatabe"
+        m_48_062_2:
+          name: "Mendata"
+        m_48_063_8:
+          name: "Mendexa"
+        m_48_064_3:
+          name: "Meñaka"
+        m_48_066_9:
+          name: "Morga"
+        m_48_068_1:
+          name: "Mundaka"
+        m_48_069_4:
+          name: "Mungia"
+        m_48_007_8:
+          name: "Munitibar-Arbatzegi Gerrikaitz"
+        m_48_908_5:
+          name: "Murueta"
+        m_48_071_5:
+          name: "Muskiz"
+        m_48_067_5:
+          name: "Muxika"
+        m_48_909_8:
+          name: "Nabarniz"
+        m_48_073_6:
+          name: "Ondarroa"
+        m_48_075_4:
+          name: "Orozko"
+        m_48_083_4:
+          name: "Ortuella"
+        m_48_072_0:
+          name: "Otxandio"
+        m_48_077_3:
+          name: "Plentzia"
+        m_48_078_9:
+          name: "Portugalete"
+        m_48_082_8:
+          name: "Santurtzi"
+        m_48_084_9:
+          name: "Sestao"
+        m_48_904_7:
+          name: "Sondika"
+        m_48_085_2:
+          name: "Sopelana"
+        m_48_086_5:
+          name: "Sopuerta"
+        m_48_076_7:
+          name: "Sukarrieta"
+        m_48_087_1:
+          name: "Trucios-Turtzioz"
+        m_48_088_7:
+          name: "Ubide"
+        m_48_065_6:
+          name: "Ugao-Miraballes"
+        m_48_089_0:
+          name: "Urduliz"
+        m_48_074_1:
+          name: "Urduña/Orduña"
+        m_48_080_6:
+          name: "Valle de Trápaga-Trapagaran"
+        m_48_095_0:
+          name: "Zaldibar"
+        m_48_096_3:
+          name: "Zalla"
+        m_48_905_0:
+          name: "Zamudio"
+        m_48_097_9:
+          name: "Zaratamo"
+        m_48_024_2:
+          name: "Zeanuri"
+        m_48_025_5:
+          name: "Zeberio"
+        m_48_913_0:
+          name: "Zierbena"
+        m_48_915_8:
+          name: "Ziortza-Bolibar"

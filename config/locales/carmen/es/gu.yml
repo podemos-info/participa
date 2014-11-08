@@ -1,0 +1,581 @@
+---
+es:
+  world:
+    es:
+      gu:
+        m_19_001_9:
+          name: "Abánades"
+        m_19_002_4:
+          name: "Ablanque"
+        m_19_003_0:
+          name: "Adobes"
+        m_19_004_5:
+          name: "Alaminos"
+        m_19_005_8:
+          name: "Alarilla"
+        m_19_006_1:
+          name: "Albalate de Zorita"
+        m_19_007_7:
+          name: "Albares"
+        m_19_008_3:
+          name: "Albendiego"
+        m_19_009_6:
+          name: "Alcocer"
+        m_19_010_0:
+          name: "Alcolea de las Peñas"
+        m_19_011_7:
+          name: "Alcolea del Pinar"
+        m_19_013_8:
+          name: "Alcoroches"
+        m_19_015_6:
+          name: "Aldeanueva de Guadalajara"
+        m_19_016_9:
+          name: "Algar de Mesa"
+        m_19_017_5:
+          name: "Algora"
+        m_19_018_1:
+          name: "Alhóndiga"
+        m_19_019_4:
+          name: "Alique"
+        m_19_020_8:
+          name: "Almadrones"
+        m_19_021_5:
+          name: "Almoguera"
+        m_19_022_0:
+          name: "Almonacid de Zorita"
+        m_19_023_6:
+          name: "Alocén"
+        m_19_024_1:
+          name: "Alovera"
+        m_19_027_3:
+          name: "Alustante"
+        m_19_031_3:
+          name: "Angón"
+        m_19_032_8:
+          name: "Anguita"
+        m_19_033_4:
+          name: "Anquela del Ducado"
+        m_19_034_9:
+          name: "Anquela del Pedregal"
+        m_19_036_5:
+          name: "Aranzueque"
+        m_19_037_1:
+          name: "Arbancón"
+        m_19_038_7:
+          name: "Arbeteta"
+        m_19_039_0:
+          name: "Argecilla"
+        m_19_040_4:
+          name: "Armallones"
+        m_19_041_1:
+          name: "Armuña de Tajuña"
+        m_19_042_6:
+          name: "Arroyo de las Fraguas"
+        m_19_043_2:
+          name: "Atanzón"
+        m_19_044_7:
+          name: "Atienza"
+        m_19_045_0:
+          name: "Auñón"
+        m_19_046_3:
+          name: "Azuqueca de Henares"
+        m_19_047_9:
+          name: "Baides"
+        m_19_048_5:
+          name: "Baños de Tajo"
+        m_19_049_8:
+          name: "Bañuelos"
+        m_19_050_1:
+          name: "Barriopedro"
+        m_19_051_8:
+          name: "Berninches"
+        m_19_052_3:
+          name: "Bodera, La"
+        m_19_053_9:
+          name: "Brihuega"
+        m_19_054_4:
+          name: "Budia"
+        m_19_055_7:
+          name: "Bujalaro"
+        m_19_057_6:
+          name: "Bustares"
+        m_19_058_2:
+          name: "Cabanillas del Campo"
+        m_19_059_5:
+          name: "Campillo de Dueñas"
+        m_19_060_9:
+          name: "Campillo de Ranas"
+        m_19_061_6:
+          name: "Campisábalos"
+        m_19_064_2:
+          name: "Canredondo"
+        m_19_065_5:
+          name: "Cantalojas"
+        m_19_066_8:
+          name: "Cañizar"
+        m_19_067_4:
+          name: "Cardoso de la Sierra, El"
+        m_19_070_7:
+          name: "Casa de Uceda"
+        m_19_071_4:
+          name: "Casar, El"
+        m_19_073_5:
+          name: "Casas de San Galindo"
+        m_19_074_0:
+          name: "Caspueñas"
+        m_19_075_3:
+          name: "Castejón de Henares"
+        m_19_076_6:
+          name: "Castellar de la Muela"
+        m_19_078_8:
+          name: "Castilforte"
+        m_19_079_1:
+          name: "Castilnuevo"
+        m_19_080_5:
+          name: "Cendejas de Enmedio"
+        m_19_081_2:
+          name: "Cendejas de la Torre"
+        m_19_082_7:
+          name: "Centenera"
+        m_19_103_9:
+          name: "Checa"
+        m_19_104_4:
+          name: "Chequilla"
+        m_19_106_0:
+          name: "Chillarón del Rey"
+        m_19_105_7:
+          name: "Chiloeches"
+        m_19_086_4:
+          name: "Cifuentes"
+        m_19_087_0:
+          name: "Cincovillas"
+        m_19_088_6:
+          name: "Ciruelas"
+        m_19_089_9:
+          name: "Ciruelos del Pinar"
+        m_19_090_3:
+          name: "Cobeta"
+        m_19_091_0:
+          name: "Cogollor"
+        m_19_092_5:
+          name: "Cogolludo"
+        m_19_095_9:
+          name: "Condemios de Abajo"
+        m_19_096_2:
+          name: "Condemios de Arriba"
+        m_19_097_8:
+          name: "Congostrina"
+        m_19_098_4:
+          name: "Copernal"
+        m_19_099_7:
+          name: "Corduente"
+        m_19_102_3:
+          name: "Cubillo de Uceda, El"
+        m_19_107_6:
+          name: "Driebes"
+        m_19_108_2:
+          name: "Durón"
+        m_19_109_5:
+          name: "Embid"
+        m_19_110_9:
+          name: "Escamilla"
+        m_19_111_6:
+          name: "Escariche"
+        m_19_112_1:
+          name: "Escopete"
+        m_19_113_7:
+          name: "Espinosa de Henares"
+        m_19_114_2:
+          name: "Esplegares"
+        m_19_115_5:
+          name: "Establés"
+        m_19_116_8:
+          name: "Estriégana"
+        m_19_117_4:
+          name: "Fontanar"
+        m_19_118_0:
+          name: "Fuembellida"
+        m_19_119_3:
+          name: "Fuencemillán"
+        m_19_120_7:
+          name: "Fuentelahiguera de Albatages"
+        m_19_121_4:
+          name: "Fuentelencina"
+        m_19_122_9:
+          name: "Fuentelsaz"
+        m_19_123_5:
+          name: "Fuentelviejo"
+        m_19_124_0:
+          name: "Fuentenovilla"
+        m_19_125_3:
+          name: "Gajanejos"
+        m_19_126_6:
+          name: "Galápagos"
+        m_19_127_2:
+          name: "Galve de Sorbe"
+        m_19_129_1:
+          name: "Gascueña de Bornova"
+        m_19_130_5:
+          name: "Guadalajara"
+        m_19_132_7:
+          name: "Henche"
+        m_19_133_3:
+          name: "Heras de Ayuso"
+        m_19_134_8:
+          name: "Herrería"
+        m_19_135_1:
+          name: "Hiendelaencina"
+        m_19_136_4:
+          name: "Hijes"
+        m_19_138_6:
+          name: "Hita"
+        m_19_139_9:
+          name: "Hombrados"
+        m_19_142_5:
+          name: "Hontoba"
+        m_19_143_1:
+          name: "Horche"
+        m_19_145_9:
+          name: "Hortezuela de Océn"
+        m_19_146_2:
+          name: "Huerce, La"
+        m_19_147_8:
+          name: "Huérmeces del Cerro"
+        m_19_148_4:
+          name: "Huertahernando"
+        m_19_150_0:
+          name: "Hueva"
+        m_19_151_7:
+          name: "Humanes"
+        m_19_152_2:
+          name: "Illana"
+        m_19_153_8:
+          name: "Iniéstola"
+        m_19_154_3:
+          name: "Inviernas, Las"
+        m_19_155_6:
+          name: "Irueste"
+        m_19_156_9:
+          name: "Jadraque"
+        m_19_157_5:
+          name: "Jirueque"
+        m_19_159_4:
+          name: "Ledanca"
+        m_19_160_8:
+          name: "Loranca de Tajuña"
+        m_19_161_5:
+          name: "Lupiana"
+        m_19_162_0:
+          name: "Luzaga"
+        m_19_163_6:
+          name: "Luzón"
+        m_19_165_4:
+          name: "Majaelrayo"
+        m_19_166_7:
+          name: "Málaga del Fresno"
+        m_19_167_3:
+          name: "Malaguilla"
+        m_19_168_9:
+          name: "Mandayona"
+        m_19_169_2:
+          name: "Mantiel"
+        m_19_170_6:
+          name: "Maranchón"
+        m_19_171_3:
+          name: "Marchamalo"
+        m_19_172_8:
+          name: "Masegoso de Tajuña"
+        m_19_173_4:
+          name: "Matarrubia"
+        m_19_174_9:
+          name: "Matillas"
+        m_19_175_2:
+          name: "Mazarete"
+        m_19_176_5:
+          name: "Mazuecos"
+        m_19_177_1:
+          name: "Medranda"
+        m_19_178_7:
+          name: "Megina"
+        m_19_179_0:
+          name: "Membrillera"
+        m_19_181_1:
+          name: "Miedes de Atienza"
+        m_19_182_6:
+          name: "Mierla, La"
+        m_19_184_7:
+          name: "Millana"
+        m_19_183_2:
+          name: "Milmarcos"
+        m_19_185_0:
+          name: "Miñosa, La"
+        m_19_186_3:
+          name: "Mirabueno"
+        m_19_187_9:
+          name: "Miralrío"
+        m_19_188_5:
+          name: "Mochales"
+        m_19_189_8:
+          name: "Mohernando"
+        m_19_190_2:
+          name: "Molina de Aragón"
+        m_19_191_9:
+          name: "Monasterio"
+        m_19_192_4:
+          name: "Mondéjar"
+        m_19_193_0:
+          name: "Montarrón"
+        m_19_194_5:
+          name: "Moratilla de los Meleros"
+        m_19_195_8:
+          name: "Morenilla"
+        m_19_196_1:
+          name: "Muduex"
+        m_19_197_7:
+          name: "Navas de Jadraque, Las"
+        m_19_198_3:
+          name: "Negredo"
+        m_19_199_6:
+          name: "Ocentejo"
+        m_19_200_0:
+          name: "Olivar, El"
+        m_19_201_7:
+          name: "Olmeda de Cobeta"
+        m_19_202_2:
+          name: "Olmeda de Jadraque, La"
+        m_19_203_8:
+          name: "Ordial, El"
+        m_19_204_3:
+          name: "Orea"
+        m_19_208_1:
+          name: "Pálmaces de Jadraque"
+        m_19_209_4:
+          name: "Pardos"
+        m_19_210_8:
+          name: "Paredes de Sigüenza"
+        m_19_211_5:
+          name: "Pareja"
+        m_19_212_0:
+          name: "Pastrana"
+        m_19_213_6:
+          name: "Pedregal, El"
+        m_19_214_1:
+          name: "Peñalén"
+        m_19_215_4:
+          name: "Peñalver"
+        m_19_216_7:
+          name: "Peralejos de las Truchas"
+        m_19_217_3:
+          name: "Peralveche"
+        m_19_218_9:
+          name: "Pinilla de Jadraque"
+        m_19_219_2:
+          name: "Pinilla de Molina"
+        m_19_220_6:
+          name: "Pioz"
+        m_19_221_3:
+          name: "Piqueras"
+        m_19_222_8:
+          name: "Pobo de Dueñas, El"
+        m_19_223_4:
+          name: "Poveda de la Sierra"
+        m_19_224_9:
+          name: "Pozo de Almoguera"
+        m_19_225_2:
+          name: "Pozo de Guadalajara"
+        m_19_226_5:
+          name: "Prádena de Atienza"
+        m_19_227_1:
+          name: "Prados Redondos"
+        m_19_228_7:
+          name: "Puebla de Beleña"
+        m_19_229_0:
+          name: "Puebla de Valles"
+        m_19_230_4:
+          name: "Quer"
+        m_19_231_1:
+          name: "Rebollosa de Jadraque"
+        m_19_232_6:
+          name: "Recuenco, El"
+        m_19_233_2:
+          name: "Renera"
+        m_19_234_7:
+          name: "Retiendas"
+        m_19_235_0:
+          name: "Riba de Saelices"
+        m_19_237_9:
+          name: "Rillo de Gallo"
+        m_19_238_5:
+          name: "Riofrío del Llano"
+        m_19_239_8:
+          name: "Robledillo de Mohernando"
+        m_19_240_2:
+          name: "Robledo de Corpes"
+        m_19_241_9:
+          name: "Romanillos de Atienza"
+        m_19_242_4:
+          name: "Romanones"
+        m_19_243_0:
+          name: "Rueda de la Sierra"
+        m_19_244_5:
+          name: "Sacecorbo"
+        m_19_245_8:
+          name: "Sacedón"
+        m_19_246_1:
+          name: "Saelices de la Sal"
+        m_19_247_7:
+          name: "Salmerón"
+        m_19_248_3:
+          name: "San Andrés del Congosto"
+        m_19_249_6:
+          name: "San Andrés del Rey"
+        m_19_250_9:
+          name: "Santiuste"
+        m_19_251_6:
+          name: "Saúca"
+        m_19_252_1:
+          name: "Sayatón"
+        m_19_254_2:
+          name: "Selas"
+        m_19_901_0:
+          name: "Semillas"
+        m_19_255_5:
+          name: "Setiles"
+        m_19_256_8:
+          name: "Sienes"
+        m_19_257_4:
+          name: "Sigüenza"
+        m_19_258_0:
+          name: "Solanillos del Extremo"
+        m_19_259_3:
+          name: "Somolinos"
+        m_19_260_7:
+          name: "Sotillo, El"
+        m_19_261_4:
+          name: "Sotodosos"
+        m_19_262_9:
+          name: "Tamajón"
+        m_19_263_5:
+          name: "Taragudo"
+        m_19_264_0:
+          name: "Taravilla"
+        m_19_265_3:
+          name: "Tartanedo"
+        m_19_266_6:
+          name: "Tendilla"
+        m_19_267_2:
+          name: "Terzaga"
+        m_19_268_8:
+          name: "Tierzo"
+        m_19_269_1:
+          name: "Toba, La"
+        m_19_271_2:
+          name: "Tordellego"
+        m_19_270_5:
+          name: "Tordelrábano"
+        m_19_272_7:
+          name: "Tordesilos"
+        m_19_274_8:
+          name: "Torija"
+        m_19_279_9:
+          name: "Torre del Burgo"
+        m_19_277_0:
+          name: "Torrecuadrada de Molina"
+        m_19_278_6:
+          name: "Torrecuadradilla"
+        m_19_280_3:
+          name: "Torrejón del Rey"
+        m_19_281_0:
+          name: "Torremocha de Jadraque"
+        m_19_282_5:
+          name: "Torremocha del Campo"
+        m_19_283_1:
+          name: "Torremocha del Pinar"
+        m_19_284_6:
+          name: "Torremochuela"
+        m_19_285_9:
+          name: "Torrubia"
+        m_19_286_2:
+          name: "Tórtola de Henares"
+        m_19_287_8:
+          name: "Tortuera"
+        m_19_288_4:
+          name: "Tortuero"
+        m_19_289_7:
+          name: "Traíd"
+        m_19_290_1:
+          name: "Trijueque"
+        m_19_291_8:
+          name: "Trillo"
+        m_19_293_9:
+          name: "Uceda"
+        m_19_294_4:
+          name: "Ujados"
+        m_19_296_0:
+          name: "Utande"
+        m_19_297_6:
+          name: "Valdarachas"
+        m_19_298_2:
+          name: "Valdearenas"
+        m_19_299_5:
+          name: "Valdeavellano"
+        m_19_300_9:
+          name: "Valdeaveruelo"
+        m_19_301_6:
+          name: "Valdeconcha"
+        m_19_302_1:
+          name: "Valdegrudas"
+        m_19_303_7:
+          name: "Valdelcubo"
+        m_19_304_2:
+          name: "Valdenuño Fernández"
+        m_19_305_5:
+          name: "Valdepeñas de la Sierra"
+        m_19_306_8:
+          name: "Valderrebollo"
+        m_19_307_4:
+          name: "Valdesotos"
+        m_19_308_0:
+          name: "Valfermoso de Tajuña"
+        m_19_309_3:
+          name: "Valhermoso"
+        m_19_310_7:
+          name: "Valtablado del Río"
+        m_19_311_4:
+          name: "Valverde de los Arroyos"
+        m_19_314_0:
+          name: "Viana de Jadraque"
+        m_19_317_2:
+          name: "Villanueva de Alcorón"
+        m_19_318_8:
+          name: "Villanueva de Argecilla"
+        m_19_319_1:
+          name: "Villanueva de la Torre"
+        m_19_321_2:
+          name: "Villares de Jadraque"
+        m_19_322_7:
+          name: "Villaseca de Henares"
+        m_19_323_3:
+          name: "Villaseca de Uceda"
+        m_19_324_8:
+          name: "Villel de Mesa"
+        m_19_325_1:
+          name: "Viñuelas"
+        m_19_326_4:
+          name: "Yebes"
+        m_19_327_0:
+          name: "Yebra"
+        m_19_329_9:
+          name: "Yélamos de Abajo"
+        m_19_330_3:
+          name: "Yélamos de Arriba"
+        m_19_331_0:
+          name: "Yunquera de Henares"
+        m_19_332_5:
+          name: "Yunta, La"
+        m_19_333_1:
+          name: "Zaorejas"
+        m_19_334_6:
+          name: "Zarzuela de Jadraque"
+        m_19_335_9:
+          name: "Zorita de los Canes"

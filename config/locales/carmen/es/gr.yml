@@ -1,0 +1,341 @@
+---
+es:
+  world:
+    es:
+      gr:
+        m_18_001_6:
+          name: "Agrón"
+        m_18_002_1:
+          name: "Alamedilla"
+        m_18_003_7:
+          name: "Albolote"
+        m_18_004_2:
+          name: "Albondón"
+        m_18_005_5:
+          name: "Albuñán"
+        m_18_006_8:
+          name: "Albuñol"
+        m_18_007_4:
+          name: "Albuñuelas"
+        m_18_010_7:
+          name: "Aldeire"
+        m_18_011_4:
+          name: "Alfacar"
+        m_18_012_9:
+          name: "Algarinejo"
+        m_18_013_5:
+          name: "Alhama de Granada"
+        m_18_014_0:
+          name: "Alhendín"
+        m_18_015_3:
+          name: "Alicún de Ortega"
+        m_18_016_6:
+          name: "Almegíjar"
+        m_18_017_2:
+          name: "Almuñécar"
+        m_18_904_3:
+          name: "Alpujarra de la Sierra"
+        m_18_018_8:
+          name: "Alquife"
+        m_18_020_5:
+          name: "Arenas del Rey"
+        m_18_021_2:
+          name: "Armilla"
+        m_18_022_7:
+          name: "Atarfe"
+        m_18_023_3:
+          name: "Baza"
+        m_18_024_8:
+          name: "Beas de Granada"
+        m_18_025_1:
+          name: "Beas de Guadix"
+        m_18_027_0:
+          name: "Benalúa"
+        m_18_028_6:
+          name: "Benalúa de las Villas"
+        m_18_029_9:
+          name: "Benamaurel"
+        m_18_030_3:
+          name: "Bérchules"
+        m_18_032_5:
+          name: "Bubión"
+        m_18_033_1:
+          name: "Busquístar"
+        m_18_034_6:
+          name: "Cacín"
+        m_18_035_9:
+          name: "Cádiar"
+        m_18_036_2:
+          name: "Cájar"
+        m_18_114_9:
+          name: "Calahorra, La"
+        m_18_037_8:
+          name: "Calicasas"
+        m_18_038_4:
+          name: "Campotéjar"
+        m_18_039_7:
+          name: "Caniles"
+        m_18_040_1:
+          name: "Cáñar"
+        m_18_042_3:
+          name: "Capileira"
+        m_18_043_9:
+          name: "Carataunas"
+        m_18_044_4:
+          name: "Cástaras"
+        m_18_045_7:
+          name: "Castilléjar"
+        m_18_046_0:
+          name: "Castril"
+        m_18_047_6:
+          name: "Cenes de la Vega"
+        m_18_059_2:
+          name: "Chauchina"
+        m_18_061_3:
+          name: "Chimeneas"
+        m_18_062_8:
+          name: "Churriana de la Vega"
+        m_18_048_2:
+          name: "Cijuela"
+        m_18_049_5:
+          name: "Cogollos de Guadix"
+        m_18_050_8:
+          name: "Cogollos de la Vega"
+        m_18_051_5:
+          name: "Colomera"
+        m_18_053_6:
+          name: "Cortes de Baza"
+        m_18_054_1:
+          name: "Cortes y Graena"
+        m_18_912_0:
+          name: "Cuevas del Campo"
+        m_18_056_7:
+          name: "Cúllar"
+        m_18_057_3:
+          name: "Cúllar Vega"
+        m_18_063_4:
+          name: "Darro"
+        m_18_064_9:
+          name: "Dehesas de Guadix"
+        m_18_066_5:
+          name: "Deifontes"
+        m_18_067_1:
+          name: "Diezma"
+        m_18_068_7:
+          name: "Dílar"
+        m_18_069_0:
+          name: "Dólar"
+        m_18_070_4:
+          name: "Dúdar"
+        m_18_071_1:
+          name: "Dúrcal"
+        m_18_072_6:
+          name: "Escúzar"
+        m_18_074_7:
+          name: "Ferreira"
+        m_18_076_3:
+          name: "Fonelas"
+        m_18_078_5:
+          name: "Freila"
+        m_18_079_8:
+          name: "Fuente Vaqueros"
+        m_18_905_6:
+          name: "Gabias, Las"
+        m_18_082_4:
+          name: "Galera"
+        m_18_083_0:
+          name: "Gobernador"
+        m_18_084_5:
+          name: "Gójar"
+        m_18_085_8:
+          name: "Gor"
+        m_18_086_1:
+          name: "Gorafe"
+        m_18_087_7:
+          name: "Granada"
+        m_18_088_3:
+          name: "Guadahortuna"
+        m_18_089_6:
+          name: "Guadix"
+        m_18_906_9:
+          name: "Guajares, Los"
+        m_18_093_8:
+          name: "Gualchos"
+        m_18_094_3:
+          name: "Güejar Sierra"
+        m_18_095_6:
+          name: "Güevéjar"
+        m_18_096_9:
+          name: "Huélago"
+        m_18_097_5:
+          name: "Huéneja"
+        m_18_098_1:
+          name: "Huéscar"
+        m_18_099_4:
+          name: "Huétor de Santillán"
+        m_18_100_8:
+          name: "Huétor Tájar"
+        m_18_101_5:
+          name: "Huétor Vega"
+        m_18_102_0:
+          name: "Illora"
+        m_18_103_6:
+          name: "Itrabo"
+        m_18_105_4:
+          name: "Iznalloz"
+        m_18_107_3:
+          name: "Jayena"
+        m_18_108_9:
+          name: "Jerez del Marquesado"
+        m_18_109_2:
+          name: "Jete"
+        m_18_111_3:
+          name: "Jun"
+        m_18_112_8:
+          name: "Juviles"
+        m_18_115_2:
+          name: "Láchar"
+        m_18_116_5:
+          name: "Lanjarón"
+        m_18_117_1:
+          name: "Lanteira"
+        m_18_119_0:
+          name: "Lecrín"
+        m_18_120_4:
+          name: "Lentegí"
+        m_18_121_1:
+          name: "Lobras"
+        m_18_122_6:
+          name: "Loja"
+        m_18_123_2:
+          name: "Lugros"
+        m_18_124_7:
+          name: "Lújar"
+        m_18_126_3:
+          name: "Malahá, La"
+        m_18_127_9:
+          name: "Maracena"
+        m_18_128_5:
+          name: "Marchal"
+        m_18_132_4:
+          name: "Moclín"
+        m_18_133_0:
+          name: "Molvízar"
+        m_18_134_5:
+          name: "Monachil"
+        m_18_135_8:
+          name: "Montefrío"
+        m_18_136_1:
+          name: "Montejícar"
+        m_18_137_7:
+          name: "Montillana"
+        m_18_138_3:
+          name: "Moraleda de Zafayona"
+        m_18_909_4:
+          name: "Morelábor"
+        m_18_140_0:
+          name: "Motril"
+        m_18_141_7:
+          name: "Murtas"
+        m_18_903_8:
+          name: "Nevada"
+        m_18_143_8:
+          name: "Nigüelas"
+        m_18_144_3:
+          name: "Nívar"
+        m_18_145_6:
+          name: "Ogíjares"
+        m_18_146_9:
+          name: "Orce"
+        m_18_147_5:
+          name: "Órgiva"
+        m_18_148_1:
+          name: "Otívar"
+        m_18_150_7:
+          name: "Padul"
+        m_18_151_4:
+          name: "Pampaneira"
+        m_18_152_9:
+          name: "Pedro Martínez"
+        m_18_153_5:
+          name: "Peligros"
+        m_18_154_0:
+          name: "Peza, La"
+        m_18_910_8:
+          name: "Pinar, El"
+        m_18_157_2:
+          name: "Pinos Genil"
+        m_18_158_8:
+          name: "Pinos Puente"
+        m_18_159_1:
+          name: "Píñar"
+        m_18_161_2:
+          name: "Polícar"
+        m_18_162_7:
+          name: "Polopos"
+        m_18_163_3:
+          name: "Pórtugos"
+        m_18_164_8:
+          name: "Puebla de Don Fadrique"
+        m_18_165_1:
+          name: "Pulianas"
+        m_18_167_0:
+          name: "Purullena"
+        m_18_168_6:
+          name: "Quéntar"
+        m_18_170_3:
+          name: "Rubite"
+        m_18_171_0:
+          name: "Salar"
+        m_18_173_1:
+          name: "Salobreña"
+        m_18_174_6:
+          name: "Santa Cruz del Comercio"
+        m_18_175_9:
+          name: "Santa Fe"
+        m_18_176_2:
+          name: "Soportújar"
+        m_18_177_8:
+          name: "Sorvilán"
+        m_18_901_7:
+          name: "Taha, La"
+        m_18_178_4:
+          name: "Torre-Cardela"
+        m_18_179_7:
+          name: "Torvizcón"
+        m_18_180_1:
+          name: "Trevélez"
+        m_18_181_8:
+          name: "Turón"
+        m_18_182_3:
+          name: "Ugíjar"
+        m_18_907_5:
+          name: "Valle del Zalabí"
+        m_18_902_2:
+          name: "Valle, El"
+        m_18_183_9:
+          name: "Válor"
+        m_18_911_5:
+          name: "Vegas del Genil"
+        m_18_184_4:
+          name: "Vélez de Benaudalla"
+        m_18_185_7:
+          name: "Ventas de Huelma"
+        m_18_149_4:
+          name: "Villa de Otura"
+        m_18_908_1:
+          name: "Villamena"
+        m_18_187_6:
+          name: "Villanueva de las Torres"
+        m_18_188_2:
+          name: "Villanueva Mesía"
+        m_18_189_5:
+          name: "Víznar"
+        m_18_192_1:
+          name: "Zafarraya"
+        m_18_913_6:
+          name: "Zagra"
+        m_18_193_7:
+          name: "Zubia, La"
+        m_18_194_2:
+          name: "Zújar"
