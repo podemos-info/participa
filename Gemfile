@@ -50,7 +50,6 @@ gem 'phone'
 gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
 group :development, :test do
-  gem 'pry-rails'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'

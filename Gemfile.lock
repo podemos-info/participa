@@ -188,7 +188,6 @@ GEM
       skinny (>= 0.1.2)
       sqlite3-ruby
       thin
-    method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (5.4.1)
@@ -208,12 +207,6 @@ GEM
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     polyglot (0.3.5)
-    pry (0.10.1)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    pry-rails (0.3.2)
-      pry (>= 0.9.10)
     pushmeup (0.3.0)
       httparty
       json
@@ -359,7 +352,6 @@ DEPENDENCIES
   paranoia!
   pg
   phone
-  pry-rails
   pushmeup
   rails (= 4.1.5)
   rails-perftest
