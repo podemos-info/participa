@@ -30,7 +30,8 @@ Rails.application.routes.draw do
     } 
     # http://stackoverflow.com/a/8884605/319241 
     devise_scope :user do
-      get '/registrations/subregion_options', to: 'registrations#subregion_options'
+      get '/registrations/regions/provinces', to: 'registrations#regions_provinces'
+      get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
       authenticated :user do
         scope :collaborations do
           delete 'destroy', to: 'collaborations#destroy', as: 'destroy_collaboration'

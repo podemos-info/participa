@@ -94,7 +94,7 @@ es:
         phone: "Teléfono móvil"
         unconfirmed_phone: "Teléfono móvil"
         address: "Dirección"
-        town: "Municipio / Localidad"
+        town: "Municipio"
         province: "Provincia"
         postal_code: "Código postal"
         country: "País"
