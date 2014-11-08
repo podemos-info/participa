@@ -43,6 +43,12 @@ ActiveAdmin.register User do
         else
           status_tag("El usuario NO ha confirmado por SMS", :error)
         end
+        if user.errors.any? # If there are errors, do something
+          user.errors.each do |attribute, message|
+            b attribute
+            span message
+          end
+        end
       end
       row :esendex_status do 
         link_to "Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.unconfirmed_phone.sub(/^00/,'')}" if user.unconfirmed_phone
