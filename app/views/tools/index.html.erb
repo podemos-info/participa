@@ -8,10 +8,21 @@
       <% if Election.actived.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
-        <% if Election.last and Election.last.ends_at > 72.hours.ago %>
-          <%= render partial: 'last_election', locals: { election: Election.last } %>
-        <% else %>
-          <%= render partial: "other_tools" %>
+        <div class="box">
+          <div class="box-vote">
+            <h3><strong>Votación de candidaturas</strong></h3>
+            <div class="box-poll">
+              <p class="poll-q"><a href="http://candidaturas.podemos.info/">Consulta todas las candidaturas</a></p>
+              <p>La votación se abre el Lunes 10 de Noviembre a las 12:00 hs y cierra el Viernes 14 de Noviembre a las 23:59 hs</p>
+            </div>
+          </div>
+        </div>
+        <% if false %>
+          <% if Election.last and Election.last.ends_at > 72.hours.ago %>
+            <%= render partial: 'last_election', locals: { election: Election.last } %>
+          <% else %>
+            <%= render partial: "other_tools" %>
+          <% end %>
         <% end %>
       <% end %>
 
