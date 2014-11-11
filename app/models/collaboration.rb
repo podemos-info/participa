@@ -6,8 +6,13 @@ class Collaboration < ActiveRecord::Base
   validates :order, uniqueness: true
   validates :user, uniqueness: true
 
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_national?
+
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_national?
   validates :iban_account, :iban_bic, presence: true, if: :is_international?
+
+  validate :validate_ccc, if: :is_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+  validate :validate_iban, if: :is_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
 
   before_validation :set_order
 
@@ -24,6 +29,14 @@ class Collaboration < ActiveRecord::Base
   scope :credit_cards, -> {where(payment_type: 1)}
   scope :bank_nationals, -> {where(payment_type: 2)}
   scope :bank_internationals, -> {where(payment_type: 3)}
+
+  def validate_ccc 
+    BankCccValidator.validate("#{self.ccc_entity} #{self.ccc_office} #{self.ccc_dc} #{self.ccc_account}")
+  end
+
+  def validate_iban
+    IBANTools::IBAN.valid?(self.iban_account)
+  end
 
   def is_credit_card?
     self.payment_type == 1
