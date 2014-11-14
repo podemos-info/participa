@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
   def send_sms_token!
     require 'sms'
     self.update_attribute(:confirmation_sms_sent_at, DateTime.now)
-    SMS::Sender.send_message(self.phone, self.sms_confirmation_token)
+    SMS::Sender.send_message(self.unconfirmed_phone, self.sms_confirmation_token)
   end
 
   def check_sms_token(token)
