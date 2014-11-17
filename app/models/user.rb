@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  require 'phone'
+
   # Include default devise modules. Others available are:
   # :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
