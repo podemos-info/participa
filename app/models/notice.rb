@@ -15,10 +15,12 @@ class Notice < ActiveRecord::Base
     GCM.host = 'https://android.googleapis.com/gcm/send'
     GCM.format = :json
     GCM.key = Rails.application.secrets.gcm["key"]
-    destination = NoticeRegistrar.pluck(:registration_id)
+
     data = { title: title, message: message, url: link, msgcnt: "1", soundname: "beep.wav" }
-    # TODO: if destination.count > 1000 then split 
-    GCM.send_notification( destination, data)
+    # for every 1000 devices we send only a notification
+    NoticeRegistrar.pluck(:registration_id).in_groups_of(1000) do |destination|
+      GCM.send_notification( destination, data)
+    end
   end
 
   def has_sent
