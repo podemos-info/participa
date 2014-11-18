@@ -3,55 +3,8 @@
 Primary style
 
 -------------------------------- */
-*, *::after, *::before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-*::after, *::before {
-  content: '';
-}
-
 .header-content{
 height:75px;
-}
-body {
-  color: #612d62;
-  background-color: #612d62;
-}
-
-body::after {
-  /* overlay layer visible on small devices when the right panel slides in */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(78, 83, 89, 0.8);
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: opacity .3s 0s, visibility 0s .3s;
-  -moz-transition: opacity .3s 0s, visibility 0s .3s;
-  transition: opacity .3s 0s, visibility 0s .3s;
-}
-body.cd-overlay::after {
-  visibility: visible;
-  opacity: 1;
-  -webkit-transition: opacity .3s 0s, visibility 0s 0s;
-  -moz-transition: opacity .3s 0s, visibility 0s 0s;
-  transition: opacity .3s 0s, visibility 0s 0s;
-}
-
-@media only screen and (min-width: 768px) {
-  body::after {
-    display: none;
-  }
-}
-
-a {
-  color: #269283;
-  text-decoration: none;
 }
 
 /* --------------------------------
