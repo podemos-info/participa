@@ -14,12 +14,20 @@
                   end_year: 1996 %>
 
     <%= f.input :address %>
+
+    <li class="select input required" id="user_country_input"><label class="label" for="user_address">País<abbr title="requerido">*</abbr></label>
+    <% user_location = RegistrationsHelper.get_user_location(params, @user) %>
+    <%= select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", user_location[:country]), {required: "required", data: {allowClear: true} } %></li>
+    <%= render partial: 'subregion_select', locals: { user_location: user_location } %>
+    <%= render partial: 'municipies_select', locals: { user_location: user_location } %>
     <%= f.input :postal_code %>
-    <%#= select_tag "user[country]", options_from_collection_for_select(@user_location[:countries], "code", "name", @user_location[:country]), {required: "required", data: {allowClear: true} } %>
-    <%#= render partial: 'subregion_select' %>
-    <%#= render partial: 'municipies_select' %>
     <%= f.input :circle %>
     <%= f.input :wants_newsletter %>
   <% end %>
   <%= f.actions %>
 <% end %>
+
+
+<li class="string input required stringish" id="user_address_input"><label class="label" for="user_address">Dirección<abbr title="requerido">*</abbr></label><input id="user_address" maxlength="255" name="user[address]" required="required" value="asd" type="text">
+
+</li>
