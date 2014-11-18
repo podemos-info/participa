@@ -36,6 +36,7 @@ gem 'kaminari'
 gem 'pushmeup'
 gem 'date_validator'
 gem 'phone'
+gem 'iban-tools'
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
