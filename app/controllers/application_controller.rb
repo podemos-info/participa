@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   before_filter :allow_iframe_requests
   before_filter :admin_logger
   before_filter :check_born_at
-  before_filter :check_user_location
 
   def allow_iframe_requests
     response.headers.delete('X-Frame-Options')
@@ -66,34 +65,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_user_location
-    if current_user and params[:controller] != 'registrations'
-      province = town = true
-      country = Carmen::Country.coded(current_user.country)
-
-      if not country then
-        error_message = "Por favor indica el país donde resides."
-
-      elsif country.subregions then
-        province = country.subregions.coded(current_user.province)
-
-        if not province then
-          error_message = "Por favor indica la provincia donde resides."
-          
-        elsif province.subregions then
-          town = province.subregions.coded(current_user.town)
-          if not town then
-            error_message = "Por favor indica el municipio donde resides."
-          end
-        end
-      end
-
-      if error_message
-        redirect_to edit_user_registration_url, flash: {notice: error_message}
-      end
+  def after_sign_in_path_for(user)
+    problem = RegistrationsHelper.verify_user_location(user)
+    if problem
+      set_flash_message(:notice, problem)
+      edit_user_registration_url
+    else
+      super
     end
   end
-
+  
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
