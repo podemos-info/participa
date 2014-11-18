@@ -88,9 +88,9 @@
       <% end %>
       <%= label :user, :country, class: "control-label", required: :required do %>
         País
-        <abbr title="required">*</abbr>
+        <abbr title="requerido">*</abbr>
       <% end %>
-      <%= select_tag "user[country]", options_from_collection_for_select(@user_location[:countries], "code", "name", @user_location[:country]), {required: "required", data: {allowClear: true} } %>
+      <%= select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", @user_location[:country]), {required: "required", data: {allowClear: true} } %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:province) %>

@@ -8,7 +8,7 @@ function show_provinces(country_code){
   $('#user_province').disable_control();
   select_wrapper.load(url, function() {
     var prov_select = $('select#user_province');
-    if (prov_select.length>0)
+    if (prov_select.length>0 && prov_select.select2)
       prov_select.select2({
         formatNoMatches: "No se encontraron resultados"
       });
@@ -31,18 +31,19 @@ function show_towns(province_code){
     var has_towns = false;
   }
 
-
   if (!has_towns && no_towns_html) {
     select_wrapper.html(no_towns_html);
   } else {
     select_wrapper.load(url, function(response) {
-      if (has_towns)
-        $('select#user_town').select2({
-          formatNoMatches: "No se encontraron resultados"
-        });
-      else
+      if (has_towns) {
+        var town_select = $('select#user_town');
+        if (town_select.select2)
+          town_select.select2({
+            formatNoMatches: "No se encontraron resultados"
+          });
+      } else
         no_towns_html = response;
-    }).show();
+    });
   }
 }
 
