@@ -6,7 +6,7 @@ es:
       ok: "Te has inscrito correctamente. Recibirás un correo que tendrás que confirmar para continuar con el proceso. Revisa tu correo."
     buttons:
       sign_in: "Iniciar sesión"
-      sign_up: "Registrarse"
+      sign_up: "Inscribirse"
       edit: "Actualizar datos" 
       cancel_account: "Darme de baja"
       reset_password: "Enviarme las instrucciones por correo electrónico"
