@@ -35,14 +35,23 @@ module RegistrationsHelper
   end
 
   def get_provinces country
-    Carmen::Country.coded(country).subregions.sort &RegistrationsHelper.region_comparer
+    c = Carmen::Country.coded(country)
+    if not (c and c.subregions)
+      []
+    else
+      c.subregions.sort &RegistrationsHelper.region_comparer
+    end
   end
 
   def get_towns country, province
-    if province && country =="ES" then
-      Carmen::Country.coded("ES").subregions.coded(province).subregions.sort &RegistrationsHelper.region_comparer
-    else
+    p = if province && country =="ES" then 
+          Carmen::Country.coded("ES").subregions.coded(province) 
+        end
+
+    if not (p and p.subregions)
       []
+    else
+      p.subregions.sort &RegistrationsHelper.region_comparer
     end
   end
 end
