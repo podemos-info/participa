@@ -28,6 +28,26 @@ module RegistrationsHelper
     user_location
   end
 
+  def self.verify_user_location(user)
+    province = town = true
+    country = Carmen::Country.coded(user.country)
+
+    if not country then
+      "complete_country"
+
+    elsif country.subregions then
+      province = country.subregions.coded(user.province)
+
+      if not province then
+        "complete_province"
+      elsif province.subregions then
+        town = province.subregions.coded(user.town)
+        if not town then
+          "complete_town"
+        end
+      end
+    end
+  end
 
   # lists of countries, current country provinces and current province towns, sorted with spanish collation
   def get_countries
