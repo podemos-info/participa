@@ -1,18 +1,18 @@
 class Collaboration < ActiveRecord::Base
   belongs_to :user
-  validates :amount, :frequency, :order, presence: true
+  validates :user, :amount, :frequency, :order, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
   validates :order, uniqueness: true
   validates :user, uniqueness: true
 
-  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_national?
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
 
-  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_national?
-  validates :iban_account, :iban_bic, presence: true, if: :is_international?
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
+  validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
 
-  validate :validate_ccc, if: :is_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
-  validate :validate_iban, if: :is_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+  validate :validate_ccc, if: :is_bank_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+  validate :validate_iban, if: :is_bank_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
 
   before_validation :set_order
 
@@ -21,7 +21,7 @@ class Collaboration < ActiveRecord::Base
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
   TYPES = [
-   # ["Suscripción con Tarjeta de Crédito/Débito", 1], 
+    ["Suscripción con Tarjeta de Crédito/Débito", 1], 
     ["Domiciliación en cuenta bancaria (CCC)", 2], 
     ["Domiciliación en cuenta extranjera (IBAN)", 3], 
   ]
@@ -31,7 +31,7 @@ class Collaboration < ActiveRecord::Base
   scope :bank_internationals, -> {where(payment_type: 3)}
 
   def validate_ccc 
-    BankCccValidator.validate("#{self.ccc_entity} #{self.ccc_office} #{self.ccc_dc} #{self.ccc_account}")
+    BankCccValidator.validate("#{self.ccc_full}")
   end
 
   def validate_iban
@@ -42,11 +42,11 @@ class Collaboration < ActiveRecord::Base
     self.payment_type == 1
   end
 
-  def is_national?
+  def is_bank_national?
     self.payment_type == 2
   end
 
-  def is_international?
+  def is_bank_international?
     self.payment_type == 3
   end
 

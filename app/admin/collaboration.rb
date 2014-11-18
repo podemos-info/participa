@@ -1,12 +1,17 @@
 ActiveAdmin.register Collaboration do
   permit_params :amount, :frequency
 
+  scope :credit_cards
+  scope :bank_nationals
+  scope :bank_internationals
+
   index do
     selectable_column
     id_column
     column :user
     column :amount
     column :frequency
+    column :payment_type_name
     column :created_at
     actions
   end
@@ -19,6 +24,7 @@ ActiveAdmin.register Collaboration do
   show do |collaboration|
     attributes_table do 
       row :user
+      row :payment_type_name
       row :amount do
         number_to_euro collaboration.amount
       end
@@ -27,8 +33,17 @@ ActiveAdmin.register Collaboration do
       end
       row :created_at 
       row :updated_at 
-      row :order_id do 
-        collaboration.order_id
+      if collaboration.is_credit_card? 
+        row :order_id do 
+          collaboration.order_id
+        end
+      end
+      if collaboration.is_bank_national? 
+        row :ccc_full
+      end
+      if collaboration.is_bank_international? 
+        row :iban_account
+        row :iban_bic
       end
     end
     active_admin_comments

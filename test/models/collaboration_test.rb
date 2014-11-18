@@ -4,20 +4,8 @@ class CollaborationTest < ActiveSupport::TestCase
 
   setup do 
     @collaboration = FactoryGirl.create(:collaboration)
+    @user = FactoryGirl.create(:user)
   end
-
-  test "should validate ccc work" do 
-    skip("TODO")
-    # 2177 0993 23 2366217197
-    # @collaboration.
-  end
-
-  test "should validate iban work" do 
-    skip("TODO")
-    # ES4621770993232366217197
-    # @collaboration.
-  end
-
 
   test "should .merchant_currency work" do
     # codigo de euro en redsys
@@ -75,15 +63,48 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should validate_ccc work" do 
-    skip("TODO")
+    c = Collaboration.new
+    c.amount = 500
+    c.frequency = 3
+    c.payment_type = 2
+    c.ccc_entity = '2177'
+    c.ccc_office = '0993'
+    c.ccc_dc = '23'
+    c.ccc_account = '2366217197'
+    assert c.valid?
+
+    # it should fail, DC is invalid
+    c.ccc_entity = '2188'
+    c.ccc_office = '0994'
+    c.ccc_dc = '23'
+    c.ccc_account = '216217197'
+    assert_not c.valid?
+    debugger
   end
 
   test "should ccc numericality work" do 
-    skip("TODO")
+    c = Collaboration.new
+    c.amount = 500
+    c.frequency = 3
+    c.payment_type = 2
+    c.ccc_entity = 'AAAA'
+    c.ccc_office = 'BBB'
+    c.ccc_dc = 'CC'
+    c.ccc_account = 'DDDDD'
+    assert_not c.valid?
+    assert(c.errors[:ccc_entity].include? "no es un número")
+    assert(c.errors[:ccc_office].include? "no es un número")
+    assert(c.errors[:ccc_dc].include? "no es un número")
+    assert(c.errors[:ccc_account].include? "no es un número")
   end
 
   test "should validate_iban work" do 
-    skip("TODO")
+    c = Collaboration.new
+    c.amount = 500
+    c.frequency = 3
+    c.payment_type = 1
+    c.iban_account = "ES4621770993232366217197"
+    assert c.valid?
   end
 
 end
