@@ -1,112 +1,70 @@
-//var init_registrations_subregions, province_change, subregion_change;
-//
-//function country_change() {
-//  var country_code, select_wrapper, url;
-//  var $country_select = $('.js-registration-country');
-//  select_wrapper = $('#js-registration-subregion-wrapper');
-//  //$('select', select_wrapper).attr('disabled', true);
-//  country_code = $country_select.val();
-//  url = "/registrations/regions/provinces?parent_region=" + country_code;
-//  select_wrapper.load(url, function() {
-//    var province;
-//    if ($('.js-registration-province').length > 1) {
-//      province = $('.js-registration-province').html();
-//      $('#user_province').val(province);
-//    }
-//    $('#user_province').select2({
-//      formatNoMatches: "No se encontraron resultados"
-//    });
-//    province_change();
-//    $('#user_province').on("change", function() {
-//      province_change();
-//    });
-//  });
-//};
-//
-//function province_change() {
-//  var province_code, select_wrapper, url;
-//  if ($('#user_country').val() === "ES") {
-//    select_wrapper = $('#js-registration-municipies-wrapper');
-//    //$('select', select_wrapper).attr('disabled', true);
-//    province_code = $('#user_province').val();
-//console.log(province_code);
-//    if (province_code) {
-//      url = "/registrations/regions/municipies?parent_region=" + province_code;
-//      select_wrapper.load(url, function() {
-//        $('#town').select2({
-//          formatNoMatches: "No se encontraron resultados"
-//        });
-//      });
-//    }
-//  }
-//};
-//
-//init_registrations_subregions = function() {
-//  if ($('.js-registration-country').val() === "") {
-//    $('select.js-registration-country').val('ES').trigger('change');
-//  }
-//
-//  if ($("#user_province").val() == "") {
-//    country_change();
-//  }
-//  $('.js-registration-country').on("change", function() {
-//    country_change();
-//  });
-//
-//  province_change();
-//  $('#user_province').on("change", function() {
-//    province_change();
-//  });
-//};
-//
-//$(window).bind('page:change', function() {
-//  init_registrations_subregions();
-//});
-//
-//$(function() {
-//  init_registrations_subregions();
-//});
-//
-
 
 function show_provinces(country_code){
   // change to provinces for a given country
-  select_wrapper = $('#js-registration-subregion-wrapper');
-  url = "/registrations/regions/provinces?parent_region=" + country_code;
+  var select_wrapper = $('#js-registration-subregion-wrapper');
+  var url = "/registrations/regions/provinces?no_profile=1&user_country=" + country_code;
+
+  $('#user_town').disable_control();
+  $('#user_province').disable_control();
   select_wrapper.load(url, function() {
-    var province = $("#user_province option:selected").val()
-    $('#user_province').val(province).trigger('change');
-    console.log(province);
-    show_municipalities(province);
-    $('#user_province').select2({
-      formatNoMatches: "No se encontraron resultados"
-    });
+    var prov_select = $('select#user_province');
+    if (prov_select.length>0)
+      prov_select.select2({
+        formatNoMatches: "No se encontraron resultados"
+      });
+    else
+      show_towns(null);
   });
 }
 
-function show_municipalities(province_code){
+var no_towns_html="";
+function show_towns(province_code){
   // change to provinces for a given country
-  select_wrapper = $('#js-registration-municipies-wrapper');
-  url = "/registrations/regions/municipies?parent_region=" + province_code;
-  select_wrapper.load(url, function() {
-    $('#town').select2({
-      formatNoMatches: "No se encontraron resultados"
-    });
-  });
-}
+  var select_wrapper = $('#js-registration-municipies-wrapper');
 
+  $('#user_town').disable_control();
+  if (province_code && $("select#user_country").val() == "ES") {
+    var url = "/registrations/regions/municipies?no_profile=1&user_country=ES&user_province=" + province_code;
+    var has_towns = true;
+  } else {
+    var url = "/registrations/regions/municipies?no_profile=1";
+    var has_towns = false;
+  }
+
+
+  if (!has_towns && no_towns_html) {
+    select_wrapper.html(no_towns_html);
+  } else {
+    select_wrapper.load(url, function(response) {
+      if (has_towns)
+        $('select#user_town').select2({
+          formatNoMatches: "No se encontraron resultados"
+        });
+      else
+        no_towns_html = response;
+    }).show();
+  }
+}
 
 $(function() {
-  show_provinces( $('#user_country').val() );
 
-  $('#user_country').on("change", function() {
+  $.fn.disable_control = function( ) {
+    if (this.data("select2"))
+      this.select2("enable", false).select2("val", "").attr("data-placeholder", "-").select2();
+    else
+      this.prop("disabled", true).val("").attr("placeholder", "-");
+    return this;
+  };
+
+  $('select#user_country').on("change", function() {
     show_provinces( $(this).val() );
   });
 
-  $('#user_province').on("change", function() {
-    if ( $("#user_country") == "ES" ) {
-      show_municipalities( $(this).val() );
-    }
+  $(document.body).on("change", 'select#user_province', function() {
+    show_towns( $(this).val() );
   });
 
+  if ($("select#user_province").is(":disabled")) {
+    $('select#user_country').trigger("change");
+  }
 });

@@ -1,13 +1,46 @@
 class RegistrationsController < Devise::RegistrationsController
+  require "ffi-icu"
+
+  prepend_before_filter :load_region_info
+
+  def load_region_info
+
+    # params from edit page
+    @user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town] }
+
+    # params from create page
+    if params[:user]
+      @user_location[:country] ||= params[:user][:country]
+      @user_location[:province] ||= params[:user][:province]
+      @user_location[:town] ||= params[:user][:town]
+    end
+
+    # params from user profile
+    if (params[:no_profile]==nil) && current_user
+      @user_location[:country] ||= current_user.country
+      @user_location[:province] ||= current_user.province
+      @user_location[:town] ||= current_user.town
+    end
+
+    # default country
+    @user_location[:country] ||= "ES"
+
+    # lists of countries, current country provinces and current province towns, sorted with spanish collation
+    @collator = ICU::Collation::Collator.new("es_ES")
+    @user_location[:countries] = Carmen::Country.all.sort {|a,b| @collator.compare(a.name, b.name)}
+    @user_location[:provinces] = Carmen::Country.coded(@user_location[:country]).subregions.sort {|a,b| @collator.compare(a.name, b.name)}
+    @user_location[:towns] =  if @user_location[:province] && @user_location[:country] =="ES" then
+                                Carmen::Country.coded("ES").subregions.coded(@user_location[:province]).subregions.sort {|a,b| @collator.compare(a.name, b.name)}
+                              else
+                                []
+                              end
+  end
 
   def regions_provinces
     render partial: 'subregion_select'
   end
 
   def regions_municipies
-    if params[:parent_region]
-      @municipies = Carmen::Country.coded("ES").subregions.coded(params[:parent_region]).subregions
-    end
     render partial: 'municipies_select'
   end
 
@@ -17,6 +50,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       build_resource(sign_up_params)
       clean_up_passwords(resource)
+
       render :new
     end
   end

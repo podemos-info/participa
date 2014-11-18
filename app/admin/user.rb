@@ -64,13 +64,15 @@ ActiveAdmin.register User do
       row :born_at
       row :email
       row :address
-      row :town
       row :postal_code
       row :province do
         user.province_name
       end
       row :country do
         user.country_name
+      end
+      row :town do
+        user.town_name
       end
       row :admin
       row :circle

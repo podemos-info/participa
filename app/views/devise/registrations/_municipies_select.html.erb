@@ -1,13 +1,13 @@
-<li id="js-registration-municipies-wrapper" class="input required form-group">
+<div id="js-registration-municipies-wrapper" class="input required form-group">
   <%= label :user, :town, class: "control-label", required: :required do %>
     Municipio
     <abbr title="required">*</abbr>
   <% end %>
-  <span class="form-wrapper">
-    <% if @municipies %>
-      <%= select_tag :town, options_from_collection_for_select(@municipies, "code", "name") %>
+    <% if @user_location[:towns].length>0 %>
+      <span class="form-wrapper">
+        <%= select_tag "user[town]", "<option></option>".html_safe+options_from_collection_for_select(@user_location[:towns], "code", "name", @user_location[:town]), {required: "required", data: {placeholder: "-- Elige un municipio --"} } %>
+      </span>
     <% else %>
-      <%= f.input :town %>
+      <%= text_field(:user, :town, class: "form-control") %>
     <% end %>
-  </span>
-</li>
+</div>

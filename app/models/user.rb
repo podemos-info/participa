@@ -229,6 +229,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def town_name
+    if self.town.include? "_" 
+      Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town).name
+    else
+      self.town
+    end
+  end
+
   def users_with_deleted
     User.with_deleted
   end

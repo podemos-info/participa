@@ -14,11 +14,10 @@
                   end_year: 1996 %>
 
     <%= f.input :address %>
-    <%= f.input :town %>
     <%= f.input :postal_code %>
-    <div class="js-registration-province hidden" style="display:none;"><%= f.object.province %></div>
-    <%= render partial: 'subregion_select', locals: {parent_region: f.object.country, subregion: f.object.province} %>
-    <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
+    <%#= select_tag "user[country]", options_from_collection_for_select(@user_location[:countries], "code", "name", @user_location[:country]), {required: "required", data: {allowClear: true} } %>
+    <%#= render partial: 'subregion_select' %>
+    <%#= render partial: 'municipies_select' %>
     <%= f.input :circle %>
     <%= f.input :wants_newsletter %>
   <% end %>
