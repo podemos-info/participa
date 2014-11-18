@@ -31,9 +31,9 @@ class User < ActiveRecord::Base
   
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
-  validate :validates_unconfirmed_phone_uniqueness 
+  validate :validates_unconfirmed_phone_uniqueness
 
-  def validates_unconfirmed_phone_uniqueness 
+  def validates_unconfirmed_phone_uniqueness
     if self.unconfirmed_phone.present? 
       if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
         self.update_attribute(:unconfirmed_phone, nil)
@@ -217,7 +217,11 @@ class User < ActiveRecord::Base
     if self.country.length > 3 
       self.country
     else
-      Carmen::Country.coded(self.country).name
+      begin
+        Carmen::Country.coded(self.country).name
+      rescue
+        ""
+      end
     end
   end
 
@@ -225,13 +229,21 @@ class User < ActiveRecord::Base
     if self.province.length > 3 
       self.province
     else
-      Carmen::Country.coded(self.country).subregions.coded(self.province).name
+      begin
+        Carmen::Country.coded(self.country).subregions.coded(self.province).name
+      rescue
+        ""
+      end
     end
   end
 
   def town_name
-    if self.town.include? "_" 
-      Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town).name
+    if self.town.include? "_"
+      begin
+        Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town).name
+      rescue
+        ""
+      end
     else
       self.town
     end
