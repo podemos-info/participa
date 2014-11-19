@@ -57,6 +57,45 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def check_issue(path, message, controller)
+    response = yield(self)
+    if response
+      if message and response.class == String
+          message[message.first[0]] = response
+      end
+      return {path: path, message: message, controller: controller}
+    end
+  end
+
+  # returns issues with user profile, blocking first
+  def get_unresolved_issue(only_blocking = false)
+
+    # User has confirmed SMS code
+    issue ||= check_issue :sms_validator_step1, { notice: "confirm_sms" }, "sms_validator" do |u|
+      u.sms_confirmed_at.nil?
+    end
+
+    # User don't have a legacy password
+    issue ||= check_issue :new_legacy_password, { notice: "legacy_password" }, "legacy_password" do |u|
+      u.has_legacy_password?
+    end
+
+    # User have a valid born date
+    issue ||= check_issue :edit_user_registration, { notice: "born_at"}, "registrations" do |u|
+      u.born_at == Date.civil(1900,1,1)
+    end
+
+    # User have a valid location
+    issue ||= check_issue :edit_user_registration, { notice: "location"}, "registrations" do |u|
+      RegistrationsHelper.verify_user_location(u)
+    end
+
+    if issue || only_blocking  # End of blocking issues
+      return issue
+    end
+  end
+
   attr_accessor :sms_user_token_given
   attr_accessor :login
 
@@ -214,43 +253,44 @@ class User < ActiveRecord::Base
   end
 
   def country_name
-    if self.country.length > 3 
-      self.country
-    else
-      begin
+    begin
+      if self.country.length > 3 
+        self.country
+      else
         Carmen::Country.coded(self.country).name
-      rescue
-        ""
       end
+    rescue
+      ""
     end
   end
 
   def province_name
-    if self.province.length > 3 
-      self.province
-    else
-      begin
+    begin
+      if self.province.length > 3 
+        self.province
+      else
         Carmen::Country.coded(self.country).subregions.coded(self.province).name
-      rescue
-        ""
       end
+    rescue
+      ""
     end
   end
 
   def town_name
-    if self.town.include? "_"
-      begin
+    begin
+      if self.town.include? "_"
         Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town).name
-      rescue
-        ""
+      else
+        self.town
       end
-    else
-      self.town
+    rescue
+      ""
     end
   end
 
   def users_with_deleted
     User.with_deleted
   end
+
 
 end

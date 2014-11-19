@@ -47,9 +47,6 @@ es:
     sessions:
       signed_in: "Has iniciado sesión satisfactoriamente."
       signed_out: "Has cerrado la sesión satisfactoriamente."
-      complete_country: "Por favor indica el país donde resides."
-      complete_province: "Por favor indica la provincia donde resides."
-      complete_town: "Por favor indica el municipio donde resides."
     unlocks:
       send_instructions: "Recibirás un correo electrónico en unos minutos con instrucciones sobre cómo desbloquear tu cuenta."
       send_paranoid_instructions: "Si tu cuenta existe, recibirás un correo electrónico en unos minutos con instrucciones sobre cómo desbloquear tu cuenta."

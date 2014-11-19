@@ -26,10 +26,10 @@ FactoryGirl.define do
     document_vatid 
     admin false
     address "C/ Inventada, 123" 
-    town "Madrid"
-    province "M"
-    postal_code "28021"
     country "ES"
+    province "M"
+    town "m_28_079_6"
+    postal_code "28021"
     phone
     sms_confirmed_at DateTime.now
   end
@@ -53,5 +53,4 @@ FactoryGirl.define do
   trait :newsletter_user do
     wants_newsletter true
   end
-
 end

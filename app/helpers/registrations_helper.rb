@@ -33,17 +33,17 @@ module RegistrationsHelper
     country = Carmen::Country.coded(user.country)
 
     if not country then
-      "complete_country"
+      "country"
 
     elsif country.subregions then
       province = country.subregions.coded(user.province)
 
       if not province then
-        "complete_province"
+        "province"
       elsif province.subregions then
         town = province.subregions.coded(user.town)
         if not town then
-          "complete_town"
+          "town"
         end
       end
     end
