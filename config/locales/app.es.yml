@@ -106,6 +106,8 @@ es:
         over_18: "Declaro ser mayor de 18 años"
         captcha: "Captcha"
         current_password: "Contraseña actual"
+
+    
   formtastic:
     hints:
       user:
@@ -453,6 +455,15 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos 
 </p>
 <p> <b> PODEMOS Partido Político<br> CIF G86976941<br> Versión 7 de octubre de 2014 12:55<br> </b> </p>
 '
+  issues:
+    confirm_sms: "Debes confirmar tu teléfono para poder continuar."
+    legacy_password: "Debes cambiar tu contraseña para poder continuar."
+    born_at: "Debes indicar tu fecha de nacimiento para poder continuar."
+    location: "Debes indicar tu ubicación para poder continuar."
+    country: "Debes indicar el país donde resides para poder continuar."
+    province: "Debes indicar la provincia donde resides para poder continuar."
+    town: "Debes indicar el municipio donde resides para poder continuar."
+
   recaptcha:
     errors:
       incorrect-captcha-sol: "Hubo un error con el captcha, por favor completalo de nuevo"
