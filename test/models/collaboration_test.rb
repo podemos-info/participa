@@ -71,6 +71,7 @@ class CollaborationTest < ActiveSupport::TestCase
     c.ccc_office = '0993'
     c.ccc_dc = '23'
     c.ccc_account = '2366217197'
+    c.user = @user
     assert c.valid?
 
     # it should fail, DC is invalid
