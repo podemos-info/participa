@@ -53,6 +53,8 @@ es:
               taken: "Hubo un error al guardar este dato. Inténtalo de nuevo"
             password: 
               blank: "Tu contraseña no puede estar en blanco"
+            current_password: 
+              blank: "Tu contraseña no puede estar en blanco"
             password_confirmation: "Contraseña (repetir)"
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
             terms_of_service: "Acepto las condiciones generales"
@@ -106,8 +108,6 @@ es:
         over_18: "Declaro ser mayor de 18 años"
         captcha: "Captcha"
         current_password: "Contraseña actual"
-
-    
   formtastic:
     hints:
       user:
