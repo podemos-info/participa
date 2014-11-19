@@ -41,6 +41,15 @@ function show_towns(province_code){
           town_select.select2({
             formatNoMatches: "No se encontraron resultados"
           });
+
+          var options = town_select.children("option");
+          if (options.length>1) {
+            var postal_code = $('#user_postal_code').val();
+            var prefix = options[1].value.substr(2,2);
+            if (postal_code.length<5 || postal_code.substr(0, 2) != prefix) {
+              $('#user_postal_code').val(prefix);
+            }
+          }
       } else
         no_towns_html = response;
     });

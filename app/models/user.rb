@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
   #validates :country, length: {minimum: 1, maximum: 2}
-  validates :document_type, inclusion: { in: [1, 2, 3], message: "tipo de documento no válido" }
+  validates :document_type, inclusion: { in: [1, 2, 3], message: "Tipo de documento no válido" }
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, date: true, allow_blank: true # gem date_validator
@@ -29,9 +29,20 @@ class User < ActiveRecord::Base
   validates :phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   validates :unconfirmed_phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   
+  validate :validates_postal_code
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
   validate :validates_unconfirmed_phone_uniqueness
+
+  def validates_postal_code
+    if self.country == "ES"
+      if (self.postal_code =~ /^\d{5}$/) != 0
+        self.errors.add(:postal_code, "El código postal debe ser un número de 5 cifras")
+      elsif self.postal_code[0...2] != self.town[2...4]
+        self.errors.add(:postal_code, "El código postal no coincide con la provincia indicada")
+      end
+    end
+  end
 
   def validates_unconfirmed_phone_uniqueness
     if self.unconfirmed_phone.present? 
@@ -227,7 +238,11 @@ class User < ActiveRecord::Base
   def phone_prefix 
     if self.country.length < 3 
       Phoner::Country.load
-      Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
+      begin
+        Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
+      rescue
+        "34"
+      end
     else
       "34"
     end
