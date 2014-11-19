@@ -40,7 +40,7 @@ module RegistrationsHelper
 
       if not province then
         "province"
-      elsif province.subregions then
+      elsif country == "ES" and province.subregions then
         town = province.subregions.coded(user.town)
         if not town then
           "town"

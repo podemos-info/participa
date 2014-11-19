@@ -8,7 +8,7 @@
   <% if provinces.length>0 %>
       <%= select_tag "user[province]", "<option></option>".html_safe+options_from_collection_for_select(provinces, "code", "name", @user_location[:province]), {required: "required", data: {placeholder: "-- Elige una provincia --", allowClear: true} } %>
   <% else %>
-    <%= text_field(:user, :province_name, class: "form-control input-xl") %>
+    <%= text_field(:user, :province, class: "form-control input-xl") %>
   <% end %>
   </span>
 </div>

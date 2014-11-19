@@ -15,7 +15,7 @@ es:
       unlock_instructions: "Reenviar instrucciones de desbloqueo"
     hints:
       password: ""
-      current_password: "Introduce tu contraseña para validar los cambios"
+      current_password: "Introduce tu contraseña para validar los cambios "
     labels:
       new_password: "Contraseña nueva"
       new_password_confirmation: "Confirmar contraseña nueva"
