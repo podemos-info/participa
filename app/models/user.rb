@@ -80,7 +80,6 @@ class User < ActiveRecord::Base
 
   # returns issues with user profile, blocking first
   def get_unresolved_issue(only_blocking = false)
-
     # User has confirmed SMS code
     issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { notice: "confirm_sms" }, "sms_validator"
 
@@ -298,15 +297,16 @@ class User < ActiveRecord::Base
     province = town = true
     country = Carmen::Country.coded(self.country)
 
+
     if not country then
       "country"
 
-    elsif country.subregions then
+    elsif not country.subregions.empty? then
       province = country.subregions.coded(self.province)
 
       if not province then
         "province"
-      elsif country == "ES" and province.subregions then
+      elsif self.country == "ES" and not province.subregions.empty? then
         town = province.subregions.coded(self.town)
         if not town then
           "town"
