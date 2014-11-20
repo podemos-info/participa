@@ -23,6 +23,25 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal(:eu, I18n.locale)
   end
 
+  test "should success when login with a foreign user" do
+    @user.update_attribute(:country, "DE")
+    @user.update_attribute(:province, "BE")
+    @user.update_attribute(:town, "Berlin")
+    login @user
+    get '/es'
+    assert_response :success
+  end
+
+  test "should success when login with a rare foreign user (no provinces)" do
+    @user.update_attribute(:country, "PS")
+    @user.update_attribute(:province, "Cisjordania")
+    @user.update_attribute(:town, "Belén")
+    login @user
+    
+    get '/es'
+    assert_response :success
+  end
+
   test "should set_phone if non sms confirmed user" do
     @user.update_attribute(:sms_confirmed_at, nil)
     login @user

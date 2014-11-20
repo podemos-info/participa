@@ -97,11 +97,11 @@ class UserTest < ActiveSupport::TestCase
   test "should document_type inclusion work" do
     u = User.new(document_type: 4)
     u.valid? 
-    assert(u.errors[:document_type].include?  "tipo de documento no válido")
+    assert(u.errors[:document_type].include?  "Tipo de documento no válido")
 
     u = User.new(document_type: 0)
     u.valid? 
-    assert(u.errors[:document_type].include?  "tipo de documento no válido")
+    assert(u.errors[:document_type].include?  "Tipo de documento no válido")
 
     u = User.new(document_type: 1)
     u.valid? 
