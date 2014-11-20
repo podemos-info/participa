@@ -1,3 +1,5 @@
+<% content_for :title, t("podemos.collaboration.title") %>
+
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
@@ -62,10 +64,10 @@
                   CCC<abbr title="requerido">*</abbr>
                 </label>
                 <span class="form-wrapper">
-                  <%= f.text_field :ccc_entity, maxlength: 4, class: 'input-account-4 form-control', required: true, placeholder: 'xxxx' %>
-                  <%= f.text_field :ccc_office, maxlength: 4, class: 'input-account-4 form-control', required: true, placeholder: 'xxxx' %>
-                  <%= f.text_field :ccc_dc, maxlength: 2, class: 'input-account-2 form-control', required: true, placeholder: 'xx' %>
-                  <%= f.text_field :ccc_account, maxlength: 10, class: 'input-account-10 form-control', required: true, placeholder: 'xxxxxxxxxx' %>
+                  <%= f.text_field :ccc_entity, maxlength: 4, class: 'input-account-4 form-control', placeholder: 'xxxx' %>
+                  <%= f.text_field :ccc_office, maxlength: 4, class: 'input-account-4 form-control', placeholder: 'xxxx' %>
+                  <%= f.text_field :ccc_dc, maxlength: 2, class: 'input-account-2 form-control', placeholder: 'xx' %>
+                  <%= f.text_field :ccc_account, maxlength: 10, class: 'input-account-10 form-control', placeholder: 'xxxxxxxxxx' %>
                 </span>
               </div>
             </div>

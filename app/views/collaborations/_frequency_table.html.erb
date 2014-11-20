@@ -7,10 +7,10 @@
   <dd><%= @collaboration.payment_type_name %></dd>
   <dt>Cuenta bancaria</dt>
   <dd>
-  <% if @collaboration.is_national? %>
+  <% if @collaboration.is_bank_national? %>
     <%= @collaboration.ccc_full %>
   <% end %>
-  <% if @collaboration.is_international? %>
+  <% if @collaboration.is_bank_international? %>
     IBAN: <%= @collaboration.iban_account %> <br>
     BIC: <%= @collaboration.iban_bic %>
   <% end %>
@@ -27,7 +27,7 @@
   </thead>
   <tbody>
   <% freq = @collaboration.frequency %>
-  <% (0..(freq -1)).each do |f| %>
+  <% (0..(freq)).each do |f| %>
     <tr>
       <td> <%= l(@collaboration.created_at + @collaboration.frequency.days * (30 * f), format: :long) %> </td>
       <td> <%= number_to_euro @collaboration.amount %> </td>
@@ -37,7 +37,7 @@
   <tfoot>
     <tr>
       <th>Total</th>
-      <th><%= number_to_euro(freq * @collaboration.amount) %></th>
+      <th><%= number_to_euro((freq + 1 ) * @collaboration.amount) %></th>
     </tr>
   </tfoot>
 </table>
