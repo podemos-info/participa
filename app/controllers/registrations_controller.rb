@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :load_user_location
 
   def load_user_location
-    @user_location = RegistrationsHelper.get_user_location(params, current_user)
+    @user_location = User.get_location(current_user, params)
   end
 
   def regions_provinces

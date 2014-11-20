@@ -69,11 +69,10 @@ class User < ActiveRecord::Base
   end
 
 
-  def check_issue(path, message, controller)
-    response = yield(self)
-    if response
-      if message and response.class == String
-          message[message.first[0]] = response
+  def check_issue(validation_response, path, message, controller)
+    if validation_response
+      if message and validation_response.class == String
+          message[message.first[0]] = validation_response
       end
       return {path: path, message: message, controller: controller}
     end
@@ -83,24 +82,16 @@ class User < ActiveRecord::Base
   def get_unresolved_issue(only_blocking = false)
 
     # User has confirmed SMS code
-    issue ||= check_issue :sms_validator_step1, { notice: "confirm_sms" }, "sms_validator" do |u|
-      u.sms_confirmed_at.nil?
-    end
+    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { notice: "confirm_sms" }, "sms_validator"
 
     # User don't have a legacy password
-    issue ||= check_issue :new_legacy_password, { notice: "legacy_password" }, "legacy_password" do |u|
-      u.has_legacy_password?
-    end
+    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { notice: "legacy_password" }, "legacy_password"
 
     # User have a valid born date
-    issue ||= check_issue :edit_user_registration, { notice: "born_at"}, "registrations" do |u|
-      u.born_at == Date.civil(1900,1,1)
-    end
+    issue ||= check_issue self.born_at == Date.civil(1900,1,1), :edit_user_registration, { notice: "born_at"}, "registrations"
 
     # User have a valid location
-    issue ||= check_issue :edit_user_registration, { notice: "location"}, "registrations" do |u|
-      RegistrationsHelper.verify_user_location(u)
-    end
+    issue ||= check_issue self.verify_user_location, :edit_user_registration, { notice: "location"}, "registrations"
 
     if issue || only_blocking  # End of blocking issues
       return issue
@@ -301,6 +292,51 @@ class User < ActiveRecord::Base
     rescue
       ""
     end
+  end
+
+  def verify_user_location()
+    province = town = true
+    country = Carmen::Country.coded(self.country)
+
+    if not country then
+      "country"
+
+    elsif country.subregions then
+      province = country.subregions.coded(self.province)
+
+      if not province then
+        "province"
+      elsif country == "ES" and province.subregions then
+        town = province.subregions.coded(self.town)
+        if not town then
+          "town"
+        end
+      end
+    end
+  end
+
+  def self.get_location(current_user, params)
+    # params from edit page
+    user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town] }
+
+    # params from create page
+    if params[:user]
+      user_location[:country] ||= params[:user][:country]
+      user_location[:province] ||= params[:user][:province]
+      user_location[:town] ||= params[:user][:town]
+    end
+
+    # params from user profile
+    if (params[:no_profile]==nil) && current_user
+      user_location[:country] ||= current_user.country
+      user_location[:province] ||= current_user.province
+      user_location[:town] ||= current_user.town
+    end
+
+    # default country
+    user_location[:country] ||= "ES"
+
+    user_location
   end
 
   def users_with_deleted

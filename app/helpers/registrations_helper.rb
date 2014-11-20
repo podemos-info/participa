@@ -4,51 +4,6 @@ module RegistrationsHelper
     @comparer ||= lambda {|a, b| @collator.compare(a.name, b.name)}
   end
 
-  def self.get_user_location(params, current_user)
-    # params from edit page
-    user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town] }
-
-    # params from create page
-    if params[:user]
-      user_location[:country] ||= params[:user][:country]
-      user_location[:province] ||= params[:user][:province]
-      user_location[:town] ||= params[:user][:town]
-    end
-
-    # params from user profile
-    if (params[:no_profile]==nil) && current_user
-      user_location[:country] ||= current_user.country
-      user_location[:province] ||= current_user.province
-      user_location[:town] ||= current_user.town
-    end
-
-    # default country
-    user_location[:country] ||= "ES"
-
-    user_location
-  end
-
-  def self.verify_user_location(user)
-    province = town = true
-    country = Carmen::Country.coded(user.country)
-
-    if not country then
-      "country"
-
-    elsif country.subregions then
-      province = country.subregions.coded(user.province)
-
-      if not province then
-        "province"
-      elsif country == "ES" and province.subregions then
-        town = province.subregions.coded(user.town)
-        if not town then
-          "town"
-        end
-      end
-    end
-  end
-
   # lists of countries, current country provinces and current province towns, sorted with spanish collation
   def get_countries
     Carmen::Country.all.sort &RegistrationsHelper.region_comparer
