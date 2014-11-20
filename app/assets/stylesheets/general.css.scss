@@ -47,7 +47,7 @@ h1,h2,h3,h4,h5,h6{font-size:1em;clear:left;}
 caption,th,td {text-align:left;font-weight:normal;}
 input,select,textarea{color:#1d1d1b;}
 fieldset{border:none;padding:0;}
-.invisible, legend.invisible{display:none;}
+.hidden, .invisible, legend.invisible{display:none;}
 hr{}
 object{border:none;margin-bottom:1em;}
 iframe{}
