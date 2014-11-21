@@ -43,10 +43,9 @@ class ApplicationController < ActionController::Base
     issue = user.get_unresolved_issue
 
     if issue
+      flash.delete(:notice) # remove succesfully logged message
       if issue[:message]
-        issue[:message].each do |type, text|
-          flash[type] = t("issues."+text)
-        end
+        issue[:message].each { |type, text| flash[type] = t("issues."+text) }
       end
       return issue[:path]
     end
@@ -66,11 +65,11 @@ class ApplicationController < ActionController::Base
 
       # get an unresolved issue, if any
       issue = current_user.get_unresolved_issue true
-      if issue 
+      if issue
         # user is in the right page to fix problem, just inform about the issue
         if params[:controller] == issue[:controller]
-          if issue[:message]
-            issue[:message].each { |type, text| flash[type] = t("issues."+text) }
+          if issue[:message] and request.method != "POST" # only inform in the first request of the page
+            issue[:message].each { |type, text| flash.now[type] = t("issues."+text) }
           end
         # user wants to log out
         elsif params[:controller] == 'devise/sessions'
