@@ -1,5 +1,4 @@
 <%= errors_in_form resource %>
-
 <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {novalidate: true}) do |f| %>
   <fieldset>
     <legend class="invisible">
@@ -84,16 +83,26 @@
     <legend><span>Domicilio</span></legend>
 
     <div class="inputlabel-box">
-      <% if resource.errors.include?(:address) %>
+      <% if resource.errors.include?(:country) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :address, required: true, input_html: {required: true, class: 'input-xl'} %>
+      <%= label :user, :country, class: "control-label", required: :required do %>
+        País
+        <abbr title="requerido">*</abbr>
+      <% end %>
+      <%= select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", @user_location[:country]), {required: "required", data: {allowClear: true} } %>
+    </div>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:province) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= render partial: 'subregion_select' %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:town) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :town, required: true, input_html: {required: true, class: 'input-xl'} %>
+      <%= render partial: 'municipies_select' %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:postal_code) %>
@@ -102,19 +111,12 @@
       <%= f.input :postal_code, required: true, input_html: {required: true, class: 'input-s'} %>
     </div>
     <div class="inputlabel-box">
-      <% if resource.errors.include?(:province) %>
+      <% if resource.errors.include?(:address) %>
           <%= field_notice_box %>
       <% end %>
-      <div class="js-registration-province invisible"><%= f.object.province %></div>
-      <%= render partial: 'subregion_select', locals: {parent_region: f.object.country, subregion: f.object.province} %>
+      <%= f.input :address, required: true, input_html: {required: true, class: 'input-xl'} %>
     </div>
 
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:country) %>
-          <%= field_notice_box %>
-      <% end %>
-      <%= f.input :country, required: true, input_html: {required: true, class: "js-registration-country"} %>
-    </div>
   </fieldset>
 
 
