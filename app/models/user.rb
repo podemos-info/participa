@@ -298,12 +298,12 @@ class User < ActiveRecord::Base
     if not country then
       "country"
 
-    elsif not country.subregions.empty? then
+    elsif not country.subregions? then
       province = country.subregions.coded(self.province)
 
       if not province then
         "province"
-      elsif self.country == "ES" and not province.subregions.empty? then
+      elsif self.country == "ES" and not province.subregions? then
         town = province.subregions.coded(self.town)
         if not town then
           "town"
@@ -339,6 +339,5 @@ class User < ActiveRecord::Base
   def users_with_deleted
     User.with_deleted
   end
-
-
+  
 end
