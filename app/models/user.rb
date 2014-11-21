@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   acts_as_paranoid
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
-  validates :address, :postal_code, :town, :province, :country, presence: true
+  validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
   validates :email, confirmation: true, on: :create
   validates :email_confirmation, presence: true, on: :create
   validates :terms_of_service, acceptance: true
@@ -38,8 +38,11 @@ class User < ActiveRecord::Base
     if self.country == "ES"
       if (self.postal_code =~ /^\d{5}$/) != 0
         self.errors.add(:postal_code, "El código postal debe ser un número de 5 cifras")
-      elsif self.postal_code[0...2] != self.town[2...4]
-        self.errors.add(:postal_code, "El código postal no coincide con la provincia indicada")
+      else
+        province = Carmen::Country.coded("ES").subregions.coded(self.province)
+        if province and self.postal_code[0...2] != province.subregions[0].code[2...4]
+          self.errors.add(:postal_code, "El código postal no coincide con la provincia indicada")
+        end
       end
     end
   end
@@ -81,16 +84,16 @@ class User < ActiveRecord::Base
   # returns issues with user profile, blocking first
   def get_unresolved_issue(only_blocking = false)
     # User has confirmed SMS code
-    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { notice: "confirm_sms" }, "sms_validator"
+    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
 
     # User don't have a legacy password
-    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { notice: "legacy_password" }, "legacy_password"
+    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
 
     # User have a valid born date
-    issue ||= check_issue self.born_at == Date.civil(1900,1,1), :edit_user_registration, { notice: "born_at"}, "registrations"
+    issue ||= check_issue (self.born_at.nil? || (self.born_at == Date.civil(1900,1,1))), :edit_user_registration, { alert: "born_at"}, "registrations"
 
     # User have a valid location
-    issue ||= check_issue self.verify_user_location, :edit_user_registration, { notice: "location"}, "registrations"
+    issue ||= check_issue self.verify_user_location, :edit_user_registration, { alert: "location"}, "registrations"
 
     if issue || only_blocking  # End of blocking issues
       return issue
