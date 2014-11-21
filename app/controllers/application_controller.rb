@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
+
     # reset session value
     session[:no_unresolved_issues] = false
 

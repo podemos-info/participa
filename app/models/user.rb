@@ -301,12 +301,12 @@ class User < ActiveRecord::Base
     if not country then
       "country"
 
-    elsif not country.subregions? then
+    elsif not country.subregions.empty? then
       province = country.subregions.coded(self.province)
 
       if not province then
         "province"
-      elsif self.country == "ES" and not province.subregions? then
+      elsif self.country == "ES" and not province.subregions.empty? then
         town = province.subregions.coded(self.town)
         if not town then
           "town"

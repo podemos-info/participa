@@ -48,7 +48,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     get '/es'
     assert_response :redirect
     assert_redirected_to sms_validator_step1_path
-    assert_equal("Debes confirmar tu teléfono para poder continuar.", flash[:notice])
+    assert_equal("Por seguridad, debes confirmar tu teléfono para poder continuar.", flash[:notice])
   end
 
   test "should set_new_password, set_phone and check_born_at" do 
@@ -59,7 +59,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     get '/es'
     assert_response :redirect
     assert_redirected_to sms_validator_step1_path
-    assert_equal("Debes confirmar tu teléfono para poder continuar.", flash[:notice])
+    assert_equal("Por seguridad, debes confirmar tu teléfono para poder continuar.", flash[:notice])
   end
 
   test "should set_new_password if legacy password" do
@@ -68,7 +68,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     get "/es"
     assert_response :redirect
     assert_redirected_to new_legacy_password_path
-    assert_equal("Debes cambiar tu contraseña para poder continuar.", flash[:notice])
+    assert_equal("Por seguridad, debes cambiar tu contraseña para poder continuar.", flash[:notice])
   end
 
   test "should check_born_at if born_at 1900,1,1" do
