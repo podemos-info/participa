@@ -50,6 +50,8 @@ gem 'iban-tools'
 # gem 'paranoia', '~> 2.0' 
 gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
+gem 'ffi-icu', '~> 0.1.4'
+
 group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'

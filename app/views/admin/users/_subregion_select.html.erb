@@ -1,23 +1,10 @@
-<li id="js-registration-subregion-wrapper" class="input required form-group">
-  <% subregion ||= params[:subregion] %>
-  <% parent_region ||= params[:parent_region] %>
-  <% country = Carmen::Country.coded(parent_region) %>
-
-  <% if country.nil? %>
-    <em>Por favor selecciona un país</em>
-  <% elsif country.subregions? %>
-    <%= label :user, :province, class: "control-label", required: :required do %>
-      Provincia
-      <abbr title="required">*</abbr>
-      <% end %>
-    <span class="form-wrapper">
-      <%= subregion_select_tag("user[province]", subregion, parent_region, {}, {required: "required", class: "form-control"}) %>
-    </span>
+<li class="select input required" id="js-registration-subregion-wrapper">
+  <%= label :user, :province, class: "control-label", required: :required do %>
+    Provincia<abbr title="requerido">*</abbr></label>
+  <% end %>  
+  <% provinces = get_provinces(user_location[:country]) %>
+  <% if provinces.length>0 %>
+      <%= select_tag "user[province]", "<option></option>".html_safe+options_from_collection_for_select(provinces, "code", "name", user_location[:province]), {required: "required", data: {placeholder: "-- Elige una provincia --", allowClear: true} } %>
   <% else %>
-    <%= label :user, :province, class: "control-label", required: :required do %>
-      Provincia
-      <abbr title="required">*</abbr>
-    <% end %>
-    <%= f.input :province %>
-  <% end %>
-</li>
+    <%= text_field(:user, :province, class: "form-control input-xl") %>
+  <% end %></li>
