@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   acts_as_paranoid
+  has_paper_trail
+
+  include Rails.application.routes.url_helpers
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, presence: true
@@ -234,6 +237,10 @@ class User < ActiveRecord::Base
 
   def users_with_deleted
     User.with_deleted
+  end
+
+  def admin_permalink
+    admin_user_path(self)
   end
 
 end

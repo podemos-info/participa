@@ -79,6 +79,10 @@ class ApplicationController < ActionController::Base
     end
   end 
 
+  def user_for_papertrail
+    user_signed_in? ? current_user : "Unknown user"
+  end
+
   protected
 
   def configure_permitted_parameters
