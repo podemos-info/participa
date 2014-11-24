@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
-
-  post 'api/v1/gcm/registrars', to: 'notice_registrar#registrate'
-  delete 'api/v1/gcm/registrars/:registrar_id', to: 'notice_registrar#unregister'
-
   get '', to: redirect("/#{I18n.locale}")
 
   # para redsys
   post '/collaborations/validate/callback', to: 'collaborations#callback', as: 'callback_collaboration'
+
+  namespace :api do
+    scope :v1 do 
+      scope :gcm do 
+        post 'registrars', to: 'v1#gcm_registrate'
+        delete 'registrars/:registrar_id', to: 'v1#gcm_unregister'
+      end
+      scope :user do
+        get 'exists', to: 'v1#user_exists'
+      end
+    end
+  end
   
   scope "/(:locale)", locale: /es|ca|eu/ do 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
