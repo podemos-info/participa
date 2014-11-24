@@ -57,6 +57,7 @@ Dependencias
 Para ejecutar la aplicación en su totalidad hay que tener los siguientes servicios en funcionamiento: 
 
 ```
+sudo apt-get install libicu52                       # para manejar cadenas Unicode correctamente
 sudo apt-get install postgres                       # para la base de datos, o mysql-server si lo prefieres
 sudo apt-get install imagemagick                    # para la generación del captcha
 sudo apt-get install redis-server                   # para la gestión de las colas de trabajo (resque)

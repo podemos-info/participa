@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  include Rails.application.routes.url_helpers
   require 'phone'
 
   # Include default devise modules. Others available are:
@@ -8,15 +9,18 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   acts_as_paranoid
+  has_paper_trail
+
+  has_many :votes, dependent: :destroy
+  has_one :collaboration, dependent: :destroy
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
-  validates :address, :postal_code, :town, :province, :country, presence: true
+  validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
   validates :email, confirmation: true, on: :create
   validates :email_confirmation, presence: true, on: :create
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
-  #validates :country, length: {minimum: 1, maximum: 2}
-  validates :document_type, inclusion: { in: [1, 2, 3], message: "tipo de documento no válido" }
+  validates :document_type, inclusion: { in: [1, 2, 3], message: "Tipo de documento no válido" }
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, date: true, allow_blank: true # gem date_validator
@@ -25,18 +29,30 @@ class User < ActiveRecord::Base
   validates :phone, numericality: true, allow_blank: true
   validates :unconfirmed_phone, numericality: true, allow_blank: true
 
-  # TODO: validacion if country == ES then postal_code /(\d5)/
-
   validates :email, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   validates :unconfirmed_phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   
+  validate :validates_postal_code
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
-  validate :validates_unconfirmed_phone_uniqueness 
+  validate :validates_unconfirmed_phone_uniqueness
 
-  def validates_unconfirmed_phone_uniqueness 
+  def validates_postal_code
+    if self.country == "ES"
+      if (self.postal_code =~ /^\d{5}$/) != 0
+        self.errors.add(:postal_code, "El código postal debe ser un número de 5 cifras")
+      else
+        province = Carmen::Country.coded("ES").subregions.coded(self.province)
+        if province and self.postal_code[0...2] != province.subregions[0].code[2...4]
+          self.errors.add(:postal_code, "El código postal no coincide con la provincia indicada")
+        end
+      end
+    end
+  end
+
+  def validates_unconfirmed_phone_uniqueness
     if self.unconfirmed_phone.present? 
       if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
         self.update_attribute(:unconfirmed_phone, nil)
@@ -60,11 +76,37 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def check_issue(validation_response, path, message, controller)
+    if validation_response
+      if message and validation_response.class == String
+          message[message.first[0]] = validation_response
+      end
+      return {path: path, message: message, controller: controller}
+    end
+  end
+
+  # returns issues with user profile, blocking first
+  def get_unresolved_issue(only_blocking = false)
+    # User has confirmed SMS code
+    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
+
+    # User don't have a legacy password
+    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
+
+    # User have a valid born date
+    issue ||= check_issue (self.born_at.nil? || (self.born_at == Date.civil(1900,1,1))), :edit_user_registration, { alert: "born_at"}, "registrations"
+
+    # User have a valid location
+    issue ||= check_issue self.verify_user_location, :edit_user_registration, { alert: "location"}, "registrations"
+
+    if issue || only_blocking  # End of blocking issues
+      return issue
+    end
+  end
+
   attr_accessor :sms_user_token_given
   attr_accessor :login
-
-  has_many :votes 
-  has_one :collaboration
 
   scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
   scope :users_with_deleted, -> { where "deleted_at IS NOT null"  }
@@ -78,6 +120,10 @@ class User < ActiveRecord::Base
   scope :legacy_password, -> { where(has_legacy_password: true) }
   scope :confirmed, -> { where.not(confirmed_at: nil).where.not(sms_confirmed_at: nil) }
   scope :signed_in, -> { where.not(sign_in_count: nil) }
+  scope :has_collaboration, -> { joins(:collaboration).where("collaborations.user_id IS NOT NULL") }
+  scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) } 
+  scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
+  scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
@@ -191,7 +237,11 @@ class User < ActiveRecord::Base
   def phone_prefix 
     if self.country.length < 3 
       Phoner::Country.load
-      Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
+      begin
+        Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
+      rescue
+        "34"
+      end
     else
       "34"
     end
@@ -217,23 +267,93 @@ class User < ActiveRecord::Base
   end
 
   def country_name
-    if self.country.length > 3 
-      self.country
-    else
-      Carmen::Country.coded(self.country).name
+    begin
+      if self.country.length > 3 
+        self.country
+      else
+        Carmen::Country.coded(self.country).name
+      end
+    rescue
+      ""
     end
   end
 
   def province_name
-    if self.province.length > 3 
-      self.province
-    else
-      Carmen::Country.coded(self.country).subregions.coded(self.province).name
+    begin
+      if self.province.length > 3 
+        self.province
+      else
+        Carmen::Country.coded(self.country).subregions.coded(self.province).name
+      end
+    rescue
+      ""
     end
+  end
+
+  def town_name
+    begin
+      if self.town.include? "_"
+        Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town).name
+      else
+        self.town
+      end
+    rescue
+      ""
+    end
+  end
+
+  def verify_user_location()
+    province = town = true
+    country = Carmen::Country.coded(self.country)
+
+
+    if not country then
+      "country"
+
+    elsif not country.subregions.empty? then
+      province = country.subregions.coded(self.province)
+
+      if not province then
+        "province"
+      elsif self.country == "ES" and not province.subregions.empty? then
+        town = province.subregions.coded(self.town)
+        if not town then
+          "town"
+        end
+      end
+    end
+  end
+
+  def self.get_location(current_user, params)
+    # params from edit page
+    user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town] }
+
+    # params from create page
+    if params[:user]
+      user_location[:country] ||= params[:user][:country]
+      user_location[:province] ||= params[:user][:province]
+      user_location[:town] ||= params[:user][:town]
+    end
+
+    # params from user profile
+    if (params[:no_profile]==nil) && current_user
+      user_location[:country] ||= current_user.country
+      user_location[:province] ||= current_user.province
+      user_location[:town] ||= current_user.town
+    end
+
+    # default country
+    user_location[:country] ||= "ES"
+
+    user_location
   end
 
   def users_with_deleted
     User.with_deleted
+  end
+
+  def admin_permalink
+    admin_user_path(self)
   end
 
 end

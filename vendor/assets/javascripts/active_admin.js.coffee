@@ -1,2 +1,2 @@
 #= require active_admin/base
-#= require registrations.subregions
+#= require registrations.provinces_countries
