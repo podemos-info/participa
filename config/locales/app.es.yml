@@ -54,7 +54,7 @@ es:
             password: 
               blank: "Tu contraseña no puede estar en blanco"
             current_password: 
-              blank: "Tu contraseña no puede estar en blanco"
+              blank: "Debes indicar tu contraseña para validar los cambios."
             password_confirmation: "Contraseña (repetir)"
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
             terms_of_service: "Acepto las condiciones generales"
