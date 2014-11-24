@@ -97,6 +97,9 @@ class User < ActiveRecord::Base
     # User have a valid born date
     issue ||= check_issue (self.born_at.nil? || (self.born_at == Date.civil(1900,1,1))), :edit_user_registration, { alert: "born_at"}, "registrations"
 
+    # User must review his location (town code first letter uppercase)
+    issue ||= check_issue self.town.starts_with?("M_"), :edit_user_registration, { notice: "location"}, "registrations"
+
     # User have a valid location
     issue ||= check_issue self.verify_user_location, :edit_user_registration, { alert: "location"}, "registrations"
 
@@ -293,7 +296,7 @@ class User < ActiveRecord::Base
   def town_name
     begin
       if self.town.include? "_"
-        Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town).name
+        Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town.downcase).name
       else
         self.town
       end
@@ -306,7 +309,6 @@ class User < ActiveRecord::Base
     province = town = true
     country = Carmen::Country.coded(self.country)
 
-
     if not country then
       "country"
 
@@ -316,7 +318,7 @@ class User < ActiveRecord::Base
       if not province then
         "province"
       elsif self.country == "ES" and not province.subregions.empty? then
-        town = province.subregions.coded(self.town)
+        town = province.subregions.coded(self.town.downcase)
         if not town then
           "town"
         end
@@ -339,7 +341,7 @@ class User < ActiveRecord::Base
     if (params[:no_profile]==nil) && current_user
       user_location[:country] ||= current_user.country
       user_location[:province] ||= current_user.province
-      user_location[:town] ||= current_user.town
+      user_location[:town] ||= current_user.town.downcase
     end
 
     # default country
