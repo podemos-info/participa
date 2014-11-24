@@ -11,6 +11,10 @@ ActiveAdmin.register User do
   scope :confirmed_mail
   scope :confirmed_phone
   scope :signed_in
+  scope :has_collaboration
+  scope :has_collaboration_credit_card
+  scope :has_collaboration_bank_national
+  scope :has_collaboration_bank_international
 
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :wants_newsletter
 
@@ -29,16 +33,16 @@ ActiveAdmin.register User do
     actions
   end
 
-  show do 
+  show do
     attributes_table do
-      row :status do 
+      row :status do
         user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
-        if user.confirmed_at? 
-          status_tag("El usuario ha confirmado por correo electrónico", :ok)
+        if user.confirmed_at?
+          status_tag("El usuario ha confirmado por email", :ok)
         else
-          status_tag("El usuario NO ha confirmado por correo electrónico", :error)
+          status_tag("El usuario NO ha confirmado por email", :error)
         end
-        if user.sms_confirmed_at? 
+        if user.sms_confirmed_at?
           status_tag("El usuario ha confirmado por SMS", :ok)
         else
           status_tag("El usuario NO ha confirmado por SMS", :error)
@@ -50,14 +54,14 @@ ActiveAdmin.register User do
           end
         end
       end
-      row :esendex_status do 
+      row :esendex_status do
         link_to "Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.unconfirmed_phone.sub(/^00/,'')}" if user.unconfirmed_phone
         link_to "Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}" if user.phone
       end
       row :full_name
       row :first_name
       row :last_name
-      row :document_type do 
+      row :document_type do
         user.document_type_name
       end
       row :document_vatid
@@ -82,10 +86,10 @@ ActiveAdmin.register User do
       row :confirmed_at
       row :unconfirmed_email
       row :has_legacy_password
-      row "Teléfono móvil (confirmado)" do 
+      row "Teléfono móvil (confirmado)" do
         user.phone
       end
-      row "Teléfono móvil (sin confirmar)" do 
+      row "Teléfono móvil (sin confirmar)" do
         user.unconfirmed_phone
       end
       row :sms_confirmation_token
@@ -103,6 +107,17 @@ ActiveAdmin.register User do
       row :current_sign_in_ip
       row :remember_created_at
       row :deleted_at
+    end
+    panel "Votos" do
+      if user.votes.any?
+        table_for user.votes do
+          column :election
+          column :voter_id
+          column :created_at
+        end
+      else
+        "No hay votos asociados a este usuario."
+      end
     end
     active_admin_comments
   end
@@ -136,8 +151,8 @@ ActiveAdmin.register User do
   #  csv = CSV.generate(encoding: 'utf-8') do |csv|
   #    users.each { |user| csv << [ user.email ] }
   #  end
-  #  send_data csv.encode('utf-8'), 
-  #    type: 'text/csv; charset=utf-8; header=present', 
+  #  send_data csv.encode('utf-8'),
+  #    type: 'text/csv; charset=utf-8; header=present',
   #    disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
   #end
 
@@ -158,25 +173,38 @@ ActiveAdmin.register User do
     redirect_to action: :show
   end
 
-  sidebar :votes, only: :show do
-    if user.votes.any?
-      table_for user.votes
-    else
-      "No hay votos asociados a este usuario."
-    end
-  end
-
   sidebar :collaborations, only: :show do
     if user.collaboration
-      table_for user.collaboration
+      attributes_table_for user.collaboration do
+        row :link do
+          link_to "Ver ficha", admin_collaboration_path(user.collaboration)
+        end
+        row :amount do |collaboration|
+          number_to_currency ( collaboration.amount / 100.0 )
+        end
+        row :frequency_name
+        row :payment_type_name
+        row :created_at
+      end
     else
       "No hay colaboraciones asociadas a este usuario."
     end
   end
 
+  controller do
+    def show
+      @user = User.find(params[:id])
+      @versions = @user.versions
+      @user = @user.versions[params[:version].to_i].reify if params[:version]
+      show! #it seems to need this
+    end
+  end
+
+  sidebar :versionate, :partial => "admin/version", :only => :show
+
   # FIXME: bug, only 2 mails
   #  action_item only: :index do
   #    link_to('Descargar correos para Newsletter (CSV)', params.merge(:action => :download_newsletter_csv))
-  #  end 
+  #  end
 
 end
