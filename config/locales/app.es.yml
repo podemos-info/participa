@@ -456,13 +456,13 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
 <p> <b> PODEMOS Partido Político<br> CIF G86976941<br> Versión 7 de octubre de 2014 12:55<br> </b> </p>
 '
   issues:
-    confirm_sms: "Por seguridad, debes confirmar tu teléfono para poder continuar."
-    legacy_password: "Por seguridad, debes cambiar tu contraseña para poder continuar."
-    born_at: "Debes indicar tu fecha de nacimiento para poder continuar."
-    location: "Debes indicar tu ubicación para poder continuar."
-    country: "Debes indicar el país donde resides para poder continuar."
-    province: "Debes indicar la provincia donde resides para poder continuar."
-    town: "Debes indicar el municipio donde resides para poder continuar."
+    confirm_sms: "Por seguridad, debes confirmar tu teléfono."
+    legacy_password: "Por seguridad, debes cambiar tu contraseña."
+    born_at: "Debes indicar tu fecha de nacimiento."
+    location: "Por favor, verifica que los datos de tu domicilio son correctos y guarda los datos."
+    country: "Debes indicar el país donde resides."
+    province: "Debes indicar la provincia donde resides."
+    town: "Debes indicar el municipio donde resides."
 
   recaptcha:
     errors:
