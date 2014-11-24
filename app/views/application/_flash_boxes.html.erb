@@ -8,7 +8,7 @@
           <% end %>
       <% end %>
       <% if flash[:notice].present? %>
-          <%= alert_box "Info" do %>
+          <%= alert_box "Información" do %>
               <%= flash[:notice] %>
           <% end %>
       <% end %>
@@ -19,7 +19,7 @@
       <% end %>
 
       <% if flash[:alert].present? %>
-          <%= alert_box "Info" do %>
+          <%= error_box "Atención" do %>
               <%= flash[:alert] %>
           <% end %>
       <% end %>
