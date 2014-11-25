@@ -1,22 +1,28 @@
 class Collaboration < ActiveRecord::Base
+
+  include Rails.application.routes.url_helpers
+
+  acts_as_paranoid
+  has_paper_trail
+
   belongs_to :user
-  validates :user, :amount, :frequency, :order, presence: true
+  # FIXME: no deberia borrar todas las ordenes, solo las pendientes 
+  has_many :orders, dependent: :destroy
+
+  validates :user, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
-  validates :order, uniqueness: true
   validates :user, uniqueness: true
-
+  validates :order, uniqueness: true, if: :is_credit_card?
+  validate :order, presence: true, if: :is_credit_card?
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
-
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
   validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
-
   validate :validate_ccc, if: :is_bank_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
   validate :validate_iban, if: :is_bank_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
 
-  before_validation :set_order
-
-  acts_as_paranoid
+  after_create :create_orders
+  before_validation :redsys_set_order, if: :is_credit_card?
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
@@ -53,6 +59,10 @@ class Collaboration < ActiveRecord::Base
   def payment_type_name
     Collaboration::TYPES.select{|v| v[1] == self.payment_type }[0][0]
     # TODO
+  end
+
+  def frequency_name
+    Collaboration::FREQUENCIES.select{|v| v[1] == self.frequency }[0][0]
   end
 
   def ccc_full 
@@ -121,13 +131,44 @@ class Collaboration < ActiveRecord::Base
     self.response_status == "OK"
   end
 
-  private 
-
-  def set_order
-    self.update_attribute(:order, generate_order)
+  def admin_permalink
+    admin_collaboration_path(self)
   end
 
-  def generate_order
+  private 
+
+  def redsys_set_order
+    # TODO: rename order to redsys_order
+    self.update_attribute(:order, redsys_generate_order)
+  end
+
+  def create_orders
+    # For a given Collaboration we need to create the payment Orders due to the payment frecuency
+    case self.frequency 
+      when 1
+        Order.create(collaboration: self, payable_at: DateTime.now + 1.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 2.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 4.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 5.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 6.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 7.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 8.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 9.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 10.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 11.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 12.month) 
+      when 3
+        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 6.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 9.month) 
+        Order.create(collaboration: self, payable_at: DateTime.now + 12.month) 
+      when 12
+        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
+    end
+  end
+
+  def redsys_generate_order
     # Redsys requires an order_id be provided with each transaction of a
     # specific format. The rules are as follows:
     #
