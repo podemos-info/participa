@@ -3,6 +3,8 @@ ActiveAdmin.register Collaboration do
 
   menu :parent => "Colaboraciones"
 
+  actions :all, :except => [:new, :edit]
+
   scope :credit_cards
   scope :bank_nationals
   scope :bank_internationals
@@ -21,9 +23,10 @@ ActiveAdmin.register Collaboration do
   end
 
   filter :user_email, as: :string
-  filter :payment_type_name
-  filter :amount
-  filter :frequency
+
+  filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES
+  filter :payment_type, :as => :select, :collection => Collaboration::TYPES
+  filter :amount, :as => :select, :collection => Collaboration::AMOUNTS
   filter :created_at
 
   show do |collaboration|
