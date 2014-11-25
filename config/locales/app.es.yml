@@ -473,11 +473,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."
     born_at: "Debes indicar tu fecha de nacimiento."
-<<<<<<< HEAD
-    location: "Debes indicar tu ubicación."
-=======
     location: "Por favor, verifica que los datos de tu domicilio son correctos y guarda los datos."
->>>>>>> staging
     country: "Debes indicar el país donde resides."
     province: "Debes indicar la provincia donde resides."
     town: "Debes indicar el municipio donde resides."
