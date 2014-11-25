@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :collaboration do
     user
     amount 1000
-    frequency 120
+    frequency 1
     payment_type 2
     ccc_entity '2177'
     ccc_office '0993'
