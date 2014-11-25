@@ -52,6 +52,7 @@ gem 'paper_trail'
 gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
 gem 'ffi-icu', '~> 0.1.4'
+gem 'unicode'
 
 group :development, :test do
   gem 'capistrano-rvm'
