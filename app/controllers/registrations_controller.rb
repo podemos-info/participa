@@ -1,7 +1,18 @@
 class RegistrationsController < Devise::RegistrationsController
+  require "ffi-icu"
 
-  def subregion_options
+  prepend_before_filter :load_user_location
+
+  def load_user_location
+    @user_location = User.get_location(current_user, params)
+  end
+
+  def regions_provinces
     render partial: 'subregion_select'
+  end
+
+  def regions_municipies
+    render partial: 'municipies_select'
   end
 
   def create
@@ -10,6 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       build_resource(sign_up_params)
       clean_up_passwords(resource)
+
       render :new
     end
   end

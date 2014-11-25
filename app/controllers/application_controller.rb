@@ -4,13 +4,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :unresolved_issues
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_filter :set_phone
-  before_filter :set_new_password
   before_action :set_locale
   before_filter :allow_iframe_requests
   before_filter :admin_logger
-  before_filter :check_born_at
 
   def allow_iframe_requests
     response.headers.delete('X-Frame-Options')
@@ -37,30 +35,51 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
-  def set_new_password
-    if current_user and current_user.has_legacy_password? and current_user.sms_confirmed_at?
-      unless params[:controller] == 'legacy_password' or params[:controller] == 'devise/sessions'
-        redirect_to new_legacy_password_path
-      end
-    end
-  end
+  def after_sign_in_path_for(user)
 
-  def set_phone
-    # FIXME: por cada request estamos comprobando esto, debería ser algun tipo de validación dentro
-    #        de ActiveRecord after_login 
-    if current_user and current_user.sms_confirmed_at.nil?
-      unless params[:controller] == 'sms_validator' or params[:controller] == 'devise/sessions'
-        redirect_to sms_validator_step1_path
-      end
-    end
-  end
+    # reset session value
+    session[:no_unresolved_issues] = false
 
-  def check_born_at
-    if current_user and current_user.sms_confirmed_at? and current_user.born_at == Date.civil(1900,1,1) 
-      if params[:controller] == 'registrations' 
-        flash[:error] = "Por favor revisa tu fecha de nacimiento"
+    issue = user.get_unresolved_issue
+
+    if issue
+      flash.delete(:notice) # remove succesfully logged message
+      if issue[:message]
+        issue[:message].each { |type, text| flash[type] = t("issues."+text) }
+      end
+      return issue[:path]
+    end
+
+    # no issues, don't check it again
+    session[:no_unresolved_issues] = true
+
+    super    
+  end
+  
+  def unresolved_issues
+    if current_user
+
+      if session[:no_unresolved_issues]
+        return nil
+      end
+
+      # get an unresolved issue, if any
+      issue = current_user.get_unresolved_issue true
+      if issue
+        # user is in the right page to fix problem, just inform about the issue
+        if params[:controller] == issue[:controller]
+          if issue[:message] and request.method != "POST" # only inform in the first request of the page
+            issue[:message].each { |type, text| flash.now[type] = t("issues."+text) }
+          end
+        # user wants to log out
+        elsif params[:controller] == 'devise/sessions'
+        # user can't do anything else but fix the issue 
+        else
+          redirect_to issue[:path]
+        end
       else
-        redirect_to edit_user_registration_url, flash: {error: "Por favor revisa tu fecha de nacimiento" }
+        # when everything is OK, stop checking issues
+        session[:no_unresolved_issues] = true
       end
     end
   end
