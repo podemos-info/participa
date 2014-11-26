@@ -18,6 +18,8 @@ es:
       users: Usuarios
       collaboration: Colaboración económica
       collaborations: Colaboraciónes económicas
+      order: Orden de pago
+      orders: Ordenes de pago
       election: Elección
       elections: Elecciones
       notice: Aviso
@@ -65,16 +67,28 @@ es:
         updated_at: "Actualizada el"
         amount: "Importe mensual"
         frequency: "Frecuencia de pago" 
+        frequency_name: "Frecuencia de pago" 
         minimal_year_old: "Edad mínima requerida" 
         terms_of_service: "Acuerdo legal"
         order_id: "Número de orden en Redsys"
         payment_type: "Método de pago"
+        payment_type_name: "Método de pago"
         ccc_entity: "Entidad"
         ccc_office: "Oficina"
         ccc_dc: "DC"
         ccc_account: "Número de cuenta"
         iban_account: "IBAN"
         iban_bic: "BIC/SWIFT"
+      order:
+        status: "Estado"
+        status_name: "Estado"
+        collaboration: "Colaboración"
+        user: "Usuario"
+        payable_at: "Ha cobrarse el" 
+        payed_at: "Cobrada el"
+        created_at: "Creada el"
+        deleted_at: "Borrada el"
+        updated_at: "Actualizada el"
       election: 
         title: "Título"
         agora_election_id: "ID en AgoraVoting"
@@ -459,7 +473,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."
     born_at: "Debes indicar tu fecha de nacimiento."
-    location: "Debes indicar tu ubicación."
+    location: "Por favor, verifica que los datos de tu domicilio son correctos y guarda los datos."
     country: "Debes indicar el país donde resides."
     province: "Debes indicar la provincia donde resides."
     town: "Debes indicar el municipio donde resides."
@@ -471,3 +485,21 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       recaptcha_unreachable: "Hubo un error con el captcha, por favor completalo de nuevo"
   election:
     close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
+  active_admin:
+    scopes:
+      created: "Creados"
+      confirmed: "Confirmados"
+      deleted: "Borrados"
+      unconfirmed_mail: "Email sin confirmar"
+      unconfirmed_phone: "Teléfono sin confirmar"
+      confirmed_mail: "Email confirmado"
+      confirmed_phone: "Teléfono confirmado"
+      legacy_password: "Contraseña antigua (legacy)"
+      signed_in: "Ha iniciado sesión"
+      not_signed_in: "No ha iniciado sesión"
+      has_collaboration: "Con colaboración económica"
+      has_collaboration_credit_card: "Con colaboración económica (tarjeta de crédito)"
+      has_collaboration_bank_national: "Con colaboración económica (banco nacional)"
+      has_collaboration_bank_international: "Con colaboración económica (banco internacional)"
+
+
