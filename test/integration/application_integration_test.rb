@@ -45,7 +45,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should set_phone if non sms confirmed user" do
     @user.update_attribute(:sms_confirmed_at, nil)
     login @user
-    assert_equal("Por seguridad, debes confirmar tu teléfono para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
     get '/es'
     assert_response :redirect
     assert_redirected_to sms_validator_step1_path
@@ -56,7 +56,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     @user.update_attribute(:sms_confirmed_at, nil)
     @user.update_attribute(:born_at, Date.civil(1900,1,1))
     login @user
-    assert_equal("Por seguridad, debes confirmar tu teléfono para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
     get '/es'
     assert_response :redirect
     assert_redirected_to sms_validator_step1_path
@@ -65,7 +65,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should set_new_password if legacy password" do
     @user.update_attribute(:has_legacy_password, true)
     login @user
-    assert_equal("Por seguridad, debes cambiar tu contraseña para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Por seguridad, debes cambiar tu contraseña.", flash[:alert])
     get "/es"
     assert_response :redirect
     assert_redirected_to new_legacy_password_path
@@ -74,7 +74,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should check_born_at if born_at is null" do
     @user.update_attribute(:born_at, nil)
     login @user
-    assert_equal("Debes indicar tu fecha de nacimiento para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Debes indicar tu fecha de nacimiento.", flash[:alert])
     get '/es'
     assert_response :redirect
     assert_redirected_to edit_user_registration_url
@@ -83,7 +83,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should check_born_at if born_at 1900,1,1" do
     @user.update_attribute(:born_at, Date.civil(1900,1,1))
     login @user
-    assert_equal("Debes indicar tu fecha de nacimiento para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Debes indicar tu fecha de nacimiento.", flash[:alert])
     get '/es'
     assert_response :redirect
     assert_redirected_to edit_user_registration_url
@@ -92,7 +92,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should redirect to profile with invalid country data" do
     @user.update_attribute(:country, "España")
     login @user
-    assert_equal("Debes indicar el país donde resides para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Debes indicar el país donde resides.", flash[:alert])
     get '/es'
     assert_response :redirect
     assert_redirected_to edit_user_registration_url
@@ -101,7 +101,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should redirect to profile with invalid province data" do
     @user.update_attribute(:province, "Madrid")
     login @user
-    assert_equal("Debes indicar la provincia donde resides para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Debes indicar la provincia donde resides.", flash[:alert])
     get '/es'
     assert_response :redirect
     assert_redirected_to edit_user_registration_url
@@ -110,7 +110,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should redirect to profile with invalid town data" do
     @user.update_attribute(:town, "Madrid")
     login @user
-    assert_equal("Debes indicar el municipio donde resides para continuar utilizando este sistema.", flash[:alert])
+    assert_equal("Debes indicar el municipio donde resides.", flash[:alert])
     get '/es'
     assert_response :redirect
     assert_redirected_to edit_user_registration_url
