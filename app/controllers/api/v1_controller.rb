@@ -37,11 +37,7 @@ class Api::V1Controller < ApplicationController
   private 
 
   def gcm_params
-    params.require(:notice_registrar).permit(:registration_id)
-  end
-
-  def user_exists_params
-    params.require(:user).permit(:document_vatid, :email, :province, :town)
+    params.require(:v1).permit(:registration_id)
   end
 
 end
