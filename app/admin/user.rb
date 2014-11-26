@@ -193,7 +193,7 @@ ActiveAdmin.register User do
 
   controller do
     def show
-      @user = User.find(params[:id])
+      @user = User.with_deleted.find(params[:id])
       @versions = @user.versions
       @user = @user.versions[params[:version].to_i].reify if params[:version]
       show! #it seems to need this
