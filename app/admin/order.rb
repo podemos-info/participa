@@ -27,7 +27,6 @@ ActiveAdmin.register Order do
   # TITULAR Titular de la cuenta. Si no indican nada en contra se pondra el mismo que en "nombre". 
   #
   #"Nº RECIBO", "NOMBRE", "DNI/NIE/PASAPORTE", "EMAIL", "DIRECCIÓN", "CIUDAD", "CÓDIGO POSTAL", "CODIGO PAIS", "IBAN", "CCC", "BIC/SWIFT", "TOTAL", "CÓDIGO DE ADEUDO", "URL FUENTE", "ID - ENTRADA", "FECHA DE LA ENTRADA", "COMPROBACIÓN", "FECHA TRIODOS", "FRECUENCIA", "TITULAR"
-  #1406013953  ANDRES ALABS ALABS  11111111T apereira@alabs.org  AVDA …  MADRID  28000 ES    12345678901234567890    10  RCUR  https://podemos.info/participa/colaboraciones/colabora/ 6728  14-06-2014  Colaboración octubre  07-10-2014  Mensual EMILIA CANSER
   #
   
   collection_action :mensual_orders, :method => :get do
@@ -37,7 +36,7 @@ ActiveAdmin.register Order do
       orders.each do |order| 
         # TODO: user.town_name 
         # FIXME: revisar
-        csv << [ order.receipt, order.collaboration.user.full_name, order.collaboration.user.document_vatid, order.collaboration.user.email, order.collaboration.user.address, order.collaboration.user.town, order.collaboration.user.postal_code, order.collaboration.user.country, order.collaboration.iban_account, order.collaboration.ccc_full, order.collaboration.iban_bic, order.collaboration.amount, order.due_code, order.url_source, order.collaboration.id, order.created_at.to_s, order.concept, order.payable_at, order.collaboration.frequency_name, order.collaboration.user.full_name,  ] 
+        csv << [ order.receipt, order.collaboration.user.full_name, order.collaboration.user.document_vatid, order.collaboration.user.email, order.collaboration.user.address, order.collaboration.user.town, order.collaboration.user.postal_code, order.collaboration.user.country, order.collaboration.iban_account, order.collaboration.ccc_full, order.collaboration.iban_bic, order.collaboration.amount, order.due_code, order.url_source, order.collaboration.id, order.created_at.to_s, order.concept, order.payable_at, order.collaboration.frequency_name, order.collaboration.user.full_name ] 
       end 
     end
     send_data csv.encode('utf-8'),

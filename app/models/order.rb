@@ -55,4 +55,21 @@ class Order < ActiveRecord::Base
     admin_order_path(self)
   end
 
+  def self.by_month(date)
+    # Recieves a DateTime object, returns Orders for all the month
+    # dt = DateTime.new(2014,12,1) 
+    # Order.payable_by_date_month(dt)
+    date_start = date.beginning_of_month
+    date_end = date.end_of_month
+    where("payable_at >= ? and payable_at <= ?", date_start, date_end)
+  end
+
+  def self.by_month_count(date)
+    self.by_month(date).count
+  end
+
+  def self.by_month_amount(date)
+    self.by_month(date).includes(:collaboration).sum(:amount) / 100.0
+  end
+
 end
