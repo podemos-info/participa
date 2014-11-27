@@ -35,6 +35,12 @@ class Collaboration < ActiveRecord::Base
   scope :credit_cards, -> {where(payment_type: 1)}
   scope :bank_nationals, -> {where(payment_type: 2)}
   scope :bank_internationals, -> {where(payment_type: 3)}
+  scope :frequency_month, -> {where(frequency: 1)}
+  scope :frequency_quarterly, -> {where(frequency: 3)}
+  scope :frequency_anual, -> {where(frequency: 12)}
+  scope :amount_1, -> {where("amount < 10")}
+  scope :amount_2, -> {where("amount > 10 and amount < 20")}
+  scope :amount_3, -> {where("amount > 20")}
 
   def validate_ccc 
     BankCccValidator.validate("#{self.ccc_full}")

@@ -1,0 +1,15 @@
+<tr>
+  <% date = DateTime.new(year, month, 1) %>
+  <td>
+    <%= date.month %> / <%= date.year %>
+  </td>
+  <td>
+    <%= Order.by_month_count(date) %>
+  </td>
+  <td>
+    <%= number_to_currency(Order.by_month_amount(date)) %>
+  </td>
+  <td>
+    <%= link_to "Descargar", "#" %>
+  </td>
+</tr>
