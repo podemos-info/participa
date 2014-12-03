@@ -5,16 +5,18 @@
   <dd>cada <%= @collaboration.frequency * 30 %> días</dd>
   <dt>Método de pago</dt>
   <dd><%= @collaboration.payment_type_name %></dd>
-  <dt>Cuenta bancaria</dt>
-  <dd>
-  <% if @collaboration.is_bank_national? %>
-    <%= @collaboration.ccc_full %>
+  <% unless @collaboration.is_credit_card? %>
+    <dt>Cuenta bancaria</dt>
+    <dd>
+    <% if @collaboration.is_bank_national? %>
+      <%= @collaboration.ccc_full %>
+    <% end %>
+    <% if @collaboration.is_bank_international? %>
+      IBAN: <%= @collaboration.iban_account %> <br>
+      BIC: <%= @collaboration.iban_bic %>
+    <% end %>
+    </dd>
   <% end %>
-  <% if @collaboration.is_bank_international? %>
-    IBAN: <%= @collaboration.iban_account %> <br>
-    BIC: <%= @collaboration.iban_bic %>
-  <% end %>
-  </dd>
 
 </dl>
 
@@ -26,18 +28,23 @@
     <th>Importe</th>
   </thead>
   <tbody>
-  <% freq = @collaboration.frequency %>
-  <% (0..(freq)).each do |f| %>
+  <% freq = @collaboration.frequency_payments %>
+  <% (1..(freq)).each_with_index do |f, i| %>
     <tr>
-      <td> <%= l(@collaboration.created_at + @collaboration.frequency.days * (30 * f), format: :long) %> </td>
-      <td> <%= number_to_euro @collaboration.amount %> </td>
+      <% if i == 0 %>
+        <td> Del <%= l(@collaboration.created_at, format: :date) %> al <%= l(@collaboration.created_at + 5.days, format: :date) %></td>
+        <td> <%= number_to_euro @collaboration.amount %> </td>
+      <% else %>
+        <td> Del <%= l(@collaboration.created_at + f.month - 5.days, format: :date) %> al <%= l(@collaboration.created_at + f.month + 5.days, format: :date) %> </td>
+        <td> <%= number_to_euro @collaboration.amount %> </td>
+      <% end %>
     </tr>
   <% end %>
   </tbody>
   <tfoot>
     <tr>
       <th>Total</th>
-      <th><%= number_to_euro((freq + 1 ) * @collaboration.amount) %></th>
+      <th><%= number_to_euro((freq) * @collaboration.amount) %></th>
     </tr>
   </tfoot>
 </table>
