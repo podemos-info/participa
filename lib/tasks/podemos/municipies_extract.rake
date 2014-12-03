@@ -1,5 +1,18 @@
 namespace :podemos do
-  desc "[podemos] Extract municipies for a province from INE"
+  desc "[podemos] Generate SQL commands for lists creation in Sendy"
+  task :generate_sendy_lists => :environment do
+    sendy_lists = SendyListsUpdater.new Rails.application.secrets.sendy["appID"], Rails.application.secrets.sendy["userID"]
+
+    sendy_lists.add_list "A - España", "m_"
+    sendy_lists.add_list "A - Extranjero", "e_"
+
+    # 50 provinces + 2 autonomous cities
+    (01..52).each {|n| sendy_province "%02d" % n, sendy_lists}
+
+    sendy_lists.close
+  end
+
+  desc "[podemos] Extract municipies information from INE"
   # http://www.ine.es/jaxi/menu.do?type=pcaxis&path=/t20/e245/codmun&file=inebase 
   #    Relación de municipios y códigos por provincias a 01-01-2014
   #    http://www.ine.es/daco/daco42/codmun/codmunmapa.htm
@@ -11,7 +24,7 @@ namespace :podemos do
   #
   task :municipies_extract => :environment do
     # 50 provinces + 2 autonomous cities
-    (01..52).each {|n| parse_prefix_by_number "%02d" % n }
+    (01..52).each {|n| carmen_province "%02d" % n}
   end
 
   def get_prefix_province prefix
@@ -68,17 +81,41 @@ namespace :podemos do
       when "46" then "V"
       when "47" then "VA"
       when "48" then "BI"
-      when "49" then "ZA"
-      when "50" then "Z"
+      when "49" then "Z"
+      when "50" then "ZA"
       when "51" then "CE"
       when "52" then "ML"
     end
   end
 
-  def parse_prefix_by_number number_province
+  def sendy_province number_province, sendy_lists
     # Given a number (first column) like 01 or 52 parse the CSV file and 
     # extract all the municipalities for that province. 
+    
+    # Extract all municipies on a list like 
+    # [ ["m_01_001_4", "Alegría-Dulantzi"], ["m_01_002_9", "Amurrio"] ... ]
+    municipies = []
+    raw = CSV.read("db/ine/14codmun.csv")
+    raw.each do |a|
+      if a[0] == number_province
+        municipies << [ "m_#{a[0]}_#{a[1]}_#{a[2]}" , a[3] ]
+      end
+    end
+    prefix = get_prefix_province number_province.to_s
 
+    province_name = Carmen::Country.coded("ES").subregions.coded(prefix).name
+    sendy_lists.add_list "B - #{province_name}", "m_#{number_province}"
+
+    municipies.each do |mun|
+      c = mun[0]
+      sendy_lists.add_list "C - #{province_name} - #{mun[1]}", "#{c.downcase}"
+    end
+  end
+
+  def carmen_province number_province
+    # Given a number (first column) like 01 or 52 parse the CSV file and 
+    # extract all the municipalities for that province. 
+    
     # Extract all municipies on a list like 
     # [ ["m_01_001_4", "Alegría-Dulantzi"], ["m_01_002_9", "Amurrio"] ... ]
     municipies = []
@@ -107,14 +144,41 @@ es:
 "
     municipies.each do |mun|
       c = mun[0]
-      code = 
-  data_file.puts "- code: #{c.downcase}
+      data_file.puts "- code: #{c.downcase}
   type: municipality"
-  i18n_file.puts "        #{c.downcase}:
+      i18n_file.puts "        #{c.downcase}:
           name: \"#{mun[1]}\""
     end
     data_file.close
     i18n_file.close
   end
 
+  class SendyListsUpdater
+    def initialize(appID, userID)
+      @appID = appID
+      @userID = userID
+
+      FileUtils.mkdir_p("tmp/sendy") unless File.directory?("tmp/sendy")
+      @sendy_lists_file = File.open("tmp/sendy/update_lists.sql", 'w')
+
+      @INSERT_TEMPLATE = ERB.new <<-END
+INSERT INTO lists (app, userID, name, thankyou_message, goodbye_message, confirmation_email, custom_fields)
+SELECT <%= @appID %>, <%= @userID %>, "<%= name %> - <%= code %>", <%= @EMPTY_PAGE %>, <%= @EMPTY_PAGE %>, <%= @EMPTY_PAGE %>, NULL
+FROM lists WHERE NOT EXISTS(
+  SELECT * FROM lists l WHERE l.name LIKE '% - <%= code %>'
+) LIMIT 1;
+
+      END
+      @EMPTY_PAGE = "'<html><head></head><body></body></html>'"
+    end
+
+    def add_list name, code
+      @sendy_lists_file.puts @INSERT_TEMPLATE.result(binding)
+    end
+
+    def close
+      @sendy_lists_file.puts("SELECT id FROM lists WHERE app = #{@appID} and userID = #{@userID};")
+      @sendy_lists_file.close
+    end
+  end
 end
