@@ -13,13 +13,18 @@ class Collaboration < ActiveRecord::Base
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
   validates :user, uniqueness: true
-  validates :order, uniqueness: true, if: :is_credit_card?
-  validate :order, presence: true, if: :is_credit_card?
+  validate :validates_not_passport
+  validate :validates_age_over
+
+  validates :redsys_order, uniqueness: true, if: :is_credit_card?
+  validate :redsys_order, presence: true, if: :is_credit_card?
+
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
+  validate :validates_ccc, if: :is_bank_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+
   validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
-  validate :validate_ccc, if: :is_bank_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
-  validate :validate_iban, if: :is_bank_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+  validate :validates_iban, if: :is_bank_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
 
   after_create :create_orders
   before_validation :redsys_set_order, if: :is_credit_card?
@@ -42,11 +47,23 @@ class Collaboration < ActiveRecord::Base
   scope :amount_2, -> {where("amount > 10 and amount < 20")}
   scope :amount_3, -> {where("amount > 20")}
 
-  def validate_ccc 
+  def validates_not_passport
+    if self.user.is_passport? 
+      self.errors.add(:user, "No puedes colaborar si eres extranjero.")
+    end
+  end
+
+  def validates_age_over
+    if self.user.born_at > Date.today-18.years
+      self.errors.add(:user, "No puedes colaborar si eres menor de edad.")
+    end
+  end
+
+  def validates_ccc 
     BankCccValidator.validate("#{self.ccc_full}")
   end
 
-  def validate_iban
+  def validates_iban
     IBANTools::IBAN.valid?(self.iban_account)
   end
 
@@ -75,15 +92,30 @@ class Collaboration < ActiveRecord::Base
     "#{ccc_entity} #{ccc_office} #{ccc_dc} #{ccc_account}"
   end
 
-  def merchant_currency
+  def admin_permalink
+    admin_collaboration_path(self)
+  end
+
+  def frequency_payments
+    case self.frequency
+    when 1 
+      12
+    when 3
+      4
+    when 12
+      1
+    end
+  end
+
+  def redsys_merchant_currency
     978
   end
 
-  def merchant_code
+  def redsys_merchant_code
     Rails.application.secrets.redsys["code"]
   end
 
-  def merchant_terminal
+  def redsys_merchant_terminal
     Rails.application.secrets.redsys["terminal"]
   end
 
@@ -91,38 +123,42 @@ class Collaboration < ActiveRecord::Base
     Rails.application.secrets.redsys["secret_key"]
   end
 
-  def merchant_url 
+  def redsys_merchant_url 
     Rails.application.secrets.redsys["merchant_url"]
   end
 
-  def merchant_transaction_type
-    5
+  def redsys_merchant_url_ok
+    # TODO
+    Rails.application.secrets.redsys["merchant_url"]
   end
 
-  def merchant_date_frequency
-    30
-  end
-  
-  def merchant_sumtotal
-    self.amount * self.frequency
+  def redsys_merchant_name
+    Rails.application.secrets.redsys["name"]
   end
 
-  def merchant_message
-    #"#{self.amount}#{self.order}#{self.merchant_code}#{self.merchant_currency}#{self.merchant_transaction_type}#{self.merchant_url}#{self.redsys_secret_key}"
-    #Digest=SHA-1(Ds_Merchant_Amount + Ds_Merchant_Order +Ds_Merchant_MerchantCode + DS_Merchant_Currency + Ds_Merchant_SumTotal + CLAVE SECRETA))
-    "#{self.amount}#{self.order}#{self.merchant_code}#{self.merchant_currency}#{self.merchant_sumtotal}#{self.redsys_secret_key}"
+  def redsys_merchant_identifier
+    Rails.application.secrets.redsys["identifier"]
   end
 
-  def merchant_signature
-    Digest::SHA1.hexdigest(self.merchant_message).upcase
+  def redsys_merchant_transaction_type
+    0
   end
 
-  def match_signature signature
+  def redsys_merchant_message
+    "#{self.amount}#{self.redsys_order}#{self.redsys_merchant_code}#{self.redsys_merchant_currency}#{self.redsys_merchant_transaction_type}#{self.redsys_merchant_url}#{self.redsys_secret_key}"
+    #"#{self.amount}#{self.redsys_order}#{self.redsys_merchant_code}#{self.redsys_merchant_currency}#{self.redsys_merchant_sumtotal}#{self.redsys_secret_key}"
+  end
+
+  def redsys_merchant_signature
+    Digest::SHA1.hexdigest(self.redsys_merchant_message).upcase
+  end
+
+  def redsys_match_signature signature
     # FIXME: check SHA1 signature form redsys
     # signature == merchant_signature
   end
 
-  def parse_response params
+  def redsys_parse_response params
     self.update_attribute(:response, params.to_json)
     self.update_attribute(:response_code, params["Ds_Response"])
     self.update_attribute(:response_recieved_at, DateTime.now)
@@ -134,43 +170,40 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_valid?
+    # TODO:  def redsys_is_valid? 
+    # TODO response_status for bank national/international
     self.response_status == "OK"
-  end
-
-  def admin_permalink
-    admin_collaboration_path(self)
   end
 
   private 
 
   def redsys_set_order
-    # TODO: rename order to redsys_order
-    self.update_attribute(:order, redsys_generate_order)
+    self.update_attribute(:redsys_order, redsys_generate_order)
   end
 
   def create_orders
     # For a given Collaboration we need to create the payment Orders due to the payment frecuency
     case self.frequency 
       when 1
-        Order.create(collaboration: self, payable_at: DateTime.now + 1.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 2.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 4.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 5.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 6.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 7.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 8.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 9.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 10.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 11.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 12.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 1.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 2.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 3.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 4.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 5.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 6.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 7.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 8.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 9.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 10.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 11.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 12.month) 
       when 3
-        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 6.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 9.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 12.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 3.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 6.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 9.month) 
+        Order.create(collaboration: self, payable_at: self.created_at + 12.month) 
       when 12
-        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
+        Order.create(collaboration: self, payable_at: self.created_at) 
     end
   end
 

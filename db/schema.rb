@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122232445) do
+ActiveRecord::Schema.define(version: 20141128111425) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20141122232445) do
     t.integer  "user_id"
     t.integer  "amount"
     t.integer  "frequency"
-    t.string   "order"
+    t.string   "redsys_order"
     t.datetime "response_recieved_at"
     t.string   "response_code"
     t.string   "response_status"

@@ -67,7 +67,7 @@ class CollaborationsController < ApplicationController
 
     respond_to do |format|
       if @collaboration.save
-        format.html { redirect_to confirm_collaboration_url, notice: 'Collaboration was successfully created.' }
+        format.html { redirect_to confirm_collaboration_url, notice: 'Hemos dado de alta tu colaboración.' }
         format.json { render :confirm, status: :created, location: confirm_collaboration_path }
       else
         format.html { render :new }
@@ -81,7 +81,7 @@ class CollaborationsController < ApplicationController
   def destroy
     @collaboration.destroy
     respond_to do |format|
-      format.html { redirect_to new_collaboration_path, notice: 'Collaboration was successfully destroyed.' }
+      format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
       format.json { head :no_content }
     end
   end
@@ -94,6 +94,6 @@ class CollaborationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:user_id, :amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
+    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
   end
 end
