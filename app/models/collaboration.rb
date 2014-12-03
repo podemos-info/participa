@@ -169,7 +169,9 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def redsys_is_valid?
+  def is_valid?
+    # TODO:  def redsys_is_valid? 
+    # TODO response_status for bank national/international
     self.response_status == "OK"
   end
 
