@@ -11,8 +11,8 @@ open_redsys_window = () ->
 
 
 show_collaboration_ajax_loader = () ->
-  $('.js-collaboration-confirm').attr('disabled', 'disabled')
-  $('.js-collaboration-confirm-ajax').show().removeClass('hide')
+  $('.js-collaboration-confirm-buttons').hide()
+  $('.js-collaboration-confirm-ajax').show()
 
 check_collaboration_by_ajax = () -> 
   order = $('.js-collaboration-order').attr('value')
@@ -51,8 +51,14 @@ calculate_collaboration = () ->
   $freq = $('.js-collaboration-frequency option:selected')
   if (($amount.length > 0) && ($freq.length > 0))
     total = $amount.val() / 100.0 * $freq.val()
-    $('.js-collaboration-alert').show()
-    $('#js-collaboration-alert-amount').text(total)
+    switch $freq.val()
+      when "1"
+        message = total + " € cada mes, en total " + total * 12 + " € al año"
+      when "3"
+        message = total + " € cada 3 meses, en total " + total * 4 + " € al año"
+      when "12"
+        message = total + " € cada año en un pago único anual"
+    $('#js-collaboration-alert-amount').text(message)
 
 change_payment_type = (type) ->
   switch type
