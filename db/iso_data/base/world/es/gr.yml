@@ -305,8 +305,6 @@
   type: municipality
 - code: m_18_182_3
   type: municipality
-- code: m_18_914_1
-  type: municipality
 - code: m_18_907_5
   type: municipality
 - code: m_18_902_2
@@ -336,4 +334,6 @@
 - code: m_18_193_7
   type: municipality
 - code: m_18_194_2
+  type: municipality
+- code: m_18_914_1
   type: municipality
