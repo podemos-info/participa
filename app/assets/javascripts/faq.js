@@ -1,4 +1,5 @@
-jQuery(document).ready(function($){
+function init_faq() {
+
   //update these values if you change these breakpoints in the style.css file (or _layout.scss if you use SASS)
   var MqM= 768,
     MqL = 1024;
@@ -122,5 +123,12 @@ jQuery(document).ready(function($){
         activeCategory.removeClass('selected');
       }
     });
+  }
+
+}
+
+jQuery(document).ready(function($){
+  if ( $('.cd-faq').length > 0 ) {
+    init_faq();
   }
 });
