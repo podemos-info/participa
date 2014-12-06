@@ -13,7 +13,10 @@ class PageControllerTest < ActionController::TestCase
   end
 
   test "should not get guarantees as anonymous user" do
-    get :guarantees
+    get :guarantees_conflict
+    assert_response :redirect
+    assert_redirected_to "/users/sign_in"
+    get :guarantees_compliance
     assert_response :redirect
     assert_redirected_to "/users/sign_in"
   end
@@ -21,7 +24,9 @@ class PageControllerTest < ActionController::TestCase
   test "should not get guarantees as logged in user" do
     user = FactoryGirl.create :user
     sign_in user
-    get :guarantees
+    get :guarantees_conflict
+    assert_response :success
+    get :guarantees_compliance
     assert_response :success
   end
 

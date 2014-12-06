@@ -1,0 +1,10 @@
+<% content_for :title, t('podemos.guarantees.title') %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, "Comisión de Garantías - Área conflictos y garantías") %>
+      <%= link_to "Ir al Área de cumplimento y transparencia", guarantees_compliance_path %>
+      <%= render partial: "gravity_iframe", locals: { form_id: 46 } %>
+    </div>
+  </div>
+</div>
