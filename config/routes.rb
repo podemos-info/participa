@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   scope "/(:locale)", locale: /es|ca|eu/ do 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
-    get '/garantias', to: 'page#guarantees', as: 'guarantees'
+    get '/comision-garantias/conflictos-garantias', to: 'page#guarantees_conflict', as: 'guarantees_conflict'
+    get '/comision-garantias/cumplimento-transparencia', to: 'page#guarantees_compliance', as: 'guarantees_compliance'
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     scope :validator do
