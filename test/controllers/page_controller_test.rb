@@ -17,6 +17,8 @@ class PageControllerTest < ActionController::TestCase
     assert_response :success
     get :guarantees_compliance
     assert_response :success
+    get :guarantees_ethics
+    assert_response :success
   end
 
   test "should not get guarantees as logged in user" do
@@ -25,6 +27,8 @@ class PageControllerTest < ActionController::TestCase
     get :guarantees_conflict
     assert_response :success
     get :guarantees_compliance
+    assert_response :success
+    get :guarantees_ethics
     assert_response :success
   end
 
