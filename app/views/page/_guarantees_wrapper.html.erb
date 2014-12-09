@@ -1,0 +1,10 @@
+<% content_for :title, title %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, title) %>
+      <%= link_to "Volver a Comisión de Garantías Democráticas", "http://podemos.info/comision-de-garantias-democraticas/" %>
+      <%= render partial: "gravity_iframe", locals: { form_id: form_id } %>
+    </div>
+  </div>
+</div>

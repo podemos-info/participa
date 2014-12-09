@@ -119,6 +119,11 @@ class UserTest < ActiveSupport::TestCase
   test "should .full_name work" do
     u = User.new(first_name: "Juan", last_name: "Perez")
     assert_equal(u.full_name, "Juan Perez")
+    assert_equal(@user.full_name, "Perez Pepito")
+  end
+
+  test "should .full_address work" do
+    assert_equal(@user.full_address, "C/ Inventada, 123, Madrid, Madrid, CP 28021, España")
   end
 
   test "should .is_admin? method work" do
@@ -158,6 +163,16 @@ class UserTest < ActiveSupport::TestCase
     @user.unconfirmed_phone = "12345"
     assert_not @user.valid?
     assert @user.errors[:unconfirmed_phone].include?("Revisa el formato de tu teléfono")
+  end
+
+  test "should validates_unconfirmed_phone_format only accept numbers starting with 6 or 7" do 
+    @user.unconfirmed_phone = "0034661234567"
+    assert @user.valid?
+    @user.unconfirmed_phone = "0034771234567"
+    assert @user.valid?
+    @user.unconfirmed_phone = "0034881234567"
+    assert_not @user.valid?
+    assert @user.errors[:unconfirmed_phone].include?("Debes poner un teléfono móvil válido de España empezando por 6 o 7.")
   end
 
   test "should validates_unconfirmed_phone_phone_uniqueness work" do
@@ -214,7 +229,7 @@ class UserTest < ActiveSupport::TestCase
     @user.update_attribute(:phone, "005446311234")
     assert_equal "46311234", @user.phone_no_prefix
   end
-   
+
   test "should .generate_sms_token work" do
     u = User.new
     token = u.generate_sms_token
