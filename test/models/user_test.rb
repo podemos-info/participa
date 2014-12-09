@@ -119,6 +119,11 @@ class UserTest < ActiveSupport::TestCase
   test "should .full_name work" do
     u = User.new(first_name: "Juan", last_name: "Perez")
     assert_equal(u.full_name, "Juan Perez")
+    assert_equal(@user.full_name, "Perez Pepito")
+  end
+
+  test "should .full_address work" do
+    assert_equal(@user.full_address, "C/ Inventada, 123, Madrid, Madrid, CP 28021, España")
   end
 
   test "should .is_admin? method work" do

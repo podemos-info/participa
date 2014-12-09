@@ -253,6 +253,8 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO
         title: "Cambiar contraseña antigua"
         explain: "Por motivos de seguridad tienes que cambiar la contraseña."
         changed: "Has cambiado tu contraseña"
+    guarantees:
+      title: "Comisión de Garantías"
     legal: 
       title1: "WEB PARTICIPA.PODEMOS.INFO"
       title2: "Aviso legal"
@@ -477,7 +479,6 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     country: "Debes indicar el país donde resides."
     province: "Debes indicar la provincia donde resides."
     town: "Debes indicar el municipio donde resides."
-
   recaptcha:
     errors:
       incorrect-captcha-sol: "Hubo un error con el captcha, por favor completalo de nuevo"
@@ -501,5 +502,3 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       has_collaboration_credit_card: "Con colaboración económica (tarjeta de crédito)"
       has_collaboration_bank_national: "Con colaboración económica (banco nacional)"
       has_collaboration_bank_international: "Con colaboración económica (banco internacional)"
-
-
