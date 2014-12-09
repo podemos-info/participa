@@ -24,7 +24,7 @@ class CollaborationsControllerTest < ActionController::TestCase
   test "should create collaboration" do
     sign_in @user
     assert_difference('Collaboration.count') do
-      post :create, collaboration: { amount: @collaboration.amount, frequency: @collaboration.frequency, user_id: @collaboration.user_id }
+      post :create, collaboration: { amount: @collaboration.amount, frequency: @collaboration.frequency }
     end
 
     assert_redirected_to confirm_collaboration_path
