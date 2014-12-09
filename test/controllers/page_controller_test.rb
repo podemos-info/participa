@@ -14,11 +14,9 @@ class PageControllerTest < ActionController::TestCase
 
   test "should not get guarantees as anonymous user" do
     get :guarantees_conflict
-    assert_response :redirect
-    assert_redirected_to "/users/sign_in"
+    assert_response :success
     get :guarantees_compliance
-    assert_response :redirect
-    assert_redirected_to "/users/sign_in"
+    assert_response :success
   end
 
   test "should not get guarantees as logged in user" do
