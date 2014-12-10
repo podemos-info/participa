@@ -1,29 +1,19 @@
-<%= semantic_form_for "Ds_Merchant", url: "https://sis-t.sermepa.es:25443/sis/realizarPago", 
-  html: { method: :post, name: "collaboration-form", target: :tpv, class: 'js-collaboration-form', id: "collaboration-form" } do |f| %>
 
-  <%= f.input "Amount", as: :hidden, input_html: {name: "Ds_Merchant_Amount", id: "Ds_Merchant_Amount", value: @collaboration.amount} %>
-  <%= f.input "Currency", as: :hidden, input_html: {name: "Ds_Merchant_Currency", id: "Ds_Merchant_Currency", value: @collaboration.redsys_merchant_currency} %>
-  <%= f.input "Order", as: :hidden, input_html: {name: "Ds_Merchant_Order", id: "Ds_Merchant_Order", value: @collaboration.redsys_order, class: "js-collaboration-order" } %>
-  <%= f.input "Terminal", as: :hidden, input_html: {name: "Ds_Merchant_Terminal", id: "Ds_Merchant_Terminal", value: @collaboration.redsys_merchant_terminal } %>
-  <%= f.input "TransactionType", as: :hidden, input_html: {name: "Ds_Merchant_TransactionType", id: "Ds_Merchant_TransactionType", value: @collaboration.redsys_merchant_transaction_type } %>
-  <%= f.input "Identifier", as: :hidden, input_html: {name: "Ds_Merchant_Identifier", id: "Ds_Merchant_Identifier", value: "REQUIRED" } %>
+<form target="_top" id="redsys_payment_form" method="post" action="<%= @collaboration.redsys_url_post %>" class="js-collaboration-form">
+  <input type="hidden" name="Ds_Merchant_Amount"            value="<%= @collaboration.amount %>">
+  <input type="hidden" name="Ds_Merchant_Currency"          value="<%= @collaboration.redsys_secret "currency" %>">
+  <input type="hidden" name="Ds_Merchant_Order"             value="<%= @collaboration.redsys_order %>">
+  <input type="hidden" name="Ds_Merchant_MerchantCode"      value="<%= @collaboration.redsys_secret "code" %>">
+  <input type="hidden" name="Ds_Merchant_Terminal"          value="<%= @collaboration.redsys_secret "terminal" %>">
+  <input type="hidden" name="Ds_Merchant_TransactionType"   value="<%= @collaboration.redsys_secret "transaction_type" %>">
+  <input type="hidden" name="Ds_Merchant_MerchantURL"       value="<%= @collaboration.redsys_secret "url" %>">
+  <input type="hidden" name="Ds_Merchant_MerchantSignature" value="<%= @collaboration.redsys_merchant_signature %>">
 
-  <%= f.input "PayMethods", as: :hidden, input_html: {name: "Ds_Merchant_PayMethods", id: "Ds_Merchant_PayMethods", value: "T" } %>
-  <%= f.input "MerchantName", as: :hidden, input_html: {name: "Ds_Merchant_MerchantName", id: "Ds_Merchant_MerchantName", value: @collaboration.redsys_merchant_name} %>
-  <%= f.input "MerchantCode", as: :hidden, input_html: {name: "Ds_Merchant_MerchantCode", id: "Ds_Merchant_MerchantCode", value: @collaboration.redsys_merchant_code } %>
-  <%= f.input "MerchantURL", as: :hidden, input_html: {name: "Ds_Merchant_MerchantURL", id: "Ds_Merchant_MerchantURL", value: @collaboration.redsys_merchant_url } %>
-  <%= f.input "MerchantUrlOK", as: :hidden, input_html: {name: "Ds_Merchant_MerchantUrlOK", id: "Ds_Merchant_MerchantUrlOK", value: @collaboration.redsys_merchant_url_ok } %>
-  <%= f.input "MerchantSignature", as: :hidden, input_html: {name: "Ds_Merchant_MerchantSignature", id: "Ds_Merchant_MerchantSignature", value: @collaboration.redsys_merchant_signature } %>
-  <%= f.input "MerchantData", as: :hidden, input_html: {name: "Ds_Merchant_MerchantData", id: "Ds_Merchant_MerchantData", value: "" } %>
-  <br>
   <div class="js-collaboration-confirm-buttons">
     <%= link_to "Cancelar", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
-    <%= link_to "Confirmar", "#", class: "button js-collaboration-confirm" %>
+    <input type="submit" value="Confirmar" class="button" >
   </div>
-  <br>
-  <br>
-  <br>
-<% end %>
+</form>
 
 <div class="js-collaboration-confirm-ajax hidden">
   <%= alert_box "Información" do  %>

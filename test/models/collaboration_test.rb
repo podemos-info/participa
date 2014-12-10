@@ -2,36 +2,47 @@ require 'test_helper'
 
 class CollaborationTest < ActiveSupport::TestCase
 
-  setup do 
+  def setup
     @collaboration = FactoryGirl.create(:collaboration)
-    @user = FactoryGirl.create(:user)
   end
 
-  test "should .merchant_currency work" do
+  test "should .ccc_full work" do 
+    assert_equal "9000 0001 21 0123456789", @collaboration.ccc_full
+    @collaboration.ccc_dc = 5
+    assert_equal "9000 0001 05 0123456789", @collaboration.ccc_full
+  end
+
+  test "should not save collaboration if foreign user (passport)" do
+    collaboration = FactoryGirl.build(:collaboration, :foreign_user)
+    assert_not collaboration.valid?
+    # assert @collaboration.errors[:user] 
+  end
+
+  test "should .redsys_merchant_currency work" do
     # codigo de euro en redsys
-    assert(@collaboration.merchant_currency.is_a? Integer)
-    assert_equal(978, @collaboration.merchant_currency)
+    assert(@collaboration.redsys_merchant_currency.is_a? Integer)
+    assert_equal(978, @collaboration.redsys_merchant_currency)
   end
 
-  test "should .merchant_code work" do
-    assert(@collaboration.merchant_code.is_a? String)
-    assert_equal(9, @collaboration.merchant_code.length)
+  test "should .redsys_merchant_code work" do
+    assert(@collaboration.redsys_merchant_code.is_a? String)
+    assert_equal(9, @collaboration.redsys_merchant_code.length)
   end
 
-  test "should .merchant_terminal work" do
-    assert(@collaboration.merchant_terminal.is_a? Integer)
+  test "should .redsys_merchant_terminal work" do
+    assert(@collaboration.redsys_merchant_terminal.is_a? String)
   end
 
   test "should .redsys_secret_key work" do
     skip("TODO")
   end
 
-  test "should .merchant_message work" do
-    merchant_message = "#{@collaboration.amount}#{@collaboration.order}#{@collaboration.merchant_code}#{@collaboration.merchant_currency}#{@collaboration.merchant_transaction_type}#{@collaboration.merchant_url}#{@collaboration.redsys_secret_key}"
-    assert_equal(merchant_message, @collaboration.merchant_message)
+  test "should .redsys_merchant_message work" do
+    merchant_message = "#{@collaboration.amount}#{@collaboration.redsys_order}#{@collaboration.redsys_merchant_code}#{@collaboration.redsys_merchant_currency}#{@collaboration.redsys_merchant_transaction_type}#{@collaboration.redsys_merchant_url}#{@collaboration.redsys_secret_key}"
+    assert_equal(merchant_message, @collaboration.redsys_merchant_message)
   end
 
-  test ".merchant_url" do
+  test ".redsys_merchant_url" do
     # TODO: check if valid url 
     # TODO: check if respoinse
     skip("TODO")
@@ -62,50 +73,45 @@ class CollaborationTest < ActiveSupport::TestCase
     # * Remaining 8 digits may be alphanumeric
   end
 
-  test "should validate_ccc work" do 
-    c = Collaboration.new
-    c.amount = 500
-    c.frequency = 3
-    c.payment_type = 2
-    c.ccc_entity = '2177'
-    c.ccc_office = '0993'
-    c.ccc_dc = '23'
-    c.ccc_account = '2366217197'
-    c.user = @user
-    assert c.valid?
+  test "should .validate_ccc work" do 
+    @collaboration.payment_type = 2
+    @collaboration.ccc_entity = '2177'
+    @collaboration.ccc_office = '0993'
+    @collaboration.ccc_dc = '23'
+    @collaboration.ccc_account = '2366217197'
+    assert @collaboration.valid?
 
     # it should fail, DC is invalid
-    c.ccc_entity = '2188'
-    c.ccc_office = '0994'
-    c.ccc_dc = '23'
-    c.ccc_account = '216217197'
-    assert_not c.valid?
-    debugger
+    @collaboration.ccc_entity = '2188'
+    @collaboration.ccc_office = '0994'
+    @collaboration.ccc_dc = '11'
+    @collaboration.ccc_account = '216217197'
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:ccc_dc].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
   end
 
   test "should ccc numericality work" do 
-    c = Collaboration.new
-    c.amount = 500
-    c.frequency = 3
-    c.payment_type = 2
-    c.ccc_entity = 'AAAA'
-    c.ccc_office = 'BBB'
-    c.ccc_dc = 'CC'
-    c.ccc_account = 'DDDDD'
-    assert_not c.valid?
-    assert(c.errors[:ccc_entity].include? "no es un número")
-    assert(c.errors[:ccc_office].include? "no es un número")
-    assert(c.errors[:ccc_dc].include? "no es un número")
-    assert(c.errors[:ccc_account].include? "no es un número")
+    @collaboration.payment_type = 2
+    @collaboration.ccc_entity = 'AAAA'
+    @collaboration.ccc_office = 'BBB'
+    @collaboration.ccc_dc = 'CC'
+    @collaboration.ccc_account = 'DDDDD'
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:ccc_entity].include? "no es un número")
+    assert(@collaboration.errors[:ccc_office].include? "no es un número")
+    assert(@collaboration.errors[:ccc_dc].include? "no es un número")
+    assert(@collaboration.errors[:ccc_account].include? "no es un número")
   end
 
   test "should validate_iban work" do 
-    c = Collaboration.new
-    c.amount = 500
-    c.frequency = 3
-    c.payment_type = 1
-    c.iban_account = "ES4621770993232366217197"
-    assert c.valid?
+    @collaboration.payment_type = 3
+    @collaboration.iban_account = "ES4621770993232366217197"
+    @collaboration.iban_bic = "XXXXXX"
+    assert @collaboration.valid?
+
+    @collaboration.iban_account = "ES4621770993232366222222"
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
   end
 
 end

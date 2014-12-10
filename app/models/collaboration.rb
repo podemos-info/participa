@@ -9,10 +9,10 @@ class Collaboration < ActiveRecord::Base
   # FIXME: no deberia borrar todas las ordenes, solo las pendientes 
   has_many :orders, dependent: :destroy
 
-  validates :user, :amount, :frequency, presence: true
+  validates :user_id, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
-  validates :user, uniqueness: true
+  validates :user_id, uniqueness: true
   validate :validates_not_passport
   validate :validates_age_over
 
@@ -21,10 +21,10 @@ class Collaboration < ActiveRecord::Base
 
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
-  validate :validates_ccc, if: :is_bank_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+  validate :validates_ccc, if: :is_bank_national?
 
   validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
-  validate :validates_iban, if: :is_bank_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+  validate :validates_iban, if: :is_bank_international?
 
   after_create :create_orders
   before_validation :redsys_set_order, if: :is_credit_card?
@@ -60,11 +60,15 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_ccc 
-    BankCccValidator.validate("#{self.ccc_full}")
+    unless BankCccValidator.validate("#{self.ccc_full}")
+      self.errors.add(:ccc_dc, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+    end
   end
 
   def validates_iban
-    IBANTools::IBAN.valid?(self.iban_account)
+    unless IBANTools::IBAN.valid?(self.iban_account)
+      self.errors.add(:iban_account, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+    end
   end
 
   def is_credit_card?
@@ -89,7 +93,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def ccc_full 
-    "#{ccc_entity} #{ccc_office} #{ccc_dc} #{ccc_account}"
+    "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}"
   end
 
   def admin_permalink
@@ -107,46 +111,16 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def redsys_merchant_currency
-    978
+  def redsys_url_post
+    "https://sis-t.sermepa.es:25443/sis/realizarPago"
   end
 
-  def redsys_merchant_code
-    Rails.application.secrets.redsys["code"]
-  end
-
-  def redsys_merchant_terminal
-    Rails.application.secrets.redsys["terminal"]
-  end
-
-  def redsys_secret_key
-    Rails.application.secrets.redsys["secret_key"]
-  end
-
-  def redsys_merchant_url 
-    Rails.application.secrets.redsys["merchant_url"]
-  end
-
-  def redsys_merchant_url_ok
-    # TODO
-    Rails.application.secrets.redsys["merchant_url"]
-  end
-
-  def redsys_merchant_name
-    Rails.application.secrets.redsys["name"]
-  end
-
-  def redsys_merchant_identifier
-    Rails.application.secrets.redsys["identifier"]
-  end
-
-  def redsys_merchant_transaction_type
-    0
+  def redsys_secret(key)
+    Rails.application.secrets.redsys[key]
   end
 
   def redsys_merchant_message
-    "#{self.amount}#{self.redsys_order}#{self.redsys_merchant_code}#{self.redsys_merchant_currency}#{self.redsys_merchant_transaction_type}#{self.redsys_merchant_url}#{self.redsys_secret_key}"
-    #"#{self.amount}#{self.redsys_order}#{self.redsys_merchant_code}#{self.redsys_merchant_currency}#{self.redsys_merchant_sumtotal}#{self.redsys_secret_key}"
+    "#{self.amount}#{self.redsys_order}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_secret "url"}#{self.redsys_secret "secret_key"}"
   end
 
   def redsys_merchant_signature
