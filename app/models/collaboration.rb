@@ -60,8 +60,10 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_ccc 
-    unless BankCccValidator.validate("#{self.ccc_full}")
-      self.errors.add(:ccc_dc, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+    if self.ccc_entity and self.ccc_office and self.ccc_dc and self.ccc_account
+      unless BankCccValidator.validate("#{self.ccc_full}")
+        self.errors.add(:ccc_dc, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+      end
     end
   end
 
@@ -111,32 +113,36 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def redsys_url_post
-    "https://sis-t.sermepa.es:25443/sis/realizarPago"
-  end
-
   def redsys_secret(key)
     Rails.application.secrets.redsys[key]
   end
 
+  def redsys_merchant_url(type=nil)
+    redsys_callback_collaboration_url(protocol: :https, redsys_order: self.redsys_order, collaboration_id: self.id, user_id: self.user.id, type: type) 
+  end
+
   def redsys_merchant_message
-    "#{self.amount}#{self.redsys_order}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_secret "url"}#{self.redsys_secret "secret_key"}"
+    "#{self.amount}#{self.redsys_order}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}#{self.redsys_secret "secret_key"}"
   end
 
   def redsys_merchant_signature
     Digest::SHA1.hexdigest(self.redsys_merchant_message).upcase
   end
 
-  def redsys_match_signature signature
+  def redsys_match_signature? signature
     # FIXME: check SHA1 signature form redsys
-    # signature == merchant_signature
+    signature == self.redsys_merchant_signature
   end
 
-  def redsys_parse_response params
-    self.update_attribute(:response, params.to_json)
-    self.update_attribute(:response_code, params["Ds_Response"])
-    self.update_attribute(:response_recieved_at, DateTime.now)
-    if params["Ds_Response"] == "0000" #TODO and match_signature(params["Ds_Signature"])
+  def confirm!
+    self.update_attribute(:response_status, "OK")
+  end
+
+  def redsys_parse_response! params
+    self.update_attribute(:redsys_response, params.to_json)
+    self.update_attribute(:redsys_response_code, params["Ds_Response"])
+    self.update_attribute(:redsys_response_recieved_at, DateTime.now)
+    if params["Ds_Response"] == "0000" and self.redsys_match_signature?(params["Ds_Signature"])
       self.update_attribute(:response_status, "OK")
     else
       self.update_attribute(:response_status, "KO")

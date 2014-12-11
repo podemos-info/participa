@@ -54,9 +54,19 @@ FactoryGirl.define do
     wants_newsletter true
   end
 
-  trait :dni do
+  trait :dni1 do
     document_type 1
     document_vatid "00000001R"
+  end
+
+  trait :dni2 do
+    document_type 1
+    document_vatid "00000002W"
+  end
+
+  trait :dni3 do
+    document_type 1
+    document_vatid "00000003A"
   end
 
 end

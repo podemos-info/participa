@@ -15,31 +15,26 @@ class CollaborationTest < ActiveSupport::TestCase
   test "should not save collaboration if foreign user (passport)" do
     collaboration = FactoryGirl.build(:collaboration, :foreign_user)
     assert_not collaboration.valid?
-    # assert @collaboration.errors[:user] 
+    assert(collaboration.errors[:user].include? "No puedes colaborar si eres extranjero.")
   end
 
-  test "should .redsys_merchant_currency work" do
-    # codigo de euro en redsys
-    assert(@collaboration.redsys_merchant_currency.is_a? Integer)
-    assert_equal(978, @collaboration.redsys_merchant_currency)
+  test "should not save collaboration if userr is not over legal age (18 years old)" do
+    user = FactoryGirl.build(:user, :dni3)
+    user.update_attribute(:born_at, DateTime.now-10.years)
+    @collaboration.user = user
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:user].include? "No puedes colaborar si eres menor de edad.")
   end
 
-  test "should .redsys_merchant_code work" do
-    assert(@collaboration.redsys_merchant_code.is_a? String)
-    assert_equal(9, @collaboration.redsys_merchant_code.length)
-  end
-
-  test "should .redsys_merchant_terminal work" do
-    assert(@collaboration.redsys_merchant_terminal.is_a? String)
-  end
-
-  test "should .redsys_secret_key work" do
-    skip("TODO")
+  test "should .redsys_secret work and should have all the keys" do
+    %w(code name terminal secret_key identifier currency transaction_type payment_methods post_url).each do |key|
+      assert( @collaboration.redsys_secret(key).is_a? String )
+    end
+    assert_not( @collaboration.redsys_secret( "blablablabla" ).is_a? String )
   end
 
   test "should .redsys_merchant_message work" do
-    merchant_message = "#{@collaboration.amount}#{@collaboration.redsys_order}#{@collaboration.redsys_merchant_code}#{@collaboration.redsys_merchant_currency}#{@collaboration.redsys_merchant_transaction_type}#{@collaboration.redsys_merchant_url}#{@collaboration.redsys_secret_key}"
-    assert_equal(merchant_message, @collaboration.redsys_merchant_message)
+    skip("TODO")
   end
 
   test ".redsys_merchant_url" do
@@ -52,25 +47,26 @@ class CollaborationTest < ActiveSupport::TestCase
     skip("TODO")
   end
 
-  test "should .parse_response work" do
-    #  {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:46", "Ds_SecurePayment"=>"0", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>"837108c7830f", "Ds_MerchantCode"=>"054517297", "Ds_Terminal"=>"001", "Ds_Signature"=>"E86EE7730D095DFC8346C5F98E4594AD6B0565DD", "Ds_Response"=>"0913", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_ErrorCode"=>"SIS0051", "Ds_AuthorisationCode"=>"      "}
-    #  {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:52", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>"231852dccd1e", "Ds_MerchantCode"=>"054517297", "Ds_Terminal"=>"001", "Ds_Signature"=>"22CA8B2B30C18581A57F7590AA2FC68862928D8D", "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"256385"}
-    skip("TODO")
-  end
+  test "should .redsys_parse_response! work" do
+    collaboration = FactoryGirl.create(:collaboration, :credit_card)
 
-  test "should .set_order work on creation" do
-    skip("TODO")
-  end
+    # response KO 
+    params = {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:46", "Ds_SecurePayment"=>"0", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0913", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_ErrorCode"=>"SIS0051", "Ds_AuthorisationCode"=>"      "}
+    collaboration.redsys_parse_response! params
+    assert_equal(collaboration.redsys_response_code, "0913")
+    assert_equal(collaboration.response_status, "KO")
 
-  test "should order be valid" do
-    skip("TODO")
-    # Redsys requires an order_id be provided with each transaction of a
-    # specific format. The rules are as follows:
-    #
-    # * Minimum length: 4
-    # * Maximum length: 12
-    # * First 4 digits must be numerical
-    # * Remaining 8 digits may be alphanumeric
+    # response OK
+    params = { "user_id"=>collaboration.user.id, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
+    collaboration.redsys_parse_response! params
+    assert_equal(collaboration.redsys_response_code, "0000")
+    assert_equal(collaboration.response_status, "OK")
+
+    # invalid signature
+    params = { "user_id"=>collaboration.user.id, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>"TROLOLOLOLO", "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
+    collaboration.redsys_parse_response! params
+    assert_equal(collaboration.redsys_response_code, "0000")
+    assert_equal(collaboration.response_status, "KO")
   end
 
   test "should .validate_ccc work" do 

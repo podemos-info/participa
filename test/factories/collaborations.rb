@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :collaboration do
-    association :user, :factory => [:user, :dni]
+    association :user, :factory => [:user, :dni1]
     amount 1000
     frequency 1
     payment_type 2
@@ -10,6 +10,15 @@ FactoryGirl.define do
     ccc_office '0001'
     ccc_dc '21'
     ccc_account '0123456789'
+  end
+
+  trait :credit_card do
+    association :user, :factory => [:user, :dni2]
+    payment_type 1
+    ccc_entity nil
+    ccc_office nil
+    ccc_dc nil
+    ccc_account nil
   end
 
   trait :foreign_user do 

@@ -7,8 +7,6 @@ open_redsys_window = () ->
   vent = window.open("", "tpv", "width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no")
   document.forms[0].submit()
   return
-  #$('.js-collaboration-form').submit()
-
 
 show_collaboration_ajax_loader = () ->
   $('.js-collaboration-confirm-buttons').hide()
@@ -17,9 +15,9 @@ show_collaboration_ajax_loader = () ->
 check_collaboration_by_ajax = () -> 
   order = $('.js-collaboration-order').attr('value')
   timeOutId = 0
-  ajaxFn = ->
+  retry_check_collaboration_by_ajax = ->
     $.ajax
-      url: "/collaborations/validate/status/" + order
+      url: "/collaborations/validate/status/" + order + ".json"
       success: (response) ->
         if response.status?
           switch response.status
@@ -33,13 +31,13 @@ check_collaboration_by_ajax = () ->
               window.location = "/collaborations/validate/KO"
               clearTimeout timeOutId
         else
-          timeOutId = setTimeout(ajaxFn, 10000)
+          timeOutId = setTimeout(retry_check_collaboration_by_ajax, 10000)
         return
 
     return
-  #ajaxFn()
+  retry_check_collaboration_by_ajax()
   #OR use BELOW line to wait 10 secs before first call
-  timeOutId = setTimeout(ajaxFn, 10000)
+  #timeOutId = setTimeout(ajaxFn, 10000)
 
 start_collaboration_confirm = () ->
   show_collaboration_ajax_loader()
@@ -77,22 +75,23 @@ change_payment_type = (type) ->
 
 init_collaborations = () ->
 
-  change_payment_type($('.js-collaboration-type:selected').val())
+  change_payment_type($('.js-collaboration-type').val() || $('.js-collaboration-type').select2('val'))
+
   $('.js-collaboration-type').on 'change', (event) ->
     type = $(this).val()
     change_payment_type(type)
 
-  #$('.js-collaboration-confirm').on 'click', (event) ->
-  #  event.preventDefault()
-  #  start_collaboration_confirm()
+  $('.js-collaboration-confirm').on 'click', (event) ->
+    event.preventDefault()
+    start_collaboration_confirm()
 
   calculate_collaboration()
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
     calculate_collaboration()
 
 
-#$(window).bind 'page:change', ->
-#  init_collaborations()
+$(window).bind 'page:change', ->
+  init_collaborations()
 
 $ ->
   init_collaborations()
