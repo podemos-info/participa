@@ -26,6 +26,12 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def recover_and_logout
+    current_user.send_reset_password_instructions
+    sign_out_and_redirect current_user
+    flash[:notice] = t("devise.confirmations.send_instructions")
+  end
+
   # http://www.jacopretorius.net/2014/03/adding-custom-fields-to-your-devise-user-model-in-rails-4.html
   private
 

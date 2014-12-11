@@ -139,6 +139,7 @@ es:
       change_phone: "Cambiar teléfono móvil"
       change_phone_explain_html: "Ahora mismo tienes el móvil <b> %{phone} </b>"
       change_password: "Cambiar contraseña"
+      recover_password: "Recuperar contraseña"
       cancel_account: "Darme de baja"
       cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal.</p>
 <p> A partir de este momento tu cuenta de acceso al portal de participación de Podemos quedará eliminada.</p>

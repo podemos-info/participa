@@ -45,14 +45,16 @@ es:
       update_needs_confirmation: "Actualizaste tu cuenta correctamente, sin embargo necesitamos verificar tu nueva cuenta de correo. Por favor revisa tu correo electrónico y visita el enlace para finalizar la confirmación de tu nueva dirección de correo electrónico."
       updated: "Has actualizado tu cuenta correctamente."
     sessions:
-      signed_in: "Has iniciado sesión satisfactoriamente."
-      signed_out: "Has cerrado la sesión satisfactoriamente."
+      signed_in: ""
+      signed_out: ""
     unlocks:
       send_instructions: "Recibirás un correo electrónico en unos minutos con instrucciones sobre cómo desbloquear tu cuenta."
       send_paranoid_instructions: "Si tu cuenta existe, recibirás un correo electrónico en unos minutos con instrucciones sobre cómo desbloquear tu cuenta."
       unlocked: "Tu cuenta ha sido desbloqueada. Por favor inicia sesión para continuar."
   errors:
     messages:
+      confirmation: "El valor no coincide con la confirmación."
+      invalid: "El valor no es correcto."
       already_confirmed: "ya ha sido confirmado, por favor intenta iniciar sesión."
       confirmation_period_expired: "necesita ser confirmado en %{period}, por favor vuelve a solicitarla."
       expired: "ha expirado, por favor vuelve a solicitarla."

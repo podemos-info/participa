@@ -14,9 +14,10 @@ es:
       confirmation_instructions: "Reenviar instrucciones de confirmación"
       unlock_instructions: "Reenviar instrucciones de desbloqueo"
     hints:
+      locked: "No puedes modificar este campo"
       password: ""
-      current_password: "Introduce tu contraseña para validar los cambios "
-    labels:
+      current_password: "Por seguridad, debes introducir tu contraseña actual para hacer cambios. Haz click %{link} si no la recuerdas. "
+      labels:
       new_password: "Contraseña nueva"
       new_password_confirmation: "Confirmar contraseña nueva"
     links:
@@ -29,12 +30,13 @@ es:
       forgot_password: "He olvidado mi contraseña"
       confirmation_instructions: "¿No has recibido las instrucciones de confirmación?"
       unlock_instructions: "¿No has recibido las instrucciones de desbloqueo?"
+      here: "aquí"
     messages:
       cancel_account_confirmation: "¿Estás seguro?"
       waiting_confirmation: "Actualmente esperando instrucciones para %{email}"
     titles:
       sign_in: "Iniciar sesión"
-      sign_up: "Formulario de inscripción en Podemos partido político CIF G86976941"
+      sign_up: "Formulario de inscripción en Podemos partido político CIF G86976941"
       cancel_account: "Cancelar mi cuenta"
       forgot_password: "¿Has olvidado tu contraseña?"
       change_password: "Cambiar tu contraseña"
