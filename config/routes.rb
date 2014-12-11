@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   get '', to: redirect("/#{I18n.locale}")
 
-  # para redsys
-  post '/collaborations/validate/callback', to: 'collaborations#callback', as: 'callback_collaboration'
-
   namespace :api do
     scope :v1 do 
       scope :gcm do 
@@ -57,7 +54,10 @@ Rails.application.routes.draw do
           scope :validate do
             get 'OK', to: 'collaborations#OK', as: 'validate_ok_collaboration'
             get 'KO', to: 'collaborations#KO', as: 'validate_ko_collaboration'
-            get 'status/:order', to: 'collaborations#status', as: 'validate_status_collaboration'
+            scope :redsys do
+              get '/status/:order', to: 'collaborations#redsys_status', as: 'redsys_validate_status_collaboration'
+              post '/callback', to: 'collaborations#redsys_callback', as: 'redsys_callback_collaboration'
+            end
           end
         end
         root 'tools#index', as: :authenticated_root
