@@ -1,5 +1,4 @@
 <%= content_for :title, t("podemos.user.personal_data") %>
-
 <div class="content">
   <div class="content-content cols">
     <div class="row">
@@ -18,6 +17,11 @@
               </a>
             </li>
             <li>
+              <a href="#recover-password">
+                <span><%=t("podemos.user.recover_password") %></span>
+              </a>
+            </li>
+            <li>
               <a href="#change-email">
                 <span><%=t("podemos.user.change_email") %></span></a></li>
             <li>
@@ -33,13 +37,16 @@
           </ul>
         </nav><%#!--.submenu--%>
 
-
         <div id="personal-data-content">
           <div class="js-personal-content" id="personal-data">
+            <%= errors_in_form resource %>
             <%= render partial: 'personal_data' %>
           </div>
           <div id="change-password" class="invisible js-personal-content">
             <%= render partial: 'change_password' %>
+          </div>
+          <div id="recover-password" class="invisible js-personal-content">
+            <%= render partial: 'recover_password' %>
           </div>
           <div id="change-email" class="invisible js-personal-content">
             <%= render partial: 'change_email' %>

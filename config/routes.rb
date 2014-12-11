@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
+        delete 'password/recover', to: 'registrations#recover_and_logout'
       end
       unauthenticated do
         root 'devise/sessions#new', as: :root

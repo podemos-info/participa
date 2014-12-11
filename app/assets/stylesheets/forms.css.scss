@@ -388,6 +388,14 @@ fieldset.with-tos .inputlabel-box .tos p:last-of-type{
   width: 40%;
 }
 
+span.help-block {
+  span {
+    color: #269283;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
 /* --------------------------------------------------------------------------------------------------------------------------------------------
 layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 -------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -665,8 +673,10 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .alert-nexttolabel p{
     font-size:1.4em;
   }
+  span.help-block {
+    font-size:1.1em;
+  }
   .input-box p,
-  span.help-block,
   fieldset.with-tos .inputlabel-box .tos p{
     font-size:1.2em;
   }
@@ -743,12 +753,13 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     font-size:1.4em;
   }
   .input-box p,
-  span.help-block,
   fieldset.with-tos .inputlabel-box .tos p{
     font-size:1.2em;
   }
   legend span{
     font-size:2em;
   }
-
+  span.help-block {
+    font-size:1.1em;
+  }
 }
