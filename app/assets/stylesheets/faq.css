@@ -1,11 +1,4 @@
-/* --------------------------------
-
-Primary style
-
--------------------------------- */
-.header-content{
-height:75px;
-}
+  
 
 /* --------------------------------
 
@@ -145,7 +138,6 @@ Main components
 
 
 .cd-faq {
-  width: 90%;
   max-width: 1024px;
   margin: 2em auto;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -227,11 +219,11 @@ Main components
 }
 @media only screen and (min-width: 768px) {
   .cd-faq-categories {
-    position: absolute;
     top: 0;
     left: 0;
     width: 200px;
     z-index: 2;
+    margin-bottom: 4em;
   }
   .cd-faq-categories a::before {
     /* decorative rectangle on the left visible for the selected item */
@@ -265,7 +257,6 @@ Main components
 .cd-faq-items {
   position: fixed;
   height: 100%;
-  width: 90%;
   top: 0;
   right: 0;
   background: #ffffff;
@@ -294,7 +285,6 @@ Main components
 .no-js .cd-faq-items {
   position: static;
   height: auto;
-  width: 100%;
   -webkit-transform: translateX(0);
   -moz-transform: translateX(0);
   -ms-transform: translateX(0);
@@ -305,7 +295,6 @@ Main components
   .cd-faq-items {
     position: static;
     height: auto;
-    width: 78%;
     float: right;
     overflow: visible;
     -webkit-transform: translateZ(0) translateX(0);
@@ -318,9 +307,11 @@ Main components
   }
 }
 @media only screen and (min-width: 1024px) {
+  .cd-faq-categories {
+    position: absolute;
+  }
   .cd-faq-items {
     float: none;
-    width: 100%;
     padding-left: 220px;
   }
   .no-js .cd-faq-items {
