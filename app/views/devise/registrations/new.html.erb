@@ -6,6 +6,7 @@
       <%= info_box do %>
           <p><%= t('podemos.registration.p1_html') %></p>
       <% end %>
+      <%= errors_in_form resource %>
       <%= render partial: "form", locals: {action: "new"} %>
     </div>
   </div>
