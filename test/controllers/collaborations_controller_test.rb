@@ -55,7 +55,6 @@ class CollaborationsControllerTest < ActionController::TestCase
   end
 
   test "should post callback" do
-    debugger
     collaboration = FactoryGirl.create(:collaboration, :credit_card) 
     order = "1418300282"
     collaboration.update_attribute(:redsys_order, order)
@@ -92,8 +91,9 @@ class CollaborationsControllerTest < ActionController::TestCase
     get :redsys_status, order: collaboration.redsys_order, format: :json
     assert_response :success
 
-    get :redsys_status, order: 22222222, format: :json
-    assert_response :missing
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get :redsys_status, order: 22222222, format: :json
+    end
   end
 
   test "should destroy collaboration" do

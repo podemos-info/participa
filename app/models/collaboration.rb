@@ -17,7 +17,7 @@ class Collaboration < ActiveRecord::Base
   validate :validates_age_over
 
   validates :redsys_order, uniqueness: true, if: :is_credit_card?
-  validate :redsys_order, presence: true, if: :is_credit_card?
+  validates :redsys_order, presence: true, if: :is_credit_card?
 
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
@@ -27,7 +27,9 @@ class Collaboration < ActiveRecord::Base
   validate :validates_iban, if: :is_bank_international?
 
   after_create :create_orders
-  before_create :redsys_set_order, if: :is_credit_card?
+  before_validation(on: :create) do
+    self.update_attribute(:redsys_order, redsys_generate_order) if self.is_credit_card?
+  end
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
