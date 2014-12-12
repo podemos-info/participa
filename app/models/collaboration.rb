@@ -139,6 +139,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def redsys_parse_response! params
+    # TODO check if collaboration_id and user_id and Date/Time are correct 
     self.update_attribute(:redsys_response, params.to_json)
     self.update_attribute(:redsys_response_code, params["Ds_Response"])
     self.update_attribute(:redsys_response_recieved_at, DateTime.now)
