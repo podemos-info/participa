@@ -143,7 +143,7 @@ class Collaboration < ActiveRecord::Base
     self.update_attribute(:redsys_response, params.to_json)
     self.update_attribute(:redsys_response_code, params["Ds_Response"])
     self.update_attribute(:redsys_response_recieved_at, DateTime.now)
-    if params["Ds_Response"] == "0000" and self.redsys_match_signature?(params["Ds_Signature"])
+    if params["Ds_Response"] == "0000" and params["collaboration_id"] == self.id and params["user_id"] == self.user.id # and self.redsys_match_signature?(params["Ds_Signature"])
       self.update_attribute(:response_status, "OK")
     else
       self.update_attribute(:response_status, "KO")
