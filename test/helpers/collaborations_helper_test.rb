@@ -20,6 +20,7 @@ class CollaborationsHelperTest < ActionView::TestCase
     assert_equal( "Transacción autorizada para pagos y preautorizaciones", show_redsys_response("99") )
     assert_equal( "Tarjeta ajena al servicio", show_redsys_response("180") )
     assert_equal( "Transacción denegada", show_redsys_response("111111") )
+    assert_equal( "Transacción denegada", show_redsys_response(nil) )
   end
 
 end

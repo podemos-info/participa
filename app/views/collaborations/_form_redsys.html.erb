@@ -16,7 +16,7 @@
   <input type="hidden" name="Ds_Merchant_MerchantURLKO"     value="<%= @collaboration.redsys_merchant_url("ko") %>">
   <input type="hidden" name="Ds_Merchant_MerchantSignature" value="<%= @collaboration.redsys_merchant_signature %>">
 
-  <div class="js-collaboration-confirm-buttons">
+  <div class="js-collaboration-confirm-buttons buttonbox">
     <%= link_to "Cancelar", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
     <%= link_to "Confirmar", "#", class: "button js-collaboration-confirm" %>
   </div>

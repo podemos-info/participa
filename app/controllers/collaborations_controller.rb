@@ -45,22 +45,20 @@ class CollaborationsController < ApplicationController
     # Comprobamos y devolvemos el response_status de un Order dado
     # es para la comprobación por AJAX del resultado de la ventana de Redsys
 
-    @collaboration = Collaboration.find_by_redsys_order params["order"]
+    @collaboration = Collaboration.find_by_redsys_order! params["order"]
     respond_to do |format|
-      if @collaboration
-        format.json  { render json: { status: @collaboration.response_status } } 
-      else
-        format.json  { render json: { status: "pending" } } 
-      end
+      format.json { render json: { status: @collaboration.response_status } }
     end
   end
 
   # GET /collaborations/validate/OK
   def OK
+    @collaboration = current_user.collaboration
   end
 
   # GET /collaborations/validate/KO
   def KO
+    @collaboration = current_user.collaboration
   end
 
   # GET /collaborations/edit
@@ -76,7 +74,7 @@ class CollaborationsController < ApplicationController
 
     respond_to do |format|
       if @collaboration.save
-        format.html { redirect_to confirm_collaboration_url, notice: 'Hemos dado de alta tu colaboración.' }
+        format.html { redirect_to confirm_collaboration_url, notice: 'Por favor revisa y confirma tu colaboración.' }
         format.json { render :confirm, status: :created, location: confirm_collaboration_path }
       else
         format.html { render :new }

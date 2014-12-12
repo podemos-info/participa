@@ -27,7 +27,7 @@ class Collaboration < ActiveRecord::Base
   validate :validates_iban, if: :is_bank_international?
 
   after_create :create_orders
-  before_validation :redsys_set_order, if: :is_credit_card?
+  before_create :redsys_set_order, if: :is_credit_card?
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
@@ -139,10 +139,11 @@ class Collaboration < ActiveRecord::Base
   end
 
   def redsys_parse_response! params
-    # TODO check if collaboration_id and user_id and Date/Time are correct 
     self.update_attribute(:redsys_response, params.to_json)
     self.update_attribute(:redsys_response_code, params["Ds_Response"])
     self.update_attribute(:redsys_response_recieved_at, DateTime.now)
+
+    # TODO check if collaboration_id and user_id and Date/Time are correct 
     if params["Ds_Response"] == "0000" and params["collaboration_id"] == self.id and params["user_id"] == self.user.id # and self.redsys_match_signature?(params["Ds_Signature"])
       self.update_attribute(:response_status, "OK")
     else
