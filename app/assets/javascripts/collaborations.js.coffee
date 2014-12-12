@@ -17,7 +17,7 @@ check_collaboration_by_ajax = () ->
   timeOutId = 0
   retry_check_collaboration_by_ajax = ->
     $.ajax
-      url: "/collaborations/validate/status/" + order + ".json"
+      url: "/collaborations/validate/redsys/status/" + order + ".json"
       success: (response) ->
         if response.status?
           switch response.status

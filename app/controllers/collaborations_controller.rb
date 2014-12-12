@@ -1,10 +1,13 @@
 class CollaborationsController < ApplicationController
-  before_action :authenticate_user! 
+
+  skip_before_filter :verify_authenticity_token, only: [ :redsys_callback ] 
+
+  before_action :authenticate_user!, except: [ :redsys_callback ] 
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy]
   # TODO: before_action :check_if_user_over_age
   # TODO: before_action :check_if_user_passport
   # TODO: before_action :check_if_user_already_collaborated
-
+ 
   # GET /collaborations/new
   def new
     redirect_to edit_collaboration_path if current_user.collaboration 
@@ -29,7 +32,6 @@ class CollaborationsController < ApplicationController
     # recibe la respuesta en el formato de Redsys y la parsea
 
     @collaboration = Collaboration.find_by_redsys_order! params["Ds_Order"]
-    # TODO check if collaboration_id and user_id and Date/Time are correct 
     @collaboration.redsys_parse_response!(params)
     if @collaboration.redsys_response?
       render json: "OK"
@@ -45,8 +47,11 @@ class CollaborationsController < ApplicationController
 
     @collaboration = Collaboration.find_by_redsys_order params["order"]
     respond_to do |format|
-      msg = { :status => @collaboration.response_status }
-      format.json  { render :json => msg } # don't do msg.to_json
+      if @collaboration
+        format.json  { render json: { status: @collaboration.response_status } } 
+      else
+        format.json  { render json: { status: "pending" } } 
+      end
     end
   end
 
