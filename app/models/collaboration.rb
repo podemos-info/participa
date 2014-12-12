@@ -141,6 +141,10 @@ class Collaboration < ActiveRecord::Base
     admin_collaboration_path(self)
   end
 
+  def order_for_period(date=DateTime.now)
+    Order.by_collaboration_period(self, date)
+  end
+
   private 
 
   def redsys_set_order
@@ -173,6 +177,7 @@ class Collaboration < ActiveRecord::Base
         Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
     end
   end
+
 
   def redsys_generate_order
     # Redsys requires an order_id be provided with each transaction of a

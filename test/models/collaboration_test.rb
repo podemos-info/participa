@@ -108,4 +108,11 @@ class CollaborationTest < ActiveSupport::TestCase
     assert c.valid?
   end
 
+  test "should .order_for_period work" do
+    # coll freqs 1, 3 y 12
+     # generate orders for a year for all of them
+    # assert last_order returns the right last_order for different frequencies
+    # assert last_order returns nil if no order exists for 
+    skip("TODO")
+  end
 end

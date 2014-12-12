@@ -72,4 +72,10 @@ class Order < ActiveRecord::Base
     self.by_month(date).includes(:collaboration).sum(:amount) / 100.0
   end
 
+  def self.by_collaboration_period(collaboration, date=DateTime.now)
+    date_start = date.beginning_of_month - (collaboration.frequency-1).months
+    date_end = date.end_of_month
+    where(collaboration_id: collaboration.id, payable_at: (date_start..date_end)).limit(1)[0]
+  end
+
 end
