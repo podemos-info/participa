@@ -132,7 +132,6 @@ class Collaboration < ActiveRecord::Base
   end
 
   def redsys_match_signature? signature
-    # FIXME: check SHA1 signature form redsys
     signature == self.redsys_merchant_signature
   end
 
@@ -145,8 +144,8 @@ class Collaboration < ActiveRecord::Base
     self.update_attribute(:redsys_response_code, params["Ds_Response"])
     self.update_attribute(:redsys_response_recieved_at, DateTime.now)
 
-    # TODO check if collaboration_id and user_id and Date/Time are correct 
-    if params["Ds_Response"] == "0000" and params["collaboration_id"] == self.id and params["user_id"] == self.user.id # and self.redsys_match_signature?(params["Ds_Signature"])
+    # TODO check if Date/Time is correct 
+    if params["Ds_Response"].to_i == < 100 and params["collaboration_id"].to_i == self.id and params["user_id"].to_i == self.user.id and self.redsys_match_signature?(params["Ds_Signature"])
       self.update_attribute(:response_status, "OK")
     else
       self.update_attribute(:response_status, "KO")
