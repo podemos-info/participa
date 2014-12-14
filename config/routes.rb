@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   scope "/(:locale)", locale: /es|ca|eu/ do 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
-
+    get '/equipos-de-accion-participativa', to: 'page#participation_teams', as: 'participation_teams'
     get '/comision-de-garantias-democraticas', to: 'page#guarantees', as: 'guarantees'
     get '/comision-de-garantias-democraticas/conflictos-garantias', to: 'page#guarantees_conflict', as: 'guarantees_conflict'
     get '/comision-de-garantias-democraticas/cumplimento-transparencia', to: 'page#guarantees_compliance', as: 'guarantees_compliance'
@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
+        put 'participation/team/wants/:type', to: 'registrations#set_wants_participation', as: 'set_wants_participation'
       end
       unauthenticated do
         root 'devise/sessions#new', as: :root
