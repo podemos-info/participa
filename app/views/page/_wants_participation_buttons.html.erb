@@ -1,0 +1,5 @@
+<% if current_user.wants_participation %>
+  <%= link_to "Darme de baja", set_wants_participation_path(type: :unsuscribe), class: "button button-danger", method: :put %>
+<% else %>
+  <%= link_to "¡Me apunto!", set_wants_participation_path(type: :suscribe), class: "button", method: :put %>
+<% end %>
