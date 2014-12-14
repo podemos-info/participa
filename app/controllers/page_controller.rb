@@ -18,4 +18,7 @@ class PageController < ApplicationController
   def guarantees_ethic
   end
 
+  def circles_validation
+  end
+
 end
