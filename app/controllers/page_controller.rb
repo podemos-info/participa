@@ -1,5 +1,7 @@
 class PageController < ApplicationController
 
+  before_action :authenticate_user!, only: [:participation_teams]
+
   def privacy_policy
   end
 
@@ -19,6 +21,9 @@ class PageController < ApplicationController
   end
 
   def circles_validation
+  end
+
+  def participation_teams
   end
 
 end
