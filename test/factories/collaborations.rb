@@ -25,4 +25,15 @@ FactoryGirl.define do
     user
   end
 
+  trait :june2014 do
+    created_at DateTime.new(2014,6,1)
+  end
+
+  trait :quarterly do
+    frequency 3
+  end
+
+  trait :yearly do
+    frequency 12
+  end
 end

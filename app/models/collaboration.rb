@@ -6,8 +6,6 @@ class Collaboration < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
-  # FIXME: no deberia borrar todas las ordenes, solo las pendientes 
-  has_many :orders, dependent: :destroy
 
   validates :user_id, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
@@ -26,7 +24,6 @@ class Collaboration < ActiveRecord::Base
   validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
   validate :validates_iban, if: :is_bank_international?
 
-  after_create :create_orders
   before_validation(on: :create) do
     self.update_attribute(:redsys_order, redsys_generate_order) if self.is_credit_card?
   end
@@ -158,36 +155,31 @@ class Collaboration < ActiveRecord::Base
     self.response_status == "OK"
   end
 
+  def admin_permalink
+    admin_collaboration_path(self)
+  end
+
+  def generate_order(date=DateTime.now)
+    collaboration_start = (self.created_at + 1.month).beginning_of_month
+    if date < collaboration_start
+      false
+    else 
+      if ((date.year*12+date.month) - (collaboration_start.year*12+collaboration_start.month)) % self.frequency == 0
+        order = Order.by_collaboration_month(self, date)
+        if not order 
+          order = Order.create(collaboration: self, payable_at: date)
+        end
+        order
+      else
+        nil
+      end
+    end
+  end
+
   private 
 
   def redsys_set_order
     self.update_attribute(:redsys_order, redsys_generate_order)
-  end
-
-  def create_orders
-    # For a given Collaboration we need to create the payment Orders due to the payment frecuency
-    case self.frequency 
-      when 1
-        Order.create(collaboration: self, payable_at: self.created_at + 1.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 2.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 3.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 4.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 5.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 6.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 7.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 8.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 9.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 10.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 11.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 12.month) 
-      when 3
-        Order.create(collaboration: self, payable_at: self.created_at + 3.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 6.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 9.month) 
-        Order.create(collaboration: self, payable_at: self.created_at + 12.month) 
-      when 12
-        Order.create(collaboration: self, payable_at: self.created_at) 
-    end
   end
 
   def redsys_generate_order
