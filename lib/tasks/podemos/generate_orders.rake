@@ -4,11 +4,9 @@ namespace :podemos do
   task :generate_orders, [:month, :year] => :environment do |t, args|
     args.with_defaults(:month => Date.today.month, :year => Date.today.year)
 
-    date = DateTime.civil args.year.to_i, args.month.to_i
+    date = DateTime.new(args.year.to_i, args.month.to_i)
     Collaboration.find_each do |collaboration|
-      if not collaboration.order_for_period(date)
-        Order.create(collaboration: collaboration, payable_at: date)
-      end
+      collaboration.generate_order date
     end
   end
 end

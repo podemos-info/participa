@@ -6,8 +6,6 @@ class Collaboration < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
-  # FIXME: no deberia borrar todas las ordenes, solo las pendientes 
-  has_many :orders, dependent: :destroy
 
   validates :user, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
@@ -21,7 +19,6 @@ class Collaboration < ActiveRecord::Base
   validate :validate_ccc, if: :is_bank_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
   validate :validate_iban, if: :is_bank_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
 
-  after_create :create_orders
   before_validation :redsys_set_order, if: :is_credit_card?
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
@@ -141,8 +138,21 @@ class Collaboration < ActiveRecord::Base
     admin_collaboration_path(self)
   end
 
-  def order_for_period(date=DateTime.now)
-    Order.by_collaboration_period(self, date)
+  def generate_order(date=DateTime.now)
+    collaboration_start = (self.created_at + 1.month).beginning_of_month
+    if date < collaboration_start
+      false
+    else 
+      if ((date.year*12+date.month) - (collaboration_start.year*12+collaboration_start.month)) % self.frequency == 0
+        order = Order.by_collaboration_month(self, date)
+        if not order 
+          order = Order.create(collaboration: self, payable_at: date)
+        end
+        order
+      else
+        nil
+      end
+    end
   end
 
   private 
@@ -150,32 +160,6 @@ class Collaboration < ActiveRecord::Base
   def redsys_set_order
     # TODO: rename order to redsys_order
     self.update_attribute(:order, redsys_generate_order)
-  end
-
-  def create_orders
-    # For a given Collaboration we need to create the payment Orders due to the payment frecuency
-    case self.frequency 
-      when 1
-        Order.create(collaboration: self, payable_at: DateTime.now + 1.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 2.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 4.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 5.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 6.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 7.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 8.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 9.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 10.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 11.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 12.month) 
-      when 3
-        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 6.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 9.month) 
-        Order.create(collaboration: self, payable_at: DateTime.now + 12.month) 
-      when 12
-        Order.create(collaboration: self, payable_at: DateTime.now + 3.month) 
-    end
   end
 
 
