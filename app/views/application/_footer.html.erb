@@ -29,26 +29,6 @@
       </div><%#!--.col-f-1a3--%>
 
       <div class="col-f-4a5">
-        <div class="footer-conoce">
-          <h2>Conoce</h2>
-          <ul>
-            <li>
-              <a href="http://asambleaciudadana.podemos.info/">Asamblea Ciudadana</a>
-            </li>
-            <li>
-              <a href="http://podemos.info/wordpress/programa/">Programa</a>
-            </li>
-            <li>
-              <a href="http://podemos.info/wordpress/cuentas-claras/">Cuentas Claras</a> 
-            </li>
-            <li>
-              <a href="http://podemos.info/circulos/">Círculos</a>
-            </li>
-          </ul>
-        </div><%#!--.footer-conoce--%>
-      </div><%#!--.col-f-4a5--%>
-
-      <div class="col-f-6a7">
         <div class="footer-participa">
           <h2>Infórmate</h2>
           <ul>
@@ -65,7 +45,7 @@
         </div><%#!--.footer-participa--%>
       </div><%#!--.col-f-6a7--%>
 
-      <div class="col-f-8a9">
+      <div class="col-f-6a7">
         <div class="footer-informate">
           <h2>Colabora</h2>
           <ul>
@@ -78,6 +58,20 @@
           </ul>
         </div><%#!--.footer-participa--%>
       </div><%#!--.col-f-8a9--%>
+
+      <div class="col-f-8a9">
+        <div class="footer-participacion">
+          <h2>Participa</h2>
+          <ul>
+            <li>
+              <%= link_to "Guía de participación", "#" %>
+            </li>
+            <li>
+              <%= link_to "Equipo de Acción Participativa", participation_teams_path %>
+            </li>
+          </ul>
+        </div><%#!--.footer-conoce--%>
+      </div><%#!--.col-f-4a5--%>
 
       <div class="col-f-10a12">
         <div class="footer-siguenos">
@@ -112,6 +106,9 @@
           </li>
           <li>
             <%= link_to "Condiciones de uso, empleo de cookies y política de privacidad", page_privacy_policy_path %>
+          </li>
+          <li>
+            <%= link_to "| Comisión de Garantías Democráticas", guarantees_path %>
           </li>
         </ul>
       </div><%#!--.col-f-1a12--%>

@@ -26,13 +26,19 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def recover_and_logout
+    current_user.send_reset_password_instructions
+    sign_out_and_redirect current_user
+    flash[:notice] = t("devise.confirmations.send_instructions")
+  end
+
   def set_wants_participation
     if params[:type] == "suscribe"
       current_user.update_attribute(:wants_participation, true)
-      flash[:notice] = "Te has dado de alta del Equipo de Participación"
+      flash[:notice] = "Bienvienido/a a los Equipos de Acción Participativa"
     else
       current_user.update_attribute(:wants_participation, false)
-      flash[:notice] = "Te has dado de baja del Equipo de Participación"
+      flash[:notice] = "Te has dado de baja de los Equipos de Acción Participativa"
     end 
     redirect_to participation_teams_url
   end 
