@@ -35,7 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
   def set_wants_participation
     if params[:type] == "suscribe"
       current_user.update_attribute(:wants_participation, true)
-      flash[:notice] = "Bienvienido/a a los Equipos de Acción Participativa"
+      flash[:notice] = "Te damos la bienvienida a los Equipos de Acción Participativa. En los próximos días nos pondremos en contacto contigo."
     else
       current_user.update_attribute(:wants_participation, false)
       flash[:notice] = "Te has dado de baja de los Equipos de Acción Participativa"
