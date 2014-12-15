@@ -4,7 +4,7 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, "Validación de Circulos") %>
       <% if user_signed_in? %>
-        <%= render partial: "gravity_iframe", locals: { form_id: 55, height: "2000" } %>
+        <%= render partial: "gravity_iframe", locals: { form_id: 55, height: "3000" } %>
       <% else %>
         <p>Debes acceder al portal de participación con tu <%= link_to "DNI/Correo electrónico y contraseña", new_user_session_path %>.</p>
       <% end %>
