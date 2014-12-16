@@ -64,11 +64,8 @@ Rails.application.routes.draw do
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
-<<<<<<< HEAD
         delete 'password/recover', to: 'registrations#recover_and_logout'
-=======
         put 'participation/team/wants/:type', to: 'registrations#set_wants_participation', as: 'set_wants_participation'
->>>>>>> feature-teams
       end
       unauthenticated do
         root 'devise/sessions#new', as: :root
