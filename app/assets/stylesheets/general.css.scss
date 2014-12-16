@@ -404,6 +404,13 @@ header & menu
 .menu-tools a:hover{
   background:image-url("ico.menu-tools-on.png") 0 0 no-repeat;
 }
+.menu-team a{
+  background:image-url("ico.menu-team-off.png") 0 0 no-repeat;
+}
+.menu-team a.active,
+.menu-team a:hover{
+  background:image-url("ico.menu-team-on.png") 0 0 no-repeat;
+}
 .menu-notif a{
   background:image-url("ico.menu-notif-off.png") 0 0 no-repeat;
 }
@@ -1309,7 +1316,7 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
   }
   .tools li div.tool-text{
-    height:20em;
+    height:12em;
   }
   .tools li h3{
     width:60%;
@@ -1347,7 +1354,7 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     font-size:2em;
   }
   .content-content h3{
-    font-size:1.8em;
+    font-size:1.4em;
   }
   .footer-content h2.footer-logo{
     font-size:3em;
@@ -1447,7 +1454,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     text-align:left;
   }
   .tools li{
-    width:45%;
+    width:29%;
     margin-right:2%;
   }
   .tools li div.tool-text{
@@ -1490,7 +1497,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     font-size:2.4em;
   }
   .content-content h3{
-    font-size:2em;
+    font-size:1.6em;
   }
   .footer-content h2.footer-logo{
     font-size:4em;

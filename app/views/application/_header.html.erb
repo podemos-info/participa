@@ -28,6 +28,9 @@
           <li class="menu-tools">
             <%= nav_menu_link_to "Herramientas", root_path, [root_path], title: "Herramientas" %>
           </li>
+          <li class="menu-team">
+            <%= nav_menu_link_to "Equipos de Participación", participation_teams_path, [participation_teams_path], title: "Equipos de Participación" %>
+          </li>
           <!-- li class="menu-notif">
             <%# nav_menu_link_to "Avisos", notices_path, [notices_path], class: new_notifications_class %>
           </li -->
@@ -40,7 +43,7 @@
             <%= nav_menu_link_to "Datos personales", edit_user_registration_path, [edit_user_registration_path], title: "Datos personales" %>
           </li>
           <li class="menu-name">
-            <% link_to edit_admin_user_path(current_user) do %>
+            <% link_to edit_user_registration_path do %>
               <span class="name">
                 <%= current_user.try(:first_name) %>
               </span>
