@@ -15,6 +15,7 @@ ActiveAdmin.register User do
   scope :has_collaboration_credit_card
   scope :has_collaboration_bank_national
   scope :has_collaboration_bank_international
+  scope :wants_participation_team
 
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :wants_newsletter
 
@@ -143,6 +144,7 @@ ActiveAdmin.register User do
   filter :confirmed_at
   filter :sms_confirmed_at
   filter :sign_in_count
+  filter :wants_participation
 
   form partial: "form"
 
