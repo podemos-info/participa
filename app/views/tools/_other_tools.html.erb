@@ -5,7 +5,6 @@
     <h3>Plaza Podemos</h3>
     <div class="tool-text">
       <p>El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos todo y mucho más.</p>
-      <p>Rueda de Masas durante unas horas de nuestros representantes.</p>
     </div><!--.tool-text-->
 
     <div class="buttonbox">
@@ -21,6 +20,18 @@
     </div><!--.tool-text-->
     <div class="buttonbox">
       <%= link_to "Descargar APP", "http://www.appgree.com/descarga-appgree/", class: "button", target: "_blank" %>
+    </div><!--.buttonbox-->
+  </div><!--.box-tool-->
+  </li>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Equipos de Acción Participativa</h3>
+    <div class="tool-text">
+      <p>Nuestra intención es crear cientos de estos equipos, con el objetivo de dinamizar la participación y reforzar la movilización en los municipios.</p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Leer más", participation_teams_path, class: "button" %>
+      <%= render partial: "page/wants_participation_buttons" %>
     </div><!--.buttonbox-->
   </div><!--.box-tool-->
   </li>
