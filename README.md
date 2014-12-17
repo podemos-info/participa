@@ -102,54 +102,9 @@ Para agregar uno nuevo se deben seguir los siguientes pasos:
 Newsletter
 ----------
 
-En el admin se puede descargar un CSV de todos los correos de usuarios que hayan aceptado recibir la newsletter. *Atención* No hay integración con Sendit o la plataforma de envío de boletines que utiliza Podemos, por lo que no hay ningún tipo de sincronización (si un usuario se da de baja de Sendit puede volver a darse de alta de forma automática por la importación del CSV).
+TODO: documentar integración con Sendy
 
-Borrar definitivamente o recuperar usuarios
--------------------------------------------
+Colaboraciones
+--------------
 
-Por temas legales de conservación de datos debemos guardar los usuarios una vez se guardan. Para esto usamos la gema paranoia(https://github.com/radar/paranoia), que agrega una columna a los usuarios (deleted_at) y lo toma en cuenta para los listados de usuarios. Es decir un User.all pasa automaticamente a ser un User.where.not(deleted_at: nil) de forma transparente. Estos usuarios borrados no se ven en el /admin.
-
-Todos los comandos que se mencionan aquí son para la consola del entorno de Rails. Para acceder a esta desde producción debe ejecutarse: 
-
-su - capistrano
-cd /var/www/participa.podemos.info/current/
-bundle exec rails console production
-
-Para acceder a todos los usuarios esten o no borrados: 
-
-```
-User.with_deleted
-```
-
-Para recuperar un usuario borrado: 
-
-```
-email = "usuario@ejemplo.org" 
-user = User.with_deleted.find_by_email(email).
-user.restore
-```
-
-Si en vez de email tenemos el nº de documento se haría asi: 
-
-```
-doc = "X22222222E"
-user = User.with_deleted.find_by_document_vatid(doc)
-user.restore
-```
-
-Para borrar definitivamente un usuario - *Atención, confirmar con el equipo de LOPD/Legal primero* 
-
-```
-email = "usuario@ejemplo.org" 
-user = User.with_deleted.find_by_email(email)
-user.really_destroy!
-```
-
-Si en vez de email tenemos el nº de documento se haría asi: 
-
-```
-doc = "X22222222E"
-user = User.with_deleted.find_by_document_vatid(doc)
-user.really_destroy!
-```
-
+TODO: documentar integración con RedSYS/Banco
