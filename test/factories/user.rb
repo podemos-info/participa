@@ -4,12 +4,12 @@ FactoryGirl.define do
     "foo#{n}@example.com"
   end
 
-  sequence :document_vatid do |n|
-    "83482#{n}D"
-  end
-
   sequence :phone do |n|
     "003466111111#{n}"
+  end
+
+  sequence :document_vatid do |n|
+    "#{n.to_s.rjust(8,'0')}#{'TRWAGMYFPDXBNJZSQVHLCKE'[n % 23].chr}"
   end
 
   factory :user do
@@ -56,7 +56,5 @@ FactoryGirl.define do
 
   trait :dni do
     document_type 1
-    document_vatid "00000001R"
   end
-
 end

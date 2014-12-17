@@ -114,30 +114,33 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .generate_order after collection created but the same month returns false" do
-    coll = FactoryGirl.create(:collaboration, created_at: DateTime.new(2014,6,30))
-    assert_equal coll.generate_order(DateTime.new(2014,6,15)), false, "generate_order should not consider collaboration creation month"
+    coll = FactoryGirl.create(:collaboration, created_at: DateTime.new(2014,6,10))
+    assert_equal coll.generate_order(DateTime.new(2014,6,5)), false, "generate_order should not consider collaboration created after date"
+    assert coll.generate_order(DateTime.new(2014,6,15)), "generate_order should consider collaboration created before date"
+    coll.delete
   end
 
   test "should .generate_order returns existing order for given period" do
     coll = FactoryGirl.create(:collaboration, :june2014)
-    order = coll.generate_order(DateTime.new(2014,7,1))
+    order = coll.generate_order(DateTime.new(2014,7,15))
     assert order, "generate_order should result a new order"
-    assert_equal coll.generate_order(DateTime.new(2014,7,1)), order, "generate_order should return existing order"
     assert_equal coll.generate_order(DateTime.new(2014,7,15)), order, "generate_order should return existing order"
+    assert_equal coll.generate_order(DateTime.new(2014,7,15)), order, "generate_order should return existing order"
+    coll.delete
   end
 
   test "should .generate_order works with quarterly collaborations" do
     coll = FactoryGirl.create(:collaboration, :june2014, :quarterly)
-    assert coll.generate_order(DateTime.new(2014,7,1)), "generate_order should return a new order for 1st month of quarterly collaboration"
-    assert_nil coll.generate_order(DateTime.new(2014,8,1)), "generate_order should return nil for 2st month of quarterly collaboration"
-    assert_nil coll.generate_order(DateTime.new(2014,9,1)), "generate_order should return nil for 3st month of quarterly collaboration"
-    assert coll.generate_order(DateTime.new(2014,10,1)), "generate_order should return a new order for 4st month of quarterly collaboration"
+    assert coll.generate_order(DateTime.new(2014,6,15)), "generate_order should return a new order for 1st month of quarterly collaboration"
+    assert_nil coll.generate_order(DateTime.new(2014,7,15)), "generate_order should return nil for 2st month of quarterly collaboration"
+    assert_nil coll.generate_order(DateTime.new(2014,8,15)), "generate_order should return nil for 3st month of quarterly collaboration"
+    assert coll.generate_order(DateTime.new(2014,9,15)), "generate_order should return a new order for 4st month of quarterly collaboration"
   end
 
   test "should .generate_order works with yearly collaborations" do
     coll = FactoryGirl.create(:collaboration, :june2014, :yearly)
-    assert coll.generate_order(DateTime.new(2014,7,1)), "generate_order should return a new order for 1st month of yearly collaboration"
-    assert_nil coll.generate_order(DateTime.new(2014,8,1)), "generate_order should return nil for 2nd month of yearly collaboration"
-    assert coll.generate_order(DateTime.new(2015,7,1)), "generate_order should return a new order for 12th month of yearly collaboration"
+    assert coll.generate_order(DateTime.new(2014,6,15)), "generate_order should return a new order for 1st month of yearly collaboration"
+    assert_nil coll.generate_order(DateTime.new(2014,7,15)), "generate_order should return nil for 2nd month of yearly collaboration"
+    assert coll.generate_order(DateTime.new(2015,6,15)), "generate_order should return a new order for 12th month of yearly collaboration"
   end
 end
