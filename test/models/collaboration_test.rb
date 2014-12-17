@@ -18,8 +18,12 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_equal(9, @collaboration.merchant_code.length)
   end
 
-  test "should .merchant_terminal work" do
-    assert(@collaboration.merchant_terminal.is_a? Integer)
+  test "should not save collaboration if userr is not over legal age (18 years old)" do
+    user = FactoryGirl.build(:user, :dni)
+    user.update_attribute(:born_at, DateTime.now-10.years)
+    @collaboration.user = user
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:user].include? "No puedes colaborar si eres menor de edad.")
   end
 
   test "should .redsys_secret_key work" do
@@ -100,12 +104,15 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should validate_iban work" do 
-    c = Collaboration.new
-    c.amount = 500
-    c.frequency = 3
-    c.payment_type = 1
-    c.iban_account = "ES4621770993232366217197"
-    assert c.valid?
+
+    @collaboration.payment_type = 3
+    @collaboration.iban_account = "ES4621770993232366217197"
+    @collaboration.iban_bic = "XXXXXX"
+    assert @collaboration.valid?
+
+    @collaboration.iban_account = "ES4621770993232366222222"
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
   end
 
   test "should .generate_order before collection created returns false" do
