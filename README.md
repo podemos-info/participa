@@ -1,9 +1,11 @@
-Podemos Juntos
+Podemos Participa
 ============================================
 
 El objetivo de esta aplicación es ofrecer una interfaz a los usuarios donde inscribirse a Podemos, 
 así como poder iniciar sesión y modificar sus datos en la plataforma y tener acceso al listado de 
 Herramientas oficiales (Reddit, Agora Voting, App Gree).
+
+https://participa.podemos.info
 
 Instalación 
 -----------
