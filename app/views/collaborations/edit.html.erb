@@ -1,12 +1,14 @@
+<% content_for :title, t("podemos.collaboration.title") %>
+
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
 
+      <%= content_tag(:h2, t("podemos.collaboration.title")) %>
+
       <%= info_box do %>
           <p><%= t("podemos.collaboration.p1") %></p>
       <% end %>
-
-
 
       <p> Ya tienes una colaboración. Es la siguiente: </p>
       <%= render partial: "frequency_table" %>

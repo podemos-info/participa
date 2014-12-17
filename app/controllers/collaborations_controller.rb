@@ -1,20 +1,23 @@
 class CollaborationsController < ApplicationController
-  before_action :authenticate_user! 
-  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy]
 
+  skip_before_filter :verify_authenticity_token, only: [ :redsys_callback ] 
+
+  before_action :authenticate_user!, except: [ :redsys_callback ] 
+  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy]
+  # TODO: before_action :check_if_user_over_age
+  # TODO: before_action :check_if_user_passport
+  # TODO: before_action :check_if_user_already_collaborated
+ 
   # GET /collaborations/new
-  # GET /colabora/
   def new
     redirect_to edit_collaboration_path if current_user.collaboration 
     @collaboration = Collaboration.new
   end
 
-  # GET /colabora/confirmar
   # GET /collaborations/confirm
   def confirm
   end
 
-  # POST /colabora/confirmar_banco
   # POST /collaborations/confirm_bank
   def confirm_bank
     unless @collaboration.is_credit_card?
@@ -24,50 +27,54 @@ class CollaborationsController < ApplicationController
   end
 
   # POST /collaborations/validate/callback
-  # POST /colabora/validar/callback
-  def callback
-    @collaboration = Collaboration.find_by_order params["Ds_Order"]
-    @collaboration.parse_response(params)
+  def redsys_callback
+    # Callback de Redsys para MerchantURL MerchantURLOK y MerchantURLKO
+    # recibe la respuesta en el formato de Redsys y la parsea
+
+    @collaboration = Collaboration.find_by_redsys_order! params["Ds_Order"]
+    @collaboration.redsys_parse_response!(params)
+    if @collaboration.redsys_response?
+      render json: "OK"
+    else
+      render json: "KO"
+    end
   end
 
   # GET /collaborations/validate/status/:order.json
-  # FIXME: .json
-  def status
+  def redsys_status
     # Comprobamos y devolvemos el response_status de un Order dado
-    @collaboration = Collaboration.find_by_order params["order"]
+    # es para la comprobación por AJAX del resultado de la ventana de Redsys
+
+    @collaboration = Collaboration.find_by_redsys_order! params["order"]
     respond_to do |format|
-      msg = { :status => @collaboration.response_status }
-      format.json  { render :json => msg } # don't do msg.to_json
+      format.json { render json: { status: @collaboration.response_status } }
     end
   end
 
   # GET /collaborations/validate/OK
-  # GET /colabora/validar/OK
   def OK
+    @collaboration = current_user.collaboration
   end
 
   # GET /collaborations/validate/KO
-  # GET /colabora/validar/error
   def KO
+    @collaboration = current_user.collaboration
   end
 
   # GET /collaborations/edit
-  # GET /colabora/edita
   def edit
     # borrar una colaboración
   end
 
   # POST /collaborations
   # POST /collaborations.json
-  # POST /colabora
-  # POST /colabora.json
   def create
     @collaboration = Collaboration.new(collaboration_params)
     @collaboration.user = current_user
 
     respond_to do |format|
       if @collaboration.save
-        format.html { redirect_to confirm_collaboration_url, notice: 'Collaboration was successfully created.' }
+        format.html { redirect_to confirm_collaboration_url, notice: 'Por favor revisa y confirma tu colaboración.' }
         format.json { render :confirm, status: :created, location: confirm_collaboration_path }
       else
         format.html { render :new }
@@ -76,12 +83,11 @@ class CollaborationsController < ApplicationController
     end
   end
 
-  # DELETE /colabora
-  # DELETE /colabora
+  # DELETE /collaborations
   def destroy
     @collaboration.destroy
     respond_to do |format|
-      format.html { redirect_to new_collaboration_path, notice: 'Collaboration was successfully destroyed.' }
+      format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
       format.json { head :no_content }
     end
   end
@@ -94,6 +100,6 @@ class CollaborationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:user_id, :amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
+    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
   end
 end

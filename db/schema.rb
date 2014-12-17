@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122232445) do
+ActiveRecord::Schema.define(version: 20141214220037) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -32,11 +32,11 @@ ActiveRecord::Schema.define(version: 20141122232445) do
     t.integer  "user_id"
     t.integer  "amount"
     t.integer  "frequency"
-    t.string   "order"
-    t.datetime "response_recieved_at"
-    t.string   "response_code"
+    t.string   "redsys_order"
+    t.datetime "redsys_response_recieved_at"
+    t.string   "redsys_response_code"
     t.string   "response_status"
-    t.text     "response"
+    t.text     "redsys_response"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "payment_type"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20141122232445) do
     t.string   "circle"
     t.datetime "deleted_at"
     t.string   "unconfirmed_phone"
+    t.boolean  "wants_participation"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

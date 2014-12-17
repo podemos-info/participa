@@ -17,7 +17,9 @@ class PageControllerTest < ActionController::TestCase
     assert_response :success
     get :guarantees_compliance
     assert_response :success
-    get :guarantees_ethics
+    get :guarantees_ethic
+    assert_response :success
+    get :circles_validation
     assert_response :success
   end
 
@@ -28,7 +30,9 @@ class PageControllerTest < ActionController::TestCase
     assert_response :success
     get :guarantees_compliance
     assert_response :success
-    get :guarantees_ethics
+    get :guarantees_ethic
+    assert_response :success
+    get :circles_validation
     assert_response :success
   end
 

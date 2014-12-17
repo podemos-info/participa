@@ -7,19 +7,17 @@ open_redsys_window = () ->
   vent = window.open("", "tpv", "width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no")
   document.forms[0].submit()
   return
-  #$('.js-collaboration-form').submit()
-
 
 show_collaboration_ajax_loader = () ->
-  $('.js-collaboration-confirm').attr('disabled', 'disabled')
-  $('.js-collaboration-confirm-ajax').show().removeClass('hide')
+  $('.js-collaboration-confirm-buttons').hide()
+  $('.js-collaboration-confirm-ajax').show()
 
 check_collaboration_by_ajax = () -> 
   order = $('.js-collaboration-order').attr('value')
   timeOutId = 0
-  ajaxFn = ->
+  retry_check_collaboration_by_ajax = ->
     $.ajax
-      url: "/collaborations/validate/status/" + order
+      url: "/collaborations/validate/redsys/status/" + order + ".json"
       success: (response) ->
         if response.status?
           switch response.status
@@ -33,13 +31,13 @@ check_collaboration_by_ajax = () ->
               window.location = "/collaborations/validate/KO"
               clearTimeout timeOutId
         else
-          timeOutId = setTimeout(ajaxFn, 10000)
+          timeOutId = setTimeout(retry_check_collaboration_by_ajax, 10000)
         return
 
     return
-  #ajaxFn()
+  retry_check_collaboration_by_ajax()
   #OR use BELOW line to wait 10 secs before first call
-  timeOutId = setTimeout(ajaxFn, 10000)
+  #timeOutId = setTimeout(ajaxFn, 10000)
 
 start_collaboration_confirm = () ->
   show_collaboration_ajax_loader()
@@ -51,8 +49,14 @@ calculate_collaboration = () ->
   $freq = $('.js-collaboration-frequency option:selected')
   if (($amount.length > 0) && ($freq.length > 0))
     total = $amount.val() / 100.0 * $freq.val()
-    $('.js-collaboration-alert').show()
-    $('#js-collaboration-alert-amount').text(total)
+    switch $freq.val()
+      when "1"
+        message = total + " € cada mes, en total " + total * 12 + " € al año"
+      when "3"
+        message = total + " € cada 3 meses, en total " + total * 4 + " € al año"
+      when "12"
+        message = total + " € cada año en un pago único anual"
+    $('#js-collaboration-alert-amount').text(message)
 
 change_payment_type = (type) ->
   switch type
@@ -71,7 +75,8 @@ change_payment_type = (type) ->
 
 init_collaborations = () ->
 
-  change_payment_type($('.js-collaboration-type:selected').val())
+  change_payment_type($('.js-collaboration-type').val() || $('.js-collaboration-type').select2('val'))
+
   $('.js-collaboration-type').on 'change', (event) ->
     type = $(this).val()
     change_payment_type(type)
@@ -85,8 +90,8 @@ init_collaborations = () ->
     calculate_collaboration()
 
 
-#$(window).bind 'page:change', ->
-#  init_collaborations()
+$(window).bind 'page:change', ->
+  init_collaborations()
 
 $ ->
   init_collaborations()

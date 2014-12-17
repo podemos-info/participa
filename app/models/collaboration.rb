@@ -7,19 +7,26 @@ class Collaboration < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :user, :amount, :frequency, presence: true
+  validates :user_id, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
-  validates :user, uniqueness: true
-  validates :order, uniqueness: true, if: :is_credit_card?
-  validate :order, presence: true, if: :is_credit_card?
+  validates :user_id, uniqueness: true
+  validate :validates_not_passport
+  validate :validates_age_over
+
+  validates :redsys_order, uniqueness: true, if: :is_credit_card?
+  validates :redsys_order, presence: true, if: :is_credit_card?
+
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
-  validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
-  validate :validate_ccc, if: :is_bank_national?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
-  validate :validate_iban, if: :is_bank_international?, message: "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala."
+  validate :validates_ccc, if: :is_bank_national?
 
-  before_validation :redsys_set_order, if: :is_credit_card?
+  validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
+  validate :validates_iban, if: :is_bank_international?
+
+  before_validation(on: :create) do
+    self.update_attribute(:redsys_order, redsys_generate_order) if self.is_credit_card?
+  end
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
@@ -39,12 +46,30 @@ class Collaboration < ActiveRecord::Base
   scope :amount_2, -> {where("amount > 10 and amount < 20")}
   scope :amount_3, -> {where("amount > 20")}
 
-  def validate_ccc 
-    BankCccValidator.validate("#{self.ccc_full}")
+  def validates_not_passport
+    if self.user.is_passport? 
+      self.errors.add(:user, "No puedes colaborar si eres extranjero.")
+    end
   end
 
-  def validate_iban
-    IBANTools::IBAN.valid?(self.iban_account)
+  def validates_age_over
+    if self.user.born_at > Date.today-18.years
+      self.errors.add(:user, "No puedes colaborar si eres menor de edad.")
+    end
+  end
+
+  def validates_ccc 
+    if self.ccc_entity and self.ccc_office and self.ccc_dc and self.ccc_account
+      unless BankCccValidator.validate("#{self.ccc_full}")
+        self.errors.add(:ccc_dc, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+      end
+    end
+  end
+
+  def validates_iban
+    unless IBANTools::IBAN.valid?(self.iban_account)
+      self.errors.add(:iban_account, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+    end
   end
 
   def is_credit_card?
@@ -69,61 +94,55 @@ class Collaboration < ActiveRecord::Base
   end
 
   def ccc_full 
-    "#{ccc_entity} #{ccc_office} #{ccc_dc} #{ccc_account}"
+    "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}"
   end
 
-  def merchant_currency
-    978
+  def admin_permalink
+    admin_collaboration_path(self)
   end
 
-  def merchant_code
-    Rails.application.secrets.redsys["code"]
+  def frequency_payments
+    case self.frequency
+    when 1 
+      12
+    when 3
+      4
+    when 12
+      1
+    end
   end
 
-  def merchant_terminal
-    Rails.application.secrets.redsys["terminal"]
+  def redsys_secret(key)
+    Rails.application.secrets.redsys[key]
   end
 
-  def redsys_secret_key
-    Rails.application.secrets.redsys["secret_key"]
+  def redsys_merchant_url(type=nil)
+    redsys_callback_collaboration_url(protocol: :https, redsys_order: self.redsys_order, collaboration_id: self.id, user_id: self.user.id, type: type) 
   end
 
-  def merchant_url 
-    Rails.application.secrets.redsys["merchant_url"]
+  def redsys_merchant_message
+    "#{self.amount}#{self.redsys_order}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}#{self.redsys_secret "secret_key"}"
   end
 
-  def merchant_transaction_type
-    5
+  def redsys_merchant_signature
+    Digest::SHA1.hexdigest(self.redsys_merchant_message).upcase
   end
 
-  def merchant_date_frequency
-    30
-  end
-  
-  def merchant_sumtotal
-    self.amount * self.frequency
+  def redsys_match_signature? signature
+    signature == self.redsys_merchant_signature
   end
 
-  def merchant_message
-    #"#{self.amount}#{self.order}#{self.merchant_code}#{self.merchant_currency}#{self.merchant_transaction_type}#{self.merchant_url}#{self.redsys_secret_key}"
-    #Digest=SHA-1(Ds_Merchant_Amount + Ds_Merchant_Order +Ds_Merchant_MerchantCode + DS_Merchant_Currency + Ds_Merchant_SumTotal + CLAVE SECRETA))
-    "#{self.amount}#{self.order}#{self.merchant_code}#{self.merchant_currency}#{self.merchant_sumtotal}#{self.redsys_secret_key}"
+  def confirm!
+    self.update_attribute(:response_status, "OK")
   end
 
-  def merchant_signature
-    Digest::SHA1.hexdigest(self.merchant_message).upcase
-  end
+  def redsys_parse_response! params
+    self.update_attribute(:redsys_response, params.to_json)
+    self.update_attribute(:redsys_response_code, params["Ds_Response"])
+    self.update_attribute(:redsys_response_recieved_at, DateTime.now)
 
-  def match_signature signature
-    # FIXME: check SHA1 signature form redsys
-    # signature == merchant_signature
-  end
-
-  def parse_response params
-    self.update_attribute(:response, params.to_json)
-    self.update_attribute(:response_code, params["Ds_Response"])
-    self.update_attribute(:response_recieved_at, DateTime.now)
-    if params["Ds_Response"] == "0000" #TODO and match_signature(params["Ds_Signature"])
+    # TODO check if Date/Time is correct 
+    if params["Ds_Response"].to_i < 100 and params["collaboration_id"].to_i == self.id and params["user_id"].to_i == self.user.id # and self.redsys_match_signature?(params["Ds_Signature"])
       self.update_attribute(:response_status, "OK")
     else
       self.update_attribute(:response_status, "KO")
@@ -131,6 +150,8 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_valid?
+    # TODO:  def redsys_is_valid? 
+    # TODO response_status for bank national/international
     self.response_status == "OK"
   end
 
@@ -158,10 +179,8 @@ class Collaboration < ActiveRecord::Base
   private 
 
   def redsys_set_order
-    # TODO: rename order to redsys_order
-    self.update_attribute(:order, redsys_generate_order)
+    self.update_attribute(:redsys_order, redsys_generate_order)
   end
-
 
   def redsys_generate_order
     # Redsys requires an order_id be provided with each transaction of a
