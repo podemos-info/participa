@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get '', to: redirect("/#{I18n.locale}")
 
-  # para redsys
-  post '/collaborations/validate/callback', to: 'collaborations#callback', as: 'callback_collaboration'
+  # redsys MerchantURL 
+  post '/collaborations/validate/redsys/callback', to: 'collaborations#redsys_callback', as: 'redsys_callback_collaboration'
 
   namespace :api do
     scope :v1 do 
@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   scope "/(:locale)", locale: /es|ca|eu/ do 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
-
+    get '/circulos/validacion', to: 'page#circles_validation', as: 'circles_validation'
+    get '/equipos-de-accion-participativa', to: 'page#participation_teams', as: 'participation_teams'
     get '/comision-de-garantias-democraticas', to: 'page#guarantees', as: 'guarantees'
     get '/comision-de-garantias-democraticas/conflictos-garantias', to: 'page#guarantees_conflict', as: 'guarantees_conflict'
     get '/comision-de-garantias-democraticas/cumplimento-transparencia', to: 'page#guarantees_compliance', as: 'guarantees_compliance'
@@ -57,12 +58,16 @@ Rails.application.routes.draw do
           scope :validate do
             get 'OK', to: 'collaborations#OK', as: 'validate_ok_collaboration'
             get 'KO', to: 'collaborations#KO', as: 'validate_ko_collaboration'
-            get 'status/:order', to: 'collaborations#status', as: 'validate_status_collaboration'
+            scope :redsys do
+              get '/status/:order', to: 'collaborations#redsys_status', as: 'redsys_validate_status_collaboration'
+            end
           end
         end
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
+        delete 'password/recover', to: 'registrations#recover_and_logout'
+        put 'participation/team/wants/:type', to: 'registrations#set_wants_participation', as: 'set_wants_participation'
       end
       unauthenticated do
         root 'devise/sessions#new', as: :root
