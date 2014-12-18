@@ -171,11 +171,11 @@ class Collaboration < ActiveRecord::Base
   end
 
   def generate_order(date=DateTime.now)
-    collaboration_start = self.created_at
+    collaboration_start = (self.created_at + 1.month).beginning_of_month
     if date < collaboration_start
       false
     else 
-      if ((date.year*12+date.month) - (collaboration_start.year*12+collaboration_start.month) - (date.day >= collaboration_start.day ? 0 : 1)) % self.frequency == 0
+      if ((date.year*12+date.month) - (collaboration_start.year*12+collaboration_start.month)) % self.frequency == 0
         order = Order.by_collaboration_month(self, date)
         if not order 
           order = Order.create(collaboration: self, payable_at: date)
