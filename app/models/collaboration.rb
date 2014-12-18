@@ -121,7 +121,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def redsys_merchant_message
-    "#{self.amount}#{self.redsys_order}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}#{self.redsys_secret "secret_key"}"
+    "#{self.amount}#{self.redsys_order}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}#{self.redsys_secret "identifier"}#{self.redsys_secret "secret_key"}"
   end
 
   def redsys_merchant_signature
@@ -136,15 +136,26 @@ class Collaboration < ActiveRecord::Base
     self.update_attribute(:response_status, "OK")
   end
 
+  def redsys_logger
+    @@redsys_logger ||= Logger.new("#{Rails.root}/log/collaborations_redsys.log")
+  end
+
   def redsys_parse_response! params
+    redsys_logger.info("*" * 40)
+    redsys_logger.info("Redsys: New collaboration")
+    redsys_logger.info("User: #{self.user.id} - Collaboration: #{self.id}")
+    redsys_logger.info("Data: #{self.attributes.inspect}")
+    redsys_logger.info("Params: #{params}")
     self.update_attribute(:redsys_response, params.to_json)
     self.update_attribute(:redsys_response_code, params["Ds_Response"])
     self.update_attribute(:redsys_response_recieved_at, DateTime.now)
 
     # TODO check if Date/Time is correct 
     if params["Ds_Response"].to_i < 100 and params["collaboration_id"].to_i == self.id and params["user_id"].to_i == self.user.id # and self.redsys_match_signature?(params["Ds_Signature"])
-      self.update_attribute(:response_status, "OK")
+      redsys_logger.info("Status: OK")
+      self.confirm!
     else
+      redsys_logger.info("Status: KO - ERROR")
       self.update_attribute(:response_status, "KO")
     end
   end
