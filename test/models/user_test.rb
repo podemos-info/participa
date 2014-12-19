@@ -52,6 +52,52 @@ class UserTest < ActiveSupport::TestCase
     assert(user2.errors[:email] == [])
   end
 
+  test "should validate email format" do
+    user = FactoryGirl.build :user, email: "right_format@example.com"
+    user.valid?
+    assert_equal [], user.errors[:email], "Right format detected as invalid"
+
+    user = FactoryGirl.build :user, email: "Right.Format.2@example.com"
+    user.valid?
+    assert_equal [], user.errors[:email], "Right format detected as invalid"
+
+    user = FactoryGirl.build :user, email: "stránge_chars@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo no puede contener acentos, eñes u otros caracteres especiales"], user.errors[:email], "Strange chars not detected"
+
+    user = FactoryGirl.build :user, email: "STRÁNGE_CHARS@EXAMPLE.COM"
+    user.valid?
+    assert_equal ["La dirección de correo no puede contener acentos, eñes u otros caracteres especiales"], user.errors[:email], "Strange chars not detected"
+
+    user = FactoryGirl.build :user, email: "double..dot@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo no puede contener dos puntos seguidos"], user.errors[:email], "Dot-dot not detected"
+
+    user = FactoryGirl.build :user, email: ".firstchar@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo debe comenzar con un número o una letra"], user.errors[:email], "First letter invalid not detected"
+
+    user = FactoryGirl.build :user, email: "lastchar@example.com."
+    user.valid?
+    assert_equal ["La dirección de correo debe acabar con una letra"], user.errors[:email], "Wrong domain not detected"
+
+    user = FactoryGirl.build :user, email: "lastchar@example,com"
+    user.valid?
+    assert_equal ["La dirección de correo contiene caracteres inválidos"], user.errors[:email], "Comma in domain not detected"
+
+    user = FactoryGirl.build :user, email: "last,char@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo contiene caracteres inválidos"], user.errors[:email], "Unescaped comma in local not detected"
+
+    user = FactoryGirl.build :user, email: "\"last,char\"@example.com"
+    user.valid?
+    assert_equal [], user.errors[:email], "Quoted comma in local detected as invalid"
+
+    user = FactoryGirl.build :user, email: "wrong_domain@examplecom"
+    user.valid?
+    assert_equal ["La dirección de correo es incorrecta"], user.errors[:email], "Wrong domain (no dots) not detected"
+  end
+
   test "should document_vatid be unique" do
     error_message = I18n.t "activerecord.errors.models.user.attributes.document_vatid.taken"
 
