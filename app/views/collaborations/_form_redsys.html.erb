@@ -1,4 +1,4 @@
-<form target="tpv" id="redsys_payment_form" method="post" action="<%= @collaboration.redsys_secret "post_url" %>" class="js-collaboration-form">
+<form target="_top" id="redsys_payment_form" method="post" action="<%= @collaboration.redsys_secret "post_url" %>" class="js-collaboration-form">
 
   <input type="hidden" name="Ds_Merchant_Currency"          value="<%= @collaboration.redsys_secret "currency" %>">
   <input type="hidden" name="Ds_Merchant_MerchantCode"      value="<%= @collaboration.redsys_secret "code" %>">
@@ -18,7 +18,8 @@
 
   <div class="js-collaboration-confirm-buttons buttonbox">
     <%= link_to "Cancelar", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
-    <%= link_to "Confirmar", "#", class: "button js-collaboration-confirm" %>
+    <%# link_to "Confirmar", "#", class: "button js-collaboration-confirm" %>
+    <input type="submit" value="Confirmar" class="button">
   </div>
 
 </form>
