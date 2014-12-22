@@ -22,7 +22,7 @@ class CollaborationsControllerTest < ActionController::TestCase
   end
 
   test "should create collaboration" do
-    user = FactoryGirl.create(:user, :dni3)
+    user = FactoryGirl.create(:user)
     sign_in user
     assert_difference('Collaboration.count') do
       post :create, collaboration: { amount: 500, frequency: 12, payment_type: 1, terms_of_service: 1, minimal_year_old: 1 }

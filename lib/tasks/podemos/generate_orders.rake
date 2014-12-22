@@ -4,7 +4,7 @@ namespace :podemos do
   task :generate_orders, [:month, :year] => :environment do |t, args|
     args.with_defaults(:month => Date.today.month, :year => Date.today.year)
 
-    date = DateTime.new(args.year.to_i, args.month.to_i)
+	date = DateTime.new(args.year.to_i, args.month.to_i, Rails.application.secrets.orders["creation_day"].to_i)
     Collaboration.find_each do |collaboration|
       collaboration.generate_order date
     end
