@@ -102,22 +102,22 @@ class UserTest < ActiveSupport::TestCase
     error_message = I18n.t "activerecord.errors.models.user.attributes.document_vatid.taken"
 
     # try to save with the same document
-    user1 = FactoryGirl.create(:user, document_vatid: "26502303R")
-    user2 = FactoryGirl.build(:user, document_vatid: "26502303R")
+    user1 = FactoryGirl.create(:user)
+    user2 = FactoryGirl.build(:user, document_vatid: user1.document_vatid)
     user2.valid?
     assert(user2.errors[:document_vatid].include? error_message)
 
     # downcase ( minusculas )
-    user3 = FactoryGirl.build(:user, document_vatid: "26502303r")
+    user3 = FactoryGirl.build(:user, document_vatid: user1.document_vatid.downcase)
     user3.valid?
     assert(user3.errors[:document_vatid].include? error_message)
 
     # spaces
-    user4 = FactoryGirl.build(:user, document_vatid: " 26502303r ")
+    user4 = FactoryGirl.build(:user, document_vatid: " #{user1.document_vatid.downcase} ")
     user4.valid?
     assert(user4.errors[:document_vatid].include? error_message)
 
-    user5 = FactoryGirl.build(:user, document_vatid: "1111111H")
+    user5 = FactoryGirl.build(:user)
     assert(user5.valid?)
   end
 
@@ -368,7 +368,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil user.errors.include? :document_vatid
     assert_not_nil user.errors.include? :phone
 
-    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", document_vatid: "222222X", phone: "0034661234567")
+    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", phone: "0034661234567")
     assert user.valid?
   end
 
