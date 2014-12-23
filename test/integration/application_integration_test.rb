@@ -120,7 +120,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   test "should redirect to profile and allow to change vote town to foreign users" do
     @user_foreign.update_attribute(:vote_town, "NOTICE")
     login @user
-    assert_equal("Debes indicar el municipio en España donde deseas votar.", flash[:notice])
+    assert_equal("Si lo deseas, puedes indicar el municipio en España donde deseas votar.", flash[:notice])
     get '/es'
     assert_response :redirect
     assert_redirected_to edit_user_registration_url

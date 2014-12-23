@@ -8,15 +8,15 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def regions_provinces
-    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], field: :province, title:"Provincia"}
+    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], required: true, field: :province, title:"Provincia"}
   end
 
   def regions_municipies
-    render partial: 'municipies_select', locals:{country: @user_location[:country], province: @user_location[:province], town: @user_location[:town], field: :town, title:"Municipio"}
+    render partial: 'municipies_select', locals:{country: @user_location[:country], province: @user_location[:province], town: @user_location[:town], required: true, field: :town, title:"Municipio"}
   end
 
   def vote_municipies
-    render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], field: :vote_town, title:"Municipio de participación"}
+    render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de participación"}
   end
 
   def create

@@ -398,6 +398,34 @@ class UserTest < ActiveSupport::TestCase
     assert user.errors[:born_at].include? "debes ser mayor de 18 años"
   end 
 
+  test "should update vote_town when changes the town, both in Spain" do 
+    @user.town = "m_37_262_6"
+    @user.save
+    assert_equal @user.town, @user.vote_town, "User has changed his town (from Spain to Spain) and vote town didn't changed"
+  end
+
+  test "should update vote_town when changes the town, from foreign country to Spain" do 
+    user = FactoryGirl.build(:user, :foreign)
+    user.save
+    user.country = "ES"
+    user.province = "SA"
+    user.town = "m_37_262_6"
+    user.save
+    assert_equal @user.town, @user.vote_town, "User has changed his town (from foreign to Spain) and vote town didn't changed"
+  end
+  
+  test "should update vote_town when changes the town, from Spain to a foreign country" do 
+    @user.country = "US"
+    @user.province = "AL"
+    @user.town = "Jefferson County"
+    @user.save
+    assert_not_equal @user.town, @user.vote_town, "User has changed his town (from Spain to a foreign country) and vote town changed"
+  end
+  
+  # actualizar vote_town cuando se guarda
+   # español
+   # extranjero
+
   #test "should all scopes work" do 
   #  skip("TODO")
   #end

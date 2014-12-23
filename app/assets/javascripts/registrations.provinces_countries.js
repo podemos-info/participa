@@ -23,6 +23,9 @@ function show_towns(parent, field, country_code, province_code, prefix){
   var select_wrapper = $('#js-registration-'+field+'-wrapper');
 
   $('#'+field).disable_control();
+  if (province_code=="-")
+    return;
+
   if (province_code && country_code == "ES") {
     var url = "/registrations/"+prefix+"/municipies?no_profile=1&user_country=ES&"+parent+"=" + province_code;
     var has_towns = true;
@@ -92,7 +95,7 @@ $(function() {
     if ($("select#user_province").is(":disabled")) {
       country_selector.trigger("change");
     }
-    if ($("select#user_vote_town").is(":visible")) {
+    if ($('select#user_vote_province').val()=="-"||$("select#user_vote_town").is(":disabled")) {
       $('select#user_vote_province').trigger("change");
     }
   }
