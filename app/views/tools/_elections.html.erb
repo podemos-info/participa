@@ -15,11 +15,10 @@
             </p>
           </div>
 
-          <%= link_to create_vote_path(election_id: election.id), target: '_blank', class: 'button button-vote' do %>
+          <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
             <span>Votar en</span>
             <span>Ágora Voting</span>
           <% end %>
-          <p><a href="http://asambleaciudadana.podemos.info/candidaturas/" target="_blank">Consultar las candidaturas</a></p>
         </div>
     <% end %>
   </div>

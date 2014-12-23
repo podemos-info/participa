@@ -11,7 +11,7 @@
   type: province
 - code: BA
   type: province
-- code: BI
+- code: IB
   type: province
 - code: B 
   type: province
@@ -42,8 +42,6 @@
 - code: H 
   type: province
 - code: HU
-  type: province
-- code: IB
   type: province
 - code: J 
   type: province
@@ -94,6 +92,8 @@
 - code: V 
   type: province
 - code: VA
+  type: province
+- code: BI
   type: province
 - code: Z 
   type: province

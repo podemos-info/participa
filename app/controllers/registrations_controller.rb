@@ -8,11 +8,15 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def regions_provinces
-    render partial: 'subregion_select'
+    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], field: :province, title:"Provincia"}
   end
 
   def regions_municipies
-    render partial: 'municipies_select'
+    render partial: 'municipies_select', locals:{country: @user_location[:country], province: @user_location[:province], town: @user_location[:town], field: :town, title:"Municipio"}
+  end
+
+  def vote_municipies
+    render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], field: :vote_town, title:"Municipio de participación"}
   end
 
   def create
@@ -47,11 +51,11 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :postal_code, :country)
+    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country)
   end
 
   def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :town, :province, :postal_code, :country)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country)
   end
 
 end

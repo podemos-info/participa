@@ -4,6 +4,7 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
     @user = FactoryGirl.create(:user)
+    @user_foreign = FactoryGirl.create(:user, :foreign)
   end
 
   def login user
@@ -111,6 +112,15 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     @user.update_attribute(:town, "Madrid")
     login @user
     assert_equal("Debes indicar el municipio donde resides.", flash[:alert])
+    get '/es'
+    assert_response :redirect
+    assert_redirected_to edit_user_registration_url
+  end
+
+  test "should redirect to profile and allow to change vote town to foreign users" do
+    @user_foreign.update_attribute(:vote_town, "NOTICE")
+    login @user
+    assert_equal("Debes indicar el municipio en España donde deseas votar.", flash[:notice])
     get '/es'
     assert_response :redirect
     assert_redirected_to edit_user_registration_url
