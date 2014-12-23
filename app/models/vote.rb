@@ -12,11 +12,11 @@ class Vote < ActiveRecord::Base
   before_validation :save_voter_id, on: :create
 
   def generate_voter_id
-    Digest::SHA256.hexdigest("#{Rails.application.secrets.secret_key_base}:#{self.user_id}:#{self.election_id}")
+    Digest::SHA256.hexdigest("#{Rails.application.secrets.secret_key_base}:#{self.user_id}:#{self.election_id}:#{self.scoped_agora_election_id}")
   end
 
   def generate_message
-    "voter-#{self.election.agora_election_id}-#{self.voter_id}:#{Time.now.to_i}"
+    "#{self.voter_id}:election:#{self.scoped_agora_election_id}:vote:#{Time.now.to_i}"
   end
 
   def generate_hash(message)
@@ -24,11 +24,15 @@ class Vote < ActiveRecord::Base
     Digest::HMAC.hexdigest(message, key, Digest::SHA256)
   end
 
+  def scoped_agora_election_id
+    self.election.scoped_agora_election_id self.user
+  end
+
   def url
     key = Rails.application.secrets.agora["shared_key"]
     message =  self.generate_message
     hash = self.generate_hash message
-    "https://vota.podemos.info/#/election/#{self.election.agora_election_id}/vote/#{hash}/#{message}"
+    "https://vota.podemos.info/#/election/#{self.scoped_agora_election_id}/vote/#{hash}/#{message}"
   end
 
   def test_url
