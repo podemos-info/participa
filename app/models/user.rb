@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
+  before_save :control_vote_town
+
   acts_as_paranoid
   has_paper_trail
 
@@ -76,7 +78,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def check_issue(validation_response, path, message, controller)
     if validation_response
       if message and validation_response.class == String
@@ -106,7 +107,14 @@ class User < ActiveRecord::Base
     if issue || only_blocking  # End of blocking issues
       return issue
     end
+
+    issue ||= check_issue self.vote_town_notice, :edit_user_registration, { notice: "location"}, "registrations"
+
+    if issue
+      return issue
+    end
   end
+
 
   attr_accessor :sms_user_token_given
   attr_accessor :login
@@ -310,6 +318,33 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_province
+    begin
+      Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
+    rescue
+      ""
+    end
+  end
+
+  def vote_province= value
+    prefix = "m_%02d_"%Carmen::Country.coded("ES").subregions.coded(value).index
+    if not self.vote_town.starts_with? prefix then
+      self.vote_town = prefix
+    end
+  end
+
+  def vote_town_code
+    self.vote_town.split("_")[1,3].join
+  end
+
+  def vote_province_code
+    self.vote_town.split("_")[1]
+  end
+
+  def vote_ca_code
+    raise NotImplementedError
+  end
+
   def verify_user_location()
     province = town = true
     country = Carmen::Country.coded(self.country)
@@ -331,15 +366,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_town_notice()
+    self.country != "ES" and self.vote_town == "NOTICE"
+  end
+
   def self.get_location(current_user, params)
     # params from edit page
-    user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town] }
+    user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town], vote_town: params[:user_vote_town], vote_province: params[:user_vote_province] }
 
     # params from create page
     if params[:user]
       user_location[:country] ||= params[:user][:country]
       user_location[:province] ||= params[:user][:province]
       user_location[:town] ||= params[:user][:town]
+      user_location[:vote_town] ||= params[:user][:vote_town]
+      user_location[:vote_province] ||= params[:user][:vote_province]
     end
 
     # params from user profile
@@ -347,6 +388,8 @@ class User < ActiveRecord::Base
       user_location[:country] ||= current_user.country
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
+      user_location[:vote_town] ||= current_user.vote_town
+      user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions[current_user.vote_town.split("_")[1].to_i-1].code
     end
 
     # default country
@@ -355,6 +398,13 @@ class User < ActiveRecord::Base
     user_location
   end
 
+  def control_vote_town
+    # Spanish users can't use a different town for vote
+    if self.country=="ES"
+      self.vote_town = self.town
+    end
+  end
+  
   def users_with_deleted
     User.with_deleted
   end

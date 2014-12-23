@@ -1,14 +1,14 @@
-<div id="js-registration-subregion-wrapper" class="input required form-group">
+<div id="js-registration-user_<%=field%>-wrapper" class="input required form-group">
   <%= label :user, :province, class: "control-label", required: :required do %>
-    Provincia
+    <%= title %>
     <abbr title="requerido">*</abbr>
   <% end %>
   <span class="form-wrapper">
-  <% provinces = get_provinces(@user_location[:country]) %>
+  <% provinces = get_provinces(country) %>
   <% if provinces.length>0 %>
-      <%= select_tag "user[province]", "<option></option>".html_safe+options_from_collection_for_select(provinces, "code", "name", @user_location[:province]), {required: "required", data: {placeholder: "-- Elige una provincia --", allowClear: true} } %>
+      <%= select_tag "user[#{field}]", "<option></option>".html_safe+options_from_collection_for_select(provinces, "code", "name", province), {required: "required", data: {placeholder: "-- Elige una provincia --", allowClear: true} } %>
   <% else %>
-    <%= text_field(:user, :province, class: "form-control input-xl") %>
+    <%= text_field(:user, field, class: "form-control input-xl") %>
   <% end %>
   </span>
 </div>

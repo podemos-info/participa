@@ -29,6 +29,7 @@ FactoryGirl.define do
     country "ES"
     province "M"
     town "m_28_079_6"
+    vote_town "m_28_079_6"
     postal_code "28021"
     phone
     sms_confirmed_at DateTime.now
