@@ -405,7 +405,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should update vote_town when changes the town, from foreign country to Spain" do 
-    user = FactoryGirl.build(:user, :foreign)
+    user = FactoryGirl.build(:user, :foreign_address)
     user.save
     user.country = "ES"
     user.province = "SA"

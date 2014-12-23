@@ -89,6 +89,7 @@ class User < ActiveRecord::Base
 
   # returns issues with user profile, blocking first
   def get_unresolved_issue(only_blocking = false)
+
     # User has confirmed SMS code
     issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
 
@@ -108,7 +109,7 @@ class User < ActiveRecord::Base
       return issue
     end
 
-    issue ||= check_issue self.vote_town_notice, :edit_user_registration, { notice: "location"}, "registrations"
+    issue ||= check_issue self.vote_town_notice, :edit_user_registration, { notice: "vote_town"}, "registrations"
 
     if issue
       return issue
@@ -404,10 +405,12 @@ class User < ActiveRecord::Base
       user_location[:country] ||= current_user.country
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
-      user_location[:vote_town] ||= current_user.vote_town
-      if current_user.vote_town.nil?
+
+      if current_user.vote_town.nil? || current_user.vote_town=="NOTICE"
+        user_location[:vote_town] ||= "-"
         user_location[:vote_province] ||= "-"
-      else
+      else  
+        user_location[:vote_town] ||= current_user.vote_town
         user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions[current_user.vote_town.split("_")[1].to_i-1].code
       end
     end
