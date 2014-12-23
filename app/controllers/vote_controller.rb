@@ -4,8 +4,12 @@ class VoteController < ApplicationController
   
   def create
     election = Election.find params[:election_id]
-    if election.is_actived?
-      @scoped_agora_election_id = election.scoped_agora_election_id current_user
+    if election.is_actived? 
+      if election.has_valid_location_for? current_user
+        @scoped_agora_election_id = election.scoped_agora_election_id current_user
+      else
+        redirect_to root_url, flash: {error: I18n.t('podemos.election.no_location') }
+      end
     else
       redirect_to root_url, flash: {error: I18n.t('podemos.election.close_message') }
     end
