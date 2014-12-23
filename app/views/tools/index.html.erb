@@ -3,12 +3,13 @@
   <div class="row">
     <div class="col-b-4a12">
       <br>
+
       <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
       <% if Election.actived.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
-        <% if Election.last and Election.last.ends_at > 72.hours.ago %>
-          <%= render partial: 'last_election', locals: { election: Election.last } %>
+        <% if Election.last and Election.last.recently_finished? %>
+          <%= render partial: 'election_finished', locals: { election: Election.last } %>
         <% else %>
           <%= render partial: "other_tools" %>
         <% end %>

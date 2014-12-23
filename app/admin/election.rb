@@ -29,6 +29,13 @@ ActiveAdmin.register Election do
       row "Crear Aviso" do
         link_to "Crear aviso para móviles para esta votación", new_admin_notice_path(notice: { link: create_vote_url(election_id: election.id), title: "Podemos", body: "Nueva votación disponible: #{election.title}" }), class: "button"
       end
+      if election.scope != 0 
+        row "Lugares donde se vota" do
+          election.election_locations.each do |loc|
+            li loc.location
+          end
+        end
+      end
     end
     active_admin_comments
   end
