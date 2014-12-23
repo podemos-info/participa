@@ -480,6 +480,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     country: "Debes indicar el país donde resides."
     province: "Debes indicar la provincia donde resides."
     town: "Debes indicar el municipio donde resides."
+    vote_town: "Debes indicar el municipio en España donde deseas votar."
   recaptcha:
     errors:
       incorrect-captcha-sol: "Hubo un error con el captcha, por favor completalo de nuevo"

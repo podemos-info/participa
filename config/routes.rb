@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
+    get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote
     scope :validator do
       scope :sms do 
         get :step1, to: 'sms_validator#step1', as: 'sms_validator_step1'
@@ -47,6 +48,7 @@ Rails.application.routes.draw do
     devise_scope :user do
       get '/registrations/regions/provinces', to: 'registrations#regions_provinces'
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
+      get '/registrations/vote/municipies', to: 'registrations#vote_municipies'
       authenticated :user do
         scope :collaborations do
           delete 'destroy', to: 'collaborations#destroy', as: 'destroy_collaboration'

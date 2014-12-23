@@ -1,7 +1,7 @@
 
 function show_provinces(country_code){
   // change to provinces for a given country
-  var select_wrapper = $('#js-registration-subregion-wrapper');
+  var select_wrapper = $('#js-registration-user_province-wrapper');
   var url = "/registrations/regions/provinces?no_profile=1&user_country=" + country_code;
 
   $('#user_town').disable_control();
@@ -18,16 +18,16 @@ function show_provinces(country_code){
 }
 
 var no_towns_html="";
-function show_towns(province_code){
+function show_towns(parent, field, country_code, province_code, prefix){
   // change to provinces for a given country
-  var select_wrapper = $('#js-registration-municipies-wrapper');
+  var select_wrapper = $('#js-registration-'+field+'-wrapper');
 
-  $('#user_town').disable_control();
-  if (province_code && $("select#user_country").val() == "ES") {
-    var url = "/registrations/regions/municipies?no_profile=1&user_country=ES&user_province=" + province_code;
+  $('#'+field).disable_control();
+  if (province_code && country_code == "ES") {
+    var url = "/registrations/"+prefix+"/municipies?no_profile=1&user_country=ES&"+parent+"=" + province_code;
     var has_towns = true;
   } else {
-    var url = "/registrations/regions/municipies?no_profile=1";
+    var url = "/registrations/"+prefix+"/municipies?no_profile=1";
     var has_towns = false;
   }
 
@@ -36,18 +36,21 @@ function show_towns(province_code){
   } else {
     select_wrapper.load(url, function(response) {
       if (has_towns) {
-        var town_select = $('select#user_town');
+        var town_select = $('select#'+field);
         if (town_select.select2)
           town_select.select2({
             formatNoMatches: "No se encontraron resultados"
           });
 
-          var options = town_select.children("option");
-          if (options.length>1) {
-            var postal_code = $('#user_postal_code').val();
-            var prefix = options[1].value.substr(2,2);
-            if (postal_code.length<5 || postal_code.substr(0, 2) != prefix) {
-              $('#user_postal_code').val(prefix);
+
+          if (field=="user_town") {
+            var options = town_select.children("option");
+            if (options.length>1) {
+              var postal_code = $('#user_postal_code').val();
+              var prefix = options[1].value.substr(2,2);
+              if (postal_code.length<5 || postal_code.substr(0, 2) != prefix) {
+                $('#user_postal_code').val(prefix);
+              }
             }
           }
       } else
@@ -56,25 +59,42 @@ function show_towns(province_code){
   }
 }
 
+function toggle_vote_town(country){
+    $("#foreign_vote_town").toggle(country != "ES");
+}
 $(function() {
 
-  $.fn.disable_control = function( ) {
-    if (this.data("select2"))
-      this.select2("enable", false).select2("val", "").attr("data-placeholder", "-").select2();
-    else
-      this.prop("disabled", true).val("").attr("placeholder", "-");
-    return this;
-  };
+  var country_selector = $('select#user_country');
+  if (country_selector.length) {
+    $.fn.disable_control = function( ) {
+      if (this.data("select2"))
+        this.select2("enable", false).select2("val", "").attr("data-placeholder", "-").select2();
+      else
+        this.prop("disabled", true).val("").attr("placeholder", "-");
+      return this;
+    };
 
-  $('select#user_country').on("change", function() {
-    show_provinces( $(this).val() );
-  });
+    country_selector.on("change", function() {
+      var country = $(this).val();
+      toggle_vote_town(country);
+      show_provinces( country );
+    });
 
-  $(document.body).on("change", 'select#user_province', function() {
-    show_towns( $(this).val() );
-  });
+    $(document.body).on("change", 'select#user_province', function() {
+      show_towns( "user_province", "user_town", country_selector.val(), $(this).val(), "regions" );
+    });
 
-  if ($("select#user_province").is(":disabled")) {
-    $('select#user_country').trigger("change");
+    $('select#user_vote_province').on("change", function() {
+      show_towns( "user_vote_province", "user_vote_town", "ES", $(this).val(), "vote" );
+    });
+
+    toggle_vote_town(country_selector.val());
+    if ($("select#user_province").is(":disabled")) {
+      country_selector.trigger("change");
+    }
+    if ($("select#user_vote_town").is(":visible")) {
+      $('select#user_vote_province').trigger("change");
+    }
   }
 });
+
