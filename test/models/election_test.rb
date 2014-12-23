@@ -4,36 +4,100 @@ class ElectionTest < ActiveSupport::TestCase
 
   test "should validate presence on election" do 
     e = Election.new
-    e1 = Election.new(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now, ends_at: DateTime.now + 2.weeks)
+    e1 = Election.new(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now, ends_at: DateTime.now + 2.weeks, scope: 0)
     e.valid?
     assert(e.errors[:title].include? "no puede estar en blanco")
     assert(e.errors[:agora_election_id].include? "no puede estar en blanco")
     assert(e.errors[:starts_at].include? "no puede estar en blanco")
     assert(e.errors[:ends_at].include? "no puede estar en blanco")
+    assert(e.errors[:scope].include? "no puede estar en blanco")
     assert e1.valid?
   end
 
   test "should scope :actived work" do 
-    e1 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.civil(1999, 2, 2, 12, 12), ends_at: DateTime.civil(2001, 2, 2, 12, 12))
+    e1 = FactoryGirl.create(:election, starts_at: DateTime.civil(1999, 2, 2, 12, 12), ends_at: DateTime.civil(2001, 2, 2, 12, 12))
     assert e1.valid?
     assert_equal(Election.actived.count, 0)
-    e2 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.civil, ends_at: DateTime.now + 2.weeks)
+    e2 = FactoryGirl.create(:election, starts_at: DateTime.civil, ends_at: DateTime.now + 2.weeks)
     assert e2.valid?
     assert_equal(Election.actived.count, 1)
   end
 
-  test "sould .is_actived? work" do 
+  test "should .is_actived? work" do 
     # votacion ya cerrada
-    e1 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now-30.days, ends_at: DateTime.now-7.days)
+    e1 = FactoryGirl.create(:election, starts_at: DateTime.now-30.days, ends_at: DateTime.now-7.days)
     assert_not e1.is_actived?
 
     # votacion activa
-    e2 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now-30.days, ends_at: DateTime.now+7.days)
+    e2 = FactoryGirl.create(:election, starts_at: DateTime.now-30.days, ends_at: DateTime.now+7.days)
     assert e2.is_actived?
 
     # votacion del futuro, todavia no esta activada
-    e3 = Election.create(title: "hola mundo", agora_election_id: 1, starts_at: DateTime.now+30.days, ends_at: DateTime.now+90.days)
+    e3 = FactoryGirl.create(:election, starts_at: DateTime.now+30.days, ends_at: DateTime.now+90.days)
     assert_not e3.is_actived?
+  end
+
+  test "should recently_finished? work" do 
+    e = FactoryGirl.create(:election)
+    e.update_attributes(starts_at: DateTime.now-90.days, ends_at: DateTime.now+7.days)
+    assert_not e.recently_finished?
+    e.update_attributes(ends_at: DateTime.now-30.days)
+    assert_not e.recently_finished?
+    e.update_attributes(ends_at: DateTime.now-3.days)
+    assert e.recently_finished?
+  end
+
+  test "should .has_valid_location_for? work" do 
+    # Si es una eleccion estatal todos participan
+    election = FactoryGirl.create(:election, scope: 0)
+    user = FactoryGirl.create(:user, town: "m_28_07_96")
+    assert election.has_valid_location_for? user
+
+    # si es municipal solo los que esten en ese municipio
+    election.update_attributes(scope: 3)
+    location = ElectionLocation.create(election_id: election.id, location: "280796")
+    assert election.has_valid_location_for? user
+
+    # si es municipal no permitir a los que no esten en ese municipio
+    location.update_attributes(location: "222222")
+    assert_not election.has_valid_location_for? user
+  end
+
+  test "should .scope_name work" do 
+    election = FactoryGirl.create(:election)
+    election.update_attributes(scope: 0)
+    assert_equal(election.scope_name, "Estatal")
+    election.update_attributes(scope: 1)
+    assert_equal(election.scope_name, "Comunidad")
+    election.update_attributes(scope: 2)
+    assert_equal(election.scope_name, "Provincial")
+    election.update_attributes(scope: 3)
+    assert_equal(election.scope_name, "Municipal")
+  end
+
+  test "should .scoped_agora_election_id work" do 
+    election = FactoryGirl.create(:election)
+    election.update_attributes(scope: 0)
+    user = FactoryGirl.create(:user)
+
+    ## NotImplemented
+    #assert_equal(election.scoped_agora_election_id(user), 1)
+    #election.update_attributes(scope: 1)
+    
+    assert_equal(election.scoped_agora_election_id(user), 1)
+    election.update_attributes(scope: 2)
+    assert_equal(election.scoped_agora_election_id(user), 128)
+    election.update_attributes(scope: 3)
+    assert_equal(election.scoped_agora_election_id(user), 1280796)
+
+    #def scoped_agora_election_id user
+    #  case self.scope
+    #    when 0 then self.agora_election_id
+    #    when 1 then (self.agora_election_id.to_s + user.vote_ca_code).to_i
+    #    when 2 then (self.agora_election_id.to_s + user.vote_province_code).to_i
+    #    when 3 then user.vote_town_code.to_i #(self.agora_election_id.to_s + user.vote_town_code).to_i
+    #  end
+    #end
   end
 
 end
