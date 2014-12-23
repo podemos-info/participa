@@ -319,15 +319,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_vote_town?
+    not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
+  end
+
   def vote_province
-    if self.vote_town.nil?
-      "-"
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
     else
-      begin
-        Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
-      rescue
-        ""
-      end
+      ""
     end
   end
 
@@ -336,25 +336,25 @@ class User < ActiveRecord::Base
       self.vote_town = nil
     else
       prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index+1)
-      if not self.vote_town.starts_with? prefix then
+      if self.vote_town.nil? or not self.vote_town.starts_with? prefix then
         self.vote_town = prefix
       end
     end
   end
 
   def vote_town_code
-    if self.vote_town.nil?
-      ""
-    else
+    if self.has_vote_town?
       self.vote_town.split("_")[1,3].join
+    else
+      ""
     end
   end
 
   def vote_province_code
-    if self.vote_town.nil?
-      "-"
-    else
+    if self.has_vote_town?
       self.vote_town.split("_")[1]
+    else
+      "-"
     end
   end
 
@@ -383,6 +383,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_province_name
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
+    else
+      ""
+    end
+  end
+
+  def vote_town_name
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
+    else
+      ""
+    end
+  end
+
   def vote_town_notice()
     self.country != "ES" and self.vote_town == "NOTICE"
   end
@@ -406,12 +422,12 @@ class User < ActiveRecord::Base
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
 
-      if current_user.vote_town.nil? || current_user.vote_town=="NOTICE"
+      if current_user.has_vote_town?
+        user_location[:vote_town] ||= current_user.vote_town
+        user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions.coded(current_user.vote_province).code
+      else
         user_location[:vote_town] ||= "-"
         user_location[:vote_province] ||= "-"
-      else  
-        user_location[:vote_town] ||= current_user.vote_town
-        user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions[current_user.vote_town.split("_")[1].to_i-1].code
       end
     end
 
