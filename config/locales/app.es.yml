@@ -127,6 +127,9 @@ es:
       user:
         wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante."
   podemos:
+    election:
+      no_location: "No hay votaciones en tu municipio."
+      close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
@@ -486,8 +489,6 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       incorrect-captcha-sol: "Hubo un error con el captcha, por favor completalo de nuevo"
       verification_failed: "Hubo un error con el captcha, por favor completalo de nuevo"
       recaptcha_unreachable: "Hubo un error con el captcha, por favor completalo de nuevo"
-  election:
-    close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
   active_admin:
     scopes:
       created: "Creados"

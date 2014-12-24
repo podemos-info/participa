@@ -79,25 +79,37 @@ class ElectionTest < ActiveSupport::TestCase
     election = FactoryGirl.create(:election)
     election.update_attributes(scope: 0)
     user = FactoryGirl.create(:user)
-
     ## NotImplemented
     #assert_equal(election.scoped_agora_election_id(user), 1)
     #election.update_attributes(scope: 1)
-    
     assert_equal(election.scoped_agora_election_id(user), 1)
     election.update_attributes(scope: 2)
     assert_equal(election.scoped_agora_election_id(user), 128)
     election.update_attributes(scope: 3)
     assert_equal(election.scoped_agora_election_id(user), 1280796)
+  end
 
-    #def scoped_agora_election_id user
-    #  case self.scope
-    #    when 0 then self.agora_election_id
-    #    when 1 then (self.agora_election_id.to_s + user.vote_ca_code).to_i
-    #    when 2 then (self.agora_election_id.to_s + user.vote_province_code).to_i
-    #    when 3 then user.vote_town_code.to_i #(self.agora_election_id.to_s + user.vote_town_code).to_i
-    #  end
-    #end
+  test "should full_title_for work" do 
+    election = FactoryGirl.create(:election)
+    user = FactoryGirl.create(:user)
+    election.update_attributes(scope: 0)
+    assert_equal("Hola mundo", election.full_title_for(user))
+    ## NotImplemented
+    #election.update_attributes(scope: 1)
+    election.update_attributes(scope: 2)
+    assert_equal("Hola mundo en Madrid", election.full_title_for(user))
+    election.update_attributes(scope: 3)
+    assert_equal("Hola mundo en Madrid", election.full_title_for(user))
+
+    user.update_attributes(vote_town: "m_01_001_4")
+    election.update_attributes(scope: 0)
+    assert_equal("Hola mundo", election.full_title_for(user))
+    ## NotImplemented
+    #election.update_attributes(scope: 1)
+    election.update_attributes(scope: 2)
+    assert_equal("Hola mundo en Madrid", election.full_title_for(user))
+    election.update_attributes(scope: 3)
+    assert_equal("Hola mundo en Madrid", election.full_title_for(user))
   end
 
 end
