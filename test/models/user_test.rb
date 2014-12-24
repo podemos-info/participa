@@ -449,5 +449,23 @@ class UserTest < ActiveSupport::TestCase
   #scope :unconfirmed_mail, -> { where "confirmed_at is null" }
   #scope :unconfirmed_phone, -> { where "sms_confirmed_at is null" }
   #scope :legacy_password, -> { where(has_legacy_password: true) }
+  #
+
+  test "should get_or_create_vote for elections work" do 
+    e1 = FactoryGirl.create(:election)
+    v1 = @user.get_or_create_vote(e1.id)
+    v2 = @user.get_or_create_vote(e1.id)
+    # same election id, same scope, same voter_id
+    assert_equal( v1.voter_id, v2.voter_id )
+   
+    # same election id, different scope, different voter_id
+    e2 = FactoryGirl.create(:election, scope: 3)
+    v3 = @user.get_or_create_vote(e2.id)
+    v4 = @user.get_or_create_vote(e2.id)
+    assert_equal( v3.voter_id, v4.voter_id )
+    @user.update_attribute(:town, "m_01_001_4")
+    v5 = @user.get_or_create_vote(e2.id)
+    assert_not_equal( v3.voter_id, v5.voter_id )
+  end
 
 end

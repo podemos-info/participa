@@ -6,8 +6,8 @@ class Vote < ActiveRecord::Base
   belongs_to :election
 
   validates :user_id, :election_id, :voter_id, presence: true
-  validates :user_id, uniqueness: {scope: :election_id}
-  validates :voter_id, uniqueness: true
+  #validates :user_id, uniqueness: {scope: :election_id}
+  validates :voter_id, uniqueness: {scope: :user_id}
 
   before_validation :save_voter_id, on: :create
 

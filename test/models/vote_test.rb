@@ -20,9 +20,8 @@ class VoteTest < ActiveSupport::TestCase
     v1 = Vote.create(user_id: u.id, election_id: e1.id)
     v2 = Vote.create(user_id: u.id, election_id: e1.id)
     v3 = Vote.create(user_id: u.id, election_id: e2.id)
-    v1.valid?
-    v2.valid?
-    assert(v2.errors.messages[:user_id].include? "ya está en uso")
+    assert v1.valid?
+    assert_not v2.valid?
     assert(v2.errors.messages[:voter_id].include? "ya está en uso")
     assert v3.valid?
   end
