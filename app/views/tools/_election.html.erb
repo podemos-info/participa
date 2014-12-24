@@ -3,7 +3,7 @@
 
 <div class="box-poll">
   <div>
-    <p class="poll-q"><%= election.title %></p>
+    <p class="poll-q"><%= election.full_title_for current_user %></p>
     <p class="date"> <%= l election.starts_at, format: :short %> - <%= l election.ends_at, format: :short %> </p>
   </div>
   <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>

@@ -45,7 +45,11 @@ class Vote < ActiveRecord::Base
   private
 
   def save_voter_id
-    self.update_attribute(:voter_id, generate_voter_id)
+    if self.election and self.user
+      self.update_attribute(:voter_id, generate_voter_id)
+    else
+      self.errors.add(:voter_id, "No se pudo generar")
+    end
   end
 
 end

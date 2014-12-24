@@ -17,6 +17,20 @@ class Election < ActiveRecord::Base
     self.ends_at < DateTime.now and self.ends_at > 7.days.ago
   end
 
+  def scope_name
+    SCOPE.select{|v| v[1] == self.scope }[0][0]
+  end
+
+  def full_title_for user
+    case self.scope
+      when 0 then location = nil
+      when 1 then location = user.vote_ca_name
+      when 2 then location = user.vote_province_name
+      when 3 then location = user.vote_town_name
+    end
+    location.nil? ? self.title : self.title + " en #{location}" 
+  end
+
   def has_valid_location_for? user
     case self.scope
       when 0 then true
@@ -24,10 +38,6 @@ class Election < ActiveRecord::Base
       when 2 then self.election_locations.exists?(location: user.vote_province_code)
       when 3 then self.election_locations.exists?(location: user.vote_town_code)
     end
-  end
-
-  def scope_name
-    SCOPE.select{|v| v[1] == self.scope }[0][0]
   end
 
   def scoped_agora_election_id user

@@ -1,7 +1,7 @@
 <div>
 <% if current_user.has_vote_town? %>
-  <h3><strong>No hay votaciones de <%= election.title %> en <%= current_user.vote_town_name %>, <%= current_user.vote_province_name %>.</strong></h3>
+  <h3><strong>No hay votaciones de <%= election.full_title_for current_user %>.</strong></h3>
 <% else %>
-  <h3><strong>Completa tus datos de inscripción indicando tu municipio de origen y participa en la votación <%= election.title %>.</strong></h3>
+  <h3><strong>Completa tus datos de inscripción indicando tu municipio de origen y participa en la votación de <%= election.title %>.</strong></h3>
 <% end %>
 </div>

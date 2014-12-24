@@ -342,6 +342,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_town_name
+    Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
+  end
+
+  def vote_province_name
+    Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
+  end
+
+  def vote_ca_name
+    raise NotImplementedError
+  end
+
   def vote_town_code
     if self.has_vote_town?
       self.vote_town.split("_")[1,3].join

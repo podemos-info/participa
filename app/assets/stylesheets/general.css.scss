@@ -628,7 +628,8 @@ tools
   overflow:hidden;
   background:#eaeaea image-url("ico.vote-box.png") 2em 1.5em no-repeat;
   padding:1.5em 3em 1.5em 9em;
-  margin:0 0 1.5em
+  margin:0 0 1.5em;
+  min-height: 5em;
 }
 .content-content .box-vote h3{
   color:#612d62;
