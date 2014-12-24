@@ -117,15 +117,15 @@
   </fieldset>
 
   <fieldset id="foreign_vote_town">
-    <legend><span>Lugar de participación para residentes en el extranjero</span></legend>
+    <legend><span>Lugar de origen de residente en el extranjero</span></legend>
     <div class="inputlabel-box">
-      <%= render partial: 'subregion_select', locals:{country: "ES", province: @user_location[:vote_province], required: false,   field: :vote_province, title:"Provincia de participación"} %>
+      <%= render partial: 'subregion_select', locals:{country: "ES", province: @user_location[:vote_province], required: false,   field: :vote_province, title:"Provincia de origen"} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:vote_town) %>
           <%= field_notice_box %>
       <% end %>
-      <%= render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de participación"}%>
+      <%= render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de origen"}%>
     </div>
   </fieldset>
 

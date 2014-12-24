@@ -35,8 +35,22 @@ class Election < ActiveRecord::Base
       when 0 then self.agora_election_id
       when 1 then (self.agora_election_id.to_s + user.vote_ca_code).to_i
       when 2 then (self.agora_election_id.to_s + user.vote_province_code).to_i
-      when 3 then user.vote_town_code.to_i #(self.agora_election_id.to_s + user.vote_town_code).to_i
+      when 3 then (self.agora_election_id.to_s + user.vote_town_code).to_i
     end
   end
 
+  def locations
+    self.election_locations.map do |e| e.location end .join "\n"
+  end
+
+  def locations= value
+    ElectionLocation.transaction do
+      self.election_locations.destroy_all
+      value.split("\n").each do |line|
+        if not line.strip.empty?
+          self.election_locations.build(location: line.strip).save
+        end
+      end
+    end
+  end
 end

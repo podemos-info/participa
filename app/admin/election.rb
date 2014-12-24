@@ -1,6 +1,6 @@
 ActiveAdmin.register Election do
 
-  permit_params :title, :agora_election_id, :scope, :starts_at, :ends_at, :close_message
+  permit_params :title, :agora_election_id, :scope, :starts_at, :ends_at, :close_message, :locations
 
   index do
     selectable_column
@@ -45,6 +45,7 @@ ActiveAdmin.register Election do
       f.input :title
       f.input :agora_election_id
       f.input :scope, as: :select, collection: Election::SCOPE
+      f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  }
       f.input :starts_at
       f.input :ends_at
       f.input :close_message
