@@ -628,7 +628,8 @@ tools
   overflow:hidden;
   background:#eaeaea image-url("ico.vote-box.png") 2em 1.5em no-repeat;
   padding:1.5em 3em 1.5em 9em;
-  margin:0 0 1.5em
+  margin:0 0 1.5em;
+  min-height: 5em;
 }
 .content-content .box-vote h3{
   color:#612d62;
@@ -726,6 +727,29 @@ tools
   padding-bottom:0;
 }
 
+/* Agora booth */
+.booth_container {
+  position:absolute;
+  display: block; 
+  top: 55px; 
+  bottom: 3px; 
+  scroll: none; 
+  padding: 0; 
+  margin: 0; 
+  width:100%; 
+}
+.view_candidates {
+  float: right;
+  color: #612D62;
+  font-size: 1em;
+  background: none repeat scroll 0% 0% #FFF;
+  font-family: courier;
+  font-weight: bold;
+  width: 9px;
+  border-radius: 20px;
+  padding: 2px;
+  line-height: 9px;
+}
 
 /* -----------------------------------
 body elements
@@ -1505,3 +1529,5 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   }
 
 }
+
+

@@ -59,4 +59,10 @@ FactoryGirl.define do
     document_type 3
     sequence(:document_vatid) { |n| "83482#{n}D" }
   end
+
+  trait :foreign_address do
+    country "US"
+    province "AL"
+    town "Jefferson County"
+  end
 end

@@ -7,6 +7,8 @@ class VoteTest < ActiveSupport::TestCase
     v.valid?
     assert(v.errors[:user_id].include? "no puede estar en blanco")
     assert(v.errors[:election_id].include? "no puede estar en blanco")
+    assert(v.errors[:voter_id].include? "no puede estar en blanco")
+    assert(v.errors[:voter_id].include? "No se pudo generar")
     v1 = FactoryGirl.build(:vote)
     assert v1.valid?
   end
@@ -15,9 +17,9 @@ class VoteTest < ActiveSupport::TestCase
     e1 = FactoryGirl.create(:election)
     e2 = FactoryGirl.create(:election)
     u = FactoryGirl.create(:user)
-    v1 = Vote.new(user_id: u.id, election_id: e1.id)
-    v2 = Vote.new(user_id: u.id, election_id: e1.id)
-    v3 = Vote.new(user_id: u.id, election_id: e2.id)
+    v1 = Vote.create(user_id: u.id, election_id: e1.id)
+    v2 = Vote.create(user_id: u.id, election_id: e1.id)
+    v3 = Vote.create(user_id: u.id, election_id: e2.id)
     v1.valid?
     v2.valid?
     assert(v2.errors.messages[:user_id].include? "ya está en uso")

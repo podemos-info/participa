@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_one :collaboration, dependent: :destroy
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
-  validates :address, :postal_code, :town, :vote_town, :province, :country, :born_at, presence: true
+  validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
   validates :email, confirmation: true, on: :create, :email => true
   validates :email_confirmation, presence: true, on: :create
   validates :terms_of_service, acceptance: true
@@ -89,6 +89,7 @@ class User < ActiveRecord::Base
 
   # returns issues with user profile, blocking first
   def get_unresolved_issue(only_blocking = false)
+
     # User has confirmed SMS code
     issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
 
@@ -108,7 +109,7 @@ class User < ActiveRecord::Base
       return issue
     end
 
-    issue ||= check_issue self.vote_town_notice, :edit_user_registration, { notice: "location"}, "registrations"
+    issue ||= check_issue self.vote_town_notice, :edit_user_registration, { notice: "vote_town"}, "registrations"
 
     if issue
       return issue
@@ -318,27 +319,55 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_vote_town?
+    not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
+  end
+
   def vote_province
-    begin
+    if self.has_vote_town?
       Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
-    rescue
+    else
       ""
     end
   end
 
   def vote_province= value
-    prefix = "m_%02d_"%Carmen::Country.coded("ES").subregions.coded(value).index
-    if not self.vote_town.starts_with? prefix then
-      self.vote_town = prefix
+    if value == "-"
+      self.vote_town = nil
+    else
+      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index+1)
+      if self.vote_town.nil? or not self.vote_town.starts_with? prefix then
+        self.vote_town = prefix
+      end
     end
   end
 
+  def vote_town_name
+    Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
+  end
+
+  def vote_province_name
+    Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
+  end
+
+  def vote_ca_name
+    raise NotImplementedError
+  end
+
   def vote_town_code
-    self.vote_town.split("_")[1,3].join
+    if self.has_vote_town?
+      self.vote_town.split("_")[1,3].join
+    else
+      ""
+    end
   end
 
   def vote_province_code
-    self.vote_town.split("_")[1]
+    if self.has_vote_town?
+      self.vote_town.split("_")[1]
+    else
+      "-"
+    end
   end
 
   def vote_ca_code
@@ -366,6 +395,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_province_name
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
+    else
+      ""
+    end
+  end
+
+  def vote_town_name
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
+    else
+      ""
+    end
+  end
+
   def vote_town_notice()
     self.country != "ES" and self.vote_town == "NOTICE"
   end
@@ -388,8 +433,14 @@ class User < ActiveRecord::Base
       user_location[:country] ||= current_user.country
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
-      user_location[:vote_town] ||= current_user.vote_town
-      user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions[current_user.vote_town.split("_")[1].to_i-1].code
+
+      if current_user.has_vote_town?
+        user_location[:vote_town] ||= current_user.vote_town
+        user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions.coded(current_user.vote_province).code
+      else
+        user_location[:vote_town] ||= "-"
+        user_location[:vote_province] ||= "-"
+      end
     end
 
     # default country

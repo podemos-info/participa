@@ -17,6 +17,20 @@ class Election < ActiveRecord::Base
     self.ends_at < DateTime.now and self.ends_at > 7.days.ago
   end
 
+  def scope_name
+    SCOPE.select{|v| v[1] == self.scope }[0][0]
+  end
+
+  def full_title_for user
+    case self.scope
+      when 0 then location = nil
+      when 1 then location = user.vote_ca_name
+      when 2 then location = user.vote_province_name
+      when 3 then location = user.vote_town_name
+    end
+    location.nil? ? self.title : self.title + " en #{location}" 
+  end
+
   def has_valid_location_for? user
     case self.scope
       when 0 then true
@@ -26,17 +40,27 @@ class Election < ActiveRecord::Base
     end
   end
 
-  def scope_name
-    SCOPE.select{|v| v[1] == self.scope }[0][0]
-  end
-
   def scoped_agora_election_id user
     case self.scope
       when 0 then self.agora_election_id
       when 1 then (self.agora_election_id.to_s + user.vote_ca_code).to_i
       when 2 then (self.agora_election_id.to_s + user.vote_province_code).to_i
-      when 3 then user.vote_town_code.to_i #(self.agora_election_id.to_s + user.vote_town_code).to_i
+      when 3 then (self.agora_election_id.to_s + user.vote_town_code).to_i
     end
   end
 
+  def locations
+    self.election_locations.map do |e| e.location end .join "\n"
+  end
+
+  def locations= value
+    ElectionLocation.transaction do
+      self.election_locations.destroy_all
+      value.split("\n").each do |line|
+        if not line.strip.empty?
+          self.election_locations.build(location: line.strip).save
+        end
+      end
+    end
+  end
 end
