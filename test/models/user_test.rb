@@ -16,7 +16,7 @@ class UserTest < ActiveSupport::TestCase
     assert(u.errors[:last_name].include? "Tu apellido no puede estar en blanco")
     assert(u.errors[:document_type].include? "Tu tipo de documento no puede estar en blanco")
     assert(u.errors[:document_vatid].include? "Tu documento no puede estar en blanco")
-    #assert(u.errors[:born_at].include? "Tu fecha de nacimiento no puede estar en blanco")
+    assert(u.errors[:born_at].include? "Tu fecha de nacimiento no puede estar en blanco")
     assert(u.errors[:address].include? "Tu dirección no puede estar en blanco")
     assert(u.errors[:town].include? "Tu municipio o localidad no puede estar en blanco")
     assert(u.errors[:postal_code].include? "Tu código postal no puede estar en blanco")
@@ -397,6 +397,17 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.valid?
     assert user.errors[:born_at].include? "debes ser mayor de 18 años"
   end 
+
+  test "should vote_town_name, vote_province_name and vote_ca_name work" do
+    user = FactoryGirl.create(:user)
+    assert_equal("Madrid", user.vote_town_name)
+    assert_equal("Madrid", user.vote_province_name)
+    #assert_equal("", user.vote_ca_name)
+    user.update_attributes(town: "m_01_001_4")
+    assert_equal("Alegría-Dulantzi", user.vote_town_name)
+    assert_equal("Araba/Álava", user.vote_province_name)
+    #assert_equal("", user.vote_ca_name)
+  end
 
   test "should update vote_town when changes the town, both in Spain" do 
     @user.town = "m_37_262_6"
