@@ -327,7 +327,7 @@ class User < ActiveRecord::Base
   end
 
   def vote_province= value
-    if value.nil? or vote.empty? or value == "-"
+    if value.nil? or value.empty? or value == "-"
       self.vote_town = nil
     else
       prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index+1)
