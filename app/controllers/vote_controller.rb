@@ -4,10 +4,10 @@ class VoteController < ApplicationController
   
   def create
 
-    election = Election.find params[:election_id]
-    if election.is_actived? 
-      if election.has_valid_location_for? current_user
-        @scoped_agora_election_id = election.scoped_agora_election_id current_user
+    @election = Election.find params[:election_id]
+    if @election.is_actived? 
+      if @election.has_valid_location_for? current_user
+        @scoped_agora_election_id = @election.scoped_agora_election_id current_user
       else
         redirect_to root_url, flash: {error: "No hay votaciones en tu municipio." }
       end
