@@ -1,13 +1,13 @@
 <h3><strong>Hay una votación en curso. ¡Participa!</strong></h3>
 <p class="sub-h3"></p>
-<p class="sub-h3">Puedes cambiar tu municipio antes de votar si te has mudado. Si ya has votado puedes <%= link_to create_vote_path(election_id: election.id) do %>volver a votar y cambiar tu voto<% end %> (recuerda que sólo tu último voto es válido) o <%= link_to check_vote_path(election_id: election.id) do %>comprobar que tu voto ha quedado registrado<% end %>.</p>
+<p class="sub-h3">Accederás a la votación del municipio en el que estás inscrito/a. Puedes actualizarlo pero recuerda que solo tu último voto es válido. La votación utiliza el sistema seguro de <a href="https://agoravoting.com">Ágora Voting</a></a></p>
 <div class="box-poll">
   <div>
     <p class="poll-q"><%= election.full_title_for current_user %></p>
     <p class="date"> <%= l election.starts_at, format: :short %> - <%= l election.ends_at, format: :short %> </p>
   </div>
   <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
-    <span>Votar en</span><span>Ágora Voting</span>
+    <span>Votar</span>
   <% end %>
 </div>
 
