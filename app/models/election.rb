@@ -45,12 +45,14 @@ class Election < ActiveRecord::Base
       when 0 then self.agora_election_id
       when 1 then (self.agora_election_id.to_s + user.vote_ca_code).to_i
       when 2 then (self.agora_election_id.to_s + user.vote_province_code).to_i
-      when 3 then (self.agora_election_id.to_s + user.vote_town_code).to_i
+      when 3
+        location = self.election_locations.find_by_location user.vote_town_code
+        (self.agora_election_id.to_s + location.agora_version.to_s + user.vote_town_code.to_s).to_i
     end
   end
 
   def locations
-    self.election_locations.map do |e| e.location end .join "\n"
+    self.election_locations.map{|e| "#{e.location},#{e.agora_version}" }.join "\n"
   end
 
   def locations= value
@@ -58,9 +60,12 @@ class Election < ActiveRecord::Base
       self.election_locations.destroy_all
       value.split("\n").each do |line|
         if not line.strip.empty?
-          self.election_locations.build(location: line.strip).save
+          line_raw = line.strip.split(',')
+          location, agora_version = line_raw[0], line_raw[1]
+          self.election_locations.build(location: location, agora_version: agora_version).save
         end
       end
     end
   end
+
 end

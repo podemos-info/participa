@@ -86,7 +86,8 @@ class ElectionTest < ActiveSupport::TestCase
     election.update_attributes(scope: 2)
     assert_equal(election.scoped_agora_election_id(user), 128)
     election.update_attributes(scope: 3)
-    assert_equal(election.scoped_agora_election_id(user), 1280796)
+    ElectionLocation.create(election_id: election.id, location: 280796, agora_version: 0)
+    assert_equal(10280796, election.scoped_agora_election_id(user))
   end
 
   test "should full_title_for work" do 
@@ -110,6 +111,29 @@ class ElectionTest < ActiveSupport::TestCase
     assert_equal("Hola mundo en Madrid", election.full_title_for(user))
     election.update_attributes(scope: 3)
     assert_equal("Hola mundo en Madrid", election.full_title_for(user))
+  end
+
+  test "should locations work" do 
+    election = FactoryGirl.create(:election)
+    ElectionLocation.create(election_id: election.id, location: 280796, agora_version: 0)
+    ElectionLocation.create(election_id: election.id, location: 280797, agora_version: 1)
+    ElectionLocation.create(election_id: election.id, location: 280798, agora_version: 0)
+    assert_equal( "280796,0\n280797,1\n280798,0", election.locations )
+  end
+
+  test "should locations= work" do 
+    election = FactoryGirl.create(:election)
+    election.locations = "280796,0\n280797,0\n280798,0"
+    election.save
+    assert_equal( "280796,0\n280797,0\n280798,0", election.locations )
+
+    election.locations = "280796,0\n280797,1\n280799,0"
+    election.save
+    assert_equal( "280796,0\n280797,1\n280799,0", election.locations )
+
+    el = ElectionLocation.where(election: election.id, location: 280797).first
+    assert_equal(1, el.agora_version)
+    assert_equal(280797, el.location)
   end
 
 end

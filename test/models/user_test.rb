@@ -10,18 +10,9 @@ class UserTest < ActiveSupport::TestCase
   test "should validate presence:true" do
     u = User.new
     u.valid?
-    assert(u.errors[:email].include? "Tu correo electrónico no puede estar en blanco")
-    assert(u.errors[:password].include? "Tu contraseña no puede estar en blanco")
-    assert(u.errors[:first_name].include? "Tu nombre no puede estar en blanco")
-    assert(u.errors[:last_name].include? "Tu apellido no puede estar en blanco")
-    assert(u.errors[:document_type].include? "Tu tipo de documento no puede estar en blanco")
-    assert(u.errors[:document_vatid].include? "Tu documento no puede estar en blanco")
-    assert(u.errors[:born_at].include? "Tu fecha de nacimiento no puede estar en blanco")
-    assert(u.errors[:address].include? "Tu dirección no puede estar en blanco")
-    assert(u.errors[:town].include? "Tu municipio o localidad no puede estar en blanco")
-    assert(u.errors[:postal_code].include? "Tu código postal no puede estar en blanco")
-    assert(u.errors[:province].include? "Tu provincia no puede estar en blanco")
-    assert(u.errors[:country].include? "Tu país no puede estar en blanco")
+    [ :email, :password, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country ].each do |type|
+      assert(u.errors[type].include? I18n.t("activerecord.errors.models.user.attributes.#{type}.blank"))
+    end
   end
 
   test "should document_vatid validates with DNI/NIE" do 
@@ -460,9 +451,11 @@ class UserTest < ActiveSupport::TestCase
    
     # same election id, different scope, different voter_id
     e2 = FactoryGirl.create(:election, scope: 3)
+    e2.election_locations.create(location: @user.vote_town_code, agora_version: 0)
     v3 = @user.get_or_create_vote(e2.id)
     v4 = @user.get_or_create_vote(e2.id)
     assert_equal( v3.voter_id, v4.voter_id )
+    e2.election_locations.create(location: "010014", agora_version: 0)
     @user.update_attribute(:town, "m_01_001_4")
     v5 = @user.get_or_create_vote(e2.id)
     assert_not_equal( v3.voter_id, v5.voter_id )
