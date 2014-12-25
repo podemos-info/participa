@@ -43,7 +43,7 @@ es:
             address:
               blank: "Tu dirección no puede estar en blanco"
             town:
-              blank: "Tu municipio o localidad no puede estar en blanco"
+              blank: "Tu municipio no puede estar en blanco"
             postal_code:
               blank: "Tu código postal no puede estar en blanco"
             province: 
