@@ -6,17 +6,17 @@ class Vote < ActiveRecord::Base
   belongs_to :election
 
   validates :user_id, :election_id, :voter_id, presence: true
-  validates :user_id, uniqueness: {scope: :election_id}
-  validates :voter_id, uniqueness: true
+  #validates :user_id, uniqueness: {scope: :election_id}
+  validates :voter_id, uniqueness: {scope: :user_id}
 
   before_validation :save_voter_id, on: :create
 
   def generate_voter_id
-    Digest::SHA256.hexdigest("#{Rails.application.secrets.secret_key_base}:#{self.user_id}:#{self.election_id}")
+    Digest::SHA256.hexdigest("#{Rails.application.secrets.secret_key_base}:#{self.user_id}:#{self.election_id}:#{self.scoped_agora_election_id}")
   end
 
   def generate_message
-    "voter-#{self.election.agora_election_id}-#{self.voter_id}:#{Time.now.to_i}"
+    "#{self.voter_id}:election:#{self.scoped_agora_election_id}:vote:#{Time.now.to_i}"
   end
 
   def generate_hash(message)
@@ -24,11 +24,15 @@ class Vote < ActiveRecord::Base
     Digest::HMAC.hexdigest(message, key, Digest::SHA256)
   end
 
+  def scoped_agora_election_id
+    self.election.scoped_agora_election_id self.user
+  end
+
   def url
     key = Rails.application.secrets.agora["shared_key"]
     message =  self.generate_message
     hash = self.generate_hash message
-    "https://vota.podemos.info/#/election/#{self.election.agora_election_id}/vote/#{hash}/#{message}"
+    "https://vota.podemos.info/#/election/#{self.scoped_agora_election_id}/vote/#{hash}/#{message}"
   end
 
   def test_url
@@ -41,7 +45,11 @@ class Vote < ActiveRecord::Base
   private
 
   def save_voter_id
-    self.update_attribute(:voter_id, generate_voter_id)
+    if self.election and self.user
+      self.update_attribute(:voter_id, generate_voter_id)
+    else
+      self.errors.add(:voter_id, "No se pudo generar")
+    end
   end
 
 end

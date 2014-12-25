@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :vote do
-    user_id 1
-    election_id 1
+    user
+    election
   end
 end

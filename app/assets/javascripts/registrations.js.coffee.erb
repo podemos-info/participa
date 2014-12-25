@@ -24,40 +24,11 @@ has_passport = () ->
   $('.js-registration-document-nie').addClass('invisible')
   $('.js-registration-document-passport').removeClass('invisible')
 
-telephone_flags = () ->
-  telInput = $('.js-registration-input-phone')
-  errorMsg = $('.js-registration-valid-phone')
-  validMsg = $('.js-registration-invalid-phone')
-  telButton = $('.js-registration-button-phone')
-
-  telInput.intlTelInput({
-    utilsScript: "<%= asset_path("intlTelInput.utils.js") %>",
-    defaultCountry: $('.js-registration-country').html(),
-    preferredCountries: [ "es" ]
-  })
-
-  # http://jackocnr.com/lib/intl-tel-input/examples/gen/is-valid-number.html 
-  telInput.on('keyup', ->
-    console.log('input')
-    if $.trim(telInput.val())
-      telInput.parents('.form-group').removeClass('has-success')
-      telInput.parents('.form-group').removeClass('has-error')
-      if telInput.intlTelInput("isValidNumber")
-        telInput.parents('.form-group').addClass('has-success')
-        telButton.removeAttr('disabled')
-      else
-        telInput.parents('.form-group').addClass('has-error')
-        telButton.attr('disabled', 'disabled')
-    return
-  )
-
 init_registrations = () ->
 
   if ( $('.js-registration-document:checked').length > 0 )
     document_type = $('.js-registration-document:checked').find('option:selected').text()
     document_change(document_type)
-
-  telephone_flags()
 
   $('.js-registration-document').change (event) ->
     document_type = $(this).find('option:selected').text()

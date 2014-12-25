@@ -4,70 +4,75 @@ class VoteTest < ActiveSupport::TestCase
 
   test "should validate presence on vote" do 
     v = Vote.new
-    v1 = Vote.new(user_id: 1, election_id: 1)
     v.valid?
     assert(v.errors[:user_id].include? "no puede estar en blanco")
     assert(v.errors[:election_id].include? "no puede estar en blanco")
+    assert(v.errors[:voter_id].include? "no puede estar en blanco")
+    assert(v.errors[:voter_id].include? "No se pudo generar")
+    v1 = FactoryGirl.build(:vote)
     assert v1.valid?
   end
 
   test "should validate uniqueness on vote" do 
-    v1 = Vote.new(user_id: 1, election_id: 1)
-    v2 = Vote.new(user_id: 1, election_id: 1)
-    v3 = Vote.new(user_id: 1, election_id: 2)
-    v1.valid?
-    v2.valid?
-    assert(v2.errors.messages[:user_id].include? "ya está en uso")
+    e1 = FactoryGirl.create(:election)
+    e2 = FactoryGirl.create(:election)
+    u = FactoryGirl.create(:user)
+    v1 = Vote.create(user_id: u.id, election_id: e1.id)
+    v2 = Vote.create(user_id: u.id, election_id: e1.id)
+    v3 = Vote.create(user_id: u.id, election_id: e2.id)
+    assert v1.valid?
+    assert_not v2.valid?
     assert(v2.errors.messages[:voter_id].include? "ya está en uso")
     assert v3.valid?
   end
 
   test "should validate voter_id uniqueness on vote" do 
-    v1 = Vote.create(user_id: 1, election_id: 1)
-    v2 = Vote.create(user_id: 1, election_id: 2)
-    v3 = Vote.create(user_id: 2, election_id: 1)
+    e1 = FactoryGirl.create(:election)
+    e2 = FactoryGirl.create(:election)
+    u1 = FactoryGirl.create(:user)
+    u2 = FactoryGirl.create(:user)
+    v1 = Vote.create(user_id: u1.id, election_id: e1.id)
+    v2 = Vote.create(user_id: u1.id, election_id: e2.id)
+    v3 = Vote.create(user_id: u2.id, election_id: e1.id)
     assert_not_equal(v1.voter_id, v2.voter_id)
     assert_not_equal(v1.voter_id, v3.voter_id)
     assert_not_equal(v2.voter_id, v3.voter_id)
   end
 
   test "should generate and save voter_id on creation" do 
-    v = Vote.create(user_id: 1, election_id: 1)
+    v = FactoryGirl.create(:vote)
     assert v.voter_id?
   end
 
   test "should .generate_voter_id work" do 
-    v = Vote.create(user_id: 1, election_id: 1)
+    v = FactoryGirl.create(:vote)
     voter_id = v.generate_voter_id  
     assert_equal(voter_id.length, 64)
   end
 
   test "sould .generate_message work" do 
-    e = FactoryGirl.create(:election)
-    v = Vote.create(user_id: 1, election_id: e.id)
+    v = FactoryGirl.create(:vote)
     message = v.generate_message
-    assert_equal(message.split('-')[2].split(':')[0], v.voter_id)
-    assert_equal(message.split('-')[1], v.election_id.to_s)
-    # es un timestamp que no podemos comprobar mas que sea epoch valido
-    timestamp = message.split('-')[2].split(':')[1]
-    assert_equal(timestamp.to_i.to_s, timestamp)
+    assert_equal(message.split(':')[0], v.voter_id)
+    assert_equal(message.split(':')[2], v.election_id.to_s)
+    # es un timestamp que no podemos comprobar mas que sea epoch valido de hoy
+    timestamp = message.split(':')[4].to_i
+    assert(Time.at(timestamp).to_date == Date.today)
   end
 
   test "should .generate_hash work" do
-    v = Vote.create(user_id: 1, election_id: 1)
+    v = FactoryGirl.create(:vote)
     assert_equal(v.generate_hash("test").length, 64)
   end
 
   test "should .url work" do
-    e = FactoryGirl.create(:election)
-    v = Vote.create(user_id: 1, election_id: e.id)
+    v = FactoryGirl.create(:vote)
     assert(v.url.starts_with? "https://")
     assert(v.url.length > 64)
   end
 
   test "should .test_url work" do
-    e = FactoryGirl.create(:election)
-    v = Vote.create(user_id: 1, election_id: e.id)
+    v = FactoryGirl.create(:vote)
     assert(v.test_url.starts_with? "https://")
     assert(v.test_url.length > 64)
     result = Net::HTTP.get(URI.parse(v.test_url))

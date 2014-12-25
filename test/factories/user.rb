@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   sequence :document_vatid do |n|
-    "83482#{n}D"
+    "#{n.to_s.rjust(8,'0')}#{'TRWAGMYFPDXBNJZSQVHLCKE'[n % 23].chr}"
   end
 
   sequence :phone do |n|
@@ -22,13 +22,14 @@ FactoryGirl.define do
     confirmed_at Time.now
     born_at Date.civil(1983, 2, 1) 
     wants_newsletter true
-    document_type 3
+    document_type 1
     document_vatid 
     admin false
     address "C/ Inventada, 123" 
     country "ES"
     province "M"
     town "m_28_079_6"
+    vote_town "m_28_079_6"
     postal_code "28021"
     phone
     sms_confirmed_at DateTime.now
@@ -54,19 +55,14 @@ FactoryGirl.define do
     wants_newsletter true
   end
 
-  trait :dni1 do
-    document_type 1
-    document_vatid "00000001R"
+  trait :foreign do
+    document_type 3
+    sequence(:document_vatid) { |n| "83482#{n}D" }
   end
 
-  trait :dni2 do
-    document_type 1
-    document_vatid "00000002W"
+  trait :foreign_address do
+    country "US"
+    province "AL"
+    town "Jefferson County"
   end
-
-  trait :dni3 do
-    document_type 1
-    document_vatid "00000003A"
-  end
-
 end

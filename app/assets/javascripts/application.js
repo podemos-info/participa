@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.sidr.min
-//= require intlTelInput
+// = require iframeSizer.min
 //= require select2
 //= require cookie_policy
 //= require registrations_submenu
