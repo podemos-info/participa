@@ -1,9 +1,8 @@
 class VoteController < ApplicationController
-  layout "full"
+  layout "full", only: [:create]
   before_action :authenticate_user! 
   
   def create
-
     @election = Election.find params[:election_id]
     if @election.is_actived? 
       if @election.has_valid_location_for? current_user
@@ -30,6 +29,15 @@ class VoteController < ApplicationController
     else
       flash[:error] = "Ha llegado la fecha límite para votar. La votación está cerrada."
       render :content_type => 'text/plain', :status => :gone, :text => root_url
+    end
+  end
+
+  def check
+    @election = Election.find params[:election_id]
+    if @election.has_valid_location_for? current_user
+      @scoped_agora_election_id = @election.scoped_agora_election_id current_user
+    else
+      redirect_to root_url, flash: {error: "No hay votaciones en tu municipio." }
     end
   end
 end
