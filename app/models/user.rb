@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
+  before_save :control_vote_town
+
   acts_as_paranoid
   has_paper_trail
 
@@ -16,7 +18,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
-  validates :email, confirmation: true, on: :create # , :email => true
+  validates :email, confirmation: true, on: :create, :email => true
   validates :email_confirmation, presence: true, on: :create
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
@@ -76,7 +78,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def check_issue(validation_response, path, message, controller)
     if validation_response
       if message and validation_response.class == String
@@ -88,6 +89,7 @@ class User < ActiveRecord::Base
 
   # returns issues with user profile, blocking first
   def get_unresolved_issue(only_blocking = false)
+
     # User has confirmed SMS code
     issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
 
@@ -106,7 +108,14 @@ class User < ActiveRecord::Base
     if issue || only_blocking  # End of blocking issues
       return issue
     end
+
+    issue ||= check_issue self.vote_town_notice, :edit_user_registration, { notice: "vote_town"}, "registrations"
+
+    if issue
+      return issue
+    end
   end
+
 
   attr_accessor :sms_user_token_given
   attr_accessor :login
@@ -142,17 +151,12 @@ class User < ActiveRecord::Base
   end
 
   def get_or_create_vote election_id
-    # FIXME bug with NoMethodError: undefined method `paranoia_column' for #<Class:0x00000005a466b8>
-    #Vote.where(user_id: self.id, election_id: election_id).first_or_create
-    user_id = self.id
-
-    if Vote.exists?({election_id: election_id, user_id: user_id})
-      Vote.where({election_id: election_id, user_id: user_id}).first
+    v = Vote.new({election_id: election_id, user_id: self.id})
+    if Vote.find_by_voter_id( v.generate_message )
+      return v 
     else
-      v = Vote.new({election_id: election_id, user_id: user_id})
-      v.voter_id = v.generate_voter_id
-      v.save(validate: false)
-      v
+      v.save
+      return v
     end
   end
 
@@ -310,6 +314,61 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_vote_town?
+    not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
+  end
+
+  def vote_province
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
+    else
+      ""
+    end
+  end
+
+  def vote_province= value
+    if value == "-"
+      self.vote_town = nil
+    else
+      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index+1)
+      if self.vote_town.nil? or not self.vote_town.starts_with? prefix then
+        self.vote_town = prefix
+      end
+    end
+  end
+
+  def vote_town_name
+    Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
+  end
+
+  def vote_province_name
+    Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
+  end
+
+  def vote_ca_name
+    raise NotImplementedError
+  end
+
+  def vote_town_code
+    if self.has_vote_town?
+      self.vote_town.split("_")[1,3].join
+    else
+      ""
+    end
+  end
+
+  def vote_province_code
+    if self.has_vote_town?
+      self.vote_town.split("_")[1]
+    else
+      "-"
+    end
+  end
+
+  def vote_ca_code
+    raise NotImplementedError
+  end
+
   def verify_user_location()
     province = town = true
     country = Carmen::Country.coded(self.country)
@@ -331,15 +390,37 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_province_name
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
+    else
+      ""
+    end
+  end
+
+  def vote_town_name
+    if self.has_vote_town?
+      Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
+    else
+      ""
+    end
+  end
+
+  def vote_town_notice()
+    self.country != "ES" and self.vote_town == "NOTICE"
+  end
+
   def self.get_location(current_user, params)
     # params from edit page
-    user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town] }
+    user_location = { country: params[:user_country], province: params[:user_province], town: params[:user_town], vote_town: params[:user_vote_town], vote_province: params[:user_vote_province] }
 
     # params from create page
     if params[:user]
       user_location[:country] ||= params[:user][:country]
       user_location[:province] ||= params[:user][:province]
       user_location[:town] ||= params[:user][:town]
+      user_location[:vote_town] ||= params[:user][:vote_town]
+      user_location[:vote_province] ||= params[:user][:vote_province]
     end
 
     # params from user profile
@@ -347,6 +428,14 @@ class User < ActiveRecord::Base
       user_location[:country] ||= current_user.country
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
+
+      if current_user.has_vote_town?
+        user_location[:vote_town] ||= current_user.vote_town
+        user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions.coded(current_user.vote_province).code
+      else
+        user_location[:vote_town] ||= "-"
+        user_location[:vote_province] ||= "-"
+      end
     end
 
     # default country
@@ -355,6 +444,13 @@ class User < ActiveRecord::Base
     user_location
   end
 
+  def control_vote_town
+    # Spanish users can't use a different town for vote
+    if self.country=="ES"
+      self.vote_town = self.town
+    end
+  end
+  
   def users_with_deleted
     User.with_deleted
   end

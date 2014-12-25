@@ -10,18 +10,9 @@ class UserTest < ActiveSupport::TestCase
   test "should validate presence:true" do
     u = User.new
     u.valid?
-    assert(u.errors[:email].include? "Tu correo electrónico no puede estar en blanco")
-    assert(u.errors[:password].include? "Tu contraseña no puede estar en blanco")
-    assert(u.errors[:first_name].include? "Tu nombre no puede estar en blanco")
-    assert(u.errors[:last_name].include? "Tu apellido no puede estar en blanco")
-    assert(u.errors[:document_type].include? "Tu tipo de documento no puede estar en blanco")
-    assert(u.errors[:document_vatid].include? "Tu documento no puede estar en blanco")
-    #assert(u.errors[:born_at].include? "Tu fecha de nacimiento no puede estar en blanco")
-    assert(u.errors[:address].include? "Tu dirección no puede estar en blanco")
-    assert(u.errors[:town].include? "Tu municipio o localidad no puede estar en blanco")
-    assert(u.errors[:postal_code].include? "Tu código postal no puede estar en blanco")
-    assert(u.errors[:province].include? "Tu provincia no puede estar en blanco")
-    assert(u.errors[:country].include? "Tu país no puede estar en blanco")
+    [ :email, :password, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country ].each do |type|
+      assert(u.errors[type].include? I18n.t("activerecord.errors.models.user.attributes.#{type}.blank"))
+    end
   end
 
   test "should document_vatid validates with DNI/NIE" do 
@@ -52,26 +43,72 @@ class UserTest < ActiveSupport::TestCase
     assert(user2.errors[:email] == [])
   end
 
+  test "should validate email format" do
+    user = FactoryGirl.build :user, email: "right_format@example.com"
+    user.valid?
+    assert_equal [], user.errors[:email], "Right format detected as invalid"
+
+    user = FactoryGirl.build :user, email: "Right.Format.2@example.com"
+    user.valid?
+    assert_equal [], user.errors[:email], "Right format detected as invalid"
+
+    user = FactoryGirl.build :user, email: "stránge_chars@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo no puede contener acentos, eñes u otros caracteres especiales"], user.errors[:email], "Strange chars not detected"
+
+    user = FactoryGirl.build :user, email: "STRÁNGE_CHARS@EXAMPLE.COM"
+    user.valid?
+    assert_equal ["La dirección de correo no puede contener acentos, eñes u otros caracteres especiales"], user.errors[:email], "Strange chars not detected"
+
+    user = FactoryGirl.build :user, email: "double..dot@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo no puede contener dos puntos seguidos"], user.errors[:email], "Dot-dot not detected"
+
+    user = FactoryGirl.build :user, email: ".firstchar@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo debe comenzar con un número o una letra"], user.errors[:email], "First letter invalid not detected"
+
+    user = FactoryGirl.build :user, email: "lastchar@example.com."
+    user.valid?
+    assert_equal ["La dirección de correo debe acabar con una letra"], user.errors[:email], "Wrong domain not detected"
+
+    user = FactoryGirl.build :user, email: "lastchar@example,com"
+    user.valid?
+    assert_equal ["La dirección de correo contiene caracteres inválidos"], user.errors[:email], "Comma in domain not detected"
+
+    user = FactoryGirl.build :user, email: "last,char@example.com"
+    user.valid?
+    assert_equal ["La dirección de correo contiene caracteres inválidos"], user.errors[:email], "Unescaped comma in local not detected"
+
+    user = FactoryGirl.build :user, email: "\"last,char\"@example.com"
+    user.valid?
+    assert_equal [], user.errors[:email], "Quoted comma in local detected as invalid"
+
+    user = FactoryGirl.build :user, email: "wrong_domain@examplecom"
+    user.valid?
+    assert_equal ["La dirección de correo es incorrecta"], user.errors[:email], "Wrong domain (no dots) not detected"
+  end
+
   test "should document_vatid be unique" do
     error_message = I18n.t "activerecord.errors.models.user.attributes.document_vatid.taken"
 
     # try to save with the same document
-    user1 = FactoryGirl.create(:user, document_vatid: "26502303R")
-    user2 = FactoryGirl.build(:user, document_vatid: "26502303R")
+    user1 = FactoryGirl.create(:user)
+    user2 = FactoryGirl.build(:user, document_vatid: user1.document_vatid)
     user2.valid?
     assert(user2.errors[:document_vatid].include? error_message)
 
     # downcase ( minusculas )
-    user3 = FactoryGirl.build(:user, document_vatid: "26502303r")
+    user3 = FactoryGirl.build(:user, document_vatid: user1.document_vatid.downcase)
     user3.valid?
     assert(user3.errors[:document_vatid].include? error_message)
 
     # spaces
-    user4 = FactoryGirl.build(:user, document_vatid: " 26502303r ")
+    user4 = FactoryGirl.build(:user, document_vatid: " #{user1.document_vatid.downcase} ")
     user4.valid?
     assert(user4.errors[:document_vatid].include? error_message)
 
-    user5 = FactoryGirl.build(:user, document_vatid: "1111111H")
+    user5 = FactoryGirl.build(:user)
     assert(user5.valid?)
   end
 
@@ -322,7 +359,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil user.errors.include? :document_vatid
     assert_not_nil user.errors.include? :phone
 
-    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", document_vatid: "222222X", phone: "0034661234567")
+    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", phone: "0034661234567")
     assert user.valid?
   end
 
@@ -352,6 +389,45 @@ class UserTest < ActiveSupport::TestCase
     assert user.errors[:born_at].include? "debes ser mayor de 18 años"
   end 
 
+  test "should vote_town_name, vote_province_name and vote_ca_name work" do
+    user = FactoryGirl.create(:user)
+    assert_equal("Madrid", user.vote_town_name)
+    assert_equal("Madrid", user.vote_province_name)
+    #assert_equal("", user.vote_ca_name)
+    user.update_attributes(town: "m_01_001_4")
+    assert_equal("Alegría-Dulantzi", user.vote_town_name)
+    assert_equal("Araba/Álava", user.vote_province_name)
+    #assert_equal("", user.vote_ca_name)
+  end
+
+  test "should update vote_town when changes the town, both in Spain" do 
+    @user.town = "m_37_262_6"
+    @user.save
+    assert_equal @user.town, @user.vote_town, "User has changed his town (from Spain to Spain) and vote town didn't changed"
+  end
+
+  test "should update vote_town when changes the town, from foreign country to Spain" do 
+    user = FactoryGirl.build(:user, :foreign_address)
+    user.save
+    user.country = "ES"
+    user.province = "SA"
+    user.town = "m_37_262_6"
+    user.save
+    assert_equal @user.town, @user.vote_town, "User has changed his town (from foreign to Spain) and vote town didn't changed"
+  end
+  
+  test "should update vote_town when changes the town, from Spain to a foreign country" do 
+    @user.country = "US"
+    @user.province = "AL"
+    @user.town = "Jefferson County"
+    @user.save
+    assert_not_equal @user.town, @user.vote_town, "User has changed his town (from Spain to a foreign country) and vote town changed"
+  end
+  
+  # actualizar vote_town cuando se guarda
+   # español
+   # extranjero
+
   #test "should all scopes work" do 
   #  skip("TODO")
   #end
@@ -364,5 +440,25 @@ class UserTest < ActiveSupport::TestCase
   #scope :unconfirmed_mail, -> { where "confirmed_at is null" }
   #scope :unconfirmed_phone, -> { where "sms_confirmed_at is null" }
   #scope :legacy_password, -> { where(has_legacy_password: true) }
+  #
+
+  test "should get_or_create_vote for elections work" do 
+    e1 = FactoryGirl.create(:election)
+    v1 = @user.get_or_create_vote(e1.id)
+    v2 = @user.get_or_create_vote(e1.id)
+    # same election id, same scope, same voter_id
+    assert_equal( v1.voter_id, v2.voter_id )
+   
+    # same election id, different scope, different voter_id
+    e2 = FactoryGirl.create(:election, scope: 3)
+    e2.election_locations.create(location: @user.vote_town_code, agora_version: 0)
+    v3 = @user.get_or_create_vote(e2.id)
+    v4 = @user.get_or_create_vote(e2.id)
+    assert_equal( v3.voter_id, v4.voter_id )
+    e2.election_locations.create(location: "010014", agora_version: 0)
+    @user.update_attribute(:town, "m_01_001_4")
+    v5 = @user.get_or_create_vote(e2.id)
+    assert_not_equal( v3.voter_id, v5.voter_id )
+  end
 
 end

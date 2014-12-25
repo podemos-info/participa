@@ -52,14 +52,14 @@ ActiveAdmin.register_page "Dashboard" do
               link_to("Dar de alta nueva elección", new_admin_election_path, class: "button") 
             end
           end
-          panel "Cambios" do 
-            table_for PaperTrail::Version.order('id desc').limit(20) do # Use PaperTrail::Version if this throws an error
-              column "Item" do |v| link_to v.item, v.item.admin_permalink end
-              # column ("Item") { |v| link_to v.item, [:admin, v.item] } # Uncomment to display as link
-              column ("Type") { |v| v.item_type.underscore.humanize }
-              column ("Modified at") { |v| v.created_at.to_s :long }
-            end
-          end
+          #panel "Cambios" do 
+          #  table_for PaperTrail::Version.order('id desc').limit(20) do # Use PaperTrail::Version if this throws an error
+          #    column "Item" do |v| link_to v.item, v.item.admin_permalink end
+          #    # column ("Item") { |v| link_to v.item, [:admin, v.item] } # Uncomment to display as link
+          #    column ("Type") { |v| v.item_type.underscore.humanize }
+          #    column ("Modified at") { |v| v.created_at.to_s :long }
+          #  end
+          #end
         end
       end
     end
