@@ -1,4 +1,4 @@
-<% content_for :title, "Votación de #{ election.full_title_for current_user }" %>
+<% content_for :title, "Votación de #{ @election.full_title_for current_user }" %>
 
 <script>
     function getCastHmac(auth_data, callback) {
