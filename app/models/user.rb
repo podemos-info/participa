@@ -140,11 +140,15 @@ class User < ActiveRecord::Base
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
+  # Based on 
   # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
+  # Check if login is email or document_vatid to use the DB indexes
+  #
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(document_vatid) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      login_key = login.downcase.include?("@") ? "email" : "document_vatid"
+      where(conditions).where(["lower(#{login_key}) = :value", { :value => login.downcase }]).first
     else
       where(conditions).first
     end
