@@ -7,7 +7,7 @@
         <%= render partial: "gravity_iframe", locals: { form_id: 55, height: "3000" } %>
       <% else %>
         <p>Debes acceder al portal de participación con tu <%= link_to "DNI/Correo electrónico y contraseña", new_user_session_path %>.</p>
-        <p><%= link_to "Leer la Guía/FAQ de Validación", "https://web-podemos.s3.amazonaws.com/wordpress/wp-content/uploads/2014/12/Guia-FAQ_Validacion.pdf" %>
+        <p><%= link_to "Leer la Guía/FAQ de Validación", "https://s3-eu-west-1.amazonaws.com/web-podemos/wordpress/wp-content/uploads/2014/12/Guia_FAQ_Validacion_circulos_podemos.pdf", target: "_blank" %>
         </p>
       <% end %>
     </div>
