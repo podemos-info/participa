@@ -148,7 +148,7 @@ class User < ActiveRecord::Base
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
       login_key = login.downcase.include?("@") ? "email" : "document_vatid"
-      where(conditions).where(["lower(#{login_key}) = :value", { :value => login.downcase }]).first
+      where(conditions).where(["lower(#{login_key}) = :value", { :value => login.downcase }]).take
     else
       where(conditions).first
     end
