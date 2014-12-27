@@ -13,7 +13,6 @@
 <body class="<%= body_class user_signed_in?, controller_name, action_name %>">
     <%= render partial: 'header' %>
     <%= yield %>
-    <%= render partial: 'cookie_policy' %>
     <%= render partial: 'analytics' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
