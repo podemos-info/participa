@@ -165,6 +165,7 @@ ActiveAdmin.register User do
     column :country_name
     column :province_name
     column :town_name
+    column :postal_code
     column :country
     column :province
     column :town
