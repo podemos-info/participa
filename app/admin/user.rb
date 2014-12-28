@@ -162,6 +162,12 @@ ActiveAdmin.register User do
     column :id
     column("Nombre") { |u| u.full_name }
     column :email
+    column :country_name
+    column :province_name
+    column :town_name
+    column :country
+    column :province
+    column :town
   end
 
   action_item :only => :show do
