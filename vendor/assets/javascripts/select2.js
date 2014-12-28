@@ -2,6 +2,10 @@
 Copyright 2012 Igor Vaynberg
 
 Version: 3.5.1 Timestamp: Tue Jul 22 18:58:56 EDT 2014
+Modified by Andrés Pereira fixing Android select2 open and close on search
+https://github.com/ivaynberg/select2/issues/2061 
+https://github.com/Soviut/select2/commit/e88190898c23a49e05b031aca2801ba36a407170
+Sun Dec 28 13:33:33 UTC 2014
 
 This software is licensed under the Apache License, Version 2.0 (the "Apache License") or the GNU
 General Public License version 2 (the "GPL License"). You may choose either license to govern your
@@ -1370,6 +1374,8 @@ the specific language governing permissions and limitations under the Apache Lic
             return true;
         },
 
+        openTime: 0,
+
         /**
          * Performs the opening of the dropdown
          */
@@ -2014,10 +2020,18 @@ the specific language governing permissions and limitations under the Apache Lic
             this.focusser.prop("disabled", true).val("");
             this.updateResults(true);
             this.opts.element.trigger($.Event("select2-open"));
+            this.openTime = new Date().getTime();
         },
 
         // single
         close: function () {
+            // if it's been open for less than one second, don't exit
+            var tempCounter = new Date().getTime();
+            if (this.openTime > tempCounter - 350) {
+                // console.log('short: ' + (this.openTime - tempCounter));
+                return;
+            }
+
             if (!this.opened()) return;
             this.parent.close.apply(this, arguments);
 
