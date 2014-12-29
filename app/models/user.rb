@@ -192,16 +192,12 @@ class User < ActiveRecord::Base
     self.admin
   end
 
-  def is_valid_user?
-    self.phone? and self.sms_confirmed_at?
-  end
-
   def is_valid_phone?
-    self.sms_confirmed_at? && self.sms_confirmed_at > self.confirmation_sms_sent_at || false
+    self.phone? and self.confirmation_sms_sent_at? and self.sms_confirmed_at? and self.sms_confirmed_at > self.confirmation_sms_sent_at
   end
 
   def can_change_phone?
-    self.sms_confirmed_at? ? self.sms_confirmed_at < DateTime.now-3.months : true
+    self.sms_confirmed_at.nil? or self.sms_confirmed_at < DateTime.now-3.months
   end
 
   def generate_sms_token

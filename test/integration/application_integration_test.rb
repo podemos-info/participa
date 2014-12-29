@@ -125,4 +125,11 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should allow access to profile when any issue" do
+    @user.update_attribute(:sms_confirmed_at, nil)
+    login @user
+    assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
+    get '/es/users/edit'
+    assert_response :success
+  end
 end
