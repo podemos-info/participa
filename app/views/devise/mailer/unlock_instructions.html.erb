@@ -4,4 +4,6 @@
 
 <p><%= t('podemos.devise.mailer.lock.p2') %></p>
 
-<p><%= link_to t('podemos.devise.mailer.lock.link'), unlock_url(@resource, unlock_token: @token) %></p>
+<p><%= link_to unlock_url(@resource, unlock_token: @token), unlock_url(@resource, unlock_token: @token) %></p>
+
+<p><%= t('podemos.devise.mailer.lock.p3') %></p>
