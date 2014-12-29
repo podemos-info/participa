@@ -55,16 +55,14 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "should set_new_password, set_phone and check_born_at, but allow access to profile" do 
+    @user.update_attribute(:born_at, Date.civil(1900,1,1))
     @user.update_attribute(:has_legacy_password, true)
     @user.update_attribute(:sms_confirmed_at, nil)
-    @user.update_attribute(:born_at, Date.civil(1900,1,1))
     login @user
-    assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
+    assert_equal("Debes indicar tu fecha de nacimiento.", flash[:alert])
     get '/es'
     assert_response :redirect
-    assert_redirected_to sms_validator_step1_path, "User with issues should be redirected to fix them"
-    get '/es/users/edit'
-    assert_response :success, "User with issues should be allowed to access the profile page"
+    assert_redirected_to edit_user_registration_url, "User with issues should be redirected to fix them"
   end
 
   test "should set_new_password if legacy password, but allow access to profile" do

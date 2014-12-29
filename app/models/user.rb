@@ -90,12 +90,6 @@ class User < ActiveRecord::Base
   # returns issues with user profile, blocking first
   def get_unresolved_issue(only_blocking = false)
 
-    # User has confirmed SMS code
-    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
-
-    # User don't have a legacy password
-    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
-
     # User have a valid born date
     issue ||= check_issue (self.born_at.nil? || (self.born_at == Date.civil(1900,1,1))), :edit_user_registration, { alert: "born_at"}, "registrations"
 
@@ -104,6 +98,12 @@ class User < ActiveRecord::Base
 
     # User have a valid location
     issue ||= check_issue self.verify_user_location, :edit_user_registration, { alert: "location"}, "registrations"
+
+    # User don't have a legacy password
+    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
+
+    # User has confirmed SMS code
+    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
 
     if issue || only_blocking  # End of blocking issues
       return issue
