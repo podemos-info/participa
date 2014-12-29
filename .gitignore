@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# Ignore code coverage folder
+coverage/*
+
 config/database.yml
 config/secrets.yml
 

@@ -65,5 +65,6 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'rails-perftest'
   gem 'ruby-prof'
+  gem 'simplecov'
 end
 

@@ -133,6 +133,7 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    docile (1.1.5)
     erubis (2.7.0)
     esendex (0.3.2)
       nestful (~> 0.0.8)
@@ -269,6 +270,11 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simplecov (0.9.1)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -370,6 +376,7 @@ DEPENDENCIES
   ruby-prof
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  simplecov
   spanish_vat_validators
   spring
   sqlite3
