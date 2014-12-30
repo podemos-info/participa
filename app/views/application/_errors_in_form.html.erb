@@ -1,7 +1,6 @@
 <% if resource.errors.present? %>
     <div id="errors_in_form">
-    <%= error_box "No se han podido actualizar los datos" do %>
-        <p>Ocurrieron los siguientes errores</p>
+    <%= error_box "Por favor, corrige los campos con errores" do %>
         <% resource.errors.each do |attr, msg| %>
             <p><b><%= resource.class.human_attribute_name attr %></b>: <%= sanitize msg, tags: ["a"] %></p>
         <% end %>

@@ -128,4 +128,20 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     get '/es'
     assert_response :success
   end
+
+  test "should redirect to profile when has has_legacy_password and invalid profile" do
+    @user.update_attribute(:has_legacy_password, true)
+    @user.update_attribute(:postal_code, "as")
+    login @user
+    get '/es'
+    assert_response :redirect
+    assert_redirected_to edit_user_registration_url
+  end
+
+  test "should not redirect to profile when has invalid profile but no issues" do
+    @user.update_attribute(:postal_code, "as")
+    login @user
+    get '/es'
+    assert_response :success
+  end
 end

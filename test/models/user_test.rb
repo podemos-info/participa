@@ -398,6 +398,18 @@ class UserTest < ActiveSupport::TestCase
     assert_equal("Alegría-Dulantzi", user.vote_town_name)
     assert_equal("Araba/Álava", user.vote_province_name)
     #assert_equal("", user.vote_ca_name)
+
+    user.update_attributes(country: "US", province: "AL", town: "Jefferson County", vote_town: "m_01_001_4")
+    assert_equal("Araba/Álava", user.vote_province_name)
+    assert_equal("Alegría-Dulantzi", user.vote_town_name)
+
+    user.update_attributes(country: "US", province: "AL", town: "Jefferson County", vote_town: "m_01_")
+    assert_equal("Araba/Álava", user.vote_province_name)
+    assert_equal("", user.vote_town_name)
+
+    user.update_attributes(country: "US", province: "AL", town: "Jefferson County", vote_town: nil)
+    assert_equal("", user.vote_province_name)
+    assert_equal("", user.vote_town_name)
   end
 
   test "should update vote_town when changes the town, both in Spain" do 
