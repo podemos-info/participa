@@ -90,12 +90,6 @@ class User < ActiveRecord::Base
   # returns issues with user profile, blocking first
   def get_unresolved_issue(only_blocking = false)
 
-    # User has confirmed SMS code
-    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
-
-    # User don't have a legacy password
-    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
-
     # User have a valid born date
     issue ||= check_issue (self.born_at.nil? || (self.born_at == Date.civil(1900,1,1))), :edit_user_registration, { alert: "born_at"}, "registrations"
 
@@ -104,6 +98,12 @@ class User < ActiveRecord::Base
 
     # User have a valid location
     issue ||= check_issue self.verify_user_location, :edit_user_registration, { alert: "location"}, "registrations"
+
+    # User don't have a legacy password
+    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
+
+    # User has confirmed SMS code
+    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
 
     if issue || only_blocking  # End of blocking issues
       return issue
@@ -192,16 +192,12 @@ class User < ActiveRecord::Base
     self.admin
   end
 
-  def is_valid_user?
-    self.phone? and self.sms_confirmed_at?
-  end
-
   def is_valid_phone?
-    self.sms_confirmed_at? && self.sms_confirmed_at > self.confirmation_sms_sent_at || false
+    self.phone? and self.confirmation_sms_sent_at? and self.sms_confirmed_at? and self.sms_confirmed_at > self.confirmation_sms_sent_at
   end
 
   def can_change_phone?
-    self.sms_confirmed_at? ? self.sms_confirmed_at < DateTime.now-3.months : true
+    self.sms_confirmed_at.nil? or self.sms_confirmed_at < DateTime.now-3.months
   end
 
   def generate_sms_token

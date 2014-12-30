@@ -133,7 +133,7 @@ class ElectionTest < ActiveSupport::TestCase
 
     el = ElectionLocation.where(election: election.id, location: 280797).first
     assert_equal(1, el.agora_version)
-    assert_equal(280797, el.location)
+    assert_equal("280797", el.location)
   end
 
 end

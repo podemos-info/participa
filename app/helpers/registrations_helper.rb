@@ -1,4 +1,6 @@
 module RegistrationsHelper
+  require "ffi-icu"
+  
   def self.region_comparer
     @collator ||= ICU::Collation::Collator.new("es_ES")
     @comparer ||= lambda {|a, b| @collator.compare(a.name, b.name)}

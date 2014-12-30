@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  require "ffi-icu"
 
   prepend_before_filter :load_user_location
 

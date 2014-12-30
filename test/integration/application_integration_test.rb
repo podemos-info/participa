@@ -43,33 +43,37 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should set_phone if non sms confirmed user" do
+  test "should set_phone if non sms confirmed user, but allow access to profile" do
     @user.update_attribute(:sms_confirmed_at, nil)
     login @user
     assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
     get '/es'
     assert_response :redirect
-    assert_redirected_to sms_validator_step1_path
+    assert_redirected_to sms_validator_step1_path, "User without confirmed phone should be redirected to verify it"
+    get '/es/users/edit'
+    assert_response :success, "User without confirmed phone should be allowed to access the profile page"
   end
 
-  test "should set_new_password, set_phone and check_born_at" do 
+  test "should set_new_password, set_phone and check_born_at, but allow access to profile" do 
+    @user.update_attribute(:born_at, Date.civil(1900,1,1))
     @user.update_attribute(:has_legacy_password, true)
     @user.update_attribute(:sms_confirmed_at, nil)
-    @user.update_attribute(:born_at, Date.civil(1900,1,1))
     login @user
-    assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
+    assert_equal("Debes indicar tu fecha de nacimiento.", flash[:alert])
     get '/es'
     assert_response :redirect
-    assert_redirected_to sms_validator_step1_path
+    assert_redirected_to edit_user_registration_url, "User with issues should be redirected to fix them"
   end
 
-  test "should set_new_password if legacy password" do
+  test "should set_new_password if legacy password, but allow access to profile" do
     @user.update_attribute(:has_legacy_password, true)
     login @user
     assert_equal("Por seguridad, debes cambiar tu contraseña.", flash[:alert])
     get "/es"
     assert_response :redirect
-    assert_redirected_to new_legacy_password_path
+    assert_redirected_to new_legacy_password_path, "User with legacy password should be redirected to update it"
+    get '/es/users/edit'
+    assert_response :success, "User with legacy password should be allowed to access the profile page"
   end
 
   test "should check_born_at if born_at is null" do
@@ -124,5 +128,4 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     get '/es'
     assert_response :success
   end
-
 end

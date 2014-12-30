@@ -156,7 +156,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         welcome: "Bienvenida"
         lock: 
           p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de inscripciones@podemos.info."
-          p2: "Haz click en el link de aquí abjao para desbloquear tu cuenta:"
+          p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
           p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
         confirm:
           p1: "Te has dado de alta o has cambiado tu correo electrónico en el entorno PODEMOS. Si no es ese el caso, ignora este correo. Puedes confirmar que esta es tu dirección de correo a través del siguiente enlace:"
