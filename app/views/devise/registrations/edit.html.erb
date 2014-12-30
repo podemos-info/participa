@@ -23,9 +23,11 @@
             </li>
             <li>
               <a href="#change-email">
-                <span><%=t("podemos.user.change_email") %></span></a></li>
+                <span><%=t("podemos.user.change_email") %></span>
+              </a>
+            </li> 
             <li>
-              <a href="#change-phone">
+              <a href="<%= current_user.is_valid_phone? ? "#change-phone" : sms_validator_step1_path %>">
                 <span><%=t("podemos.user.change_phone") %></span>
               </a>
             </li>
@@ -51,9 +53,11 @@
           <div id="change-email" class="invisible js-personal-content">
             <%= render partial: 'change_email' %>
           </div>
+          <% if current_user.is_valid_phone? %>
           <div id="change-phone" class="invisible js-personal-content">
             <%= render partial: 'change_phone' %>
           </div>
+          <% end %>
           <div id="cancel-account" class="invisible js-personal-content">
             <%= render partial: 'cancel_account' %>
           </div>

@@ -71,8 +71,8 @@ class ApplicationController < ActionController::Base
           if issue[:message] and request.method != "POST" # only inform in the first request of the page
             issue[:message].each { |type, text| flash.now[type] = t("issues."+text) }
           end
-        # user wants to log out
-        elsif params[:controller] == 'devise/sessions'
+        # user wants to log out or edit his profile
+        elsif params[:controller] == 'devise/sessions' or params[:controller] == "registrations"
         # user can't do anything else but fix the issue 
         else
           redirect_to issue[:path]

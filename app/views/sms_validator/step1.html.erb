@@ -13,7 +13,7 @@
 
             <p><%= t('podemos.valid.phone.p2') %></p>
 
-            <p>Debes ingresar un teléfono móvil válido para el país en el que te encuentras, sin prefijo internacional, sólo con números (sin espacios ni guiones). Según el formulario que has rellenado te encuentras en <b><%= current_user.country_name %></b> (prefijo internacional +<%= current_user.phone_prefix %>). </p>
+            <p>Debes ingresar un teléfono móvil válido para el país en el que te encuentras, sin prefijo internacional, sólo con números (sin espacios ni guiones). Según el formulario que has rellenado te encuentras en <b><%= current_user.country_name %></b> (prefijo internacional +<%= current_user.phone_prefix %>). Si esto no es correcto, puedes cambiar tu ubicación en tu <a href="<%=edit_user_registration_path%>">página del perfil</a>.</p>
 
             <%= errors_in_form current_user %>
 
