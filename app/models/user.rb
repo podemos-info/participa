@@ -99,8 +99,12 @@ class User < ActiveRecord::Base
     # User have a valid location
     issue ||= check_issue self.verify_user_location, :edit_user_registration, { alert: "location"}, "registrations"
 
-    # User don't have a legacy password
-    issue ||= check_issue self.has_legacy_password?, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
+    # User don't have a legacy password, verify if profile is valid before request to change it
+    if self.has_legacy_password?
+      issue ||= check_issue self.invalid?, :edit_user_registration, nil, "registrations"
+      
+      issue ||= check_issue true, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
+    end
 
     # User has confirmed SMS code
     issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
