@@ -43,6 +43,9 @@ class ApplicationController < ActionController::Base
     issue = user.get_unresolved_issue
 
     if issue
+      # clear user validation errors if generated on issues check to avoid stop login process
+      user.errors.messages.clear
+
       flash.delete(:notice) # remove succesfully logged message
       if issue[:message]
         issue[:message].each { |type, text| flash[type] = t("issues."+text) }
@@ -62,7 +65,6 @@ class ApplicationController < ActionController::Base
       if session[:no_unresolved_issues]
         return nil
       end
-
       # get an unresolved issue, if any
       issue = current_user.get_unresolved_issue true
       if issue
@@ -73,7 +75,7 @@ class ApplicationController < ActionController::Base
           end
         # user wants to log out or edit his profile
         elsif params[:controller] == 'devise/sessions' or params[:controller] == "registrations"
-        # user can't do anything else but fix the issue 
+        # user can't do anything else but fix the issue
         else
           redirect_to issue[:path]
         end
