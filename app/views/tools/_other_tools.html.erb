@@ -1,9 +1,39 @@
 <section class="tools">
-<div class="box">
-  <div class="box-vote">
-    <div>
-      <h3><strong>Por problemas técnicos la votación ha tenido que ser retrasada. Será abierta a lo largo del día de hoy.</strong></h3>
+<ul>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Plaza Podemos</h3>
+    <div class="tool-text">
+      <p>El lugar oficial de encuentro y debate de Podemos: comparte materiales, opiniones, ideas, proyectos todo y mucho más.</p>
+    </div><!--.tool-text-->
+
+    <div class="buttonbox">
+      <%= link_to "Ir a Plaza Podemos", "http://reddit.com/r/podemos", class: "button", target: "_blank" %>
     </div>
-  </div>
-</div>
+  </div><!--.box-tool-->
+  </li>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>AppGree</h3>
+    <div class="tool-text">
+      <p>La aplicación para opinar y proponer en tiempo real.</p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Descargar APP", "http://www.appgree.com/descarga-appgree/", class: "button", target: "_blank" %>
+    </div><!--.buttonbox-->
+  </div><!--.box-tool-->
+  </li>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Equipos de Acción Participativa</h3>
+    <div class="tool-text">
+      <p>Nuestra intención es crear cientos de estos equipos, con el objetivo de dinamizar la participación y reforzar la movilización en los municipios.</p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Leer más", participation_teams_path, class: "button" %>
+      <%= render partial: "page/wants_participation_buttons" %>
+    </div><!--.buttonbox-->
+  </div><!--.box-tool-->
+  </li>
+</ul>
 </section><!--.tools-->
