@@ -84,6 +84,7 @@ ActiveAdmin.register User do
       row :document_vatid
       row :born_at
       row :email
+      row :vote_town_name
       row :address
       row :postal_code
       row :province do
@@ -161,6 +162,7 @@ ActiveAdmin.register User do
   filter :sms_confirmed_at
   filter :sign_in_count
   filter :wants_participation
+  filter :vote_town
 
   form partial: "form"
 
