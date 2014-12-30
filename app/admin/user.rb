@@ -30,6 +30,7 @@ ActiveAdmin.register User do
     column :validations do |user|
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
+      user.valid? ? status_tag("Val", :ok) : status_tag("Val", :error)
     end
     actions
   end
@@ -56,8 +57,23 @@ ActiveAdmin.register User do
         end
       end
       row :esendex_status do
-        link_to "Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.unconfirmed_phone.sub(/^00/,'')}" if user.unconfirmed_phone
-        link_to "Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}" if user.phone
+        if user.phone?
+          span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}")
+        end
+        if user.unconfirmed_phone? 
+          span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.unconfirmed_phone.sub(/^00/,'')}")
+        end
+      end
+      row :validations_status do
+        if user.valid?
+          status_tag("El usuario supera todas las validaciones", :ok)
+        else
+          status_tag("El usuario no supera alguna validación", :error)
+          ul 
+            user.errors.full_messages.each do |mes|
+              li mes
+            end
+        end
       end
       row :full_name
       row :first_name
