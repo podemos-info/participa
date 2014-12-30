@@ -322,6 +322,10 @@ class User < ActiveRecord::Base
     not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
   end
 
+  def has_vote_town_for_election? election
+    self.has_vote_town? and (!self.vote_town_name.empty? or election.scope < 3)
+  end
+
   def vote_province
     if self.has_vote_town?
       Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
@@ -339,14 +343,6 @@ class User < ActiveRecord::Base
         self.vote_town = prefix
       end
     end
-  end
-
-  def vote_town_name
-    Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
-  end
-
-  def vote_province_name
-    Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
   end
 
   def vote_ca_name
@@ -394,22 +390,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  def vote_province_name
-    if self.has_vote_town?
-      Carmen::Country.coded("ES").subregions.coded(self.vote_province).name
-    else
-      ""
-    end
-  end
-
   def vote_town_name
     if self.has_vote_town?
-      Carmen::Country.coded("ES").subregions.coded(self.vote_province).subregions.coded(self.vote_town).name
-    else
-      ""
+      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
+      town = (prov and prov.subregions.coded(self.vote_town))
     end
+    prov and town and town.name or ""
   end
 
+  def vote_province_name
+    if self.has_vote_town?
+      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
+    end
+    prov and prov.name or ""
+  end
+  
   def vote_town_notice()
     self.country != "ES" and self.vote_town == "NOTICE"
   end
