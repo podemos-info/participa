@@ -25,7 +25,7 @@ ActiveAdmin.register User do
     column :full_name
     column :email
     column :last_sign_in_ip
-    column :confirmed_phone
+    column :phone
     column :validations do |user|
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
