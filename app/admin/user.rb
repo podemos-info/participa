@@ -163,6 +163,7 @@ ActiveAdmin.register User do
   filter :sign_in_count
   filter :wants_participation
   filter :vote_town
+  filter :votes_election_id, as: :select, collection: Election.all
 
   form partial: "form"
 
