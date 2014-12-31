@@ -24,9 +24,8 @@ ActiveAdmin.register User do
     id_column
     column :full_name
     column :email
-    column :status do |user|
-      user.deleted? ? status_tag("Borrado", :error) : ""
-    end
+    column :last_sign_in_ip
+    column :phone
     column :validations do |user|
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
@@ -84,6 +83,7 @@ ActiveAdmin.register User do
       row :document_vatid
       row :born_at
       row :email
+      row :vote_town_name
       row :address
       row :postal_code
       row :province do
@@ -161,6 +161,8 @@ ActiveAdmin.register User do
   filter :sms_confirmed_at
   filter :sign_in_count
   filter :wants_participation
+  filter :vote_town
+  filter :votes_election_id, as: :select, collection: Election.all
 
   form partial: "form"
 
