@@ -187,6 +187,10 @@ ActiveAdmin.register User do
     column :country
     column :province
     column :town
+    column :vote_town_name
+    column :vote_town
+    column :phone
+    column :last_sign_in_ip
   end
 
   action_item :only => :show do
