@@ -30,6 +30,7 @@ ActiveAdmin.register User do
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
       user.valid? ? status_tag("Val", :ok) : status_tag("Val", :error)
+      user.deleted? ? status_tag("Borrado", :error) : ""
     end
     actions
   end
