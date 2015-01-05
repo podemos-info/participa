@@ -12,9 +12,13 @@ class Election < ActiveRecord::Base
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
   end
 
+  def is_upcoming?
+    self.starts_at > DateTime.now and self.starts_at < 6.hours.from_now
+  end
+
   def recently_finished?
-    # Devuelve true si ha finalizado en menos de 7 días
-    self.ends_at < DateTime.now and self.ends_at > 7.days.ago
+    # Devuelve true si ha finalizado en menos de 2 días
+    self.ends_at < DateTime.now and self.ends_at > 2.days.ago
   end
 
   def scope_name
