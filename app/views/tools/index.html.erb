@@ -8,7 +8,9 @@
       <% if Election.actived.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
-        <% if Election.last and Election.last.recently_finished? %>
+        <% if Election.last and Election.last.is_upcoming? %>
+          <%= render partial: 'election_upcoming', locals: { election: Election.last } %>
+        <% elsif Election.last and Election.last.recently_finished? %>
           <%= render partial: 'election_finished', locals: { election: Election.last } %>
         <% else %>
           <%= render partial: "other_tools" %>
