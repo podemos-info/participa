@@ -3,17 +3,32 @@ class Api::V1Controller < ApplicationController
   skip_before_filter :verify_authenticity_token 
 
   def user_exists
+    exists = false
     document_vatid = params[:user][:document_vatid]
     email = params[:user][:email]
     province = params[:user][:province]
     town = params[:user][:town]
-    if document_vatid and email and province and town 
-      t = User.arel_table
-      if User.where(t[:email].matches(email)).where(t[:document_vatid].matches(document_vatid)).where(t[:town].matches(town)).where(t[:province].matches(province)).exists?
-        render json: nil, status: 200
-      else
-        render json: nil, status: 404
+    island = params[:user][:island]
+    autonomy = params[:user][:autonomy]
+    foreign = params[:user][:foreign]
+    if document_vatid and email
+      user = User.where(email: email, document_vatid: document_vatid).take
+      if user
+        exists = 
+              if province and town
+                user.province==province and user.town==town
+              elsif autonomy
+                user.autonomy_code==autonomy
+              elsif island
+                user.island_code==island
+              elsif foreign
+                user.country != "ES"
+              end
       end
+    end
+
+    if exists
+      render json: nil, status: 200
     else
       render json: nil, status: 404
     end

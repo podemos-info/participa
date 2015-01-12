@@ -87,15 +87,38 @@ ActiveAdmin.register User do
       row :vote_town_name
       row :address
       row :postal_code
-      row :province do
-        user.province_name
-      end
+      
       row :country do
         user.country_name
+      end
+      row :autonomy do
+        user.autonomy_name
+      end
+      row :province do
+        user.province_name
       end
       row :town do
         user.town_name
       end
+      row :in_spanish_island? do
+        if user.in_spanish_island?
+          user.island_name
+        else
+          status_tag("NO", :error)
+        end
+      end
+
+      row :vote_place do
+        user.vote_autonomy_name + " / " + user.vote_province_name + " / " + user.vote_town_name
+      end
+      row :vote_in_spanish_island? do
+        if user.vote_in_spanish_island?
+          user.vote_island_name
+        else
+          status_tag("NO", :error)
+        end
+      end
+
       row :admin
       row :circle
       row :created_at
@@ -126,6 +149,7 @@ ActiveAdmin.register User do
       row :remember_created_at
       row :deleted_at
     end
+
     panel "Votos" do
       if user.votes.any?
         table_for user.votes do
