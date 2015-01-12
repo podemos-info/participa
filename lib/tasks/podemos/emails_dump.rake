@@ -13,7 +13,7 @@ namespace :podemos do
         if not town.starts_with? "m_"
           prov = Carmen::Country.coded("ES").subregions.coded(province)
           if prov
-            town = "m_%02d_"% (prov.index+1)
+            town = "m_%02d_"% (prov.index)
           else
             town = "m_"
           end

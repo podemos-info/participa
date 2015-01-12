@@ -338,11 +338,15 @@ class User < ActiveRecord::Base
     if value.nil? or value.empty? or value == "-"
       self.vote_town = nil
     else
-      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index+1)
+      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index)
       if self.vote_town.nil? or not self.vote_town.starts_with? prefix then
         self.vote_town = prefix
       end
     end
+  end
+
+  def vote_ca_code
+    raise NotImplementedError
   end
 
   def vote_ca_name
