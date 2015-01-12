@@ -7,7 +7,7 @@ es:
       ab:
         name: Albacete
       a:
-        name: Alicante
+        name: Alacant/Alicante
       al:
         name: Almería
       av:
@@ -25,7 +25,7 @@ es:
       ca:
         name: Cádiz
       cs:
-        name: Castellón
+        name: Castelló/Castellón
       cr:
         name: Ciudad Real
       co:
@@ -47,7 +47,7 @@ es:
       hu:
         name: Huesca
       ib:
-        name: Islas Baleares
+        name: Illes Balears
       j:
         name: Jaén
       le:
@@ -95,7 +95,7 @@ es:
       to:
         name: Toledo
       v:
-        name: Valencia
+        name: València/Valencia
       va:
         name: Valladolid
       z:
