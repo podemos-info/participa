@@ -12,15 +12,16 @@ class Api::V1Controller < ApplicationController
     autonomy = params[:user][:autonomy]
     foreign = params[:user][:foreign]
     if document_vatid and email
-      user = User.where(email: email, document_vatid: document_vatid).take
+      t = User.arel_table
+      user = User.where("lower(email) = ? AND lower(document_vatid) = ?", email.downcase, document_vatid.downcase).take
       if user
         exists = 
               if province and town
-                user.province==province and user.town==town
+                user.province.casecmp(province)==0 and user.town.casecmp(town)==0
               elsif autonomy
-                user.autonomy_code==autonomy
+                user.autonomy_code.casecmp(autonomy)==0
               elsif island
-                user.island_code==island
+                user.island_code.casecmp(island)==0
               elsif foreign
                 user.country != "ES"
               end

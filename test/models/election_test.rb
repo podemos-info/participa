@@ -43,7 +43,7 @@ class ElectionTest < ActiveSupport::TestCase
     assert_not e.recently_finished?
     e.update_attributes(ends_at: DateTime.now-30.days)
     assert_not e.recently_finished?
-    e.update_attributes(ends_at: DateTime.now-3.days)
+    e.update_attributes(ends_at: DateTime.now-36.hours)
     assert e.recently_finished?
   end
 
