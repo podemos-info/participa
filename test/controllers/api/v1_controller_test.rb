@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::V1ControllerTest < ActionController::TestCase
 
-  test "should get user_exists" do
+  test "should get user_exists by province and town" do
     user = FactoryGirl.create(:user)
     get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, province: user.province, town: user.town }
     assert_response :success
@@ -15,6 +15,37 @@ class Api::V1ControllerTest < ActionController::TestCase
     get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, province: user.province, town: "m_01_001_01" }
     assert_response :missing
   end
+
+  test "should get user_exists by autonomy" do
+    user = FactoryGirl.create(:user)
+    get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, autonomy: "c_11" }
+    assert_response :success
+    get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, autonomy: "c_13" }
+    assert_response :missing
+  end
+
+  test "should get user_exists by island" do
+    user = FactoryGirl.create(:user)
+    get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, island: "i_382" }
+    assert_response :missing
+    user.update_attribute(:province, "TF")
+    user.update_attribute(:town, "m_38_013_1")
+    get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, island: "i_382" }
+    assert_response :success
+    get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, island: "i_71" }
+    assert_response :missing
+  end
+
+  test "should get user_exists for foreign users" do
+    user = FactoryGirl.create(:user, :foreign_address)
+    get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, foreign: 1 }
+    assert_response :success
+    user = FactoryGirl.create(:user)
+    get :user_exists, user: { document_vatid: user.document_vatid, email: user.email, foreign: 1 }
+    assert_response :missing
+  end
+
+  
 
   test "should get user_exists case insensitive" do 
     user = FactoryGirl.create(:user)

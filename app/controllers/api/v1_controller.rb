@@ -11,6 +11,7 @@ class Api::V1Controller < ApplicationController
     island = params[:user][:island]
     autonomy = params[:user][:autonomy]
     foreign = params[:user][:foreign]
+
     if document_vatid and email
       t = User.arel_table
       user = User.where("lower(email) = ? AND lower(document_vatid) = ?", email.downcase, document_vatid.downcase).take
