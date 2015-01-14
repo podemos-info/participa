@@ -40,7 +40,6 @@ gem 'iban-tools'
 gem 'paper_trail'
 gem 'newrelic_rpm'
 
-gem 'ruby-openid'
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
 # https://github.com/radar/paranoia/pull/121
@@ -55,6 +54,8 @@ gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
 gem 'ffi-icu', '~> 0.1.4'
 gem 'unicode'
+gem 'ruby-openid'
+gem 'rack-openid'
 
 group :development, :test do
   gem 'capistrano-rvm'
