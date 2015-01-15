@@ -3,7 +3,7 @@ class CollaborationsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [ :redsys_callback ] 
 
   before_action :authenticate_user!, except: [ :redsys_callback ] 
-  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy]
+  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy, :KO]
   # TODO: before_action :check_if_user_over_age
   # TODO: before_action :check_if_user_passport
   # TODO: before_action :check_if_user_already_collaborated
@@ -53,17 +53,17 @@ class CollaborationsController < ApplicationController
 
   # GET /collaborations/validate/OK
   def OK
-    @collaboration = current_user.collaboration
+    redirect_to edit_collaboration_path, flash: { notice: "Has dado de alta correctamente tu colaboración" } 
   end
 
   # GET /collaborations/validate/KO
   def KO
-    @collaboration = current_user.collaboration
   end
 
   # GET /collaborations/edit
   def edit
     # borrar una colaboración
+    redirect_to confirm_collaboration_path unless @collaboration.is_valid?
   end
 
   # POST /collaborations
