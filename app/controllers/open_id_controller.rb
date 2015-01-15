@@ -10,13 +10,11 @@ class OpenIdController < ApplicationController
   include OpenID::Server
   layout nil
 
-  protect_from_forgery except: :index
-
   SERVER_APPROVALS = []
 
-  before_action :authenticate_user!, except: [:create, :idp_xrds, :user_page, :user_xrds]
+  before_action :authenticate_user!, except: [:create, :discover, :user, :xrds]
 
-  def idp_xrds
+  def discover
     types = [
              OpenID::OPENID_IDP_2_0_TYPE,
             ]
@@ -105,7 +103,7 @@ class OpenIdController < ApplicationController
           oidresp = oidreq.answer(false)
         elsif current_user.nil?
           # The user hasn't logged in.
-          redirect_to root_path, notice: "Please sign in."
+          redirect_to root_path, notice: "Por favor, accede con tu usuario para continuar"
           return
         else
           # Else, set the identity to the one the user is using.
@@ -135,7 +133,7 @@ class OpenIdController < ApplicationController
   end
 
   
-  def user_xrds
+  def xrds
     types = [
              OpenID::OPENID_2_0_TYPE,
              OpenID::OPENID_1_0_TYPE,
@@ -145,24 +143,22 @@ class OpenIdController < ApplicationController
     render_xrds(types)
   end
 
-  def user_page
+  def user
     # Yadis content-negotiation: we want to return the xrds if asked for.
     accept = request.env['HTTP_ACCEPT']
     # This is not technically correct, and should eventually be updated
     # to do real Accept header parsing and logic. Though I expect it will work
     # 99% of the time.
     if accept and accept.include?('application/xrds+xml')
-      user_xrds
+      xrds
       return
     end
     # content negotiation failed, so just render the user page
-    xrds_url = open_id_user_xrds_url(user: current_user.document_vatid)
     identity_page = <<EOS
       <html><head>
-      <meta http-equiv="X-XRDS-Location" content="#{xrds_url}" />
+      <meta http-equiv="X-XRDS-Location" content="#{open_id_xrds_url}" />
       <link rel="openid.server" href="#{open_id_create_url}" />
-      </head><body><p>OpenID identity page for #{current_user.document_vatid}</p>
-      </body></html>
+      </head><body></body></html>
 EOS
     # Also add the Yadis location header, so that they don't have
     # to parse the html unless absolutely necessary.
@@ -173,7 +169,7 @@ EOS
   protected
 
   def url_for_user
-    open_id_user_page_url(user: current_user.document_vatid)
+    open_id_user_url
   end
 
   def server

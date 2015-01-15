@@ -18,11 +18,11 @@ Rails.application.routes.draw do
 
   scope "/(:locale)", locale: /es|ca|eu/ do 
 
-    get '/openid', to: 'open_id#index', as: "open_id_index"  
-    post '/openid', to: 'open_id#create', as: "open_id_create"
-    get '/user/:user', to: 'open_id#user_page', as: "open_id_user_page"
-    get '/user/:user/xrds', to: 'open_id#user_xrds', as: "open_id_user_xrds"
-    get '/openids', to: 'open_id#idp_xrds', as: "open_id_idp_xrds"
+    get '/openid/discover', to: 'open_id#discover', as: "open_id_discover"
+    get '/openid', to: 'open_id#index', as: "open_id_index"
+    post '/openid/create', to: 'open_id#create', as: "open_id_create"
+    get '/user', to: 'open_id#user', as: "open_id_user"
+    get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
