@@ -69,8 +69,7 @@ class OpenIdController < ApplicationController
         add_pape(oidreq, oidresp)
 
       else
-        server_url = "http://62.83.118.207"+open_id_create_path
-        oidresp = oidreq.answer(false, server_url)
+        oidresp = oidreq.answer(false, open_id_create_url)
       end
 
     else
@@ -125,8 +124,7 @@ class OpenIdController < ApplicationController
         add_pape(oidreq, oidresp)
 
       else
-        server_url = "http://62.83.118.207"+open_id_create_path
-        oidresp = oidreq.answer(false, server_url)
+        oidresp = oidreq.answer(false, open_id_create_url)
       end
 
     else
@@ -158,11 +156,11 @@ class OpenIdController < ApplicationController
       return
     end
     # content negotiation failed, so just render the user page
-    xrds_url = open_id_user_xrds_path(user: current_user.document_vatid)
+    xrds_url = open_id_user_xrds_url(user: current_user.document_vatid)
     identity_page = <<EOS
       <html><head>
       <meta http-equiv="X-XRDS-Location" content="#{xrds_url}" />
-      <link rel="openid.server" href="#{open_id_create_path}" />
+      <link rel="openid.server" href="#{open_id_create_url}" />
       </head><body><p>OpenID identity page for #{current_user.document_vatid}</p>
       </body></html>
 EOS
@@ -175,16 +173,14 @@ EOS
   protected
 
   def url_for_user
-    "http://62.83.118.207"+open_id_user_page_path(user: current_user.document_vatid)
-    #"http://62.83.118.207#{edit_user_registration_path}?#{current_user.document_vatid}"
-    #"http://62.83.118.207/users/#{current_user.document_vatid}"
+    open_id_user_page_url(user: current_user.document_vatid)
   end
 
   def server
     if @server.nil?
       dir = Rails.root.join('db').join('openid-store')
       store = OpenID::Store::Filesystem.new(dir)
-      @server = Server.new(store, "http://62.83.118.207"+open_id_create_path)
+      @server = Server.new(store, open_id_create_url)
     end
     return @server
   end
@@ -213,7 +209,7 @@ EOS
   <XRD>
     <Service priority="0">
       #{type_str}
-      <URI>http://62.83.118.207#{open_id_create_path}</URI>
+      <URI>#{open_id_create_url}</URI>
     </Service>
   </XRD>
 </xrds:XRDS>
