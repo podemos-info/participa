@@ -1,6 +1,6 @@
 class PageController < ApplicationController
 
-  before_action :authenticate_user!, only: [:participation_teams]
+  before_action :authenticate_user!, only: [:participation_teams, :candidate_register]
 
   def privacy_policy
   end
@@ -26,4 +26,6 @@ class PageController < ApplicationController
   def participation_teams
   end
 
+  def candidate_register
+  end
 end

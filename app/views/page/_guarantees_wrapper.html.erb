@@ -4,7 +4,7 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, title) %>
       <%= link_to "Volver a Comisión de Garantías Democráticas", guarantees_path %>
-      <%= render partial: "gravity_iframe", locals: { form_id: form_id, height: height } %>
+      <%= render partial: "gravity_iframe", locals: { domain: "podemos.info", script: "//podemos.info/wordpress/wp-content/plugins/gravity-forms-iframe-develop/assets/scripts/gfembed.min.js", form_id: form_id, height: height } %>
     </div>
   </div>
 </div>

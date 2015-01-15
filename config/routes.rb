@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get '/comision-de-garantias-democraticas/cumplimento-transparencia', to: 'page#guarantees_compliance', as: 'guarantees_compliance'
     get '/comision-de-garantias-democraticas/etica-validacion', to: 'page#guarantees_ethic', as: 'guarantees_ethic'
 
+    get '/candidaturas-autonomicas', to: 'page#candidate_register', as: 'candidate_register'
+
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote
