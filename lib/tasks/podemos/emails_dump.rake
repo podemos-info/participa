@@ -11,10 +11,12 @@ namespace :podemos do
         province = user[3]
         town = user[4].downcase
         if not town.starts_with? "m_"
-          town = "m_"
-          # if province in Carmen::Country.coded("ES").subregions
-          #    town = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(province).index+1)
-          # end
+          prov = Carmen::Country.coded("ES").subregions.coded(province)
+          if prov
+            town = "m_%02d_"% (prov.index)
+          else
+            town = "m_"
+          end
         end
         writer << [ user[0] + " " + user[1], user[2], town]
       end

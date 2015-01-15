@@ -1,0 +1,9 @@
+<% content_for :title, "Candidaturas autonómicas" %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, "Candidaturas autonómicas") %>
+      <%= render partial: "gravity_iframe", locals: { domain: "forms.podemos.info", script: "//forms.podemos.info/wp-content/plugins/gravity-forms-iframe/assets/scripts/gfembed.min.js", form_id: 5, height: 500 } %>
+    </div>
+  </div>
+</div>
