@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CollaborationTest < ActiveSupport::TestCase
 
-  def setup
+  setup do
     @collaboration = FactoryGirl.create(:collaboration)
   end
 
@@ -151,6 +151,5 @@ class CollaborationTest < ActiveSupport::TestCase
     assert coll.generate_order(DateTime.new(2014,6,15)), "generate_order should return a new order for 1st month of yearly collaboration"
     assert_nil coll.generate_order(DateTime.new(2014,7,15)), "generate_order should return nil for 2nd month of yearly collaboration"
     assert coll.generate_order(DateTime.new(2015,6,15)), "generate_order should return a new order for 12th month of yearly collaboration"
-
   end
 end

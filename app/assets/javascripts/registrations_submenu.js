@@ -19,14 +19,14 @@ jQuery(function() {
             $(submenu).show();
         };
 
-        $submenu.on('click', 'a', function(evt) {
+        $submenu.on('click', 'a.js-change-tab', function(evt) {
             evt.preventDefault();
             var target = $(this).attr('href');
             window.location.hash = target;
             showTab(target);
         });
 
-        $content.on('click', 'a', function(evt) {
+        $content.on('click', 'a.js-change-tab', function(evt) {
             evt.preventDefault();
             var target = $(this).attr('href');
             window.location.hash = target;
