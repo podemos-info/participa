@@ -170,7 +170,7 @@ EOS
   protected
 
   def url_for_user
-    open_id_user_url
+    open_id_user_url current_user.id
   end
 
   def server
@@ -221,7 +221,7 @@ EOS
 
     return if sregreq.nil?
 
-    sreg_data = { 'email' => current_user.email }
+    sreg_data = { 'email' => current_user.email, 'name' => current_user.full_name }
     sregresp = OpenID::SReg::Response.extract_response(sregreq, sreg_data)
     oidresp.add_extension(sregresp)
   end
