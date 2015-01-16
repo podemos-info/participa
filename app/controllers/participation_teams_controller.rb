@@ -1,4 +1,6 @@
 class ParticipationTeamsController < InheritedResources::Base
+  	before_action :authenticate_user!
+
 	def index
   		@participation_teams = ParticipationTeam.active
   	end

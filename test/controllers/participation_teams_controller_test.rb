@@ -3,7 +3,7 @@ require 'test_helper'
 class ParticipationTeamsControllerTest < ActionController::TestCase
 
   test "should authenticate user" do
-    get :new
+    get :index
     assert_response :redirect
     assert_redirected_to "/users/sign_in" # FIXME bug con locales
   end
