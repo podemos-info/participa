@@ -12,6 +12,7 @@ class OpenIdController < ApplicationController
 
   SERVER_APPROVALS = []
 
+  protect_from_forgery except: :create
   before_action :authenticate_user!, except: [:create, :discover, :user, :xrds]
 
   def discover
@@ -162,7 +163,7 @@ class OpenIdController < ApplicationController
 EOS
     # Also add the Yadis location header, so that they don't have
     # to parse the html unless absolutely necessary.
-    response.headers['X-XRDS-Location'] = xrds_url
+    response.headers['X-XRDS-Location'] = open_id_xrds_url
     render :text => identity_page
   end
 

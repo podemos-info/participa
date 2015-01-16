@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
     get '/openid/discover', to: 'open_id#discover', as: "open_id_discover"
     get '/openid', to: 'open_id#index', as: "open_id_index"
-    post '/openid/create', to: 'open_id#create', as: "open_id_create"
+    post '/openid', to: 'open_id#create', as: "open_id_create"
     get '/user', to: 'open_id#user', as: "open_id_user"
     get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
 
