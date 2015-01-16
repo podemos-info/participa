@@ -1,6 +1,6 @@
 <% content_for :title, "Equipos de Acción Participativa" %>
 <div class="content-content cols">
-  <div class="row">
+  <div class="row justify-texts">
     <div class="col-b-4a12">
       <%= content_tag(:h2, "Equipos de Acción Participativa") %>
 
@@ -12,7 +12,7 @@
       </p>
 
 <% if current_user.wants_participation %>
-     <p><a id="show_info" href="#">Mostrar más información sobre los Equipos de Acción Participativa</a><a id="show_teams" href="#">Mostrar equipos temáticos</a>
+     <p><a class="show_info" href="#">Mostrar más información sobre los Equipos de Acción Participativa</a><a class="show_teams" href="#">Mostrar equipos temáticos</a>
       </p>
      <div id="participation_teams">
       <h3>Enlaces de Participación</h3>
@@ -79,6 +79,10 @@
       </p>
 
       <p><%= link_to "Ver la Guía del Área de Participación", "http://podemos.info/guia-del-area-de-participacion/" %></p>
+
+      <% if current_user.wants_participation %>
+        <p><a class="show_teams" href="#">Mostrar equipos temáticos</a></p>
+      <% end %>
     </div>
 
       <div class="buttonbox">

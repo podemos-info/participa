@@ -3,21 +3,21 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-	$('#show_info').click (event) ->
-		$('#show_info').hide()
+	$('.show_info').click (event) ->
+		$('.show_info').hide()
 		$('#participation_teams').hide()
-		$('#show_teams').show()
+		$('.show_teams').show()
 		$('#participation_teams_info').show()
 		event.preventDefault()
 
-	$('#show_teams').click (event) ->
-		$('#show_teams').hide()
+	$('.show_teams').click (event) ->
+		$('.show_teams').hide()
 		$('#participation_teams_info').hide()
-		$('#show_info').show()
+		$('.show_info').show()
 		$('#participation_teams').show()
 		event.preventDefault()
 
-	if $('#show_info').length
-		$('#show_teams').hide()
+	if $('.show_info').length
+		$('.show_teams').hide()
 		$('#participation_teams_info').hide()
 				
