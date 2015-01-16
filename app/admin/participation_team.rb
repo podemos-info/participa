@@ -15,4 +15,8 @@ ActiveAdmin.register ParticipationTeam do
   # end
 
   permit_params :name, :description, :active
+
+  filter :name
+  filter :active
+  filter :created_at
 end
