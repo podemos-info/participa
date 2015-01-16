@@ -1,7 +1,7 @@
 class ProposalsController < ApplicationController
 
   def index
-    @proposals = Proposal.reddit_proposals
+    @proposals = Proposal.reddit_proposals(params[:filter])
   end
 
   def show
