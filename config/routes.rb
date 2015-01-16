@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     get '/listas-primarias-autonomicas', to: 'page#listas_primarias_autonomicas', as: 'listas_primarias_autonomicas'
 
     get '/iniciativas-ciudadanas', to: 'proposals#index', as: 'proposals'
+    get '/iniciativa-ciudadana/:reddit_id', to: 'proposals#show', as: 'proposal'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
