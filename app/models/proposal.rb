@@ -2,15 +2,11 @@ require 'open-uri'
 class Proposal
   include ActiveModel::Model
   attr_accessor :title, :description, :reddit_url, :reddit_id
-
-  def self.reddit_url
-    type = 'hot'
-    url_base = 'http://api.reddit.com/r/Podemos/search?q=flair%3APropuestas&sort='
-    url_base + type + '&restrict_sr=on&t=all&limit=' + '10'    
-  end
     
-  def self.reddit_proposals    
-    parse(JSON.load(open(reddit_url))["data"]["children"])
+  def self.reddit_proposals(filter='hot')
+    url_base = 'http://api.reddit.com/r/Podemos/search?q=flair%3APropuestas&sort='
+    url = url_base + filter + '&restrict_sr=on&t=all&limit=' + '10'     
+    parse(JSON.load(open(url))["data"]["children"])
   end
 
   def self.reddit_proposal(id)
