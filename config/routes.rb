@@ -20,12 +20,17 @@ Rails.application.routes.draw do
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
     get '/circulos/validacion', to: 'page#circles_validation', as: 'circles_validation'
-    get '/equipos-de-accion-participativa', to: 'page#participation_teams', as: 'participation_teams'
     get '/comision-de-garantias-democraticas', to: 'page#guarantees', as: 'guarantees'
     get '/comision-de-garantias-democraticas/conflictos-garantias', to: 'page#guarantees_conflict', as: 'guarantees_conflict'
     get '/comision-de-garantias-democraticas/cumplimento-transparencia', to: 'page#guarantees_compliance', as: 'guarantees_compliance'
     get '/comision-de-garantias-democraticas/etica-validacion', to: 'page#guarantees_ethic', as: 'guarantees_ethic'
 
+    get '/equipos-de-accion-participativa', to: 'participation_teams#index', as: 'participation_teams'
+    put '/equipos-de-accion-participativa/entrar(/:team_id)', to: 'participation_teams#join', as: 'participation_teams_join'
+    put '/equipos-de-accion-participativa/dejar(/:team_id)', to: 'participation_teams#leave', as: 'participation_teams_leave'
+    patch '/equipos-de-accion-participativa/actualizar', to: 'participation_teams#update_user', as: 'participation_teams_update_user'
+
+    get '/comparte-el-cambio', to: 'page#hospitality', as: 'hospitality'
     get '/candidaturas-autonomicas', to: 'page#candidate_register', as: 'candidate_register'
 
     get :notices, to: 'notice#index', as: 'notices'
@@ -72,7 +77,6 @@ Rails.application.routes.draw do
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
         delete 'password/recover', to: 'registrations#recover_and_logout'
-        put 'participation/team/wants/:type', to: 'registrations#set_wants_participation', as: 'set_wants_participation'
       end
       unauthenticated do
         root 'devise/sessions#new', as: :root

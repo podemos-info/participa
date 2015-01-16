@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   require 'phone'
 
+  has_and_belongs_to_many :participation_team
+
   # Include default devise modules. Others available are:
   # :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
@@ -525,6 +527,10 @@ class User < ActiveRecord::Base
   
   def users_with_deleted
     User.with_deleted
+  end
+
+  def in_participation_team? team_id
+    self.participation_team_ids.member? team_id
   end
 
   def admin_permalink

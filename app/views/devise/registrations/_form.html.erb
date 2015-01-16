@@ -225,7 +225,7 @@
           <% if resource.errors.include?(:current_password) %>
               <%= field_notice_box %>
           <% end %>
-          <%= f.input :current_password, hint: raw(t("devise.hints.current_password", :link => link_to(t("devise.links.here"), "#recover-password"))), input_html: {required: true, class: 'input-m'} %>
+          <%= f.input :current_password, hint: raw(t("devise.hints.current_password", :link => link_to(t("devise.links.here"), "#recover-password", class: "js-change-tab"))), input_html: {required: true, class: 'input-m'} %>
         </div>
         <%= f.actions class: 'enter' do %>
             <%= f.action :submit, label: t("devise.buttons.edit"), button_html: {class: "button"} %>

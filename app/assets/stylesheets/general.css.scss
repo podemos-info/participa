@@ -1526,4 +1526,17 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 }
 
+#participation_teams {
+  div.team {
+    margin-bottom:10px;
+    padding:20px 0px 50px;
 
+    .button {
+      float:right
+    }
+  }
+}
+
+.justify-texts p {
+  text-align: justify
+}
