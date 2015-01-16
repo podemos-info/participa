@@ -1,6 +1,6 @@
 <%= link_to proposal_path(proposal.reddit_id) do %>
   <div style="padding:20px;">
-    <h2 style="font-size:2em;"><%= proposal.title %></h2>
+    <h2 style="font-size:2em;padding-bottom:5px"><%= proposal.title %></h2>
     <p><%= truncate(proposal.description, length: 500) %></p>
   </div>
 <% end %>
