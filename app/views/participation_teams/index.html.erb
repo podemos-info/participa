@@ -5,8 +5,8 @@
       <%= content_tag(:h2, "Equipos de Acción Participativa") %>
 
 <% if current_user.wants_participation %>
-      <a id="show_info" href="#">Mostrar información sobre los equipos</a> | <a id="show_teams" href="#">Mostrar equipos específicos</a>
-      <br/>
+     <p><a id="show_info" href="#">Mostrar información sobre los equipos</a><a id="show_teams" href="#">Mostrar equipos específicos</a>
+      </p>
      <div id="participation_teams">
     <% @participation_teams.each do |participation_team| %>
       <% if participation_team.active %>
@@ -29,11 +29,12 @@
         <%= render partial: "wants_participation_buttons" %>
       </div>
 
+<% end %>
+    <div id="participation_teams_info">
+
       <br>
       <br>
 
-<% end %>
-    <div id="participation_teams_info">
       <p>
       Los Equipos de Acción Participativa son la gran apuesta del Área de Participación. Nuestra intención es crear cientos de Equipos para estimular la participación y reforzar la movilización en los municipios. Nuestra principal tarea será ayudar a canalizar en el territorio los proyectos y campañas que ideemos colectivamente, teniendo la labor de contribuir a plasmar en el terreno las grandes ideas y proyectos que se proponen e impulsan en los espacios de participación en red, así como servir de apoyo a todo el tejido social local que requiera de nuestra colaboración. 
       </p>

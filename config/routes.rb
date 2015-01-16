@@ -26,9 +26,8 @@ Rails.application.routes.draw do
     get '/comision-de-garantias-democraticas/etica-validacion', to: 'page#guarantees_ethic', as: 'guarantees_ethic'
 
     get '/equipos-de-accion-participativa', to: 'participation_teams#index', as: 'participation_teams'
-    put '/equipos-de-accion-participativa/:type', to: 'registrations#set_wants_participation', as: 'set_wants_participation'
-    put '/equipos-de-accion-participativa/entrar/:team_id', to: 'participation_teams#join', as: 'participation_teams_join'
-    put '/equipos-de-accion-participativa/dejar/:team_id', to: 'participation_teams#leave', as: 'participation_teams_leave'
+    put '/equipos-de-accion-participativa/entrar(/:team_id)', to: 'participation_teams#join', as: 'participation_teams_join'
+    put '/equipos-de-accion-participativa/dejar(/:team_id)', to: 'participation_teams#leave', as: 'participation_teams_leave'
 
     get '/comparte-el-cambio', to: 'page#hospitality', as: 'hospitality'
     get '/candidaturas-autonomicas', to: 'page#candidate_register', as: 'candidate_register'
