@@ -15,9 +15,8 @@
      <p><a id="show_info" href="#">Mostrar más información sobre los Equipos de Acción Participativa</a><a id="show_teams" href="#">Mostrar equipos temáticos</a>
       </p>
      <div id="participation_teams">
-      <h3>Equipos temáticos</h3>
-      <p>Ahora mismo estás adscrito/a a los Equipos de Acción Participa, que trabajarán en el territorio extendiendo la participación a la ciudadanía. <% if !@participation_teams.empty? %>De forma adicional tenéis la posibilidad de uniros a varios equipos temáticos como es, en este momento, el Equipo <%= @participation_teams[0].name %>.<% end %> Además es muy importante que indiquéis si estáis participando en algún Círculo, para contar con vosotros/as como posibles Enlaces de Participación en vuestro Círculo.</p>
-
+      <h3>Enlaces de Participación</h3>
+      <p>Si indicas que participas en algún Círculo, contaremos contigo como enlace de participación de este, lo que nos permitirá informar y dinamizar en los círculos las iniciativas de participación que desarrollemos y asegurarnos de que exista una buena coordinación.</p>
       <%= semantic_form_for current_user, url: participation_teams_update_user_path do |f| %>
         <fieldset>
         <div class="inputlabel-box">
@@ -29,9 +28,13 @@
         </fieldset><%= f.action :submit, button_html: {class: "button"}  %>
       <% end %>
 
+      <br/>
+      <h2>Equipos temáticos</h2>
+      <p>Ahora mismo estás adscrito/a a los Equipos de Acción Participa, que trabajarán en el territorio extendiendo la participación a la ciudadanía. <% if !@participation_teams.empty? %>De forma adicional tenéis la posibilidad de uniros a varios equipos temáticos como es, en este momento, el Equipo <%= @participation_teams[0].name %>.<% end %> Además es muy importante que indiquéis si estáis participando en algún Círculo, para contar con vosotros/as como posibles Enlaces de Participación en vuestro Círculo.</p>
+
     <% if @participation_teams.empty? %>
       <div class="team">
-        <p>En este momento no hay equipos de participacion activos.</p>
+        <p>En este momento no hay equipos de participacion activos.</p> 
       </div>
     <% else %>
     <% @participation_teams.each do |participation_team| %>
