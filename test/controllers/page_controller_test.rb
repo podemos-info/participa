@@ -23,8 +23,6 @@ class PageControllerTest < ActionController::TestCase
     assert_response :success
     get :candidate_register
     assert_response :redirect
-    get :participation_teams
-    assert_response :redirect
   end
 
   test "should get all iframes as logged in user" do
@@ -39,8 +37,6 @@ class PageControllerTest < ActionController::TestCase
     get :circles_validation
     assert_response :success
     get :candidate_register
-    assert_response :success
-    get :participation_teams
     assert_response :success
   end
 
