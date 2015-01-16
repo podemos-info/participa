@@ -1,0 +1,66 @@
+<% content_for :title, "Equipos de Acción Participativa" %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, "Equipos de Acción Participativa") %>
+
+<% if current_user.wants_participation %>
+      <a id="show_info" href="#">Mostrar información sobre los equipos</a> | <a id="show_teams" href="#">Mostrar equipos específicos</a>
+      <br/>
+     <div id="participation_teams">
+    <% @participation_teams.each do |participation_team| %>
+      <% if participation_team.active %>
+      <div>
+        <h3><%= participation_team.name %></h3>
+        <p><%= participation_team.description %></p>
+        <% if current_user.in_participation_team? participation_team.id %>
+          <%= link_to "Dejar", participation_teams_leave_path(team_id: participation_team.id), class: "button button-danger", method: :put %>
+        <% else %>
+          <%= link_to "Unirse", participation_teams_join_path(team_id: participation_team.id), class: "button", method: :put %>
+        <% end %>
+      </div>
+      <% end %>
+    <% end %>
+    </div>
+
+<% else %>
+
+      <div class="buttonbox">
+        <%= render partial: "wants_participation_buttons" %>
+      </div>
+
+      <br>
+      <br>
+
+<% end %>
+    <div id="participation_teams_info">
+      <p>
+      Los Equipos de Acción Participativa son la gran apuesta del Área de Participación. Nuestra intención es crear cientos de Equipos para estimular la participación y reforzar la movilización en los municipios. Nuestra principal tarea será ayudar a canalizar en el territorio los proyectos y campañas que ideemos colectivamente, teniendo la labor de contribuir a plasmar en el terreno las grandes ideas y proyectos que se proponen e impulsan en los espacios de participación en red, así como servir de apoyo a todo el tejido social local que requiera de nuestra colaboración. 
+      </p>
+
+      <p>
+      Llevamos meses desarrollando espacios de dinamización en red donde, entre todos/as, podamos proponer y compartir ideas. Para hacer plenamente efectivos estos equipos, antes de nada, debemos eliminar las brechas que puedan dejar fuera a ciertos sectores o colectivos. Una de ellas es la barrera digital. Para evitarla, intentaremos establecer, en la medida de lo posible, puntos fijos de acceso a internet desde donde poder utilizar las herramientas digitales de participación mediante las que se organicen los Equipos (por ejemplo, tener todos los miércoles un ordenador disponible habilitado para que la gente de la zona pueda acercarse a participar en este proceso). Paralelamente, trataremos de abrir también espacios donde las personas que tengan más dificultades puedan aprender a utilizar estas herramientas y, entre todos/as, sacarles el máximo partido. También será esencial para los equipos fomentar una implicación paritaria e igualitaria entre hombres y mujeres, tratando de corregir las desigualdades a las que apuntan los datos, que aluden normalmente a una participación menor de las mujeres en este tipo de procesos. 
+      </p>
+
+      <p>
+      Queremos que los Equipos de Participación estén integrados por perfiles diversos con los que podamos organizarnos, elaborar propuestas y trabajar en su difusión. Para el desarrollo de estas labores, se estima un nivel de implicación que oscilaría entre el que tienen los cientos de miles de personas que apoyan el proyecto a través de las redes sociales (pero que, por diversos motivos, no participan de forma más activa), y el de aquellos integrantes de los círculos con un alto nivel de implicación. 
+      </p>
+
+      <p>
+      En cualquier caso, para garantizar la acción unitaria y la difusión de iniciativas comunes, será siempre conveniente que los principales impulsores y coordinadores de los Equipos de Acción Participativa sean a su vez compañeros y compañeras que participan de forma regular en los círculos. Las tareas de estos Equipos se coordinarán mediante correo electrónico, Telegram (aplicación de mensajería instantánea que puede utilizarse desde el móvil y desde el ordenador -puedes descargártelo como una aplicación más: https://telegram.org/-) y otras formas de comunicación y coordinación que iremos implantando entre la gente de los equipos. Una buena coordinación nos permitirá construir proyectos y campañas muy potentes con una gran capacidad de acción y difusión en diversos ámbitos y niveles. A la vez, dadas las grandes diferencias entre unos municipios y otros, estos equipos tendrán la tarea de adecuar las dinámicas y campañas generales a las peculiaridades de sus localidades, además de innovar con otras que piensen que puedan cumplir una función relevante en sus municipios. Tener la oportunidad de compartir estas experiencias y replicar las que identifiquemos como las más destacadas puede activar un proceso de inteligencia colectiva que nos lleve a superar todas nuestras expectativas.
+      </p>
+
+      <p>
+      ¡Incorpórate a los Equipos de Acción Participativa y en breve nos pondremos en contacto contigo!
+      </p>
+
+      <p><%= link_to "Ver la Guía del Área de Participación", "http://podemos.info/guia-del-area-de-participacion/" %></p>
+    </div>
+
+      <div class="buttonbox">
+        <%= render partial: "wants_participation_buttons" %>
+      </div>
+
+    </div>
+  </div>
+</div>

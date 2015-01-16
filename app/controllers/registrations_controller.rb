@@ -43,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
       current_user.update_attribute(:wants_participation, false)
       flash[:notice] = "Te has dado de baja de los Equipos de Acción Participativa"
     end 
-    redirect_to participation_teams_url
+    redirect_to participation_teams_path
   end 
 
   # http://www.jacopretorius.net/2014/03/adding-custom-fields-to-your-devise-user-model-in-rails-4.html

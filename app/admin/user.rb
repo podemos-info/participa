@@ -160,6 +160,19 @@ ActiveAdmin.register User do
       else
         "No hay votos asociados a este usuario."
       end
+    end    
+
+    if user.wants_participation
+      panel "Equipos de Acción Participativa" do
+        if user.participation_team.any?
+          table_for user.participation_team do
+            column :name
+            column :active
+          end
+        else
+          "El usuario no está inscrito en equipos específicos."
+        end
+      end
     end
     active_admin_comments
   end
@@ -187,6 +200,7 @@ ActiveAdmin.register User do
   filter :sign_in_count
   filter :wants_participation
   filter :vote_town
+  filter :participation_team_id, as: :select, collection: ParticipationTeam.all
   filter :votes_election_id, as: :select, collection: Election.all
 
   form partial: "form"

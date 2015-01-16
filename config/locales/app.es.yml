@@ -24,6 +24,8 @@ es:
       elections: Elecciones
       notice: Aviso
       notices: Avisos
+      participation_team: Equipo de Acción Participativa
+      participation_teams: Equipos de Acción Participativa
     errors:
       models: 
         user:
