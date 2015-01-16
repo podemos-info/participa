@@ -4,13 +4,38 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, "Equipos de Acción Participativa") %>
 
+      <br>
+      <br>
+
+      <p>
+      Los Equipos de Acción Participativa son la gran apuesta del Área de Participación. Nuestra intención es crear cientos de Equipos para estimular la participación y reforzar la movilización en los municipios. Nuestra principal tarea será ayudar a canalizar en el territorio los proyectos y campañas que ideemos colectivamente, teniendo la labor de contribuir a plasmar en el terreno las grandes ideas y proyectos que se proponen e impulsan en los espacios de participación en red, así como servir de apoyo a todo el tejido social local que requiera de nuestra colaboración. 
+      </p>
+
 <% if current_user.wants_participation %>
-     <p><a id="show_info" href="#">Mostrar información sobre los equipos</a><a id="show_teams" href="#">Mostrar equipos específicos</a>
+     <p><a id="show_info" href="#">Mostrar más información sobre los Equipos de Acción Participativa</a><a id="show_teams" href="#">Mostrar equipos temáticos</a>
       </p>
      <div id="participation_teams">
+      <h3>Equipos temáticos</h3>
+      <p>Ahora mismo estás adscrito/a a los Equipos de Acción Participa, que trabajarán en el territorio extendiendo la participación a la ciudadanía. <% if !@participation_teams.empty? %>De forma adicional tenéis la posibilidad de uniros a varios equipos temáticos como es, en este momento, el Equipo <%= @participation_teams[0].name %>.<% end %> Además es muy importante que indiquéis si estáis participando en algún Círculo, para contar con vosotros/as como posibles Enlaces de Participación en vuestro Círculo.</p>
+
+      <%= semantic_form_for current_user, url: participation_teams_update_user_path do |f| %>
+        <fieldset>
+        <div class="inputlabel-box">
+        <% if current_user.errors.include?(:circle) %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :circle, input_html: {autofocus: true, class: 'input-xl'} %>
+        </div>
+        </fieldset><%= f.action :submit, button_html: {class: "button"}  %>
+      <% end %>
+
+    <% if @participation_teams.empty? %>
+      <div class="team">
+        <p>En este momento no hay equipos de participacion activos.</p>
+      </div>
+    <% else %>
     <% @participation_teams.each do |participation_team| %>
-      <% if participation_team.active %>
-      <div>
+      <div class="team">
         <h3><%= participation_team.name %></h3>
         <p><%= participation_team.description %></p>
         <% if current_user.in_participation_team? participation_team.id %>
@@ -20,9 +45,8 @@
         <% end %>
       </div>
       <% end %>
-    <% end %>
     </div>
-
+    <% end %>
 <% else %>
 
       <div class="buttonbox">
@@ -34,10 +58,6 @@
 
       <br>
       <br>
-
-      <p>
-      Los Equipos de Acción Participativa son la gran apuesta del Área de Participación. Nuestra intención es crear cientos de Equipos para estimular la participación y reforzar la movilización en los municipios. Nuestra principal tarea será ayudar a canalizar en el territorio los proyectos y campañas que ideemos colectivamente, teniendo la labor de contribuir a plasmar en el terreno las grandes ideas y proyectos que se proponen e impulsan en los espacios de participación en red, así como servir de apoyo a todo el tejido social local que requiera de nuestra colaboración. 
-      </p>
 
       <p>
       Llevamos meses desarrollando espacios de dinamización en red donde, entre todos/as, podamos proponer y compartir ideas. Para hacer plenamente efectivos estos equipos, antes de nada, debemos eliminar las brechas que puedan dejar fuera a ciertos sectores o colectivos. Una de ellas es la barrera digital. Para evitarla, intentaremos establecer, en la medida de lo posible, puntos fijos de acceso a internet desde donde poder utilizar las herramientas digitales de participación mediante las que se organicen los Equipos (por ejemplo, tener todos los miércoles un ordenador disponible habilitado para que la gente de la zona pueda acercarse a participar en este proceso). Paralelamente, trataremos de abrir también espacios donde las personas que tengan más dificultades puedan aprender a utilizar estas herramientas y, entre todos/as, sacarles el máximo partido. También será esencial para los equipos fomentar una implicación paritaria e igualitaria entre hombres y mujeres, tratando de corregir las desigualdades a las que apuntan los datos, que aluden normalmente a una participación menor de las mujeres en este tipo de procesos. 

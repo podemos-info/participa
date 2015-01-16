@@ -27,4 +27,8 @@ class ParticipationTeamsControllerTest < ActionController::TestCase
   test "should leave a team" do
     skip
   end
+
+  test "should change user circle" do
+    skip
+  end
 end

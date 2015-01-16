@@ -1,4 +1,7 @@
 class ParticipationTeamsController < InheritedResources::Base
+	def index
+  		@participation_teams = ParticipationTeam.active
+  	end
 
 	def join
 		if params[:team_id]
@@ -25,6 +28,11 @@ class ParticipationTeamsController < InheritedResources::Base
 			current_user.update_attribute(:wants_participation, false)
 			flash[:notice] = "Te has dado de baja de los Equipos de Acción Participativa"
 		end 
+		redirect_to participation_teams_path
+	end
+
+	def update_user
+		current_user.update_attribute :circle, params[:user][:circle]
 		redirect_to participation_teams_path
 	end
 end

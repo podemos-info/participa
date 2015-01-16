@@ -124,6 +124,7 @@ es:
         over_18: "Declaro ser mayor de 18 años"
         captcha: "Captcha"
         current_password: "Contraseña actual"
+        circle: "Círculo"
   formtastic:
     hints:
       user:
