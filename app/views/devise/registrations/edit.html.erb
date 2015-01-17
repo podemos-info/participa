@@ -27,7 +27,7 @@
               </a>
             </li> 
             <li>
-              <a href="<%= current_user.is_valid_phone? ? "#change-phone" : sms_validator_step1_path %>" class="js-change-tab">
+              <a href="<%= current_user.is_valid_phone? ? "#change-phone" : sms_validator_step1_path %>" <% if current_user.is_valid_phone? %>class="js-change-tab"<% end %> >
                 <span><%=t("podemos.user.change_phone") %></span>
               </a>
             </li>
