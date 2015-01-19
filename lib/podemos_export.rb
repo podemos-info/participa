@@ -6,7 +6,10 @@ def export_data(filename, query)
   FileUtils.mkdir_p("tmp/export") unless File.directory?("tmp/export")
   CSV.open( "tmp/export/#{filename}.tsv", 'w', { :col_sep => "\t"} ) do |writer|
     query.find_each do |item|
-      writer << yield(item)
+      res = yield(item)
+      if res
+        writer << res
+      end
     end
   end
 end
@@ -17,7 +20,10 @@ def export_data_slow(filename, query)
   FileUtils.mkdir_p("tmp/export") unless File.directory?("tmp/export")
   CSV.open( "tmp/export/#{filename}.tsv", 'w', { :col_sep => "\t"} ) do |writer|
     query.each do |item|
-      writer << yield(item)
+      res = yield(item)
+      if res
+        writer << res
+      end
     end
   end
 end
