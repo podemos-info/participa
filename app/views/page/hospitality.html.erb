@@ -2,7 +2,8 @@
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
-      <%= content_tag(:h2, "Comparte el cambio") %>
+      <%= content_tag(:h2, "Comparte tu casa") %>
+      <%= link_to "Volver", demo_path %>
       <%= render partial: "gravity_iframe", locals: { domain: "forms.podemos.info", script: "//forms.podemos.info/wp-content/plugins/gravity-forms-iframe/assets/scripts/gfembed.min.js", form_id: 6, height: 500 } %>
     </div>
   </div>

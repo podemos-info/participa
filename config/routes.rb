@@ -30,7 +30,8 @@ Rails.application.routes.draw do
     put '/equipos-de-accion-participativa/dejar(/:team_id)', to: 'participation_teams#leave', as: 'participation_teams_leave'
     patch '/equipos-de-accion-participativa/actualizar', to: 'participation_teams#update_user', as: 'participation_teams_update_user'
 
-    get '/comparte-el-cambio', to: 'page#hospitality', as: 'hospitality'
+    get '/comparte-el-cambio', to: 'page#demo', as: 'demo'
+    get '/comparte-el-cambio/comparte-casa', to: 'page#hospitality', as: 'hospitality'
     get '/candidaturas-autonomicas', to: 'page#candidate_register', as: 'candidate_register'
 
     get :notices, to: 'notice#index', as: 'notices'

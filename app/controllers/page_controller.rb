@@ -29,6 +29,10 @@ class PageController < ApplicationController
   def candidate_register
   end
 
+  def demo
+  end
+  
   def hospitality
   end
+
 end
