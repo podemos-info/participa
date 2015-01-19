@@ -31,4 +31,7 @@ class PageController < ApplicationController
 
   def hospitality
   end
+
+  def town_legal
+  end
 end
