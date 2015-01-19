@@ -11,8 +11,8 @@ class PageControllerTest < ActionController::TestCase
     get :faq
     assert_response :success
   end
-
-  test "should not get guarantees as anonymous user" do
+  
+  test "should only get not auth iframes as anonymous user" do
     get :guarantees_conflict
     assert_response :success
     get :guarantees_compliance
@@ -21,9 +21,11 @@ class PageControllerTest < ActionController::TestCase
     assert_response :success
     get :circles_validation
     assert_response :success
+    get :candidate_register
+    assert_response :redirect
   end
 
-  test "should not get guarantees as logged in user" do
+  test "should get all iframes as logged in user" do
     user = FactoryGirl.create :user
     sign_in user
     get :guarantees_conflict
@@ -33,6 +35,8 @@ class PageControllerTest < ActionController::TestCase
     get :guarantees_ethic
     assert_response :success
     get :circles_validation
+    assert_response :success
+    get :candidate_register
     assert_response :success
   end
 

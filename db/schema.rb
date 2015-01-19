@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226174858) do
+ActiveRecord::Schema.define(version: 20150116133906) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -96,6 +96,22 @@ ActiveRecord::Schema.define(version: 20141226174858) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "participation_teams", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participation_teams_users", id: false, force: true do |t|
+    t.integer "participation_team_id"
+    t.integer "user_id"
+  end
+
+  add_index "participation_teams_users", ["participation_team_id"], name: "index_participation_teams_users_on_participation_team_id"
+  add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
 
   create_table "simple_captcha_data", force: true do |t|
     t.string   "key",        limit: 40

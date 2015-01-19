@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   require 'phone'
 
+  has_and_belongs_to_many :participation_team
+
   # Include default devise modules. Others available are:
   # :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
@@ -294,6 +296,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def province_code
+    prov_code = ""
+    if self.country=="ES"
+      if self.town.downcase.start_with? "m_"
+        prov_code = "p_#{self.town[2,2]}"
+      elsif self.province.length < 3
+        prov_code = "p_%02d" % + Carmen::Country.coded(self.country).subregions.coded(self.province).index
+      end
+    end
+    prov_code
+  end
+
   def province_name
     begin
       if self.province.length > 3 
@@ -308,7 +322,7 @@ class User < ActiveRecord::Base
 
   def town_name
     begin
-      if self.town.include? "_"
+      if self.town.downcase.start_with? "m_"
         Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town.downcase).name
       else
         self.town
@@ -318,12 +332,87 @@ class User < ActiveRecord::Base
     end
   end
 
+  def autonomy_code
+    prov_code = self.province_code
+    if Podemos::GeoExtra::AUTONOMIES.has_key? prov_code
+      Podemos::GeoExtra::AUTONOMIES[prov_code][0]
+    else
+      ""
+    end
+  end
+
+  def autonomy_name
+    prov_code = self.province_code
+    if Podemos::GeoExtra::AUTONOMIES.has_key? prov_code
+      Podemos::GeoExtra::AUTONOMIES[prov_code][1]
+    else
+      ""
+    end
+  end
+
+  def island_code
+    if self.in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.town][0]
+    else
+      ""
+    end
+  end
+
+  def island_name
+    if self.in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.town][1]
+    else
+      ""
+    end
+  end
+
+
+  def in_spanish_island?
+    (self.country == "ES" and Podemos::GeoExtra::ISLANDS.has_key? self.town) or false
+  end
+
+  def vote_in_spanish_island?
+    (self.country == "ES" and Podemos::GeoExtra::ISLANDS.has_key? self.vote_town) or false
+  end
+
   def has_vote_town?
     not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
   end
 
   def has_vote_town_for_election? election
     self.has_vote_town? and (!self.vote_town_name.empty? or election.scope < 3)
+  end
+
+  def vote_autonomy_code
+    if self.has_vote_town?
+      Podemos::GeoExtra::AUTONOMIES["p_"+self.vote_town[2,2]][0]
+    else
+      ""
+    end
+  end
+
+  def vote_autonomy_name
+    if self.has_vote_town?
+      Podemos::GeoExtra::AUTONOMIES["p_"+self.vote_town[2,2]][1]
+    else
+      ""
+    end
+  end
+
+  def vote_town_code
+    if self.has_vote_town?
+      self.vote_town.split("_")[1,3].join
+    else
+      ""
+    end
+  end
+
+  def vote_town_name
+    if self.has_vote_town?
+      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
+      town = (prov and prov.subregions.coded(self.vote_town))
+    end
+    prov and town and town.name or ""
   end
 
   def vote_province
@@ -338,36 +427,37 @@ class User < ActiveRecord::Base
     if value.nil? or value.empty? or value == "-"
       self.vote_town = nil
     else
-      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index+1)
+      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index)
       if self.vote_town.nil? or not self.vote_town.starts_with? prefix then
         self.vote_town = prefix
       end
     end
   end
 
-  def vote_ca_name
-    raise NotImplementedError
-  end
-
-  def vote_town_code
-    if self.has_vote_town?
-      self.vote_town.split("_")[1,3].join
-    else
-      ""
-    end
-  end
-
   def vote_province_code
     if self.has_vote_town?
-      self.vote_town.split("_")[1]
+      self.vote_town[2,2]
     else
       "-"
     end
   end
 
-  def vote_ca_code
-    raise NotImplementedError
+  def vote_province_name
+    if self.has_vote_town?
+      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
+    end
+    prov and prov.name or ""
   end
+
+
+  def vote_island_name
+    if self.vote_in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.vote_town][1]
+    else
+      ""
+    end
+  end
+
 
   def verify_user_location()
     province = town = true
@@ -388,21 +478,6 @@ class User < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def vote_town_name
-    if self.has_vote_town?
-      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
-      town = (prov and prov.subregions.coded(self.vote_town))
-    end
-    prov and town and town.name or ""
-  end
-
-  def vote_province_name
-    if self.has_vote_town?
-      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
-    end
-    prov and prov.name or ""
   end
   
   def vote_town_notice()
@@ -452,6 +527,10 @@ class User < ActiveRecord::Base
   
   def users_with_deleted
     User.with_deleted
+  end
+
+  def in_participation_team? team_id
+    self.participation_team_ids.member? team_id
   end
 
   def admin_permalink

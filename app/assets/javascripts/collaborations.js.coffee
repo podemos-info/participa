@@ -81,9 +81,9 @@ init_collaborations = () ->
     type = $(this).val()
     change_payment_type(type)
 
-  $('.js-collaboration-confirm').on 'click', (event) ->
-    event.preventDefault()
-    start_collaboration_confirm()
+  #$('.js-collaboration-confirm').on 'click', (event) ->
+  #  event.preventDefault()
+  #  start_collaboration_confirm()
 
   calculate_collaboration()
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->

@@ -7,32 +7,32 @@
         <nav id="personal-data-submenu" class="submenu">
           <ul>
             <li class="active">
-              <a href="#personal-data">
+              <a href="#personal-data" class="js-change-tab">
                 <span><%= t("podemos.user.personal_data")%></span>
               </a>
             </li>
             <li>
-              <a href="#change-password">
+              <a href="#change-password" class="js-change-tab">
                 <span><%=t("podemos.user.change_password") %></span>
               </a>
             </li>
             <li>
-              <a href="#recover-password">
+              <a href="#recover-password" class="js-change-tab">
                 <span><%=t("podemos.user.recover_password") %></span>
               </a>
             </li>
             <li>
-              <a href="#change-email">
+              <a href="#change-email" class="js-change-tab">
                 <span><%=t("podemos.user.change_email") %></span>
               </a>
             </li> 
             <li>
-              <a href="<%= current_user.is_valid_phone? ? "#change-phone" : sms_validator_step1_path %>">
+              <a href="<%= current_user.is_valid_phone? ? "#change-phone" : sms_validator_step1_path %>" <% if current_user.is_valid_phone? %>class="js-change-tab"<% end %> >
                 <span><%=t("podemos.user.change_phone") %></span>
               </a>
             </li>
             <li>
-              <a href="#cancel-account">
+              <a href="#cancel-account" class="js-change-tab">
                 <span><%= t("podemos.user.cancel_account") %></span>
               </a>
             </li>

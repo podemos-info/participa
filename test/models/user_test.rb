@@ -473,4 +473,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not_equal( v3.voter_id, v5.voter_id )
   end
 
+  test "should in_participation_team? work" do
+    skip
+  end
 end
