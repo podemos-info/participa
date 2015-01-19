@@ -86,7 +86,7 @@ es:
         status_name: "Estado"
         collaboration: "Colaboración"
         user: "Usuario"
-        payable_at: "Ha cobrarse el" 
+        payable_at: "A cobrarse el" 
         payed_at: "Cobrada el"
         created_at: "Creada el"
         deleted_at: "Borrada el"
