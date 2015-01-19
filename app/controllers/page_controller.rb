@@ -1,6 +1,7 @@
 class PageController < ApplicationController
 
-  before_action :authenticate_user!, only: [:participation_teams, :candidate_register]
+  before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
+                                              :guarantees_ethic, :circles_validation]
 
   def privacy_policy
   end
@@ -23,16 +24,20 @@ class PageController < ApplicationController
   def circles_validation
   end
 
-  def participation_teams
-  end
-
   def candidate_register
-  end
-
-  def demo
+    render :form_iframe, locals: { title: "Candidaturas autonómicas", form_id: 5 }
   end
   
-  def hospitality
+  def offer_hospitality
+    render :form_iframe, locals: { title: "Comparte tu casa", form_id: 6, return_path: root_path }
   end
-
+  def find_hospitality
+    render :formview_iframe, locals: { title: "Encuentra alojamiento", url: "https://forms.podemos.info/encuentra-alojamiento/"}
+  end
+  def share_car
+    render :form_iframe, locals: { title: "Comparte tu coche", form_id: 13, return_path: root_path }
+  end
+  def find_car
+    render :formview_iframe, locals: { title: "Encuentra un viaje", url: "https://forms.podemos.info/encuentra-viaje/"}
+  end
 end
