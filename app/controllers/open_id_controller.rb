@@ -221,7 +221,7 @@ EOS
 
     return if sregreq.nil?
 
-    sreg_data = { 'email' => current_user.email, 'name' => current_user.full_name }
+    sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name }
     sregresp = OpenID::SReg::Response.extract_response(sregreq, sreg_data)
     oidresp.add_extension(sregresp)
   end
