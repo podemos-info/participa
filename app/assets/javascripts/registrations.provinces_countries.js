@@ -68,7 +68,7 @@ function toggle_vote_town(country){
 $(function() {
 
   var country_selector = $('select#user_country');
-  if (country_selector.length) {
+  if (country_selector.length && !country_selector.is(":disabled")) {
     $.fn.disable_control = function( ) {
       if (this.data("select2"))
         this.select2("enable", false).select2("val", "").attr("data-placeholder", "-").select2();

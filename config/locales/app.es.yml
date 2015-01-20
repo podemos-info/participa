@@ -101,7 +101,7 @@ es:
         title: "Título"
         body: "Mensaje" 
       user:
-        login: "Correo elctrónico o Nº de documento"
+        login: "Correo electrónico o Nº de documento"
         first_name: "Nombre"
         last_name: "Apellidos"
         document_type: "Tipo de documento"
@@ -145,6 +145,7 @@ es:
       change_phone: "Cambiar teléfono móvil"
       change_phone_explain_html: "Ahora mismo tienes el móvil <b> %{phone} </b>"
       change_password: "Cambiar contraseña"
+      location_change_blocked: "El cambio de ubicación está bloqueado durante las votaciones. Por favor, espera a que estas acaben para cambiar tu domicilio o lugar de participación."
       recover_password: "Recuperar contraseña"
       cancel_account: "Darme de baja"
       cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal.</p>

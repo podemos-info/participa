@@ -207,6 +207,10 @@ class User < ActiveRecord::Base
     self.sms_confirmed_at.nil? or self.sms_confirmed_at < DateTime.now-3.months
   end
 
+  def can_change_location?
+    Rails.application.secrets.users["allows_location_change"]
+  end
+
   def generate_sms_token
     SecureRandom.hex(4).upcase
   end
@@ -461,7 +465,6 @@ class User < ActiveRecord::Base
 
   def verify_user_location()
     return "country" if not _country
-    debugger
     return "province" if not _country.subregions.empty? and not _province
     return "town" if self.in_spain? and not _town
   end
