@@ -40,6 +40,8 @@ gem 'iban-tools'
 gem 'paper_trail'
 gem 'newrelic_rpm'
 
+gem 'rake-progressbar'
+
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
 # https://github.com/radar/paranoia/pull/121
