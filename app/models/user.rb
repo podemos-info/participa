@@ -491,7 +491,7 @@ class User < ActiveRecord::Base
 
       if current_user.has_vote_town?
         user_location[:vote_town] ||= current_user.vote_town
-        user_location[:vote_province] ||= _vote_province.code
+        user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions.coded(current_user.vote_province).code
       else
         user_location[:vote_town] ||= "-"
         user_location[:vote_province] ||= "-"
@@ -522,8 +522,6 @@ class User < ActiveRecord::Base
   def admin_permalink
     admin_user_path(self)
   end
-
-  private 
 
   def _clear_caches
     remove_instance_variable :@country_cache if defined? @country_cache
