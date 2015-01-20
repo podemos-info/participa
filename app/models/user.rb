@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
+  before_update :_clear_caches
   before_save :control_vote_town
 
   acts_as_paranoid
@@ -284,70 +285,53 @@ class User < ActiveRecord::Base
     User::DOCUMENTS_TYPE.select{|v| v[1] == self.document_type }[0][0]
   end
 
+  def in_spain?
+    self.country=="ES"
+  end
+
   def country_name
-    begin
-      if self.country.length > 3 
-        self.country
-      else
-        Carmen::Country.coded(self.country).name
-      end
-    rescue
-      ""
+    if _country
+      _country.name
+    else
+      self.country or ""
+    end
+  end
+
+  def province_name
+    if _province
+      _province.name
+    else
+      self.province or ""
     end
   end
 
   def province_code
-    prov_code = ""
-    if self.country=="ES"
-      if self.town.downcase.start_with? "m_"
-        prov_code = "p_#{self.town[2,2]}"
-      elsif self.province.length < 3
-        prov = Carmen::Country.coded(self.country).subregions.coded(self.province)
-        if prov
-          prov_code = "p_%02d" % + prov.index
-        end
-      end
-    end
-    prov_code
-  end
-
-  def province_name
-    begin
-      if self.province.length > 3 
-        self.province
-      else
-        Carmen::Country.coded(self.country).subregions.coded(self.province).name
-      end
-    rescue
+    if self.in_spain? and _province
+      "p_%02d" % + _province.index 
+    else
       ""
     end
   end
 
   def town_name
-    begin
-      if self.town.downcase.start_with? "m_"
-        Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town.downcase).name
-      else
-        self.town
-      end
-    rescue
-      ""
+    if self.in_spain? and _town
+      _town.name
+    else
+      self.town or ""
     end
   end
 
   def autonomy_code
-    prov_code = self.province_code
-    if Podemos::GeoExtra::AUTONOMIES.has_key? prov_code
-      Podemos::GeoExtra::AUTONOMIES[prov_code][0]
+    if self.in_spain? and _province
+      Podemos::GeoExtra::AUTONOMIES[self.province_code][0]
     else
       ""
     end
   end
 
   def autonomy_name
-    prov_code = self.province_code
-    if Podemos::GeoExtra::AUTONOMIES.has_key? prov_code
-      Podemos::GeoExtra::AUTONOMIES[prov_code][1]
+    if self.in_spain? and _province
+      Podemos::GeoExtra::AUTONOMIES[self.province_code][1]
     else
       ""
     end
@@ -369,13 +353,12 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def in_spanish_island?
-    (self.country == "ES" and Podemos::GeoExtra::ISLANDS.has_key? self.town) or false
+    (self.in_spain? and Podemos::GeoExtra::ISLANDS.has_key? self.town) or false
   end
 
   def vote_in_spanish_island?
-    (self.country == "ES" and Podemos::GeoExtra::ISLANDS.has_key? self.vote_town) or false
+    (Podemos::GeoExtra::ISLANDS.has_key? self.vote_town) or false
   end
 
   def has_vote_town?
@@ -387,40 +370,32 @@ class User < ActiveRecord::Base
   end
 
   def vote_autonomy_code
-    if self.has_vote_town?
-      Podemos::GeoExtra::AUTONOMIES["p_"+self.vote_town[2,2]][0]
+    if _vote_province
+      Podemos::GeoExtra::AUTONOMIES[self.vote_province_code][0]
     else
       ""
     end
   end
 
   def vote_autonomy_name
-    if self.has_vote_town?
-      Podemos::GeoExtra::AUTONOMIES["p_"+self.vote_town[2,2]][1]
-    else
-      ""
-    end
-  end
-
-  def vote_town_code
-    if self.has_vote_town?
-      self.vote_town.split("_")[1,3].join
+    if _vote_province
+      Podemos::GeoExtra::AUTONOMIES[self.vote_province_code][1]
     else
       ""
     end
   end
 
   def vote_town_name
-    if self.has_vote_town?
-      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
-      town = (prov and prov.subregions.coded(self.vote_town))
+    if _vote_town
+      _vote_town.name
+    else
+      ""
     end
-    prov and town and town.name or ""
   end
 
   def vote_province
-    if self.has_vote_town?
-      Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
+    if _vote_province
+      _vote_province.code
     else
       ""
     end
@@ -438,20 +413,20 @@ class User < ActiveRecord::Base
   end
 
   def vote_province_code
-    if self.has_vote_town?
-      self.vote_town[2,2]
+    if _vote_province
+      "p_%02d" % + _vote_province.index 
     else
-      "-"
+      ""
     end
   end
 
   def vote_province_name
-    if self.has_vote_town?
-      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
+    if _vote_province
+      _vote_province.name
+    else
+      ""
     end
-    prov and prov.name or ""
   end
-
 
   def vote_island_name
     if self.vote_in_spanish_island?
@@ -461,30 +436,38 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_town_numeric
+    if  _vote_town
+      _vote_town.code.split("_")[1,3].join
+    else
+      ""
+    end
+  end
+  def vote_province_numeric
+    if _vote_province
+      "%02d" % + _vote_province.index
+    else
+      ""
+    end
+  end
+  def vote_autonomy_numeric
+    if _vote_province
+      self.vote_autonomy_code[2,2]
+    else
+      "-"
+    end
+  end
+
 
   def verify_user_location()
-    province = town = true
-    country = Carmen::Country.coded(self.country)
-
-    if not country then
-      "country"
-
-    elsif not country.subregions.empty? then
-      province = country.subregions.coded(self.province)
-
-      if not province then
-        "province"
-      elsif self.country == "ES" and not province.subregions.empty? then
-        town = province.subregions.coded(self.town.downcase)
-        if not town then
-          "town"
-        end
-      end
-    end
+    return "country" if not _country
+    debugger
+    return "province" if not _country.subregions.empty? and not _province
+    return "town" if self.in_spain? and not _town
   end
   
   def vote_town_notice()
-    self.country != "ES" and self.vote_town == "NOTICE"
+    not self.in_spain? and self.vote_town == "NOTICE"
   end
 
   def self.get_location(current_user, params)
@@ -508,7 +491,7 @@ class User < ActiveRecord::Base
 
       if current_user.has_vote_town?
         user_location[:vote_town] ||= current_user.vote_town
-        user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions.coded(current_user.vote_province).code
+        user_location[:vote_province] ||= _vote_province.code
       else
         user_location[:vote_town] ||= "-"
         user_location[:vote_province] ||= "-"
@@ -523,7 +506,7 @@ class User < ActiveRecord::Base
 
   def control_vote_town
     # Spanish users can't use a different town for vote
-    if self.country=="ES"
+    if self.in_spain?
       self.vote_town = self.town
     end
   end
@@ -540,4 +523,62 @@ class User < ActiveRecord::Base
     admin_user_path(self)
   end
 
+  private 
+
+  def _clear_caches
+    remove_instance_variable :@country_cache if defined? @country_cache
+    remove_instance_variable :@province_cache if defined? @province_cache
+    remove_instance_variable :@town_cache if defined? @town_cache
+    remove_instance_variable :@vote_province_cache if defined? @vote_province_cache
+    remove_instance_variable :@vote_town_cache if defined? @vote_town_cache
+  end
+
+  def _country
+    @country_cache ||= Carmen::Country.coded(self.country)
+  end
+
+  def _province
+    @province_cache = begin
+      prov = nil
+      prov = _country.subregions[self.town[2,2].to_i-1] if self.in_spain? and self.town and self.town.downcase.starts_with? "m_"
+      prov = _country.subregions.coded(self.province) if prov.nil? and _country and self.province
+      prov
+    end if not defined? @province_cache
+    @province_cache
+  end
+
+  def _town
+    @town_cache = begin
+      town = nil
+      town = _province.subregions.coded(self.town) if self.in_spain? and _province
+      town
+    end if not defined? @town_cache
+    @town_cache
+  end
+
+  def _vote_province
+    @vote_province_cache = begin
+      prov = nil
+      if self.in_spain?
+        prov = _province
+      else
+        prov = Carmen::Country.coded("ES").subregions[self.vote_town[2,2].to_i-1] if self.has_vote_town?
+      end
+      prov
+    end if not defined? @vote_province_cache
+    @vote_province_cache
+  end
+
+  def _vote_town
+    @vote_town_cache = begin
+      town = nil
+      if self.in_spain?
+        town = _town
+      else
+        town = _vote_province.subregions.coded(self.vote_town) if self.has_vote_town?
+      end
+      town
+    end if not defined? @vote_town_cache
+    @vote_town_cache
+  end
 end

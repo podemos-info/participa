@@ -38,20 +38,20 @@ class Election < ActiveRecord::Base
   def has_valid_location_for? user
     case self.scope
       when 0 then true
-      when 1 then self.election_locations.exists?(location: user.vote_ca_code)
-      when 2 then self.election_locations.exists?(location: user.vote_province_code)
-      when 3 then self.election_locations.exists?(location: user.vote_town_code)
+      when 1 then self.election_locations.exists?(location: user.vote_autonomy_numeric)
+      when 2 then self.election_locations.exists?(location: user.vote_province_numeric)
+      when 3 then self.election_locations.exists?(location: user.vote_town_numeric)
     end
   end
 
   def scoped_agora_election_id user
     case self.scope
       when 0 then self.agora_election_id
-      when 1 then (self.agora_election_id.to_s + user.vote_ca_code).to_i
-      when 2 then (self.agora_election_id.to_s + user.vote_province_code).to_i
+      when 1 then (self.agora_election_id.to_s + user.vote_autonomy_numeric).to_i
+      when 2 then (self.agora_election_id.to_s + user.vote_province_numeric).to_i
       when 3
-        location = self.election_locations.find_by_location user.vote_town_code
-        (self.agora_election_id.to_s + location.agora_version.to_s + user.vote_town_code.to_s).to_i
+        location = self.election_locations.find_by_location user.vote_town_numeric
+        (self.agora_election_id.to_s + location.agora_version.to_s + user.vote_town_numeric.to_s).to_i
     end
   end
 

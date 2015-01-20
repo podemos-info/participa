@@ -50,7 +50,7 @@ class ElectionTest < ActiveSupport::TestCase
   test "should .has_valid_location_for? work" do 
     # Si es una eleccion estatal todos participan
     election = FactoryGirl.create(:election, scope: 0)
-    user = FactoryGirl.create(:user, town: "m_28_07_96")
+    user = FactoryGirl.create(:user, vote_town: "m_28_079_6")
     assert election.has_valid_location_for? user
 
     # si es municipal solo los que esten en ese municipio

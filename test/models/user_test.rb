@@ -313,8 +313,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should .province_name work" do 
-    @user.update_attribute(:country, "ES")
-    @user.update_attribute(:province, "C")
+    @user.update_attributes(country: "ES", province: "C", town: "m_15_006_3")
     assert_equal "A Coruña", @user.province_name
     @user.update_attribute(:country, "AR")
     @user.update_attribute(:province, "C")
@@ -388,6 +387,19 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.valid?
     assert user.errors[:born_at].include? "debes ser mayor de 18 años"
   end 
+
+  test "should province_name work with all kind of profile data" do
+    user = FactoryGirl.create(:user)
+    assert_equal("Madrid", user.province_name)
+    user = FactoryGirl.build(:user, country: "FR", province: "A")
+    assert_equal("Alsace", user.province_name)
+    user = FactoryGirl.build(:user, country: "España", province: "Madrid")
+    assert_equal("Madrid", user.province_name)
+    user = FactoryGirl.build(:user, town: "Patata")
+    assert_equal("Madrid", user.province_name)
+    user = FactoryGirl.build(:user, province: "Patata")
+    assert_equal("Madrid", user.province_name)
+  end
 
   test "should province_code work with invalid data" do
     user = FactoryGirl.create(:user)
@@ -469,7 +481,7 @@ class UserTest < ActiveSupport::TestCase
    
     # same election id, different scope, different voter_id
     e2 = FactoryGirl.create(:election, scope: 3)
-    e2.election_locations.create(location: @user.vote_town_code, agora_version: 0)
+    e2.election_locations.create(location: @user.vote_town_numeric, agora_version: 0)
     v3 = @user.get_or_create_vote(e2.id)
     v4 = @user.get_or_create_vote(e2.id)
     assert_equal( v3.voter_id, v4.voter_id )
