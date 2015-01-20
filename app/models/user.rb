@@ -302,7 +302,10 @@ class User < ActiveRecord::Base
       if self.town.downcase.start_with? "m_"
         prov_code = "p_#{self.town[2,2]}"
       elsif self.province.length < 3
-        prov_code = "p_%02d" % + Carmen::Country.coded(self.country).subregions.coded(self.province).index
+        prov = Carmen::Country.coded(self.country).subregions.coded(self.province)
+        if prov
+          prov_code = "p_%02d" % + prov.index
+        end
       end
     end
     prov_code
