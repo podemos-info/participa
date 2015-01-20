@@ -4,7 +4,7 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, "Validación de Circulos") %>
       <% if user_signed_in? %>
-        <%= render partial: "gravity_iframe", locals: { domain: "podemos.info", script: "//podemos.info/wordpress/wp-content/plugins/gravity-forms-iframe-develop/assets/scripts/gfembed.min.js", form_id: 55, height: "3000" } %>
+        <%= render partial: "form_iframe", locals: { domain: "podemos.info", script: "//podemos.info/wordpress/wp-content/plugins/gravity-forms-iframe-develop/assets/scripts/gfembed.min.js", form_id: 55, height: "3000" } %>
       <% else %>
         <p>Debes acceder al portal de participación con tu <%= link_to "DNI/Correo electrónico y contraseña", new_user_session_path %>.</p>
         <p><%= link_to "Leer la Guía/FAQ de Validación", "https://s3-eu-west-1.amazonaws.com/web-podemos/wordpress/wp-content/uploads/2014/12/Guia_FAQ_Validacion_circulos_podemos.pdf", target: "_blank" %>
