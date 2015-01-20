@@ -389,11 +389,17 @@ class UserTest < ActiveSupport::TestCase
     assert user.errors[:born_at].include? "debes ser mayor de 18 años"
   end 
 
-  test "should vote_town_name, vote_province_name and vote_ca_name work" do
+  test "should province_code work with invalid data" do
+    user = FactoryGirl.create(:user)
+    user.update_attributes(town: "Prueba", province: "tt")
+    assert_equal("", user.province_code)    
+  end
+
+  test "should vote_town_name, vote_province_name and vote_autonomy_name work" do
     user = FactoryGirl.create(:user)
     assert_equal("Madrid", user.vote_town_name)
     assert_equal("Madrid", user.vote_province_name)
-    #assert_equal("", user.vote_ca_name)
+    assert_equal("Comunidad de Madrid", user.vote_autonomy_name)
     user.update_attributes(town: "m_01_001_4")
     assert_equal("Alegría-Dulantzi", user.vote_town_name)
     assert_equal("Araba/Álava", user.vote_province_name)
