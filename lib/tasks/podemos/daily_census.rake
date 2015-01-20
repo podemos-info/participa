@@ -61,17 +61,17 @@ namespace :podemos do
     end
 
     date = Date.today.strftime
-    export_raw_data "countries.#{date}", countries.sort, [ "País", date ] do |d| [ d[0], d[1] ] end
+    export_raw_data "countries.#{date}", countries.sort, [ "País", date ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "autonomies.#{date}", autonomies.sort, [ "Comunidad autonoma", date ] do |d| [ d[0], d[1] ] end
+    export_raw_data "autonomies.#{date}", autonomies.sort, [ "Comunidad autonoma", date ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "provinces.#{date}", provinces.sort, [ "Provincia", date ] do |d| [ d[0], d[1] ] end
+    export_raw_data "provinces.#{date}", provinces.sort, [ "Provincia", date ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "islands.#{date}", islands.sort, [ "Isla", date ] do |d| [ d[0], d[1] ] end
+    export_raw_data "islands.#{date}", islands.sort, [ "Isla", date ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "towns.#{date}", towns.sort, [ "Municipio", date ] do |d| [ d[0], towns_names[d[0]], d[1] ] end
+    export_raw_data "towns.#{date}", towns.sort, [ "Municipio", date ], "tmp/census" do |d| [ d[0], towns_names[d[0]], d[1] ] end
     progress.inc
-    export_raw_data "postal_codes.#{date}", postal_codes.sort, [ "Código postal", date ] do |d| [ d[0], d[1] ] end
+    export_raw_data "postal_codes.#{date}", postal_codes.sort, [ "Código postal", date ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.finished
   end
 end
