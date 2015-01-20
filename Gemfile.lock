@@ -261,6 +261,7 @@ GEM
       rake
       resque (~> 1.20)
       trollop (~> 1.16)
+    ruby-openid (2.6.0)
     ruby-prof (0.14.2)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -375,6 +376,7 @@ DEPENDENCIES
   recaptcha
   resque!
   resque-pool
+  ruby-openid
   ruby-prof
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
