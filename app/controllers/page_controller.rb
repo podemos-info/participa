@@ -25,7 +25,7 @@ class PageController < ApplicationController
   end
 
   def candidate_register
-    render :form_iframe, locals: { title: "Candidaturas autonómicas", form_id: 5 }
+    render :closed_form, locals: { title: "Candidaturas autonómicas", text: "Se ha cerrado el plazo de registro de candidaturas para el proceso constituyente autonómico. Si tienes algún problema con tu candidatura, contacta con <a href='mailto:organos.autonomicos@podemos.info'>organos.autonomicos@podemos.info</a>." }
   end
   
   def offer_hospitality

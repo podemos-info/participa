@@ -6,7 +6,7 @@
 	  <% if defined? return_path %>
 		<%= content_tag :p, link_to("Volver", return_path) %>
 	  <% end %>
-	  <iframe id="formview_iframe" src="<%= url %>" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>
+	  <iframe id="formview_iframe" src="<%= url %><% if user_signed_in? %>?participa_user_id=<%=u current_user.id%>&participa_user_first_name=<%=u current_user.first_name %>&participa_user_last_name=<%=u current_user.last_name %>&participa_user_email=<%=u  current_user.email %><%end%>" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>
     </div>
   </div>
 </div>

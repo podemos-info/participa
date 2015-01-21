@@ -57,7 +57,7 @@ gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 gem 'ffi-icu', '~> 0.1.4'
 gem 'unicode'
 gem 'rack-openid'
-gem 'ruby-openid', :require => 'openid'
+gem 'ruby-openid'
 
 group :development, :test do
   gem 'capistrano-rvm'
