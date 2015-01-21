@@ -8,7 +8,7 @@
           <%= render partial: 'election_upcoming', locals: { election: Election.last } %>
         <% elsif Election.last and Election.last.recently_finished? %>
           <%= render partial: 'election_finished', locals: { election: Election.last } %>
-        <% elsif false and Date.today < Date.civil(2015,02,01) %>
+        <% else Date.today < Date.civil(2015,02,01) %>
           <%= render partial: 'demo' %>
         <% else %>
           <%= render partial: "other_tools" %>
