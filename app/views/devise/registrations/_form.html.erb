@@ -79,9 +79,6 @@
 
   <fieldset>
     <legend><span>Domicilio</span></legend>
-    <% if !resource.can_change_location? %>
-    <p><%= t("podemos.user.location_change_blocked")%></p>
-    <% end %>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:country) %>
           <%= field_notice_box %>
