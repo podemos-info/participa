@@ -208,7 +208,7 @@ class User < ActiveRecord::Base
   end
 
   def can_change_location?
-    Rails.application.secrets.users["allows_location_change"]
+    not self.persisted? or Rails.application.secrets.users["allows_location_change"]
   end
 
   def generate_sms_token
