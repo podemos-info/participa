@@ -1,6 +1,25 @@
-<%= link_to proposal_path(proposal.reddit_id) do %>
-  <div style="padding:20px;">
-    <h2 style="font-size:2em;padding-bottom:5px"><%= proposal.title %></h2>
-    <p><%= truncate(proposal.description, length: 500) %></p>
-  </div>
-<% end %>
+<div style="padding:20px;">
+  
+  <%= link_to proposal_path(proposal.reddit_id) do %>
+    <h2 style="font-size:2em;padding-bottom:5px">
+      <%= proposal.title %>
+    </h2>
+    <p>
+      <%= truncate(proposal.description, length: 500) %>
+    </p>
+  <% end %>
+  
+  <p>
+    Votos en 
+    <%= link_to 'Plaza Podemos', proposal.reddit_url %>: 
+    <%= proposal.votes %>
+  </p>
+  <p>
+    Censo: <%= number_to_percentage(proposal.approval, 
+               precision: 5, strip_insignificant_zeros: true) %></p>
+  <p>Faltan <%= proposal.remaining_endorsements_for_approval %> avales 
+     para pasar a la siguiente fase. 
+     Puedes avalar esta propuesta 
+     <%= link_to "aquí", proposal_path(proposal.reddit_id) %>
+     
+</div>
