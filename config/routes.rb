@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     patch '/equipos-de-accion-participativa/actualizar', to: 'participation_teams#update_user', as: 'participation_teams_update_user'
 
     get '/responsables-finanzas-legal', to: 'page#town_legal', as: 'town_legal'
+
+    get '/comparte-el-cambio', to: redirect('/')
     get '/comparte-el-cambio/comparte-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
     get '/comparte-el-cambio/comparte-coche', to: 'page#share_car', as: 'share_car'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
