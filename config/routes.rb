@@ -28,8 +28,8 @@ Rails.application.routes.draw do
 
     get '/candidaturas-autonomicas', to: 'page#candidate_register', as: 'candidate_register'
 
-    get '/iniciativas-ciudadanas', to: 'proposals#index', as: 'proposals'
-    get '/iniciativa-ciudadana/:reddit_id', to: 'proposals#show', as: 'proposal'
+    get '/proposals', to: 'proposals#index', as: 'proposals'
+    get '/proposals/:id', to: 'proposals#show', as: 'proposal'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
