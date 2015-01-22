@@ -57,4 +57,7 @@ class Proposal < ActiveRecord::Base
     votes >= agoravoting_required_votes
   end
 
+  def finishes_at
+    created_at + 3.months
+  end
 end
