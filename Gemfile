@@ -39,6 +39,7 @@ gem 'phone'
 gem 'iban-tools'
 gem 'paper_trail'
 gem 'newrelic_rpm'
+gem 'rails_autolink'
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
