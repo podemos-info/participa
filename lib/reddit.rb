@@ -23,7 +23,7 @@ class Reddit
 
   def create_or_update(proposal)
     params = map(proposal['data'])
-    Proposal.where(reddit_id: params['reddit_id']).first_or_initialize.
+    Proposal.where(reddit_id: params[:reddit_id]).first_or_initialize.
     update_attributes!(params)
   end
 
