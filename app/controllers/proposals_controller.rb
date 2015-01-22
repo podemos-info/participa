@@ -5,7 +5,7 @@ class ProposalsController < ApplicationController
   end
 
   def show
-    @proposal = Proposal.reddit_proposal(params[:reddit_id])
+    @proposal = Proposal.find(params[:id])
   end
 
 end
