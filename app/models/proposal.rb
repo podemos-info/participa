@@ -1,3 +1,4 @@
+require 'numeric'
 class Proposal < ActiveRecord::Base
 
   scope :reddit, -> { where(reddit_threshold: true) }
@@ -56,14 +57,4 @@ class Proposal < ActiveRecord::Base
     votes >= agoravoting_required_votes
   end
 
-end
-
-class Numeric
-  def percent
-    self.to_f / 100.0
-  end
-
-  def percent_of(n)
-    self.to_f / n.to_f * 100.0
-  end
 end
