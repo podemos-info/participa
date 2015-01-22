@@ -1,5 +1,13 @@
 class Proposal < ActiveRecord::Base
-    
+
+  scope :reddit, -> { where(reddit_threshold: true) }
+  
+  before_save :update_threshold
+
+  def update_threshold
+    self.reddit_threshold = true if reddit_required_votes?
+  end
+
   def approval
     votes.percent_of(confirmed_users)
   end
