@@ -25,7 +25,7 @@ class PageController < ApplicationController
   end
 
   def list_register
-    render :form_iframe, locals: { title: "Candidaturas autonómicas", form_id: 20 }
+    render :form_iframe, locals: { title: "Listas autonómicas", form_id: 20 }
   end
   
   def offer_hospitality
