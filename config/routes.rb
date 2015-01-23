@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
     get '/comparte-el-cambio/encuentra-viaje', to: 'page#find_car', as: 'find_car'
     
-    get '/candidaturas-autonomicas', to: 'page#list_register', as: 'list_register'
+    get '/listas-autonomicas', to: 'page#list_register', as: 'list_register'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
