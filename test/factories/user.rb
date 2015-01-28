@@ -65,4 +65,5 @@ FactoryGirl.define do
     province "AL"
     town "Jefferson County"
   end
+
 end

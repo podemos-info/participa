@@ -116,6 +116,14 @@ class Collaboration < ActiveRecord::Base
     Rails.application.secrets.redsys[key]
   end
 
+  def identifier
+    if self.redsys_response
+      JSON.parse(self.redsys_response)["Ds_Merchant_Identifier"]
+    else
+      redsys_secret "identifier"
+    end
+  end
+
   def redsys_merchant_url(type=nil)
     redsys_callback_collaboration_url(protocol: :https, redsys_order: self.redsys_order, collaboration_id: self.id, user_id: self.user.id, type: type) 
   end
@@ -187,6 +195,25 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
+  def params
+    {
+      "Ds_Merchant_Currency"          => self.redsys_secret("currency"),
+      "Ds_Merchant_MerchantCode"      => self.redsys_secret("code"),
+      "Ds_Merchant_MerchantName"      => self.redsys_secret("name"),
+      "Ds_Merchant_Terminal"          => self.redsys_secret("terminal"),
+      "Ds_Merchant_TransactionType"   => self.redsys_secret("transaction_type"),
+      "Ds_Merchant_MerchantData"      => self.redsys_secret("data"),
+      "Ds_Merchant_PayMethods"        => self.redsys_secret("payment_methods"),
+      "Ds_Merchant_Identifier"        => self.identifier,
+      "Ds_Merchant_Order"             => self.redsys_order,
+      "Ds_Merchant_Amount"            => self.amount,
+      "Ds_Merchant_MerchantURL"       => self.redsys_merchant_url,
+      "Ds_Merchant_MerchantUrlOK"     => self.redsys_merchant_url("ok"),
+      "Ds_Merchant_MerchantUrlKO"     => self.redsys_merchant_url("ko"),
+      "Ds_Merchant_MerchantSignature" => self.redsys_merchant_signature
+    }
+  end
+  
   private 
 
   def redsys_set_order

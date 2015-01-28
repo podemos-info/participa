@@ -144,4 +144,6 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     get '/es'
     assert_response :success
   end
+
+    
 end

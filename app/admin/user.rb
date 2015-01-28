@@ -15,7 +15,8 @@ ActiveAdmin.register User do
   scope :has_collaboration_credit_card
   scope :has_collaboration_bank_national
   scope :has_collaboration_bank_international
-  scope :wants_participation_team
+  scope :participation_team
+  scope :has_circle
 
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :wants_newsletter
 
@@ -206,16 +207,6 @@ ActiveAdmin.register User do
 
   form partial: "form"
 
-  #collection_action :download_newsletter_csv, :method => :get do
-  #  users = User.wants_newsletter
-  #  csv = CSV.generate(encoding: 'utf-8') do |csv|
-  #    users.each { |user| csv << [ user.email ] }
-  #  end
-  #  send_data csv.encode('utf-8'),
-  #    type: 'text/csv; charset=utf-8; header=present',
-  #    disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
-  #end
-
   csv do
     column :id
     column("Nombre") { |u| u.full_name }
@@ -233,6 +224,7 @@ ActiveAdmin.register User do
     column :vote_town
     column :phone
     column :last_sign_in_ip
+    column :circle
   end
 
   action_item :only => :show do
@@ -275,9 +267,20 @@ ActiveAdmin.register User do
 
   sidebar :versionate, :partial => "admin/version", :only => :show
 
-  # FIXME: bug, only 2 mails
-  #  action_item only: :index do
-  #    link_to('Descargar correos para Newsletter (CSV)', params.merge(:action => :download_newsletter_csv))
-  #  end
+  collection_action :download_participation_teams_tsv, :method => :get do
+    users = User.participation_team
 
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      users.each do |user| 
+        csv << [ user.email, user.participation_team.map { |team| team.name }.join(",") ]
+      end
+    end
+    send_data csv.encode('utf-8'),
+      type: 'text/tsv; charset=utf-8; header=present',
+      disposition: "attachment; filename=podemos.participationteams.#{Date.today.to_s}.tsv"
+  end
+
+  action_item only: :index do
+    link_to('Descargar Equipos de participación', params.merge(:action => :download_participation_teams_tsv))
+  end
 end

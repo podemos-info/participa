@@ -119,4 +119,22 @@ class SmsValidatorControllerTest < ActionController::TestCase
     assert_equal "El código que has puesto no corresponde con el que te enviamos por SMS.", flash[:error]
   end
 
+  test "should change vote location from previous user when sms token if user give it OK" do
+    with_blocked_change_location do
+      old_user = FactoryGirl.create(:user)
+      old_user.confirm!
+      old_user.delete
+      
+      token = 'AAA123'
+      new_user = FactoryGirl.create(:user, :sms_non_confirmed_user, town: "m_03_003_6", document_vatid: old_user.document_vatid, 
+                                                                    sms_confirmation_token: token, unconfirmed_phone: old_user.phone)
+      sign_in new_user
+      post :valid, user: { sms_user_token_given: token }
+      new_user = User.where(phone: old_user.phone).last
+      assert_equal old_user.vote_town, new_user.vote_town, "New user vote location should be the same of the old user"
+      assert_equal I18n.t("podemos.registration.message.existing_user_location"), flash[:alert]
+      assert_response :redirect
+      assert_redirected_to root_path
+    end
+  end
 end

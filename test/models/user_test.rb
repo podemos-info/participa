@@ -412,7 +412,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal("Madrid", user.vote_town_name)
     assert_equal("Madrid", user.vote_province_name)
     assert_equal("Comunidad de Madrid", user.vote_autonomy_name)
-    user.update_attributes(town: "m_01_001_4")
+    user = FactoryGirl.create(:user, town: "m_01_001_4")
     assert_equal("Alegría-Dulantzi", user.vote_town_name)
     assert_equal("Araba/Álava", user.vote_province_name)
     #assert_equal("", user.vote_ca_name)
@@ -430,7 +430,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal("", user.vote_town_name)
   end
 
-  test "should update vote_town when changes the town, both in Spain" do 
+  test "should update vote_town when changes the town, both in Spain" do
     @user.town = "m_37_262_6"
     @user.save
     assert_equal @user.town, @user.vote_town, "User has changed his town (from Spain to Spain) and vote town didn't changed"
@@ -488,10 +488,19 @@ class UserTest < ActiveSupport::TestCase
     e2.election_locations.create(location: "010014", agora_version: 0)
     @user.update_attribute(:town, "m_01_001_4")
     v5 = @user.get_or_create_vote(e2.id)
-    assert_not_equal( v3.voter_id, v5.voter_id )
+    assert_not_equal v3.voter_id, v5.voter_id, "Diferente municipio de voto debería implicar diferente voter_id"
   end
 
   test "should in_participation_team? work" do
     skip
   end
+
+  test "should not change vote location to a user without old user" do
+    with_blocked_change_location do
+      new_user = FactoryGirl.create(:user, town: "m_03_003_6" )
+      new_user.apply_previous_user_vote_location
+      assert_equal "m_03_003_6", new_user.vote_town, "New user vote location should not be changed"
+    end
+  end
+
 end

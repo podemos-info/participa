@@ -44,5 +44,4 @@ class ApplicationHelperTest < ActionView::TestCase
   test "should body_class work" do 
     skip("TODO")
   end
-
 end

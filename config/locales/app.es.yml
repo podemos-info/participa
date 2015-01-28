@@ -114,6 +114,8 @@ es:
         address: "Dirección"
         town: "Municipio"
         province: "Provincia"
+        vote_town: "Municipio de origen"
+        province_town: "Provincia de origen"
         postal_code: "Código postal"
         country: "País"
         password: "Contraseña"
@@ -213,6 +215,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         dni: "El formato deben ser 8 números y una letra, sin guiones ni espacios."
         nie: "El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios."
         passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
+        existing_user_location: "Se ha recuperado tu lugar de participación de un usuario anterior."
       p1_html: "<p> Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos.  </p>
 <p> Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción.  </p>
 <p><b> ¿Es seguro el sistema de inscripción? </b> </p>
@@ -509,3 +512,5 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       has_collaboration_credit_card: "Con colaboración económica (tarjeta de crédito)"
       has_collaboration_bank_national: "Con colaboración económica (banco nacional)"
       has_collaboration_bank_international: "Con colaboración económica (banco internacional)"
+      participation_team: "En equipos de participación"
+      has_circle: "En Círculo"

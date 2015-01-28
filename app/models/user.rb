@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   before_update :_clear_caches
-  before_save :control_vote_town
+  before_save :before_save
 
   acts_as_paranoid
   has_paper_trail
@@ -123,9 +123,9 @@ class User < ActiveRecord::Base
     end
   end
 
-
   attr_accessor :sms_user_token_given
   attr_accessor :login
+  attr_accessor :skip_before_save
 
   scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
   scope :users_with_deleted, -> { where "deleted_at IS NOT null"  }
@@ -143,7 +143,8 @@ class User < ActiveRecord::Base
   scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) } 
   scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
   scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
-  scope :wants_participation_team, -> { where(wants_participation: true) }
+  scope :participation_team, -> { includes(:participation_team).where(wants_participation: true) }
+  scope :has_circle, -> { where("circle IS NOT NULL") }
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
@@ -168,6 +169,24 @@ class User < ActiveRecord::Base
     else
       v.save
       return v
+    end
+  end
+
+  def previous_user(force_refresh=false)
+    remove_instance_variable :@previous_user if force_refresh and @previous_user
+    @previous_user ||= User.with_deleted.where("lower(email) = ?", self.email.downcase).where("deleted_at > ?", 3.months.ago).last || 
+                      User.with_deleted.where("lower(document_vatid) = ?", self.document_vatid.downcase).where("deleted_at > ?", 3.months.ago).last
+                      User.with_deleted.where("phone = ?", self.phone).where("deleted_at > ?", 3.months.ago).last
+    @previous_user
+  end
+
+  def apply_previous_user_vote_location
+    if self.previous_user(true) and self.previous_user.has_verified_vote_town? and (self.vote_town != self.previous_user.vote_town)
+      self.vote_town = self.previous_user.vote_town
+      self.save
+      true
+    else
+      false
     end
   end
 
@@ -208,7 +227,8 @@ class User < ActiveRecord::Base
   end
 
   def can_change_location?
-    not self.persisted? or Rails.application.secrets.users["allows_location_change"]
+      not self.has_vote_town? or not self.persisted? or 
+        (@override_allows_location_change.nil? ? Rails.application.secrets.users["allows_location_change"] : @override_allows_location_change)
   end
 
   def generate_sms_token
@@ -369,6 +389,10 @@ class User < ActiveRecord::Base
     not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
   end
 
+  def has_verified_vote_town?
+    self.has_vote_town? and self.vote_town[0]=="m"
+  end
+
   def has_vote_town_for_election? election
     self.has_vote_town? and (!self.vote_town_name.empty? or election.scope < 3)
   end
@@ -465,12 +489,12 @@ class User < ActiveRecord::Base
 
   def verify_user_location()
     return "country" if not _country
-    return "province" if not _country.subregions.empty? and not _province
+    return "province" if not _country.subregions.empty? and not _country.subregions.coded(self.province)
     return "town" if self.in_spain? and not _town
   end
   
   def vote_town_notice()
-    not self.in_spain? and self.vote_town == "NOTICE"
+    self.vote_town == "NOTICE"
   end
 
   def self.get_location(current_user, params)
@@ -507,13 +531,15 @@ class User < ActiveRecord::Base
     user_location
   end
 
-  def control_vote_town
-    # Spanish users can't use a different town for vote
-    if self.in_spain?
-      self.vote_town = self.town
+  def before_save
+    unless @skip_before_save
+      # Spanish users can't set a different town for vote, except when blocked
+      if self.in_spain? and self.can_change_location?
+        self.vote_town = self.town
+      end
     end
   end
-  
+
   def users_with_deleted
     User.with_deleted
   end
@@ -560,10 +586,12 @@ class User < ActiveRecord::Base
   def _vote_province
     @vote_province_cache = begin
       prov = nil
-      if self.in_spain?
+      if self.has_vote_town?
+        prov = Carmen::Country.coded("ES").subregions[self.vote_town[2,2].to_i-1]
+      elsif self.country=="ES"
         prov = _province
       else
-        prov = Carmen::Country.coded("ES").subregions[self.vote_town[2,2].to_i-1] if self.has_vote_town?
+        prov = nil
       end
       prov
     end if not defined? @vote_province_cache
@@ -573,10 +601,12 @@ class User < ActiveRecord::Base
   def _vote_town
     @vote_town_cache = begin
       town = nil
-      if self.in_spain?
+      if self.has_vote_town?
+        town = _vote_province.subregions.coded(self.vote_town) 
+      elsif self.country=="ES"
         town = _town
       else
-        town = _vote_province.subregions.coded(self.vote_town) if self.has_vote_town?
+        prov = nil
       end
       town
     end if not defined? @vote_town_cache

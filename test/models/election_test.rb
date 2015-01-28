@@ -102,15 +102,15 @@ class ElectionTest < ActiveSupport::TestCase
     election.update_attributes(scope: 3)
     assert_equal("Hola mundo en Madrid", election.full_title_for(user))
 
-    user.update_attributes(vote_town: "m_01_001_4")
+    user = FactoryGirl.create(:user, town: "m_01_001_4")
     election.update_attributes(scope: 0)
     assert_equal("Hola mundo", election.full_title_for(user))
     ## NotImplemented
     #election.update_attributes(scope: 1)
     election.update_attributes(scope: 2)
-    assert_equal("Hola mundo en Madrid", election.full_title_for(user))
+    assert_equal("Hola mundo en Araba/Álava", election.full_title_for(user))
     election.update_attributes(scope: 3)
-    assert_equal("Hola mundo en Madrid", election.full_title_for(user))
+    assert_equal("Hola mundo en Alegría-Dulantzi", election.full_title_for(user))
   end
 
   test "should locations work" do 

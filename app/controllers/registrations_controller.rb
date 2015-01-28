@@ -7,21 +7,24 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def regions_provinces
-    debugger
-    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: (current_user and current_user.can_change_location?), required: true, field: :province, title:"Provincia"}
+    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia"}
   end
 
   def regions_municipies
-    render partial: 'municipies_select', locals:{country: @user_location[:country], province: @user_location[:province], town: @user_location[:town], disabled: (current_user and current_user.can_change_location?), required: true, field: :town, title:"Municipio"}
+    render partial: 'municipies_select', locals:{country: @user_location[:country], province: @user_location[:province], town: @user_location[:town], disabled: false, required: true, field: :town, title:"Municipio"}
   end
 
   def vote_municipies
-    render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], disabled: (current_user and current_user.can_change_location?), required: false, field: :vote_town, title:"Municipio de participación"}
+    render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], disabled: false, required: false, field: :vote_town, title:"Municipio de participación"}
   end
 
   def create
     if verify_recaptcha
-      super
+      super do 
+        if resource.apply_previous_user_vote_location
+          flash[:alert] = t("podemos.registration.message.existing_user_location")
+        end
+      end 
     else
       build_resource(sign_up_params)
       clean_up_passwords(resource)
@@ -47,7 +50,7 @@ class RegistrationsController < Devise::RegistrationsController
     if current_user.can_change_location?
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town, :vote_province, :vote_town)
     else
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town)
     end
   end
 
