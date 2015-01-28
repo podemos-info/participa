@@ -227,7 +227,7 @@ class User < ActiveRecord::Base
   end
 
   def can_change_location?
-      not self.has_vote_town? or not self.persisted? or 
+      not self.has_verified_vote_town? or not self.persisted? or 
         (@override_allows_location_change.nil? ? Rails.application.secrets.users["allows_location_change"] : @override_allows_location_change)
   end
 
