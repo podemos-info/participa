@@ -39,11 +39,6 @@ ActiveAdmin.register Collaboration do
       row :frequency_name
       row :created_at
       row :updated_at
-      if collaboration.is_credit_card?
-        row :order_id do
-          collaboration.order_id
-        end
-      end
       if collaboration.is_bank_national?
         row :ccc_full
       end
@@ -53,7 +48,7 @@ ActiveAdmin.register Collaboration do
       end
     end
     panel "Órdenes de pago" do
-      table_for collaboration.orders do
+      table_for collaboration.order do
         column :id do |order|
           link_to order.id, admin_order_path(order.id)
         end

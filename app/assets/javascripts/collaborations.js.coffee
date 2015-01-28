@@ -13,7 +13,7 @@ show_collaboration_ajax_loader = () ->
   $('.js-collaboration-confirm-ajax').show()
 
 check_collaboration_by_ajax = () -> 
-  order = $('.js-collaboration-order').attr('value')
+  order = $('.js-Ds_Merchant_Order').attr('value')
   timeOutId = 0
   retry_check_collaboration_by_ajax = ->
     $.ajax

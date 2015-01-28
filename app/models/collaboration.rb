@@ -6,6 +6,7 @@ class Collaboration < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
+  has_many :order
 
   validates :user_id, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
