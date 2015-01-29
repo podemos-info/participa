@@ -44,4 +44,13 @@ class PageController < ApplicationController
   def town_legal
     render :form_iframe, locals: { title: "Responsables municipales de finanzas y legal", form_id: 14 }
   end
+
+
+  def avales_barcelona
+    render :form_iframe, locals: { title: "Avales Barcelona", form_id: 22 }
+  end
+
+  def primarias_andalucia
+    render :form_iframe, locals: { title: "Primarias Andalucía", form_id: 21 }
+  end
 end
