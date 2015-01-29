@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116133906) do
+ActiveRecord::Schema.define(version: 20150129141658) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -32,11 +32,6 @@ ActiveRecord::Schema.define(version: 20150116133906) do
     t.integer  "user_id"
     t.integer  "amount"
     t.integer  "frequency"
-    t.string   "redsys_order"
-    t.datetime "redsys_response_recieved_at"
-    t.string   "redsys_response_code"
-    t.string   "response_status"
-    t.text     "redsys_response"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "payment_type"
@@ -47,6 +42,9 @@ ActiveRecord::Schema.define(version: 20150116133906) do
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
+    t.integer  "status",            default: 0
+    t.string   "redsys_identifier"
+    t.datetime "redsys_expiration"
   end
 
   add_index "collaborations", ["deleted_at"], name: "index_collaborations_on_deleted_at"
@@ -88,14 +86,32 @@ ActiveRecord::Schema.define(version: 20150116133906) do
   end
 
   create_table "orders", force: true do |t|
-    t.integer  "collaboration_id"
     t.integer  "status"
     t.datetime "payable_at"
     t.datetime "payed_at"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.string   "reference"
+    t.integer  "amount"
+    t.boolean  "first"
+    t.integer  "payment_type"
+    t.string   "payment_identifier"
+    t.text     "payment_response"
   end
+
+  create_table "participation_team_users", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "participation_team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "participation_team_users", ["participation_team_id"], name: "index_participation_team_users_on_participation_team_id"
+  add_index "participation_team_users", ["user_id"], name: "index_participation_team_users_on_user_id"
 
   create_table "participation_teams", force: true do |t|
     t.string   "name"

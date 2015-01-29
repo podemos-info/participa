@@ -1,9 +1,6 @@
-  class CollaborationsController < ApplicationController
-
-  skip_before_filter :verify_authenticity_token, only: [ :redsys_callback ] 
-
-  before_action :authenticate_user!, except: [ :redsys_callback ] 
-  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy, :KO]
+class CollaborationsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy, :OK, :KO]
   # TODO: before_action :check_if_user_over_age
   # TODO: before_action :check_if_user_passport
   # TODO: before_action :check_if_user_already_collaborated
@@ -12,58 +9,6 @@
   def new
     redirect_to edit_collaboration_path if current_user.collaboration 
     @collaboration = Collaboration.new
-  end
-
-  # GET /collaborations/confirm
-  def confirm
-  end
-
-  # POST /collaborations/confirm_bank
-  def confirm_bank
-    unless @collaboration.is_credit_card?
-      @collaboration.update_attribute(:response_status, "OK")
-      redirect_to :validate_ok_collaboration
-    end
-  end
-
-  # POST /collaborations/validate/callback
-  def redsys_callback
-    # Callback de Redsys para MerchantURL MerchantURLOK y MerchantURLKO
-    # recibe la respuesta en el formato de Redsys y la parsea
-
-    @collaboration = Collaboration.find_by_redsys_order! params["Ds_Order"]
-    @collaboration.redsys_parse_response!(params)
-    if @collaboration.redsys_response?
-      render json: "OK"
-    else
-      render json: "KO"
-    end
-  end
-
-  # GET /collaborations/validate/status/:order.json
-  def redsys_status
-    # Comprobamos y devolvemos el response_status de un Order dado
-    # es para la comprobación por AJAX del resultado de la ventana de Redsys
-
-    @collaboration = Collaboration.find_by_redsys_order! params["order"]
-    respond_to do |format|
-      format.json { render json: { status: @collaboration.response_status } }
-    end
-  end
-
-  # GET /collaborations/validate/OK
-  def OK
-    redirect_to edit_collaboration_path, flash: { notice: "Has dado de alta correctamente tu colaboración" } 
-  end
-
-  # GET /collaborations/validate/KO
-  def KO
-  end
-
-  # GET /collaborations/edit
-  def edit
-    # borrar una colaboración
-    redirect_to confirm_collaboration_path unless @collaboration.is_valid?
   end
 
   # POST /collaborations
@@ -83,6 +28,12 @@
     end
   end
 
+  # GET /collaborations/edit
+  def edit
+    # borrar una colaboración
+    redirect_to confirm_collaboration_path unless @collaboration.is_valid?
+  end
+
   # DELETE /collaborations
   def destroy
     @collaboration.destroy
@@ -90,6 +41,31 @@
       format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /collaborations/confirm
+  def confirm
+    if @collaboration.is_credit_card?
+      @order = @collaboration.create_order Time.now
+    end
+  end
+
+  # POST /collaborations/confirm_bank
+  def confirm_bank
+    unless @collaboration.is_credit_card?
+      @collaboration.update_attribute(:response_status, "OK")
+      redirect_to :validate_ok_collaboration
+    end
+  end
+
+  # GET /collaborations/OK
+  def OK
+    #redirect_to edit_collaboration_path, flash: { notice: "Has dado de alta correctamente tu colaboración" } 
+  end
+
+  # GET /collaborations/KO
+  def KO
+    #confirm_collaboration_url
   end
 
   private

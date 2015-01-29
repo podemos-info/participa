@@ -6,7 +6,7 @@ class Collaboration < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
-  has_many :order
+  has_many :order, as: :parent
 
   validates :user_id, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
@@ -15,9 +15,6 @@ class Collaboration < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
-  validates :redsys_order, uniqueness: true, if: :is_credit_card?
-  validates :redsys_order, presence: true, if: :is_credit_card?
-
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
   validate :validates_ccc, if: :is_bank_national?
@@ -25,17 +22,9 @@ class Collaboration < ActiveRecord::Base
   validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
   validate :validates_iban, if: :is_bank_international?
 
-  before_validation(on: :create) do
-    self.update_attribute(:redsys_order, redsys_generate_order) if self.is_credit_card?
-  end
-
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
-  TYPES = [
-    ["Suscripción con Tarjeta de Crédito/Débito", 1], 
-    ["Domiciliación en cuenta bancaria (CCC)", 2], 
-    ["Domiciliación en cuenta extranjera (IBAN)", 3], 
-  ]
+  STATUS = [["Sin pago", 0], ["Sin confirmar", 1], ["Error", 1], ["OK", 2], ["Alerta", 3]]
 
   scope :credit_cards, -> {where(payment_type: 1)}
   scope :bank_nationals, -> {where(payment_type: 2)}
@@ -46,6 +35,16 @@ class Collaboration < ActiveRecord::Base
   scope :amount_1, -> {where("amount < 10")}
   scope :amount_2, -> {where("amount > 10 and amount < 20")}
   scope :amount_3, -> {where("amount > 20")}
+
+  after_create :set_initial_status
+
+  def set_initial_status
+    if self.is_credit_card?
+      self.status=0
+    else
+      self.status=1
+    end
+  end
 
   def validates_not_passport
     if self.user.is_passport? 
@@ -86,7 +85,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def payment_type_name
-    Collaboration::TYPES.select{|v| v[1] == self.payment_type }[0][0]
+    Order::TYPES.select{|v| v[1] == self.payment_type }[0][0]
     # TODO
   end
 
@@ -113,70 +112,59 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def redsys_secret(key)
-    Rails.application.secrets.redsys[key]
-  end
-
-  def identifier
-    if self.redsys_response
-      JSON.parse(self.redsys_response)["Ds_Merchant_Identifier"]
-    else
-      redsys_secret "identifier"
-    end
-  end
-
-  def redsys_merchant_url(type=nil)
-    redsys_callback_collaboration_url(protocol: :https, redsys_order: self.redsys_order, collaboration_id: self.id, user_id: self.user.id, type: type) 
-  end
-
-  def redsys_merchant_message
-    "#{self.amount}#{self.redsys_order}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}#{self.redsys_secret "identifier"}#{self.redsys_secret "secret_key"}"
-  end
-
-  def redsys_merchant_signature
-    Digest::SHA1.hexdigest(self.redsys_merchant_message).upcase
-  end
-
-  def redsys_match_signature? signature
-    signature == self.redsys_merchant_signature
-  end
-
-  def confirm!
-    self.update_attribute(:response_status, "OK")
-  end
-
-  def redsys_logger
-    @@redsys_logger ||= Logger.new("#{Rails.root}/log/collaborations_redsys.log")
-  end
-
-  def redsys_parse_response! params
-    redsys_logger.info("*" * 40)
-    redsys_logger.info("Redsys: New collaboration")
-    redsys_logger.info("User: #{self.user.id} - Collaboration: #{self.id}")
-    redsys_logger.info("Data: #{self.attributes.inspect}")
-    redsys_logger.info("Params: #{params}")
-    self.update_attribute(:redsys_response, params.to_json)
-    self.update_attribute(:redsys_response_code, params["Ds_Response"])
-    self.update_attribute(:redsys_response_recieved_at, DateTime.now)
-
-    # TODO check if Date/Time is correct 
-    if params["Ds_Response"].to_i < 100 and params["collaboration_id"].to_i == self.id and params["user_id"].to_i == self.user.id # and self.redsys_match_signature?(params["Ds_Signature"])
-      redsys_logger.info("Status: OK")
-      self.confirm!
-    else
-      redsys_logger.info("Status: KO - ERROR")
-      self.update_attribute(:response_status, "KO")
-    end
+  def is_recurrent?
+    true
   end
 
   def is_valid?
-    # TODO:  def redsys_is_valid? 
-    # TODO response_status for bank national/international
-    self.response_status == "OK"
+    self.status>1
   end
 
   def admin_permalink
     admin_collaboration_path(self)
+  end
+
+  def create_order date
+    order = Order.new do |o|
+      o.user = self.user
+      o.parent = self
+      o.reference = "Colaboración mes de " + I18n.localize(date, :format => "%B")
+      o.first = self.status==0
+      o.amount = self.amount
+      o.payable_at = date
+      o.payment_type = self.payment_type
+      o.payment_identifier = self.payment_identifier
+    end
+    order
+  end
+
+  def payment_identifier
+    if self.is_credit_card?
+      self.redsys_identifier
+    elsif self.is_bank_national?
+      "#{self.iban_account}/#{self.iban_bic}"
+    elsif self.is_bank_international?
+      self.ccc_full
+    end
+  end
+
+  def payment_processed order
+    if order.payed?
+      self.status = 2
+
+      if self.is_credit_card?
+        self.redsys_identifier = order.redsys_identifier
+        self.redsys_expiration = order.redsys_expiration
+
+        # check if cc is about to expire
+        if self.redsys_expiration - 3.month < Date.today
+          self.status = 3
+        end
+      end
+    else
+      self.status = 1
+    end
+    self.save
   end
 
   def generate_order(date=DateTime.now)
@@ -196,41 +184,11 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def params
-    {
-      "Ds_Merchant_Currency"          => self.redsys_secret("currency"),
-      "Ds_Merchant_MerchantCode"      => self.redsys_secret("code"),
-      "Ds_Merchant_MerchantName"      => self.redsys_secret("name"),
-      "Ds_Merchant_Terminal"          => self.redsys_secret("terminal"),
-      "Ds_Merchant_TransactionType"   => self.redsys_secret("transaction_type"),
-      "Ds_Merchant_MerchantData"      => self.redsys_secret("data"),
-      "Ds_Merchant_PayMethods"        => self.redsys_secret("payment_methods"),
-      "Ds_Merchant_Identifier"        => self.identifier,
-      "Ds_Merchant_Order"             => self.redsys_order,
-      "Ds_Merchant_Amount"            => self.amount,
-      "Ds_Merchant_MerchantURL"       => self.redsys_merchant_url,
-      "Ds_Merchant_MerchantUrlOK"     => self.redsys_merchant_url("ok"),
-      "Ds_Merchant_MerchantUrlKO"     => self.redsys_merchant_url("ko"),
-      "Ds_Merchant_MerchantSignature" => self.redsys_merchant_signature
-    }
-  end
-  
-  private 
-
-  def redsys_set_order
-    self.update_attribute(:redsys_order, redsys_generate_order)
+  def ok_url
+    ok_collaboration_url
   end
 
-  def redsys_generate_order
-    # Redsys requires an order_id be provided with each transaction of a
-    # specific format. The rules are as follows:
-    #
-    # * Minimum length: 4
-    # * Maximum length: 12
-    # * First 4 digits must be numerical
-    # * Remaining 8 digits may be alphanumeric
-    rand(0..9999).to_s + SecureRandom.hex.to_s[0..7]
-    #1234567890
+  def ko_url
+    ko_collaboration_url
   end
-
 end

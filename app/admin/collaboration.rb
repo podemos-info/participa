@@ -25,7 +25,7 @@ ActiveAdmin.register Collaboration do
   filter :user_email, as: :string
 
   filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES
-  filter :payment_type, :as => :select, :collection => Collaboration::TYPES
+  filter :payment_type, :as => :select, :collection => Order::TYPES
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS
   filter :created_at
 

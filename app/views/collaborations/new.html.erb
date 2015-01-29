@@ -47,7 +47,7 @@
               <%= f.input :payment_type,
                           required: true,
                           as: :select,
-                          collection: Collaboration::TYPES,
+                          collection: Order::TYPES,
                           input_html: {required: true, class: 'js-collaboration-type'} %>
             </div>
 

@@ -3,47 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
 
-open_redsys_window = () ->
-  vent = window.open("", "tpv", "width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no")
-  document.forms[0].submit()
-  return
-
-show_collaboration_ajax_loader = () ->
-  $('.js-collaboration-confirm-buttons').hide()
-  $('.js-collaboration-confirm-ajax').show()
-
-check_collaboration_by_ajax = () -> 
-  order = $('.js-Ds_Merchant_Order').attr('value')
-  timeOutId = 0
-  retry_check_collaboration_by_ajax = ->
-    $.ajax
-      url: "/collaborations/validate/redsys/status/" + order + ".json"
-      success: (response) ->
-        if response.status?
-          switch response.status
-            when "OK"
-              window.location = "/collaborations/validate/OK"
-              clearTimeout timeOutId
-            when "KO"
-              window.location = "/collaborations/validate/KO"
-              clearTimeout timeOutId
-            else
-              window.location = "/collaborations/validate/KO"
-              clearTimeout timeOutId
-        else
-          timeOutId = setTimeout(retry_check_collaboration_by_ajax, 10000)
-        return
-
-    return
-  retry_check_collaboration_by_ajax()
-  #OR use BELOW line to wait 10 secs before first call
-  #timeOutId = setTimeout(ajaxFn, 10000)
-
-start_collaboration_confirm = () ->
-  show_collaboration_ajax_loader()
-  open_redsys_window()
-  check_collaboration_by_ajax()
-
 calculate_collaboration = () ->
   $amount = $('.js-collaboration-amount option:selected')
   $freq = $('.js-collaboration-frequency option:selected')
@@ -75,15 +34,24 @@ change_payment_type = (type) ->
 
 init_collaborations = () ->
 
+  must_reload = $('#js-must-reload')
+  
+  if (must_reload)
+    if (must_reload.val()!="1")
+      must_reload.val("1")
+      $("form").on 'submit', (event) ->
+        $("#js-confirm-button").hide()
+    else
+      must_reload.val("0")
+      $("#js-confirm-button").hide()
+      location.reload()
+    
+
   change_payment_type($('.js-collaboration-type').val() || $('.js-collaboration-type').select2('val'))
 
   $('.js-collaboration-type').on 'change', (event) ->
     type = $(this).val()
     change_payment_type(type)
-
-  #$('.js-collaboration-confirm').on 'click', (event) ->
-  #  event.preventDefault()
-  #  start_collaboration_confirm()
 
   calculate_collaboration()
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->

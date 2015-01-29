@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get '', to: redirect("/#{I18n.locale}")
 
   # redsys MerchantURL 
-  post '/collaborations/validate/redsys/callback', to: 'collaborations#redsys_callback', as: 'redsys_callback_collaboration'
+  post '/orders/callback/redsys', to: 'orders#callback_redsys', as: 'orders_callback_redsys'
 
   namespace :api do
     scope :v1 do 
@@ -81,13 +81,8 @@ Rails.application.routes.draw do
           get 'confirm', to: 'collaborations#confirm', as: 'confirm_collaboration'
           post 'confirm_bank', to: 'collaborations#confirm_bank', as: 'confirm_bank_collaboration'
           post 'create', to: 'collaborations#create', as: 'create_collaboration'
-          scope :validate do
-            get 'OK', to: 'collaborations#OK', as: 'validate_ok_collaboration'
-            get 'KO', to: 'collaborations#KO', as: 'validate_ko_collaboration'
-            scope :redsys do
-              get '/status/:order', to: 'collaborations#redsys_status', as: 'redsys_validate_status_collaboration'
-            end
-          end
+          get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
+          get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
         end
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
