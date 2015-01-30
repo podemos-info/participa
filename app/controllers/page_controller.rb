@@ -1,7 +1,7 @@
 class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
-                                              :guarantees_ethic, :circles_validation]
+                                              :guarantees_ethic, :circles_validation, :primarias_andalucia]
 
   def privacy_policy
   end
