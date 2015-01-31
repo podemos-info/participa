@@ -51,7 +51,7 @@ class Election < ActiveRecord::Base
       when 2 then (self.agora_election_id.to_s + user.vote_province_numeric).to_i
       when 3
         location = self.election_locations.find_by_location user.vote_town_numeric
-        (self.agora_election_id.to_s + location.agora_version.to_s + user.vote_town_numeric.to_s).to_i
+        (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
     end
   end
 
