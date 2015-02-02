@@ -2,7 +2,9 @@
 <% if current_user.has_vote_town_for_election? election  %>
   <h3><strong>No hay votaciones de <%= election.full_title_for current_user %>.</strong></h3>
   <p><%= link_to "¿Por qué?", "http://municipales.podemos.info/preguntas-frecuentes/" %></p>
+  <% if current_user.can_change_location? %>
   <p>Puedes cambiar tu municipio si te has mudado. Recuerda que sólo tu último voto es válido.</p>
+  <% end %>
 <% else %>
   <h3><strong>Completa tus datos de inscripción indicando tu municipio de origen y participa en la votación de <%= election.title %>.</strong></h3>
 <% end %>
