@@ -79,7 +79,6 @@ Rails.application.routes.draw do
           get 'edit', to: 'collaborations#edit', as: 'edit_collaboration'
           get 'new', to: 'collaborations#new', as: 'new_collaboration'
           get 'confirm', to: 'collaborations#confirm', as: 'confirm_collaboration'
-          post 'confirm_bank', to: 'collaborations#confirm_bank', as: 'confirm_bank_collaboration'
           post 'create', to: 'collaborations#create', as: 'create_collaboration'
           get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
           get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'

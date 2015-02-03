@@ -38,8 +38,8 @@ init_collaborations = () ->
   
   if (must_reload)
     if (must_reload.val()!="1")
-      must_reload.val("1")
       $("form").on 'submit', (event) ->
+        must_reload.val("1")
         $("#js-confirm-button").hide()
     else
       must_reload.val("0")

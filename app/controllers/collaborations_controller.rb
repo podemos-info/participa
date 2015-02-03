@@ -46,26 +46,25 @@ class CollaborationsController < ApplicationController
   # GET /collaborations/confirm
   def confirm
     if @collaboration.is_credit_card?
-      @order = @collaboration.create_order Time.now
+      @order = @collaboration.create_order Time.now, true
     end
   end
 
-  # POST /collaborations/confirm_bank
-  def confirm_bank
-    unless @collaboration.is_credit_card?
-      @collaboration.update_attribute(:response_status, "OK")
-      redirect_to :validate_ok_collaboration
-    end
-  end
-
-  # GET /collaborations/OK
+  # GET /collaborations/ok
   def OK
-    #redirect_to edit_collaboration_path, flash: { notice: "Has dado de alta correctamente tu colaboración" } 
+    if @collaboration 
+      if @collaboration.is_credit_card?
+        if not (@collaboration.last_order and @collaboration.last_order.is_paid?)
+          @collaboration.set_warning
+        end
+      else
+        @collaboration.set_active
+      end
+    end
   end
 
-  # GET /collaborations/KO
+  # GET /collaborations/ko
   def KO
-    #confirm_collaboration_url
   end
 
   private

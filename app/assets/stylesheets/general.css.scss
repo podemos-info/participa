@@ -536,15 +536,14 @@ steps
   overflow:hidden;
 }
 .steps3 li span.block span.tab-number{
-  display:block;
+  display:inline-block;
   width:15%;
-  float:left;
+  vertical-align:middle;
 }
 .steps3 li span.block span.tab-text{
-  padding-top:0.15em;
-  display:block;
-  width:85%;
-  float:left;
+  display:inline-block;
+  width:83%;
+  vertical-align:middle;
 }
 .steps3 li:nth-child(1) span.block span.tab-number{
   margin-left:5%;
@@ -554,15 +553,15 @@ steps
   margin-left:15%;
 }
 .steps3 li:nth-child(1) span.block span.tab-text{
-  width:65%;
+  width:63%;
   margin-right:15%;
 }
 .steps3 li:nth-child(2) span.block span.tab-text{
-  width:55%;
+  width:53%;
   margin-right:15%;
 }
 .steps3 li:nth-child(3) span.block span.tab-text{
-  width:70%;
+  width:68%;
 }
 .steps3 li:nth-child(1).active{
   text-transform:Montserrat,Arial,sans-serif;
@@ -1146,7 +1145,7 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     height:3.75em;
   }
   .steps3 li span.block span.tab-text{
-    display:block;
+    display:inline-block;
     line-height:1.1em;
   }
   .steps3 li:nth-child(1) span.block span.tab-number{
@@ -1319,7 +1318,7 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     height:4.2em;
   }
   .steps3 li span.block span.tab-text{
-    display:block;
+    display:inline-block;
     line-height:1.3em;
   }
   .steps3 li:nth-child(1) span.block span.tab-number{
@@ -1461,7 +1460,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     height:4.2em;
   }
   .steps3 li span.block span.tab-text{
-    display:block;
+    display:inline-block;
     line-height:1.3em;
   }
   .steps3 li:nth-child(1) span.block span.tab-number{
@@ -1498,9 +1497,6 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .submenu li a,
   .steps3 li span.block span.tab-text{
     font-size:1.4em;
-  }
-  .steps3 li span.block span.tab-number{
-    font-size:3em;
   }
   .content .login-box p,
   .footer ul.disclaimer-links li a,

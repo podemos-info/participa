@@ -24,7 +24,7 @@ class Collaboration < ActiveRecord::Base
 
   AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
   FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
-  STATUS = [["Sin pago", 0], ["Sin confirmar", 1], ["Error", 1], ["OK", 2], ["Alerta", 3]]
+  STATUS = [["Sin pago", 0], ["Error", 1], ["Sin confirmar", 2], ["OK", 3], ["Alerta", 4]]
 
   scope :credit_cards, -> {where(payment_type: 1)}
   scope :bank_nationals, -> {where(payment_type: 2)}
@@ -38,12 +38,17 @@ class Collaboration < ActiveRecord::Base
 
   after_create :set_initial_status
 
+  def last_order
+    self.order.last
+  end
+
   def set_initial_status
-    if self.is_credit_card?
-      self.status=0
-    else
-      self.status=1
-    end
+    self.status=0
+  end
+
+  def set_active
+    self.status=2 if self.status < 2
+    self.save
   end
 
   def validates_not_passport
@@ -101,6 +106,24 @@ class Collaboration < ActiveRecord::Base
     admin_collaboration_path(self)
   end
 
+  def upcoming_payments
+    now = DateTime.now
+    payments = []
+    payments << if self.is_credit_card?
+                  now
+                elsif now.day < Order.creation_day 
+                  now.change day: Order.creation_day
+                else
+                  (now + 1.month).change day: Order.creation_day
+                end
+
+    while payments.length < 12/self.frequency
+      payments << (payments[-1] + self.frequency.months)
+    end
+
+    payments
+  end
+
   def frequency_payments
     case self.frequency
     when 1 
@@ -124,12 +147,12 @@ class Collaboration < ActiveRecord::Base
     admin_collaboration_path(self)
   end
 
-  def create_order date
+  def create_order date, first=false
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
       o.reference = "Colaboración mes de " + I18n.localize(date, :format => "%B")
-      o.first = self.status==0
+      o.first = first or self.status==0
       o.amount = self.amount
       o.payable_at = date
       o.payment_type = self.payment_type
@@ -149,21 +172,25 @@ class Collaboration < ActiveRecord::Base
   end
 
   def payment_processed order
-    if order.payed?
-      self.status = 2
+    if order.is_paid?
+      if order.has_warnings
+        self.status = 4
+      else
+        self.status = 3
+      end
 
       if self.is_credit_card?
         self.redsys_identifier = order.redsys_identifier
         self.redsys_expiration = order.redsys_expiration
-
-        # check if cc is about to expire
-        if self.redsys_expiration - 3.month < Date.today
-          self.status = 3
-        end
       end
     else
       self.status = 1
     end
+    self.save
+  end
+
+  def set_warning
+    self.status = 4
     self.save
   end
 

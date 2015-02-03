@@ -200,8 +200,8 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         p1: Tu donación se ha dado de alta correctamente.
         p2: Gracias por colaborar con Podemos.
       ko:
-        p1: Hubo un error con tu colaboración.
-        p2: Por favor contacta a donaciones@podemos.info
+        title: Hubo un error con tu colaboración.
+        contact: Por favor intenta realizar el pago nuevamente. Si continúas teniendo problemas contacta a donaciones@podemos.info.
       terms_of_service:
         title: "Condiciones generales"
         p1_title: "Relación entre Podemos y el colaborador."

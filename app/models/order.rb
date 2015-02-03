@@ -8,9 +8,9 @@ class Order < ActiveRecord::Base
   belongs_to :parent, polymorphic: true
   belongs_to :user
 
-  validates :payment_type, :payment_identifier, :amount, :user_id, :payable_at, presence: true
+  validates :payment_type, :amount, :user_id, :payable_at, presence: true
 
-  STATUS = [["pendiente", 1], ["pagado", 2], ["error", 3]]
+  STATUS = [["pendiente", 1], ["pagado", 2], ["comprobar",3], ["error", 4]]
   TYPES = [
     ["Suscripción con Tarjeta de Crédito/Débito", 1], 
     ["Domiciliación en cuenta bancaria (CCC)", 2], 
@@ -21,26 +21,41 @@ class Order < ActiveRecord::Base
     Collaboration => "C"
   }
 
+  REDSYS_SERVER_TIME_ZONE = ActiveSupport::TimeZone.new("Madrid")
+
   after_initialize do |o|
     o.status = 1 if o.status.nil?
   end
 
-  def payed?
-    self.status == 2
+  def is_paid?
+    !self.payed_at.nil?
+  end
+
+  def has_warnings?
+    self.status == 3
   end
 
   def status_name
     Order::STATUS.select{|v| v[1] == self.status }[0][0]
   end
 
-  def text_status
-    message = ""
-    message = ": "+self.redsys_text_status if self.payment_type==3 and self.status==3
-    status_name+message
+  def error_message
+    if self.status==4
+      case self.payment_type
+      when 1
+        self.redsys_text_status
+      else
+        ""
+      end
+    end    
   end
 
   def self.parent_from_order_id order_id
     Order::PARENT_CLASSES.invert[order_id[7]].find(order_id[0..7].to_i)
+  end
+
+  def self.creation_day
+    Rails.application.secrets.orders["creation_day"].to_i
   end
 
   def self.by_month(date)
@@ -98,27 +113,19 @@ class Order < ActiveRecord::Base
   #end
 
 
-
-  def mark_as_payed_on!(date)
+  def mark_as_paid!(date)
     self.status = 2 
     self.payed_at = date
     self.save
+    if self.parent
+      self.parent.payment_processed self
+    end 
   end
-
-
 
   #### REDSYS CC PAYMENTS ####
 
   def redsys_secret(key)
     Rails.application.secrets.redsys[key]
-  end
-
-  def redsys_identifier
-    if not self.first or self.redsys_response
-      self.payment_identifier
-    else
-      redsys_secret "identifier"
-    end
   end
 
   def redsys_expiration
@@ -142,22 +149,24 @@ class Order < ActiveRecord::Base
     redsys_secret "post_url"
   end
 
-  def redsys_merchant_message
-    if self.redsys_response
-      "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}#{self.redsys_secret "secret_key"}"
-    elsif self.first
-      "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}#{self.redsys_secret "identifier"}#{self.redsys_secret "secret_key"}"
-    else
-      "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}#{self.redsys_identifier}true#{self.redsys_secret "secret_key"}"   
-    end
-  end
-
   def redsys_merchant_url
     orders_callback_redsys_url(protocol: if Rails.env.development? then :http else :https end, redsys_order_id: self.redsys_order_id, parent_id: self.parent.id,   user_id: self.user.id) 
   end
 
-  def redsys_merchant_signature
-    Digest::SHA1.hexdigest(self.redsys_merchant_message).upcase
+  def redsys_merchant_request_signature
+    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}"
+    msg = if self.first
+            "#{msg}#{self.redsys_secret "identifier"}#{self.redsys_secret "secret_key"}"
+          else
+            "#{msg}#{self.payment_identifier}true#{self.redsys_secret "secret_key"}"   
+          end
+
+    Digest::SHA1.hexdigest(msg).upcase
+  end
+
+  def redsys_merchant_response_signature
+    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}#{self.redsys_secret "secret_key"}"
+    Digest::SHA1.hexdigest(msg).upcase
   end
   
   def redsys_logger
@@ -176,33 +185,45 @@ class Order < ActiveRecord::Base
     redsys_logger.info("Params: #{params}")
     self.payment_response = params.to_json
 
-    payment_date = Time.strptime params["Ds_Date"] + " " + params["Ds_Hour"], "%d/%m/%Y %H:%M"
-    if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) and params["Ds_Response"].to_i < 100 and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_signature
-      redsys_logger.info("Status: OK")
-      self.status = 2
+    if params["Ds_Response"].to_i < 100
       self.payed_at = Time.now
-      self.payment_identifier = params["Ds_Merchant_Identifier"] if self.first
+      begin
+        payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Ds_Date"]} #{params["Ds_Hour"]}"
+        if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
+          redsys_logger.info("Status: OK")
+          self.status = 2
+        else
+          redsys_logger.info("Status: OK, but with warnings")
+          self.status = 3
+        end
+        self.payment_identifier = params["Ds_Merchant_Identifier"]
+      rescue
+        redsys_logger.info("Status: OK, but with errors on response processing.")
+        redsys_logger.info("Error: #{$!.message}")
+        redsys_logger.info("Backtrace: #{$!.backtrace}")
+        self.status = 3
+      end
     else
       redsys_logger.info("Status: KO - ERROR")
-      self.status = 3
+      self.status = 4
     end
+    self.save
 
-    transaction do
-      self.save
-      if self.parent
-        self.parent.payment_processed self
-      end
-    end
+    if self.parent
+      self.parent.payment_processed self
+    end    
   end
 
   def redsys_params
     extra = if self.first 
             {
+              "Ds_Merchant_Identifier"        => self.redsys_secret("identifier"),
               "Ds_Merchant_UrlOK"             => self.parent.ok_url,
               "Ds_Merchant_UrlKO"             => self.parent.ko_url
             }
             else
             {
+              "Ds_Merchant_Identifier"        => self.payment_identifier,
               'Ds_Merchant_DirectPayment'     => 'true'
             }
             end
@@ -213,13 +234,12 @@ class Order < ActiveRecord::Base
       "Ds_Merchant_MerchantName"      => self.redsys_secret("name"),
       "Ds_Merchant_Terminal"          => self.redsys_secret("terminal"),
       "Ds_Merchant_TransactionType"   => self.redsys_secret("transaction_type"),
-      "Ds_Merchant_MerchantData"      => self.redsys_secret("data"),
       "Ds_Merchant_PayMethods"        => self.redsys_secret("payment_methods"),
+      "Ds_Merchant_MerchantData"      => self.user_id,
       "Ds_Merchant_MerchantURL"       => self.redsys_merchant_url,
-      "Ds_Merchant_Identifier"        => self.redsys_identifier,
       "Ds_Merchant_Order"             => self.redsys_order_id,
       "Ds_Merchant_Amount"            => self.amount,
-      "Ds_Merchant_MerchantSignature" => self.redsys_merchant_signature
+      "Ds_Merchant_MerchantSignature" => self.redsys_merchant_request_signature
     }.merge extra
 
   end
