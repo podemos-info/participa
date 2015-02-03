@@ -19,4 +19,5 @@
 //= require registrations_submenu
 //= require ccc
 //= require misc
+//= require Chart
 //= require_tree .

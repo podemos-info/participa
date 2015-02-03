@@ -44,6 +44,9 @@ Rails.application.routes.draw do
     get '/comparte-el-cambio/comparte-coche', to: 'page#share_car', as: 'share_car'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
     get '/comparte-el-cambio/encuentra-viaje', to: 'page#find_car', as: 'find_car'
+
+    get '/microcreditos', to: 'page#credits', as: 'credits'
+    get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
     
     get '/listas-autonomicas', to: 'page#list_register', as: 'list_register'
     get '/avales-candidaturas-barcelona', to: 'page#avales_barcelona', as: 'avales_barcelona'

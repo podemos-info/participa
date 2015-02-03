@@ -58,4 +58,23 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Listas Primarias Andalucía", form_id: 23 }
   end
   
+  def credits_status
+    Rails.cache.fetch("credits_status", expires_in: 10.minutes) do
+      credits = []
+      CSV.foreach( "#{Rails.root}/db/podemos/credits.tsv", { :col_sep => "\t"} ) do |c|
+        credits << c.map {|i| i.to_i }
+      end
+      credits
+    end
+  end
+
+  def credits
+    @credits = self.credits_status
+    @totals = [@credits.map {|c| c[0]*c[1]} .inject(:+) ]
+    @totals << @credits.map {|c| c[0]*c[2]} .inject(:+) 
+  end
+
+  def credits_add
+    render :form_iframe, locals: { title: "Microcréditos", form_id: 25 }
+  end
 end
