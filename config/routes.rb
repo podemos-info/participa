@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     get '/listas-autonomicas', to: 'page#list_register', as: 'list_register'
     get '/avales-candidaturas-barcelona', to: 'page#avales_barcelona', as: 'avales_barcelona'
     get '/primarias-andalucia', to: 'page#primarias_andalucia', as: 'primarias_andalucia'
+    get '/listas-primarias-andaluzas', to: 'page#listas_primarias_andaluzas', as: 'listas_primarias_andaluzas'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote

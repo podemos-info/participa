@@ -1,7 +1,7 @@
 class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
-                                              :guarantees_ethic, :circles_validation, :primarias_andalucia]
+                                              :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas]
 
   def privacy_policy
   end
@@ -53,4 +53,9 @@ class PageController < ApplicationController
   def primarias_andalucia
     render :form_iframe, locals: { title: "Primarias Andalucía", form_id: 21 }
   end
+
+  def listas_primarias_andaluzas
+    render :form_iframe, locals: { title: "Listas Primarias Andalucía", form_id: 23 }
+  end
+  
 end
