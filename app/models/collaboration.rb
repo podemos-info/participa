@@ -124,17 +124,6 @@ class Collaboration < ActiveRecord::Base
     payments
   end
 
-  def frequency_payments
-    case self.frequency
-    when 1 
-      12
-    when 3
-      4
-    when 12
-      1
-    end
-  end
-
   def is_recurrent?
     true
   end
@@ -173,7 +162,7 @@ class Collaboration < ActiveRecord::Base
 
   def payment_processed order
     if order.is_paid?
-      if order.has_warnings
+      if order.has_warnings?
         self.status = 4
       else
         self.status = 3
