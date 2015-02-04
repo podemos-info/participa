@@ -6,7 +6,7 @@
 	  <% if defined? return_path %>
 		<%= content_tag :p, link_to("Volver", return_path) %>
 	  <% end %>
-      <%= render partial: "form_iframe", locals: { domain: "forms.podemos.info", script: "//forms.podemos.info/wp-content/plugins/gravity-forms-iframe/assets/scripts/gfembed.min.js", form_id: form_id, height: 500 } %>
+      <%= render partial: "form_iframe", locals: { domain: "forms.podemos.info", script: "//forms.podemos.info/wp-content/plugins/gravity-forms-iframe/assets/scripts/gfembed.min.js", form_id: form_id, height: 500, extra_qs: extra_qs } %>
     </div>
   </div>
 </div>

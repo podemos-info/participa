@@ -26,7 +26,7 @@ class PageController < ApplicationController
   end
 
   def list_register
-    render :form_iframe, locals: { title: "Listas autonómicas", form_id: 20 }
+    render :form_iframe, locals: { title: "Listas autonómicas", form_id: 20, extra_qs:"" }
   end
   
   def offer_hospitality
@@ -43,20 +43,20 @@ class PageController < ApplicationController
   end
 
   def town_legal
-    render :form_iframe, locals: { title: "Responsables municipales de finanzas y legal", form_id: 14 }
+    render :form_iframe, locals: { title: "Responsables municipales de finanzas y legal", form_id: 14, extra_qs:"" }
   end
 
 
   def avales_barcelona
-    render :form_iframe, locals: { title: "Avales Barcelona", form_id: 22 }
+    render :form_iframe, locals: { title: "Avales Barcelona", form_id: 22, extra_qs:"" }
   end
 
   def primarias_andalucia
-    render :form_iframe, locals: { title: "Primarias Andalucía", form_id: 21 }
+    render :form_iframe, locals: { title: "Primarias Andalucía", form_id: 21, extra_qs:"" }
   end
 
   def listas_primarias_andaluzas
-    render :form_iframe, locals: { title: "Listas Primarias Andalucía", form_id: 23 }
+    render :form_iframe, locals: { title: "Listas Primarias Andalucía", form_id: 23, extra_qs:"" }
   end
   
   def credits_status
@@ -76,6 +76,7 @@ class PageController < ApplicationController
   end
 
   def credits_add
-    render :form_iframe, locals: { title: "Microcréditos", form_id: 25 }
+    credits_param=self.credits_status.map {|c| [c[1], c[1]-c[2]]} .flatten.join ","
+    render :form_iframe, locals: { title: "Microcréditos", form_id: 25, extra_qs: "&credits=#{credits_param}" }
   end
 end
