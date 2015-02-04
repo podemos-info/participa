@@ -6,14 +6,16 @@
 <section class="js-col-total-graph">
   <h3>Total</h3>
   <canvas width="400" height="400"></canvas>
+
+  <div alt="Suscrito" class="hide js-col-current"><%= @totals[1] %></div>
 <% @credits.each do |c| %>
-  <div alt="<%=c[1]-c[2]%> x <%=c[0]%> €" class="hide js-col-total"><%= c[0]*(c[1]-c[2]) %></div>
+  <div alt="<%=c[1]-c[2]%> x <%=c[0]%>€" class="hide js-col-total"><%= c[0]*(c[1]-c[2]) %></div>
 <% end %>
 </section>
 
 <% @credits.each do |c| %>
 <section class="js-col-graph">
-  <h3><%=c[0]%> €</h3>
+  <h3><%=c[0]%>€</h3>
   <canvas width="150" height="150"></canvas>
   <div class="hide js-col-pending"><%= c[1]-c[2] %></div>
   <div class="hide js-col-current"><%= c[2] %></div>
