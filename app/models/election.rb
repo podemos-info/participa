@@ -45,13 +45,12 @@ class Election < ActiveRecord::Base
   end
 
   def scoped_agora_election_id user
+    location = self.election_locations.find_by_location user.vote_town_numeric unless self.scope==0
     case self.scope
       when 0 then self.agora_election_id
-      when 1 then (self.agora_election_id.to_s + user.vote_autonomy_numeric).to_i
-      when 2 then (self.agora_election_id.to_s + user.vote_province_numeric).to_i
-      when 3
-        location = self.election_locations.find_by_location user.vote_town_numeric
-        (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
+      when 1 then (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
+      when 2 then (self.agora_election_id.to_s + user.vote_province_numeric.to_s + location.agora_version.to_s).to_i
+      when 3 then (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
     end
   end
 
