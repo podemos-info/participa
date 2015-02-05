@@ -28,7 +28,7 @@ class Election < ActiveRecord::Base
   def full_title_for user
     case self.scope
       when 0 then location = nil
-      when 1 then location = user.vote_ca_name
+      when 1 then location = user.vote_autonomy_name
       when 2 then location = user.vote_province_name
       when 3 then location = user.vote_town_name
     end
@@ -45,12 +45,17 @@ class Election < ActiveRecord::Base
   end
 
   def scoped_agora_election_id user
-    location = self.election_locations.find_by_location user.vote_town_numeric unless self.scope==0
     case self.scope
       when 0 then self.agora_election_id
-      when 1 then (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
-      when 2 then (self.agora_election_id.to_s + user.vote_province_numeric.to_s + location.agora_version.to_s).to_i
-      when 3 then (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
+      when 1 
+        location = self.election_locations.find_by_location user.vote_autonomy_numeric
+        (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
+      when 2
+        location = self.election_locations.find_by_location user.vote_province_numeric
+        then (self.agora_election_id.to_s + user.vote_province_numeric.to_s + location.agora_version.to_s).to_i
+      when 3
+        location = self.election_locations.find_by_location user.vote_town_numeric
+        (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
     end
   end
 

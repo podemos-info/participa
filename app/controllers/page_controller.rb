@@ -30,13 +30,13 @@ class PageController < ApplicationController
   end
   
   def offer_hospitality
-    render :form_iframe, locals: { title: "Comparte tu casa", form_id: 6, return_path: root_path }
+    render :form_iframe, locals: { title: "Comparte tu casa", form_id: 6, extra_qs:"", return_path: root_path }
   end
   def find_hospitality
     render :formview_iframe, locals: { title: "Encuentra alojamiento", url: "https://forms.podemos.info/encuentra-alojamiento/"}
   end
   def share_car
-    render :form_iframe, locals: { title: "Comparte tu coche", form_id: 13, return_path: root_path }
+    render :form_iframe, locals: { title: "Comparte tu coche", form_id: 13, extra_qs:"", return_path: root_path }
   end
   def find_car
     render :formview_iframe, locals: { title: "Encuentra coche", url: "https://forms.podemos.info/encuentra-viaje/"}
