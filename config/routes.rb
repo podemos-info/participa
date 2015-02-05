@@ -39,15 +39,6 @@ Rails.application.routes.draw do
 
     get '/responsables-finanzas-legal', to: 'page#town_legal', as: 'town_legal'
 
-    get '/comparte-el-cambio', to: redirect('/')
-    get '/comparte-el-cambio/comparte-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
-    get '/comparte-el-cambio/comparte-coche', to: 'page#share_car', as: 'share_car'
-    get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
-    get '/comparte-el-cambio/encuentra-viaje', to: 'page#find_car', as: 'find_car'
-
-    get '/microcreditos', to: 'page#credits', as: 'credits'
-    get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
-    
     get '/listas-autonomicas', to: 'page#list_register', as: 'list_register'
     get '/avales-candidaturas-barcelona', to: 'page#avales_barcelona', as: 'avales_barcelona'
     get '/primarias-andalucia', to: 'page#primarias_andalucia', as: 'primarias_andalucia'
@@ -72,20 +63,29 @@ Rails.application.routes.draw do
       passwords:     'passwords', 
       confirmations: 'confirmations'
     } 
+
+    if not Rails.env.production?
+      get '/microcreditos', to: 'page#credits', as: 'credits'
+      get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
+    end
+    
     # http://stackoverflow.com/a/8884605/319241 
     devise_scope :user do
       get '/registrations/regions/provinces', to: 'registrations#regions_provinces'
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
       get '/registrations/vote/municipies', to: 'registrations#vote_municipies'
       authenticated :user do
-        scope :collaborations do
-          delete 'destroy', to: 'collaborations#destroy', as: 'destroy_collaboration'
-          get 'edit', to: 'collaborations#edit', as: 'edit_collaboration'
-          get 'new', to: 'collaborations#new', as: 'new_collaboration'
-          get 'confirm', to: 'collaborations#confirm', as: 'confirm_collaboration'
-          post 'create', to: 'collaborations#create', as: 'create_collaboration'
-          get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
-          get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
+
+        if not Rails.env.production?
+          scope :collaborations do
+            delete 'destroy', to: 'collaborations#destroy', as: 'destroy_collaboration'
+            get 'edit', to: 'collaborations#edit', as: 'edit_collaboration'
+            get 'new', to: 'collaborations#new', as: 'new_collaboration'
+            get 'confirm', to: 'collaborations#confirm', as: 'confirm_collaboration'
+            post 'create', to: 'collaborations#create', as: 'create_collaboration'
+            get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
+            get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
+          end
         end
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
