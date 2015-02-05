@@ -13,7 +13,7 @@ class Election < ActiveRecord::Base
   end
 
   def is_upcoming?
-    self.starts_at > DateTime.now and self.starts_at < 6.hours.from_now
+    self.starts_at > DateTime.now and self.starts_at < 12.hours.from_now
   end
 
   def recently_finished?
