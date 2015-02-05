@@ -5,9 +5,21 @@ FOREIGN = "Extranjeros"
 
 namespace :podemos do
 
+    
   desc "[podemos] Dump counters for users attributes"
-  task :daily_census => :environment do
-    total = User.confirmed.count
+  task :daily_census, [:year,:month,:day] => :environment do |t, args|
+    args.with_defaults(:year => nil, :month=>nil, :day=>nil)
+
+    if args.year.nil?
+        users = User.confirmed
+        date = Date.today        
+    else
+        users = User.with_deleted
+        date = Date.civil args.year.to_i, args.month.to_i, args.day.to_i
+    end
+    
+    total = users.count
+
     progress = RakeProgressbar.new(total + 14)
 
     spain = Carmen::Country.coded("ES").subregions
@@ -43,7 +55,13 @@ namespace :podemos do
 
     progress.inc
 
-    User.confirmed.find_each do |u|
+    users.find_each do |u|
+
+      if args.year
+        u = u.version_at(date)
+        next if u.nil?
+      end
+     
       countries[if countries.include? u.country_name then u.country_name else UNKNOWN end] += 1 
 
       if u.country=="ES"
@@ -60,18 +78,19 @@ namespace :podemos do
       progress.inc
     end
 
-    date = Date.today.strftime
-    export_raw_data "countries.#{date}", countries.sort, [ "País", date ], "tmp/census" do |d| [ d[0], d[1] ] end
+ 
+    suffix = date.strftime
+    export_raw_data "countries.#{suffix}", countries.sort, [ "País", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "autonomies.#{date}", autonomies.sort, [ "Comunidad autonoma", date ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "autonomies.#{suffix}", autonomies.sort, [ "Comunidad autonoma", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "provinces.#{date}", provinces.sort, [ "Provincia", date ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "provinces.#{suffix}", provinces.sort, [ "Provincia", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "islands.#{date}", islands.sort, [ "Isla", date ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "islands.#{suffix}", islands.sort, [ "Isla", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "towns.#{date}", towns.sort, [ "Municipio", date ], "tmp/census" do |d| [ d[0], towns_names[d[0]], d[1] ] end
+    export_raw_data "towns.#{suffix}", towns.sort, [ "Municipio", suffix ], "tmp/census" do |d| [ d[0], towns_names[d[0]], d[1] ] end
     progress.inc
-    export_raw_data "postal_codes.#{date}", postal_codes.sort, [ "Código postal", date ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, [ "Código postal", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
     progress.finished
   end
 end
