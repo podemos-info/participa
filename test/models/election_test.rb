@@ -80,14 +80,16 @@ class ElectionTest < ActiveSupport::TestCase
     election.update_attributes(scope: 0)
     user = FactoryGirl.create(:user)
     ## NotImplemented
-    #assert_equal(election.scoped_agora_election_id(user), 1)
-    #election.update_attributes(scope: 1)
     assert_equal(election.scoped_agora_election_id(user), 1)
+    election.update_attributes(scope: 1)
+    ElectionLocation.create(election_id: election.id, location: 11, agora_version: 1)
+    assert_equal(1111, election.scoped_agora_election_id(user), 1)
     election.update_attributes(scope: 2)
-    assert_equal(election.scoped_agora_election_id(user), 128)
+    ElectionLocation.create(election_id: election.id, location: 28, agora_version: 2)
+    assert_equal(1282, election.scoped_agora_election_id(user))
     election.update_attributes(scope: 3)
-    ElectionLocation.create(election_id: election.id, location: 280796, agora_version: 0)
-    assert_equal(10280796, election.scoped_agora_election_id(user))
+    ElectionLocation.create(election_id: election.id, location: 280796, agora_version: 3)
+    assert_equal(12807963, election.scoped_agora_election_id(user))
   end
 
   test "should full_title_for work" do 

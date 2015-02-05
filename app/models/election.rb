@@ -52,7 +52,7 @@ class Election < ActiveRecord::Base
         (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
       when 2
         location = self.election_locations.find_by_location user.vote_province_numeric
-        then (self.agora_election_id.to_s + user.vote_province_numeric.to_s + location.agora_version.to_s).to_i
+        (self.agora_election_id.to_s + user.vote_province_numeric.to_s + location.agora_version.to_s).to_i
       when 3
         location = self.election_locations.find_by_location user.vote_town_numeric
         (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
