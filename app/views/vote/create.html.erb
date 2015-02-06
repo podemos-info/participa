@@ -18,4 +18,6 @@
 <a class="agoravoting-voting-booth" href="https://vota.podemos.info/#/election/<%= @scoped_agora_election_id %>/vote" data-authorization-funcname="getCastHmac">Votar con Agora Voting</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://vota.podemos.info/avWidgets.min.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","agoravoting-widgets-js");</script>
 </div>
-<a class="view_candidates" href="http://primariasandalucia.podemos.info/candidaturas/" target="_blank">Ir a web de candidaturas</a>
+<% if @election.info_url %>
+<a class="view_candidates" href="<%= @election.info_url %>" target="_blank">Ir a web de candidaturas</a>
+<% end %>
