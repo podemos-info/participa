@@ -63,7 +63,7 @@ function show_towns(parent, field, country_code, province_code, prefix){
 
 function toggle_vote_town(country) {
   $("#vote_town_section").toggle(country != "ES");
-}
+};
 
 var can_change_vote_location;
 $(function() {
