@@ -1,3 +1,4 @@
+require 'securerandom'
 class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
@@ -77,6 +78,6 @@ class PageController < ApplicationController
 
   def credits_add
     credits_param=self.credits_status.map {|c| [c[1], c[1]-c[2]]} .flatten.join ","
-    render :form_iframe, locals: { title: "Microcréditos", form_id: 25, extra_qs: "&credits=#{credits_param}" }
+    render :form_iframe, locals: { title: "Microcréditos PODEMOS", form_id: 25, extra_qs: "&hash=#{SecureRandom.urlsafe_base64(16)}&credits=#{credits_param}" }
   end
 end

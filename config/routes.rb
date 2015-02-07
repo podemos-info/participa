@@ -64,10 +64,8 @@ Rails.application.routes.draw do
       confirmations: 'confirmations'
     } 
 
-    if not Rails.env.production?
-      get '/microcreditos', to: 'page#credits', as: 'credits'
-      get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
-    end
+    get '/microcreditos', to: 'page#credits', as: 'credits'
+    get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
     
     # http://stackoverflow.com/a/8884605/319241 
     devise_scope :user do
