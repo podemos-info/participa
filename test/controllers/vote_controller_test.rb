@@ -25,7 +25,7 @@ class VoteControllerTest < ActionController::TestCase
     @election.update_attributes(starts_at: DateTime.now-30.days, ends_at: DateTime.now-7.days)
     sign_in @user
     get :create, election_id: @election.id
-    assert_not @election.is_actived?
+    assert_not @election.is_active?
     assert_response :redirect
     assert_redirected_to root_url
     assert_equal(I18n.t('podemos.election.close_message'), flash[:error])

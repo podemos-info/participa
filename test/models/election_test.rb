@@ -23,18 +23,18 @@ class ElectionTest < ActiveSupport::TestCase
     assert_equal(Election.actived.count, 1)
   end
 
-  test "should .is_actived? work" do 
+  test "should .is_active? work" do 
     # votacion ya cerrada
     e1 = FactoryGirl.create(:election, starts_at: DateTime.now-30.days, ends_at: DateTime.now-7.days)
-    assert_not e1.is_actived?
+    assert_not e1.is_active?
 
     # votacion activa
     e2 = FactoryGirl.create(:election, starts_at: DateTime.now-30.days, ends_at: DateTime.now+7.days)
-    assert e2.is_actived?
+    assert e2.is_active?
 
     # votacion del futuro, todavia no esta activada
     e3 = FactoryGirl.create(:election, starts_at: DateTime.now+30.days, ends_at: DateTime.now+90.days)
-    assert_not e3.is_actived?
+    assert_not e3.is_active?
   end
 
   test "should recently_finished? work" do 

@@ -1,6 +1,6 @@
 class Election < ActiveRecord::Base
 
-  SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3]]
+  SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
   
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
@@ -8,7 +8,7 @@ class Election < ActiveRecord::Base
 
   scope :actived, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
 
-  def is_actived?
+  def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
   end
 
@@ -31,23 +31,28 @@ class Election < ActiveRecord::Base
       when 1 then location = user.vote_autonomy_name
       when 2 then location = user.vote_province_name
       when 3 then location = user.vote_town_name
+      when 4 then location = user.vote_island_name
+      when 5 then location = "el extranjero"
     end
     location.nil? ? self.title : self.title + " en #{location}" 
   end
 
   def has_valid_location_for? user
+    p user.vote_island_numeric
     case self.scope
       when 0 then true
-      when 1 then self.election_locations.exists?(location: user.vote_autonomy_numeric)
-      when 2 then self.election_locations.exists?(location: user.vote_province_numeric)
-      when 3 then self.election_locations.exists?(location: user.vote_town_numeric)
+      when 1 then user.has_vote_town? and self.election_locations.exists?(location: user.vote_autonomy_numeric)
+      when 2 then user.has_vote_town? and self.election_locations.exists?(location: user.vote_province_numeric)
+      when 3 then user.has_vote_town? and self.election_locations.exists?(location: user.vote_town_numeric)
+      when 4 then user.has_vote_town? and self.election_locations.exists?(location: user.vote_island_numeric)
+      when 5 then user.country!="ES"
     end
   end
 
   def scoped_agora_election_id user
     case self.scope
       when 0 then self.agora_election_id
-      when 1 
+      when 1
         location = self.election_locations.find_by_location user.vote_autonomy_numeric
         (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
       when 2
@@ -56,6 +61,11 @@ class Election < ActiveRecord::Base
       when 3
         location = self.election_locations.find_by_location user.vote_town_numeric
         (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
+      when 4
+        location = self.election_locations.find_by_location user.vote_island_numeric
+        (self.agora_election_id.to_s + user.vote_island_numeric.to_s + location.agora_version.to_s).to_i
+      when 5
+        self.agora_election_id
     end
   end
 
@@ -75,5 +85,4 @@ class Election < ActiveRecord::Base
       end
     end
   end
-
 end

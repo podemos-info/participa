@@ -393,10 +393,6 @@ class User < ActiveRecord::Base
     self.has_vote_town? and self.vote_town[0]=="m"
   end
 
-  def has_vote_town_for_election? election
-    self.has_vote_town? and (!self.vote_town_name.empty? or election.scope < 3)
-  end
-
   def vote_autonomy_code
     if _vote_province
       Podemos::GeoExtra::AUTONOMIES[self.vote_province_code][0]
@@ -456,6 +452,15 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def vote_island_code
+    if self.vote_in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.vote_town][0]
+    else
+      ""
+    end
+  end
+
   def vote_island_name
     if self.vote_in_spanish_island?
       Podemos::GeoExtra::ISLANDS[self.vote_town][1]
@@ -464,13 +469,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  def vote_town_numeric
-    if  _vote_town
-      _vote_town.code.split("_")[1,3].join
+  def vote_autonomy_numeric
+    if _vote_province
+      self.vote_autonomy_code[2..-1]
     else
-      ""
+      "-"
     end
   end
+  
   def vote_province_numeric
     if _vote_province
       "%02d" % + _vote_province.index
@@ -478,14 +484,22 @@ class User < ActiveRecord::Base
       ""
     end
   end
-  def vote_autonomy_numeric
-    if _vote_province
-      self.vote_autonomy_code[2,2]
+  
+  def vote_town_numeric
+    if _vote_town
+      _vote_town.code.split("_")[1,3].join
     else
-      "-"
+      ""
     end
   end
 
+  def vote_island_numeric
+    if self.vote_in_spanish_island?
+      self.vote_island_code[2..-1]
+    else
+      ""
+    end
+  end
 
   def verify_user_location()
     return "country" if not _country

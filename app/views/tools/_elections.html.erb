@@ -2,7 +2,11 @@
 <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
 <div class="box">
   <div class="box-vote">
-    <% Election.actived.each do |election| %>
+    <% if !current_user.has_vote_town? %>
+      <p><strong>Por favor, indica tu lugar de participación en tu perfil.</strong></p>
+    <% end %>
+      <% Election.actived.each do |election| %>
+
       <% if election.has_valid_location_for? current_user %>
         <%= render partial: "election", locals: { election: election } %>
       <% else %>

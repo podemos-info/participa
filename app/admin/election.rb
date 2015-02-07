@@ -33,7 +33,7 @@ ActiveAdmin.register Election do
       if election.scope != 0 
         row "Lugares donde se vota" do
           election.election_locations.each do |loc|
-            li loc.location
+            li "#{loc.location},#{loc.agora_version}"
           end
         end
       end
