@@ -54,4 +54,20 @@ ActiveAdmin.register Election do
     end
     f.actions
   end
+  
+  action_item :only => :show do
+    link_to('Descargar voter ids', download_voter_ids_admin_election_path(election))
+  end
+
+  member_action :download_voter_ids do
+    election_id = params[:id]
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      Vote.joins(:user).merge(User.confirmed).where(election_id: election_id).each do |vote| 
+        csv << [ vote.voter_id ]
+      end
+    end
+    send_data csv.encode('utf-8'),
+      type: 'text/tsv; charset=utf-8; header=present',
+      disposition: "attachment; filename=voter_ids.#{election_id}.tsv"
+  end
 end
