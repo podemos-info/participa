@@ -26,19 +26,21 @@ class Election < ActiveRecord::Base
   end
 
   def full_title_for user
-    case self.scope
-      when 0 then location = nil
-      when 1 then location = user.vote_autonomy_name
-      when 2 then location = user.vote_province_name
-      when 3 then location = user.vote_town_name
-      when 4 then location = user.vote_island_name
-      when 5 then location = "el extranjero"
+    if multiple_territories?
+      suffix = case self.scope
+        when 1 then " en #{user.vote_autonomy_name}"
+        when 2 then " en #{user.vote_province_name}"
+        when 3 then " en #{user.vote_town_name}"
+        when 4 then " en #{user.vote_island_name}"      
+      end
+      if not has_valid_location_for? user
+        suffix = " (no hay votación #{suffix})"
+      end      
     end
-    location.nil? ? self.title : self.title + " en #{location}" 
+    "#{self.title}#{suffix}"
   end
 
   def has_valid_location_for? user
-    p user.vote_island_numeric
     case self.scope
       when 0 then true
       when 1 then user.has_vote_town? and self.election_locations.exists?(location: user.vote_autonomy_numeric)
@@ -47,6 +49,10 @@ class Election < ActiveRecord::Base
       when 4 then user.has_vote_town? and self.election_locations.exists?(location: user.vote_island_numeric)
       when 5 then user.country!="ES"
     end
+  end
+
+  def multiple_territories?
+    [1,2,3,4].member? self.scope
   end
 
   def scoped_agora_election_id user
