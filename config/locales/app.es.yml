@@ -161,7 +161,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         hello: "Hola"
         welcome: "Bienvenida"
         lock: 
-          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de inscripciones@podemos.info."
+          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de soportevotaciones@podemos.info."
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
           p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
         confirm:

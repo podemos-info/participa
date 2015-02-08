@@ -7,7 +7,7 @@ es:
       confirmed: "Tu dirección de correo electrónico ya ha sido confirmada."
       confirmed_and_signed_in: "Tu dirección de correo electrónico ya ha sido confirmada. Has sido identificado."
       send_instructions: "Recibirás un correo electrónico en unos minutos con instrucciones sobre cómo restablecer tu contraseña."
-      send_paranoid_instructions: "Hemos enviado a %{email} los pasos para recuperar tu contraseña. Si no recibes nuestro correo en unos minutos, es posible que usaras una cuenta de email diferente cuando te inscribiste en Podemos: prueba con otras cuentas que tengas, y si no lo consigues con ninguna, envía un correo a inscripciones@podemos.info para recibir ayuda."
+      send_paranoid_instructions: "Hemos enviado a %{email} los pasos para recuperar tu contraseña. Si no recibes nuestro correo en unos minutos, es posible que usaras una cuenta de email diferente cuando te inscribiste en Podemos: prueba con otras cuentas que tengas, y si no lo consigues con ninguna, envía un correo a soportevotaciones@podemos.info para recibir ayuda."
     failure:
       already_authenticated: "Ya estás identificado."
       inactive: "Tu cuenta aún no ha sido activada."
@@ -33,7 +33,7 @@ es:
     passwords:
       no_token: "No puedes acceder a esta página sino es por medio de un enlace para restablecer contraseña. Si accediste desde el enlace para restablecer la contraseña, asegúrate de que la URL está completa."
       send_instructions: "Recibirás un correo electrónico con instrucciones sobre cómo restablecer tu contraseña en unos minutos."
-      send_paranoid_instructions: "Hemos enviado a %{email} los pasos para recuperar tu contraseña. Si no recibes nuestro correo en unos minutos, es posible que usaras una cuenta de email diferente cuando te inscribiste en Podemos: prueba con otras cuentas que tengas, y si no lo consigues con ninguna, envía un correo a inscripciones@podemos.info para recibir ayuda."
+      send_paranoid_instructions: "Hemos enviado a %{email} los pasos para recuperar tu contraseña. Si no recibes nuestro correo en unos minutos, es posible que usaras una cuenta de email diferente cuando te inscribiste en Podemos: prueba con otras cuentas que tengas, y si no lo consigues con ninguna, envía un correo a soportevotaciones@podemos.info para recibir ayuda."
       updated: "Tu contraseña se cambió correctamente. Has sido identificado."
       updated_not_active: "Tu contraseña se cambió correctamente."
     registrations:
@@ -49,7 +49,7 @@ es:
       signed_out: ""
     unlocks:
       send_instructions: "Recibirás un correo electrónico en unos minutos con instrucciones sobre cómo desbloquear tu cuenta."
-      send_paranoid_instructions: "Hemos enviado al correo que has indicado los pasos para desbloquear tu cuenta. Si no recibes nuestro correo en unos minutos, es posible que usaras una cuenta de email diferente cuando te inscribiste en Podemos: prueba con otras cuentas que tengas, y si no lo consigues con ninguna, envía un correo a inscripciones@podemos.info para recibir ayuda."
+      send_paranoid_instructions: "Hemos enviado al correo que has indicado los pasos para desbloquear tu cuenta. Si no recibes nuestro correo en unos minutos, es posible que usaras una cuenta de email diferente cuando te inscribiste en Podemos: prueba con otras cuentas que tengas, y si no lo consigues con ninguna, envía un correo a soportevotaciones@podemos.info para recibir ayuda."
       unlocked: "Tu cuenta ha sido desbloqueada. Por favor inicia sesión para continuar."
     labels:
       new_password: "Contraseña nueva"
