@@ -61,7 +61,9 @@ class Election < ActiveRecord::Base
 
   def scoped_agora_election_id user
     case self.scope
-      when 0 then self.agora_election_id
+      when 0 
+        location = self.election_locations.find_by_location "00"
+        (self.agora_election_id.to_s + "00" + location.agora_version.to_s).to_i
       when 1
         location = self.election_locations.find_by_location user.vote_autonomy_numeric
         (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
@@ -75,7 +77,8 @@ class Election < ActiveRecord::Base
         location = self.election_locations.find_by_location user.vote_island_numeric
         (self.agora_election_id.to_s + user.vote_island_numeric.to_s + location.agora_version.to_s).to_i
       when 5
-        self.agora_election_id
+        location = self.election_locations.find_by_location "00"
+        (self.agora_election_id.to_s + "00" + location.agora_version.to_s).to_i
     end
   end
 
