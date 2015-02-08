@@ -1,5 +1,11 @@
 class PasswordsController < Devise::PasswordsController
 
+  def set_flash_message(key, kind, options = {})
+    options.merge! resource_params.deep_symbolize_keys
+    message = find_message(kind, options)
+    flash[key] = message if message.present?
+  end
+
   # Extend devise PasswordController for a legacy user 
   # if he has a legacy password, then when updating through
   # the "Forgot your password?" should set has_legacy_password = false,

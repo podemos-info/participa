@@ -39,6 +39,12 @@ class RegistrationsController < Devise::RegistrationsController
     flash[:notice] = t("devise.confirmations.send_instructions")
   end
 
+  def set_flash_message(key, kind, options = {})
+    options.merge! resource_params.deep_symbolize_keys
+    message = find_message(kind, options)
+    flash[key] = message if message.present?
+  end
+  
   # http://www.jacopretorius.net/2014/03/adding-custom-fields-to-your-devise-user-model-in-rails-4.html
   private
 
