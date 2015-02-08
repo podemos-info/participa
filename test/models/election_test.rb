@@ -14,13 +14,13 @@ class ElectionTest < ActiveSupport::TestCase
     assert e1.valid?
   end
 
-  test "should scope :actived work" do 
+  test "should scope :active work" do 
     e1 = FactoryGirl.create(:election, starts_at: DateTime.civil(1999, 2, 2, 12, 12), ends_at: DateTime.civil(2001, 2, 2, 12, 12))
     assert e1.valid?
-    assert_equal(Election.actived.count, 0)
+    assert_equal(Election.active.count, 0)
     e2 = FactoryGirl.create(:election, starts_at: DateTime.civil, ends_at: DateTime.now + 2.weeks)
     assert e2.valid?
-    assert_equal(Election.actived.count, 1)
+    assert_equal(Election.active.count, 1)
   end
 
   test "should .is_active? work" do 

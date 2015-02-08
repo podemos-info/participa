@@ -5,9 +5,9 @@
     <% if !current_user.has_vote_town? %>
       <p><strong>Por favor, indica tu lugar de participación en tu perfil.</strong></p>
     <% end %>
-    <h3><strong>Hay <% if Election.actived.length==1%>una votación<%else%>votaciones<%end%> en curso. ¡Participa!</strong></h3>
-    <p class="sub-h3"><% if Election.actived.length==1%>La votación utiliza<%else%>Las votaciones utilizan<%end%> el sistema seguro de <a href="https://agoravoting.com" target="_blank"><b>Agora Voting</b></a>.</p>
-    <% Election.actived.each do |election| %>
+    <h3><strong>Hay <% if @elections.length==1%>una votación<%else%>votaciones<%end%> en curso. ¡Participa!</strong></h3>
+    <p class="sub-h3"><% if @elections.length==1%>La votación utiliza<%else%>Las votaciones utilizan<%end%> el sistema seguro de <a href="https://agoravoting.com" target="_blank"><b>Agora Voting</b></a>.</p>
+    <% @elections.each do |election| %>
       <%= render partial: "election", locals: { election: election } %>
     <% end %>
   </div>

@@ -1,7 +1,7 @@
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
-      <% if Election.actived.count > 0 %>
+      <% if @elections.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
         <% if Election.last and Election.last.is_upcoming? %>

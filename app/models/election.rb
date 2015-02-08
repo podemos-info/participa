@@ -6,7 +6,7 @@ class Election < ActiveRecord::Base
   has_many :votes
   has_many :election_locations
 
-  scope :actived, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
+  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
@@ -38,6 +38,10 @@ class Election < ActiveRecord::Base
       end      
     end
     "#{self.title}#{suffix}"
+  end
+
+  def has_location_for? user
+    not ((self.scope==5 and user.country=="ES") or (self.scope==4 and not user.vote_in_spanish_island?))
   end
 
   def has_valid_location_for? user
