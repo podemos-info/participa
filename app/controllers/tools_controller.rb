@@ -8,7 +8,7 @@ class ToolsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def user_elections
-    @elections = Election.active.map { |e| e.has_location_for? current_user } .compact
+    @elections = Election.active.map { |e| e if e.has_location_for? current_user } .compact
   end
 
 end

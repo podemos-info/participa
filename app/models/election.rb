@@ -27,15 +27,15 @@ class Election < ActiveRecord::Base
 
   def full_title_for user
     if multiple_territories?
-      suffix = case self.scope
-        when 1 then " en #{user.vote_autonomy_name}"
-        when 2 then " en #{user.vote_province_name}"
-        when 3 then " en #{user.vote_town_name}"
-        when 4 then " en #{user.vote_island_name}"      
-      end
+      suffix =  case self.scope
+                  when 1 then " en #{user.vote_autonomy_name}"
+                  when 2 then " en #{user.vote_province_name}"
+                  when 3 then " en #{user.vote_town_name}"
+                  when 4 then " en #{user.vote_island_name}"      
+                end
       if not has_valid_location_for? user
         suffix = " (no hay votación #{suffix})"
-      end      
+      end
     end
     "#{self.title}#{suffix}"
   end
