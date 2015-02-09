@@ -3,7 +3,7 @@ class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
                                               :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
-                                              :credits, :credits_add, :credits_info]
+                                              :responsables_organizacion_municipales, :credits, :credits_add, :credits_info]
 
   def privacy_policy
   end
@@ -59,7 +59,11 @@ class PageController < ApplicationController
   def listas_primarias_andaluzas
     render :form_iframe, locals: { title: "Listas Primarias Andalucía", form_id: 23, extra_qs:"" }
   end
-  
+
+  def responsables_organizacion_municipales
+    render :form_iframe, locals: { title: "Responsable del área de Organización / Extensión en los órganos municipales", form_id: 26, extra_qs:"" }
+  end
+
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 10.minutes) do
       credits = []
