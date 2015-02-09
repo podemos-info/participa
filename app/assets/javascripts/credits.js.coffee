@@ -15,7 +15,7 @@ $ ->
   if graph.length>0
     vs = $('.js-col-total', graph)
     parts = ({ value: parseInt($(v).html()), color:colors[Math.round(2*_i/vs.length)], highlight: colors[0], label: $(v).attr("alt") } for v in vs)
-    parts.unshift({ value: parseInt($('.js-col-current').html()), color:'#ffffff', highlight: colors[3], label: $('.js-col-current').attr("alt") })
+    parts.unshift({ value: parseInt($('.js-col-pending').html()), color:'#ffffff', highlight: colors[3], label: $('.js-col-pending').attr("alt") })
 
     draw_pie_chart( $('canvas',graph), parts, "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%></span><%}%></li><%}%></ul>")
 

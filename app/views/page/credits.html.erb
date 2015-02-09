@@ -6,18 +6,20 @@
 <section class="js-col-total-graph">
   <canvas width="320" height="320"></canvas>
 <% @credits.each do |c| %>
-  <div alt="<%=c[1]-c[2]%>x<%=c[0]%>€" class="hide js-col-total"><%= c[0]*(c[1]-c[2]) %>€</div>
+  <div alt="<%=c[2]%>x<%=c[0]%>€" class="hide js-col-total"><%= c[0]*c[2] %>€</div>
 <% end %>
-  <div class="hide js-col-current"><%= @totals[1] %>€</div>
+  <div class="hide js-col-pending"><%= @totals[0]-@totals[1] %>€</div>
 </section>
 
 <section class="js-info">
   <p>Este 22 de marzo te devolvemos Andalucía. Ayúdanos a financiar la campaña electoral suscribiendo un microcrédito Podemos. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada.</p>
+  <p><%= link_to "Ver más informacion", credits_info_path %></p>
   <div class="buttonbox">
-    <%= link_to "Colaborar", credits_add_path, class: 'button buttonr' %>
-  </div>  
-  <p><br/><br/><br/><br/></p>
+    <%= link_to "Colaborar", credits_add_path, class: 'button' %>
+  </div>
+  <p><br/><br/><br/></p>
   <h3>Los números de esta semana</h3>
-  <p>Objetivo: <%=@totals[0]%>€<br/>Recaudado: <%=@totals[1]%>€</p>
+  <p><a style="float:right" href="http://www.fiarebancaetica.coop/quienes-somos"><img src="/assets/fiare.jpg" height="50" /></a>
+  Objetivo: <%=@totals[0]%>€<br/>Recaudado: <%=@totals[1]%>€</p>
 </section>
 </div>

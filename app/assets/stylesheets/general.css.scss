@@ -1553,4 +1553,12 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
       }
     }
   }
+  ol {
+    margin: 1em 0em;
+    padding-left: 2em;
+    li {
+      list-style-type: lower-latin;
+      font-size:1.3em;
+    }
+  }
 }

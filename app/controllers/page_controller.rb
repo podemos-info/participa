@@ -3,7 +3,7 @@ class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
                                               :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
-                                              :credits, :credits_add]
+                                              :credits, :credits_add, :credits_info]
 
   def privacy_policy
   end
@@ -79,5 +79,8 @@ class PageController < ApplicationController
   def credits_add
     credits_param=self.credits_status.map {|c| [c[1], c[1]-c[2]]} .flatten.join ","
     render :form_iframe, locals: { title: "Microcréditos PODEMOS", form_id: 25, extra_qs: "&hash=#{SecureRandom.urlsafe_base64(16)}&credits=#{credits_param}" }
+  end
+
+  def credits_info
   end
 end

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     } 
 
     get '/microcreditos', to: 'page#credits', as: 'credits'
+    get '/microcreditos/informacion', to: 'page#credits_info', as: 'credits_info'
     get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
     
     # http://stackoverflow.com/a/8884605/319241 
