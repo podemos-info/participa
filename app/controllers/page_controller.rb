@@ -82,7 +82,7 @@ class PageController < ApplicationController
 
   def credits_add
     credits_param=self.credits_status.map {|c| [c[1], c[1]-c[2]]} .flatten.join ","
-    render :form_iframe, locals: { title: "Microcréditos PODEMOS", form_id: 25, extra_qs: "&hash=#{SecureRandom.random_number(1000000000)}&credits=#{credits_param}" }
+    render :form_iframe, locals: { title: "Microcréditos Podemos - Elecciones al Parlamento de Andalucía", form_id: 25, extra_qs: "&hash=#{SecureRandom.random_number(10000000000)}&credits=#{credits_param}" }
   end
 
   def credits_info
