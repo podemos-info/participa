@@ -104,16 +104,6 @@ ActiveRecord::Schema.define(version: 20150206112734) do
     t.text     "payment_response"
   end
 
-  create_table "participation_team_users", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "participation_team_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "participation_team_users", ["participation_team_id"], name: "index_participation_team_users_on_participation_team_id"
-  add_index "participation_team_users", ["user_id"], name: "index_participation_team_users_on_user_id"
-
   create_table "participation_teams", force: true do |t|
     t.string   "name"
     t.text     "description"
