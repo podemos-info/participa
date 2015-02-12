@@ -25,7 +25,7 @@
               <%= f.input :amount,
                           required: true,
                           as: :select,
-                          collection: Collaboration::AMOUNTS,
+                          collection: Collaboration::AMOUNTS.to_a,
                           input_html: {required: true, class: 'js-collaboration-amount'} %>
             </div>
 
@@ -36,7 +36,7 @@
               <%= f.input :frequency,
                           required: true,
                           as: :select,
-                          collection: Collaboration::FREQUENCIES,
+                          collection: Collaboration::FREQUENCIES.to_a,
                           input_html: {required: true, class: 'js-collaboration-frequency'} %>
             </div>
 
@@ -47,7 +47,7 @@
               <%= f.input :payment_type,
                           required: true,
                           as: :select,
-                          collection: Order::TYPES,
+                          collection: Order::PAYMENT_TYPES.to_a,
                           input_html: {required: true, class: 'js-collaboration-type'} %>
             </div>
 

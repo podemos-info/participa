@@ -22,11 +22,12 @@ class Collaboration < ActiveRecord::Base
   validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
   validate :validates_iban, if: :is_bank_international?
 
-  AMOUNTS = [["5 €", 500], ["10 €", 1000], ["20 €", 2000], ["30 €", 3000], ["50 €", 5000]]
-  FREQUENCIES = [["Mensual", 1], ["Trimestral", 3], ["Anual", 12]]
-  STATUS = [["Sin pago", 0], ["Error", 1], ["Sin confirmar", 2], ["OK", 3], ["Alerta", 4]]
+  AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000}
+  FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
+  STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
   scope :credit_cards, -> {where(payment_type: 1)}
+  scope :banks, -> {where(payment_type: [2,3])}
   scope :bank_nationals, -> {where(payment_type: 2)}
   scope :bank_internationals, -> {where(payment_type: 3)}
   scope :frequency_month, -> {where(frequency: 1)}
@@ -90,12 +91,16 @@ class Collaboration < ActiveRecord::Base
   end
 
   def payment_type_name
-    Order::TYPES.select{|v| v[1] == self.payment_type }[0][0]
+    Order::PAYMENT_TYPES.invert[self.payment_type]
     # TODO
   end
 
   def frequency_name
-    Collaboration::FREQUENCIES.select{|v| v[1] == self.frequency }[0][0]
+    Collaboration::FREQUENCIES.invert[self.frequency]
+  end
+
+  def status_name
+    Collaboration::STATUS.invert[self.status]
   end
 
   def ccc_full 
@@ -189,9 +194,9 @@ class Collaboration < ActiveRecord::Base
       false
     else 
       if ((date.year*12+date.month) - (collaboration_start.year*12+collaboration_start.month) - (date.day >= collaboration_start.day ? 0 : 1)) % self.frequency == 0
-        order = Order.by_collaboration_month(self, date)
+        order = Order.month(date).parent(self)[0]
         if not order 
-          order = Order.create(collaboration: self, payable_at: date)
+          order = Collaboration.create_order date, false
         end
         order
       else

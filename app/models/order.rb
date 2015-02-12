@@ -10,18 +10,22 @@ class Order < ActiveRecord::Base
 
   validates :payment_type, :amount, :user_id, :payable_at, presence: true
 
-  STATUS = [["pendiente", 1], ["pagado", 2], ["comprobar",3], ["error", 4]]
-  TYPES = [
-    ["Suscripción con Tarjeta de Crédito/Débito", 1], 
-    ["Domiciliación en cuenta bancaria (CCC)", 2], 
-    ["Domiciliación en cuenta extranjera (IBAN)", 3], 
-  ]
+  STATUS = {"pendiente" => 1, "pagado" => 2, "comprobar" => 3, "error" => 4}
+  PAYMENT_TYPES = {
+    "Suscripción con Tarjeta de Crédito/Débito" => 1, 
+    "Domiciliación en cuenta bancaria (CCC)" => 2, 
+    "Domiciliación en cuenta extranjera (IBAN)" => 3 
+  }
 
   PARENT_CLASSES = {
     Collaboration => "C"
   }
 
   REDSYS_SERVER_TIME_ZONE = ActiveSupport::TimeZone.new("Madrid")
+
+  scope :month, -> date { where("payable_at >= ? and payable_at <= ?", date.beginning_of_month, date.end_of_month) }
+  scope :parent, -> parent { where(parent_id: parent.id) }
+  scope :bank, -> { where("payment_type != ?", Order::PAYMENT_TYPES["Suscripción con Tarjeta de Crédito/Débito"]) }
 
   after_initialize do |o|
     o.status = 1 if o.status.nil?
@@ -36,7 +40,7 @@ class Order < ActiveRecord::Base
   end
 
   def status_name
-    Order::STATUS.select{|v| v[1] == self.status }[0][0]
+    Order::STATUS.invert[self.status]
   end
 
   def error_message
@@ -58,15 +62,6 @@ class Order < ActiveRecord::Base
     Rails.application.secrets.orders["creation_day"].to_i
   end
 
-  def self.by_month(date)
-    # Receives a DateTime object, returns Orders for all the month
-    # dt = DateTime.new(2014,12,1) 
-    # Order.payable_by_date_month(dt)
-    date_start = date.beginning_of_month
-    date_end = date.end_of_month
-    where("payable_at >= ? and payable_at <= ?", date_start, date_end)
-  end
-
   def self.by_month_count(date)
     self.by_month(date).count
   end
@@ -75,11 +70,6 @@ class Order < ActiveRecord::Base
     self.by_month(date).sum(:amount) / 100.0
   end
 
-  def self.by_parent_month(parent_id, date=DateTime.now)
-    date_start = date.beginning_of_month
-    date_end = date.end_of_month
-    where(parent_id: parent_id, payable_at: (date_start..date_end)).limit(1)[0]
-  end
 
   def admin_permalink
     admin_order_path(self)
@@ -102,7 +92,7 @@ class Order < ActiveRecord::Base
   def url_source
     # URL FUENTE  "Este campo no se si existira en el nuevo entorno. Si no es asi poner por defecto https://podemos.info/participa/colaboraciones/colabora/
     # TODO url_source
-    "https://podemos.info/participa/colaboraciones/colabora/"
+    new_collaboration_url
   end
 
   # USAMOS reference

@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
 
     order = parent.create_order Time.now
     order.redsys_parse_response! params
-    if order.payed?
+    if order.is_paid?
       render json: "OK"
     else
       render json: "KO"

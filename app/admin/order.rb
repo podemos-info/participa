@@ -28,34 +28,15 @@ ActiveAdmin.register Order do
   #
   #"Nº RECIBO", "NOMBRE", "DNI/NIE/PASAPORTE", "EMAIL", "DIRECCIÓN", "CIUDAD", "CÓDIGO POSTAL", "CODIGO PAIS", "IBAN", "CCC", "BIC/SWIFT", "TOTAL", "CÓDIGO DE ADEUDO", "URL FUENTE", "ID - ENTRADA", "FECHA DE LA ENTRADA", "COMPROBACIÓN", "FECHA TRIODOS", "FRECUENCIA", "TITULAR"
   #
-  
-  collection_action :mensual_orders, :method => :get do
-    # TODO: only download orders for this month
-    orders = Order.all
-    csv = CSV.generate(encoding: 'utf-8') do |csv|
-      orders.each do |order| 
-        # TODO: user.town_name 
-        # FIXME: revisar
-        csv << [ order.receipt, order.collaboration.user.full_name, order.collaboration.user.document_vatid, order.collaboration.user.email, order.collaboration.user.address, order.collaboration.user.town, order.collaboration.user.postal_code, order.collaboration.user.country, order.collaboration.iban_account, order.collaboration.ccc_full, order.collaboration.iban_bic, order.collaboration.amount, order.due_code, order.url_source, order.collaboration.id, order.created_at.to_s, order.concept, order.payable_at, order.collaboration.frequency_name, order.collaboration.user.full_name ] 
-      end 
-    end
-    send_data csv.encode('utf-8'),
-      type: 'text/csv; charset=utf-8; header=present',
-      disposition: "attachment; filename=podemos.orders.#{Date.today.to_s}.csv"
-  end
-
-  action_item only: :index do
-    link_to('Descargar orden de pago para este mes', params.merge(:action => :mensual_orders))
-  end
 
   index do
     selectable_column
     id_column
     column :id
     column :status_name
-    column :collaboration
+    column :parent
     column :user do |order|
-      link_to(order.collaboration.user.full_name, admin_user_path(order.collaboration.user))
+      link_to(order.user.full_name, admin_user_path(order.user))
     end
     column :payable_at
     column :payed_at
@@ -63,7 +44,7 @@ ActiveAdmin.register Order do
     actions
   end
 
-  filter :collaboration_user_email, as: :string
+  filter :user_email, as: :string
   filter :payable_at
   filter :payed_at
   filter :created_at
