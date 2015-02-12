@@ -1562,3 +1562,11 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     }
   }
 }
+
+.no_float_label label {
+  float:none !important;
+  width: 100%;
+}
+div.ginput_container.ginput_list {
+  clear:left;
+}

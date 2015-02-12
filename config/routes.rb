@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     get '/listas-primarias-andaluzas', to: 'page#listas_primarias_andaluzas', as: 'listas_primarias_andaluzas'
 
     get '/responsables-organizacion-municipales', to: 'page#responsables_organizacion_municipales', as: 'responsables_organizacion_municipales'
+    get '/responsables-municipales-andalucia', to: 'page#responsables_municipales_andalucia', as:'responsables_municipales_andalucia'
+    get '/plaza-podemos-municipal', to: 'page#plaza_podemos_municipal', as:'plaza_podemos_municipal'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
@@ -78,12 +80,12 @@ Rails.application.routes.draw do
       authenticated :user do
 
         if not Rails.env.production?
-          scope :collaborations do
-            delete 'destroy', to: 'collaborations#destroy', as: 'destroy_collaboration'
-            get 'edit', to: 'collaborations#edit', as: 'edit_collaboration'
-            get 'new', to: 'collaborations#new', as: 'new_collaboration'
-            get 'confirm', to: 'collaborations#confirm', as: 'confirm_collaboration'
-            post 'create', to: 'collaborations#create', as: 'create_collaboration'
+          scope :colabora do
+            delete 'baja', to: 'collaborations#destroy', as: 'destroy_collaboration'
+            get 'ver', to: 'collaborations#edit', as: 'edit_collaboration'
+            get '', to: 'collaborations#new', as: 'new_collaboration'
+            get 'confirmar', to: 'collaborations#confirm', as: 'confirm_collaboration'
+            post 'crear', to: 'collaborations#create', as: 'create_collaboration'
             get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
             get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
           end

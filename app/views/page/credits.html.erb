@@ -8,7 +8,7 @@
 <% @credits.each do |c| %>
   <div alt="<%=c[2]%>x<%=c[0]%>€" class="hide js-col-total"><%= c[0]*c[2] %>€</div>
 <% end %>
-  <div alt="Restante" class="hide js-col-pending"><%= @totals[0]-@totals[1] %>€</div>
+  <div alt="Restante" class="hide js-col-pending"><%= @totals[0] - @totals[1] %>€</div>
 </section>
 
 <section class="js-info">

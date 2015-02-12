@@ -3,7 +3,8 @@ class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
                                               :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
-                                              :responsables_organizacion_municipales, :credits, :credits_add, :credits_info]
+                                              :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
+                                              :responsables_municipales_andalucia, :plaza_podemos_municipal]
 
   def privacy_policy
   end
@@ -64,10 +65,19 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Responsable del área de Organización / Extensión en los órganos municipales", form_id: 26, extra_qs:"" }
   end
 
+  def responsables_municipales_andalucia
+    render :form_iframe, locals: { title: "Elecciones Andalucía 2015 - Personas de contacto", form_id: 51, extra_qs:"" }
+  end
+
+  def plaza_podemos_municipal
+    render :form_iframe, locals: { title: "Plaza Podemos municipales", form_id: 52, extra_qs:"" }
+  end
+
   def credits_status
-    Rails.cache.fetch("credits_status", expires_in: 10.minutes) do
+    Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []
       CSV.foreach( "#{Rails.root}/db/podemos/credits.tsv", { :col_sep => "\t"} ) do |c|
+        break if c[0].nil? or c[1].nil? or c[2].nil?
         credits << c.map {|i| i.to_i }
       end
       credits
