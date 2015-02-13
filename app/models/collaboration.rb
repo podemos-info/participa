@@ -123,14 +123,17 @@ class Collaboration < ActiveRecord::Base
     admin_collaboration_path(self)
   end
 
+  def first_order
+    self.order.order(payable_at: :asc).first
+  end
+
   def create_order date, maybe_first=false
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
       o.reference = "Colaboración mes de " + I18n.localize(date, :format => "%B")
-      o.first = self.is_first_order? date
-      if not o.first and maybe_first
-        o.first = Order.by_parent(self).by_date(self.created_at, date-1.month).limit(1).count== 0
+      if maybe_first
+        o.first = self.first_order.nil?
       end
       o.amount = self.amount
 
@@ -176,15 +179,14 @@ class Collaboration < ActiveRecord::Base
     self.save
   end
 
-  def is_first_order? date
-    first_month = self.created_at.unique_month
-    first_month += 1 if not self.is_credit_card? and self.created_at.day >= Order.payment_day
-    first_month == date.unique_month
-  end
-
   def must_have_order? date
-    first_month = self.created_at.unique_month
-    first_month += 1 if not self.is_credit_card? and self.created_at.day >= Order.payment_day
+    first = self.first_order
+    if first.nil?
+      first_month = Date.today.unique_month
+      first_month += 1 if not self.is_credit_card? and Date.today.day >= Order.payment_day
+    else
+      first_month = self.first_order.payable_at.unique_month
+    end
     last_month = 3000*12 # y3k issue :P
     last_month = self.deleted_at.unique_month if self.deleted_at
 
@@ -203,8 +205,8 @@ class Collaboration < ActiveRecord::Base
       order = saved_orders[current.unique_month]
 
       # if don't have a saved order, create it (not persistent)
-      if not order and self.must_have_order? current and current>=Date.today
-        order = create_order current, orders.empty?
+      if not order and self.must_have_order? current
+        order = create_order current, (saved_orders.empty? and orders.empty?)
       end
 
       orders << order if order
