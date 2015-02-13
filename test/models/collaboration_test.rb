@@ -154,7 +154,15 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
 
+  test "should .get_orders work with collaboration created but not paid the same month"
+    skip
+  end
 
+  test "should .get_orders work after and before payment day."
+    skip
+  end
 
-  # test collaboration creation and first payment on differents months (created_at 31/01, payed_at 01/02 or 01/03 )
+  test "should .get_orders work with paid and unpaid collaborations."
+    skip
+  end
 end

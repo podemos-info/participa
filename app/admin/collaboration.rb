@@ -95,7 +95,7 @@ ActiveAdmin.register Collaboration do
     Collaboration.all.select(:id).find_each do |collaboration|
       Resque.enqueue(PodemosCollaborationWorker, collaboration.id)
     end
-    redirect_to :admin_collaboration_path
+    redirect_to :admin_collaboration
   end
 
   action_item only: :index do

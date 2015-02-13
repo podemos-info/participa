@@ -124,7 +124,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    self.order.order(payable_at: :asc).first
+    @first_order = self.order.order(payable_at: :asc).first if not defined? @first_order
   end
 
   def create_order date, maybe_first=false
@@ -183,7 +183,7 @@ class Collaboration < ActiveRecord::Base
     first = self.first_order
     if first.nil?
       first_month = Date.today.unique_month
-      first_month += 1 if not self.is_credit_card? and Date.today.day >= Order.payment_day
+      first_month += 1 if not self.is_credit_card? and self.created_at.unique_month==first_month and self.created_at.day >= Order.payment_day
     else
       first_month = self.first_order.payable_at.unique_month
     end
