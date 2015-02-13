@@ -111,13 +111,13 @@
 
     collection_action :download, :method => :get do
       csv = CSV.generate(encoding: 'utf-8') do |csv|
-        Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(Date.today,Date.today)) do |collaboration|
-          order = collaboration.orders[0]
+        Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(Date.today,Date.today)).find_each do |collaboration|
+          order = collaboration.order[0]
           csv << [ order.id, collaboration.user.full_name, collaboration.user.document_vatid, collaboration.user.email, 
                   collaboration.user.address, collaboration.user.town_name, collaboration.user.postal_code, 
                   collaboration.user.country, collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic,
                   order.amount, order.due_code, order.url_source, collaboration.id, order.created_at.to_s,
-                  order.reference, order.payable_at, collaboration.frequency_name, collaboration.user.full_name ] 
+                  order.reference, order.payable_at, collaboration.frequency_name, collaboration.user.full_name ] if order.is_payable?
         end
       end
       send_data csv.encode('utf-8'),

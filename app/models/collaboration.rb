@@ -172,7 +172,7 @@ class Collaboration < ActiveRecord::Base
         self.status = 3
       end
 
-      if self.is_credit_card?
+      if self.is_credit_card? and order.first
         self.redsys_identifier = order.payment_identifier
         self.redsys_expiration = order.redsys_expiration
       end
