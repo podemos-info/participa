@@ -77,7 +77,6 @@ class PageController < ApplicationController
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []
       CSV.foreach( "#{Rails.root}/db/podemos/credits.tsv", { :col_sep => "\t"} ) do |c|
-        break if c[0].nil? or c[1].nil? or c[2].nil?
         credits << c.map {|i| i.to_i }
       end
       credits

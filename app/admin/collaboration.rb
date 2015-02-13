@@ -18,17 +18,17 @@ ActiveAdmin.register Collaboration do
     end
     column :orders do |collaboration|
       today = Date.today.unique_month
-      collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |o| 
+      (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |o| 
         order = o.payable_at.strftime("%h").downcase
         order.upcase! if o.is_paid?
-        order = link_to(order, view_admin_order_path(o)) if o.persisted?
+        order = link_to(order, admin_order_path(o)) if o.persisted?
   
         if o.payable_at.unique_month==today 
           "&gt;#{order}&lt;" 
         else 
           order
         end 
-      end .join " "
+      end .join " ").html_safe
     end
     column :payment_type_name
     column :created_at
@@ -92,9 +92,10 @@ ActiveAdmin.register Collaboration do
   end
   
   collection_action :charge, :method => :get do
-    Collaboration.all.find_each do |collaboration|
-      Resque.enqueue(PodemosCollaborationWorker, collaboration)
+    Collaboration.all.select(:id).find_each do |collaboration|
+      Resque.enqueue(PodemosCollaborationWorker, collaboration.id)
     end
+    redirect_to :admin_collaboration_path
   end
 
   action_item only: :index do
