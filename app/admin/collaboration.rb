@@ -110,7 +110,7 @@ ActiveAdmin.register Collaboration do
                 collaboration.user.address, collaboration.user.town_name, collaboration.user.postal_code, 
                 collaboration.user.country, collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic,
                 order.amount, order.due_code, order.url_source, collaboration.id, order.created_at.to_s,
-                order.reference, order.payable_at, collaboration.frequency_name, collaboration.full_name ] 
+                order.reference, order.payable_at, collaboration.frequency_name, collaboration.user.full_name ] 
       end
     end
     send_data csv.encode('utf-8'),

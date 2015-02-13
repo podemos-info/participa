@@ -2,8 +2,6 @@ ActiveAdmin.register Order do
 
   menu :parent => "Colaboraciones"
 
-  actions :all, :except => [:new, :edit]
-
   # Nº RECIBO Es el identificador del cargo a todos los efectos y no se ha de repetir en la remesa y en las remesas sucesivas. Es un nº correlativo
   # NOMBRE  
   # DNI/NIE/PASAPORTE 
@@ -48,5 +46,21 @@ ActiveAdmin.register Order do
   filter :payable_at
   filter :payed_at
   filter :created_at
+  
+  form do |f|
+    f.inputs "Order" do
+      f.input :status, as: :select, collection: Order::STATUS.to_a
+      f.input :reference
+      f.input :amount
+      f.input :first
+      f.input :payment_type
+      f.input :payment_identifier
+      f.input :payment_response
+      f.input :payable_at
+      f.input :payed_at
+      f.input :created_at
+    end
+    f.actions
+  end
   
 end

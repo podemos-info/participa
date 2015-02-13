@@ -154,15 +154,15 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
 
-  test "should .get_orders work with collaboration created but not paid the same month"
+  test "should .get_orders work with collaboration created but not paid the same month" do
     skip
   end
 
-  test "should .get_orders work after and before payment day."
+  test "should .get_orders work after and before payment day." do
     skip
   end
 
-  test "should .get_orders work with paid and unpaid collaborations."
+  test "should .get_orders work with paid and unpaid collaborations." do
     skip
   end
 end
