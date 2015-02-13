@@ -135,7 +135,7 @@ class Order < ActiveRecord::Base
         self.redsys_response["Ds_Order"]
       else
         if self.persisted?
-          self.id.to_s.rjust(16, "0")
+          self.id.to_s.rjust(12, "0")
         else
           self.parent.id.to_s.rjust(7, "0") + Order::PARENT_CLASSES[parent.class] + Time.now.to_i.to_s(36)[-4..-1]
         end
@@ -256,7 +256,20 @@ class Order < ActiveRecord::Base
       http.ssl_version = :TLSv1
     end
 
-    http.post uri, URI.encode_www_form(self.redsys_params)
+    response = http.post(uri, URI.encode_www_form(self.redsys_params))
+    info = (response.body.scan /<!--\W*(\w*)\W*-->/).flatten
+    self.payment_response = info.to_json
+    if info[0] == "RSisReciboOK"
+      self.payed_at = Time.now
+      self.status = 3
+    else
+      self.status = 1
+    end
+    self.save
+    
+    if self.parent
+      self.parent.payment_processed self
+    end
   end
 
   def redsys_text_status

@@ -5,12 +5,14 @@ class OrdersController < ApplicationController
     redsys_order_id = params["Ds_Order"]
     parent = Order.parent_from_order_id redsys_order_id
 
-    order = parent.create_order Time.now
-    order.redsys_parse_response! params
-    if order.is_paid?
-      render json: "OK"
-    else
-      render json: "KO"
+    order = parent.create_order Time.now, true
+    if order.first and order.is_payable?
+      order.redsys_parse_response! params
+      if order.is_paid?
+        render json: "OK"
+      else
+        render json: "KO"
+      end
     end
   end
 

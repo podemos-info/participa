@@ -133,7 +133,7 @@ class Collaboration < ActiveRecord::Base
     if maybe_first
       if self.first_order.nil?
         is_first = true
-      elsif self.first_order.unique_month==date.unique_month
+      elsif self.first_order.payable_at.unique_month==date.unique_month
         return self.first_order
       end
     end

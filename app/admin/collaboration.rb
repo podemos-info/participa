@@ -83,7 +83,6 @@
 
     form do |f|
       f.inputs "Colaboración" do
-        f.input :user, input_html: {disabled: true}
         f.input :amount, as: :radio, collection: Collaboration::AMOUNTS.to_a #, input_html: {disabled: true}
         f.input :frequency, as: :radio, collection: Collaboration::FREQUENCIES.to_a #, input_html: {disabled: true}
         f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a #, input_html: {disabled: true}
