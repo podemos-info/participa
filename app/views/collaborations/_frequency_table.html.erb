@@ -28,17 +28,17 @@
     <th>Importe</th>
   </thead>
   <tbody>
-  <% @collaboration.upcoming_payments.each do |payment| %>
+  <% @orders.each do |order| %>
     <tr>
-      <td> <%= l(payment, format: :date) %></td>
-      <td> <%= number_to_euro @collaboration.amount %> </td>
+      <td> <%= l(order.payable_at, format: :date) %><% if order.payed_at %> (pagada el <%=l(order.payed_at, format: :date)%>)<% end %></td>
+      <td> <%= number_to_euro order.amount %> </td>
     </tr>
   <% end %>
   </tbody>
   <tfoot>
     <tr>
       <th>Total</th>
-      <th><%= number_to_euro(@collaboration.upcoming_payments.length * @collaboration.amount) %></th>
+      <th><%= number_to_euro(@orders.map {|o| o.amount} .sum) %></th>
     </tr>
   </tfoot>
 </table>

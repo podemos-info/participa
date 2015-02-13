@@ -16,7 +16,20 @@ ActiveAdmin.register Collaboration do
     column :amount do |collaboration|
       number_to_euro collaboration.amount
     end
-    column :frequency_name
+    column :orders do |collaboration|
+      today = Date.today.unique_month
+      collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |o| 
+        order = o.payable_at.strftime("%h").downcase
+        order.upcase! if o.is_paid?
+        order = link_to(order, view_admin_order_path(o)) if o.persisted?
+  
+        if o.payable_at.unique_month==today 
+          "&gt;#{order}&lt;" 
+        else 
+          order
+        end 
+      end .join " "
+    end
     column :payment_type_name
     column :created_at
     actions
@@ -78,19 +91,26 @@ ActiveAdmin.register Collaboration do
     f.actions
   end
   
-  collection_action :generate_orders, :method => :get do
-    # TODO: only download orders for this month
+  collection_action :charge, :method => :get do
+    Collaboration.all.find_each do |collaboration|
+      Resque.enqueue(PodemosCollaborationWorker, collaboration)
+    end
+  end
+
+  action_item only: :index do
+    link_to('Cobrar colaboraciones', params.merge(:action => :charge))
+  end
+
+  collection_action :download, :method => :get do
     csv = CSV.generate(encoding: 'utf-8') do |csv|
-      Collaboration.banks.find_each do |collaboration|
-        order = collaboration.generate_order Date.today
-        if order
-          csv << [ order.id, order.user.full_name, order.user.document_vatid, order.user.email, order.user.address, 
-                  order.user.town_name, order.user.postal_code, order.user.country, 
-                  collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic, 
-                  order.amount, order.due_code, order.url_source, order.parent.id, order.created_at.to_s, 
-                  order.reference, order.payable_at, collaboration.frequency_name, order.user.full_name ] 
-        end
-      end 
+      Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(Date.today,Date.today)) do |collaboration|
+        order = collaboration.orders[0]
+        csv << [ order.id, collaboration.user.full_name, collaboration.user.document_vatid, collaboration.user.email, 
+                collaboration.user.address, collaboration.user.town_name, collaboration.user.postal_code, 
+                collaboration.user.country, collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic,
+                order.amount, order.due_code, order.url_source, collaboration.id, order.created_at.to_s,
+                order.reference, order.payable_at, collaboration.frequency_name, collaboration.full_name ] 
+      end
     end
     send_data csv.encode('utf-8'),
       type: 'text/csv; charset=utf-8; header=present',
@@ -98,6 +118,7 @@ ActiveAdmin.register Collaboration do
   end
 
   action_item only: :index do
-    link_to('Descargar órdenes de pago por transferencia', params.merge(:action => :generate_orders))
+    link_to('Descargar fichero de pagos de este mes', params.merge(:action => :download))
   end
+
 end

@@ -45,9 +45,7 @@ class CollaborationsController < ApplicationController
 
   # GET /collaborations/confirm
   def confirm
-    if @collaboration.is_credit_card?
-      @order = @collaboration.create_order Time.now, true
-    end
+    @order = @orders[0]
   end
 
   # GET /collaborations/ok
@@ -71,6 +69,9 @@ class CollaborationsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_collaboration
     @collaboration = current_user.collaboration
+
+    start_date = [@collaboration.created_at, Date.today - 6.months].max
+    @orders = @collaboration.get_orders start_date, start_date + 12.months
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

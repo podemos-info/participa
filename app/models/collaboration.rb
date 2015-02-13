@@ -27,7 +27,6 @@ class Collaboration < ActiveRecord::Base
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
   scope :credit_cards, -> {where(payment_type: 1)}
-  scope :banks, -> {where(payment_type: [2,3])}
   scope :bank_nationals, -> {where(payment_type: 2)}
   scope :bank_internationals, -> {where(payment_type: 3)}
   scope :frequency_month, -> {where(frequency: 1)}
@@ -36,6 +35,7 @@ class Collaboration < ActiveRecord::Base
   scope :amount_1, -> {where("amount < 10")}
   scope :amount_2, -> {where("amount > 10 and amount < 20")}
   scope :amount_3, -> {where("amount > 20")}
+
 
   after_create :set_initial_status
 
@@ -111,24 +111,6 @@ class Collaboration < ActiveRecord::Base
     admin_collaboration_path(self)
   end
 
-  def upcoming_payments
-    now = DateTime.now
-    payments = []
-    payments << if self.is_credit_card?
-                  now
-                elsif now.day < Order.creation_day 
-                  now.change day: Order.creation_day
-                else
-                  (now + 1.month).change day: Order.creation_day
-                end
-
-    while payments.length < 12/self.frequency
-      payments << (payments[-1] + self.frequency.months)
-    end
-
-    payments
-  end
-
   def is_recurrent?
     true
   end
@@ -141,18 +123,24 @@ class Collaboration < ActiveRecord::Base
     admin_collaboration_path(self)
   end
 
-  def create_order date, first=false
+  def create_order date, maybe_first=false
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
       o.reference = "Colaboración mes de " + I18n.localize(date, :format => "%B")
-      o.first = first or self.status==0
+      o.first = self.is_first_order? date
+      if not o.first and maybe_first
+        o.first = Order.by_parent(self).by_date(self.created_at, date-1.month).limit(1).count== 0
+      end
       o.amount = self.amount
+
+      if not (o.first and self.is_credit_card?)
+        date = date.change(day: Order.payment_day)
+      end
       o.payable_at = date
       o.payment_type = self.payment_type
       o.payment_identifier = self.payment_identifier
     end
-    order
   end
 
   def payment_identifier
@@ -188,21 +176,41 @@ class Collaboration < ActiveRecord::Base
     self.save
   end
 
-  def generate_order(date=DateTime.now)
-    collaboration_start = self.created_at
-    if date < collaboration_start
-      false
-    else 
-      if ((date.year*12+date.month) - (collaboration_start.year*12+collaboration_start.month) - (date.day >= collaboration_start.day ? 0 : 1)) % self.frequency == 0
-        order = Order.month(date).parent(self)[0]
-        if not order 
-          order = Collaboration.create_order date, false
-        end
-        order
-      else
-        nil
+  def is_first_order? date
+    first_month = self.created_at.unique_month
+    first_month += 1 if not self.is_credit_card? and self.created_at.day >= Order.payment_day
+    first_month == date.unique_month
+  end
+
+  def must_have_order? date
+    first_month = self.created_at.unique_month
+    first_month += 1 if not self.is_credit_card? and self.created_at.day >= Order.payment_day
+    last_month = 3000*12 # y3k issue :P
+    last_month = self.deleted_at.unique_month if self.deleted_at
+
+    ((first_month..last_month) === date.unique_month) and ((date.unique_month - first_month) % self.frequency) == 0
+  end
+
+  def get_orders date_start=Date.today, date_end=Date.today
+    saved_orders = Hash[ self.order.by_parent(self).by_date(date_start, date_end).map { |o| [o.payable_at.unique_month, o] } ]
+
+    current = date_start
+
+    orders = []
+
+    while current<=date_end
+      # Search for a saved order
+      order = saved_orders[current.unique_month]
+
+      # if don't have a saved order, create it (not persistent)
+      if not order and self.must_have_order? current and current>=Date.today
+        order = create_order current, orders.empty?
       end
+
+      orders << order if order
+      current += 1.month
     end
+    orders
   end
 
   def ok_url

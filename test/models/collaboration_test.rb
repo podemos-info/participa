@@ -152,4 +152,9 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_nil coll.generate_order(DateTime.new(2014,7,15)), "generate_order should return nil for 2nd month of yearly collaboration"
     assert coll.generate_order(DateTime.new(2015,6,15)), "generate_order should return a new order for 12th month of yearly collaboration"
   end
+
+
+
+
+  # test collaboration creation and first payment on differents months (created_at 31/01, payed_at 01/02 or 01/03 )
 end
