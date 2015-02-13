@@ -125,34 +125,42 @@ class Collaboration < ActiveRecord::Base
 
   def first_order
     @first_order = self.order.order(payable_at: :asc).first if not defined? @first_order
+    @first_order
   end
 
   def create_order date, maybe_first=false
+    is_first = false
+    if maybe_first
+      if self.first_order.nil?
+        is_first = true
+      elsif self.first_order.unique_month==date.unique_month
+        return self.first_order
+      end
+    end
+
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
       o.reference = "Colaboración mes de " + I18n.localize(date, :format => "%B")
-      if maybe_first
-        o.first = self.first_order.nil?
-      end
+      o.first = is_first
       o.amount = self.amount
 
-      if not (o.first and self.is_credit_card?)
-        date = date.change(day: Order.payment_day)
-      end
+      date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
       o.payable_at = date
       o.payment_type = self.payment_type
       o.payment_identifier = self.payment_identifier
     end
+    @first_order = order if is_first
+    order
   end
 
   def payment_identifier
     if self.is_credit_card?
       self.redsys_identifier
     elsif self.is_bank_national?
-      "#{self.iban_account}/#{self.iban_bic}"
-    elsif self.is_bank_international?
       self.ccc_full
+    elsif self.is_bank_international?
+      "#{self.iban_account}/#{self.iban_bic}"
     end
   end
 
@@ -180,8 +188,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def must_have_order? date
-    first = self.first_order
-    if first.nil?
+    if self.first_order.nil?
       first_month = Date.today.unique_month
       first_month += 1 if not self.is_credit_card? and self.created_at.unique_month==first_month and self.created_at.day >= Order.payment_day
     else
