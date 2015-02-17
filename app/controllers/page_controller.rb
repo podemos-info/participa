@@ -4,7 +4,8 @@ class PageController < ApplicationController
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
                                               :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
-                                              :responsables_municipales_andalucia, :plaza_podemos_municipal]
+                                              :responsables_municipales_andalucia, :plaza_podemos_municipal,
+                                              :portal_transparencia_cc_estatal, :mujer_igualdad]
 
   def privacy_policy
   end
@@ -78,7 +79,7 @@ class PageController < ApplicationController
   end
 
   def mujer_igualdad
-    render :form_iframe, locals: { title: "Area de mujer e igualdad - Encuentro", form_id: 55, extra_qs:"" }
+    render :form_iframe, locals: { title: "Área de mujer e igualdad - Encuentro", form_id: 55, extra_qs:"" }
   end
   
   def credits_status
