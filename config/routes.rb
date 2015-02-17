@@ -48,7 +48,8 @@ Rails.application.routes.draw do
     get '/responsables-municipales-andalucia', to: 'page#responsables_municipales_andalucia', as:'responsables_municipales_andalucia'
     get '/plaza-podemos-municipal', to: 'page#plaza_podemos_municipal', as:'plaza_podemos_municipal'
     get '/portal-transparencia-cc-estatal', to: 'page#portal_transparencia_cc_estatal', as:'portal_transparencia_cc_estatal'
-
+    get '/mujer-igualdad', to: 'page#mujer_igualdad', as:"mujer_igualdad"
+    
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote

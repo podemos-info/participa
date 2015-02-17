@@ -76,6 +76,10 @@ class PageController < ApplicationController
   def portal_transparencia_cc_estatal
     render :form_iframe, locals: { title: "Portal de Transparencia - CC Estatal", form_id: 54, extra_qs:"" }
   end
+
+  def mujer_igualdad
+    render :form_iframe, locals: { title: "Area de mujer e igualdad - Encuentro", form_id: 55, extra_qs:"" }
+  end
   
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
