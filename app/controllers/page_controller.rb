@@ -73,6 +73,10 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Plaza Podemos municipales", form_id: 52, extra_qs:"" }
   end
 
+  def portal_transparencia_cc_estatal
+    render :form_iframe, locals: { title: "Portal de Transparencia - CC Estatal", form_id: 54, extra_qs:"" }
+  end
+  
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []
