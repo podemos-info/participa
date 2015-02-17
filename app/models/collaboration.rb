@@ -104,7 +104,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def ccc_full 
-    "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}"
+    "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}"
   end
 
   def admin_permalink
@@ -143,7 +143,7 @@ class Collaboration < ActiveRecord::Base
       o.parent = self
       o.reference = "Colaboración mes de " + I18n.localize(date, :format => "%B")
       o.first = is_first
-      o.amount = self.amount
+      o.amount = self.amount*self.frequency
 
       date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
       o.payable_at = date
@@ -190,7 +190,7 @@ class Collaboration < ActiveRecord::Base
   def must_have_order? date
     if self.first_order.nil?
       first_month = Date.today.unique_month
-      first_month += 1 if not self.is_credit_card? and self.created_at.unique_month==first_month and self.created_at.day >= Order.payment_day
+      first_month += 1 if not self.is_credit_card? and self.created_at.unique_month==first_month
     else
       first_month = self.first_order.payable_at.unique_month
     end
@@ -228,5 +228,16 @@ class Collaboration < ActiveRecord::Base
 
   def ko_url
     ko_collaboration_url
+  end
+
+  def charge
+    order = self.get_orders(Date.today-1.month, Date.today-1.month)[0]
+    if order and order.is_payable?
+      if self.is_credit_card?
+        order.redsys_send_request 
+      else
+        order.save
+      end
+    end
   end
 end
