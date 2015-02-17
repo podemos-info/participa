@@ -31,7 +31,7 @@ ActiveAdmin.register Collaboration do
                   elsif o.is_paid?
                     "o"
                   else
-                    "_"
+                    "."
                   end
           otext = link_to(otext, admin_order_path(o)) if o.persisted?
           otext

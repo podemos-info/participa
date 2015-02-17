@@ -115,6 +115,10 @@ class Collaboration < ActiveRecord::Base
     self.status>1
   end
 
+  def is_active?
+    self.status > 2
+  end
+
   def admin_permalink
     admin_collaboration_path(self)
   end
@@ -126,7 +130,7 @@ class Collaboration < ActiveRecord::Base
 
   def create_order date, maybe_first=false
     is_first = false
-    if maybe_first
+    if maybe_first and not self.is_active?
       if self.first_order.nil?
         is_first = true
       elsif self.first_order.payable_at.unique_month==date.unique_month
