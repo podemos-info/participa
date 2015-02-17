@@ -111,7 +111,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download, :method => :get do
     csv = CSV.generate(encoding: 'utf-8') do |csv|
-      Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(Date.today,Date.today)).find_each do |collaboration|
+      Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(Date.today-1.month,Date.today-1.month)).find_each do |collaboration|
         order = collaboration.order[0]
         csv << [ "%0d%0d%0d" % [ Date.today.year%100, Date.today.month, order.id%1000000 ], 
                 collaboration.user.full_name.mb_chars.upcase.to_s, collaboration.user.document_vatid.upcase, collaboration.user.email, 
