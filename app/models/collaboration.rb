@@ -235,7 +235,8 @@ class Collaboration < ActiveRecord::Base
   end
 
   def charge
-    order = self.get_orders[0]
+    order = self.get_orders[0] # get orders for current month
+    order = order[-1] if order # get last order for current month
     if order and order.is_payable?
       if self.is_credit_card?
         order.redsys_send_request 
