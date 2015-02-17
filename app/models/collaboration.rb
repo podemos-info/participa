@@ -39,12 +39,8 @@ class Collaboration < ActiveRecord::Base
 
   after_create :set_initial_status
 
-  def last_order
-    self.order.last
-  end
-
   def set_initial_status
-    self.status=0
+    self.status = 0
   end
 
   def set_active
@@ -194,29 +190,33 @@ class Collaboration < ActiveRecord::Base
     else
       first_month = self.first_order.payable_at.unique_month
     end
-    last_month = 3000*12 # y3k issue :P
-    last_month = self.deleted_at.unique_month if self.deleted_at
 
-    ((first_month..last_month) === date.unique_month) and ((date.unique_month - first_month) % self.frequency) == 0
+    (first_month <= date.unique_month) and ((date.unique_month - first_month) % self.frequency) == 0
   end
 
   def get_orders date_start=Date.today, date_end=Date.today
-    saved_orders = Hash[ self.order.by_parent(self).by_date(date_start, date_end).map { |o| [o.payable_at.unique_month, o] } ]
+    saved_orders = Hash.new {|h,k| h[k] = [] }
+
+    self.order.by_parent(self).by_date(date_start, date_end).each do |o|
+      saved_orders[o.payable_at.unique_month] << o
+    end
 
     current = date_start
 
     orders = []
 
     while current<=date_end
-      # Search for a saved order
-      order = saved_orders[current.unique_month]
+      # Check last saved order for this month
+      month_orders = saved_orders[current.unique_month]
+      order = month_orders[-1]
 
       # if don't have a saved order, create it (not persistent)
-      if not order and self.must_have_order? current
+      if self.deleted_at.nil? and ((not order and self.must_have_order? current) or (order and order.has_errors?))
         order = create_order current, (saved_orders.empty? and orders.empty?)
+        month_orders << order if order
       end
 
-      orders << order if order
+      orders << month_orders if month_orders.length>0
       current += 1.month
     end
     orders
@@ -231,7 +231,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def charge
-    order = self.get_orders(Date.today-1.month, Date.today-1.month)[0]
+    order = self.get_orders[0]
     if order and order.is_payable?
       if self.is_credit_card?
         order.redsys_send_request 

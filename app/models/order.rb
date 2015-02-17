@@ -10,7 +10,7 @@ class Order < ActiveRecord::Base
 
   validates :payment_type, :amount, :user_id, :payable_at, presence: true
 
-  STATUS = {"Nueva" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
+  STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4}
   PAYMENT_TYPES = {
     "Suscripción con Tarjeta de Crédito/Débito" => 1, 
     "Domiciliación en cuenta bancaria (CCC)" => 2, 
@@ -39,6 +39,10 @@ class Order < ActiveRecord::Base
   end
 
   def has_warnings?
+    self.status == 3
+  end
+
+  def has_errors?
     self.status == 4
   end
 
@@ -47,7 +51,7 @@ class Order < ActiveRecord::Base
   end
 
   def error_message
-    if self.status==1
+    if self.status==4
       case self.payment_type
       when 1
         self.redsys_text_status
@@ -66,11 +70,11 @@ class Order < ActiveRecord::Base
   end
 
   def self.by_month_count(date)
-    self.by_month(date).count
+    self.by_date(date,date).count
   end
 
   def self.by_month_amount(date)
-    self.by_month(date).sum(:amount) / 100.0
+    self.by_date(date,date).sum(:amount) / 100.0
   end
 
 
@@ -106,11 +110,11 @@ class Order < ActiveRecord::Base
   #end
 
   def mark_as_charging!
-    self.status = 2
+    self.status = 1
   end
   
-  def mark_as_paid!(date)
-    self.status = 3 
+  def mark_as_paid! date
+    self.status = 2 
     self.payed_at = date
     self.save
     if self.parent
@@ -188,21 +192,21 @@ class Order < ActiveRecord::Base
         payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Ds_Date"]} #{params["Ds_Hour"]}"
         if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
           redsys_logger.info("Status: OK")
-          self.status = 3
+          self.status = 2
         else
           redsys_logger.info("Status: OK, but with warnings")
-          self.status = 4
+          self.status = 3
         end
         self.payment_identifier = params["Ds_Merchant_Identifier"]
       rescue
         redsys_logger.info("Status: OK, but with errors on response processing.")
         redsys_logger.info("Error: #{$!.message}")
         redsys_logger.info("Backtrace: #{$!.backtrace}")
-        self.status = 4
+        self.status = 3
       end
     else
       redsys_logger.info("Status: KO - ERROR")
-      self.status = 1
+      self.status = 4
     end
     self.save
 
@@ -261,9 +265,9 @@ class Order < ActiveRecord::Base
     self.payment_response = info.to_json
     if info[0] == "RSisReciboOK"
       self.payed_at = Time.now
-      self.status = 3
+      self.status = 2
     else
-      self.status = 1
+      self.status = 4
     end
     self.save
     

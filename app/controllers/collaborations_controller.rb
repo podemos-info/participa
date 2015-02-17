@@ -52,7 +52,7 @@ class CollaborationsController < ApplicationController
   def OK
     if @collaboration 
       if @collaboration.is_credit_card?
-        if not (@collaboration.last_order and @collaboration.last_order.is_paid?)
+        if not @collaboration.first_order or not @collaboration.first_order.is_paid?
           @collaboration.set_warning
         end
       else

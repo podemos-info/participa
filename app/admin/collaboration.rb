@@ -19,17 +19,24 @@ ActiveAdmin.register Collaboration do
     end
     column :orders do |collaboration|
       today = Date.today.unique_month
-      (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |o| 
-        order = o.payable_at.strftime("%h").downcase
-        order.upcase! if o.is_paid?
-        order = link_to(order, admin_order_path(o)) if o.persisted?
-  
-        if o.payable_at.unique_month==today 
-          "&gt;#{order}&lt;" 
-        else 
-          order
-        end 
-      end .join " ").html_safe
+      (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |orders|
+        odate = orders[0].payable_at
+        text = (odate.unique_month==today ? "&gt;" : "") + odate.month.to_s
+
+        text + orders.map do |o|
+          otext = if o.has_errors?
+                    "x"
+                  elsif o.has_warnings?
+                    "!"
+                  elsif o.is_paid?
+                    "o"
+                  else
+                    "_"
+                  end
+          otext = link_to(otext, admin_order_path(o)) if o.persisted?
+          otext
+        end .join("")
+      end) .join(" ").html_safe
     end
     column :payment_type_name
     column :created_at
