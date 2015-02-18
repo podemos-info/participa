@@ -14,7 +14,11 @@ ActiveAdmin.register Collaboration do
     selectable_column
     id_column
     column :user do |collaboration|
-      collaboration.get_user
+      if collaboration.user
+        link_to(collaboration.user.full_name, admin_user_path(collaboration.user))
+      else
+        collaboration.get_user
+      end
     end
     column :amount do |collaboration|
       number_to_euro collaboration.amount
@@ -40,7 +44,7 @@ ActiveAdmin.register Collaboration do
         end .join("")
       end) .join(" ").html_safe
     end
-    column :payment_type_name
+    column :payment_type_name, :sortable => 'collaboration.payment_type'
     column :created_at
     actions
   end
