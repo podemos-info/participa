@@ -7,17 +7,12 @@ ActiveAdmin.register Collaboration do
   actions :all, :except => [:new]
 
   scope :all
-  scope :active
-  scope :with_errors
-  scope :with_warnings
-  scope :legacy
-  scope :all
   scope :credit_cards
   scope :bank_nationals
   scope :bank_internationals
   scope :incomplete
   scope :with_errors
-  scope :new
+  scope :without_payment
   scope :active
   scope :with_warnings
   scope :legacy
