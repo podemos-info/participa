@@ -30,14 +30,26 @@ class Collaboration < ActiveRecord::Base
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
   scope :credit_cards, -> {where(payment_type: 1)}
+  scope :banks, -> {where.not(payment_type: 1)}
   scope :bank_nationals, -> {where(payment_type: 2)}
   scope :bank_internationals, -> {where(payment_type: 3)}
   scope :frequency_month, -> {where(frequency: 1)}
   scope :frequency_quarterly, -> {where(frequency: 3)}
   scope :frequency_anual, -> {where(frequency: 12)}
-  scope :amount_1, -> {where("amount < 10")}
-  scope :amount_2, -> {where("amount > 10 and amount < 20")}
-  scope :amount_3, -> {where("amount > 20")}
+  scope :amount_1, -> {where("amount < 100")}
+  scope :amount_2, -> {where("amount > 100 and amount < 200")}
+  scope :amount_3, -> {where("amount > 200")}
+
+  scope :all, -> {all}
+  scope :incomplete, -> { where(status: 0)}
+  scope :with_errors, -> { where(status: 1)}
+  scope :new, -> { where(status: 2)}
+  scope :active, -> { where(status: 3)}
+  scope :with_warnings, -> { where(status: 4)}
+  scope :legacy, -> { where.not(non_user_data: nil)}
+  scope :non_user, -> { where(user_id: nil)}
+  scope :deleted, -> { where.not(deleted_at: nil) }
+
 
   after_create :set_initial_status
 
@@ -126,7 +138,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.order(payable_at: :asc).where.not(status:1).first if not defined? @first_order
+    @first_order = self.order.non_errors.order(payable_at: :asc).first if not defined? @first_order
     @first_order
   end
 
@@ -311,6 +323,10 @@ class Collaboration < ActiveRecord::Base
     else
       @non_user
     end
+  end
+
+  def get_non_user
+    @non_user
   end
 
   def validates_has_user
