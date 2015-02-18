@@ -12,7 +12,7 @@
 
       <p> Ya tienes una colaboración. Es la siguiente: </p>
       <%= render partial: "frequency_table" %>
-      <% if @collaboration.is_valid? %>
+      <% if @collaboration.is_active? %>
           <%= error_box "Cambios en la colaboración", false do %>
             <p>Si deseas cambiar la frecuencia o el método de pago de tu colaboración debes cancelar tu colaboración actual y crear una nueva. </p>
           <% end %>
@@ -23,7 +23,7 @@
       <% end %>
       <div class="js-collaboration-confirm-buttons buttonbox">
         <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?"} %>
-        <% if ! @collaboration.is_valid? %>
+        <% if ! @collaboration.is_active? %>
           <%= link_to "Confirmar colaboración", confirm_collaboration_path, class: 'button' %>
         <% end %>
       </div>

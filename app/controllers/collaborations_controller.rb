@@ -31,7 +31,7 @@ class CollaborationsController < ApplicationController
   # GET /collaborations/edit
   def edit
     # borrar una colaboración
-    redirect_to confirm_collaboration_path unless @collaboration.is_valid?
+    redirect_to confirm_collaboration_path unless @collaboration.is_active?
   end
 
   # DELETE /collaborations

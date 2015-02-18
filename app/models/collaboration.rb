@@ -113,8 +113,8 @@ class Collaboration < ActiveRecord::Base
     true
   end
 
-  def is_valid?
-    self.status>1 and self.deleted_at.nil? and (not self.user or self.user.deleted_at.nil?)
+  def is_payable?
+    self.status>1 and self.deleted_at.nil? and self.valid? and (not self.user or self.user.deleted_at.nil?)
   end
 
   def is_active?
@@ -236,7 +236,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def charge!
-    if self.is_valid?
+    if self.is_payable?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
       if order and order.is_payable?
@@ -250,7 +250,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def get_bank_data date
-    if self.is_valid?
+    if self.is_payable?
       order = self.get_orders(date, date, false)[0] 
       order = order[-1] if order # get last order for current month
       if order and order.is_payable?
