@@ -36,7 +36,7 @@ ActiveAdmin.register Order do
     column :user do |order|
       if order.user
         link_to(order.user.full_name, admin_user_path(order.user))
-      else
+      elsif order.parent
         order.parent.get_user.full_name
       end
     end
