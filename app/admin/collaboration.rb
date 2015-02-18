@@ -63,8 +63,8 @@ ActiveAdmin.register Collaboration do
     actions
   end
 
-  filter :user_document_vatid, as: :string
-  filter :user_email, as: :string
+  filter :user_document_vatid_or_non_user_document_vatid, as: :string
+  filter :user_email_or_non_user_email, as: :string
   filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a

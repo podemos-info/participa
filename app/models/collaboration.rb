@@ -40,7 +40,6 @@ class Collaboration < ActiveRecord::Base
   scope :amount_2, -> {where("amount > 100 and amount < 200")}
   scope :amount_3, -> {where("amount > 200")}
 
-  scope :all, -> {all}
   scope :incomplete, -> { where(status: 0)}
   scope :with_errors, -> { where(status: 1)}
   scope :new, -> { where(status: 2)}
