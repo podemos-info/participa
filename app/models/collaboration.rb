@@ -112,7 +112,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def ccc_full 
-    "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}"
+    "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}" if ccc_account
   end
 
   def admin_permalink
@@ -284,12 +284,12 @@ class Collaboration < ActiveRecord::Base
 
   class NonUser
     def initialize(args)
-      [:full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone].each do |var|
+      [:legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone].each do |var|
         instance_variable_set("@#{var}", args[var]) if args.member? var
       end
     end
 
-    attr_accessor :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone
+    attr_accessor :legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone
 
     def to_s
       "#{full_name} (#{document_vatid} - #{email})"

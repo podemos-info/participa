@@ -140,15 +140,15 @@ ActiveAdmin.register Collaboration do
   end
   
   collection_action :charge, :method => :get do
-    Collaboration.credit_cards.select(:id).find_each do |collaboration|
-      Resque.enqueue(PodemosCollaborationWorker, collaboration.id)
+    Collaboration.credit_cards.pluck(:id).each do |cid|
+      Resque.enqueue(PodemosCollaborationWorker, cid)
     end
     redirect_to :admin_collaborations
   end
 
   collection_action :generate_orders, :method => :get do
-    Collaboration.banks.select(:id).find_each do |collaboration|
-      Resque.enqueue(PodemosCollaborationWorker, collaboration.id)
+    Collaboration.banks.pluck(:id).each do |cid|
+      Resque.enqueue(PodemosCollaborationWorker, cid)
     end
     redirect_to :admin_collaborations
   end
