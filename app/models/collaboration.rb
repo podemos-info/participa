@@ -41,7 +41,7 @@ class Collaboration < ActiveRecord::Base
   scope :amount_3, -> {where("amount > 200")}
 
   scope :incomplete, -> { where(status: 0)}
-  scope :inactive, -> { where(status: 2)}
+  scope :without_payment, -> { where(status: 2)}
   scope :active, -> { where(status: 3)}
   scope :with_warnings, -> { where(status: 4)}
   scope :with_errors, -> { where(status: 1)}
