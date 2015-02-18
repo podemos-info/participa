@@ -8,10 +8,12 @@ class Collaboration < ActiveRecord::Base
   belongs_to :user
   has_many :order, as: :parent
 
-  validates :user_id, :amount, :frequency, presence: true
+  validates :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
-  validates :user_id, uniqueness: true
+  validates :user_id, uniqueness: true, allow_nil: true
+  validates :non_user_email, uniqueness: true, allow_nil: true
+  validates :non_user_document_vat_id, uniqueness: true, allow_nil: true
   validate :validates_not_passport
   validate :validates_age_over
 
@@ -35,7 +37,6 @@ class Collaboration < ActiveRecord::Base
   scope :amount_1, -> {where("amount < 10")}
   scope :amount_2, -> {where("amount > 10 and amount < 20")}
   scope :amount_3, -> {where("amount > 20")}
-
 
   after_create :set_initial_status
 
@@ -234,14 +235,57 @@ class Collaboration < ActiveRecord::Base
   end
 
   def charge
-    order = self.get_orders[0] # get orders for current month
-    order = order[-1] if order # get last order for current month
-    if order and order.is_payable?
-      if self.is_credit_card?
-        order.redsys_send_request 
-      else
-        order.save
+    if self.is_active?
+      order = self.get_orders[0] # get orders for current month
+      order = order[-1] if order # get last order for current month
+      if order and order.is_payable?
+        if self.is_credit_card?
+          order.redsys_send_request 
+        else
+          order.save
+        end
       end
     end
   end
+
+  after_initialize :parse_non_user
+  before_save :format_non_user
+
+  class NonUser
+    def initialize(args)
+      [:full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country].each do |var|
+        instance_variable_set("@#{var}", args[var]) if args.member? var
+      end
+    end
+
+    attr_accessor :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone
+  end
+
+  def parse_non_user
+    @non_user = if self.non_user_data then YAML.load(self.non_user_data) else nil end
+  end
+
+  def format_non_user
+    if @non_user then
+      self.non_user_data = YAML.dump(self.non_user)
+      self.non_user_document_vat_id = self.non_user[:document_vatid]
+      self.non_user_email = self.non_user[:document_vatid]
+    else
+      self.non_user_data = self.non_user_document_vat_id = self.non_user_email = nil
+    end
+  end
+
+  def set_non_user info
+    @non_user = if info.nil? then nil else NonUser.new(info) end
+    format_non_user
+  end
+
+  def get_user
+    if self.user
+      self.user
+    else
+      @non_user
+    end
+  end
+
 end
