@@ -77,8 +77,20 @@ ActiveAdmin.register Collaboration do
         row :redsys_identifier
         row :redsys_expiration
       end
-      if collaboration.user.nil?
-        row :non_user_data
+    end
+    if collaboration.user.nil?
+      panel "Colaboración antigua" do
+        attributes_table_for collaboration.get_user do
+          row :full_name
+          row :document_vatid
+          row :email
+          row :address
+          row :town_name
+          row :postal_code
+          row :country
+          row :province
+          row :phone 
+        end
       end
     end
     panel "Órdenes de pago" do
