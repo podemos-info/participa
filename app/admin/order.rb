@@ -37,7 +37,7 @@ ActiveAdmin.register Order do
       if order.user
         link_to(order.user.full_name, admin_user_path(order.user))
       elsif order.parent
-        order.parent.get_user.full_name
+        order.parent.get_user
       end
     end
     column :payable_at

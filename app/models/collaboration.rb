@@ -126,7 +126,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.order(payable_at: :asc).first if not defined? @first_order
+    @first_order = self.order.order(payable_at: :asc).where.not(status:1).first if not defined? @first_order
     @first_order
   end
 
@@ -259,10 +259,10 @@ class Collaboration < ActiveRecord::Base
             col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
             col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
             col_user.postal_code, col_user.country.upcase, 
-            collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic, 
-            order.amount/100, order.due_code, order.url_source, collaboration.id, 
-            collaboration.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-            collaboration.frequency_name, col_user.full_name.mb_chars.upcase.to_s ] 
+            self.iban_account, self.ccc_full, self.iban_bic, 
+            order.amount/100, order.due_code, order.url_source, self.id, 
+            self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
+            self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ] 
       else
         nil
       end
