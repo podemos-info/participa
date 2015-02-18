@@ -254,12 +254,16 @@ class Collaboration < ActiveRecord::Base
 
   class NonUser
     def initialize(args)
-      [:full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country].each do |var|
+      [:full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone].each do |var|
         instance_variable_set("@#{var}", args[var]) if args.member? var
       end
     end
 
     attr_accessor :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone
+
+    def to_s
+      "#{full_name} (#{document_vatid} - #{email})"
+    end
   end
 
   def parse_non_user
