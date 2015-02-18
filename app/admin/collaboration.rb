@@ -11,10 +11,10 @@ ActiveAdmin.register Collaboration do
   scope :bank_nationals
   scope :bank_internationals
   scope :incomplete
-  scope :with_errors
-  scope :without_payment
+  scope :recent
   scope :active
-  scope :with_warnings
+  scope :warnings
+  scope :errors
   scope :legacy
   scope :non_user
   scope :deleted
