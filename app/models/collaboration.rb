@@ -41,10 +41,10 @@ class Collaboration < ActiveRecord::Base
   scope :amount_3, -> {where("amount > 200")}
 
   scope :incomplete, -> { where(status: 0)}
-  scope :with_errors, -> { where(status: 1)}
-  scope :new, -> { where(status: 2)}
+  scope :inactive, -> { where(status: 2)}
   scope :active, -> { where(status: 3)}
   scope :with_warnings, -> { where(status: 4)}
+  scope :with_errors, -> { where(status: 1)}
   scope :legacy, -> { where.not(non_user_data: nil)}
   scope :non_user, -> { where(user_id: nil)}
   scope :deleted, -> { where.not(deleted_at: nil) }
