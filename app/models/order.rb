@@ -25,6 +25,7 @@ class Order < ActiveRecord::Base
 
   scope :by_date, -> date_start, date_end { where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
   scope :by_parent, -> parent { where(parent_id: parent.id) }
+  scope :non_errors, -> {where.not(status:4})}
 
   after_initialize do |o|
     o.status = 0 if o.status.nil?

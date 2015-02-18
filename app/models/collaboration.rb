@@ -138,7 +138,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.order(payable_at: :asc).where.not(status:1).first if not defined? @first_order
+    @first_order = self.order.non_errors.order(payable_at: :asc).first if not defined? @first_order
     @first_order
   end
 
