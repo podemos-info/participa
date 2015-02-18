@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206112734) do
+ActiveRecord::Schema.define(version: 20150218094016) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -42,12 +42,17 @@ ActiveRecord::Schema.define(version: 20150206112734) do
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",            default: 0
+    t.integer  "status",                  default: 0
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
+    t.string   "non_user_document_vatid"
+    t.string   "non_user_email"
+    t.text     "non_user_data"
   end
 
   add_index "collaborations", ["deleted_at"], name: "index_collaborations_on_deleted_at"
+  add_index "collaborations", ["non_user_document_vatid"], name: "index_collaborations_on_non_user_document_vatid"
+  add_index "collaborations", ["non_user_email"], name: "index_collaborations_on_non_user_email"
 
   create_table "election_locations", force: true do |t|
     t.integer  "election_id"

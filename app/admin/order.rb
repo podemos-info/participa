@@ -34,7 +34,11 @@ ActiveAdmin.register Order do
     column :status_name
     column :parent
     column :user do |order|
-      link_to(order.user.full_name, admin_user_path(order.user))
+      if order.user
+        link_to(order.user.full_name, admin_user_path(order.user))
+      else
+        order.parent.get_user.full_name
+      end
     end
     column :payable_at
     column :payed_at

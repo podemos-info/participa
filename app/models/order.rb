@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
   belongs_to :parent, polymorphic: true
   belongs_to :user
 
-  validates :payment_type, :amount, :user_id, :payable_at, presence: true
+  validates :payment_type, :amount, :payable_at, presence: true
 
   STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4}
   PAYMENT_TYPES = {
@@ -151,7 +151,7 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_url
-    orders_callback_redsys_url(protocol: if Rails.env.development? then :http else :https end, redsys_order_id: self.redsys_order_id, parent_id: self.parent.id,   user_id: self.user.id) 
+    orders_callback_redsys_url(protocol: if Rails.env.development? then :http else :https end, redsys_order_id: self.redsys_order_id, user_id: self.user_id, parent_id: self.parent.id)
   end
 
   def redsys_merchant_request_signature
@@ -181,7 +181,7 @@ class Order < ActiveRecord::Base
   def redsys_parse_response! params
     redsys_logger.info("*" * 40)
     redsys_logger.info("Redsys: New payment")
-    redsys_logger.info("User: #{self.user.id} - #{self.parent.class.to_s}: #{self.parent.id}")
+    redsys_logger.info("User: #{self.user_id} - #{self.parent.class.to_s}: #{self.parent.id}")
     redsys_logger.info("Data: #{self.attributes.inspect}")
     redsys_logger.info("Params: #{params}")
     self.payment_response = params.to_json
