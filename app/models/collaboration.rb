@@ -43,7 +43,7 @@ class Collaboration < ActiveRecord::Base
   scope :incomplete, -> { where(status: 0)}
   scope :recent, -> { where(status: 2)}
   scope :active, -> { where(status: 3)}
-  scope :active, -> { where(status: 4)}
+  scope :warnings, -> { where(status: 4)}
   scope :errors, -> { where(status: 1)}
   scope :legacy, -> { where.not(non_user_data: nil)}
   scope :non_user, -> { where(user_id: nil)}
