@@ -114,7 +114,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_valid?
-    self.status>1
+    self.status>1 and self.deleted_at.nil? and (not self.user or self.user.deleted_at.nil?)
   end
 
   def is_active?
@@ -199,10 +199,10 @@ class Collaboration < ActiveRecord::Base
     (first_month <= date.unique_month) and ((date.unique_month - first_month) % self.frequency) == 0
   end
 
-  def get_orders date_start=Date.today, date_end=Date.today
+  def get_orders date_start=Date.today, date_end=Date.today, create_orders = true
     saved_orders = Hash.new {|h,k| h[k] = [] }
 
-    self.order.by_parent(self).by_date(date_start, date_end).each do |o|
+    self.order.by_date(date_start, date_end).each do |o|
       saved_orders[o.payable_at.unique_month] << o
     end
 
@@ -216,7 +216,7 @@ class Collaboration < ActiveRecord::Base
       order = month_orders[-1]
 
       # if don't have a saved order, create it (not persistent)
-      if self.deleted_at.nil? and ((not order and self.must_have_order? current) or (order and order.has_errors?))
+      if self.deleted_at.nil? and create_orders and ((not order and self.must_have_order? current) or (order and order.has_errors?))
         order = self.create_order current, orders.empty?
         month_orders << order if order
       end
@@ -235,16 +235,36 @@ class Collaboration < ActiveRecord::Base
     ko_collaboration_url
   end
 
-  def charge
-    if self.is_active?
+  def charge!
+    if self.is_valid?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
       if order and order.is_payable?
         if self.is_credit_card?
-          order.redsys_send_request 
+          order.redsys_send_request if self.is_active?
         else
           order.save
         end
+      end
+    end
+  end
+
+  def get_bank_data date
+    if self.is_valid?
+      order = self.get_orders(date, date, false)[0] 
+      order = order[-1] if order # get last order for current month
+      if order and order.is_payable?
+        col_user = self.get_user
+        [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
+            col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
+            col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
+            col_user.postal_code, col_user.country.upcase, 
+            collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic, 
+            order.amount/100, order.due_code, order.url_source, collaboration.id, 
+            collaboration.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
+            collaboration.frequency_name, col_user.full_name.mb_chars.upcase.to_s ] 
+      else
+        nil
       end
     end
   end
@@ -293,7 +313,7 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def validate_has_user
+  def validates_has_user
     if self.get_user.nil?
       self.errors.add(:user, "La colaboración debe tener un usuario asociado.")
     end
