@@ -13,7 +13,9 @@ ActiveAdmin.register Collaboration do
   index do
     selectable_column
     id_column
-    column :user
+    column :user do |collaboration|
+      collaboration.get_user
+    end
     column :amount do |collaboration|
       number_to_euro collaboration.amount
     end
@@ -52,7 +54,9 @@ ActiveAdmin.register Collaboration do
 
   show do |collaboration|
     attributes_table do
-      row :user
+      row :user do
+        collaboration.get_user
+      end
       row :payment_type_name
       row :amount do
         number_to_euro collaboration.amount
@@ -72,6 +76,9 @@ ActiveAdmin.register Collaboration do
       if collaboration.is_credit_card?
         row :redsys_identifier
         row :redsys_expiration
+      end
+      if collaboration.user.nil?
+        row :non_user_data
       end
     end
     panel "Órdenes de pago" do
@@ -102,6 +109,7 @@ ActiveAdmin.register Collaboration do
       f.input :iban_bic
       f.input :redsys_identifier
       f.input :redsys_expiration
+      f.input :non_user_data
     end
     f.actions
   end

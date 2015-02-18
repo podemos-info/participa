@@ -13,9 +13,10 @@ class Collaboration < ActiveRecord::Base
   validates :minimal_year_old, acceptance: true
   validates :user_id, uniqueness: true, allow_nil: true
   validates :non_user_email, uniqueness: true, allow_nil: true
-  validates :non_user_document_vat_id, uniqueness: true, allow_nil: true
+  validates :non_user_document_vatid, uniqueness: true, allow_nil: true
   validate :validates_not_passport
   validate :validates_age_over
+  validate :validates_has_user
 
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
@@ -50,13 +51,13 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_not_passport
-    if self.user.is_passport? 
+    if self.user and self.user.is_passport? 
       self.errors.add(:user, "No puedes colaborar si eres extranjero.")
     end
   end
 
   def validates_age_over
-    if self.user.born_at > Date.today-18.years
+    if self.user and self.user.born_at > Date.today-18.years
       self.errors.add(:user, "No puedes colaborar si eres menor de edad.")
     end
   end
@@ -267,11 +268,11 @@ class Collaboration < ActiveRecord::Base
 
   def format_non_user
     if @non_user then
-      self.non_user_data = YAML.dump(self.non_user)
-      self.non_user_document_vat_id = self.non_user[:document_vatid]
-      self.non_user_email = self.non_user[:document_vatid]
+      self.non_user_data = YAML.dump(@non_user)
+      self.non_user_document_vatid = @non_user.document_vatid
+      self.non_user_email = @non_user.email
     else
-      self.non_user_data = self.non_user_document_vat_id = self.non_user_email = nil
+      self.non_user_data = self.non_user_document_vatid = self.non_user_email = nil
     end
   end
 
@@ -288,4 +289,9 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
+  def validate_has_user
+    if self.get_user.nil?
+      self.errors.add(:user, "La colaboración debe tener un usuario asociado.")
+    end
+  end
 end
