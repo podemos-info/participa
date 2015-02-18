@@ -4,7 +4,7 @@ class PodemosCollaborationWorker
 
   def self.perform collaboration_id
     collaboration = Collaboration.find(collaboration_id)
-    collaboration.charge
+    collaboration.charge!
   end
 
 end

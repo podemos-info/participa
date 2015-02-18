@@ -141,15 +141,8 @@ ActiveAdmin.register Collaboration do
     today = Date.today
     output = CSV.generate(encoding: 'utf-8', force_quotes: true) do |csv|
       Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(today,today)).find_each do |collaboration|
-        order = collaboration.order[0]
-        csv << [ "%02d%02d%06d" % [ today.year%100, today.month, order.id%1000000 ], 
-                collaboration.user.full_name.mb_chars.upcase.to_s, collaboration.user.document_vatid.upcase, collaboration.user.email, 
-                collaboration.user.address.mb_chars.upcase.to_s, collaboration.user.town_name.mb_chars.upcase.to_s, 
-                collaboration.user.postal_code, collaboration.user.country.upcase, 
-                collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic, 
-                order.amount/100, order.due_code, order.url_source, collaboration.id, 
-                collaboration.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-                collaboration.frequency_name, collaboration.user.full_name.mb_chars.upcase.to_s ] if not collaboration.user.deleted? and order.is_payable?
+        bank_data = collaboration.get_bank_data today
+        csv << bank_data if bank_data
       end
     end
     send_data output.encode('utf-8'),
@@ -162,7 +155,7 @@ ActiveAdmin.register Collaboration do
   end
 
   member_action :charge_order do
-    resource.charge
+    resource.charge!
     redirect_to admin_collaboration_path(id: resource.id)
   end
 
