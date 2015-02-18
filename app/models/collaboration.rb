@@ -138,14 +138,13 @@ class Collaboration < ActiveRecord::Base
       end
     end
 
+    date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
-      o.reference = "Colaboración mes de " + I18n.localize(date, :format => "%B")
+      o.reference = "Colaboración " + I18n.localize(date, :format => "%B")
       o.first = is_first
       o.amount = self.amount*self.frequency
-
-      date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
       o.payable_at = date
       o.payment_type = self.payment_type
       o.payment_identifier = self.payment_identifier
@@ -216,7 +215,7 @@ class Collaboration < ActiveRecord::Base
 
       # if don't have a saved order, create it (not persistent)
       if self.deleted_at.nil? and ((not order and self.must_have_order? current) or (order and order.has_errors?))
-        order = create_order current, (saved_orders.empty? and orders.empty?)
+        order = self.create_order current, orders.empty?
         month_orders << order if order
       end
 

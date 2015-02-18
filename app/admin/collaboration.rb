@@ -43,6 +43,7 @@ ActiveAdmin.register Collaboration do
     actions
   end
 
+  filter :user_document_vatid, as: :string
   filter :user_email, as: :string
   filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
@@ -117,22 +118,23 @@ ActiveAdmin.register Collaboration do
   end
 
   collection_action :download, :method => :get do
-    csv = CSV.generate(encoding: 'utf-8') do |csv|
-      Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(Date.today-1.month,Date.today-1.month)).find_each do |collaboration|
+    today = Date.today
+    output = CSV.generate(encoding: 'utf-8') do |csv|
+      Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(today,today)).find_each do |collaboration|
         order = collaboration.order[0]
-        csv << [ "%0d%0d%0d" % [ Date.today.year%100, Date.today.month, order.id%1000000 ], 
+        csv << [ "%02d%02d%06d" % [ today.year%100, today.month, order.id%1000000 ], 
                 collaboration.user.full_name.mb_chars.upcase.to_s, collaboration.user.document_vatid.upcase, collaboration.user.email, 
                 collaboration.user.address.mb_chars.upcase.to_s, collaboration.user.town_name.mb_chars.upcase.to_s, 
                 collaboration.user.postal_code, collaboration.user.country.upcase, 
                 collaboration.iban_account, collaboration.ccc_full, collaboration.iban_bic, 
                 order.amount/100, order.due_code, order.url_source, collaboration.id, 
-                order.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-                collaboration.frequency_name, collaboration.user.full_name ] if not user.deleted? and order.is_payable?
+                collaboration.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
+                collaboration.frequency_name, collaboration.user.full_name.mb_chars.upcase.to_s ] if not collaboration.user.deleted? and order.is_payable?
       end
     end
-    send_data csv.encode('utf-8'),
+    send_data output.encode('utf-8'),
       type: 'text/csv; charset=utf-8; header=present',
-      disposition: "attachment; filename=podemos.orders.#{Date.today.to_s}.csv"
+      disposition: "attachment; filename=podemos.orders.#{today.to_s}.csv"
   end
 
   action_item only: :index do
@@ -141,7 +143,7 @@ ActiveAdmin.register Collaboration do
 
   member_action :charge_order do
     resource.charge
-    redirect_to :admin_collaborations
+    redirect_to admin_collaboration_path(id: resource.id)
   end
 
   action_item only: :show do
