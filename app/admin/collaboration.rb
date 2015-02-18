@@ -6,9 +6,23 @@ ActiveAdmin.register Collaboration do
 
   actions :all, :except => [:new]
 
+  scope :all
+  scope :active
+  scope :with_errors
+  scope :with_warnings
+  scope :legacy
+  scope :all
   scope :credit_cards
   scope :bank_nationals
   scope :bank_internationals
+  scope :incomplete
+  scope :with_errors
+  scope :new
+  scope :active
+  scope :with_warnings
+  scope :legacy
+  scope :non_user
+  scope :deleted
 
   index do
     selectable_column
@@ -82,9 +96,9 @@ ActiveAdmin.register Collaboration do
         row :redsys_expiration
       end
     end
-    if collaboration.user.nil?
+    if collaboration.get_non_user
       panel "Colaboración antigua" do
-        attributes_table_for collaboration.get_user do
+        attributes_table_for collaboration.get_non_user do
           row :full_name
           row :document_vatid
           row :email
@@ -131,14 +145,24 @@ ActiveAdmin.register Collaboration do
   end
   
   collection_action :charge, :method => :get do
-    Collaboration.all.select(:id).find_each do |collaboration|
+    Collaboration.credit_cards.select(:id).find_each do |collaboration|
+      Resque.enqueue(PodemosCollaborationWorker, collaboration.id)
+    end
+    redirect_to :admin_collaborations
+  end
+
+  collection_action :generate_orders, :method => :get do
+    Collaboration.banks.select(:id).find_each do |collaboration|
       Resque.enqueue(PodemosCollaborationWorker, collaboration.id)
     end
     redirect_to :admin_collaborations
   end
 
   action_item only: :index do
-    link_to('Cobrar colaboraciones', params.merge(:action => :charge))
+    link_to('Cobrar tarjetas', params.merge(:action => :charge))
+  end
+  action_item only: :index do
+    link_to('Generar órdenes bancos', params.merge(:action => :generate_orders))
   end
 
   collection_action :download, :method => :get do
@@ -164,6 +188,6 @@ ActiveAdmin.register Collaboration do
   end
 
   action_item only: :show do
-    link_to 'Cobrar', charge_order_admin_collaboration_path(id: resource.id)
+    link_to 'Cobrar / generar orden', charge_order_admin_collaboration_path(id: resource.id)
   end
 end
