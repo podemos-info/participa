@@ -62,7 +62,7 @@ ActiveAdmin.register Collaboration do
     end
     column :info do |collaboration|
       status_tag("Activo", :ok) if collaboration.is_active?
-      status_tag("Alertas", :warn) if collaboration.has_warnigs?
+      status_tag("Alertas", :warn) if collaboration.has_warnings?
       status_tag("Errores", :error) if collaboration.has_errors?
       collaboration.deleted? ? status_tag("Borrado", :error) : ""
     end
