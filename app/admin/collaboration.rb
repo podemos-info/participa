@@ -17,7 +17,7 @@ ActiveAdmin.register Collaboration do
   scope :errors
   scope :legacy
   scope :non_user
-  scope :deleted
+  scope :only_deleted
 
   index do
     selectable_column
@@ -94,6 +94,7 @@ ActiveAdmin.register Collaboration do
     if collaboration.get_non_user
       panel "Colaboración antigua" do
         attributes_table_for collaboration.get_non_user do
+          row :legacy_id 
           row :full_name
           row :document_vatid
           row :email
@@ -185,4 +186,12 @@ ActiveAdmin.register Collaboration do
   action_item only: :show do
     link_to 'Cobrar / generar orden', charge_order_admin_collaboration_path(id: resource.id)
   end
+
+  controller do
+    def show
+      @collaboration = Collaboration.with_deleted.find(params[:id])
+      show! #it seems to need this
+    end
+  end
+
 end

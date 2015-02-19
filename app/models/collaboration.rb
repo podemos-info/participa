@@ -11,9 +11,9 @@ class Collaboration < ActiveRecord::Base
   validates :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
-  validates :user_id, uniqueness: true, allow_nil: true
-  validates :non_user_email, uniqueness: true, allow_nil: true
-  validates :non_user_document_vatid, uniqueness: true, allow_nil: true
+  validates :user_id, uniqueness: true, { scope: :deleted_at }, allow_nil: true, allow_blank: true
+  validates :non_user_email, uniqueness: true, {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true
+  validates :non_user_document_vatid, uniqueness: true, allow_nil: true, {case_sensitive: false, scope: :deleted_at }
   validate :validates_not_passport
   validate :validates_age_over
   validate :validates_has_user
@@ -47,7 +47,6 @@ class Collaboration < ActiveRecord::Base
   scope :errors, -> { where(status: 1)}
   scope :legacy, -> { where.not(non_user_data: nil)}
   scope :non_user, -> { where(user_id: nil)}
-  scope :deleted, -> { where.not(deleted_at: nil) }
 
   after_create :set_initial_status
 

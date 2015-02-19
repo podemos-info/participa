@@ -7,9 +7,9 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .ccc_full work" do 
-    assert_equal "9000 0001 21 0123456789", @collaboration.ccc_full
+    assert_equal "90000001210123456789", @collaboration.ccc_full
     @collaboration.ccc_dc = 5
-    assert_equal "9000 0001 05 0123456789", @collaboration.ccc_full
+    assert_equal "90000001050123456789", @collaboration.ccc_full
   end
 
   test "should not save collaboration if foreign user (passport)" do
