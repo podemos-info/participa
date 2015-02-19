@@ -226,7 +226,7 @@ ActiveAdmin.register Collaboration do
       collaboration.get_user.postal_code
     end
     column :country do |collaboration|
-      collaboration.get_user.country_name
+      collaboration.get_user.country
     end
     column :iban_account
     column :ccc_full
