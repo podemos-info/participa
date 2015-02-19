@@ -53,12 +53,12 @@ ActiveAdmin.register Collaboration do
         end .join("")
       end) .join(" ").html_safe
     end
-    column :dni do |collaboration|
+    column :dni_nie do |collaboration|
       collaboration.get_user.document_vatid
     end
     column :created_at
     column :method, sortable: 'payment_type' do |collaboration|
-      collaboration.payment_type==1 ? "Tarjeta" : "Transferencia"
+      collaboration.payment_type==1 ? "Tarjeta" : "Recibo"
     end
     column :info do |collaboration|
       status_tag("Activo", :ok) if collaboration.is_active?
@@ -205,4 +205,36 @@ ActiveAdmin.register Collaboration do
     end
   end
 
+  csv do
+    column :id
+    column :full_name do |collaboration|
+      collaboration.get_user.full_name
+    end
+    column :dni_nie do |collaboration|
+      collaboration.get_user.document_vatid.upcase
+    end
+    column :email do |collaboration|
+      collaboration.get_user.email
+    end
+    column :address do |collaboration|
+      collaboration.get_user.address
+    end
+    column :town do |collaboration|
+      collaboration.get_user.town_name
+    end
+    column :postal_code do |collaboration|
+      collaboration.get_user.postal_code
+    end
+    column :country do |collaboration|
+      collaboration.get_user.country_name
+    end
+    column :iban_account
+    column :ccc_full
+    column :iban_bic
+    column :amount do |collaboration|
+      collaboration.amount/100
+    end
+    column :created_at
+    column :frequency_name
+  end
 end
