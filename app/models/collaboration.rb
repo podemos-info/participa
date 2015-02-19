@@ -192,6 +192,14 @@ class Collaboration < ActiveRecord::Base
     self.save
   end
 
+  def has_warnings?
+    self.status==4
+  end
+
+  def has_errors?
+    self.status==1
+  end
+
   def set_warning
     self.status = 4
     self.save

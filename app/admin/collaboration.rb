@@ -57,8 +57,10 @@ ActiveAdmin.register Collaboration do
       collaboration.get_user.document_vatid
     end
     column :created_at
+    column :method, sortable: 'payment_type' do |collaboration|
+      collaboration.payment_type==1 ? "Tarjeta" : "Transferencia"
+    end
     column :info do |collaboration|
-      collaboration.payment_type==1 ? status_tag("Tarjeta", :ok) : status_tag("Transf", :ok)
       status_tag("Activo", :ok) if collaboration.is_active?
       status_tag("Alertas", :warn) if collaboration.has_warnigs?
       status_tag("Errores", :error) if collaboration.has_errors?
