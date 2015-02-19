@@ -26,7 +26,7 @@ ActiveAdmin.register Collaboration do
       if collaboration.user
         link_to(collaboration.user.full_name, admin_user_path(collaboration.user))
       else
-        collaboration.get_user
+        collaboration.get_user.full_name
       end
     end
     column :amount do |collaboration|
@@ -53,8 +53,17 @@ ActiveAdmin.register Collaboration do
         end .join("")
       end) .join(" ").html_safe
     end
-    column :payment_type_name, :sortable => 'collaboration.payment_type'
+    column :dni do |collaboration|
+      collaboration.get_user.document_vatid
+    end
     column :created_at
+    column :info do |collaboration|
+      collaboration.payment_type==1 ? status_tag("Tarjeta", :ok) : status_tag("Transf", :ok)
+      status_tag("Activo", :ok) if collaboration.is_active?
+      status_tag("Alertas", :warn) if collaboration.has_warnigs?
+      status_tag("Errores", :error) if collaboration.has_errors?
+      collaboration.deleted? ? status_tag("Borrado", :error) : ""
+    end
     actions
   end
 
