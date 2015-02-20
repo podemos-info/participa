@@ -27,6 +27,12 @@ class Order < ActiveRecord::Base
   scope :by_parent, -> parent { where(parent_id: parent.id) }
   scope :non_errors, -> {where.not(status:[4,5])}
 
+  scope :to_be_paid, -> {where(status:[0,1])}
+  scope :paid, -> {where(status:[2,3]).where.not(payed_at:nil)}
+  scope :warnings, -> {where(status:3)}
+  scope :errors, -> {where(status:4)}
+  scope :returned, -> {where(status:5)}
+
   after_initialize do |o|
     o.status = 0 if o.status.nil?
   end

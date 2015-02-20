@@ -28,17 +28,17 @@
     <th>Importe</th>
   </thead>
   <tbody>
-  <% @orders.each do |order| %>
+  <% @orders.each do |orders| %>
     <tr>
-      <td> <%= l(order.payable_at, format: :date) %><% if order.payed_at %> (pagada el <%=l(order.payed_at, format: :date)%>)<% end %></td>
-      <td> <%= number_to_euro order.amount %> </td>
+      <td> <%= l(orders[-1].payable_at, format: :date) %><% if orders[-1].payed_at %> (pagada el <%=l(orders[-1].payed_at, format: :date)%>)<% end %></td>
+      <td> <%= number_to_euro orders[-1].amount %> </td>
     </tr>
   <% end %>
   </tbody>
   <tfoot>
     <tr>
       <th>Total</th>
-      <th><%= number_to_euro(@orders.map {|o| o.amount} .sum) %></th>
+      <th><%= number_to_euro(@orders.map {|o| o[-1].amount} .sum) %></th>
     </tr>
   </tfoot>
 </table>
