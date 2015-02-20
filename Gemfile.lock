@@ -275,6 +275,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    secure_headers (2.0.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -384,6 +385,7 @@ DEPENDENCIES
   ruby-prof
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  secure_headers
   simplecov
   spanish_vat_validators
   spring

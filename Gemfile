@@ -39,6 +39,11 @@ gem 'phone'
 gem 'iban-tools'
 gem 'paper_trail'
 gem 'newrelic_rpm'
+gem 'ffi-icu', '~> 0.1.4'
+gem 'unicode'
+gem 'rack-openid'
+gem 'ruby-openid'
+gem 'secure_headers'
 
 gem 'rake-progressbar'
 
@@ -54,10 +59,6 @@ gem 'rake-progressbar'
 # gem 'paranoia', '~> 2.0' 
 gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
-gem 'ffi-icu', '~> 0.1.4'
-gem 'unicode'
-gem 'rack-openid'
-gem 'ruby-openid'
 
 group :development, :test do
   gem 'capistrano-rvm'
