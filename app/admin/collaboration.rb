@@ -1,10 +1,10 @@
-def show_collaboration_orders(collaboration)
+def show_collaboration_orders(collaboration, html_output = true)
   today = Date.today.unique_month
-  (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |orders|
+  output = (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |orders|
     odate = orders[0].payable_at
-    text = odate.month.to_s
-    text = content_tag(:strong, text) if odate.unique_month==today
-    text + orders.map do |o|
+    month = odate.month.to_s
+    month = (html_output ? content_tag(:strong, month).html_safe : "|"+month+"|") if odate.unique_month==today
+    month_orders = orders.map do |o|
       otext = if o.has_errors?
                 "x"
               elsif o.has_warnings?
@@ -14,13 +14,23 @@ def show_collaboration_orders(collaboration)
               else
                 "."
               end
-      otext = link_to(otext, admin_order_path(o)) if o.persisted?
+
+      otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
       otext
-    end .join("").html_safe
-  end) .join(" ").html_safe
+    end .join("")
+    if html_output
+      month + month_orders.html_safe
+    else
+      month + month_orders
+    end
+  end) .join(" ")
+
+  html_output ? output.html_safe : output
 end
 
 ActiveAdmin.register Collaboration do
+  scope_to Collaboration, association_method: :with_deleted
+
   menu :parent => "Colaboraciones"
 
   permit_params  :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
@@ -28,7 +38,7 @@ ActiveAdmin.register Collaboration do
 
   actions :all, :except => [:new]
 
-  scope :all
+  scope :created, default: true
   scope :credit_cards
   scope :bank_nationals
   scope :bank_internationals
@@ -39,7 +49,7 @@ ActiveAdmin.register Collaboration do
   scope :errors
   scope :legacy
   scope :non_user
-  scope :only_deleted
+  scope :deleted
 
   index do
     selectable_column
@@ -255,7 +265,7 @@ ActiveAdmin.register Collaboration do
       end
     end
     column :orders do |collaboration|
-      show_collaboration_orders collaboration
+      show_collaboration_orders collaboration, false
     end
     column :user do |collaboration|
       collaboration.user_id if collaboration.user_id
