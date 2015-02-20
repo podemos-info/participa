@@ -2,6 +2,8 @@ ActiveAdmin.register Order do
 
   menu :parent => "Colaboraciones"
 
+  permit_params :status, :reference, :amount, :first, :payment_type, :payment_identifier, :payment_response, :payable_at, :payed_at, :created_at
+
   # Nº RECIBO Es el identificador del cargo a todos los efectos y no se ha de repetir en la remesa y en las remesas sucesivas. Es un nº correlativo
   # NOMBRE  
   # DNI/NIE/PASAPORTE 
@@ -40,10 +42,38 @@ ActiveAdmin.register Order do
         order.parent.get_user
       end
     end
+    column :amount
     column :payable_at
     column :payed_at
-    column :created_at
     actions
+  end
+
+  show do
+    attributes_table do
+      row :id
+      row :status_name
+      row :user do |order|
+        if order.user
+          link_to(order.user.full_name, admin_user_path(order.user))
+        elsif order.parent
+          order.parent.get_user
+        end
+      end
+      row :parent
+      row :parent_type
+      row :amount
+      row :first
+      row :reference
+      row :payment_type
+      row :payment_identifier
+      row :payment_response
+      row :created_at
+      row :updated_at
+      row :payable_at
+      row :payed_at
+      row :deleted_at
+    end
+    active_admin_comments
   end
 
   filter :user_email, as: :string
@@ -66,5 +96,18 @@ ActiveAdmin.register Order do
     end
     f.actions
   end
-  
+
+  member_action :return_order do
+    if resource.is_paid?
+      resource.mark_as_returned!
+    end
+    redirect_to admin_order_path(id: resource.id)
+  end
+
+  action_item only: :show do
+    if resource.is_paid?
+      link_to 'Orden devuelta', return_order_admin_order_path(id: resource.id), data: { confirm: "Esta orden no será contabilizada como cobrada. ¿Deseas continuar?" }
+    end
+  end
+
 end
