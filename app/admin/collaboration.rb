@@ -149,6 +149,7 @@ ActiveAdmin.register Collaboration do
 
   form do |f|
     f.inputs "Colaboración" do
+      f.input :user_id
       f.input :status, as: :select, collection: Collaboration::STATUS.to_a
       f.input :amount, as: :radio, collection: Collaboration::AMOUNTS.to_a #, input_html: {disabled: true}
       f.input :frequency, as: :radio, collection: Collaboration::FREQUENCIES.to_a #, input_html: {disabled: true}
