@@ -10,7 +10,7 @@ class Order < ActiveRecord::Base
 
   validates :payment_type, :amount, :payable_at, presence: true
 
-  STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4}
+  STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4, "Devuelta" => 5}
   PAYMENT_TYPES = {
     "Suscripción con Tarjeta de Crédito/Débito" => 1, 
     "Domiciliación en cuenta bancaria (CCC)" => 2, 
@@ -25,7 +25,7 @@ class Order < ActiveRecord::Base
 
   scope :by_date, -> date_start, date_end { where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
   scope :by_parent, -> parent { where(parent_id: parent.id) }
-  scope :non_errors, -> {where.not(status:4)}
+  scope :non_errors, -> {where.not(status:[4,5])}
 
   after_initialize do |o|
     o.status = 0 if o.status.nil?
@@ -36,7 +36,7 @@ class Order < ActiveRecord::Base
   end
 
   def is_paid?
-    !self.payed_at.nil?
+    !self.payed_at.nil? and [2,3].include? self.status 
   end
 
   def has_warnings?
@@ -47,19 +47,28 @@ class Order < ActiveRecord::Base
     self.status == 4
   end
 
+  def was_returned?
+    self.status == 5
+  end
+
   def status_name
     Order::STATUS.invert[self.status]
   end
 
   def error_message
-    if self.status==4
+    case self.status
+    when 4
       case self.payment_type
       when 1
         self.redsys_text_status
       else
         ""
       end
-    end    
+    when 5
+      "Devuelta"
+    else
+      ""
+    end
   end
 
   def self.parent_from_order_id order_id
@@ -123,6 +132,10 @@ class Order < ActiveRecord::Base
     end 
   end
 
+  def mark_as_returned!
+    self.status = 5
+    self.save
+  end
 
   #### REDSYS CC PAYMENTS ####
 

@@ -1,7 +1,29 @@
+def show_collaboration_orders(collaboration)
+  today = Date.today.unique_month
+  (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |orders|
+    odate = orders[0].payable_at
+    text = odate.month.to_s
+    text = content_tag(:strong, text) if odate.unique_month==today
+    text + orders.map do |o|
+      otext = if o.has_errors?
+                "x"
+              elsif o.has_warnings?
+                "!"
+              elsif o.is_paid?
+                "o"
+              else
+                "."
+              end
+      otext = link_to(otext, admin_order_path(o)) if o.persisted?
+      otext
+    end .join("").html_safe
+  end) .join(" ").html_safe
+end
+
 ActiveAdmin.register Collaboration do
   menu :parent => "Colaboraciones"
 
-  permit_params  :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
+  permit_params  :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
                 :redsys_identifier, :redsys_expiration
 
   actions :all, :except => [:new]
@@ -33,25 +55,7 @@ ActiveAdmin.register Collaboration do
       number_to_euro collaboration.amount
     end
     column :orders do |collaboration|
-      today = Date.today.unique_month
-      (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |orders|
-        odate = orders[0].payable_at
-        text = (odate.unique_month==today ? "&gt;" : "") + odate.month.to_s
-
-        text + orders.map do |o|
-          otext = if o.has_errors?
-                    "x"
-                  elsif o.has_warnings?
-                    "!"
-                  elsif o.is_paid?
-                    "o"
-                  else
-                    "."
-                  end
-          otext = link_to(otext, admin_order_path(o)) if o.persisted?
-          otext
-        end .join("")
-      end) .join(" ").html_safe
+      show_collaboration_orders collaboration
     end
     column :dni_nie do |collaboration|
       collaboration.get_user.document_vatid
@@ -135,6 +139,7 @@ ActiveAdmin.register Collaboration do
 
   form do |f|
     f.inputs "Colaboración" do
+      f.input :status, as: :select, collection: Collaboration::STATUS.to_a
       f.input :amount, as: :radio, collection: Collaboration::AMOUNTS.to_a #, input_html: {disabled: true}
       f.input :frequency, as: :radio, collection: Collaboration::FREQUENCIES.to_a #, input_html: {disabled: true}
       f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a #, input_html: {disabled: true}
@@ -146,7 +151,6 @@ ActiveAdmin.register Collaboration do
       f.input :iban_bic
       f.input :redsys_identifier
       f.input :redsys_expiration
-      f.input :non_user_data
     end
     f.actions
   end
@@ -166,10 +170,10 @@ ActiveAdmin.register Collaboration do
   end
 
   action_item only: :index do
-    link_to('Cobrar tarjetas', params.merge(:action => :charge))
+    link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
   end
   action_item only: :index do
-    link_to('Generar órdenes bancos', params.merge(:action => :generate_orders))
+    link_to 'Generar órdenes bancos', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
   end
 
   collection_action :download, :method => :get do
@@ -195,7 +199,11 @@ ActiveAdmin.register Collaboration do
   end
 
   action_item only: :show do
-    link_to 'Cobrar / generar orden', charge_order_admin_collaboration_path(id: resource.id)
+    if resource.is_credit_card? 
+      link_to 'Cobrar', charge_order_admin_collaboration_path(id: resource.id), data: { confirm: "Se enviarán los datos de la orden para que esta sea cobrada. ¿Deseas continuar?" }
+    else
+      link_to 'Generar orden', charge_order_admin_collaboration_path(id: resource.id)
+    end
   end
 
   controller do
@@ -211,7 +219,7 @@ ActiveAdmin.register Collaboration do
       collaboration.get_user.full_name
     end
     column :dni_nie do |collaboration|
-      collaboration.get_user.document_vatid.upcase
+      collaboration.get_user.document_vatid.upcase if collaboration.get_user.document_vatid
     end
     column :email do |collaboration|
       collaboration.get_user.email
@@ -228,13 +236,29 @@ ActiveAdmin.register Collaboration do
     column :country do |collaboration|
       collaboration.get_user.country
     end
-    column :iban_account
-    column :ccc_full
-    column :iban_bic
+    column :frequency_name
     column :amount do |collaboration|
       collaboration.amount/100
     end
+    column :payment_type_name
+    column :iban_account
+    column :ccc_full
+    column :iban_bic
     column :created_at
-    column :frequency_name
+    column :info do |collaboration|
+      if collaboration.has_errors?
+        "Errores"
+      elsif collaboration.has_warnings?
+        "Alertas"
+      else
+        "OK"
+      end
+    end
+    column :orders do |collaboration|
+      show_collaboration_orders collaboration
+    end
+    column :user do |collaboration|
+      collaboration.user_id if collaboration.user_id
+    end
   end
 end
