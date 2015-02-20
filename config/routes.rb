@@ -81,17 +81,14 @@ Rails.application.routes.draw do
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
       get '/registrations/vote/municipies', to: 'registrations#vote_municipies'
       authenticated :user do
-
-        if not Rails.env.production?
-          scope :colabora do
-            delete 'baja', to: 'collaborations#destroy', as: 'destroy_collaboration'
-            get 'ver', to: 'collaborations#edit', as: 'edit_collaboration'
-            get '', to: 'collaborations#new', as: 'new_collaboration'
-            get 'confirmar', to: 'collaborations#confirm', as: 'confirm_collaboration'
-            post 'crear', to: 'collaborations#create', as: 'create_collaboration'
-            get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
-            get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
-          end
+        scope :colabora do
+          delete 'baja', to: 'collaborations#destroy', as: 'destroy_collaboration'
+          get 'ver', to: 'collaborations#edit', as: 'edit_collaboration'
+          get '', to: 'collaborations#new', as: 'new_collaboration'
+          get 'confirmar', to: 'collaborations#confirm', as: 'confirm_collaboration'
+          post 'crear', to: 'collaborations#create', as: 'create_collaboration'
+          get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
+          get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
         end
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
