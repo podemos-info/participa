@@ -249,7 +249,7 @@ ActiveAdmin.register Collaboration do
     end
     column :frequency_name
     column :amount do |collaboration|
-      collaboration.amount/100
+      collaboration.amount/100 * collaboration.frequency
     end
     column :payment_type_name
     column :iban_account
@@ -270,6 +270,9 @@ ActiveAdmin.register Collaboration do
     end
     column :user do |collaboration|
       collaboration.user_id if collaboration.user_id
+    end
+    column :amount_current do |collaboration|
+      collaboration.amount/100 * collaboration.frequency if collaboration.get_orders[0][-1]
     end
   end
 end

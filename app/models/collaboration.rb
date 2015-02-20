@@ -30,24 +30,24 @@ class Collaboration < ActiveRecord::Base
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
   scope :created, -> { where(deleted_at: nil)  }
-  scope :credit_cards, -> {where(payment_type: 1)}
-  scope :banks, -> {where.not(payment_type: 1)}
-  scope :bank_nationals, -> {where(payment_type: 2)}
-  scope :bank_internationals, -> {where(payment_type: 3)}
-  scope :frequency_month, -> {where(frequency: 1)}
-  scope :frequency_quarterly, -> {where(frequency: 3)}
-  scope :frequency_anual, -> {where(frequency: 12)}
-  scope :amount_1, -> {where("amount < 100")}
-  scope :amount_2, -> {where("amount > 100 and amount < 200")}
-  scope :amount_3, -> {where("amount > 200")}
+  scope :credit_cards, -> { created.where(payment_type: 1)}
+  scope :banks, -> { created.where.not(payment_type: 1)}
+  scope :bank_nationals, -> { created.where(payment_type: 2)}
+  scope :bank_internationals, -> { created.where(payment_type: 3)}
+  scope :frequency_month, -> { created.where(frequency: 1)}
+  scope :frequency_quarterly, -> { created.where(frequency: 3)}
+  scope :frequency_anual, -> { created.where(frequency: 12) }
+  scope :amount_1, -> { created.where("amount < 100")}
+  scope :amount_2, -> { created.where("amount > 100 and amount < 200")}
+  scope :amount_3, -> { created.where("amount > 200")}
 
-  scope :incomplete, -> { where(status: 0)}
-  scope :recent, -> { where(status: 2)}
-  scope :active, -> { where(status: 3)}
-  scope :warnings, -> { where(status: 4)}
-  scope :errors, -> { where(status: 1)}
-  scope :legacy, -> { where.not(non_user_data: nil)}
-  scope :non_user, -> { where(user_id: nil)}
+  scope :incomplete, -> { created.where(status: 0)}
+  scope :recent, -> { created.where(status: 2)}
+  scope :active, -> { created.where(status: 3)}
+  scope :warnings, -> { created.where(status: 4)}
+  scope :errors, -> { created.where(status: 1)}
+  scope :legacy, -> { created.where.not(non_user_data: nil)}
+  scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
   after_create :set_initial_status

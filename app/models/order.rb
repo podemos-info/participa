@@ -171,7 +171,11 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_url
-    orders_callback_redsys_url(protocol: if Rails.env.development? then :http else :https end, redsys_order_id: self.redsys_order_id, user_id: self.user_id, parent_id: self.parent.id)
+    if self.first
+      orders_callback_redsys_url(protocol: if Rails.env.development? then :http else :https end, redsys_order_id: self.redsys_order_id, user_id: self.user_id, parent_id: self.parent.id)
+    else
+      ""
+    end
   end
 
   def redsys_merchant_request_signature
