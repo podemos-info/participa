@@ -29,6 +29,12 @@ ActiveAdmin.register Order do
   #
   #"Nº RECIBO", "NOMBRE", "DNI/NIE/PASAPORTE", "EMAIL", "DIRECCIÓN", "CIUDAD", "CÓDIGO POSTAL", "CODIGO PAIS", "IBAN", "CCC", "BIC/SWIFT", "TOTAL", "CÓDIGO DE ADEUDO", "URL FUENTE", "ID - ENTRADA", "FECHA DE LA ENTRADA", "COMPROBACIÓN", "FECHA TRIODOS", "FRECUENCIA", "TITULAR"
   #
+  
+  scope :to_be_paid
+  scope :paid
+  scope :warnings
+  scope :errors
+  scope :returned
 
   index do
     selectable_column

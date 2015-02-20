@@ -155,7 +155,7 @@ class Collaboration < ActiveRecord::Base
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
-      o.reference = "Colaboración " + I18n.localize(date, :format => "%B")
+      o.reference = "Colaboración " + I18n.localize(date, :format => "%B %Y")
       o.first = is_first
       o.amount = self.amount*self.frequency
       o.payable_at = date

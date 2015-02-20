@@ -45,7 +45,6 @@ class CollaborationsController < ApplicationController
 
   # GET /collaborations/confirm
   def confirm
-    @order = @orders[0]
   end
 
   # GET /collaborations/ok
@@ -71,7 +70,8 @@ class CollaborationsController < ApplicationController
     @collaboration = current_user.collaboration
 
     start_date = [@collaboration.created_at, Date.today - 6.months].max
-    @orders = @collaboration.get_orders start_date, start_date + 12.months
+    @orders = @collaboration.get_orders start_date, start_date + 11.months
+    @order = @orders[0][-1]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
