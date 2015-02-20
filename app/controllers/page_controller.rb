@@ -5,7 +5,7 @@ class PageController < ApplicationController
                                               :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
-                                              :portal_transparencia_cc_estatal, :mujer_igualdad]
+                                              :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana]
 
   def privacy_policy
   end
