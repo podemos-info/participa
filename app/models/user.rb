@@ -128,7 +128,6 @@ class User < ActiveRecord::Base
   attr_accessor :skip_before_save
 
   scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
-  scope :users_with_deleted, -> { where "deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
   scope :created, -> { where(deleted_at: nil)  }
   scope :deleted, -> { where.not(deleted_at: nil) }
@@ -552,10 +551,6 @@ class User < ActiveRecord::Base
         self.vote_town = self.town
       end
     end
-  end
-
-  def users_with_deleted
-    User.with_deleted
   end
 
   def in_participation_team? team_id

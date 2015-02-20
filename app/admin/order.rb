@@ -1,4 +1,5 @@
 ActiveAdmin.register Order do
+  scope_to Order, association_method: :with_deleted
 
   menu :parent => "Colaboraciones"
 

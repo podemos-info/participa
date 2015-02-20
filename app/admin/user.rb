@@ -1,8 +1,8 @@
 ActiveAdmin.register User do
 
-  scope_to :current_user, :association_method => :users_with_deleted
+  scope_to User, association_method: :with_deleted
 
-  scope :created
+  scope :created, default: true
   scope :confirmed
   scope :deleted
   scope :unconfirmed_mail

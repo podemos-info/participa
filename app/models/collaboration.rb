@@ -29,6 +29,7 @@ class Collaboration < ActiveRecord::Base
   FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
+  scope :created, -> { where(deleted_at: nil)  }
   scope :credit_cards, -> {where(payment_type: 1)}
   scope :banks, -> {where.not(payment_type: 1)}
   scope :bank_nationals, -> {where(payment_type: 2)}
@@ -47,6 +48,7 @@ class Collaboration < ActiveRecord::Base
   scope :errors, -> { where(status: 1)}
   scope :legacy, -> { where.not(non_user_data: nil)}
   scope :non_user, -> { where(user_id: nil)}
+  scope :deleted, -> { only_deleted }
 
   after_create :set_initial_status
 
