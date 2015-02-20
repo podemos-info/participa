@@ -84,6 +84,10 @@ class PageController < ApplicationController
   def mujer_igualdad
     render :form_iframe, locals: { title: "Área de mujer e igualdad - Encuentro", form_id: 55, extra_qs:"" }
   end
+
+  def alta_consulta_ciudadana
+    render :form_iframe, locals: { title: "Formulario para activar la Consulta Ciudadana acerca de las candidaturas de unidad popular", form_id: 57, extra_qs:"" }
+  end
   
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do

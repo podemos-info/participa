@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     get '/plaza-podemos-municipal', to: 'page#plaza_podemos_municipal', as:'plaza_podemos_municipal'
     get '/portal-transparencia-cc-estatal', to: 'page#portal_transparencia_cc_estatal', as:'portal_transparencia_cc_estatal'
     get '/mujer-igualdad', to: 'page#mujer_igualdad', as:"mujer_igualdad"
+    get '/alta-consulta-ciudadana', to: 'page#alta_consulta_ciudadana', as:"alta_consulta_ciudadana"
     
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
