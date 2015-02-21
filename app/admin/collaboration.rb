@@ -11,6 +11,8 @@ def show_collaboration_orders(collaboration, html_output = true)
                 "!"
               elsif o.is_paid?
                 "o"
+              elsif o.was_returned?
+                "r"
               else
                 "."
               end
@@ -272,7 +274,11 @@ ActiveAdmin.register Collaboration do
       collaboration.user_id if collaboration.user_id
     end
     column :amount_current do |collaboration|
-      collaboration.amount/100 * collaboration.frequency if collaboration.get_orders[0][-1]
+      if collaboration.is_payable? and collaboration.must_have_order? Date.today
+        (collaboration.amount/100 * collaboration.frequency) 
+      else
+        0
+      end
     end
   end
 end
