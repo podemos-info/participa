@@ -169,9 +169,7 @@ class Collaboration < ActiveRecord::Base
   def payment_identifier
     if self.is_credit_card?
       self.redsys_identifier
-    elsif self.is_bank_national?
-      self.ccc_full
-    elsif self.is_bank_international?
+    else
       "#{self.iban_account}/#{self.iban_bic}"
     end
   end

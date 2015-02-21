@@ -90,7 +90,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.by_month_amount(date)
-    self.by_date(date,date).sum(:amount) / 100.0
+    self.by_date(date,date).sum(:by_month_amount) / 100.0
   end
 
 
