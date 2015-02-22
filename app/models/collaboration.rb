@@ -1,3 +1,4 @@
+require 'fileutils'
 class Collaboration < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
@@ -338,6 +339,36 @@ class Collaboration < ActiveRecord::Base
   def validates_has_user
     if self.get_user.nil?
       self.errors.add(:user, "La colaboración debe tener un usuario asociado.")
+    end
+  end
+
+  def self.bank_filename date, full_path=true
+    filename = "podemos.orders.#{date.to_s}"
+    if full_path
+      "tmp/export/#{filename}.csv"
+    else
+      filename
+    end      
+  end
+
+  def self.temp_bank_filename date, full_path=true
+    filename = "podemos.orders.#{date.to_s}.tmp"
+    if full_path
+      "tmp/export/#{filename}.csv"
+    else
+      filename
+    end
+  end
+
+  def self.has_bank_file? date
+    [ File.exists? self.temp_bank_filename(date), File.exists? self.bank_filename(date) ]
+  end
+
+  def self.generating_bank_file date, finish
+    if finish
+      File.delete self.bank_filename(date)
+    else
+      FileUtils.touch self.bank_filename(date)
     end
   end
 end
