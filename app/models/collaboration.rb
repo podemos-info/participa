@@ -345,7 +345,7 @@ class Collaboration < ActiveRecord::Base
   def self.bank_filename date, full_path=true
     filename = "podemos.orders.#{date.to_s}"
     if full_path
-      "tmp/export/#{filename}.csv"
+      "tmp/collaborations/#{filename}.csv"
     else
       filename
     end      
@@ -354,7 +354,7 @@ class Collaboration < ActiveRecord::Base
   def self.temp_bank_filename date, full_path=true
     filename = "podemos.orders.#{date.to_s}.tmp"
     if full_path
-      "tmp/export/#{filename}.csv"
+      "tmp/collaborations/#{filename}.csv"
     else
       filename
     end
@@ -366,9 +366,10 @@ class Collaboration < ActiveRecord::Base
 
   def self.generating_bank_file date, finish
     if finish
-      File.delete self.bank_filename(date)
+      File.delete self.temp_bank_filename(date)
     else
-      FileUtils.touch self.bank_filename(date)
+      FileUtils.mkdir_p("tmp/collaborations") unless File.directory?(folder)
+      FileUtils.touch self.temp_bank_filename(date)
     end
   end
 end
