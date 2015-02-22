@@ -207,17 +207,16 @@ ActiveAdmin.register Collaboration do
     else
       flash[:notice] = "El fichero no existe aún"
     end
-    redirect_to :admin_collaborations
   end
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
-    if status[0]
-      link_to('Generando fichero de recibos', params.merge(:disabled => true))
-    else
-      link_to('Generar fichero de recibos', params.merge(:action => :generate_csv))
-    end
+    active = status[0] ? " (ejecutando)" : ""
+    link_to("Generar fichero de recibos #{active}", params.merge(:action => :generate_csv))
+  end
 
+  action_item only: :index do
+    status = Collaboration.has_bank_file? Date.today
     if status[1]
       link_to('Descargar fichero de recibos', params.merge(:action => :download_csv))
     end
