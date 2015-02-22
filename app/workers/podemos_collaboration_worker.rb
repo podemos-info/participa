@@ -18,12 +18,3 @@ class PodemosCollaborationWorker
     end
   end
 end
-
-
-
-today = Date.today
-      export_data "a", Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(today,today)), 
-                  folder: "tmp/collaborations", force_quotes: true, col_sep: ',' do |collaboration|
-        collaboration.skip_queries_validations = true
-        collaboration.get_bank_data today
-      end
