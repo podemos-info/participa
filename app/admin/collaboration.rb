@@ -186,7 +186,7 @@ ActiveAdmin.register Collaboration do
     link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
   end
   action_item only: :index do
-    link_to 'Generar órdenes bancos', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
+    link_to 'Crear órdenes de recibos', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
   end
 
   collection_action :generate_csv, :method => :get do
@@ -207,19 +207,20 @@ ActiveAdmin.register Collaboration do
     else
       flash[:notice] = "El fichero no existe aún"
     end
+    redirect_to :admin_collaborations
   end
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
     if status[0]
-      link_to('Generando pagos', params.merge(:disabled => true))
+      link_to('Generando fichero de recibos', params.merge(:disabled => true))
     else
-      link_to('Generar pagos', params.merge(:action => :generate_csv)
+      link_to('Generar fichero de recibos', params.merge(:action => :generate_csv))
     end
 
     if status[1]
-      link_to('Descargar pagos', params.merge(:action => :download_csv)
-    else
+      link_to('Descargar fichero de recibos', params.merge(:action => :download_csv))
+    end
   end
 
   member_action :charge_order do

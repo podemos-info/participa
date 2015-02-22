@@ -361,7 +361,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def self.has_bank_file? date
-    [ File.exists? self.temp_bank_filename(date), File.exists? self.bank_filename(date) ]
+    [ File.exists?(self.temp_bank_filename(date)), File.exists?(self.bank_filename(date)) ]
   end
 
   def self.generating_bank_file date, finish
