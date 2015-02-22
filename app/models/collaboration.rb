@@ -8,12 +8,13 @@ class Collaboration < ActiveRecord::Base
   belongs_to :user
   has_many :order, as: :parent
 
+  attr_accessor :skip_queries_validations
   validates :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
-  validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true
-  validates :non_user_email, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true
-  validates :non_user_document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true 
+  validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
+  validates :non_user_email, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
+  validates :non_user_document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
   validate :validates_not_passport
   validate :validates_age_over
   validate :validates_has_user
@@ -125,7 +126,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_payable?
-    self.status>1 and self.deleted_at.nil? and self.valid? and (not self.user or self.user.deleted_at.nil?)
+    [1,2].include? self.status and self.deleted_at.nil? and self.valid? and (not self.user or self.user.deleted_at.nil?)
   end
 
   def is_active?

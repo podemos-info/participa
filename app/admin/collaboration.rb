@@ -193,6 +193,7 @@ ActiveAdmin.register Collaboration do
     today = Date.today
     output = CSV.generate(encoding: 'utf-8', force_quotes: true) do |csv|
       Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(today,today)).find_each do |collaboration|
+        collaboration.skip_queries_validations = true
         bank_data = collaboration.get_bank_data today
         csv << bank_data if bank_data
       end
@@ -274,6 +275,7 @@ ActiveAdmin.register Collaboration do
       collaboration.user_id if collaboration.user_id
     end
     column :amount_current do |collaboration|
+      collaboration.skip_queries_validations = true
       if collaboration.is_payable? and collaboration.must_have_order? Date.today
         (collaboration.amount/100 * collaboration.frequency) 
       else
