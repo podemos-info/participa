@@ -368,7 +368,7 @@ class Collaboration < ActiveRecord::Base
     if finish
       File.delete self.temp_bank_filename(date)
     else
-      FileUtils.mkdir_p("tmp/collaborations") unless File.directory?(folder)
+      FileUtils.mkdir_p("tmp/collaborations") unless File.directory?("tmp/collaborations")
       FileUtils.touch self.temp_bank_filename(date)
     end
   end
