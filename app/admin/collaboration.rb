@@ -189,7 +189,7 @@ ActiveAdmin.register Collaboration do
     link_to 'Generar órdenes bancos', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
   end
 
-  collection_action :generate, :method => :get do
+  collection_action :generate_csv, :method => :get do
     status = Collaboration.has_bank_file? Date.today
     if status[0]
       flash[:notice] = "El fichero ya se está generando"
@@ -200,7 +200,7 @@ ActiveAdmin.register Collaboration do
     redirect_to :admin_collaborations
   end
 
-  collection_action :download, :method => :get do
+  collection_action :download_csv, :method => :get do
     status = Collaboration.has_bank_file? Date.today
     if status[1]
       send_file Collaboration.bank_filename Date.today
@@ -214,11 +214,11 @@ ActiveAdmin.register Collaboration do
     if status[0]
       link_to('Generando pagos', params.merge(:disabled => true))
     else
-      link_to('Generar pagos', params.merge(:action => :generate)
+      link_to('Generar pagos', params.merge(:action => :generate_csv)
     end
 
     if status[1]
-      link_to('Descargar pagos', params.merge(:action => :download)
+      link_to('Descargar pagos', params.merge(:action => :download_csv)
     else
   end
 
