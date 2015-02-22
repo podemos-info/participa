@@ -126,7 +126,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_payable?
-    [1,2].include? self.status and self.deleted_at.nil? and self.valid? and (not self.user or self.user.deleted_at.nil?)
+    [2,3].include? self.status and self.deleted_at.nil? and self.valid? and (not self.user or self.user.deleted_at.nil?)
   end
 
   def is_active?
