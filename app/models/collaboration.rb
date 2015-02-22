@@ -343,7 +343,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def self.bank_filename date, full_path=true
-    filename = "podemos.orders.#{date.to_s}"
+    filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}"
     if full_path
       "tmp/collaborations/#{filename}.csv"
     else
@@ -352,7 +352,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def self.temp_bank_filename date, full_path=true
-    filename = "podemos.orders.#{date.to_s}.tmp"
+    filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}.tmp"
     if full_path
       "tmp/collaborations/#{filename}.csv"
     else
