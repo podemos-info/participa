@@ -189,22 +189,37 @@ ActiveAdmin.register Collaboration do
     link_to 'Generar órdenes bancos', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
   end
 
-  collection_action :download, :method => :get do
-    today = Date.today
-    output = CSV.generate(encoding: 'utf-8', force_quotes: true) do |csv|
-      Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(today,today)).find_each do |collaboration|
-        collaboration.skip_queries_validations = true
-        bank_data = collaboration.get_bank_data today
-        csv << bank_data if bank_data
-      end
+  collection_action :generate_csv, :method => :get do
+    status = Collaboration.has_bank_file? Date.today
+    if status[0]
+      flash[:notice] = "El fichero ya se está generando"
+    else
+      Collaboration.generating_bank_file Date.today, false
+      Resque.enqueue(PodemosCollaborationWorker, -1)
     end
-    send_data output.encode('utf-8'),
-      type: 'text/csv; charset=utf-8; header=present',
-      disposition: "attachment; filename=podemos.orders.#{today.to_s}.csv"
+    redirect_to :admin_collaborations
+  end
+
+  collection_action :download_csv, :method => :get do
+    status = Collaboration.has_bank_file? Date.today
+    if status[1]
+      send_file Collaboration.bank_filename Date.today
+    else
+      flash[:notice] = "El fichero no existe aún"
+    end
   end
 
   action_item only: :index do
-    link_to('Descargar fichero de pagos de este mes', params.merge(:action => :download))
+    status = Collaboration.has_bank_file? Date.today
+    if status[0]
+      link_to('Generando pagos', params.merge(:disabled => true))
+    else
+      link_to('Generar pagos', params.merge(:action => :generate_csv)
+    end
+
+    if status[1]
+      link_to('Descargar pagos', params.merge(:action => :download_csv)
+    else
   end
 
   member_action :charge_order do
