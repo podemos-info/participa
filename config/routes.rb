@@ -50,7 +50,13 @@ Rails.application.routes.draw do
     get '/portal-transparencia-cc-estatal', to: 'page#portal_transparencia_cc_estatal', as:'portal_transparencia_cc_estatal'
     get '/mujer-igualdad', to: 'page#mujer_igualdad', as:"mujer_igualdad"
     get '/solicitud-consulta-ciudadana-candidatura-unidad-popular', to: 'page#alta_consulta_ciudadana', as:"alta_consulta_ciudadana"
-    
+    get '/representantes-electorales-extranjeros', to: 'page#representantes_electorales_extranjeros', as:"representantes_electorales_extranjeros"
+
+    get '/comparte-el-cambio/comparte-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
+    get '/comparte-el-cambio/comparte-coche', to: 'page#share_car', as: 'share_car'
+    get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
+    get '/comparte-el-cambio/encuentra-viaje', to: 'page#find_car', as: 'find_car'
+
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote
