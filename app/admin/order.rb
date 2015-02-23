@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
-  scope_to Order, association_method: :with_deleted
+  scope_to Order, association_method: :full_view
 
   menu :parent => "Colaboraciones"
 
@@ -35,6 +35,7 @@ ActiveAdmin.register Order do
   scope :warnings
   scope :errors
   scope :returned
+  scope :deleted
 
   index do
     selectable_column

@@ -54,7 +54,7 @@ class Collaboration < ActiveRecord::Base
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
-  scope :full_view, -> { with_deleted.includes(:user).includes(:order) }
+  scope :full_view, -> { with_deleted.includes(:user).includes(:order).order(updated_at: :desc) }
   
   after_create :set_initial_status
 
