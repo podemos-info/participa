@@ -283,9 +283,6 @@ ActiveAdmin.register Collaboration do
         "OK"
       end
     end
-    #column :orders do |collaboration|
-    #  show_collaboration_orders collaboration, false
-    #end
     column :user do |collaboration|
       collaboration.user_id if collaboration.user_id
     end
@@ -296,6 +293,9 @@ ActiveAdmin.register Collaboration do
       else
         0
       end
+    end
+    column :orders do |collaboration|
+      show_collaboration_orders collaboration, false
     end
   end
 end
