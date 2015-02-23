@@ -5,7 +5,8 @@ class PageController < ApplicationController
                                               :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
-                                              :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana]
+                                              :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
+                                              :representantes_electorales_extranjeros]
 
   def privacy_policy
   end
@@ -90,7 +91,7 @@ class PageController < ApplicationController
   end
 
   def representantes_electorales_extranjeros
-    render :form_iframe, locals: { title: "Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
+    render :form_iframe, locals: { title: "Elecciones Andaluzas: Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
   end
 
   def credits_status

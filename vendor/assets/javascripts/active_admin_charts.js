@@ -36,7 +36,7 @@ jQuery(function($) {
   $('table.js-col-sum-evolution tbody tr').each( function(){
     evolution_labels.push( $(this).find('td:nth-child(1)').text().trim() );
     evolution_orders.push( parseInt($(this).find('td:nth-child(2)').text().trim()) );
-    evolution_amount.push( parseFloat($(this).find('td:nth-child(3)').text().trim().replace('€','').replace(',','.')) );
+    evolution_amount.push( parseFloat($(this).find('td:nth-child(3)').text().trim().replace('€','').replace('.','').replace(',','.')) );
   });
   var data = {
     labels: evolution_labels,

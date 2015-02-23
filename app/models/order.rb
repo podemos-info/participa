@@ -24,14 +24,16 @@ class Order < ActiveRecord::Base
   REDSYS_SERVER_TIME_ZONE = ActiveSupport::TimeZone.new("Madrid")
 
   scope :by_date, -> date_start, date_end { where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
-  scope :by_parent, -> parent { where(parent_id: parent.id) }
-  scope :non_errors, -> {where.not(status:[4,5])}
 
-  scope :to_be_paid, -> {where(status:[0,1])}
-  scope :paid, -> {where(status:[2,3]).where.not(payed_at:nil)}
-  scope :warnings, -> {where(status:3)}
-  scope :errors, -> {where(status:4)}
-  scope :returned, -> {where(status:5)}
+  scope :created, -> { where(deleted_at: nil) }
+  scope :to_be_paid, -> { created.where(status:[0,1]) }
+  scope :paid, -> { created.where(status:[2,3]).where.not(payed_at:nil) }
+  scope :warnings, -> { created.where(status:3) }
+  scope :errors, -> { created.where(status:4) }
+  scope :returned, -> { created.where(status:5) }
+  scope :deleted, -> { only_deleted }
+
+  scope :full_view, -> { with_deleted.includes(:user) }
 
   after_initialize do |o|
     o.status = 0 if o.status.nil?
@@ -90,7 +92,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.by_month_amount(date)
-    self.by_date(date,date).sum(:by_month_amount) / 100.0
+    self.by_date(date,date).sum(:amount) / 100.0
   end
 
 

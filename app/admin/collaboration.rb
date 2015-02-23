@@ -32,6 +32,7 @@ end
 
 ActiveAdmin.register Collaboration do
   scope_to Collaboration, association_method: :full_view
+  config.sort_order = 'updated_at_desc'
 
   menu :parent => "Colaboraciones"
 
@@ -135,7 +136,7 @@ ActiveAdmin.register Collaboration do
       end
     end
     panel "Órdenes de pago" do
-      table_for collaboration.order do
+      table_for collaboration.order.sort { |a,b| b.payable_at <=> a.payable_at } do
         column :id do |order|
           link_to order.id, admin_order_path(order.id)
         end
