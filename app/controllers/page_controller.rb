@@ -91,7 +91,7 @@ class PageController < ApplicationController
   end
 
   def representantes_electorales_extranjeros
-    render :form_iframe, locals: { title: "Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
+    render :form_iframe, locals: { title: "Elecciones Andaluzas: Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
   end
 
   def credits_status
