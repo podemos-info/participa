@@ -4,4 +4,4 @@ stderr_path "/var/www/participa.podemos.info/shared/log/unicorn.log"
 stdout_path "/var/www/participa.podemos.info/shared/log/unicorn.log"
 listen "127.0.0.1:8080"
 worker_processes 24
-timeout 120
+timeout 240
