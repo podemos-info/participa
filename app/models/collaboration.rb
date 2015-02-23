@@ -143,8 +143,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.sort {|x| -x.payable_at.to_time.to_i }.detect {|o| o.is_payable? or o.is_paid? } if not defined? @first_order
-    @first_order
+    self.order.sort {|x| -x.payable_at.to_time.to_i }.detect {|o| o.is_payable? or o.is_paid? }
   end
 
   def last_order_for date
@@ -172,7 +171,6 @@ class Collaboration < ActiveRecord::Base
       o.payment_type = self.payment_type
       o.payment_identifier = self.payment_identifier
     end
-    @first_order = order if is_first
     order
   end
 
@@ -232,6 +230,8 @@ class Collaboration < ActiveRecord::Base
     if self.first_order.nil?
       next_order = Date.today.unique_month
       next_order += 1 if not self.is_credit_card? and self.created_at.unique_month==next_order
+    elsif self.first_order.payable_at > date
+      return false
     else
       next_order = self.last_order_for(date).payable_at.unique_month + self.frequency
     end
