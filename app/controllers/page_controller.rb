@@ -88,7 +88,11 @@ class PageController < ApplicationController
   def alta_consulta_ciudadana
     render :form_iframe, locals: { title: "Formulario para activar la Consulta Ciudadana acerca de las candidaturas de unidad popular", form_id: 57, extra_qs:"" }
   end
-  
+
+  def representantes_electorales_extranjeros
+    render :form_iframe, locals: { title: "Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
+  end
+
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []
