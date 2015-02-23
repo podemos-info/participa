@@ -223,7 +223,7 @@ class Collaboration < ActiveRecord::Base
   def get_orders date_start=Date.today, date_end=Date.today, create_orders = true
     saved_orders = Hash.new {|h,k| h[k] = [] }
 
-    self.order.select {|o| o.payable_at > date_start.beginning_of_month and o.payable_at < date_end.end_of_month).each do |o|
+    self.order.select {|o| o.payable_at > date_start.beginning_of_month and o.payable_at < date_end.end_of_month} .each do |o|
       saved_orders[o.payable_at.unique_month] << o
     end
 
