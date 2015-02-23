@@ -7,7 +7,7 @@ class PodemosCollaborationWorker
     if collaboration_id==-1
       today = Date.today
       export_data Collaboration.bank_filename(today, false), Collaboration.joins(:order).includes(:user).where.not(payment_type: 1).merge(Order.by_date(today,today)), 
-                  folder: "tmp/collaborations", col_sep: ',' do |collaboration|
+                  folder: "#{Rails.root}/tmp/collaborations", col_sep: ',' do |collaboration|
         collaboration.skip_queries_validations = true
         collaboration.get_bank_data today
       end

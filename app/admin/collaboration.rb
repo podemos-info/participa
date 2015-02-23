@@ -190,13 +190,8 @@ ActiveAdmin.register Collaboration do
   end
 
   collection_action :generate_csv, :method => :get do
-    status = Collaboration.has_bank_file? Date.today
-    if status[0]
-      flash[:notice] = "El fichero ya se está generando"
-    else
-      Collaboration.bank_file_lock true
-      Resque.enqueue(PodemosCollaborationWorker, -1)
-    end
+    Collaboration.bank_file_lock true
+    Resque.enqueue(PodemosCollaborationWorker, -1)
     redirect_to :admin_collaborations
   end
 
