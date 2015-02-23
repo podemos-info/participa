@@ -190,13 +190,8 @@ ActiveAdmin.register Collaboration do
   end
 
   collection_action :generate_csv, :method => :get do
-    status = Collaboration.has_bank_file? Date.today
-    if status[0]
-      flash[:notice] = "El fichero ya se está generando"
-    else
-      Collaboration.bank_file_lock true
-      Resque.enqueue(PodemosCollaborationWorker, -1)
-    end
+    Collaboration.bank_file_lock true
+    Resque.enqueue(PodemosCollaborationWorker, -1)
     redirect_to :admin_collaborations
   end
 
@@ -211,14 +206,14 @@ ActiveAdmin.register Collaboration do
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
-    active = status[0] ? " (ejecutando)" : ""
-    link_to("Generar fichero de recibos #{active}", params.merge(:action => :generate_csv))
+    link_to("Generar fichero de recibos", params.merge(:action => :generate_csv))
   end
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
     if status[1]
-      link_to('Descargar fichero de recibos', params.merge(:action => :download_csv))
+      active = status[0] ? " (incompleto)" : ""
+      link_to("Descargar fichero de recibos#{active}", params.merge(:action => :download_csv))
     end
   end
 
