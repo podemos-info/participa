@@ -31,7 +31,7 @@ def show_collaboration_orders(collaboration, html_output = true)
 end
 
 ActiveAdmin.register Collaboration do
-  scope_to Collaboration, association_method: :with_deleted
+  scope_to Collaboration, association_method: :full_view
 
   menu :parent => "Colaboraciones"
 
@@ -283,9 +283,9 @@ ActiveAdmin.register Collaboration do
         "OK"
       end
     end
-    column :orders do |collaboration|
-      show_collaboration_orders collaboration, false
-    end
+    #column :orders do |collaboration|
+    #  show_collaboration_orders collaboration, false
+    #end
     column :user do |collaboration|
       collaboration.user_id if collaboration.user_id
     end
