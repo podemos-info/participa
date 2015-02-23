@@ -16,6 +16,8 @@ class Collaboration < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
   validates :non_user_email, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
   validates :non_user_document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
+  validates :non_user_email, :non_user_document_vatid, :non_user_data, presence: true, if: Proc.new { |c| c.user.nil? }
+    
   validate :validates_not_passport
   validate :validates_age_over
   validate :validates_has_user
@@ -141,7 +143,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.non_errors.order(payable_at: :asc).first if not defined? @first_order
+    @first_order = self.order.sort {|x| x.payable_at.to_time.to_i }.detect {|o| o.is_payable? or o.is_paid? } if not defined? @first_order
     @first_order
   end
 
@@ -223,8 +225,7 @@ class Collaboration < ActiveRecord::Base
   def get_orders date_start=Date.today, date_end=Date.today, create_orders = true
     saved_orders = Hash.new {|h,k| h[k] = [] }
 
-    self.order.by_date(date_start, date_end).each do |o|
-      @first_order = o if o.first and (o.is_payable? or o.is_paid?)
+    self.order.select {|o| o.payable_at > date_start.beginning_of_month and o.payable_at < date_end.end_of_month} .each do |o|
       saved_orders[o.payable_at.unique_month] << o
     end
 
@@ -255,6 +256,15 @@ class Collaboration < ActiveRecord::Base
 
   def ko_url
     ko_collaboration_url
+  end
+
+  def fix_status!
+    if not self.valid? and not self.has_errors?
+      self.update_attributes status: 1
+      true
+    else
+      false
+    end
   end
 
   def charge!
@@ -354,25 +364,18 @@ class Collaboration < ActiveRecord::Base
     end      
   end
 
-  def self.temp_bank_filename date, full_path=true
-    filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}.tmp"
-    if full_path
-      "tmp/collaborations/#{filename}.csv"
+  BANK_FILE_LOCK = "#{Rails.root}/tmp/collaborations/podemos.orders.lock"
+  def self.bank_file_lock status
+    if status 
+      folder = File.dirname BANK_FILE_LOCK
+      FileUtils.mkdir_p(folder) unless File.directory?(folder)
+      FileUtils.touch BANK_FILE_LOCK
     else
-      filename
-    end
+      File.delete(BANK_FILE_LOCK) if File.exists? BANK_FILE_LOCK
+    end    
   end
 
   def self.has_bank_file? date
-    [ File.exists?(self.temp_bank_filename(date)), File.exists?(self.bank_filename(date)) ]
-  end
-
-  def self.generating_bank_file date, finish
-    if finish
-      File.delete self.temp_bank_filename(date)
-    else
-      FileUtils.mkdir_p("tmp/collaborations") unless File.directory?("tmp/collaborations")
-      FileUtils.touch self.temp_bank_filename(date)
-    end
+    [ File.exists?(BANK_FILE_LOCK), File.exists?(self.bank_filename(date)) ]
   end
 end

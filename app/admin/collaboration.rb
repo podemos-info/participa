@@ -190,13 +190,8 @@ ActiveAdmin.register Collaboration do
   end
 
   collection_action :generate_csv, :method => :get do
-    status = Collaboration.has_bank_file? Date.today
-    if status[0]
-      flash[:notice] = "El fichero ya se está generando"
-    else
-      Collaboration.generating_bank_file Date.today, false
-      Resque.enqueue(PodemosCollaborationWorker, -1)
-    end
+    Collaboration.bank_file_lock true
+    Resque.enqueue(PodemosCollaborationWorker, -1)
     redirect_to :admin_collaborations
   end
 
@@ -211,14 +206,14 @@ ActiveAdmin.register Collaboration do
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
-    active = status[0] ? " (ejecutando)" : ""
-    link_to("Generar fichero de recibos #{active}", params.merge(:action => :generate_csv))
+    link_to("Generar fichero de recibos", params.merge(:action => :generate_csv))
   end
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
     if status[1]
-      link_to('Descargar fichero de recibos', params.merge(:action => :download_csv))
+      active = status[0] ? " (incompleto)" : ""
+      link_to('Descargar fichero de recibos #{active}', params.merge(:action => :download_csv))
     end
   end
 
@@ -267,6 +262,9 @@ ActiveAdmin.register Collaboration do
     end
     column :frequency_name
     column :amount do |collaboration|
+      collaboration.amount/100
+    end
+    column :total_amount do |collaboration|
       collaboration.amount/100 * collaboration.frequency
     end
     column :payment_type_name
@@ -283,9 +281,6 @@ ActiveAdmin.register Collaboration do
         "OK"
       end
     end
-    #column :orders do |collaboration|
-    #  show_collaboration_orders collaboration, false
-    #end
     column :user do |collaboration|
       collaboration.user_id if collaboration.user_id
     end
@@ -296,6 +291,9 @@ ActiveAdmin.register Collaboration do
       else
         0
       end
+    end
+    column :orders do |collaboration|
+      show_collaboration_orders collaboration, false
     end
   end
 end
