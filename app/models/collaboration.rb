@@ -141,7 +141,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.non_errors.order(payable_at: :asc).first if not defined? @first_order
+    @first_order = self.order.detect {|o| o.first and (o.is_payable? or o.is_paid?) } if not defined? @first_order
     @first_order
   end
 
@@ -224,7 +224,6 @@ class Collaboration < ActiveRecord::Base
     saved_orders = Hash.new {|h,k| h[k] = [] }
 
     self.order.by_date(date_start, date_end).each do |o|
-      @first_order = o if o.first and (o.is_payable? or o.is_paid?)
       saved_orders[o.payable_at.unique_month] << o
     end
 
