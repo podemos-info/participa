@@ -194,7 +194,7 @@ ActiveAdmin.register Collaboration do
     if status[0]
       flash[:notice] = "El fichero ya se está generando"
     else
-      Collaboration.generating_bank_file Date.today, false
+      Collaboration.bank_file_lock true
       Resque.enqueue(PodemosCollaborationWorker, -1)
     end
     redirect_to :admin_collaborations
@@ -267,6 +267,9 @@ ActiveAdmin.register Collaboration do
     end
     column :frequency_name
     column :amount do |collaboration|
+      collaboration.amount/100
+    end
+    column :total_amount do |collaboration|
       collaboration.amount/100 * collaboration.frequency
     end
     column :payment_type_name
