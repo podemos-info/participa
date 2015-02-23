@@ -206,14 +206,14 @@ ActiveAdmin.register Collaboration do
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
-    active = status[0] ? " (ejecutando)" : ""
-    link_to("Generar fichero de recibos #{active}", params.merge(:action => :generate_csv))
+    link_to("Generar fichero de recibos", params.merge(:action => :generate_csv))
   end
 
   action_item only: :index do
     status = Collaboration.has_bank_file? Date.today
     if status[1]
-      link_to('Descargar fichero de recibos', params.merge(:action => :download_csv))
+      active = status[0] ? " (incompleto)" : ""
+      link_to('Descargar fichero de recibos #{active}', params.merge(:action => :download_csv))
     end
   end
 
