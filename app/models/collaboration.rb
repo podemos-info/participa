@@ -367,9 +367,11 @@ class Collaboration < ActiveRecord::Base
   BANK_FILE_LOCK = "tmp/collaborations/podemos.orders.lock"
   def self.bank_file_lock status
     if status 
-      File.delete BANK_FILE_LOCK
+      folder = File.dirname BANK_FILE_LOCK
+      FileUtils.mkdir_p(folder) unless File.directory?(folder)
+      FileUtils.touch BANK_FILE_LOCK
     else
-      File.touch BANK_FILE_LOCK
+      File.delete(BANK_FILE_LOCK) if File.exists? BANK_FILE_LOCK
     end    
   end
 
