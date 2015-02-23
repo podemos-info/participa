@@ -1,5 +1,6 @@
 ActiveAdmin.register Order do
   scope_to Order, association_method: :full_view
+  config.sort_order = 'updated_at_desc'
 
   menu :parent => "Colaboraciones"
 

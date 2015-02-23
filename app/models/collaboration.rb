@@ -41,9 +41,9 @@ class Collaboration < ActiveRecord::Base
   scope :frequency_month, -> { created.where(frequency: 1)}
   scope :frequency_quarterly, -> { created.where(frequency: 3)}
   scope :frequency_anual, -> { created.where(frequency: 12) }
-  scope :amount_1, -> { created.where("amount < 100")}
-  scope :amount_2, -> { created.where("amount > 100 and amount < 200")}
-  scope :amount_3, -> { created.where("amount > 200")}
+  scope :amount_1, -> { created.where("amount < 1000")}
+  scope :amount_2, -> { created.where("amount > 1000 and amount < 2000")}
+  scope :amount_3, -> { created.where("amount > 2000")}
 
   scope :incomplete, -> { created.where(status: 0)}
   scope :recent, -> { created.where(status: 2)}
@@ -54,7 +54,7 @@ class Collaboration < ActiveRecord::Base
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
-  scope :full_view, -> { with_deleted.includes(:user).includes(:order).order(updated_at: :desc) }
+  scope :full_view, -> { with_deleted.includes(:user).includes(:order) }
   
   after_create :set_initial_status
 
@@ -143,11 +143,11 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    self.order.sort {|x| -x.payable_at.to_time.to_i }.detect {|o| o.is_payable? or o.is_paid? }
+    self.order.sort {|a,b| a.payable_at <=> b.payable_at }.detect {|o| o.is_payable? or o.is_paid? }
   end
 
   def last_order_for date
-    self.order.sort {|x| x.payable_at.to_time.to_i }.detect {|o| o.payable_at.unique_month <= date.unique_month and (o.is_payable? or o.is_paid?) }
+    self.order.sort {|a,b| b.payable_at <=> a.payable_at }.detect {|o| o.payable_at.unique_month <= date.unique_month and (o.is_payable? or o.is_paid?) }
   end
 
   def create_order date, maybe_first=false
@@ -383,13 +383,13 @@ class Collaboration < ActiveRecord::Base
   def self.bank_filename date, full_path=true
     filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}"
     if full_path
-      "tmp/collaborations/#{filename}.csv"
+      "db/podemos/#{filename}.csv"
     else
       filename
     end      
   end
 
-  BANK_FILE_LOCK = "#{Rails.root}/tmp/collaborations/podemos.orders.lock"
+  BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.lock"
   def self.bank_file_lock status
     if status 
       folder = File.dirname BANK_FILE_LOCK

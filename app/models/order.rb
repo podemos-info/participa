@@ -33,7 +33,7 @@ class Order < ActiveRecord::Base
   scope :returned, -> { created.where(status:5) }
   scope :deleted, -> { only_deleted }
 
-  scope :full_view, -> { with_deleted.includes(:user).order(updated_at: :desc) }
+  scope :full_view, -> { with_deleted.includes(:user) }
 
   after_initialize do |o|
     o.status = 0 if o.status.nil?
