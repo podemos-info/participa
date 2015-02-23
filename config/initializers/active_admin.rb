@@ -174,10 +174,10 @@ ActiveAdmin.setup do |config|
   # == CSV options
   #
   # Set the CSV builder separator
-  config.csv_options = { :col_sep => ';' }
+  config.csv_options = { :col_sep => '\t' }
   #
   # Force the use of quotes
-  config.csv_options = { :force_quotes => true }
+  config.csv_options = { :force_quotes => false }
 
 
   # == Menu System

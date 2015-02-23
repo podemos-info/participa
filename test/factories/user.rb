@@ -65,4 +65,10 @@ FactoryGirl.define do
     province "AL"
     town "Jefferson County"
   end
+
+  trait :island do
+    province "IB"
+    postal_code "07021"
+    town "m_07_003_3"
+  end
 end

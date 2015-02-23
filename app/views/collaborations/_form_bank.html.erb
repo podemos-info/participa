@@ -1,3 +1,4 @@
-<%= semantic_form_for @collaboration, url: confirm_bank_collaboration_path, method: :post do |f| %>
-  <%= f.action :submit, button_html: {class: 'button'} %>
-<% end %>
+  <div class="js-collaboration-confirm-buttons buttonbox">
+  <%= link_to "Cancelar", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
+  <%= link_to "Confirmar", ok_collaboration_path, class: 'button' %>
+  </div>

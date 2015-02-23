@@ -63,11 +63,15 @@ class SmsValidatorController < ApplicationController
     end
   end
 
-  # POST /validator/captcha
+  # POST /validator/valid
   def valid
     #if current_user.check_sms_token(params[:sms_token][:sms_user_token])
     if current_user.check_sms_token(sms_token_params[:sms_user_token_given])
-      flash.now[:notice] = t('podemos.valid.phone.valid') 
+      flash.now[:notice] = t('podemos.valid.phone.valid')
+
+      if current_user.apply_previous_user_vote_location
+        flash.now[:alert] = t('podemos.registration.message.existing_user_location')        
+      end
       redirect_to authenticated_root_path
     else
       flash.now[:error] = t('podemos.valid.phone.invalid') 

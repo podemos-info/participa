@@ -18,8 +18,11 @@
     <li class="select input required" id="user_country_input"><label class="label" for="user_address">País<abbr title="requerido">*</abbr></label>
     <% user_location = User.get_location(@user, params) %>
     <%= select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", user_location[:country]), {required: "required", data: {allowClear: true} } %></li>
-    <%= render partial: 'subregion_select', locals: { user_location: user_location } %>
-    <%= render partial: 'municipies_select', locals: { user_location: user_location } %>
+    <%= render partial: 'subregion_select', locals:{country: user_location[:country], province: user_location[:province], required: true, field: :province, title:"Provincia"} %>
+    <%= render partial: 'municipies_select', locals:{country: user_location[:country], province: user_location[:province], town: user_location[:town], required: true, field: :town, title:"Municipio"}%>
+    <%= render partial: 'subregion_select', locals:{country: "ES", province: user_location[:vote_province], required: false, field: :vote_province, title:"Provincia de participación"} %>
+    <%= render partial: 'municipies_select', locals:{country: "ES", province: user_location[:vote_province], town: user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de participación"}%>
+
     <%= f.input :postal_code %>
     <%= f.input :circle %>
     <%= f.input :wants_newsletter %>

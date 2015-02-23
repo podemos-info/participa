@@ -25,7 +25,7 @@ class EmailValidator < ActiveModel::EachValidator
         # when an unquoted comma is found, the parsed address is different than the received string
         if value.include? "," and m.address != value
           error = "La dirección de correo contiene caracteres inválidos"
-        elsif not m.domain.include? "." # domain validation
+        elsif not m.domain.include? "." or m.domain.starts_with? "."# domain validation
           error = "La dirección de correo es incorrecta"
         end
       rescue

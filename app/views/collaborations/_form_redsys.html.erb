@@ -1,31 +1,12 @@
-<form target="tpv" id="redsys_payment_form" method="post" action="<%= @collaboration.redsys_secret "post_url" %>" class="js-collaboration-form">
-
-  <input type="hidden" name="Ds_Merchant_Currency"          value="<%= @collaboration.redsys_secret "currency" %>">
-  <input type="hidden" name="Ds_Merchant_MerchantCode"      value="<%= @collaboration.redsys_secret "code" %>">
-  <input type="hidden" name="Ds_Merchant_MerchantName"      value="<%= @collaboration.redsys_secret "name" %>">
-  <input type="hidden" name="Ds_Merchant_Terminal"          value="<%= @collaboration.redsys_secret "terminal" %>">
-  <input type="hidden" name="Ds_Merchant_TransactionType"   value="<%= @collaboration.redsys_secret "transaction_type" %>">
-  <!-- input type="hidden" name="Ds_Merchant_MerchantData"      value="<%= @collaboration.redsys_secret "data" %>" -->
-  <input type="hidden" name="Ds_Merchant_PayMethods"        value="<%= @collaboration.redsys_secret "payment_methods" %>">
-  <!-- input type="hidden" name="Ds_Merchant_Identifier"        value="<%= @collaboration.redsys_secret "identifier" %>" -->
-
-  <input type="hidden" name="Ds_Merchant_Order"             value="<%= @collaboration.redsys_order %>" class="js-collaboration-order">
-  <input type="hidden" name="Ds_Merchant_Amount"            value="<%= @collaboration.amount %>">
-  <input type="hidden" name="Ds_Merchant_MerchantURL"       value="<%= @collaboration.redsys_merchant_url %>">
-  <input type="hidden" name="Ds_Merchant_MerchantUrlOK"     value="<%= @collaboration.redsys_merchant_url("ok") %>">
-  <input type="hidden" name="Ds_Merchant_MerchantUrlKO"     value="<%= @collaboration.redsys_merchant_url("ko") %>">
-  <input type="hidden" name="Ds_Merchant_MerchantSignature" value="<%= @collaboration.redsys_merchant_signature %>">
-
+<form id="redsys_payment_form" method="post" action="<%= @order.redsys_post_url %>" class="js-collaboration-form">
+  <input type="hidden" name="must_reload" value="0" id="js-must-reload" />
+<% @order.redsys_params.each do |name, value| %>
+  <input type="hidden" name="<%=name%>" value="<%= value %>" class="js-<%=name%>" />
+<% end %>
   <div class="js-collaboration-confirm-buttons buttonbox">
     <%= link_to "Cancelar", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
-    <%= link_to "Confirmar", "#", class: "button js-collaboration-confirm" %>
+    <input type="submit" value="Confirmar" class="button" id="js-confirm-button">
   </div>
-
 </form>
 
-<div class="js-collaboration-confirm-ajax hidden">
-  <%= alert_box "Información" do  %>
-    <%= image_tag "ajax-loader.gif" %>
-    <p>Hemos abierto una ventana para que realices el pago con RedSYS. Por favor completa ese proceso y vuelve aquí cuando hayas terminado </p>
-  <% end %>
-</div>
+

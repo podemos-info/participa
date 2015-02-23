@@ -1,11 +1,14 @@
+<% content_for :title, "Herramientas de participación ciudadana" %>
+<%= content_tag(:h2, "Herramientas de participación ciudadana") %>
 <div class="box">
   <div class="box-vote">
-    <% Election.actived.each do |election| %>
-      <% if election.has_valid_location_for? current_user %>
-        <%= render partial: "election", locals: { election: election } %>
-      <% else %>
-        <%= render partial: "election_no_location", locals: { election: election } %>
-      <% end %>
+    <% if !current_user.has_vote_town? %>
+      <p><strong>Por favor, indica tu lugar de participación en tu perfil.</strong></p>
+    <% end %>
+    <h3><strong>Hay <% if @elections.length==1%>una votación<%else%>votaciones<%end%> en curso. ¡Participa!</strong></h3>
+    <p class="sub-h3"><% if @elections.length==1%>La votación utiliza<%else%>Las votaciones utilizan<%end%> el sistema seguro de <a href="https://agoravoting.com" target="_blank"><b>Agora Voting</b></a>.</p>
+    <% @elections.each do |election| %>
+      <%= render partial: "election", locals: { election: election } %>
     <% end %>
   </div>
 </div>

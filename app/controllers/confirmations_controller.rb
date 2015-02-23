@@ -11,4 +11,10 @@ class ConfirmationsController < Devise::ConfirmationsController
       respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
     end
   end
+  
+  def set_flash_message(key, kind, options = {})
+    options.merge! resource_params.deep_symbolize_keys
+    message = find_message(kind, options)
+    flash[key] = message if message.present?
+  end
 end

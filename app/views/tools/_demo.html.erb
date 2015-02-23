@@ -1,0 +1,30 @@
+<% content_for :title, "Ven a la Marcha del Cambio el 31 de enero en Madrid" %>
+<%= content_tag(:h2, "Ven a la Marcha del Cambio el 31 de enero en Madrid") %>
+<section class="tools">
+<ul>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Comparte viaje</h3>
+    <div class="tool-text">
+      <p>Si vas en coche a Madrid y te sobran plazas, anúncialo y otras personas podrán ponerse en contacto contigo para compartir el viaje y los gastos del mismo. </p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Comparte tu coche", share_car_path, class: "button" %>
+      <%= link_to "Encuentra coche", find_car_path, class: "button" %>
+    </div>
+  </div><!--.box-tool-->
+  </li>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Comparte casa</h3>
+    <div class="tool-text">
+      <p>Si tienes sitio en tu casa en Madrid, compártelo y haz posible que otras personas puedan venir a la Marcha del Cambio.</p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Comparte tu casa", offer_hospitality_path, class: "button" %>
+      <%= link_to "Encuentra alojamiento", find_hospitality_path, class: "button" %>
+    </div><!--.buttonbox-->
+  </div><!--.box-tool-->
+  </li>
+</ul>
+</section>

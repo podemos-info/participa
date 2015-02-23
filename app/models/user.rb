@@ -3,12 +3,15 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   require 'phone'
 
+  has_and_belongs_to_many :participation_team
+
   # Include default devise modules. Others available are:
   # :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
-  before_save :control_vote_town
+  before_update :_clear_caches
+  before_save :before_save
 
   acts_as_paranoid
   has_paper_trail
@@ -120,12 +123,11 @@ class User < ActiveRecord::Base
     end
   end
 
-
   attr_accessor :sms_user_token_given
   attr_accessor :login
+  attr_accessor :skip_before_save
 
   scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
-  scope :users_with_deleted, -> { where "deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
   scope :created, -> { where(deleted_at: nil)  }
   scope :deleted, -> { where.not(deleted_at: nil) }
@@ -140,7 +142,8 @@ class User < ActiveRecord::Base
   scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) } 
   scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
   scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
-  scope :wants_participation_team, -> { where(wants_participation: true) }
+  scope :participation_team, -> { includes(:participation_team).where(wants_participation: true) }
+  scope :has_circle, -> { where("circle IS NOT NULL") }
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
@@ -165,6 +168,24 @@ class User < ActiveRecord::Base
     else
       v.save
       return v
+    end
+  end
+
+  def previous_user(force_refresh=false)
+    remove_instance_variable :@previous_user if force_refresh and @previous_user
+    @previous_user ||= User.with_deleted.where("lower(email) = ?", self.email.downcase).where("deleted_at > ?", 3.months.ago).last || 
+                      User.with_deleted.where("lower(document_vatid) = ?", self.document_vatid.downcase).where("deleted_at > ?", 3.months.ago).last
+                      User.with_deleted.where("phone = ?", self.phone).where("deleted_at > ?", 3.months.ago).last
+    @previous_user
+  end
+
+  def apply_previous_user_vote_location
+    if self.previous_user(true) and self.previous_user.has_verified_vote_town? and (self.vote_town != self.previous_user.vote_town)
+      self.vote_town = self.previous_user.vote_town
+      self.save
+      true
+    else
+      false
     end
   end
 
@@ -202,6 +223,11 @@ class User < ActiveRecord::Base
 
   def can_change_phone?
     self.sms_confirmed_at.nil? or self.sms_confirmed_at < DateTime.now-3.months
+  end
+
+  def can_change_location?
+      not self.has_verified_vote_town? or not self.persisted? or 
+        (@override_allows_location_change.nil? ? Rails.application.secrets.users["allows_location_change"] : @override_allows_location_change)
   end
 
   def generate_sms_token
@@ -282,53 +308,117 @@ class User < ActiveRecord::Base
     User::DOCUMENTS_TYPE.select{|v| v[1] == self.document_type }[0][0]
   end
 
+  def in_spain?
+    self.country=="ES"
+  end
+
   def country_name
-    begin
-      if self.country.length > 3 
-        self.country
-      else
-        Carmen::Country.coded(self.country).name
-      end
-    rescue
-      ""
+    if _country
+      _country.name
+    else
+      self.country or ""
     end
   end
 
   def province_name
-    begin
-      if self.province.length > 3 
-        self.province
-      else
-        Carmen::Country.coded(self.country).subregions.coded(self.province).name
-      end
-    rescue
+    if _province
+      _province.name
+    else
+      self.province or ""
+    end
+  end
+
+  def province_code
+    if self.in_spain? and _province
+      "p_%02d" % + _province.index 
+    else
       ""
     end
   end
 
   def town_name
-    begin
-      if self.town.include? "_"
-        Carmen::Country.coded(self.country).subregions.coded(self.province).subregions.coded(self.town.downcase).name
-      else
-        self.town
-      end
-    rescue
+    if self.in_spain? and _town
+      _town.name
+    else
+      self.town or ""
+    end
+  end
+
+  def autonomy_code
+    if self.in_spain? and _province
+      Podemos::GeoExtra::AUTONOMIES[self.province_code][0]
+    else
       ""
     end
+  end
+
+  def autonomy_name
+    if self.in_spain? and _province
+      Podemos::GeoExtra::AUTONOMIES[self.province_code][1]
+    else
+      ""
+    end
+  end
+
+  def island_code
+    if self.in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.town][0]
+    else
+      ""
+    end
+  end
+
+  def island_name
+    if self.in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.town][1]
+    else
+      ""
+    end
+  end
+
+  def in_spanish_island?
+    (self.in_spain? and Podemos::GeoExtra::ISLANDS.has_key? self.town) or false
+  end
+
+  def vote_in_spanish_island?
+    (Podemos::GeoExtra::ISLANDS.has_key? self.vote_town) or false
   end
 
   def has_vote_town?
     not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
   end
 
-  def has_vote_town_for_election? election
-    self.has_vote_town? and (!self.vote_town_name.empty? or election.scope < 3)
+  def has_verified_vote_town?
+    self.has_vote_town? and self.vote_town[0]=="m"
+  end
+
+  def vote_autonomy_code
+    if _vote_province
+      Podemos::GeoExtra::AUTONOMIES[self.vote_province_code][0]
+    else
+      ""
+    end
+  end
+
+  def vote_autonomy_name
+    if _vote_province
+      Podemos::GeoExtra::AUTONOMIES[self.vote_province_code][1]
+    else
+      ""
+    end
+  end
+
+  def vote_town_name
+    if _vote_town
+      _vote_town.name
+    else
+      ""
+    end
   end
 
   def vote_province
-    if self.has_vote_town?
-      Carmen::Country.coded("ES").subregions[self.vote_town.split("_")[1].to_i-1].code
+    if _vote_province
+      _vote_province.code
     else
       ""
     end
@@ -338,75 +428,86 @@ class User < ActiveRecord::Base
     if value.nil? or value.empty? or value == "-"
       self.vote_town = nil
     else
-      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index+1)
+      prefix = "m_%02d_"% (Carmen::Country.coded("ES").subregions.coded(value).index)
       if self.vote_town.nil? or not self.vote_town.starts_with? prefix then
         self.vote_town = prefix
       end
     end
   end
 
-  def vote_ca_name
-    raise NotImplementedError
-  end
-
-  def vote_town_code
-    if self.has_vote_town?
-      self.vote_town.split("_")[1,3].join
+  def vote_province_code
+    if _vote_province
+      "p_%02d" % + _vote_province.index 
     else
       ""
     end
   end
 
-  def vote_province_code
-    if self.has_vote_town?
-      self.vote_town.split("_")[1]
+  def vote_province_name
+    if _vote_province
+      _vote_province.name
+    else
+      ""
+    end
+  end
+
+
+  def vote_island_code
+    if self.vote_in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.vote_town][0]
+    else
+      ""
+    end
+  end
+
+  def vote_island_name
+    if self.vote_in_spanish_island?
+      Podemos::GeoExtra::ISLANDS[self.vote_town][1]
+    else
+      ""
+    end
+  end
+
+  def vote_autonomy_numeric
+    if _vote_province
+      self.vote_autonomy_code[2..-1]
     else
       "-"
     end
   end
+  
+  def vote_province_numeric
+    if _vote_province
+      "%02d" % + _vote_province.index
+    else
+      ""
+    end
+  end
+  
+  def vote_town_numeric
+    if _vote_town
+      _vote_town.code.split("_")[1,3].join
+    else
+      ""
+    end
+  end
 
-  def vote_ca_code
-    raise NotImplementedError
+  def vote_island_numeric
+    if self.vote_in_spanish_island?
+      self.vote_island_code[2..-1]
+    else
+      ""
+    end
   end
 
   def verify_user_location()
-    province = town = true
-    country = Carmen::Country.coded(self.country)
-
-    if not country then
-      "country"
-
-    elsif not country.subregions.empty? then
-      province = country.subregions.coded(self.province)
-
-      if not province then
-        "province"
-      elsif self.country == "ES" and not province.subregions.empty? then
-        town = province.subregions.coded(self.town.downcase)
-        if not town then
-          "town"
-        end
-      end
-    end
-  end
-
-  def vote_town_name
-    if self.has_vote_town?
-      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
-      town = (prov and prov.subregions.coded(self.vote_town))
-    end
-    prov and town and town.name or ""
-  end
-
-  def vote_province_name
-    if self.has_vote_town?
-      prov = Carmen::Country.coded("ES").subregions.coded(self.vote_province)
-    end
-    prov and prov.name or ""
+    return "country" if not _country
+    return "province" if not _country.subregions.empty? and not _country.subregions.coded(self.province)
+    return "town" if self.in_spain? and not _town
   end
   
   def vote_town_notice()
-    self.country != "ES" and self.vote_town == "NOTICE"
+    self.vote_town == "NOTICE"
   end
 
   def self.get_location(current_user, params)
@@ -443,19 +544,81 @@ class User < ActiveRecord::Base
     user_location
   end
 
-  def control_vote_town
-    # Spanish users can't use a different town for vote
-    if self.country=="ES"
-      self.vote_town = self.town
+  def before_save
+    unless @skip_before_save
+      # Spanish users can't set a different town for vote, except when blocked
+      if self.in_spain? and self.can_change_location?
+        self.vote_town = self.town
+      end
     end
   end
-  
-  def users_with_deleted
-    User.with_deleted
+
+  def in_participation_team? team_id
+    self.participation_team_ids.member? team_id
   end
 
   def admin_permalink
     admin_user_path(self)
   end
 
+  def _clear_caches
+    remove_instance_variable :@country_cache if defined? @country_cache
+    remove_instance_variable :@province_cache if defined? @province_cache
+    remove_instance_variable :@town_cache if defined? @town_cache
+    remove_instance_variable :@vote_province_cache if defined? @vote_province_cache
+    remove_instance_variable :@vote_town_cache if defined? @vote_town_cache
+  end
+
+  def _country
+    @country_cache ||= Carmen::Country.coded(self.country)
+  end
+
+  def _province
+    @province_cache = begin
+      prov = nil
+      prov = _country.subregions[self.town[2,2].to_i-1] if self.in_spain? and self.town and self.town.downcase.starts_with? "m_"
+      prov = _country.subregions.coded(self.province) if prov.nil? and _country and self.province
+      prov
+    end if not defined? @province_cache
+    @province_cache
+  end
+
+  def _town
+    @town_cache = begin
+      town = nil
+      town = _province.subregions.coded(self.town) if self.in_spain? and _province
+      town
+    end if not defined? @town_cache
+    @town_cache
+  end
+
+  def _vote_province
+    @vote_province_cache = begin
+      prov = nil
+      if self.has_vote_town?
+        prov = Carmen::Country.coded("ES").subregions[self.vote_town[2,2].to_i-1]
+      elsif self.country=="ES"
+        prov = _province
+      else
+        prov = nil
+      end
+      prov
+    end if not defined? @vote_province_cache
+    @vote_province_cache
+  end
+
+  def _vote_town
+    @vote_town_cache = begin
+      town = nil
+      if self.has_vote_town?
+        town = _vote_province.subregions.coded(self.vote_town) 
+      elsif self.country=="ES"
+        town = _town
+      else
+        prov = nil
+      end
+      town
+    end if not defined? @vote_town_cache
+    @vote_town_cache
+  end
 end
