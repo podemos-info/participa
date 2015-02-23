@@ -143,8 +143,12 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.sort {|x| x.payable_at.to_time.to_i }.detect {|o| o.is_payable? or o.is_paid? } if not defined? @first_order
+    @first_order = self.order.sort {|x| -x.payable_at.to_time.to_i }.detect {|o| o.is_payable? or o.is_paid? } if not defined? @first_order
     @first_order
+  end
+
+  def last_order_for date
+    self.order.sort {|x| x.payable_at.to_time.to_i }.detect {|o| o.payable_at.unique_month <= date.unique_month and (o.is_payable? or o.is_paid?) }
   end
 
   def create_order date, maybe_first=false
@@ -198,6 +202,19 @@ class Collaboration < ActiveRecord::Base
     self.save
   end
 
+  MAX_RETURNED_ORDERS = 2
+  def returned_order
+    if self.orders.count >= MAX_RETURNED_ORDERS
+      last_order = self.orders.last_order_for(Date.today)
+      if last_order
+        last_month = last_order.payable_at.unique_month 
+      else
+        last_month = self.created_at.unique_month
+      end
+      self.set_warning if Date.today.unique_month - last_month >= self.frequency*MAX_RETURNED_ORDERS
+    end
+  end
+
   def has_warnings?
     self.status==4
   end
@@ -213,13 +230,13 @@ class Collaboration < ActiveRecord::Base
 
   def must_have_order? date
     if self.first_order.nil?
-      first_month = Date.today.unique_month
-      first_month += 1 if not self.is_credit_card? and self.created_at.unique_month==first_month
+      next_order = Date.today.unique_month
+      next_order += 1 if not self.is_credit_card? and self.created_at.unique_month==next_order
     else
-      first_month = self.first_order.payable_at.unique_month
+      next_order = self.last_order_for(date).payable_at.unique_month + self.frequency
     end
 
-    (first_month <= date.unique_month) and ((date.unique_month - first_month) % self.frequency) == 0
+    (next_order <= date.unique_month)
   end
 
   def get_orders date_start=Date.today, date_end=Date.today, create_orders = true
@@ -260,7 +277,7 @@ class Collaboration < ActiveRecord::Base
 
   def fix_status!
     if not self.valid? and not self.has_errors?
-      self.update_attributes status: 1
+      self.update_attribute :status, 1
       true
     else
       false

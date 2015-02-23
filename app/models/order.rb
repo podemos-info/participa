@@ -141,6 +141,9 @@ class Order < ActiveRecord::Base
   def mark_as_returned!
     self.status = 5
     self.save
+    if self.parent
+      self.parent.returned_order
+    end
   end
 
   #### REDSYS CC PAYMENTS ####
