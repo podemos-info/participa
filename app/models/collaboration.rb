@@ -52,6 +52,8 @@ class Collaboration < ActiveRecord::Base
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
+  scope :full_view, -> { with_deleted.include(:user).include(:order) }
+  
   after_create :set_initial_status
 
   def set_initial_status
@@ -222,6 +224,7 @@ class Collaboration < ActiveRecord::Base
     saved_orders = Hash.new {|h,k| h[k] = [] }
 
     self.order.by_date(date_start, date_end).each do |o|
+      @first_order = o if o.first and (o.is_payable? or o.is_paid?)
       saved_orders[o.payable_at.unique_month] << o
     end
 

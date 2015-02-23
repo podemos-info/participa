@@ -63,6 +63,12 @@ class ElectionTest < ActiveSupport::TestCase
     assert_not election.has_valid_location_for? user
   end
 
+  test "should .has_valid_location_for? work other scopes" do 
+    skip("other scopes: Estatal")
+    skip("other scopes: Insular")
+    skip("other scopes: Extranjeros")
+  end
+
   test "should .scope_name work" do 
     election = FactoryGirl.create(:election)
     election.update_attributes(scope: 0)
