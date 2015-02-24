@@ -383,7 +383,7 @@ class Collaboration < ActiveRecord::Base
   def self.bank_filename date, full_path=true
     filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}"
     if full_path
-      "db/podemos/#{filename}.csv"
+      "#{Rails.root}/db/podemos/#{filename}.csv"
     else
       filename
     end      
