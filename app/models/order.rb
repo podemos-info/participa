@@ -289,6 +289,7 @@ class Order < ActiveRecord::Base
       http.ssl_version = :TLSv1
     end
 
+    self.save
     response = http.post(uri, URI.encode_www_form(self.redsys_params))
     info = (response.body.scan /<!--\W*(\w*)\W*-->/).flatten
     self.payment_response = info.to_json

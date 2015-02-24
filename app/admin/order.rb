@@ -41,7 +41,6 @@ ActiveAdmin.register Order do
   index do
     selectable_column
     id_column
-    column :id
     column :status_name
     column :parent
     column :user do |order|
