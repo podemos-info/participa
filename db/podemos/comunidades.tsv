@@ -1,0 +1,52 @@
+p_04	Almería	c_01	Andalucía
+p_11	Cádiz	c_01	Andalucía
+p_14	Córdoba	c_01	Andalucía
+p_18	Granada	c_01	Andalucía
+p_21	Huelva	c_01	Andalucía
+p_23	Jaén	c_01	Andalucía
+p_29	Málaga	c_01	Andalucía
+p_41	Sevilla	c_01	Andalucía
+p_51	Ceuta	c_01	Andalucía
+p_52	Melilla	c_01	Andalucía
+p_22	Huesca	c_02	Aragón
+p_44	Teruel	c_02	Aragón
+p_50	Zaragoza	c_02	Aragón
+p_33	Asturias	c_03	Principado de Asturias
+p_39	Cantabria	c_04	Cantabria
+p_02	Albacete	c_05	Castilla-La Mancha
+p_13	Ciudad Real	c_05	Castilla-La Mancha
+p_16	Cuenca	c_05	Castilla-La Mancha
+p_19	Guadalajara	c_05	Castilla-La Mancha
+p_45	Toledo	c_05	Castilla-La Mancha
+p_05	Ávila	c_06	Castilla y León
+p_09	Burgos	c_06	Castilla y León
+p_24	León	c_06	Castilla y León
+p_34	Palencia	c_06	Castilla y León
+p_37	Salamanca	c_06	Castilla y León
+p_40	Segovia	c_06	Castilla y León
+p_42	Soria	c_06	Castilla y León
+p_47	Valladolid	c_06	Castilla y León
+p_49	Zamora	c_06	Castilla y León
+p_08	Barcelona	c_07	Cataluña/Catalunya
+p_17	Girona	c_07	Cataluña/Catalunya
+p_25	Lleida	c_07	Cataluña/Catalunya
+p_43	Tarragona	c_07	Cataluña/Catalunya
+p_03	Alacant/Alicante	c_08	Comunitat Valenciana
+p_12	Castelló/Castellón	c_08	Comunitat Valenciana
+p_46	València/Valencia	c_08	Comunitat Valenciana
+p_06	Badajoz	c_09	Extremadura
+p_10	Cáceres	c_09	Extremadura
+p_15	A Coruña	c_10	Galicia
+p_27	Lugo	c_10	Galicia
+p_32	Ourense	c_10	Galicia
+p_36	Pontevedra	c_10	Galicia
+p_28	Madrid	c_11	Comunidad de Madrid
+p_30	Murcia	c_12	Región de Murcia
+p_31	Navarra	c_13	Comunidad Foral de Navarra
+p_01	Araba/Álava	c_14	País Vasco/Euskadi
+p_20	Gipuzkoa	c_14	País Vasco/Euskadi
+p_48	Bizkaia	c_14	País Vasco/Euskadi
+p_26	La Rioja	c_15	La Rioja
+p_07	Illes Balears	c_16	Illes Balears
+p_35	Las Palmas	c_17	Canarias
+p_38	Santa Cruz de Tenerife	c_17	Canarias

@@ -45,7 +45,6 @@ function show_towns(parent, field, country_code, province_code, prefix){
             formatNoMatches: "No se encontraron resultados"
           });
 
-
           if (field=="user_town") {
             var options = town_select.children("option");
             if (options.length>1) {
@@ -62,10 +61,13 @@ function show_towns(parent, field, country_code, province_code, prefix){
   }
 }
 
-function toggle_vote_town(country){
-    $("#foreign_vote_town").toggle(country != "ES");
-}
+function toggle_vote_town(country) {
+  $("#vote_town_section").toggle(country != "ES");
+};
+
+var can_change_vote_location;
 $(function() {
+  can_change_vote_location = !$('select#user_vote_province').is(":disabled");
 
   var country_selector = $('select#user_country');
   if (country_selector.length) {
@@ -79,7 +81,7 @@ $(function() {
 
     country_selector.on("change", function() {
       var country = $(this).val();
-      toggle_vote_town(country);
+      if (can_change_vote_location) toggle_vote_town(country);
       show_provinces( country );
     });
 
@@ -87,16 +89,20 @@ $(function() {
       show_towns( "user_province", "user_town", country_selector.val(), $(this).val(), "regions" );
     });
 
-    $('select#user_vote_province').on("change", function() {
-      show_towns( "user_vote_province", "user_vote_town", "ES", $(this).val(), "vote" );
-    });
-
-    toggle_vote_town(country_selector.val());
     if ($("select#user_province").is(":disabled")) {
       country_selector.trigger("change");
     }
-    if ($('select#user_vote_province').val()=="-"||$("select#user_vote_town").is(":disabled")) {
-      $('select#user_vote_province').trigger("change");
+    
+    if (can_change_vote_location) {
+      toggle_vote_town(country_selector.val());
+      $('select#user_vote_province').on("change", function() {
+        show_towns( "user_vote_province", "user_vote_town", "ES", $(this).val(), "vote" );
+      });
+      if ($('select#user_vote_province').val()=="-"||$("select#user_vote_town").is(":disabled")) {
+        $('select#user_vote_province').trigger("change");
+      }
+    } else {
+      toggle_vote_town(false);  
     }
   }
 });

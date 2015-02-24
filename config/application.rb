@@ -24,3 +24,5 @@ module PodemosParticipa
 end
 
 Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host
+
+require 'add_unique_month_to_dates'

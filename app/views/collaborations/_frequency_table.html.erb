@@ -24,27 +24,21 @@
 <table class="table-collaborations">
   <caption class="invisible">Colaboraciones</caption>
   <thead>
-    <th>Fecha de pago</th>
+    <th>Fecha estimada de pago</th>
     <th>Importe</th>
   </thead>
   <tbody>
-  <% freq = @collaboration.frequency_payments %>
-  <% (1..(freq)).each_with_index do |f, i| %>
+  <% @orders.each do |orders| %>
     <tr>
-      <% if i == 0 %>
-        <td> Del <%= l(@collaboration.created_at, format: :date) %> al <%= l(@collaboration.created_at + 5.days, format: :date) %></td>
-        <td> <%= number_to_euro @collaboration.amount %> </td>
-      <% else %>
-        <td> Del <%= l(@collaboration.created_at + f.month - 5.days, format: :date) %> al <%= l(@collaboration.created_at + f.month + 5.days, format: :date) %> </td>
-        <td> <%= number_to_euro @collaboration.amount %> </td>
-      <% end %>
+      <td> <%= l(orders[-1].payable_at, format: :date) %><% if orders[-1].payed_at %> (pagada el <%=l(orders[-1].payed_at, format: :date)%>)<% end %></td>
+      <td> <%= number_to_euro orders[-1].amount %> </td>
     </tr>
   <% end %>
   </tbody>
   <tfoot>
     <tr>
       <th>Total</th>
-      <th><%= number_to_euro((freq) * @collaboration.amount) %></th>
+      <th><%= number_to_euro(@orders.map {|o| o[-1].amount} .sum) %></th>
     </tr>
   </tfoot>
 </table>

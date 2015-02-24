@@ -109,4 +109,18 @@ TODO: documentar integración con Sendy
 Colaboraciones
 --------------
 
-TODO: documentar integración con RedSYS/Banco
+Para la forma de pago "Suscripción con Tarjeta de Crédito/Débito" hemos hecho una integración con Redsys.
+
+Para esto hace falta tener una cuenta bancaria dada de alta en Redsys, tener acceso a su (entorno de pruebas)[https://sis-t.redsys.es:25443/canales/] y configurar los parámetros necesarios en config/secrets.yml
+
+Para realizar las pruebas en su entorno y que finalice correctamente es necesario poner la siguiente información de tarjeta:
+
+```
+  Tarjeta: 4548812049400004
+  Fecha de caducidad: 12/20
+  Código de Seguridad: 123
+  CIP: 123456
+```
+
+Se pueden ver los documentos desde los que se han partido para su implementación en `doc/redsys`.
+

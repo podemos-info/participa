@@ -5,6 +5,14 @@
 <section class="content-text">
   <p><%= t('podemos.user.cancel_account_explain_html') %></p>
 
+
+  <% if current_user.collaboration %>
+    <%= error_box "Tienes una colaboración", false do %>
+      <p> Dándote baja también darás de baja tu colaboración.  </p>
+      <p> Si lo único que quieres dar de baja es tu colaboración <%= link_to  "puedes hacerlo aquí", edit_collaboration_path %>.  </p>
+    <% end %>
+  <% end %>
+
   <div class="buttonbox">
     <%=
         button_to(
