@@ -4,9 +4,9 @@
       <% if @elections.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
-        <% if @upcoming_elections %>
+        <% if @upcoming_elections.count > 0 %>
           <%= render partial: 'election_upcoming', locals: { election: @upcoming_elections[-1] } %>
-        <% elsif @finished_elections %>
+        <% elsif @finished_elections.count > 0 %>
           <%= render partial: 'election_finished', locals: { election: @finished_elections[-1] } %>
         <% else %>
           <%= render partial: "other_tools" %>
