@@ -76,7 +76,7 @@ ActiveAdmin.register Order do
       end
       row :first
       row :reference
-      row :payment_type
+      row :payment_type_name
       row :payment_identifier
       row :payment_response
       row :created_at
@@ -102,7 +102,7 @@ ActiveAdmin.register Order do
       f.input :reference
       f.input :amount
       f.input :first
-      f.input :payment_type
+      f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a
       f.input :payment_identifier
       f.input :payment_response
       f.input :payable_at

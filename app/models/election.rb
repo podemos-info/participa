@@ -7,6 +7,7 @@ class Election < ActiveRecord::Base
   has_many :election_locations
 
   scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
+  scope :upcoming_finished, -> { where("starts_at BETWEEN ? AND ?", 2.days.ago, 12.hours.from_now)}
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
@@ -17,8 +18,7 @@ class Election < ActiveRecord::Base
   end
 
   def recently_finished?
-    # Devuelve true si ha finalizado en menos de 2 días
-    self.ends_at < DateTime.now and self.ends_at > 2.days.ago
+    self.ends_at > 2.days.ago and self.ends_at < DateTime.now 
   end
 
   def scope_name
