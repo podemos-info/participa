@@ -307,22 +307,17 @@ class Collaboration < ActiveRecord::Base
   end
 
   def get_bank_data date
-    if self.is_payable?
-      order = self.get_orders(date, date, false)[0] 
-      order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
-        col_user = self.get_user
-        [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
-            col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
-            col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
-            col_user.postal_code, col_user.country.upcase, 
-            self.iban_account, self.ccc_full, self.iban_bic, 
-            order.amount/100, order.due_code, order.url_source, self.id, 
-            self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-            self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ] 
-      else
-        nil
-      end
+    order = self.last_order_for date
+    if order and order.payable_at.unique_month == date.unique_month and order.is_payable?
+      col_user = self.get_user
+      [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
+          col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
+          col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
+          col_user.postal_code, col_user.country.upcase, 
+          self.iban_account, self.ccc_full, self.iban_bic, 
+          order.amount/100, order.due_code, order.url_source, self.id, 
+          self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
+          self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
     end
   end
 
