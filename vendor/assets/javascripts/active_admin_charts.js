@@ -37,8 +37,8 @@ jQuery(function($) {
   $('table.js-col-sum-evolution tbody tr').each( function(){
     evolution_labels.push( $(this).find('td:nth-child(1)').text().trim() );
     evolution_orders.push( parseInt($(this).find('td:nth-child(2)').text().trim()) );
-    values = $(this).find('td:nth-child(3)').text().replace('€','').replace('.','').replace(',','.').split("/");
-    evolution_error_amount.push( parseFloat( values[1].trim()));
+    var values = $(this).find('td:nth-child(3)').text().replace(/€/g,"").replace(/\./g,"").replace(/,/g,".").split("/");
+    evolution_error_amount.push( parseFloat(values[1].trim()));
     evolution_paid_amount.push( parseFloat(values[2].trim()));
   });
   var data = {
@@ -77,10 +77,6 @@ jQuery(function($) {
 
     ]
   };
-
-console.log(evolution_labels);
-console.log(evolution_orders);
-console.log(evolution_amount);
 
   var options = {
     legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"><%if(datasets[i].label){%><%=datasets[i].label%></span><%}%></li><%}%></ul>"

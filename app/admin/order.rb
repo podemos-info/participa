@@ -88,7 +88,11 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
-  filter :user_email, as: :string
+  filter :user_email_or_parent_non_user_email, as: :string
+  filter :status, :as => :select, :collection => Order::STATUS.to_a
+  filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
+  filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
+  filter :first
   filter :payable_at
   filter :payed_at
   filter :created_at
