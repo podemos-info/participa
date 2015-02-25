@@ -269,10 +269,10 @@ ActiveAdmin.register Collaboration do
     end
     column :frequency_name
     column :amount do |collaboration|
-      collaboration.amount/100
+      number_to_euro collaboration.amount
     end
     column :total_amount do |collaboration|
-      collaboration.amount/100 * collaboration.frequency
+      number_to_euro collaboration.amount * collaboration.frequency
     end
     column :payment_type_name
     column :iban_account

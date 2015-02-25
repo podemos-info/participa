@@ -50,7 +50,9 @@ ActiveAdmin.register Order do
         order.parent.get_user
       end
     end
-    column :amount
+    column :amount do |order|
+      number_to_euro order.amount
+    end
     column :payable_at
     column :payed_at
     actions
@@ -69,7 +71,9 @@ ActiveAdmin.register Order do
       end
       row :parent
       row :parent_type
-      row :amount
+      row :amount do |order|
+        number_to_euro order.amount
+      end
       row :first
       row :reference
       row :payment_type
