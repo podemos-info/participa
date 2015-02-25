@@ -108,7 +108,8 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  sidebar "Nomenclatura de las órdenes", only: :index do
+  sidebar "Ayuda", only: :index do
+    h3 "Nomenclatura de las órdenes"
     ul do
       li "_ = pendiente"
       li "~ = enviada"
