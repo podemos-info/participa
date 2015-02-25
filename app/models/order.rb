@@ -171,7 +171,8 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_expiration
-    Date.strptime self.redsys_response["Ds_ExpiryDate"], "%y%m" if self.redsys_response
+    # Credit card is valid until the last day of expiration month
+    DateTime.strptime(self.redsys_response["Ds_ExpiryDate"], "%y%m") + 1.month - 1.seconds if self.redsys_response
   end
 
   def redsys_order_id

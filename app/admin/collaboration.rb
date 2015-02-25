@@ -84,6 +84,13 @@ ActiveAdmin.register Collaboration do
       status_tag("Alertas", :warn) if collaboration.has_warnings?
       status_tag("Errores", :error) if collaboration.has_errors?
       collaboration.deleted? ? status_tag("Borrado", :error) : ""
+      if collaboration.redsys_expiration
+        if collaboration.redsys_expiration<Date.today
+          status_tag("Caducada", :error)
+        elsif collaboration.redsys_expiration<Date.today+1.month
+          status_tag("Caducará", :warn) 
+        end
+      end
     end
     actions
   end
@@ -108,7 +115,8 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  sidebar "Nomenclatura de las órdenes", only: :index do
+  sidebar "Ayuda", only: :index do
+    h3 "Nomenclatura de las órdenes"
     ul do
       li "_ = pendiente"
       li "~ = enviada"
@@ -150,13 +158,22 @@ ActiveAdmin.register Collaboration do
       end
       if collaboration.is_credit_card?
         row :redsys_identifier
-        row :redsys_expiration
+        row :redsys_expiration do
+          collaboration.redsys_expiration.strftime "%m/%y"
+        end
       end
       row :info do
         status_tag("Activo", :ok) if collaboration.is_active?
         status_tag("Alertas", :warn) if collaboration.has_warnings?
         status_tag("Errores", :error) if collaboration.has_errors?
         collaboration.deleted? ? status_tag("Borrado", :error) : ""
+        if collaboration.redsys_expiration
+          if collaboration.redsys_expiration<Date.today
+            status_tag("Caducada", :error)
+          elsif collaboration.redsys_expiration<Date.today+1.month
+            status_tag("Caducará", :warn) 
+          end
+        end
       end
     end
     if collaboration.get_non_user
