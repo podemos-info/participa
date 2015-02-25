@@ -5,9 +5,9 @@ class Election < ActiveRecord::Base
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
   has_many :election_locations
-
+ 
   scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
-  scope :upcoming_finished, -> { where("starts_at BETWEEN ? AND ?", 2.days.ago, 12.hours.from_now)}
+  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now)}
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
