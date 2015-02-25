@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     get '/mujer-igualdad', to: 'page#mujer_igualdad', as:"mujer_igualdad"
     get '/solicitud-consulta-ciudadana-candidatura-unidad-popular', to: 'page#alta_consulta_ciudadana', as:"alta_consulta_ciudadana"
     get '/representantes-electorales-extranjeros', to: 'page#representantes_electorales_extranjeros', as:"representantes_electorales_extranjeros"
+    get '/responsables-areas-cc-autonomicos', to: 'page#responsables_areas_cc_autonomicos', as:"responsables_areas_cc_autonomicos"
 
     get '/comparte-el-cambio/comparte-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
     get '/comparte-el-cambio/comparte-coche', to: 'page#share_car', as: 'share_car'

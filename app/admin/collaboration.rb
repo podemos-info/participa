@@ -88,6 +88,7 @@ ActiveAdmin.register Collaboration do
 
   filter :user_document_vatid_or_non_user_document_vatid, as: :string
   filter :user_email_or_non_user_email, as: :string
+  filter :status, :as => :select, :collection => Collaboration::STATUS.to_a
   filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
@@ -269,10 +270,10 @@ ActiveAdmin.register Collaboration do
     end
     column :frequency_name
     column :amount do |collaboration|
-      collaboration.amount/100
+      number_to_euro collaboration.amount
     end
     column :total_amount do |collaboration|
-      collaboration.amount/100 * collaboration.frequency
+      number_to_euro collaboration.amount * collaboration.frequency
     end
     column :payment_type_name
     column :iban_account

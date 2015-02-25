@@ -50,7 +50,9 @@ ActiveAdmin.register Order do
         order.parent.get_user
       end
     end
-    column :amount
+    column :amount do |order|
+      number_to_euro order.amount
+    end
     column :payable_at
     column :payed_at
     actions
@@ -69,7 +71,9 @@ ActiveAdmin.register Order do
       end
       row :parent
       row :parent_type
-      row :amount
+      row :amount do |order|
+        number_to_euro order.amount
+      end
       row :first
       row :reference
       row :payment_type
@@ -84,7 +88,11 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
-  filter :user_email, as: :string
+  filter :user_email_or_parent_non_user_email, as: :string
+  filter :status, :as => :select, :collection => Order::STATUS.to_a
+  filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
+  filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
+  filter :first
   filter :payable_at
   filter :payed_at
   filter :created_at
