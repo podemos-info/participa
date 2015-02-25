@@ -5,16 +5,18 @@ def show_collaboration_orders(collaboration, html_output = true)
     month = odate.month.to_s
     month = (html_output ? content_tag(:strong, month).html_safe : "|"+month+"|") if odate.unique_month==today
     month_orders = orders.map do |o|
-      otext = if o.has_errors?
+      otext  = if o.has_errors?
                 "x"
               elsif o.has_warnings?
                 "!"
               elsif o.is_paid?
                 "o"
               elsif o.was_returned?
-                "r"
+                "d"
+              elsif o.is_chargable? or not o.persisted?
+                "_"
               else
-                "."
+                "~"
               end
 
       otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
@@ -32,6 +34,7 @@ end
 
 ActiveAdmin.register Collaboration do
   scope_to Collaboration, association_method: :full_view
+  config.sort_order = 'updated_at_desc'
 
   menu :parent => "Colaboraciones"
 
@@ -81,12 +84,52 @@ ActiveAdmin.register Collaboration do
       status_tag("Alertas", :warn) if collaboration.has_warnings?
       status_tag("Errores", :error) if collaboration.has_errors?
       collaboration.deleted? ? status_tag("Borrado", :error) : ""
+      if collaboration.redsys_expiration
+        if collaboration.redsys_expiration<Date.today
+          status_tag("Caducada", :error)
+        elsif collaboration.redsys_expiration<Date.today+1.month
+          status_tag("Caducará", :warn) 
+        end
+      end
     end
     actions
   end
 
+  sidebar "Acciones", only: :index, priority: 0 do
+    status = Collaboration.has_bank_file? Date.today
+    h3 "Pagos con tarjeta" 
+    ul do
+      li link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
+    end
+
+    h3 "Recibos"
+    ul do
+      li link_to 'Crear órdenes de este mes', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
+      li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
+      if status[1]
+        active = status[0] ? " (en progreso)" : ""
+        li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
+      end
+      li link_to "Marcar órdenes generadas como enviadas", params.merge(:action => :mark_as_charged), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
+      li link_to "Marcar órdenes enviadas como pagadas", params.merge(:action => :mark_as_paid), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
+    end
+  end
+
+  sidebar "Ayuda", only: :index do
+    h3 "Nomenclatura de las órdenes"
+    ul do
+      li "_ = pendiente"
+      li "~ = enviada"
+      li "o = cobrada"
+      li "! = alerta"
+      li "x = error"
+      li "d = devuelta"
+    end
+  end
+
   filter :user_document_vatid_or_non_user_document_vatid, as: :string
   filter :user_email_or_non_user_email, as: :string
+  filter :status, :as => :select, :collection => Collaboration::STATUS.to_a
   filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
@@ -115,7 +158,22 @@ ActiveAdmin.register Collaboration do
       end
       if collaboration.is_credit_card?
         row :redsys_identifier
-        row :redsys_expiration
+        row :redsys_expiration do
+          collaboration.redsys_expiration.strftime "%m/%y"
+        end
+      end
+      row :info do
+        status_tag("Activo", :ok) if collaboration.is_active?
+        status_tag("Alertas", :warn) if collaboration.has_warnings?
+        status_tag("Errores", :error) if collaboration.has_errors?
+        collaboration.deleted? ? status_tag("Borrado", :error) : ""
+        if collaboration.redsys_expiration
+          if collaboration.redsys_expiration<Date.today
+            status_tag("Caducada", :error)
+          elsif collaboration.redsys_expiration<Date.today+1.month
+            status_tag("Caducará", :warn) 
+          end
+        end
       end
     end
     if collaboration.get_non_user
@@ -135,12 +193,15 @@ ActiveAdmin.register Collaboration do
       end
     end
     panel "Órdenes de pago" do
-      table_for collaboration.order do
+      table_for collaboration.order.sort { |a,b| b.payable_at <=> a.payable_at } do
         column :id do |order|
           link_to order.id, admin_order_path(order.id)
         end
         column :status do |order|
           order.status_name
+        end
+        column :amount do |order|
+          number_to_euro order.amount
         end
         column :payable_at  
         column :payed_at
@@ -182,13 +243,6 @@ ActiveAdmin.register Collaboration do
     redirect_to :admin_collaborations
   end
 
-  action_item only: :index do
-    link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
-  end
-  action_item only: :index do
-    link_to 'Crear órdenes de recibos', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
-  end
-
   collection_action :generate_csv, :method => :get do
     Collaboration.bank_file_lock true
     Resque.enqueue(PodemosCollaborationWorker, -1)
@@ -204,17 +258,12 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  action_item only: :index do
-    status = Collaboration.has_bank_file? Date.today
-    link_to("Generar fichero de recibos", params.merge(:action => :generate_csv))
+  collection_action :mark_as_charged, :method => :get do
+    Order.mark_bank_orders_as_charged!
   end
 
-  action_item only: :index do
-    status = Collaboration.has_bank_file? Date.today
-    if status[1]
-      active = status[0] ? " (incompleto)" : ""
-      link_to('Descargar fichero de recibos #{active}', params.merge(:action => :download_csv))
-    end
+  collection_action :mark_as_paid, :method => :get do
+    Order.mark_bank_orders_as_paid!
   end
 
   member_action :charge_order do
@@ -262,10 +311,10 @@ ActiveAdmin.register Collaboration do
     end
     column :frequency_name
     column :amount do |collaboration|
-      collaboration.amount/100
+      number_to_euro collaboration.amount
     end
     column :total_amount do |collaboration|
-      collaboration.amount/100 * collaboration.frequency
+      number_to_euro collaboration.amount * collaboration.frequency
     end
     column :payment_type_name
     column :iban_account

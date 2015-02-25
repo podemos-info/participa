@@ -5,7 +5,8 @@ class PageController < ApplicationController
                                               :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
-                                              :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana]
+                                              :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
+                                              :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos]
 
   def privacy_policy
   end
@@ -88,7 +89,19 @@ class PageController < ApplicationController
   def alta_consulta_ciudadana
     render :form_iframe, locals: { title: "Formulario para activar la Consulta Ciudadana acerca de las candidaturas de unidad popular", form_id: 57, extra_qs:"" }
   end
-  
+
+  def representantes_electorales_extranjeros
+    render :form_iframe, locals: { title: "Elecciones Andaluzas: Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
+  end
+
+  def representantes_electorales_extranjeros
+    render :form_iframe, locals: { title: "Elecciones Andaluzas: Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
+  end
+
+  def responsables_areas_cc_autonomicos
+    render :form_iframe, locals: { title: "RESPONSABLES DE ÁREAS DE LOS CC AUTONÓMICOS", form_id: 61, extra_qs:"" }
+  end
+
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []

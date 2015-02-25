@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :parent, polymorphic: true
+  belongs_to :collaboration, -> { where(orders: {parent_type: 'Collaboration'}) }, foreign_key: 'parent_id'
   belongs_to :user
 
   validates :payment_type, :amount, :payable_at, presence: true
@@ -23,15 +24,20 @@ class Order < ActiveRecord::Base
 
   REDSYS_SERVER_TIME_ZONE = ActiveSupport::TimeZone.new("Madrid")
 
-  scope :by_date, -> date_start, date_end { where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
-  scope :by_parent, -> parent { where(parent_id: parent.id) }
-  scope :non_errors, -> {where.not(status:[4,5])}
+  scope :created, -> { where(deleted_at: nil) }
+  scope :by_date, -> date_start, date_end { created.where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
+  scope :credit_cards, -> { created.where(payment_type: 1)}
+  scope :banks, -> { created.where.not(payment_type: 1)}
+  scope :to_be_paid, -> { created.where(status:[0,1]) }
+  scope :to_be_charged, -> { created.where(status:0) }
+  scope :charging, -> { created.where(status:1) }
+  scope :paid, -> { created.where(status:[2,3]).where.not(payed_at:nil) }
+  scope :warnings, -> { created.where(status:3) }
+  scope :errors, -> { created.where(status:4) }
+  scope :returned, -> { created.where(status:5) }
+  scope :deleted, -> { only_deleted }
 
-  scope :to_be_paid, -> {where(status:[0,1])}
-  scope :paid, -> {where(status:[2,3]).where.not(payed_at:nil)}
-  scope :warnings, -> {where(status:3)}
-  scope :errors, -> {where(status:4)}
-  scope :returned, -> {where(status:5)}
+  scope :full_view, -> { with_deleted.includes(:user) }
 
   after_initialize do |o|
     o.status = 0 if o.status.nil?
@@ -39,6 +45,10 @@ class Order < ActiveRecord::Base
 
   def is_payable?
     self.status<2
+  end
+
+  def is_chargable?
+    self.status == 0
   end
 
   def is_paid?
@@ -90,7 +100,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.by_month_amount(date)
-    self.by_date(date,date).sum(:by_month_amount) / 100.0
+    self.by_date(date,date).sum(:amount) / 100.0
   end
 
 
@@ -125,7 +135,7 @@ class Order < ActiveRecord::Base
   #  "Colaboración mes de XXXX"
   #end
 
-  def mark_as_charging!
+  def mark_as_charging
     self.status = 1
   end
   
@@ -141,7 +151,18 @@ class Order < ActiveRecord::Base
   def mark_as_returned!
     self.status = 5
     self.save
+    if self.parent
+      self.parent.returned_order
+    end
   end
+
+  def self.mark_bank_orders_as_charged! date
+    Order.banks.by_date(Date.today,Date.today).to_be_charged.update_all(status:1)
+  end
+  def self.mark_bank_orders_as_paid! date
+    Order.banks.by_date(Date.today,Date.today).charging.update_all(status:2)
+  end
+
 
   #### REDSYS CC PAYMENTS ####
 
@@ -150,7 +171,8 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_expiration
-    Date.strptime self.redsys_response["Ds_ExpiryDate"], "%y%m" if self.redsys_response
+    # Credit card is valid until the last day of expiration month
+    DateTime.strptime(self.redsys_response["Ds_ExpiryDate"], "%y%m") + 1.month - 1.seconds if self.redsys_response
   end
 
   def redsys_order_id
@@ -284,6 +306,7 @@ class Order < ActiveRecord::Base
       http.ssl_version = :TLSv1
     end
 
+    self.save
     response = http.post(uri, URI.encode_www_form(self.redsys_params))
     info = (response.body.scan /<!--\W*(\w*)\W*-->/).flatten
     self.payment_response = info.to_json
