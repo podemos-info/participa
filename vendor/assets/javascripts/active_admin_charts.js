@@ -30,19 +30,22 @@ jQuery(function($) {
   ]);
 
 
-  var evolution_labels = []
-  var evolution_orders = []
-  var evolution_amount = []
+  var evolution_labels = [];
+  var evolution_orders = [];
+  var evolution_error_amount = [];
+  var evolution_paid_amount = [];
   $('table.js-col-sum-evolution tbody tr').each( function(){
     evolution_labels.push( $(this).find('td:nth-child(1)').text().trim() );
     evolution_orders.push( parseInt($(this).find('td:nth-child(2)').text().trim()) );
-    evolution_amount.push( parseFloat($(this).find('td:nth-child(3)').text().trim().replace('€','').replace('.','').replace(',','.')) );
+    values = $(this).find('td:nth-child(3)').text().replace('€','').replace('.','').replace(',','.').split("/");
+    evolution_error_amount.push( parseFloat( values[1].trim()));
+    evolution_paid_amount.push( parseFloat(values[2].trim()));
   });
   var data = {
     labels: evolution_labels,
     datasets: [
       {
-        label: "Por cantidad de ordenes",
+        label: "Cantidad de ordenes",
         fillColor: "rgba(220,220,220,0.2)",
         strokeColor: "rgba(220,220,220,1)",
         pointColor: "rgba(220,220,220,1)",
@@ -52,15 +55,26 @@ jQuery(function($) {
         data: evolution_orders
       },
       {
-        label: "Por cantidad total",
+        label: "Cantidad cobrada",
         fillColor: "rgba(151,187,205,0.2)",
         strokeColor: "rgba(151,187,205,1)",
         pointColor: "rgba(151,187,205,1)",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(151,187,205,1)",
-        data: evolution_amount
+        data: evolution_paid_amount
+      },
+      {
+        label: "Cantidad no cobrada",
+        fillColor: "rgba(245,191,201,0.2)",
+        strokeColor: "rgba(245,191,201,1)",
+        pointColor: "rgba(245,191,201,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(245,191,201,1)",
+        data: evolution_error_amount
       }
+
     ]
   };
 
