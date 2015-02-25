@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :parent, polymorphic: true
+  belongs_to :collaboration, -> { where(orders: {parent_type: 'Collaboration'}) }, foreign_key: 'parent_id'
   belongs_to :user
 
   validates :payment_type, :amount, :payable_at, presence: true
@@ -23,9 +24,10 @@ class Order < ActiveRecord::Base
 
   REDSYS_SERVER_TIME_ZONE = ActiveSupport::TimeZone.new("Madrid")
 
-  scope :by_date, -> date_start, date_end { where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
-
   scope :created, -> { where(deleted_at: nil) }
+  scope :by_date, -> date_start, date_end { created.where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
+  scope :credit_cards, -> { created.where(payment_type: 1)}
+  scope :banks, -> { created.where.not(payment_type: 1)}
   scope :to_be_paid, -> { created.where(status:[0,1]) }
   scope :paid, -> { created.where(status:[2,3]).where.not(payed_at:nil) }
   scope :warnings, -> { created.where(status:3) }

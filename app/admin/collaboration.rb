@@ -150,6 +150,9 @@ ActiveAdmin.register Collaboration do
         column :status do |order|
           order.status_name
         end
+        column :amount do |order|
+          number_to_euro order.amount
+        end
         column :payable_at  
         column :payed_at
       end
