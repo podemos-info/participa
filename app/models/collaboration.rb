@@ -296,7 +296,7 @@ class Collaboration < ActiveRecord::Base
     if self.is_payable?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
+      if order and order.is_chargable?
         if self.is_credit_card?
           order.redsys_send_request if self.is_active?
         else
@@ -308,7 +308,7 @@ class Collaboration < ActiveRecord::Base
 
   def get_bank_data date
     order = self.last_order_for date
-    if order and order.payable_at.unique_month == date.unique_month and order.is_payable?
+    if order and order.payable_at.unique_month == date.unique_month and order.is_chargable?
       col_user = self.get_user
       [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
           col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
