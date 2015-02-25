@@ -90,26 +90,21 @@ ActiveAdmin.register Collaboration do
 
   sidebar "Acciones", only: :index, priority: 0 do
     status = Collaboration.has_bank_file? Date.today
+    h3 "Pagos con tarjeta" 
     ul do
-      li do 
-        h3 "Pagos con tarjeta" 
-        ul do
-          li link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
-        end
-      end
+      li link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
+    end
 
-      li do
-        h3 "Recibos"
-        ul do
-          li link_to 'Crear órdenes de este mes', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
-          li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
-          if status[1]
-            active = status[0] ? " (en progreso)" : ""
-            li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
-          end
-          li link_to "Marcar órdenes generadas como enviadas", params.merge(:action => :mark_as_charged), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
-          li link_to "Marcar órdenes enviadas como pagadas", params.merge(:action => :mark_as_paid), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
-        end
+    h3 "Recibos"
+    ul do
+      li link_to 'Crear órdenes de este mes', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
+      li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
+      if status[1]
+        active = status[0] ? " (en progreso)" : ""
+        li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
+      end
+      li link_to "Marcar órdenes generadas como enviadas", params.merge(:action => :mark_as_charged), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
+      li link_to "Marcar órdenes enviadas como pagadas", params.merge(:action => :mark_as_paid), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
     end
   end
 
