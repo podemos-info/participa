@@ -1,5 +1,6 @@
 ActiveAdmin.register Order do
-  scope_to Order, association_method: :with_deleted
+  scope_to Order, association_method: :full_view
+  config.sort_order = 'updated_at_desc'
 
   menu :parent => "Colaboraciones"
 
@@ -35,11 +36,11 @@ ActiveAdmin.register Order do
   scope :warnings
   scope :errors
   scope :returned
+  scope :deleted
 
   index do
     selectable_column
     id_column
-    column :id
     column :status_name
     column :parent
     column :user do |order|
@@ -49,7 +50,9 @@ ActiveAdmin.register Order do
         order.parent.get_user
       end
     end
-    column :amount
+    column :amount do |order|
+      number_to_euro order.amount
+    end
     column :payable_at
     column :payed_at
     actions
@@ -68,10 +71,12 @@ ActiveAdmin.register Order do
       end
       row :parent
       row :parent_type
-      row :amount
+      row :amount do |order|
+        number_to_euro order.amount
+      end
       row :first
       row :reference
-      row :payment_type
+      row :payment_type_name
       row :payment_identifier
       row :payment_response
       row :created_at
@@ -83,7 +88,10 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
-  filter :user_email, as: :string
+  filter :status, :as => :select, :collection => Order::STATUS.to_a
+  filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
+  filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
+  filter :first
   filter :payable_at
   filter :payed_at
   filter :created_at
@@ -94,7 +102,7 @@ ActiveAdmin.register Order do
       f.input :reference
       f.input :amount
       f.input :first
-      f.input :payment_type
+      f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a
       f.input :payment_identifier
       f.input :payment_response
       f.input :payable_at

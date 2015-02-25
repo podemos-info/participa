@@ -1,8 +1,9 @@
 function draw_pie_chart($el, data) {
   var ctx = $el.get(0).getContext("2d");
   var options = {
-    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%> (<%=segments[i].value%>)</span><%}%></li><%}%></ul>"
-  
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%> (<%=segments[i].value%>)</span><%}%></li><%}%></ul>",
+    percentageInnerCutout : 20,
+    animationEasing: "easeInOutCubic"
   }
   var piechart = new Chart(ctx).Pie(data,options);
   $el.after(piechart.generateLegend());
@@ -30,19 +31,23 @@ jQuery(function($) {
   ]);
 
 
-  var evolution_labels = []
-  var evolution_orders = []
-  var evolution_amount = []
+  var evolution_labels = [];
+  var evolution_orders = [];
+  var evolution_error_amount = [];
+  var evolution_paid_amount = [];
   $('table.js-col-sum-evolution tbody tr').each( function(){
     evolution_labels.push( $(this).find('td:nth-child(1)').text().trim() );
-    evolution_orders.push( parseInt($(this).find('td:nth-child(2)').text().trim()) );
-    evolution_amount.push( parseFloat($(this).find('td:nth-child(3)').text().trim().replace('€','').replace(',','.')) );
+    var values = $(this).find('td:nth-child(2)').text().replace(/€/g,"").replace(/\./g,"").replace(/,/g,".").split("/");
+    evolution_orders.push( parseInt(values[0].trim())+parseInt(values[1].trim())+parseInt(values[2].trim()));
+    values = $(this).find('td:nth-child(3)').text().replace(/€/g,"").replace(/\./g,"").replace(/,/g,".").split("/");
+    evolution_error_amount.push( parseFloat(values[1].trim()));
+    evolution_paid_amount.push( parseFloat(values[2].trim()));
   });
   var data = {
     labels: evolution_labels,
     datasets: [
       {
-        label: "Por cantidad de ordenes",
+        label: "Cantidad de ordenes",
         fillColor: "rgba(220,220,220,0.2)",
         strokeColor: "rgba(220,220,220,1)",
         pointColor: "rgba(220,220,220,1)",
@@ -52,21 +57,28 @@ jQuery(function($) {
         data: evolution_orders
       },
       {
-        label: "Por cantidad total",
+        label: "Cantidad cobrada",
         fillColor: "rgba(151,187,205,0.2)",
         strokeColor: "rgba(151,187,205,1)",
         pointColor: "rgba(151,187,205,1)",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(151,187,205,1)",
-        data: evolution_amount
+        data: evolution_paid_amount
+      },
+      {
+        label: "Cantidad no cobrada",
+        fillColor: "rgba(245,191,201,0.2)",
+        strokeColor: "rgba(245,191,201,1)",
+        pointColor: "rgba(245,191,201,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(245,191,201,1)",
+        data: evolution_error_amount
       }
+
     ]
   };
-
-console.log(evolution_labels);
-console.log(evolution_orders);
-console.log(evolution_amount);
 
   var options = {
     legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"><%if(datasets[i].label){%><%=datasets[i].label%></span><%}%></li><%}%></ul>"

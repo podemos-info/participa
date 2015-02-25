@@ -41,9 +41,9 @@ class Collaboration < ActiveRecord::Base
   scope :frequency_month, -> { created.where(frequency: 1)}
   scope :frequency_quarterly, -> { created.where(frequency: 3)}
   scope :frequency_anual, -> { created.where(frequency: 12) }
-  scope :amount_1, -> { created.where("amount < 100")}
-  scope :amount_2, -> { created.where("amount > 100 and amount < 200")}
-  scope :amount_3, -> { created.where("amount > 200")}
+  scope :amount_1, -> { created.where("amount < 1000")}
+  scope :amount_2, -> { created.where("amount > 1000 and amount < 2000")}
+  scope :amount_3, -> { created.where("amount > 2000")}
 
   scope :incomplete, -> { created.where(status: 0)}
   scope :recent, -> { created.where(status: 2)}
@@ -143,8 +143,11 @@ class Collaboration < ActiveRecord::Base
   end
 
   def first_order
-    @first_order = self.order.sort {|x| x.payable_at.to_time.to_i }.detect {|o| o.is_payable? or o.is_paid? } if not defined? @first_order
-    @first_order
+    self.order.sort {|a,b| a.payable_at <=> b.payable_at }.detect {|o| o.is_payable? or o.is_paid? }
+  end
+
+  def last_order_for date
+    self.order.sort {|a,b| b.payable_at <=> a.payable_at }.detect {|o| o.payable_at.unique_month <= date.unique_month and (o.is_payable? or o.is_paid?) }
   end
 
   def create_order date, maybe_first=false
@@ -168,7 +171,6 @@ class Collaboration < ActiveRecord::Base
       o.payment_type = self.payment_type
       o.payment_identifier = self.payment_identifier
     end
-    @first_order = order if is_first
     order
   end
 
@@ -198,6 +200,19 @@ class Collaboration < ActiveRecord::Base
     self.save
   end
 
+  MAX_RETURNED_ORDERS = 2
+  def returned_order
+    if self.orders.count >= MAX_RETURNED_ORDERS
+      last_order = self.orders.last_order_for(Date.today)
+      if last_order
+        last_month = last_order.payable_at.unique_month 
+      else
+        last_month = self.created_at.unique_month
+      end
+      self.set_warning if Date.today.unique_month - last_month >= self.frequency*MAX_RETURNED_ORDERS
+    end
+  end
+
   def has_warnings?
     self.status==4
   end
@@ -212,14 +227,24 @@ class Collaboration < ActiveRecord::Base
   end
 
   def must_have_order? date
+    this_month = Date.today.unique_month
+
+    # first order not created yet, must have order this month, or next if its paid by bank and was created this month
     if self.first_order.nil?
-      first_month = Date.today.unique_month
-      first_month += 1 if not self.is_credit_card? and self.created_at.unique_month==first_month
+      next_order = this_month
+      next_order += 1 if not self.is_credit_card? and self.created_at.unique_month==next_order
+
+    # mustn't have order on months before it first order
+    elsif self.first_order.payable_at > date
+      return false
+
+    # calculate next order month based on last paid order
     else
-      first_month = self.first_order.payable_at.unique_month
+      next_order = self.last_order_for(date-1.month).payable_at.unique_month + self.frequency
+      next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
     end
 
-    (first_month <= date.unique_month) and ((date.unique_month - first_month) % self.frequency) == 0
+    (date.unique_month >= next_order) and (date.unique_month-next_order) % self.frequency == 0
   end
 
   def get_orders date_start=Date.today, date_end=Date.today, create_orders = true
@@ -260,7 +285,7 @@ class Collaboration < ActiveRecord::Base
 
   def fix_status!
     if not self.valid? and not self.has_errors?
-      self.update_attributes status: 1
+      self.update_attribute :status, 1
       true
     else
       false
@@ -271,7 +296,7 @@ class Collaboration < ActiveRecord::Base
     if self.is_payable?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
+      if order and order.is_chargable?
         if self.is_credit_card?
           order.redsys_send_request if self.is_active?
         else
@@ -282,22 +307,17 @@ class Collaboration < ActiveRecord::Base
   end
 
   def get_bank_data date
-    if self.is_payable?
-      order = self.get_orders(date, date, false)[0] 
-      order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
-        col_user = self.get_user
-        [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
-            col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
-            col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
-            col_user.postal_code, col_user.country.upcase, 
-            self.iban_account, self.ccc_full, self.iban_bic, 
-            order.amount/100, order.due_code, order.url_source, self.id, 
-            self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-            self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ] 
-      else
-        nil
-      end
+    order = self.last_order_for date
+    if order and order.payable_at.unique_month == date.unique_month and order.is_chargable?
+      col_user = self.get_user
+      [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
+          col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
+          col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
+          col_user.postal_code, col_user.country.upcase, 
+          self.iban_account, self.ccc_full, self.iban_bic, 
+          order.amount/100, order.due_code, order.url_source, self.id, 
+          self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
+          self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
     end
   end
 
@@ -358,13 +378,13 @@ class Collaboration < ActiveRecord::Base
   def self.bank_filename date, full_path=true
     filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}"
     if full_path
-      "tmp/collaborations/#{filename}.csv"
+      "#{Rails.root}/db/podemos/#{filename}.csv"
     else
       filename
     end      
   end
 
-  BANK_FILE_LOCK = "#{Rails.root}/tmp/collaborations/podemos.orders.lock"
+  BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.lock"
   def self.bank_file_lock status
     if status 
       folder = File.dirname BANK_FILE_LOCK
