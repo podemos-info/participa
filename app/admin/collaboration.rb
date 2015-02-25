@@ -5,16 +5,18 @@ def show_collaboration_orders(collaboration, html_output = true)
     month = odate.month.to_s
     month = (html_output ? content_tag(:strong, month).html_safe : "|"+month+"|") if odate.unique_month==today
     month_orders = orders.map do |o|
-      otext = if o.has_errors?
+      otext  = if o.has_errors?
                 "x"
               elsif o.has_warnings?
                 "!"
               elsif o.is_paid?
                 "o"
               elsif o.was_returned?
-                "r"
+                "d"
+              elsif o.is_chargable? or not o.persisted?
+                "_"
               else
-                "."
+                "~"
               end
 
       otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
@@ -84,6 +86,37 @@ ActiveAdmin.register Collaboration do
       collaboration.deleted? ? status_tag("Borrado", :error) : ""
     end
     actions
+  end
+
+  sidebar "Acciones", only: :index, priority: 0 do
+    status = Collaboration.has_bank_file? Date.today
+    h3 "Pagos con tarjeta" 
+    ul do
+      li link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
+    end
+
+    h3 "Recibos"
+    ul do
+      li link_to 'Crear órdenes de este mes', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
+      li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
+      if status[1]
+        active = status[0] ? " (en progreso)" : ""
+        li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
+      end
+      li link_to "Marcar órdenes generadas como enviadas", params.merge(:action => :mark_as_charged), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
+      li link_to "Marcar órdenes enviadas como pagadas", params.merge(:action => :mark_as_paid), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
+    end
+  end
+
+  sidebar "Nomenclatura de las órdenes", only: :index do
+    ul do
+      li "_ = pendiente"
+      li "~ = enviada"
+      li "o = cobrada"
+      li "! = alerta"
+      li "x = error"
+      li "d = devuelta"
+    end
   end
 
   filter :user_document_vatid_or_non_user_document_vatid, as: :string
@@ -193,13 +226,6 @@ ActiveAdmin.register Collaboration do
     redirect_to :admin_collaborations
   end
 
-  action_item only: :index do
-    link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
-  end
-  action_item only: :index do
-    link_to 'Crear órdenes de recibos', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
-  end
-
   collection_action :generate_csv, :method => :get do
     Collaboration.bank_file_lock true
     Resque.enqueue(PodemosCollaborationWorker, -1)
@@ -215,17 +241,12 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  action_item only: :index do
-    status = Collaboration.has_bank_file? Date.today
-    link_to("Generar fichero de recibos", params.merge(:action => :generate_csv))
+  collection_action :mark_as_charged, :method => :get do
+    Order.mark_bank_orders_as_charged!
   end
 
-  action_item only: :index do
-    status = Collaboration.has_bank_file? Date.today
-    if status[1]
-      active = status[0] ? " (incompleto)" : ""
-      link_to("Descargar fichero de recibos#{active}", params.merge(:action => :download_csv))
-    end
+  collection_action :mark_as_paid, :method => :get do
+    Order.mark_bank_orders_as_paid!
   end
 
   member_action :charge_order do

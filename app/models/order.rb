@@ -29,6 +29,8 @@ class Order < ActiveRecord::Base
   scope :credit_cards, -> { created.where(payment_type: 1)}
   scope :banks, -> { created.where.not(payment_type: 1)}
   scope :to_be_paid, -> { created.where(status:[0,1]) }
+  scope :to_be_charged, -> { created.where(status:0) }
+  scope :charging, -> { created.where(status:1) }
   scope :paid, -> { created.where(status:[2,3]).where.not(payed_at:nil) }
   scope :warnings, -> { created.where(status:3) }
   scope :errors, -> { created.where(status:4) }
@@ -43,6 +45,10 @@ class Order < ActiveRecord::Base
 
   def is_payable?
     self.status<2
+  end
+
+  def is_chargable?
+    self.status == 0
   end
 
   def is_paid?
@@ -129,7 +135,7 @@ class Order < ActiveRecord::Base
   #  "Colaboración mes de XXXX"
   #end
 
-  def mark_as_charging!
+  def mark_as_charging
     self.status = 1
   end
   
@@ -149,6 +155,14 @@ class Order < ActiveRecord::Base
       self.parent.returned_order
     end
   end
+
+  def self.mark_bank_orders_as_charged! date
+    Order.banks.by_date(Date.today,Date.today).to_be_charged.update_all(status:1)
+  end
+  def self.mark_bank_orders_as_paid! date
+    Order.banks.by_date(Date.today,Date.today).charging.update_all(status:2)
+  end
+
 
   #### REDSYS CC PAYMENTS ####
 

@@ -1,8 +1,9 @@
 function draw_pie_chart($el, data) {
   var ctx = $el.get(0).getContext("2d");
   var options = {
-    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%> (<%=segments[i].value%>)</span><%}%></li><%}%></ul>"
-  
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%> (<%=segments[i].value%>)</span><%}%></li><%}%></ul>",
+    percentageInnerCutout : 20,
+    animationEasing: "easeInOutCubic"
   }
   var piechart = new Chart(ctx).Pie(data,options);
   $el.after(piechart.generateLegend());
@@ -36,8 +37,9 @@ jQuery(function($) {
   var evolution_paid_amount = [];
   $('table.js-col-sum-evolution tbody tr').each( function(){
     evolution_labels.push( $(this).find('td:nth-child(1)').text().trim() );
-    evolution_orders.push( parseInt($(this).find('td:nth-child(2)').text().trim()) );
-    var values = $(this).find('td:nth-child(3)').text().replace(/€/g,"").replace(/\./g,"").replace(/,/g,".").split("/");
+    var values = $(this).find('td:nth-child(2)').text().replace(/€/g,"").replace(/\./g,"").replace(/,/g,".").split("/");
+    evolution_orders.push( parseInt(values[0].trim())+parseInt(values[1].trim())+parseInt(values[2].trim()));
+    values = $(this).find('td:nth-child(3)').text().replace(/€/g,"").replace(/\./g,"").replace(/,/g,".").split("/");
     evolution_error_amount.push( parseFloat(values[1].trim()));
     evolution_paid_amount.push( parseFloat(values[2].trim()));
   });
