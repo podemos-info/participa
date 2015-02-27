@@ -99,7 +99,11 @@ class PageController < ApplicationController
   end
 
   def responsables_areas_cc_autonomicos
-    render :form_iframe, locals: { title: "RESPONSABLES DE ÁREAS DE LOS CC AUTONÓMICOS", form_id: 61, extra_qs:"" }
+    render :form_iframe, locals: { title: "Responsables de Áreas de los Consejos Ciudadanos Autonómicos", form_id: 61, extra_qs:"" }
+  end
+
+  def boletin_correo_electronico
+    render :form_iframe, locals: { title: "Solicitud en envío de boletín por correo electrónico", form_id: 62, extra_qs:"" }
   end
 
   def credits_status
