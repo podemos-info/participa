@@ -1,13 +1,15 @@
 class Report < ActiveRecord::Base
 
   after_initialize do |report|
-    @relation = YAML.load(report.query)
-    if @relation.class == String
-      @relation = eval(@relation)
-    end
+    if report.persisted?
+      @relation = YAML.load(report.query)
+      if @relation.class == String
+        @relation = eval(@relation)
+      end
 
-    @main_group = YAML.load(report.main_group)
-    @groups = YAML.load(report.groups)
+      @main_group = YAML.load(report.main_group)
+      @groups = YAML.load(report.groups)
+    end
   end
 
   def relation= _query
@@ -59,7 +61,7 @@ class Report < ActiveRecord::Base
     @groups.each do |group|
       rest = total
       width = group.width
-      %x(sort -k2,2 #{raw_folder}/#{id}.dat | uniq -s#{id_width} -w#{width+main_width} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
+      %x(sort -k2,2 #{raw_folder}/#{group.id}.dat | uniq -s#{id_width} -w#{width+main_width} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
 
       tmp_results[:data][group.id] = @main_group ? Hash.new { |h,k| h[k] = [] } : []
 
@@ -73,12 +75,12 @@ class Report < ActiveRecord::Base
         else
           rest -= count
 
-          main_name = data[1][id_width..(id_width+main_width-1)] if @main_group
+          main_name = @main_group.format_group_name(data[1][id_width..(id_width+main_width-1)]) if @main_group
           name = data[1][id_width+main_width..(id_width+main_width+width-1)]
 
           result = { count: count, name: name.strip, users:[], samples:[]}
 
-          %x(grep  "#{'.'*id_width}#{main_name}#{name}" #{raw_folder}/#{group.id}.dat).split("\n").each do |s|
+          %x(grep  "#{'.'*id_width}#{main_name}#{group.format_group_name(name)}" #{raw_folder}/#{group.id}.dat | head -n1000).split("\n").each do |s|
             result[:users] << s[0..id_width].to_i
             result[:samples] << s[(id_width+main_width+width)..-1]
           end
