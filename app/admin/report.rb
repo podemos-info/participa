@@ -8,6 +8,9 @@ ActiveAdmin.register Report do
     id_column
     column :title
     column :query
+    column :date do |report|
+      report.updated_at
+    end
     actions
   end
 
