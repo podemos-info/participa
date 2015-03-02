@@ -103,7 +103,7 @@ class PageController < ApplicationController
   end
 
   def boletin_correo_electronico
-    render :form_iframe, locals: { title: "Solicitud en envío de boletín por correo electrónico", form_id: 62, extra_qs:"" }
+    render :form_iframe, locals: { title: "Envío de boletín por correo electrónico", form_id: 62, extra_qs:"" }
   end
 
   def credits_status

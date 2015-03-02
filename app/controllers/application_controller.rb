@@ -37,6 +37,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
+    cookies[:cookiepolicy] = {
+       :value => 'hide',
+       :expires => 18.year.from_now
+    }
 
     # reset session value
     session[:no_unresolved_issues] = false
