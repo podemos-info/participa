@@ -1,0 +1,18 @@
+<h1 style="font-size:3em;text-align:center;padding:20px">
+  Iniciativas Ciudadanas
+</h1>
+
+<div>
+  <span style="padding-left:20px">
+    <%= link_to "Nuevas",    proposals_path(filter: 'new') %>
+  </span>
+  <span style="padding-left:20px;">
+    <%= link_to "Candentes", proposals_path(filter: 'hot') %>
+  </span>
+  <span style="padding-left:20px;">
+    <%= link_to "Populares", proposals_path(filter: 'top') %>
+  </span>
+</div>
+<ul>
+  <%= render @proposals %>
+</ul>

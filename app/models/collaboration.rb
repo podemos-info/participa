@@ -240,7 +240,7 @@ class Collaboration < ActiveRecord::Base
 
     # calculate next order month based on last paid order
     else
-      next_order = self.last_order_for(date).payable_at.unique_month + self.frequency
+      next_order = self.last_order_for(date-1.month).payable_at.unique_month + self.frequency
       next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
     end
 
@@ -296,7 +296,7 @@ class Collaboration < ActiveRecord::Base
     if self.is_payable?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
+      if order and order.is_chargable?
         if self.is_credit_card?
           order.redsys_send_request if self.is_active?
         else
@@ -307,22 +307,17 @@ class Collaboration < ActiveRecord::Base
   end
 
   def get_bank_data date
-    if self.is_payable?
-      order = self.get_orders(date, date, false)[0] 
-      order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
-        col_user = self.get_user
-        [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
-            col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
-            col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
-            col_user.postal_code, col_user.country.upcase, 
-            self.iban_account, self.ccc_full, self.iban_bic, 
-            order.amount/100, order.due_code, order.url_source, self.id, 
-            self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-            self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ] 
-      else
-        nil
-      end
+    order = self.last_order_for date
+    if order and order.payable_at.unique_month == date.unique_month and order.is_chargable?
+      col_user = self.get_user
+      [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
+          col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
+          col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
+          col_user.postal_code, col_user.country.upcase, 
+          self.iban_account, self.ccc_full, self.iban_bic, 
+          order.amount/100, order.due_code, order.url_source, self.id, 
+          self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
+          self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
     end
   end
 
@@ -383,7 +378,7 @@ class Collaboration < ActiveRecord::Base
   def self.bank_filename date, full_path=true
     filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}"
     if full_path
-      "db/podemos/#{filename}.csv"
+      "#{Rails.root}/db/podemos/#{filename}.csv"
     else
       filename
     end      
