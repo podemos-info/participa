@@ -1,0 +1,39 @@
+<div style="padding:20px;">
+  <h2 style="font-size:2em;padding-bottom:10px">
+    <%= @proposal.title %>
+  </h2>
+  <p>
+    <%= formatted_description(@proposal) %>
+  </p>
+
+  <p>
+    <%= link_to "Debate en Plaza Podemos", 
+                @proposal.reddit_url, :target => '_blank' %>
+  </p>
+  
+  <div>
+    <p>Umbrales:</p>
+    
+    <div style="padding-bottom:20px">
+      <p>0.2% de Votos positivos en Plaza Podemos: 
+        <%= @proposal.reddit_required_votes? ? "Sí" : "No" %>
+      </p>
+      <p>
+        <%= link_to "#{@proposal.votes} Votos positivos", 
+                     @proposal.reddit_url %>
+      </p>
+      <p>
+        <%= number_to_percentage(@proposal.approval, 
+            precision: 5, strip_insignificant_zeros: true) %> de Censo
+      </p>
+    </div>
+    
+    <div style="padding-bottom:20px">
+      <p>2% de Avales en participa.podemos.info: No</p>
+      <p>10% de Avales en Participa.podemos.info: No</p>
+    </div>
+
+    <p>Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
+  </div>
+
+</div>

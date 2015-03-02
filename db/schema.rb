@@ -125,6 +125,17 @@ ActiveRecord::Schema.define(version: 20150218094016) do
   add_index "participation_teams_users", ["participation_team_id"], name: "index_participation_teams_users_on_participation_team_id"
   add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
 
+  create_table "proposals", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "votes"
+    t.string   "reddit_url"
+    t.string   "reddit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "reddit_threshold", default: false
+  end
+
   create_table "simple_captcha_data", force: true do |t|
     t.string   "key",        limit: 40
     t.string   "value",      limit: 6
