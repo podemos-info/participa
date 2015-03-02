@@ -53,6 +53,8 @@ APIs externas
 
 * Para el envío de correo en producción usamos [Amazon SES](http://aws.amazon.com/es/ses/). La configuración va en `config/secrets.yml`.
 
+* Para descargar las últimas iniciativas ciudadanas en Plaza Podemos ejecutamos el comando: `rake podemos:reddit`
+
 Dependencias
 ------------
 
