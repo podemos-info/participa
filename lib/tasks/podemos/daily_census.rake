@@ -80,17 +80,17 @@ namespace :podemos do
 
  
     suffix = date.strftime
-    export_raw_data "countries.#{suffix}", countries.sort, [ "País", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "countries.#{suffix}", countries.sort, headers: [ "País", suffix ], folder: "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "autonomies.#{suffix}", autonomies.sort, [ "Comunidad autonoma", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "autonomies.#{suffix}", autonomies.sort, headers: [ "Comunidad autonoma", suffix ], folder: "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "provinces.#{suffix}", provinces.sort, [ "Provincia", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "provinces.#{suffix}", provinces.sort, headers: [ "Provincia", suffix ], folder: "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "islands.#{suffix}", islands.sort, [ "Isla", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "islands.#{suffix}", islands.sort, headers: [ "Isla", suffix ], folder: "tmp/census" do |d| [ d[0], d[1] ] end
     progress.inc
-    export_raw_data "towns.#{suffix}", towns.sort, [ "Municipio", suffix ], "tmp/census" do |d| [ d[0], towns_names[d[0]], d[1] ] end
+    export_raw_data "towns.#{suffix}", towns.sort, headers: [ "Municipio", suffix ], folder:"tmp/census" do |d| [ d[0], towns_names[d[0]], d[1] ] end
     progress.inc
-    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, [ "Código postal", suffix ], "tmp/census" do |d| [ d[0], d[1] ] end
+    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal", suffix ], folder: "tmp/census" do |d| [ d[0], d[1] ] end
     progress.finished
   end
 end
