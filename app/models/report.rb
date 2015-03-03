@@ -5,7 +5,7 @@ class Report < ActiveRecord::Base
       @relation = YAML.load(report.query)
       if @relation.class == String
         model = eval(@relation[0])
-        @relation = ActiveRecord::Relation.new( model, model.arel_table, @relation[1] )
+        @relation = model.where(@relation[1])
       end
 
       @main_group = YAML.load(report.main_group)
