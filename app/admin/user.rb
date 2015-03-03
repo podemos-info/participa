@@ -287,7 +287,7 @@ ActiveAdmin.register User do
   sidebar :report, only: :index do
     form action: create_report_admin_users_path, method: :post do
       input :name => :authenticity_token, :type => :hidden, :value => form_authenticity_token.to_s
-      input :name => :query, :type => :hidden, :value => YAML.dump( [ users.name, {where: users.where_values_hash} ] )
+      input :name => :query, :type => :hidden, :value => Report.serialize_relation_query(users)
       div class: :filter_form_field do
         label "Titulo"
         input name: :title
