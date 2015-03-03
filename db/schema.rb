@@ -136,7 +136,6 @@ ActiveRecord::Schema.define(version: 20150312192438) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "reddit_threshold", default: false
-<<<<<<< HEAD
     t.string   "image_url"
     t.integer  "supports_count",   default: 0
     t.integer  "hotness",          default: 0
@@ -165,8 +164,6 @@ ActiveRecord::Schema.define(version: 20150312192438) do
     t.text     "results"
     t.datetime "created_at"
     t.datetime "updated_at"
-=======
->>>>>>> Updating proposal threshold when Reddit required votes reached #28
   end
 
   create_table "simple_captcha_data", force: true do |t|

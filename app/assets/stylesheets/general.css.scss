@@ -690,15 +690,27 @@ tools
   padding:1.5%;
   margin-bottom:1.5em;
 }
-.tools li:nth-child(3n+0){
+.tools li.box-tool-large{
+  width:97%;
+  position:relative;
+  display:block;
+  background:#eaeaea;
+  float:left;
+  padding:1.5%;
+  margin-bottom:1.5em;
+}
+.tools li:nth-child(4n+0){
   margin-right:0;
   clear:right;
 }
-.tools li div.box-tool{
+.tools li div.box-tool, .tools li div.box-tool-large{
   position:relative;
 }
 .tools li div.tool-text{
   padding-top:7em;
+}
+.tools li .box-tool-large div.tool-text{
+  text-align: center;
 }
 .tools li div.box-tool:before{
   display: inline-block;
@@ -707,6 +719,12 @@ tools
   position:absolute;
   top: -1.7em;
   left: -1.7em;
+}
+.tools li div.box-tool-large:before{
+  @extend div.box-tool:before;
+}
+.box-tool-large .buttonbox{
+  
 }
 .tools li h3{
   position: absolute;
@@ -872,7 +890,6 @@ layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 .col-b-4a12{
   width:100%;
 }
-
 .content-content-home{
   margin: auto;
   width: 100%;
@@ -881,7 +898,6 @@ layout 1: 0-459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   position:relative;
   overflow:hidden;
 }
-
 
 /*
 elementos
@@ -923,7 +939,9 @@ elementos
 .tools li h3{
   width:75%;
 }
-
+.tools li .box-tool-large div.tool-text{
+  padding-top:7em;
+}
 
 /*
 font sizes
@@ -969,7 +987,18 @@ font sizes
   margin-bottom:0.33em;
 }
 
+/* --------------------------------------------------------------------------------------------------------------------------------------------
+layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+-------------------------------------------------------------------------------------------------------------------------------------------- */
 
+@media only screen and (max-width: 459px)
+{
+
+.content-content h2 {
+    text-align: center;
+}
+
+}
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------
 layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -1005,7 +1034,6 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .col-b-4a12{
     width:100%;
   }
-
   .content-content-home{
     margin: auto;
     width: 100%;
@@ -1013,8 +1041,7 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
     max-width: 96em;
     position:relative;
     overflow:hidden;
-  }
-
+  }  
 
   /*
   elementos
@@ -1056,7 +1083,9 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .tools li h3{
     width:80%;
   }
-
+  .tools li .box-tool-large div.tool-text{
+    padding-top:7em;
+  }
 
   /*
   font sizes
@@ -1194,8 +1223,13 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .tools li h3{
     width:85%;
   }
-
-
+  .tools li .box-tool-large .button{
+    width: 273px;
+    margin: 0 auto;
+  }
+  .tools li .box-tool-large div.tool-text{
+    padding-top:7em;
+  }
   /*
   font sizes
   */
@@ -1267,9 +1301,9 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .col-f-10a12{
     width:50%;
   }
-  .col-b-4a12{
-    width:75%;
-  }
+  // .col-b-4a12{
+  //   width:75%;
+  // }
 
   .content-content-home{
     margin: auto;
@@ -1279,7 +1313,6 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     position:relative;
     overflow:hidden;
   }
-
 
   /*
   elementos
@@ -1337,10 +1370,22 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   .tools li div.tool-text{
     height:12em;
   }
+  .tools li .box-tool-large div.tool-text {
+    height:3em;
+  }
   .tools li h3{
     width:60%;
   }
-
+  .tools li .box-tool-large .button{
+    width: 273px;
+    margin: 0 auto;
+  }
+  .tools li .box-tool-large div.tool-text{
+    padding-top:3em;
+  }
+  .tools li.box-tool {
+    min-height: 320px;
+  }
 
   /*
   font sizes
@@ -1414,9 +1459,9 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .col-f-10a12{
     width:25%;
   }
-  .col-b-4a12{
-    width:75%;
-  }
+  // .col-b-4a12{
+  //   width:75%;
+  // }
 
   .content-content-home{
     margin: auto;
@@ -1482,7 +1527,13 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .tools li h3{
     width:60%;
   }
-
+  .tools li .box-tool-large .button{
+    width: 273px;
+    margin: 0 auto;
+  }
+  .tools li .box-tool-large div.tool-text{
+    padding-top:3em;
+  }
 
   /*
   font sizes
