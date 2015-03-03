@@ -1,13 +1,33 @@
 class Report < ActiveRecord::Base
 
+  def self.serialize_relation_query relation
+    query = [relation.name]
+
+    if relation.model.methods.include? :with_deleted
+      query << "with_deleted"
+    else
+      query << "all"
+    end
+
+    relation.where_values.each do |condition|
+      condition = condition.to_sql if not condition.is_a? String
+      query << "where(#{condition.inspect})"
+    end
+
+    relation.includes_values.each do |_include|
+      query << "includes(#{_include.inspect})"
+    end
+
+    relation.joins_values.each do |join|
+      query << "joins(#{join.inspect})"
+    end
+
+    query.join "."
+  end
+
   after_initialize do |report|
     if report.persisted?
-      @relation = YAML.load(report.query)
-      if @relation.class == String
-        model = eval(@relation[0])
-        @relation = model.where(@relation[1])
-      end
-
+      @relation = eval(report.query)
       @main_group = YAML.load(report.main_group)
       @groups = YAML.load(report.groups)
     end
