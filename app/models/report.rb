@@ -4,7 +4,8 @@ class Report < ActiveRecord::Base
     if report.persisted?
       @relation = YAML.load(report.query)
       if @relation.class == String
-        @relation = eval(@relation)
+        model = eval(@relation[0])
+        @relation = ActiveRecord::Relation.new( model, model.arel_table, @relation[1] )
       end
 
       @main_group = YAML.load(report.main_group)
@@ -83,7 +84,6 @@ class Report < ActiveRecord::Base
           name = data[2][main_width..(main_width+width-1)]
 
           result = { count: count, name: name.strip, users:[], samples:[]}
-          p name.strip
           %x(grep  "#{'.'*id_width} #{main_name}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,100].min}).split("\n").each do |s|
             result[:users] << s[0..id_width].to_i
             sample = s[(id_width+1+main_width+width+1)..-1].strip
