@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301145149) do
+ActiveRecord::Schema.define(version: 20150303165723) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 20150301145149) do
 
   create_table "reports", force: true do |t|
     t.string   "title"
-    t.string   "query"
+    t.text     "query",      limit: 255
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"
