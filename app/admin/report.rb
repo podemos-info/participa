@@ -39,5 +39,4 @@ ActiveAdmin.register Report do
     end
   end
 
-
 end
