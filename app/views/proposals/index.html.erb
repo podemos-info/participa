@@ -1,18 +1,16 @@
-<h1 style="font-size:3em;text-align:center;padding:20px">
-  Iniciativas Ciudadanas
-</h1>
+<section class="proposal-index">
+  
+  <h1>Iniciativas Ciudadanas</h1>
 
-<div>
-  <span style="padding-left:20px">
-    <%= link_to "Nuevas",    proposals_path(filter: 'new') %>
-  </span>
-  <span style="padding-left:20px;">
-    <%= link_to "Candentes", proposals_path(filter: 'hot') %>
-  </span>
-  <span style="padding-left:20px;">
-    <%= link_to "Populares", proposals_path(filter: 'top') %>
-  </span>
-</div>
-<ul>
-  <%= render @proposals %>
-</ul>
+  <nav>
+    <%= link_to "Nuevas",     proposals_path(filter: 'new'),  :class => "active" %>
+    <%= link_to "Populares",  proposals_path(filter: 'top'),  :class => "" %>
+    <%= link_to "Por tiempo", proposals_path(filter: 'time'), :class => "" %>
+    <%= link_to "Candentes",  proposals_path(filter: 'hot'),  :class => "" %>
+  </nav>
+  
+  <ul>
+    <%= render @proposals %>
+  </ul>
+
+</section>
