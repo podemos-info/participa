@@ -1,6 +1,9 @@
 class ReportGroup < ActiveRecord::Base
   after_initialize do |group|
-    @proc = eval("Proc.new { |row| #{group.proc} }")
+    if persisted?
+      @proc = eval("Proc.new { |row| #{group.proc} }")
+      @whitelist = whitelist.split("\r\n")
+    end
   end
 
   def process row
@@ -23,4 +26,7 @@ class ReportGroup < ActiveRecord::Base
     @file.close
   end
 
+  def whitelist? value
+    @whitelist.include? value
+  end
 end
