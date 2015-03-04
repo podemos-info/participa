@@ -272,7 +272,7 @@ ActiveAdmin.register User do
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       users.each do |user| 
-        csv << [ user.email, user.participation_team.map { |team| team.name }.join(",") ]
+        csv << [ user.email, user.autonomy_name, user.participation_team.map { |team| team.name }.join(",") ]
       end
     end
     send_data csv.encode('utf-8'),
