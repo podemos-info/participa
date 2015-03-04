@@ -1,39 +1,66 @@
-<div style="padding:20px;">
-  <h2 style="font-size:2em;padding-bottom:10px">
-    <%= @proposal.title %>
-  </h2>
-  <p>
-    <%= formatted_description(@proposal) %>
-  </p>
-
-  <p>
-    <%= link_to "Debate en Plaza Podemos", 
-                @proposal.reddit_url, :target => '_blank' %>
-  </p>
+<section class="proposal-wrapper">
   
-  <div>
-    <p>Umbrales:</p>
-    
-    <div style="padding-bottom:20px">
-      <p>0.2% de Votos positivos en Plaza Podemos: 
-        <%= @proposal.reddit_required_votes? ? "Sí" : "No" %>
-      </p>
-      <p>
-        <%= link_to "#{@proposal.votes} Votos positivos", 
-                     @proposal.reddit_url %>
-      </p>
-      <p>
-        <%= number_to_percentage(@proposal.approval, 
-            precision: 5, strip_insignificant_zeros: true) %> de Censo
-      </p>
-    </div>
-    
-    <div style="padding-bottom:20px">
-      <p>2% de Avales en participa.podemos.info: No</p>
-      <p>10% de Avales en Participa.podemos.info: No</p>
-    </div>
+    <div class="container">
+        
+        <%= link_to "Volver", proposals_path,  :class => "back" %>
 
-    <p>Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
-  </div>
+        <article class="proposal no-border-bottom">
+            <div class="author">
+                <figure>
+                  <%= image_tag("author-example.jpg", alt: "Alberto García") %>
+                </figure>            
+                <p class="name">Alberto García<br>
+                <span class="date">hace 1 día</span></p>
+            </div>
+
+            <%= image_tag("proposal-example.jpg", alt: "") %>
+
+            <h2>
+                <%= @proposal.title %>
+            </h2>
+        
+            <p>
+                <%= formatted_description(@proposal) %>
+            </p>
+        
+            <div class="info">
+                <%= link_to "Debate en Plaza Podemos", @proposal.reddit_url, :target => '_blank' %> | Termina en 34 días         
+            </div>
+        </article>
+    
+    </div> 
+  
+    <div class="sidebar">
+        <h2>Información</h2>
+
+        <article class="proposal-sidebar no-border-bottom">    
+                <p class="threshold">Umbrales</p>
+                <p class="check"><strong>0,2%</strong> de Votos positivos en <br>
+                <%= link_to "Plaza Podemos", @proposal.reddit_url, :target => '_blank' %>
+                </p>
+                <p class="times"><strong>2%</strong> de Apoyos</p>
+                <p class="times"><strong>10%</strong> de Apoyos</p>
+               
+                <div class="divider"></div>
+               
+                <p class="times"><strong>20%</strong> de círculos apoyando</p>
+
+                <div class="divider"></div>
+                
+                <p class="info">560 de 15.445 Apoyos necesarios<br>
+                0,1% de 10% necesario</p>
+                
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="10" style="width: 10%">
+                    </div>
+                </div>
+                
+                <%= link_to "0,6% de círculos apoyando", "#", :class => 'info-circles' %>
+
+                <p class="time-left">Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
+
+                <%= link_to("Apoyar propuesta", "#", :class => "button-support" ) %>
+        </article>
+    </div>
 
 </div>
