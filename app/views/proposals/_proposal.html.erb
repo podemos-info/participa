@@ -1,12 +1,28 @@
-<div style="padding:20px;">
-  
-  <%= link_to proposal do %>
-    <h2 style="font-size:2em;padding-bottom:5px">
-      <%= proposal.title %>
-    </h2>
-    <p>
-      <%= truncate(proposal.description, length: 500) %>
-    </p>
-  <% end %>
+<article class="proposal">
+    
+    <div class="author">
+		<figure>
+			<%= image_tag("author-example.jpg", alt: "Alberto García") %>
+		</figure>
+    	<p class="name">Alberto García<br>
+		<span class="date">hace 1 día</span></p>
+    </div>
 
-</div>
+	<%= image_tag("proposal-example.jpg", alt: "") %>
+
+    <h2>
+    	<%= proposal.title %>
+    </h2>
+    
+    <p>
+      <%= truncate(proposal.description, length: 300) %>
+    </p>
+
+	<div class="info">
+    	<%= link_to("Ver iniciativa", proposal ) %> | Termina en 34 días | <%= link_to("Apoyar propuesta", "#", :class => "support" ) %>
+
+    </div>  	
+
+
+
+</article>

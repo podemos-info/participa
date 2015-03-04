@@ -765,6 +765,108 @@ tools
 }
 
 /* -----------------------------------
+proposals
+----------------------------------- */
+
+.proposal-index {
+  margin: 0 auto;
+  max-width: 940px;
+
+  h1 {
+    color: #612d62;
+    font-family: Montserrat,Arial,sans-serif;
+    font-size: 3em;
+    padding: 20px;
+    text-transform: uppercase;  
+  }
+
+  nav {
+    border-bottom: 1px solid #b5b5b5;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    
+    a {
+      color: rgba(51,51,51,.6);
+      font-size: 1.4em;      
+      text-transform: uppercase;
+      margin-right: 20px;
+
+      &.active {
+        border-bottom: 3px solid #612d62;
+        color: #612d62;      
+        padding-bottom: 20px;  
+      }
+    }
+  }
+}
+
+.proposal {
+  border-bottom: 1px solid #b5b5b5;
+  padding: 20px;
+
+  h2 {
+    color: #612d62;
+    font-size: 2em;    
+  }
+
+  p {
+    font-size: 1.4em;
+    color: #333;
+  }
+
+  img {
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .author {
+    padding-bottom: 10px;
+
+    .name {
+      color: #954e99;
+      padding-left: 50px;
+    }
+    
+    .date {
+      color: #858585;
+    }
+
+    img {
+      border-radius: 3px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -o-border-radius: 3px;
+      float: left;
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  .info {
+    font-size: 1.4em;
+    color: #858585;
+  }
+
+  .support {
+    background: #612d62;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    color: white;
+    display: inline-block;
+    margin: 10px;    
+    padding: 5px 10px;
+    text-transform: uppercase;
+  }
+}
+
+
+/* -----------------------------------
 body elements
 ----------------------------------- */
 
@@ -994,9 +1096,18 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
 @media only screen and (max-width: 459px)
 {
 
-.content-content h2 {
-    text-align: center;
-}
+  .content-content h2{
+      text-align: center;
+  }
+
+  .proposal-index nav a{
+    margin-top: 10px;
+    display: inline-block;
+
+    &.active{
+      padding-bottom: 0;  
+    }
+  }
 
 }
 
