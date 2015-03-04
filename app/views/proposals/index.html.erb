@@ -1,16 +1,52 @@
-<section class="proposal-index">
-  
-  <h1>Iniciativas Ciudadanas</h1>
+<section class="proposal-wrapper">
 
-  <nav>
-    <%= link_to "Nuevas",     proposals_path(filter: 'new'),  :class => "active" %>
-    <%= link_to "Populares",  proposals_path(filter: 'top'),  :class => "" %>
-    <%= link_to "Por tiempo", proposals_path(filter: 'time'), :class => "" %>
-    <%= link_to "Candentes",  proposals_path(filter: 'hot'),  :class => "" %>
-  </nav>
+    <div class="how-info">
+        <a href="#">¿Qué son y cómo funcionan las Iniciativas Ciudadanas Podemos?</a>
+    </div>
+    
+    <h1>Iniciativas Ciudadanas</h1>
+    
+    <div class="container">
+        <nav>
+            <%= link_to "Nuevas",     proposals_path(filter: 'new'),  :class => "active" %>
+            <%= link_to "Populares",  proposals_path(filter: 'top'),  :class => "" %>
+            <%= link_to "Por tiempo", proposals_path(filter: 'time'), :class => "" %>
+            <%= link_to "Candentes",  proposals_path(filter: 'hot'),  :class => "" %>
+        </nav>
   
-  <ul>
-    <%= render @proposals %>
-  </ul>
+        <div>
+          <%= render @proposals %>
+        </div>
+    </div>
+
+    <div class="sidebar">
+
+        <h2>Candentes</h2>
+
+        <article class="proposal-sidebar">    
+            <div>
+                <p class="finish">Termina en <strong>1 día</strong></p>
+                <p class="support"><strong>8%</strong> de Avales</p>
+                <h3>Comunicación entre la directiva y los miembros de Plaza Podemos</h3>
+                <%= link_to("Ver iniciativa", "#", :class => "show" ) %>
+            </div>
+        </article>
+        <article class="proposal-sidebar">    
+            <div>
+                <p class="finish">Termina en <strong>2 días</strong></p>
+                <p class="support"><strong>9%</strong> de Avales</p>
+                <h3>Quiero conocer más a cada uno de los miembros del consejo ciudadano</h3>
+                <%= link_to("Ver iniciativa", "#", :class => "show" ) %>
+            </div>
+        </article>
+        <article class="proposal-sidebar">    
+            <div>
+                <p class="finish">Termina en <strong>3 días</strong></p>
+                <p class="support"><strong>7%</strong> de Avales</p>
+                <h3>Podemos debe apoyar al 100% las teiciones que acaban de hacer los jueces</h3>
+                <%= link_to("Ver iniciativa", "#", :class => "show" ) %>
+            </div>
+        </article>
+    </div>
 
 </section>
