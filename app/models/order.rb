@@ -156,11 +156,11 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.mark_bank_orders_as_charged! date
-    Order.banks.by_date(Date.today,Date.today).to_be_charged.update_all(status:1)
+  def self.mark_bank_orders_as_charged!(date=Date.today)
+    Order.banks.by_date(date, date).to_be_charged.update_all(status:1)
   end
-  def self.mark_bank_orders_as_paid! date
-    Order.banks.by_date(Date.today,Date.today).charging.update_all(status:2)
+  def self.mark_bank_orders_as_paid!(date=Date.today)
+    Order.banks.by_date(date, date).charging.update_all(status:2)
   end
 
 
