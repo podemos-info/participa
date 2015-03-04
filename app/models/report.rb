@@ -3,15 +3,11 @@ class Report < ActiveRecord::Base
   def self.serialize_relation_query relation
     query = [relation.name]
 
+
     if relation.model.methods.include? :with_deleted
       query << "with_deleted"
     else
       query << "all"
-    end
-
-    relation.where_values.each do |condition|
-      condition = condition.to_sql if not condition.is_a? String
-      query << "where(#{condition.inspect})"
     end
 
     relation.includes_values.each do |_include|
@@ -22,22 +18,20 @@ class Report < ActiveRecord::Base
       query << "joins(#{join.inspect})"
     end
 
+    relation.where_values.each do |condition|
+      condition = condition.to_sql if not condition.is_a? String
+      query << "where(#{condition.inspect})"
+    end
+
     query.join "."
   end
 
   after_initialize do |report|
     if report.persisted?
       @relation = eval(report.query)
-      @main_group = YAML.load(report.main_group)
+      @main_group = YAML.load(report.main_group) if report.main_group
       @groups = YAML.load(report.groups)
     end
-  end
-
-  def relation= _query
-    if _query.class != String
-      _query = YAML.dump(_query)
-    end
-    self.query = _query
   end
 
   def run!
