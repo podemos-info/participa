@@ -22,7 +22,7 @@ namespace :deploy do
   task :restart do
     on roles(:app) do
       execute "/etc/init.d/unicorn_staging restart"
-      execute "sudo /etc/init.d/stop restart"
+      execute "sudo /etc/init.d/god restart"
     end
   end
 end
