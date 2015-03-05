@@ -35,6 +35,10 @@ class PageController < ApplicationController
   def list_register
     render :form_iframe, locals: { title: "Listas autonómicas", form_id: 20, extra_qs:"" }
   end
+
+  def candidaturas_primarias_autonomicas
+    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias autonómicas e insulares", form_id: 63, extra_qs:"" }
+  end
   
   def offer_hospitality
     render :form_iframe, locals: { title: "Comparte tu casa", form_id: 6, extra_qs:"", return_path: root_path }
