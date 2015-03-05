@@ -63,6 +63,7 @@ sudo apt-get install libicu52                       # para manejar cadenas Unico
 sudo apt-get install postgres                       # para la base de datos, o mysql-server si lo prefieres
 sudo apt-get install imagemagick                    # para la generación del captcha
 sudo apt-get install redis-server                   # para la gestión de las colas de trabajo (resque)
+sudo apt-get install libpq-dev						# para la gema pg
 ```
 
 Configuraciones
