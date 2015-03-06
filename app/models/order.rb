@@ -288,7 +288,6 @@ class Order < ActiveRecord::Base
       "Ds_Merchant_Amount"            => self.amount,
       "Ds_Merchant_MerchantSignature" => self.redsys_merchant_request_signature
     }.merge extra
-
   end
 
   def redsys_send_request
@@ -348,5 +347,24 @@ class Order < ActiveRecord::Base
     else
       "Transacción no procesada"
     end
+  end
+
+  def redsys_callback_response
+    response = "<Response Ds_Version='0.0'><Ds_Response_Merchant>#{self.is_paid? ? "OK" : "KO" }</Ds_Response_Merchant></Response>"
+    signature = Digest::SHA1.hexdigest("#{response}#{self.redsys_secret "secret_key"}")
+
+    soap = []
+    soap << <<-EOL
+<?xml version='1.0' encoding='UTF-8'?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<SOAP-ENV:Body>
+<ns1:procesaNotificacionSIS xmlns:ns1="InotificacionSIS" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<return xsi:type="xsd:string">
+EOL
+    soap[-1].rstrip!
+    soap << CGI.escapeHTML("<Message>#{response}<Signature>#{signature}</Signature></Message>")
+    soap << "</return>\n</ns1:procesaNotificacionSIS>\n</SOAP-ENV:Body>\n</SOAP-ENV:Envelope>"
+
+    soap.join
   end
 end
