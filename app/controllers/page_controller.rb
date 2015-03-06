@@ -6,7 +6,8 @@ class PageController < ApplicationController
                                               :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
-                                              :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos]
+                                              :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
+                                              :apoderados_campana_autonomica_andalucia]
 
   def privacy_policy
   end
@@ -36,10 +37,6 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Listas autonómicas", form_id: 20, extra_qs:"" }
   end
 
-  def candidaturas_primarias_autonomicas
-    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias autonómicas e insulares", form_id: 63, extra_qs:"" }
-  end
-  
   def offer_hospitality
     render :form_iframe, locals: { title: "Comparte tu casa", form_id: 6, extra_qs:"", return_path: root_path }
   end
@@ -109,6 +106,15 @@ class PageController < ApplicationController
   def boletin_correo_electronico
     render :form_iframe, locals: { title: "Envío de boletín por correo electrónico", form_id: 62, extra_qs:"" }
   end
+
+  def candidaturas_primarias_autonomicas
+    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias autonómicas e insulares", form_id: 63, extra_qs:"" }
+  end
+  
+  def apoderados_campana_autonomica_andalucia
+    render :form_iframe, locals: { title: "Apoderados para la campaña autonómica en Andalucía", form_id: 64, extra_qs:"" }
+  end
+
 
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
