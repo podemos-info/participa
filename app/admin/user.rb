@@ -271,14 +271,15 @@ ActiveAdmin.register User do
     users = User.participation_team
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Círculo", "Email", "Equipos"]
       users.each do |user| 
-        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.town_name, user.postal_code, user.phone, user.postal_code, user.circle, user.email, user.autonomy_name, user.participation_team.map { |team| team.name }.join(",") ]
-
+        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle, user.email, user.participation_team.map { |team| team.name }.join(",") ]
       end
     end
+
     send_data csv.encode('utf-8'),
       type: 'text/tsv; charset=utf-8; header=present',
-      disposition: "attachment; filename=podemos.participationteams.#{Date.today.to_s}.tsv"
+      disposition: "attachment; filename=podemos.participationteams.#{Date.today.to_s}.csv"
   end
 
   action_item only: :index do

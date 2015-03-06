@@ -62,6 +62,7 @@ class Collaboration < ActiveRecord::Base
     self.status = 0
   end
 
+
   def set_active
     self.status=2 if self.status < 2
     self.save
@@ -95,6 +96,10 @@ class Collaboration < ActiveRecord::Base
 
   def is_credit_card?
     self.payment_type == 1
+  end
+
+  def is_bank?
+    self.payment_type != 1
   end
 
   def is_bank_national?
@@ -177,6 +182,10 @@ class Collaboration < ActiveRecord::Base
   def payment_identifier
     if self.is_credit_card?
       self.redsys_identifier
+    elsif self.is_bank_national?
+      ccc = self.ccc_full
+      iban = 98-("#{self.ccc_full}142800".to_i % 97)
+      "ES#{iban.to_s.rjust(2,"0")}#{ccc}/#{Podemos::SpanishBIC[ccc_entity]}"
     else
       "#{self.iban_account}/#{self.iban_bic}"
     end
@@ -229,10 +238,10 @@ class Collaboration < ActiveRecord::Base
   def must_have_order? date
     this_month = Date.today.unique_month
 
-    # first order not created yet, must have order this month, or next if its paid by bank and was created this month
+    # first order not created yet, must have order this month, or next if its paid by bank and was created this month after payment day
     if self.first_order.nil?
       next_order = this_month
-      next_order += 1 if not self.is_credit_card? and self.created_at.unique_month==next_order
+      next_order += 1 if self.is_bank? and self.created_at.unique_month==next_order and self.created_at.day >= Order.payment_day
 
     # mustn't have order on months before it first order
     elsif self.first_order.payable_at > date

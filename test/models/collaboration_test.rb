@@ -164,9 +164,18 @@ class CollaborationTest < ActiveSupport::TestCase
   test "should .must_have_order? work" do
     assert_not @collaboration.must_have_order? Date.today-1.year
     assert_not @collaboration.must_have_order? Date.today-1.month
-    assert_not @collaboration.must_have_order? Date.today
     assert @collaboration.must_have_order? Date.today+1.month
     assert @collaboration.must_have_order? Date.today+1.year
+
+    date = @collaboration.created_at
+    date = date.change(day: Order.payment_day)
+    
+    @collaboration.created_at = date - 1.day
+    assert @collaboration.must_have_order? Date.today
+
+    @collaboration.created_at = date + 1.day
+    assert_not @collaboration.must_have_order? Date.today
+
   end
 
   test "should .get_orders work" do

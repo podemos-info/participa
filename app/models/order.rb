@@ -103,7 +103,6 @@ class Order < ActiveRecord::Base
     self.by_date(date,date).sum(:amount) / 100.0
   end
 
-
   def admin_permalink
     admin_order_path(self)
   end
@@ -159,10 +158,10 @@ class Order < ActiveRecord::Base
   def self.mark_bank_orders_as_charged!(date=Date.today)
     Order.banks.by_date(date, date).to_be_charged.update_all(status:1)
   end
+  
   def self.mark_bank_orders_as_paid!(date=Date.today)
-    Order.banks.by_date(date, date).charging.update_all(status:2)
+    Order.banks.by_date(date, date).charging.update_all(status:2, payed_at: date)
   end
-
 
   #### REDSYS CC PAYMENTS ####
 
@@ -288,7 +287,6 @@ class Order < ActiveRecord::Base
       "Ds_Merchant_Amount"            => self.amount,
       "Ds_Merchant_MerchantSignature" => self.redsys_merchant_request_signature
     }.merge extra
-
   end
 
   def redsys_send_request
@@ -348,5 +346,24 @@ class Order < ActiveRecord::Base
     else
       "Transacción no procesada"
     end
+  end
+
+  def redsys_callback_response
+    response = "<Response Ds_Version='0.0'><Ds_Response_Merchant>#{self.is_paid? ? "OK" : "KO" }</Ds_Response_Merchant></Response>"
+    signature = Digest::SHA1.hexdigest("#{response}#{self.redsys_secret "secret_key"}")
+
+    soap = []
+    soap << <<-EOL
+<?xml version='1.0' encoding='UTF-8'?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<SOAP-ENV:Body>
+<ns1:procesaNotificacionSIS xmlns:ns1="InotificacionSIS" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<return xsi:type="xsd:string">
+EOL
+    soap[-1].rstrip!
+    soap << CGI.escapeHTML("<Message>#{response}<Signature>#{signature}</Signature></Message>")
+    soap << "</return>\n</ns1:procesaNotificacionSIS>\n</SOAP-ENV:Body>\n</SOAP-ENV:Envelope>"
+
+    soap.join
   end
 end

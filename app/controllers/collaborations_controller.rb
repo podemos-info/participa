@@ -75,12 +75,12 @@ class CollaborationsController < ApplicationController
     @collaboration = current_user.collaboration
 
     start_date = [@collaboration.created_at, Date.today - 6.months].max
-    @orders = @collaboration.get_orders start_date, start_date + 11.months
+    @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
     @order = @orders[0][-1]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
+    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
   end
 end
