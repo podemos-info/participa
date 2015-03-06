@@ -6,9 +6,6 @@ class CollaborationsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy, :OK, :KO]
-  # TODO: before_action :check_if_user_over_age
-  # TODO: before_action :check_if_user_passport
-  # TODO: before_action :check_if_user_already_collaborated
  
   # GET /collaborations/new
   def new
@@ -50,6 +47,8 @@ class CollaborationsController < ApplicationController
 
   # GET /collaborations/confirm
   def confirm
+    # ensure credit card order is not persisted, to allow create a new id for each payment try
+    @order = @collaboration.create_order Date.today, true if @collaboration.is_credit_card?
   end
 
   # GET /collaborations/ok

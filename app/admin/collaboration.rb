@@ -55,6 +55,8 @@ ActiveAdmin.register Collaboration do
   scope :legacy
   scope :non_user
   scope :deleted
+  scope :autonomy_cc
+  scope :town_cc
 
   index do
     selectable_column
@@ -72,16 +74,18 @@ ActiveAdmin.register Collaboration do
     column :orders do |collaboration|
       show_collaboration_orders collaboration
     end
-    column :dni_nie do |collaboration|
-      collaboration.get_user.document_vatid
+    column :created_at do |collaboration|
+      collaboration.created_at.strftime "%d-%m-%y"
     end
-    column :created_at
     column :method, sortable: 'payment_type' do |collaboration|
       collaboration.payment_type==1 ? "Tarjeta" : "Recibo"
     end
-    column :info do |collaboration|
+    column :territorial do |collaboration|
       status_tag("Cca") if collaboration.for_autonomy_cc
       status_tag("Ccm") if collaboration.for_autonomy_cc and collaboration.for_town_cc
+    end
+    column :info do |collaboration|
+      status_tag("BIC", :error) if collaboration.is_bank? and collaboration.calculate_bic.nil?
       status_tag("Activo", :ok) if collaboration.is_active?
       status_tag("Alertas", :warn) if collaboration.has_warnings?
       status_tag("Errores", :error) if collaboration.has_errors?
@@ -136,6 +140,8 @@ ActiveAdmin.register Collaboration do
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
   filter :created_at
+  filter :for_autonomy_cc
+  filter :for_town_cc
 
   show do |collaboration|
     attributes_table do
@@ -152,16 +158,23 @@ ActiveAdmin.register Collaboration do
       row :updated_at
       row :deleted_at
       
-      if collaboration.is_bank?
-        row :iban_account
-        row :iban_bic
-      end
       row :ccc_full if collaboration.is_bank_national?
+      row :iban_account if collaboration.is_bank_international?
+      if collaboration.is_bank?
+        row :iban_bic do
+          collaboration.calculate_bic
+          status_tag(t("active_admin.empty"), :error) if collaboration.calculate_bic.nil?
+        end
+      end
       if collaboration.is_credit_card?
         row :redsys_identifier
         row :redsys_expiration do
           collaboration.redsys_expiration.strftime "%m/%y"
         end
+      end
+      row :territorial do
+        status_tag("Cc autonómico") if collaboration.for_autonomy_cc
+        status_tag("Cc municipal") if collaboration.for_autonomy_cc and collaboration.for_town_cc
       end
       row :info do
         status_tag("Cca", :ok) if collaboration.for_autonomy_cc
