@@ -55,13 +55,20 @@ class Collaboration < ActiveRecord::Base
   scope :deleted, -> { only_deleted }
 
   scope :full_view, -> { with_deleted.includes(:user).includes(:order) }
+
+  scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
+  scope :town_cc, -> { created.where(for_town_cc: true, for_autonomy_cc: true)}
   
   after_create :set_initial_status
+  before_save :check_spanish_bic
 
   def set_initial_status
     self.status = 0
   end
 
+  def check_spanish_bic
+    self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
+  end
 
   def set_active
     self.status=2 if self.status < 2
@@ -127,6 +134,15 @@ class Collaboration < ActiveRecord::Base
     "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}" if ccc_account
   end
 
+  def pretty_ccc_full 
+    "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}" if ccc_account
+  end
+
+  def calculate_bic
+    return iban_bic if iban_bic and !iban_bic.empty?
+    return Podemos::SpanishBIC[ccc_entity] if is_bank_national?
+  end
+
   def admin_permalink
     admin_collaboration_path(self)
   end
@@ -185,7 +201,7 @@ class Collaboration < ActiveRecord::Base
     elsif self.is_bank_national?
       ccc = self.ccc_full
       iban = 98-("#{self.ccc_full}142800".to_i % 97)
-      "ES#{iban.to_s.rjust(2,"0")}#{ccc}/#{Podemos::SpanishBIC[ccc_entity]}"
+      "ES#{iban.to_s.rjust(2,"0")}#{ccc}/#{calculate_bic}"
     else
       "#{self.iban_account}/#{self.iban_bic}"
     end

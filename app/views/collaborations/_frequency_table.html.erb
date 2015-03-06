@@ -9,7 +9,7 @@
     <dt>Cuenta bancaria</dt>
     <dd>
     <% if @collaboration.is_bank_national? %>
-      <%= @collaboration.ccc_full %>
+      <%= @collaboration.pretty_ccc_full %>
     <% end %>
     <% if @collaboration.is_bank_international? %>
       IBAN: <%= @collaboration.iban_account %> <br>
@@ -34,7 +34,7 @@
   <tbody>
   <% @orders.each do |orders| %>
     <tr>
-      <td> <%= l(orders[-1].payable_at, format: :date) %><% if orders[-1].payed_at %> (pagada el <%=l(orders[-1].payed_at, format: :date)%>)<% end %></td>
+      <td> <%= l(orders[-1].payable_at, format: :date) %><% if orders[-1].was_returned? %> (devuelta)<%elsif orders[-1].is_paid?%> (pagada el <%=l(orders[-1].payed_at, format: :date)%>)<% end %></td>
       <td> <%= number_to_euro orders[-1].amount %> </td>
     </tr>
   <% end %>
