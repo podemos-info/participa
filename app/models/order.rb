@@ -103,7 +103,6 @@ class Order < ActiveRecord::Base
     self.by_date(date,date).sum(:amount) / 100.0
   end
 
-
   def admin_permalink
     admin_order_path(self)
   end
@@ -159,10 +158,10 @@ class Order < ActiveRecord::Base
   def self.mark_bank_orders_as_charged!(date=Date.today)
     Order.banks.by_date(date, date).to_be_charged.update_all(status:1)
   end
+  
   def self.mark_bank_orders_as_paid!(date=Date.today)
-    Order.banks.by_date(date, date).charging.update_all(status:2)
+    Order.banks.by_date(date, date).charging.update_all(status:2, payed_at: date)
   end
-
 
   #### REDSYS CC PAYMENTS ####
 

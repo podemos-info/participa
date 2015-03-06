@@ -39,7 +39,7 @@ ActiveAdmin.register Collaboration do
   menu :parent => "Colaboraciones"
 
   permit_params  :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
-                :redsys_identifier, :redsys_expiration
+                :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc
 
   actions :all, :except => [:new]
 
@@ -80,6 +80,8 @@ ActiveAdmin.register Collaboration do
       collaboration.payment_type==1 ? "Tarjeta" : "Recibo"
     end
     column :info do |collaboration|
+      status_tag("Cca") if collaboration.for_autonomy_cc
+      status_tag("Ccm") if collaboration.for_autonomy_cc and collaboration.for_town_cc
       status_tag("Activo", :ok) if collaboration.is_active?
       status_tag("Alertas", :warn) if collaboration.has_warnings?
       status_tag("Errores", :error) if collaboration.has_errors?
@@ -149,13 +151,12 @@ ActiveAdmin.register Collaboration do
       row :created_at
       row :updated_at
       row :deleted_at
-      if collaboration.is_bank_national?
-        row :ccc_full
-      end
-      if collaboration.is_bank_international?
+      
+      if collaboration.is_bank?
         row :iban_account
         row :iban_bic
       end
+      row :ccc_full if collaboration.is_bank_national?
       if collaboration.is_credit_card?
         row :redsys_identifier
         row :redsys_expiration do
@@ -163,6 +164,8 @@ ActiveAdmin.register Collaboration do
         end
       end
       row :info do
+        status_tag("Cca", :ok) if collaboration.for_autonomy_cc
+        status_tag("Ccm", :ok) if collaboration.for_autonomy_cc and collaboration.for_town_cc
         status_tag("Activo", :ok) if collaboration.is_active?
         status_tag("Alertas", :warn) if collaboration.has_warnings?
         status_tag("Errores", :error) if collaboration.has_errors?
@@ -225,6 +228,8 @@ ActiveAdmin.register Collaboration do
       f.input :iban_bic
       f.input :redsys_identifier
       f.input :redsys_expiration
+      f.input :for_autonomy_cc
+      f.input :for_town_cc
     end
     f.actions
   end

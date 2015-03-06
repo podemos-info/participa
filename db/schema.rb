@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303165723) do
+ActiveRecord::Schema.define(version: 20150306105324) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20150303165723) do
     t.string   "non_user_document_vatid"
     t.string   "non_user_email"
     t.text     "non_user_data"
+    t.boolean  "for_autonomy_cc"
+    t.boolean  "for_town_cc"
   end
 
   add_index "collaborations", ["deleted_at"], name: "index_collaborations_on_deleted_at"
