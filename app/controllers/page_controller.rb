@@ -54,7 +54,7 @@ class PageController < ApplicationController
   end
 
   def town_legal
-    render :form_iframe, locals: { title: "Responsables municipales de finanzas y legal", form_id: 14, extra_qs:"" }
+    render :form_iframe, locals: { title: "Responsables de finanzas y legal", form_id: 14, extra_qs:"" }
   end
 
 
