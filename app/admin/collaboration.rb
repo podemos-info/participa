@@ -162,8 +162,8 @@ ActiveAdmin.register Collaboration do
       row :iban_account if collaboration.is_bank_international?
       if collaboration.is_bank?
         row :iban_bic do
-          collaboration.calculate_bic
           status_tag(t("active_admin.empty"), :error) if collaboration.calculate_bic.nil?
+          collaboration.calculate_bic
         end
       end
       if collaboration.is_credit_card?

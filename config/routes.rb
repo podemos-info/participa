@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     get '/comparte-el-cambio/encuentra-viaje', to: 'page#find_car', as: 'find_car'
 
     get '/apoderados-campana-autonomica-andalucia', to: 'page#apoderados_campana_autonomica_andalucia', as: 'apoderados_campana_autonomica_andalucia'
-    get '/candidaturas-primarias-autonomicas', to: 'page#apoderados_campana_autonomica_andalucia', as: 'candidaturas_primarias_autonomicas'
+    get '/candidaturas-primarias-autonomicas', to: 'page#candidaturas_primarias_autonomicas', as: 'candidaturas_primarias_autonomicas'
 
 
     get :notices, to: 'notice#index', as: 'notices'
