@@ -54,7 +54,7 @@ class Collaboration < ActiveRecord::Base
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
-  scope :full_view, -> { with_deleted.includes(:user).includes(:order) }
+  scope :full_view, -> { with_deleted.eager_load(:user).eager_load(:order) }
 
   scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
   scope :town_cc, -> { created.where(for_town_cc: true, for_autonomy_cc: true)}
