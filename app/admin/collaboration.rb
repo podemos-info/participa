@@ -68,13 +68,13 @@ ActiveAdmin.register Collaboration do
         collaboration.get_user.full_name
       end
     end
-    column :amount do |collaboration|
+    column :amount, sortable: :amount do |collaboration|
       number_to_euro collaboration.amount
     end
     column :orders do |collaboration|
       show_collaboration_orders collaboration
     end
-    column :created_at do |collaboration|
+    column :created_at, sortable: :created_at do |collaboration|
       collaboration.created_at.strftime "%d-%m-%y"
     end
     column :method, sortable: 'payment_type' do |collaboration|
