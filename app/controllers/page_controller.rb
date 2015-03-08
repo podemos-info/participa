@@ -7,7 +7,8 @@ class PageController < ApplicationController
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
                                               :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
-                                              :apoderados_campana_autonomica_andalucia]
+                                              :apoderados_campana_autonomica_andalucia, :comparte_cambio_valoracion_propietarios,
+                                              :comparte_cambio_valoracion_usuarios]
 
   def privacy_policy
   end
@@ -115,6 +116,13 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Apoderados para la campaña autonómica en Andalucía", form_id: 64, extra_qs:"" }
   end
 
+  def comparte_cambio_valoracion_propietarios
+    render :form_iframe, locals: { title: "Cuéntanos como fue la experiencia compartiendo tu casa o coche", form_id: 65, extra_qs:"" }
+  end
+
+  def comparte_cambio_valoracion_usuarios
+    render :form_iframe, locals: { title: "Cuéntanos que tal te acogieron en su casa o coche", form_id: 66, extra_qs:"" }
+  end
 
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
