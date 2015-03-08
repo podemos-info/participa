@@ -169,7 +169,7 @@ ActiveAdmin.register Collaboration do
       if collaboration.is_credit_card?
         row :redsys_identifier
         row :redsys_expiration do
-          collaboration.redsys_expiration.strftime "%m/%y"
+          collaboration.redsys_expiration.strftime "%m/%y" if collaboration.redsys_expiration
         end
       end
       row :territorial do
@@ -329,15 +329,17 @@ ActiveAdmin.register Collaboration do
     end
     column :frequency_name
     column :amount do |collaboration|
-      number_to_euro collaboration.amount
+      collaboration.amount
     end
     column :total_amount do |collaboration|
-      number_to_euro collaboration.amount * collaboration.frequency
+      collaboration.amount * collaboration.frequency
     end
     column :payment_type_name
-    column :iban_account
     column :ccc_full
-    column :iban_bic
+    column :iban_account
+    column :iban_bic do |collaboration|
+      collaboration.calculate_bic
+    end
     column :created_at
     column :info do |collaboration|
       if collaboration.has_errors?
