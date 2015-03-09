@@ -1,6 +1,5 @@
 require 'fileutils'
 class Collaboration < ActiveRecord::Base
-
   include Rails.application.routes.url_helpers
 
   acts_as_paranoid
@@ -84,7 +83,7 @@ class Collaboration < ActiveRecord::Base
 
   def validates_not_passport
     if self.user and self.user.is_passport? 
-      self.errors.add(:user, "No puedes colaborar si eres extranjero.")
+      self.errors.add(:user, "No puedes colaborar si no dispones de DNI o NIE.")
     end
   end
 
