@@ -283,7 +283,7 @@ class CollaborationTest < ActiveSupport::TestCase
   test "should not save collaboration if foreign user (passport)" do
     collaboration = FactoryGirl.build(:collaboration, :foreign_user)
     assert_not collaboration.valid?
-    assert(collaboration.errors[:user].include? "No puedes colaborar si eres extranjero.")
+    assert(collaboration.errors[:user].include? "No puedes colaborar si no dispones de DNI o NIE.")
   end
 
   test "should not save collaboration if userr is not over legal age (18 years old)" do
