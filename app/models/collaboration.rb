@@ -7,6 +7,13 @@ class Collaboration < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
+
+  # FIXME: this should be orders for the inflextions
+  # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
+  # should have a solid test base before doing this change and review where .order
+  # is called. 
+  #
+  # has_many :orders, as: :parent
   has_many :order, as: :parent
 
   attr_accessor :skip_queries_validations
@@ -227,8 +234,12 @@ class Collaboration < ActiveRecord::Base
 
   MAX_RETURNED_ORDERS = 2
   def returned_order
-    if self.orders.count >= MAX_RETURNED_ORDERS
-      last_order = self.orders.last_order_for(Date.today)
+    # FIXME: this should be orders for the inflextions
+    # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
+    # should have a solid test base before doing this change and review where .order
+    # is called. 
+    if self.order.count >= MAX_RETURNED_ORDERS
+      last_order = self.order.last_order_for(Date.today)
       if last_order
         last_month = last_order.payable_at.unique_month 
       else

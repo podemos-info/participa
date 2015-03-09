@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 
     soap = (not request_params or not request_params["Ds_Order"])
     if soap then
-      body = Hash.from_xml(request.body.string)
+      body = Hash.from_xml(request.body.read)
       xml = Hash.from_xml(body["Envelope"]["Body"]["procesaNotificacionSIS"]["XML"])
       request_params = xml["Message"]["Request"]
       request_params["Ds_Signature"] = xml["Message"]["Signature"]
