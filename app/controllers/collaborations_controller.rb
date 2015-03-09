@@ -1,7 +1,7 @@
 class CollaborationsController < ApplicationController
   
   before_action do |controller|
-    raise ActionController::RoutingError.new('Not Found') if Rails.env.production? and not current_user.admin
+    raise ActionController::RoutingError.new('Not Found') if Rails.env.production? and (current_user and not current_user.admin)
   end
 
   before_action :authenticate_user!

@@ -41,8 +41,6 @@ update_assigments = () ->
     $('.js-collaboration-assignment').hide('slide')
     $('.js-collaboration-assignment-toggle').show()
 
-  $('.js-collaboration-assignment-town').toggle($('.js-collaboration-assignment-autonomy').val())
-
 init_collaborations = () ->
 
   must_reload = $('#js-must-reload')
@@ -75,6 +73,14 @@ init_collaborations = () ->
     e.preventDefault()
     show_assignments = true
     update_assigments()
+
+  $('.js-collaboration-assignment-town input').on 'click', () ->
+    if ($(this).prop('checked'))
+      $('.js-collaboration-assignment-autonomy input').prop('checked', true)
+
+  $('.js-collaboration-assignment-autonomy input').on 'click', () ->
+    if (!$(this).prop('checked'))
+      $('.js-collaboration-assignment-town input').prop('checked', false)
 
 $(window).bind 'page:change', ->
   init_collaborations()
