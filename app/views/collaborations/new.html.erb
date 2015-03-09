@@ -14,7 +14,7 @@
 
       <%= errors_in_form @collaboration %>
 
-      <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post} do |f| %>
+      <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post, autocomplete: 'off'} do |f| %>
           <fieldset>
             <legend class="invisible">Nueva colaboración</legend>
 
@@ -94,6 +94,22 @@
               <span class="no-input"><span id="js-collaboration-alert-amount"></span></span>
             </div>
 
+            <p><%= link_to "Indicar financiación territorial", "#", class: "js-collaboration-assignment-toggle", style:"float:right" %></p>
+            <div class="js-collaboration-assignment">
+            <%= content_tag(:h3, "Financiación territorial") %>
+              <p>Marcando estas casillas un porcentaje de tu colaboración se destinará a la financiación de los consejos ciudadanos territoriales:</p>
+              <div class="inputlabel-box">
+                <div class="input-box js-collaboration-assignment-autonomy">
+                  <%= f.check_box :for_autonomy_cc, class:"checkbox"%>
+                  <p class="text-xl">Deseo colaborar con mi consejo autonómico.</p>
+                </div>            
+
+                <div class="input-box js-collaboration-assignment-town invisible">
+                  <%= f.check_box :for_town_cc, class:"checkbox"%>
+                  <p class="text-xl">Deseo colaborar con mi consejo municipal.</p>
+                </div>
+              </div>
+            </div>
           </fieldset>
 
           <fieldset class="with-tos">

@@ -71,5 +71,6 @@ group :development, :test do
   gem 'rails-perftest'
   gem 'ruby-prof'
   gem 'simplecov'
+  gem 'webmock'
 end
 

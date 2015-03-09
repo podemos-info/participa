@@ -14,9 +14,12 @@
 $skinActiveColor: #000;
 $skinHeaderBck: #612D62;
 $panelHeaderBck: #612D62;
-$skinLogo: url("admin_logo.png") no-repeat 0 0;
+$skinLogo: inherit;
 
 @import "active_skin";
+#header h1.site_title {
+  text-indent: -118px;
+}
 
 table.index_table td {
   color: #000;

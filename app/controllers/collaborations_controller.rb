@@ -6,9 +6,6 @@ class CollaborationsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy, :OK, :KO]
-  # TODO: before_action :check_if_user_over_age
-  # TODO: before_action :check_if_user_passport
-  # TODO: before_action :check_if_user_already_collaborated
  
   # GET /collaborations/new
   def new
@@ -50,6 +47,8 @@ class CollaborationsController < ApplicationController
 
   # GET /collaborations/confirm
   def confirm
+    # ensure credit card order is not persisted, to allow create a new id for each payment try
+    @order = @collaboration.create_order Date.today, true if @collaboration.is_credit_card?
   end
 
   # GET /collaborations/ok
@@ -75,12 +74,12 @@ class CollaborationsController < ApplicationController
     @collaboration = current_user.collaboration
 
     start_date = [@collaboration.created_at, Date.today - 6.months].max
-    @orders = @collaboration.get_orders start_date, start_date + 11.months
+    @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
     @order = @orders[0][-1]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
+    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
   end
 end

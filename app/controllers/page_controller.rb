@@ -6,7 +6,9 @@ class PageController < ApplicationController
                                               :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
-                                              :representantes_electorales_extranjeros]
+                                              :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
+                                              :apoderados_campana_autonomica_andalucia, :comparte_cambio_valoracion_propietarios,
+                                              :comparte_cambio_valoracion_usuarios]
 
   def privacy_policy
   end
@@ -35,7 +37,7 @@ class PageController < ApplicationController
   def list_register
     render :form_iframe, locals: { title: "Listas autonómicas", form_id: 20, extra_qs:"" }
   end
-  
+
   def offer_hospitality
     render :form_iframe, locals: { title: "Comparte tu casa", form_id: 6, extra_qs:"", return_path: root_path }
   end
@@ -50,7 +52,7 @@ class PageController < ApplicationController
   end
 
   def town_legal
-    render :form_iframe, locals: { title: "Responsables municipales de finanzas y legal", form_id: 14, extra_qs:"" }
+    render :form_iframe, locals: { title: "Responsables de finanzas y legal", form_id: 14, extra_qs:"" }
   end
 
 
@@ -92,6 +94,34 @@ class PageController < ApplicationController
 
   def representantes_electorales_extranjeros
     render :form_iframe, locals: { title: "Elecciones Andaluzas: Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
+  end
+
+  def representantes_electorales_extranjeros
+    render :form_iframe, locals: { title: "Elecciones Andaluzas: Representantes electorales de Podemos en Consulados extranjeros", form_id: 60, extra_qs:"" }
+  end
+
+  def responsables_areas_cc_autonomicos
+    render :form_iframe, locals: { title: "Responsables de Áreas de los Consejos Ciudadanos Autonómicos", form_id: 61, extra_qs:"" }
+  end
+
+  def boletin_correo_electronico
+    render :form_iframe, locals: { title: "Envío de boletín por correo electrónico", form_id: 62, extra_qs:"" }
+  end
+
+  def candidaturas_primarias_autonomicas
+    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias autonómicas e insulares", form_id: 63, extra_qs:"" }
+  end
+  
+  def apoderados_campana_autonomica_andalucia
+    render :form_iframe, locals: { title: "Apoderados para la campaña autonómica en Andalucía", form_id: 64, extra_qs:"" }
+  end
+
+  def comparte_cambio_valoracion_propietarios
+    render :form_iframe, locals: { title: "Cuéntanos como fue la experiencia compartiendo tu casa o coche", form_id: 65, extra_qs:"" }
+  end
+
+  def comparte_cambio_valoracion_usuarios
+    render :form_iframe, locals: { title: "Cuéntanos que tal te acogieron en su casa o coche", form_id: 66, extra_qs:"" }
   end
 
   def credits_status
