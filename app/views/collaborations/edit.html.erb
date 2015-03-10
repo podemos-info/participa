@@ -11,22 +11,18 @@
       <% end %>
 
       <p> Ya tienes una colaboración. Es la siguiente: </p>
+      <%= errors_in_form @collaboration %>
+
+      <%= semantic_form_for @collaboration, url: modify_collaboration_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+
+      <%= render partial: "form", locals: { f: f } %>
       <%= render partial: "frequency_table" %>
-      <% if @collaboration.is_active? %>
-          <%= error_box "Cambios en la colaboración", false do %>
-            <p>Si deseas cambiar la frecuencia o el método de pago de tu colaboración debes cancelar tu colaboración actual y crear una nueva. </p>
-          <% end %>
-      <% else %>
-          <%= alert_box "Confirma tu colaboración", false do %>
-            <p>Ha habido un error con tu colaboración, puedes intentar de confirmarla de nuevo.</p>
-          <% end %>
-      <% end %>
+
       <div class="js-collaboration-confirm-buttons buttonbox">
         <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?"} %>
-        <% if ! @collaboration.is_active? %>
-          <%= link_to "Confirmar colaboración", confirm_collaboration_path, class: 'button' %>
-        <% end %>
+        <%= f.action :submit, :label=>"Guardar cambios", :as => :input, button_html: {class: 'button'} %>
       </div>
+      <% end %> 
     </div>
   </div>
 </div>

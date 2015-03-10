@@ -97,6 +97,7 @@ Rails.application.routes.draw do
         get '', to: 'collaborations#new', as: 'new_collaboration'
         get 'confirmar', to: 'collaborations#confirm', as: 'confirm_collaboration'
         post 'crear', to: 'collaborations#create', as: 'create_collaboration'
+        post 'modificar', to: 'collaborations#modify', as: 'modify_collaboration'
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
