@@ -9,9 +9,8 @@ class CollaborationsController < ApplicationController
   end
 
   def modify
-    redirect_to new_collaboration_path unless current_user.collaboration 
+    redirect_to new_collaboration_path unless @collaboration
     redirect_to confirm_collaboration_path unless @collaboration.has_payment?
-    @collaboration = current_user.collaboration
 
     # update collaboration
     @collaboration.assign_attributes collaboration_params
@@ -40,12 +39,12 @@ class CollaborationsController < ApplicationController
   end
 
   def edit
+    redirect_to new_collaboration_path unless @collaboration
     redirect_to confirm_collaboration_path unless @collaboration.has_payment?
-    redirect_to new_collaboration_path unless current_user.collaboration 
   end
 
   def destroy
-    redirect_to new_collaboration_path unless current_user.collaboration 
+    redirect_to new_collaboration_path unless @collaboration
     @collaboration.destroy
     respond_to do |format|
       format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
@@ -54,12 +53,14 @@ class CollaborationsController < ApplicationController
   end
 
   def confirm
+    redirect_to new_collaboration_path unless @collaboration
     redirect_to edit_collaboration_path if @collaboration.has_payment?
     # ensure credit card order is not persisted, to allow create a new id for each payment try
     @order = @collaboration.create_order Time.now, true if @collaboration.is_credit_card?
   end
 
   def OK
+    redirect_to new_collaboration_path unless @collaboration
     if not @collaboration.is_active?
       if @collaboration.is_credit_card?
         @collaboration.set_warning
