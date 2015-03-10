@@ -273,8 +273,12 @@ class Collaboration < ActiveRecord::Base
       next_order = this_month
       next_order += 1 if self.is_bank? and self.created_at.unique_month==next_order and self.created_at.day >= Order.payment_day
 
+    # first order created on asked date
+    elsif self.first_order.payable_at.unique_month == date.unique_month
+      return true
+
     # mustn't have order on months before it first order
-    elsif self.first_order.payable_at > date
+    elsif self.first_order.payable_at.unique_month > date.unique_month
       return false
 
     # calculate next order month based on last paid order
