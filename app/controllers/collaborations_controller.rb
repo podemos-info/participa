@@ -45,6 +45,7 @@ class CollaborationsController < ApplicationController
   end
 
   def destroy
+    redirect_to new_collaboration_path unless current_user.collaboration 
     @collaboration.destroy
     respond_to do |format|
       format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
