@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
       xml = Hash.from_xml(raw_xml)
       request_params = xml["Message"]["Request"]
       request_params["Ds_Signature"] = xml["Message"]["Signature"]
+      request_params.merge! params
     end
 
     redsys_order_id = request_params["Ds_Order"]

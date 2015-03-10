@@ -217,11 +217,11 @@ class Order < ActiveRecord::Base
     if self.raw_xml
       request_start = self.raw_xml.index "<Request"
       request_end = self.raw_xml.index "</Request>", request_start if request_start
-      msg = self.raw_xml[request_start..request_end] if request_start and request_end
+      msg = self.raw_xml[request_start..request_end+9] if request_start and request_end
     end
 
     msg = "#{msg}#{self.redsys_secret "secret_key"}"
-    Digest::SHA1.hexdigest(msg).upcase
+    Digest::SHA1.hexdigest(msg)
   end
   
   def redsys_logger
