@@ -75,7 +75,7 @@ ActiveAdmin.register Collaboration do
       show_collaboration_orders collaboration
     end
     column :created_at, sortable: :created_at do |collaboration|
-      collaboration.created_at.strftime "%d-%m-%y"
+      collaboration.created_at.strftime "%d-%m-%y %H-%M"
     end
     column :method, sortable: 'payment_type' do |collaboration|
       collaboration.payment_type==1 ? "Tarjeta" : "Recibo"
