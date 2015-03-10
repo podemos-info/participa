@@ -23,101 +23,8 @@
         <%= errors_in_form @collaboration %>
 
         <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post, autocomplete: 'off'} do |f| %>
-            <fieldset>
-              <legend class="invisible">Nueva colaboración</legend>
 
-              <div class="inputlabel-box">
-                <% if @collaboration.errors.include?(:amount) %>
-                    <%= field_notice_box %>
-                <% end %>
-                <%= f.input :amount,
-                            required: true,
-                            as: :select,
-                            collection: Collaboration::AMOUNTS.to_a,
-                            input_html: {required: true, class: 'js-collaboration-amount'} %>
-              </div>
-
-              <div class="inputlabel-box">
-                <% if @collaboration.errors.include?(:frequency) %>
-                    <%= field_notice_box %>
-                <% end %>
-                <%= f.input :frequency,
-                            required: true,
-                            as: :select,
-                            collection: Collaboration::FREQUENCIES.to_a,
-                            input_html: {required: true, class: 'js-collaboration-frequency'} %>
-              </div>
-
-              <div class="inputlabel-box">
-                <% if @collaboration.errors.include?(:payment_type) %>
-                    <%= field_notice_box %>
-                <% end %>
-                <%= f.input :payment_type,
-                            required: true,
-                            as: :select,
-                            collection: Order::PAYMENT_TYPES.to_a,
-                            input_html: {required: true, class: 'js-collaboration-type'} %>
-              </div>
-
-              <div class="inputlabel-box js-collaboration-type-form-2">
-                <% if @collaboration.errors.include?(:ccc_entity) ||
-                        @collaboration.errors.include?(:ccc_office) ||
-                        @collaboration.errors.include?(:ccc_dc) ||
-                        @collaboration.errors.include?(:ccc_account) %>
-                    <%= field_notice_box %>
-                <% end %>
-
-                <div class="input required form-group">
-                  <label class="control-label" for="account">
-                    CCC<abbr title="requerido">*</abbr>
-                  </label>
-                  <span class="form-wrapper">
-                    <%= f.text_field :ccc_entity, maxlength: 4, class: 'input-account-4 form-control', placeholder: 'xxxx' %>
-                    <%= f.text_field :ccc_office, maxlength: 4, class: 'input-account-4 form-control', placeholder: 'xxxx' %>
-                    <%= f.text_field :ccc_dc, maxlength: 2, class: 'input-account-2 form-control', placeholder: 'xx' %>
-                    <%= f.text_field :ccc_account, maxlength: 10, class: 'input-account-10 form-control', placeholder: 'xxxxxxxxxx' %>
-                  </span>
-                </div>
-              </div>
-
-              <div class="js-collaboration-type-form-3">
-                <div class="inputlabel-box">
-                  <% if @collaboration.errors.include? :iban_account %>
-                      <%= field_notice_box %>
-                  <% end %>
-
-                  <%= f.input :iban_account %>
-                </div>
-                <div class="inputlabel-box">
-                  <% if @collaboration.errors.include? :iban_bic %>
-                      <%= field_notice_box %>
-                  <% end %>
-
-                  <%= f.input :iban_bic %>
-                </div>
-              </div>
-
-              <div class="inputlabel-box js-collaboration-alert invisible">
-                <span class="no-label">Aportación económica</span>
-                <span class="no-input"><span id="js-collaboration-alert-amount"></span></span>
-              </div>
-
-              <div class="js-collaboration-assignment">
-              <%= content_tag(:h3, "Financiación territorial") %>
-                <p>Marcando estas casillas un porcentaje de tu colaboración se destinará a la financiación de los consejos ciudadanos territoriales:</p>
-                <div class="inputlabel-box">
-                  <div class="input-box js-collaboration-assignment-autonomy">
-                    <%= f.check_box :for_autonomy_cc, class:"checkbox"%>
-                    <p class="text-xl">Deseo colaborar con mi consejo autonómico.</p>
-                  </div>            
-
-                  <div class="input-box js-collaboration-assignment-town">
-                    <%= f.check_box :for_town_cc, class:"checkbox"%>
-                    <p class="text-xl">Deseo colaborar con mi consejo municipal.</p>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
+            <%= render partial: "form", locals: { f: f } %>
 
             <fieldset class="with-tos">
 
@@ -161,9 +68,8 @@
               </div>
 
               <%= f.actions class: 'enter' do %>
-                  <%= f.action :submit, :as => :input, button_html: {class: 'button'} %>
+                <%= f.action :submit, :as => :input, button_html: {class: 'button'} %>
               <% end %>
-
             </fieldset>
         <% end %>
       <% end %>

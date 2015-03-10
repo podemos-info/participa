@@ -577,7 +577,7 @@ class User < ActiveRecord::Base
     @province_cache = begin
       prov = nil
       prov = _country.subregions[self.town[2,2].to_i-1] if self.in_spain? and self.town and self.town.downcase.starts_with? "m_"
-      prov = _country.subregions.coded(self.province) if prov.nil? and _country and self.province
+      prov = _country.subregions.coded(self.province) if prov.nil? and _country and self.province and not _country.subregions.empty?
       prov
     end if not defined? @province_cache
     @province_cache

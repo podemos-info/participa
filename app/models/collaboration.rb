@@ -72,6 +72,10 @@ class Collaboration < ActiveRecord::Base
     self.status = 0
   end
 
+  def has_payment?
+    self.status>0
+  end
+  
   def check_spanish_bic
     self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
@@ -162,7 +166,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_active?
-    self.status > 2
+    self.status > 1 and self.deleted_at.nil?
   end
 
   def admin_permalink
@@ -238,7 +242,7 @@ class Collaboration < ActiveRecord::Base
     # should have a solid test base before doing this change and review where .order
     # is called. 
     if self.order.count >= MAX_RETURNED_ORDERS
-      last_order = self.order.last_order_for(Date.today)
+      last_order = self.last_order_for(Date.today)
       if last_order
         last_month = last_order.payable_at.unique_month 
       else
