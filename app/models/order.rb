@@ -9,6 +9,7 @@ class Order < ActiveRecord::Base
   belongs_to :collaboration, -> { where(orders: {parent_type: 'Collaboration'}) }, foreign_key: 'parent_id'
   belongs_to :user
 
+  attr_accessor :raw_xml
   validates :payment_type, :amount, :payable_at, presence: true
 
   STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4, "Devuelta" => 5}
@@ -211,7 +212,15 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_response_signature
-    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}#{self.redsys_secret "secret_key"}"
+
+    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}"
+    if self.raw_xml
+      request_start = self.raw_xml.index "<Request"
+      request_end = self.raw_xml.index "</Request>", request_start if request_start
+      msg = self.raw_xml[request_start..request_end] if request_start and request_end
+    end
+
+    msg = "#{msg}#{self.redsys_secret "secret_key"}"
     Digest::SHA1.hexdigest(msg).upcase
   end
   
@@ -223,23 +232,26 @@ class Order < ActiveRecord::Base
     @redsys_response ||= if self.payment_response.nil? then nil else JSON.parse(self.payment_response) end
   end
 
-  def redsys_parse_response! params
+  def redsys_parse_response! params, xml = nil
     redsys_logger.info("*" * 40)
     redsys_logger.info("Redsys: New payment")
     redsys_logger.info("User: #{self.user_id} - #{self.parent.class.to_s}: #{self.parent.id}")
     redsys_logger.info("Data: #{self.attributes.inspect}")
     redsys_logger.info("Params: #{params}")
+    redsys_logger.info("XML: #{xml}")
     self.payment_response = params.to_json
+    self.raw_xml = xml
 
     if params["Ds_Response"].to_i < 100
       self.payed_at = Time.now
       begin
         payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Fecha"] or params["Ds_Date"]} #{params["Hora"] or params["Ds_Hour"]}"
-        if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
+        redsys_logger.info("Validation data: #{payment_date}, #{Time.now}, #{params["user_id"]}, #{self.user_id}, #{params["Ds_Signature"]}, #{self.redsys_merchant_response_signature}")
+        if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) #and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
           redsys_logger.info("Status: OK")
           self.status = 2
         else
-          redsys_logger.info("Status: OK, but with warnings")
+          redsys_logger.info("Status: OK, but with warnings ")
           self.status = 3
         end
         self.payment_identifier = params["Ds_Merchant_Identifier"]
