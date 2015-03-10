@@ -238,7 +238,7 @@ class Collaboration < ActiveRecord::Base
     # should have a solid test base before doing this change and review where .order
     # is called. 
     if self.order.count >= MAX_RETURNED_ORDERS
-      last_order = self.order.last_order_for(Date.today)
+      last_order = self.last_order_for(Date.today)
       if last_order
         last_month = last_order.payable_at.unique_month 
       else
