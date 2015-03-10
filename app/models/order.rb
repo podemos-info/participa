@@ -234,7 +234,7 @@ class Order < ActiveRecord::Base
     if params["Ds_Response"].to_i < 100
       self.payed_at = Time.now
       begin
-        payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Ds_Date"]} #{params["Ds_Hour"]}"
+        payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Fecha"] or params["Ds_Date"]} #{params["Hora"] or params["Ds_Hour"]}"
         if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
           redsys_logger.info("Status: OK")
           self.status = 2

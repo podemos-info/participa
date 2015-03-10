@@ -162,7 +162,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_active?
-    self.status > 2
+    self.status > 1 and self.deleted_at.nil?
   end
 
   def admin_permalink
