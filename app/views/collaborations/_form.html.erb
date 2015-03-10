@@ -31,7 +31,7 @@
                 required: true,
                 as: :select,
                 collection: Order::PAYMENT_TYPES.to_a,
-                input_html: {required: true, class: 'js-collaboration-type'} %>
+                input_html: {disabled: @collaboration.has_payment?, required: true, class: 'js-collaboration-type'} %>
   </div>
 
   <div class="inputlabel-box js-collaboration-type-form-2">

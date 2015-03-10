@@ -10,7 +10,7 @@ class CollaborationsController < ApplicationController
 
   def modify
     redirect_to new_collaboration_path unless current_user.collaboration 
-    redirect_to confirm_collaboration_path unless @collaboration.is_active?
+    redirect_to confirm_collaboration_path unless @collaboration.has_payment?
     @collaboration = current_user.collaboration
 
     # update collaboration
@@ -40,7 +40,7 @@ class CollaborationsController < ApplicationController
   end
 
   def edit
-    redirect_to confirm_collaboration_path unless @collaboration.is_active?
+    redirect_to confirm_collaboration_path unless @collaboration.has_payment?
     redirect_to new_collaboration_path unless current_user.collaboration 
   end
 
@@ -53,7 +53,7 @@ class CollaborationsController < ApplicationController
   end
 
   def confirm
-    redirect_to edit_collaboration_path if @collaboration.is_active?
+    redirect_to edit_collaboration_path if @collaboration.has_payment?
     # ensure credit card order is not persisted, to allow create a new id for each payment try
     @order = @collaboration.create_order Time.now, true if @collaboration.is_credit_card?
   end
@@ -83,6 +83,10 @@ class CollaborationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc, :change_cc)
+    if current_user.collaboration and current_user.collaboration.has_payment?
+      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
+    else
+      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
+    end
   end
 end

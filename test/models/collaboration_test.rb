@@ -99,6 +99,10 @@ class CollaborationTest < ActiveSupport::TestCase
     skip
   end
 
+  test "should .has_payment? work" do
+    skip
+  end
+
   test "should .admin_permalink work" do
     skip
   end

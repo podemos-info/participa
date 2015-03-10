@@ -72,6 +72,10 @@ class Collaboration < ActiveRecord::Base
     self.status = 0
   end
 
+  def has_payment?
+    self.status>0
+  end
+  
   def check_spanish_bic
     self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end

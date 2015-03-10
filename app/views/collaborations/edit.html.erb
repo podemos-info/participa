@@ -17,6 +17,11 @@
 
       <%= render partial: "form", locals: { f: f } %>
       <%= render partial: "frequency_table" %>
+      <% if @collaboration.has_payment? %>
+          <%= error_box "Cambios en la colaboración", false do %>
+            <p>Si deseas cambiar el método de pago de tu colaboración debes cancelar tu colaboración actual y crear una nueva. </p>
+          <% end %>
+      <% end %>
 
       <div class="js-collaboration-confirm-buttons buttonbox">
         <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?"} %>
