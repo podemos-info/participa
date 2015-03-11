@@ -2,6 +2,7 @@ require 'numeric'
 class Proposal < ActiveRecord::Base
 
   scope :reddit, -> { where(reddit_threshold: true) }
+  scope :hot,    -> { order(:created_at).limit(3) }
   
   before_save :update_threshold
 
