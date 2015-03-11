@@ -28,7 +28,7 @@ class Report < ActiveRecord::Base
 
   def run!
     # Initialize
-    tmp_results = { data: {}, errors: { fetch: [] } }
+    tmp_results = { data: Hash.new { |h, main_group| h[main_group] = Hash.new { |h2, group| h2[group] = [] } }, errors: { fetch: [] } }
 
     folder = "#{Rails.root}/tmp/report/#{id}"
     raw_folder = "#{folder}/raw"
@@ -68,38 +68,36 @@ class Report < ActiveRecord::Base
     @groups.each do |group|
       width = group.width
 
-      %x(cut -c#{id_width}- #{raw_folder}/#{group.id}.dat | sort | uniq -w#{width+main_width} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
-
-      tmp_results[:data][group.id] = Hash.new { |h,k| h[k] = [] }
-
-      samples = Hash.new 0
+      %x(cut -c#{id_width+1}- #{raw_folder}/#{group.id}.dat | sort | uniq -w#{width+main_width} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
+      rest = Hash.new 0
       File.open( "#{rank_folder}/#{group.id}.dat", 'r:UTF-8' ).each do |line|
         data = line.split("\s", 2)
         count = data[0].to_i
 
         main_name = @main_group.format_group_name(data[1][0..(main_width-1)]) if @main_group
-        if count <= group.minimum
+        name = data[1][main_width..(main_width+width-1)]
+        
+        if group.whitelist? name or (count <= group.minimum and not group.blacklist? name)
           rest[main_name] += 1
         else
-          name = data[1][main_width..(main_width+width-1)]
           result = { count: count, name: name.strip, users:[], samples:Hash.new(0)}
           %x(grep  "#{'.'*id_width}#{main_name}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,100].min}).split("\n").each do |s|
             result[:users] << s[0..id_width].to_i
             sample = s[(id_width+main_width+width+1)..-1].strip
             result[:samples][sample] += 1
+            result[:users].uniq!
           end
-          tmp_results[:data][group.id][main_name] << result
+          tmp_results[:data][main_name][group.id] << result
         end
       end
 
       main_groups << rest.keys if @main_group
       rest.each do |main_name, count|
         result = { count: count, name: group.minimum_label }
-        tmp_results[:data][group.id][main_name] << result
+        tmp_results[:data][main_name][group.id] << result
       end
     end
 
-    tmp_results[:main_groups] = main_groups.flatten.uniq.sort
     self.results = tmp_results.to_yaml
     self.save
   end
