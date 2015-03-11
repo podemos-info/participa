@@ -22,31 +22,16 @@
     <div class="sidebar">
 
         <h2>Candentes</h2>
-
-        <article class="proposal-sidebar">    
-            <div>
-                <p class="finish">Termina en <strong>1 día</strong></p>
-                <p class="support"><strong>8%</strong> de Avales</p>
-                <h3>Comunicación entre la directiva y los miembros de Plaza Podemos</h3>
-                <%= link_to("Ver iniciativa", "#", :class => "show" ) %>
-            </div>
-        </article>
-        <article class="proposal-sidebar">    
-            <div>
-                <p class="finish">Termina en <strong>2 días</strong></p>
-                <p class="support"><strong>9%</strong> de Avales</p>
-                <h3>Quiero conocer más a cada uno de los miembros del consejo ciudadano</h3>
-                <%= link_to("Ver iniciativa", "#", :class => "show" ) %>
-            </div>
-        </article>
-        <article class="proposal-sidebar">    
-            <div>
-                <p class="finish">Termina en <strong>3 días</strong></p>
-                <p class="support"><strong>7%</strong> de Avales</p>
-                <h3>Podemos debe apoyar al 100% las teiciones que acaban de hacer los jueces</h3>
-                <%= link_to("Ver iniciativa", "#", :class => "show" ) %>
-            </div>
-        </article>
+        <% @hot.each do |proposal| %>
+            <article class="proposal-sidebar">    
+                <div>
+                    <p class="finish">Termina en <strong><%= time_left(proposal) %></strong></p>
+                    <p class="support"><strong>8%</strong> de Avales</p>
+                    <h3><%= proposal.title %></h3>
+                    <%= link_to("Ver iniciativa", "#", :class => "show" ) %>
+                </div>
+            </article>
+        <% end %>
     </div>
 
 </section>
