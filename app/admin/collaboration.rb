@@ -101,14 +101,14 @@ ActiveAdmin.register Collaboration do
     actions
   end
 
-  sidebar "Acciones", only: :index, priority: 0 do
+  sidebar "Acciones", 'data-panel' => :collapsed, only: :index, priority: 0 do
     status = Collaboration.has_bank_file? Date.today
-    h3 "Pagos con tarjeta" 
+    h4 "Pagos con tarjeta" 
     ul do
       li link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
     end
 
-    h3 "Recibos"
+    h4 "Recibos"
     ul do
       li link_to 'Crear órdenes de este mes', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
       li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
@@ -121,8 +121,8 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  sidebar "Ayuda", only: :index do
-    h3 "Nomenclatura de las órdenes"
+  sidebar "Ayuda", 'data-panel' => :collapsed, only: :index, priority: 1 do
+    h4 "Nomenclatura de las órdenes"
     ul do
       li "_ = pendiente"
       li "~ = enviada"
