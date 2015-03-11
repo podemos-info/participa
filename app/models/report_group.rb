@@ -3,6 +3,7 @@ class ReportGroup < ActiveRecord::Base
     if persisted?
       @proc = eval("Proc.new { |row| #{group.proc} }")
       @whitelist = whitelist.split("\r\n")
+      @blacklist = blacklist.split("\r\n")
     end
   end
 
@@ -28,5 +29,9 @@ class ReportGroup < ActiveRecord::Base
 
   def whitelist? value
     @whitelist.include? value
+  end
+  
+  def blacklist? value
+    @blacklist.include? value
   end
 end

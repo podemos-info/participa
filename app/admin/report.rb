@@ -19,19 +19,25 @@ ActiveAdmin.register Report do
       @main_group = YAML.load(resource.main_group)
       @groups = YAML.load(resource.groups)
       @results = YAML.load(resource.results)
-      @groups.each do |group|
-        panel group.title do
-          data = @results[:data][group.id].select {|x| !group.whitelist? x[:name]}
-          table_for data do
-            column group.label, :name
-            column "Total" do |r|
-              r[:count]
-            end
-            column group.data_label do |r|
-              r[:samples].join(", ")  if r[:samples]
-            end
-            column :users do |r|
-              r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe if r[:users]
+      @results[:data].each do |main_group, groups|
+        panel "#{@main_group.title}: #{main_group}" do
+          @groups.each do |group|
+            panel group.title do
+              table_for @results[:data][main_group][group.id] do
+                column group.label, :name
+                column "Total" do |r|
+                  r[:count]
+                end
+                column group.data_label do |r|
+                  r[:samples].sort_by{|k, v| [-v, k]} .map {|k,v| if v>1 then "#{k}(#{v})" else k end } .join(", ") if r[:samples]
+                end
+                column :users do |r|
+                  r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe if r[:users]
+                end
+                column :info do |r|
+                  status_tag("BLACKLIST", :error) if group.blacklist? r[:name]
+                end
+              end
             end
           end
         end
@@ -45,7 +51,7 @@ ActiveAdmin.register Report do
   end
 
   action_item only: :show do
-    if resouce.results.nil?
+    if resource.results.nil?
       link_to 'Generar', run_admin_report_path(id: resource.id)
     else
       link_to 'Regenerar', run_admin_report_path(id: resource.id), data: { confirm: "Se perderán los resultados actuales del informe. ¿Deseas continuar?" }
