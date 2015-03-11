@@ -22,7 +22,7 @@ ActiveAdmin.register Report do
 
       block = Proc.new do |main_group|
         @groups.each do |group|
-          panel group.title do
+          panel group.title, 'data-panel' => :collapsed do
             table_for @results[:data][main_group][group.id] do
               column group.label, :name
               column "Total" do |r|
@@ -44,7 +44,7 @@ ActiveAdmin.register Report do
 
       if @main_group
         @results[:data].each do |main_group, groups|
-          panel "#{@main_group.title}: #{main_group}" do
+          panel "#{@main_group.title}: #{main_group}", 'data-panel' => :collapsed do
             block.call main_group
           end
         end

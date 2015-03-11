@@ -63,7 +63,6 @@ class Report < ActiveRecord::Base
 
     # Generate rank
     main_groups = []
-    main_name = nil
     main_width = @main_group ? @main_group.width : 0
     @groups.each do |group|
       width = group.width
@@ -74,14 +73,14 @@ class Report < ActiveRecord::Base
         data = line.split("\s", 2)
         count = data[0].to_i
 
-        main_name = @main_group.format_group_name(data[1][0..(main_width-1)]) if @main_group
+        main_name = @main_group ? data[1][0..(main_width-1)].strip : nil
         name = data[1][main_width..(main_width+width-1)].strip
         
         if group.whitelist? name or (count <= group.minimum and not group.blacklist? name)
           rest[main_name] << { count: count, name: name }
         else
           result = { count: count, name: name, users:[], samples:Hash.new(0)}
-          %x(grep  "#{'.'*id_width}#{main_name}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,100].min}).split("\n").each do |s|
+          %x(grep "#{'.'*id_width}#{@main_group.format_group_name(main_name) if @main_group}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,100].min}).split("\n").each do |s|
             result[:users] << s[0..id_width].to_i
             sample = s[(id_width+main_width+width+1)..-1].strip
             result[:samples][sample] += 1
