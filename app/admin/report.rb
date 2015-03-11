@@ -16,31 +16,40 @@ ActiveAdmin.register Report do
 
   show do
     if resource.results
-      @main_group = YAML.load(resource.main_group)
+      @main_group = YAML.load(resource.main_group) if resource.main_group
       @groups = YAML.load(resource.groups)
       @results = YAML.load(resource.results)
-      @results[:data].each do |main_group, groups|
-        panel "#{@main_group.title}: #{main_group}" do
-          @groups.each do |group|
-            panel group.title do
-              table_for @results[:data][main_group][group.id] do
-                column group.label, :name
-                column "Total" do |r|
-                  r[:count]
-                end
-                column group.data_label do |r|
-                  r[:samples].sort_by{|k, v| [-v, k]} .map {|k,v| if v>1 then "#{k}(#{v})" else k end } .join(", ") if r[:samples]
-                end
-                column :users do |r|
-                  r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe if r[:users]
-                end
-                column :info do |r|
-                  status_tag("BLACKLIST", :error) if group.blacklist? r[:name]
-                end
+
+      block = Proc.new do |main_group|
+        @groups.each do |group|
+          panel group.title do
+            table_for @results[:data][main_group][group.id] do
+              column group.label, :name
+              column "Total" do |r|
+                r[:count]
+              end
+              column group.data_label do |r|
+                r[:samples].sort_by{|k, v| [-v, k]} .map {|k,v| if v>1 then "#{k}(#{v})" else k end } .join(", ") if r[:samples]
+              end
+              column :users do |r|
+                r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe if r[:users]
+              end
+              column :info do |r|
+                status_tag("BLACKLIST", :error) if group.blacklist? r[:name]
               end
             end
           end
         end
+      end
+
+      if @main_group
+        @results[:data].each do |main_group, groups|
+          panel "#{@main_group.title}: #{main_group}" do
+            block.call main_group
+          end
+        end
+      else
+        block.call nil
       end
     end
   end
