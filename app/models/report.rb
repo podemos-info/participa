@@ -69,18 +69,18 @@ class Report < ActiveRecord::Base
       width = group.width
 
       %x(cut -c#{id_width+1}- #{raw_folder}/#{group.id}.dat | sort | uniq -w#{width+main_width} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
-      rest = Hash.new 0
+      rest = Hash.new {|h,k| h[k] = []}
       File.open( "#{rank_folder}/#{group.id}.dat", 'r:UTF-8' ).each do |line|
         data = line.split("\s", 2)
         count = data[0].to_i
 
         main_name = @main_group.format_group_name(data[1][0..(main_width-1)]) if @main_group
-        name = data[1][main_width..(main_width+width-1)]
+        name = data[1][main_width..(main_width+width-1)].strip
         
         if group.whitelist? name or (count <= group.minimum and not group.blacklist? name)
-          rest[main_name] += 1
+          rest[main_name] << { count: count, name: name }
         else
-          result = { count: count, name: name.strip, users:[], samples:Hash.new(0)}
+          result = { count: count, name: name, users:[], samples:Hash.new(0)}
           %x(grep  "#{'.'*id_width}#{main_name}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,100].min}).split("\n").each do |s|
             result[:users] << s[0..id_width].to_i
             sample = s[(id_width+main_width+width+1)..-1].strip
@@ -92,8 +92,10 @@ class Report < ActiveRecord::Base
       end
 
       main_groups << rest.keys if @main_group
-      rest.each do |main_name, count|
-        result = { count: count, name: group.minimum_label }
+      rest.each do |main_name, entries|
+        count = entries.map {|e| e.count } .sum
+        result = { count: count, name: group.minimum_label, samples:Hash.new(0)}
+        entries.each {|e| result[:samples][e.name] += e.count }
         tmp_results[:data][main_name][group.id] << result
       end
     end
