@@ -16,6 +16,7 @@ ActiveAdmin.register Report do
 
   show do
     if resource.results
+      @main_group = YAML.load(resource.main_group)
       @groups = YAML.load(resource.groups)
       @results = YAML.load(resource.results)
       @groups.each do |group|
@@ -42,4 +43,13 @@ ActiveAdmin.register Report do
     Resque.enqueue(PodemosReportWorker, params[:id])
     redirect_to :admin_reports
   end
+
+  action_item only: :show do
+    if resouce.results.nil?
+      link_to 'Generar', run_admin_report_path(id: resource.id)
+    else
+      link_to 'Regenerar', run_admin_report_path(id: resource.id), data: { confirm: "Se perderán los resultados actuales del informe. ¿Deseas continuar?" }
+    end
+  end
+
 end
