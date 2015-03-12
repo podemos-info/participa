@@ -15,7 +15,7 @@
     </h2>
     
     <p>
-      <%= truncate(proposal.description, length: 300) %>
+      <%= simple_format(truncate(proposal.description, length: 300)) %>
     </p>
 
 	<div class="info">
