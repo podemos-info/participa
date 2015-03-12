@@ -58,8 +58,7 @@
                 <%= link_to "0,6% de círculos apoyando", "#", :class => 'info-circles' %>
 
                 <p class="time-left">Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
-
-                <%= link_to("Apoyar propuesta", "#", :class => "button-support" ) %>
+                <%= render "supports/new", {proposal: @proposal, button_class: 'button-support'} %>
         </article>
     </div>
 
