@@ -13,7 +13,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def support_percentage
-    supports_count.percent_of(confirmed_users)
+    supports.count.percent_of(confirmed_users)
   end
 
   #For testing purpose, temporarily using 300,000 as the number of confirmed users in the Census
