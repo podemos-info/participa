@@ -271,16 +271,62 @@ ActiveAdmin.register User do
     users = User.participation_team
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Círculo", "Email", "Equipos"]
       users.each do |user| 
-        csv << [ user.email, user.participation_team.map { |team| team.name }.join(",") ]
+        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle, user.email, user.participation_team.map { |team| team.name }.join(",") ]
       end
     end
+
     send_data csv.encode('utf-8'),
       type: 'text/tsv; charset=utf-8; header=present',
-      disposition: "attachment; filename=podemos.participationteams.#{Date.today.to_s}.tsv"
+      disposition: "attachment; filename=podemos.participationteams.#{Date.today.to_s}.csv"
   end
 
   action_item only: :index do
     link_to('Descargar Equipos de participación', params.merge(:action => :download_participation_teams_tsv))
   end
+
+  sidebar :report, only: :index do
+    form action: create_report_admin_users_path, method: :post do
+      input :name => :authenticity_token, :type => :hidden, :value => form_authenticity_token.to_s
+      input :name => :query, :type => :hidden, :value => Report.serialize_relation_query(users)
+      div class: :filter_form_field do
+        label "Titulo"
+        input name: :title
+      end
+      label "Grupos"
+      div class: :filter_form_field do
+        label "Principal"
+        select name: :main_group do
+          option value: nil do "-- Ninguno --" end
+          ReportGroup.all.each do |g|
+            option value: g.id do g.title end
+          end
+        end
+      end
+      div class: :filter_form_field do
+        ReportGroup.all.each do |g|
+          label do
+            input name: "groups[]", type: :checkbox, value: g.id
+            span g.title
+          end
+        end
+      end
+      div class: :buttons do
+        input :type => :submit, value: "Crear informe"
+      end
+    end
+  end
+
+  collection_action :create_report, :method => :post do
+    Report.create do |r|
+      r.title = params[:title]
+      r.query = params[:query]
+      r.main_group = ReportGroup.find(params[:main_group].to_i).to_yaml if params[:main_group].to_i>0
+      r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_yaml
+    end
+    flash[:notice] = "El informe ha sido generado"
+    redirect_to action: :index
+  end
+
 end

@@ -6,8 +6,10 @@ class Order < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :parent, polymorphic: true
+  belongs_to :collaboration, -> { where(orders: {parent_type: 'Collaboration'}) }, foreign_key: 'parent_id'
   belongs_to :user
 
+  attr_accessor :raw_xml
   validates :payment_type, :amount, :payable_at, presence: true
 
   STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4, "Devuelta" => 5}
@@ -23,10 +25,13 @@ class Order < ActiveRecord::Base
 
   REDSYS_SERVER_TIME_ZONE = ActiveSupport::TimeZone.new("Madrid")
 
-  scope :by_date, -> date_start, date_end { where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
-
   scope :created, -> { where(deleted_at: nil) }
+  scope :by_date, -> date_start, date_end { created.where(payable_at: date_start.beginning_of_month..date_end.end_of_month ) }
+  scope :credit_cards, -> { created.where(payment_type: 1)}
+  scope :banks, -> { created.where.not(payment_type: 1)}
   scope :to_be_paid, -> { created.where(status:[0,1]) }
+  scope :to_be_charged, -> { created.where(status:0) }
+  scope :charging, -> { created.where(status:1) }
   scope :paid, -> { created.where(status:[2,3]).where.not(payed_at:nil) }
   scope :warnings, -> { created.where(status:3) }
   scope :errors, -> { created.where(status:4) }
@@ -41,6 +46,10 @@ class Order < ActiveRecord::Base
 
   def is_payable?
     self.status<2
+  end
+
+  def is_chargable?
+    self.status == 0
   end
 
   def is_paid?
@@ -95,7 +104,6 @@ class Order < ActiveRecord::Base
     self.by_date(date,date).sum(:amount) / 100.0
   end
 
-
   def admin_permalink
     admin_order_path(self)
   end
@@ -127,7 +135,7 @@ class Order < ActiveRecord::Base
   #  "Colaboración mes de XXXX"
   #end
 
-  def mark_as_charging!
+  def mark_as_charging
     self.status = 1
   end
   
@@ -148,6 +156,14 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def self.mark_bank_orders_as_charged!(date=Date.today)
+    Order.banks.by_date(date, date).to_be_charged.update_all(status:1)
+  end
+  
+  def self.mark_bank_orders_as_paid!(date=Date.today)
+    Order.banks.by_date(date, date).charging.update_all(status:2, payed_at: date)
+  end
+
   #### REDSYS CC PAYMENTS ####
 
   def redsys_secret(key)
@@ -155,7 +171,8 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_expiration
-    Date.strptime self.redsys_response["Ds_ExpiryDate"], "%y%m" if self.redsys_response
+    # Credit card is valid until the last day of expiration month
+    DateTime.strptime(self.redsys_response["Ds_ExpiryDate"], "%y%m") + 1.month - 1.seconds if self.redsys_response
   end
 
   def redsys_order_id
@@ -195,8 +212,16 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_response_signature
-    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}#{self.redsys_secret "secret_key"}"
-    Digest::SHA1.hexdigest(msg).upcase
+
+    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}"
+    if self.raw_xml
+      request_start = self.raw_xml.index "<Request"
+      request_end = self.raw_xml.index "</Request>", request_start if request_start
+      msg = self.raw_xml[request_start..request_end+9] if request_start and request_end
+    end
+
+    msg = "#{msg}#{self.redsys_secret "secret_key"}"
+    Digest::SHA1.hexdigest(msg)
   end
   
   def redsys_logger
@@ -207,23 +232,26 @@ class Order < ActiveRecord::Base
     @redsys_response ||= if self.payment_response.nil? then nil else JSON.parse(self.payment_response) end
   end
 
-  def redsys_parse_response! params
+  def redsys_parse_response! params, xml = nil
     redsys_logger.info("*" * 40)
     redsys_logger.info("Redsys: New payment")
     redsys_logger.info("User: #{self.user_id} - #{self.parent.class.to_s}: #{self.parent.id}")
     redsys_logger.info("Data: #{self.attributes.inspect}")
     redsys_logger.info("Params: #{params}")
+    redsys_logger.info("XML: #{xml}")
     self.payment_response = params.to_json
+    self.raw_xml = xml
 
     if params["Ds_Response"].to_i < 100
       self.payed_at = Time.now
       begin
-        payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Ds_Date"]} #{params["Ds_Hour"]}"
-        if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
+        payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Fecha"] or params["Ds_Date"]} #{params["Hora"] or params["Ds_Hour"]}"
+        redsys_logger.info("Validation data: #{payment_date}, #{Time.now}, #{params["user_id"]}, #{self.user_id}, #{params["Ds_Signature"]}, #{self.redsys_merchant_response_signature}")
+        if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) #and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
           redsys_logger.info("Status: OK")
           self.status = 2
         else
-          redsys_logger.info("Status: OK, but with warnings")
+          redsys_logger.info("Status: OK, but with warnings ")
           self.status = 3
         end
         self.payment_identifier = params["Ds_Merchant_Identifier"]
@@ -271,7 +299,6 @@ class Order < ActiveRecord::Base
       "Ds_Merchant_Amount"            => self.amount,
       "Ds_Merchant_MerchantSignature" => self.redsys_merchant_request_signature
     }.merge extra
-
   end
 
   def redsys_send_request
@@ -289,6 +316,7 @@ class Order < ActiveRecord::Base
       http.ssl_version = :TLSv1
     end
 
+    self.save
     response = http.post(uri, URI.encode_www_form(self.redsys_params))
     info = (response.body.scan /<!--\W*(\w*)\W*-->/).flatten
     self.payment_response = info.to_json
@@ -330,5 +358,24 @@ class Order < ActiveRecord::Base
     else
       "Transacción no procesada"
     end
+  end
+
+  def redsys_callback_response
+    response = "<Response Ds_Version='0.0'><Ds_Response_Merchant>#{self.is_paid? ? "OK" : "KO" }</Ds_Response_Merchant></Response>"
+    signature = Digest::SHA1.hexdigest("#{response}#{self.redsys_secret "secret_key"}")
+
+    soap = []
+    soap << <<-EOL
+<?xml version='1.0' encoding='UTF-8'?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<SOAP-ENV:Body>
+<ns1:procesaNotificacionSIS xmlns:ns1="InotificacionSIS" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<return xsi:type="xsd:string">
+EOL
+    soap[-1].rstrip!
+    soap << CGI.escapeHTML("<Message>#{response}<Signature>#{signature}</Signature></Message>")
+    soap << "</return>\n</ns1:procesaNotificacionSIS>\n</SOAP-ENV:Body>\n</SOAP-ENV:Envelope>"
+
+    soap.join
   end
 end

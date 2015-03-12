@@ -1,12 +1,18 @@
 require 'fileutils'
 class Collaboration < ActiveRecord::Base
-
   include Rails.application.routes.url_helpers
 
   acts_as_paranoid
   has_paper_trail
 
   belongs_to :user
+
+  # FIXME: this should be orders for the inflextions
+  # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
+  # should have a solid test base before doing this change and review where .order
+  # is called. 
+  #
+  # has_many :orders, as: :parent
   has_many :order, as: :parent
 
   attr_accessor :skip_queries_validations
@@ -54,12 +60,24 @@ class Collaboration < ActiveRecord::Base
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
-  scope :full_view, -> { with_deleted.includes(:user).includes(:order) }
+  scope :full_view, -> { with_deleted.eager_load(:user).eager_load(:order) }
+
+  scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
+  scope :town_cc, -> { created.where(for_town_cc: true, for_autonomy_cc: true)}
   
   after_create :set_initial_status
+  before_save :check_spanish_bic
 
   def set_initial_status
     self.status = 0
+  end
+
+  def has_payment?
+    self.status>0
+  end
+  
+  def check_spanish_bic
+    self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
   def set_active
@@ -69,7 +87,7 @@ class Collaboration < ActiveRecord::Base
 
   def validates_not_passport
     if self.user and self.user.is_passport? 
-      self.errors.add(:user, "No puedes colaborar si eres extranjero.")
+      self.errors.add(:user, "No puedes colaborar si no dispones de DNI o NIE.")
     end
   end
 
@@ -97,6 +115,10 @@ class Collaboration < ActiveRecord::Base
     self.payment_type == 1
   end
 
+  def is_bank?
+    self.payment_type != 1
+  end
+
   def is_bank_national?
     self.payment_type == 2
   end
@@ -122,6 +144,15 @@ class Collaboration < ActiveRecord::Base
     "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}" if ccc_account
   end
 
+  def pretty_ccc_full 
+    "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}" if ccc_account
+  end
+
+  def calculate_bic
+    return iban_bic if iban_bic and !iban_bic.empty?
+    return Podemos::SpanishBIC[ccc_entity] if is_bank_national?
+  end
+
   def admin_permalink
     admin_collaboration_path(self)
   end
@@ -135,7 +166,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_active?
-    self.status > 2
+    self.status > 1 and self.deleted_at.nil?
   end
 
   def admin_permalink
@@ -177,6 +208,10 @@ class Collaboration < ActiveRecord::Base
   def payment_identifier
     if self.is_credit_card?
       self.redsys_identifier
+    elsif self.is_bank_national?
+      ccc = self.ccc_full
+      iban = 98-("#{self.ccc_full}142800".to_i % 97)
+      "ES#{iban.to_s.rjust(2,"0")}#{ccc}/#{calculate_bic}"
     else
       "#{self.iban_account}/#{self.iban_bic}"
     end
@@ -194,7 +229,7 @@ class Collaboration < ActiveRecord::Base
         self.redsys_identifier = order.payment_identifier
         self.redsys_expiration = order.redsys_expiration
       end
-    else
+    elsif self.has_payment?
       self.status = 1
     end
     self.save
@@ -202,8 +237,12 @@ class Collaboration < ActiveRecord::Base
 
   MAX_RETURNED_ORDERS = 2
   def returned_order
-    if self.orders.count >= MAX_RETURNED_ORDERS
-      last_order = self.orders.last_order_for(Date.today)
+    # FIXME: this should be orders for the inflextions
+    # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
+    # should have a solid test base before doing this change and review where .order
+    # is called. 
+    if self.order.count >= MAX_RETURNED_ORDERS
+      last_order = self.last_order_for(Date.today)
       if last_order
         last_month = last_order.payable_at.unique_month 
       else
@@ -229,18 +268,22 @@ class Collaboration < ActiveRecord::Base
   def must_have_order? date
     this_month = Date.today.unique_month
 
-    # first order not created yet, must have order this month, or next if its paid by bank and was created this month
+    # first order not created yet, must have order this month, or next if its paid by bank and was created this month after payment day
     if self.first_order.nil?
       next_order = this_month
-      next_order += 1 if not self.is_credit_card? and self.created_at.unique_month==next_order
+      next_order += 1 if self.is_bank? and self.created_at.unique_month==next_order and self.created_at.day >= Order.payment_day
+
+    # first order created on asked date
+    elsif self.first_order.payable_at.unique_month == date.unique_month
+      return true
 
     # mustn't have order on months before it first order
-    elsif self.first_order.payable_at > date
+    elsif self.first_order.payable_at.unique_month > date.unique_month
       return false
 
     # calculate next order month based on last paid order
     else
-      next_order = self.last_order_for(date).payable_at.unique_month + self.frequency
+      next_order = self.last_order_for(date-1.month).payable_at.unique_month + self.frequency
       next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
     end
 
@@ -296,7 +339,7 @@ class Collaboration < ActiveRecord::Base
     if self.is_payable?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
+      if order and order.is_chargable?
         if self.is_credit_card?
           order.redsys_send_request if self.is_active?
         else
@@ -307,22 +350,17 @@ class Collaboration < ActiveRecord::Base
   end
 
   def get_bank_data date
-    if self.is_payable?
-      order = self.get_orders(date, date, false)[0] 
-      order = order[-1] if order # get last order for current month
-      if order and order.is_payable?
-        col_user = self.get_user
-        [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
-            col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
-            col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
-            col_user.postal_code, col_user.country.upcase, 
-            self.iban_account, self.ccc_full, self.iban_bic, 
-            order.amount/100, order.due_code, order.url_source, self.id, 
-            self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-            self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ] 
-      else
-        nil
-      end
+    order = self.last_order_for date
+    if order and order.payable_at.unique_month == date.unique_month and order.is_chargable?
+      col_user = self.get_user
+      [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
+          col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
+          col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
+          col_user.postal_code, col_user.country.upcase, 
+          self.iban_account, self.ccc_full, self.iban_bic, 
+          order.amount/100, order.due_code, order.url_source, self.id, 
+          self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
+          self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
     end
   end
 
@@ -383,7 +421,7 @@ class Collaboration < ActiveRecord::Base
   def self.bank_filename date, full_path=true
     filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}"
     if full_path
-      "db/podemos/#{filename}.csv"
+      "#{Rails.root}/db/podemos/#{filename}.csv"
     else
       filename
     end      

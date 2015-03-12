@@ -5,7 +5,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Podemos Juntos"
+  config.site_title = "Participación Podemos"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -17,7 +17,7 @@ ActiveAdmin.setup do |config|
   #
   # Note: Aim for an image that's 21px high so it fits in the header.
   #
-  # config.site_title_image = "logo.png"
+  config.site_title_image = "admin_logo.png"
 
   # == Default Namespace
   #
@@ -241,3 +241,12 @@ ActiveAdmin.setup do |config|
   # config.filters = true
 
 end
+
+ActiveAdmin::Views::SidebarSection.class_eval do
+  def build(section)
+    @section = section
+    super(@section.title, @section.options.merge(:icon => @section.icon))
+    self.id = @section.id
+    build_sidebar_content
+  end
+end 

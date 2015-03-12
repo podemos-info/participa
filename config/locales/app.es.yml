@@ -203,13 +203,46 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         title: Hubo un error con tu colaboración.
         contact: Por favor intenta realizar el pago nuevamente. Si continúas teniendo problemas contacta a donaciones@podemos.info.
       terms_of_service:
-        title: "Condiciones generales"
-        p1_title: "Relación entre Podemos y el colaborador."
-        p1: 'La realización de aportaciones económicas no implica la vinculación del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o simpatizante, ni de derechos frente al partido, ni queda obligado por sus estatutos y demás normas internas. Conforme a lo dispuesto en el artículo 8 de la Ley Orgánica 8/2007 de 4 de julio sobre Financiación de los Partidos Políticos, su donativo tendrá la consideración de “aportación privada”, distinta de las cuotas de afiliados, adheridos y simpatizantes.'
+        title: Condiciones Generales
+        p1_title: "Relación entre PODEMOS y el colaborador."
+        p1: '
+La realización de aportaciones económicas es totalmente voluntaria, no implica la vinculación
+del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o 
+simpatizante, ni de derechos frente al partido, ni queda obligado por sus estatutos y demás normas internas.
+
+Para colaborar económicamente con PODEMOS y poder cumplimentar el formulario de alta como colaborador es
+imprescindible disponer de DNI o NIE y estar inscrito en la web http://participa.podemos.info.
+
+Conforme a lo dispuesto en el artículo 8 de la Ley Orgánica 8/2007 de 4 de julio sobre
+Financiación de los Partidos Políticos, su donativo tendrá la consideración de “aportación
+privada”, distinta de las cuotas de afiliados, adheridos y simpatizantes.'
         p2_title: "Protección de datos de carácter personal."
-        p2: 'PODEMOS Partido Político, de acuerdo con la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal, le informa de que sus datos serán incorporados al fichero “APORTACIONES”, del que es responsable PODEMOS, que los utilizará para tramitar su colaboración, gestionar los adeudos bancarios, cumplir con la normativa de financiación de partidos políticos, para fines estadísticos y hacerle llegar periódicamente información sobre sus actividades. Sus datos no serán cedidos a terceras personas. Para ejercer sus derechos de acceso, rectificación, cancelación u oposición, como cancelar su suscripción, modificar los datos bancarios o el importe y frecuencia de su aportación, puede utilizar el formulario de “bajas y modificaciones” de nuestra página web. También podrá contactar con nosotros por formulario para cursar baja en http://podemos.info/datos o, para modificación de los datos, por correo electrónico a la dirección colaboraciones@podemos.info, indicando la referencia “modificación de la aportación” o, por correo postal en la sede social sita en la calle Zurita, 21 de Madrid, adjuntando copia de su documento nacional de identidad.'
-        p3_title: "Consentimiento orden de domiciliación y cargos en tarjeta de crédito o débito."
-        p3: 'Al pulsar el botón “ENVIAR” usted autoriza a Podemos y a su entidad bancaria a efectuar las operaciones de cobro mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera que usted nos ha facilitado, por el importe y con la frecuencia que nos ha indicado en el formulario. Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 10 de cada mes, trimestre o año dependiendo de la frecuencia de pago que ha elegido.'
+        p2: '
+PODEMOS Partido Político, de acuerdo con la Ley Orgánica 15/1999 de Protección de
+Datos de Carácter Personal, le informa de que sus datos serán incorporados al fichero
+“APORTACIONES”, del que es responsable PODEMOS, que los utilizará para tramitar su
+colaboración, gestionar los adeudos bancarios, cumplir con la normativa de financiación
+de partidos políticos, para fines estadísticos y hacerle llegar periódicamente información
+sobre sus actividades.
+
+Para ejercer sus derechos de acceso, rectificación, cancelación y oposición, como
+cancelar su suscripción, modificar los datos de cobro o el importe y frecuencia de su
+aportación, podrá utilizar la web participa.podemos.info accediendo a su perfil personal
+mediante su nombre de usuario y contraseña.
+
+También podrá ejercer sus derechos solicitándolo por correo electrónico a la dirección
+colaboraciones@podemos.info, indicando tu nombre, apellidos y adjuntando copia de su
+DNI o documento legal de identificación.'
+        p3_title: "Consentimiento cesión de datos y orden de domiciliación y cargos en tarjeta de crédito o débito"
+        p3: '
+A los efectos previstos en la Ley 16/2009, de 13 de Noviembre, de Servicios de Pago, al
+confirmar el alta de la colaboración económica el colaborador autoriza expresamente a
+PODEMOS partido político y a su entidad bancaria para efectuar las operaciones de cobro
+mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera, por el importe
+y con la frecuencia de pago que ha indicado en el formulario.
+
+Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 15 de cada
+mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
     registration:
       message: 
         dni: "El formato deben ser 8 números y una letra, sin guiones ni espacios."

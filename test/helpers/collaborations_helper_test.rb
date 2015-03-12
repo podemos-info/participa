@@ -14,13 +14,13 @@ class CollaborationsHelperTest < ActionView::TestCase
     assert_equal( "66.666.666.666,66 €", number_to_euro(6666666666666) )
   end
 
-  test "should show_redsys_response work" do
-    assert_equal( "Transacción autorizada para pagos y preautorizaciones", show_redsys_response("0000") )
-    assert_equal( "Transacción autorizada para pagos y preautorizaciones", show_redsys_response("0099") )
-    assert_equal( "Transacción autorizada para pagos y preautorizaciones", show_redsys_response("99") )
-    assert_equal( "Tarjeta ajena al servicio", show_redsys_response("180") )
-    assert_equal( "Transacción denegada", show_redsys_response("111111") )
-    assert_equal( "Transacción denegada", show_redsys_response(nil) )
-  end
+  #test "should show_redsys_response work" do
+  #  assert_equal( "Transacción autorizada para pagos y preautorizaciones", show_redsys_response("0000") )
+  #  assert_equal( "Transacción autorizada para pagos y preautorizaciones", show_redsys_response("0099") )
+  #  assert_equal( "Transacción autorizada para pagos y preautorizaciones", show_redsys_response("99") )
+  #  assert_equal( "Tarjeta ajena al servicio", show_redsys_response("180") )
+  #  assert_equal( "Transacción denegada", show_redsys_response("111111") )
+  #  assert_equal( "Transacción denegada", show_redsys_response(nil) )
+  #end
 
 end
