@@ -67,6 +67,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def supported?(user)
+    return false unless user
     user.supports.where(proposal: self).any?
   end
 
