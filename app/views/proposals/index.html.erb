@@ -26,7 +26,11 @@
             <article class="proposal-sidebar">    
                 <div>
                     <p class="finish">Termina en <strong><%= time_left(proposal) %></strong></p>
-                    <p class="support"><strong>8%</strong> de Avales</p>
+                    <p class="support">
+                        <strong>
+                            <%= formatted_support_percentage(proposal, precision: 1) %>
+                        </strong> de Avales
+                    </p>
                     <h3><%= proposal.title %></h3>
                     <%= link_to("Ver iniciativa", proposal_path(proposal), :class => "show" ) %>
                 </div>

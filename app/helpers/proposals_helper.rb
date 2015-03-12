@@ -10,6 +10,16 @@ module ProposalsHelper
     end
   end
 
+  def formatted_support_count(proposal)
+    number_with_delimiter(@proposal.supports_count) + 
+    " de " +
+    number_with_delimiter(proposal.agoravoting_required_votes)
+  end
+
+  def formatted_support_percentage(proposal, options={})
+    number_to_percentage(proposal.support_percentage, options)
+  end
+
   def support_button
     "#support_proposal_#{@proposal.id} input[type=submit]"
   end

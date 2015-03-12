@@ -1,6 +1,8 @@
 require 'numeric'
 class Proposal < ActiveRecord::Base
 
+  has_many :supports
+
   scope :reddit, -> { where(reddit_threshold: true) }
   scope :hot,    -> { order(:created_at).limit(3) }
   
@@ -10,8 +12,8 @@ class Proposal < ActiveRecord::Base
     self.reddit_threshold = true if reddit_required_votes?
   end
 
-  def approval
-    votes.percent_of(confirmed_users)
+  def support_percentage
+    supports_count.percent_of(confirmed_users)
   end
 
   #For testing purpose, temporarily using 300,000 as the number of confirmed users in the Census
@@ -29,7 +31,7 @@ class Proposal < ActiveRecord::Base
   #to achieve a 0.2% acceptance,
   #and thus move the proposal from Plaza Podemos to participa.podemos.info
   def reddit_required_votes
-    (0.2).percent * confirmed_users
+    ((0.2).percent * confirmed_users).to_i
   end
 
   #Assuming a Census of 300,000 registered users,
@@ -37,7 +39,7 @@ class Proposal < ActiveRecord::Base
   #to achieve a 2% acceptance,
   #and thus send an email to all members of the Census in participa.podemos.info informing them about the proposal
   def monthly_email_required_votes
-    2.percent * confirmed_users
+    (2.percent * confirmed_users).to_i
   end
 
   #Assuming a Census of 300,000 registered users,
@@ -45,7 +47,7 @@ class Proposal < ActiveRecord::Base
   #to achieve a 10% acceptance,
   #and thus move the proposal from participa.podemos.info to AgoraVoting
   def agoravoting_required_votes
-    10.percent * confirmed_users
+    (10.percent * confirmed_users).to_i
   end
 
   # Set status in DB once threshold reached (just in case census increases)
