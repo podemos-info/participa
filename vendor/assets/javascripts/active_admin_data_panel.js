@@ -1,6 +1,5 @@
 $(function() {
   $(".panel[data-panel]").each(function() {
-    $(this).find("table:first tr").on("click",function(){$(this).toggleClass("full")});
 
     var $this = $(this);
     var $a = $("<a href='javascript:void(null)'>").on("click", function(event) {
@@ -24,4 +23,6 @@ $(function() {
       });
     }
   });
+
+  $(".panel[data-panel] tr").on("click",function(){$(this).toggleClass("full")});
 });
