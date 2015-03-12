@@ -1,6 +1,5 @@
 require 'fileutils'
 class Collaboration < ActiveRecord::Base
-
   include Rails.application.routes.url_helpers
 
   acts_as_paranoid
@@ -73,6 +72,10 @@ class Collaboration < ActiveRecord::Base
     self.status = 0
   end
 
+  def has_payment?
+    self.status>0
+  end
+  
   def check_spanish_bic
     self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
@@ -84,7 +87,7 @@ class Collaboration < ActiveRecord::Base
 
   def validates_not_passport
     if self.user and self.user.is_passport? 
-      self.errors.add(:user, "No puedes colaborar si eres extranjero.")
+      self.errors.add(:user, "No puedes colaborar si no dispones de DNI o NIE.")
     end
   end
 
@@ -163,7 +166,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_active?
-    self.status > 2
+    self.status > 1 and self.deleted_at.nil?
   end
 
   def admin_permalink
@@ -226,7 +229,7 @@ class Collaboration < ActiveRecord::Base
         self.redsys_identifier = order.payment_identifier
         self.redsys_expiration = order.redsys_expiration
       end
-    else
+    elsif self.has_payment?
       self.status = 1
     end
     self.save
@@ -239,7 +242,7 @@ class Collaboration < ActiveRecord::Base
     # should have a solid test base before doing this change and review where .order
     # is called. 
     if self.order.count >= MAX_RETURNED_ORDERS
-      last_order = self.order.last_order_for(Date.today)
+      last_order = self.last_order_for(Date.today)
       if last_order
         last_month = last_order.payable_at.unique_month 
       else
@@ -270,8 +273,12 @@ class Collaboration < ActiveRecord::Base
       next_order = this_month
       next_order += 1 if self.is_bank? and self.created_at.unique_month==next_order and self.created_at.day >= Order.payment_day
 
+    # first order created on asked date
+    elsif self.first_order.payable_at.unique_month == date.unique_month
+      return true
+
     # mustn't have order on months before it first order
-    elsif self.first_order.payable_at > date
+    elsif self.first_order.payable_at.unique_month > date.unique_month
       return false
 
     # calculate next order month based on last paid order

@@ -167,6 +167,10 @@ class CollaborationTest < ActiveSupport::TestCase
     assert @collaboration.is_active?
   end
 
+  test "should .has_payment? work" do
+    skip
+  end
+
   test "should .admin_permalink work" do
     assert_equal "/admin/collaborations/#{@collaboration.id}", @collaboration.admin_permalink
   end
@@ -442,9 +446,22 @@ phone: '666666'"
 
   ##############################################
 
+  test "should not save collaboration if foreign user (passport)" do
+    collaboration = FactoryGirl.build(:collaboration, :foreign_user)
+    assert_not collaboration.valid?
+    assert(collaboration.errors[:user].include? "No puedes colaborar si no dispones de DNI o NIE.")
+  end
+
+  test "should not save collaboration if userr is not over legal age (18 years old)" do
+    user = FactoryGirl.build(:user)
+    user.update_attribute(:born_at, DateTime.now-10.years)
+    @collaboration.user = user
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:user].include? "No puedes colaborar si eres menor de edad.")
+  end
+
   test "should .redsys_parse_response! work" do
     collaboration = FactoryGirl.create(:collaboration, :credit_card)
-
     # response KO 
     params = {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:46", "Ds_SecurePayment"=>"0", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0913", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_ErrorCode"=>"SIS0051", "Ds_AuthorisationCode"=>"      "}
     collaboration.redsys_parse_response! params

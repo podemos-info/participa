@@ -11,7 +11,8 @@ function draw_pie_chart($el, data) {
 
   
 jQuery(function($) {
-
+  if ($(".js-col-sum-type-graph").length==0) return;
+  
   draw_pie_chart( $(".js-col-sum-type-graph"), [
     { value: parseInt($('.js-col-sum-type-1').html()) , color:"#F7464A", highlight: "#FF5A5E", label: "Tarjetas de crédito/débito" },
     { value: parseInt($('.js-col-sum-type-2').html()), color: "#46BFBD", highlight: "#5AD3D1", label: "Banco nacional" },

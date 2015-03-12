@@ -6,10 +6,12 @@ class OrdersController < ApplicationController
 
     soap = (not request_params or not request_params["Ds_Order"])
     if soap then
-      body = Hash.from_xml(request.body.string)
-      xml = Hash.from_xml(body["Envelope"]["Body"]["procesaNotificacionSIS"]["XML"])
+      body = Hash.from_xml(request.body.read)
+      raw_xml = body["Envelope"]["Body"]["procesaNotificacionSIS"]["XML"]
+      xml = Hash.from_xml(raw_xml)
       request_params = xml["Message"]["Request"]
       request_params["Ds_Signature"] = xml["Message"]["Signature"]
+      request_params.merge! params
     end
 
     redsys_order_id = request_params["Ds_Order"]
@@ -17,7 +19,7 @@ class OrdersController < ApplicationController
 
     order = parent.create_order Time.now, true
     if order.first and order.is_payable?
-      order.redsys_parse_response! request_params
+      order.redsys_parse_response! request_params, raw_xml
     end
     
     if soap
