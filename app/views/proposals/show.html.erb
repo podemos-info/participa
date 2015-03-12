@@ -13,7 +13,7 @@
                 <span class="date">hace 1 día</span></p>
             </div>
 
-            <%= image_tag("proposal-example.jpg", alt: "") %>
+            <%= image_tag(@proposal.image_url || "proposal-example.jpg", alt: "") %>
 
             <h2>
                 <%= @proposal.title %>

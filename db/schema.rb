@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 20150312192438) do
     t.boolean  "reddit_threshold", default: false
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     t.string   "image_url"
     t.integer  "supports_count",   default: 0
     t.integer  "hotness",          default: 0
@@ -146,6 +147,9 @@ ActiveRecord::Schema.define(version: 20150312192438) do
 >>>>>>> Making support count dynamic
 =======
 >>>>>>> Simplifying support count
+=======
+    t.string   "image_url"
+>>>>>>> Adding custom image to proposals
   end
 
   create_table "report_groups", force: true do |t|
