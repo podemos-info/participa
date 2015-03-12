@@ -5,9 +5,7 @@ module ProposalsHelper
   end
 
   def formatted_description(proposal)
-    auto_link(proposal.description, html: { target: '_blank' }) do |text|
-      simple_format(text)
-    end
+    auto_link(simple_format(proposal.description), :html => { :target => "_blank" })
   end
 
   def formatted_support_count(proposal)
