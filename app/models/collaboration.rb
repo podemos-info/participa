@@ -229,7 +229,7 @@ class Collaboration < ActiveRecord::Base
         self.redsys_identifier = order.payment_identifier
         self.redsys_expiration = order.redsys_expiration
       end
-    else
+    elsif self.has_payment?
       self.status = 1
     end
     self.save
