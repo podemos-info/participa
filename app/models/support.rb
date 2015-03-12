@@ -1,4 +1,4 @@
 class Support < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :proposal
+  belongs_to :user, dependent: :destroy
+  belongs_to :proposal, dependent: :destroy
 end
