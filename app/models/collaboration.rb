@@ -73,7 +73,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def has_payment?
-    self.status>0
+    self.status>1 or (self.status==1 and self.is_credit_card?)
   end
   
   def check_spanish_bic
