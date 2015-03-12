@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306105324) do
+ActiveRecord::Schema.define(version: 20150306160407) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -109,6 +109,15 @@ ActiveRecord::Schema.define(version: 20150306105324) do
     t.integer  "payment_type"
     t.string   "payment_identifier"
     t.text     "payment_response"
+  end
+
+  create_table "pages", force: true do |t|
+    t.integer  "id_form"
+    t.string   "titulo"
+    t.string   "slug"
+    t.boolean  "require_login"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "participation_teams", force: true do |t|
