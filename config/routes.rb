@@ -54,8 +54,9 @@ Rails.application.routes.draw do
     get '/responsables-areas-cc-autonomicos', to: 'page#responsables_areas_cc_autonomicos', as:"responsables_areas_cc_autonomicos"
     get '/boletin-correo-electronico', to: 'page#boletin_correo_electronico', as:"boletin_correo_electronico"
 
-    get '/comparte-el-cambio/comparte-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
-    get '/comparte-el-cambio/comparte-coche', to: 'page#share_car', as: 'share_car'
+    get '/comparte-el-cambio/compartir-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
+    get '/comparte-el-cambio/compartir-coche-sevilla', to: 'page#share_car_sevilla', as: 'share_car_sevilla'
+    get '/comparte-el-cambio/compartir-coche-doshermanas', to: 'page#share_car_doshermanas', as: 'share_car_doshermanas'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
     get '/comparte-el-cambio/encuentra-viaje', to: 'page#find_car', as: 'find_car'
     get '/comparte-el-cambio/valoracion-propietarios', to: 'page#comparte_cambio_valoracion_propietarios', as: 'comparte_cambio_valoracion_propietarios'
