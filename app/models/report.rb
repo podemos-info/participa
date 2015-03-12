@@ -94,7 +94,7 @@ class Report < ActiveRecord::Base
       rest.each do |main_name, entries|
         count = entries.map {|e| e[:count] } .sum
         result = { count: count, name: group.minimum_label, samples:Hash.new(0)}
-        entries.each {|e| result[:samples][e[:name]] += e.count }
+        entries.each {|e| result[:samples][e[:name]] += e[:count] }
         tmp_results[:data][main_name][group.id] << result
       end
     end
