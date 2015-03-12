@@ -11,7 +11,7 @@ module ProposalsHelper
   end
 
   def formatted_support_count(proposal)
-    number_with_delimiter(@proposal.supports_count) + 
+    number_with_delimiter(@proposal.supports.count) + 
     " de " +
     number_with_delimiter(proposal.agoravoting_required_votes)
   end
