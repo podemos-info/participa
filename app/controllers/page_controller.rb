@@ -38,6 +38,9 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Listas autonómicas", form_id: 20, extra_qs:"" }
   end
 
+  def demo
+  end
+
   def offer_hospitality
     render :form_iframe, locals: { title: "Comparte tu casa", form_id: 71, extra_qs:"", return_path: root_path }
   end
