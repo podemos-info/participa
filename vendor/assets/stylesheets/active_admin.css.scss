@@ -24,22 +24,27 @@ table.index_table td {
     color: #000;
 }
 // ... add this in app/assets/stylesheets/active_admin.css.scss
-.panel[data-panel] h3 {
+.panel[data-panel] {
+  table {
+    table-layout: fixed;
+  }
+  h3 {
     &:before {
       content: " \2796 "
     }
     & a {
         padding: 0px 10px;
-        color: white;
+        color: inherit;
     }
     &.panel-collapsed {
         &:before {
           content: " \2795 "
         }
         & a {
-          color: white;
+          color: inherit;
         }
     }
+  }
 }
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:

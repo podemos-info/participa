@@ -24,18 +24,20 @@ ActiveAdmin.register Report do
         @groups.each do |group|
           panel group.title, 'data-panel' => :collapsed do
             table_for @results[:data][main_group][group.id] do
-              column group.label, :name
+              column group.label do |r|
+                div r[:name]
+              end
               column "Total" do |r|
-                r[:count]
+                div r[:count]
               end
               column group.data_label do |r|
-                r[:samples].sort_by{|k, v| [-v, k]} .map {|k,v| if v>1 then "#{k}(#{v})" else k end } .join(", ") if r[:samples]
+                div(r[:samples].sort_by{|k, v| [-v, k]} .map {|k,v| if v>1 then "#{k}(#{v})" else k end } .join(", ")) if r[:samples]
               end
               column :users do |r|
-                r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe if r[:users]
+                div(r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe) if r[:users]
               end
               column :info do |r|
-                status_tag("BLACKLIST", :error) if group.blacklist? r[:name]
+                div status_tag("BLACKLIST", :error) if group.blacklist? r[:name]
               end
             end
           end
