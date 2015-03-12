@@ -20,6 +20,10 @@ module ProposalsHelper
     number_to_percentage(proposal.support_percentage, options)
   end
 
+  def proposal_image(proposal)
+    proposal.image_url.present? ? proposal.image_url : "proposal-example.jpg"
+  end
+
   def support_button
     "#support_proposal_#{@proposal.id} input[type=submit]"
   end
