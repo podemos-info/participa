@@ -1,8 +1,10 @@
 $(function() {
   $(".panel[data-panel]").each(function() {
+    $(this).find("table:first tr").on("click",function(){$(this).toggleClass("full")});
+
     var $this = $(this);
     var $a = $("<a href='javascript:void(null)'>").on("click", function(event) {
-      $(this).closest(".panel").find(".panel_contents").each(function() {
+      $(this).closest(".panel").find(".panel_contents:first").each(function() {
         $(this).slideToggle();
       });
       $(this).closest("h3").each(function() {
