@@ -1,20 +1,28 @@
 class CollaborationsController < ApplicationController
-  
-  before_action do |controller|
-    raise ActionController::RoutingError.new('Not Found') if Rails.env.production? and (current_user and not current_user.admin)
-  end
 
   before_action :authenticate_user!
-  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy, :OK, :KO]
+  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
  
-  # GET /collaborations/new
   def new
     redirect_to edit_collaboration_path if current_user.collaboration 
     @collaboration = Collaboration.new
   end
 
-  # POST /collaborations
-  # POST /collaborations.json
+  def modify
+    redirect_to new_collaboration_path unless @collaboration
+    redirect_to confirm_collaboration_path unless @collaboration.has_payment?
+
+    # update collaboration
+    @collaboration.assign_attributes collaboration_params
+
+    if @collaboration.save
+      flash[:notice] = "Los cambios han sido guardados"
+      redirect_to edit_collaboration_path
+    else
+      render 'edit'
+    end
+  end
+
   def create
     @collaboration = Collaboration.new(collaboration_params)
     @collaboration.user = current_user
@@ -30,14 +38,13 @@ class CollaborationsController < ApplicationController
     end
   end
 
-  # GET /collaborations/edit
   def edit
-    # borrar una colaboración
-    redirect_to confirm_collaboration_path unless @collaboration.is_active?
+    redirect_to new_collaboration_path unless @collaboration
+    redirect_to confirm_collaboration_path unless @collaboration.has_payment?
   end
 
-  # DELETE /collaborations
   def destroy
+    redirect_to new_collaboration_path unless @collaboration
     @collaboration.destroy
     respond_to do |format|
       format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
@@ -45,26 +52,24 @@ class CollaborationsController < ApplicationController
     end
   end
 
-  # GET /collaborations/confirm
   def confirm
+    redirect_to new_collaboration_path unless @collaboration
+    redirect_to edit_collaboration_path if @collaboration.has_payment?
     # ensure credit card order is not persisted, to allow create a new id for each payment try
-    @order = @collaboration.create_order Date.today, true if @collaboration.is_credit_card?
+    @order = @collaboration.create_order Time.now, true if @collaboration.is_credit_card?
   end
 
-  # GET /collaborations/ok
   def OK
-    if @collaboration 
+    redirect_to new_collaboration_path unless @collaboration
+    if not @collaboration.is_active?
       if @collaboration.is_credit_card?
-        if not @collaboration.first_order or not @collaboration.first_order.is_paid?
-          @collaboration.set_warning
-        end
+        @collaboration.set_warning
       else
         @collaboration.set_active
       end
     end
   end
 
-  # GET /collaborations/ko
   def KO
   end
 
@@ -80,6 +85,10 @@ class CollaborationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
+    if current_user.collaboration and current_user.collaboration.has_payment?
+      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
+    else
+      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
+    end
   end
 end

@@ -63,21 +63,13 @@ Rails.application.routes.draw do
 
     get '/apoderados-campana-autonomica-andalucia', to: 'page#apoderados_campana_autonomica_andalucia', as: 'apoderados_campana_autonomica_andalucia'
     get '/candidaturas-primarias-autonomicas', to: 'page#candidaturas_primarias_autonomicas', as: 'candidaturas_primarias_autonomicas'
+    get '/listas-primarias-autonomicas', to: 'page#listas_primarias_autonomicas', as: 'listas_primarias_autonomicas'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote
     get '/vote/check/:election_id', to: 'vote#check', as: :check_vote
-    scope :validator do
-      scope :sms do 
-        get :step1, to: 'sms_validator#step1', as: 'sms_validator_step1'
-        get :step2, to: 'sms_validator#step2', as: 'sms_validator_step2'
-        get :step3, to: 'sms_validator#step3', as: 'sms_validator_step3'
-        post :phone, to: 'sms_validator#phone', as: 'sms_validator_phone'
-        post :captcha, to: 'sms_validator#captcha', as: 'sms_validator_captcha'
-        post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
-      end
-    end
+    
     devise_for :users, controllers: { 
       registrations: 'registrations', 
       passwords:     'passwords', 
@@ -88,21 +80,37 @@ Rails.application.routes.draw do
     get '/microcreditos/informacion', to: 'page#credits_info', as: 'credits_info'
     get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
     
+    authenticate :user do
+      scope :validator do
+        scope :sms do 
+          get :step1, to: 'sms_validator#step1', as: 'sms_validator_step1'
+          get :step2, to: 'sms_validator#step2', as: 'sms_validator_step2'
+          get :step3, to: 'sms_validator#step3', as: 'sms_validator_step3'
+          post :phone, to: 'sms_validator#phone', as: 'sms_validator_phone'
+          post :captcha, to: 'sms_validator#captcha', as: 'sms_validator_captcha'
+          post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
+        end
+      end
+      
+      scope :colabora do
+        delete 'baja', to: 'collaborations#destroy', as: 'destroy_collaboration'
+        get 'ver', to: 'collaborations#edit', as: 'edit_collaboration'
+        get '', to: 'collaborations#new', as: 'new_collaboration'
+        get 'confirmar', to: 'collaborations#confirm', as: 'confirm_collaboration'
+        post 'crear', to: 'collaborations#create', as: 'create_collaboration'
+        post 'modificar', to: 'collaborations#modify', as: 'modify_collaboration'
+        get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
+        get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
+      end
+    end
+
     # http://stackoverflow.com/a/8884605/319241 
     devise_scope :user do
       get '/registrations/regions/provinces', to: 'registrations#regions_provinces'
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
       get '/registrations/vote/municipies', to: 'registrations#vote_municipies'
+
       authenticated :user do
-        scope :colabora do
-          delete 'baja', to: 'collaborations#destroy', as: 'destroy_collaboration'
-          get 'ver', to: 'collaborations#edit', as: 'edit_collaboration'
-          get '', to: 'collaborations#new', as: 'new_collaboration'
-          get 'confirmar', to: 'collaborations#confirm', as: 'confirm_collaboration'
-          post 'crear', to: 'collaborations#create', as: 'create_collaboration'
-          get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
-          get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
-        end
         root 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'

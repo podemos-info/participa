@@ -241,3 +241,12 @@ ActiveAdmin.setup do |config|
   # config.filters = true
 
 end
+
+ActiveAdmin::Views::SidebarSection.class_eval do
+  def build(section)
+    @section = section
+    super(@section.title, @section.options.merge(:icon => @section.icon))
+    self.id = @section.id
+    build_sidebar_content
+  end
+end 

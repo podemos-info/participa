@@ -38,7 +38,7 @@ ActiveAdmin.register Collaboration do
 
   menu :parent => "Colaboraciones"
 
-  permit_params  :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
+  permit_params  :user_id, :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
                 :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc
 
   actions :all, :except => [:new]
@@ -75,7 +75,7 @@ ActiveAdmin.register Collaboration do
       show_collaboration_orders collaboration
     end
     column :created_at, sortable: :created_at do |collaboration|
-      collaboration.created_at.strftime "%d-%m-%y"
+      collaboration.created_at.strftime "%d-%m-%y %H-%M"
     end
     column :method, sortable: 'payment_type' do |collaboration|
       collaboration.payment_type==1 ? "Tarjeta" : "Recibo"
@@ -101,14 +101,14 @@ ActiveAdmin.register Collaboration do
     actions
   end
 
-  sidebar "Acciones", only: :index, priority: 0 do
+  sidebar "Acciones", 'data-panel' => :collapsed, only: :index, priority: 0 do
     status = Collaboration.has_bank_file? Date.today
-    h3 "Pagos con tarjeta" 
+    h4 "Pagos con tarjeta" 
     ul do
       li link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
     end
 
-    h3 "Recibos"
+    h4 "Recibos"
     ul do
       li link_to 'Crear órdenes de este mes', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
       li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
@@ -121,8 +121,8 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  sidebar "Ayuda", only: :index do
-    h3 "Nomenclatura de las órdenes"
+  sidebar "Ayuda", 'data-panel' => :collapsed, only: :index, priority: 1 do
+    h4 "Nomenclatura de las órdenes"
     ul do
       li "_ = pendiente"
       li "~ = enviada"

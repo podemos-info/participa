@@ -111,6 +111,10 @@ class PageController < ApplicationController
   def candidaturas_primarias_autonomicas
     render :form_iframe, locals: { title: "Formulario de candidaturas de primarias autonómicas e insulares", form_id: 63, extra_qs:"" }
   end
+
+  def listas_primarias_autonomicas
+    render :form_iframe, locals: { title: "Formulario de listas de primarias autonómicas e insulares", form_id: 67, extra_qs:"" }
+  end
   
   def apoderados_campana_autonomica_andalucia
     render :form_iframe, locals: { title: "Apoderados para la campaña autonómica en Andalucía", form_id: 64, extra_qs:"" }

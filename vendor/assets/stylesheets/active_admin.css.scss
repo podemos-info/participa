@@ -6,28 +6,53 @@
 //
 // For example, to change the sidebar width:
 // $sidebar-width: 242px;
-
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
-
 $skinActiveColor: #000;
 $skinHeaderBck: #612D62;
 $panelHeaderBck: #612D62;
 $skinLogo: inherit;
-
 @import "active_skin";
 #header h1.site_title {
-  text-indent: -118px;
+    text-indent: -118px;
 }
-
 table.index_table td {
-  color: #000;
+    color: #000;
 }
 .sidebar_section.panel .filter_form_field label {
-  color: #000;
+    color: #000;
 }
-
+// ... add this in app/assets/stylesheets/active_admin.css.scss
+.panel[data-panel] {
+  table {
+    tr td div {
+      max-height: 1.5em;
+      overflow: hidden;
+      max-width: 100em;
+    }
+    tr.full td div {
+      max-height: inherit;
+    }
+  }
+  h3 {
+    &:before {
+      content: " \2796 "
+    }
+    & a {
+        padding: 0px 10px;
+        color: inherit;
+    }
+    &.panel-collapsed {
+        &:before {
+          content: " \2795 "
+        }
+        & a {
+          color: inherit;
+        }
+    }
+  }
+}
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
