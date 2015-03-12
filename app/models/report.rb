@@ -80,7 +80,7 @@ class Report < ActiveRecord::Base
           rest[main_name] << { count: count, name: name }
         else
           result = { count: count, name: name, users:[], samples:Hash.new(0)}
-          %x(grep "#{'.'*id_width}#{@main_group.format_group_name(main_name) if @main_group}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,100].min}).split("\n").each do |s|
+          %x(grep "#{'.'*id_width}#{@main_group.format_group_name(main_name) if @main_group}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,201].min}).split("\n").each do |s|
             result[:users] << s[0..id_width].to_i
             sample = s[(id_width+main_width+width+1)..-1].strip
             result[:samples][sample] += 1
@@ -92,7 +92,7 @@ class Report < ActiveRecord::Base
 
       main_groups << rest.keys if @main_group
       rest.each do |main_name, entries|
-        count = entries.map {|e| e.count } .sum
+        count = entries.map {|e| e[:count] } .sum
         result = { count: count, name: group.minimum_label, samples:Hash.new(0)}
         entries.each {|e| result[:samples][e[:name]] += e.count }
         tmp_results[:data][main_name][group.id] << result
