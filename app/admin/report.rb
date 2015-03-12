@@ -31,7 +31,7 @@ ActiveAdmin.register Report do
                 div r[:count]
               end
               column group.data_label do |r|
-                div(r[:samples].sort_by{|k, v| [-v, k]} .map {|k,v| if v>1 then "#{k}(#{v})" else k end } .join(", ")) if r[:samples]
+                div(r[:samples].sort_by{|k, v| [-v, k]} .map {|k,v| if v>1 then "#{k}(#{if v>200 then "200+" else v end})" else k end } .join(", ")) if r[:samples]
               end
               column :users do |r|
                 div(r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe) if r[:users]
