@@ -136,9 +136,13 @@ ActiveRecord::Schema.define(version: 20150312192438) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "reddit_threshold", default: false
+<<<<<<< HEAD
     t.string   "image_url"
     t.integer  "supports_count",   default: 0
     t.integer  "hotness",          default: 0
+=======
+    t.integer  "supports_count",   default: 0
+>>>>>>> Making support count dynamic
   end
 
   create_table "report_groups", force: true do |t|

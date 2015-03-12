@@ -47,8 +47,11 @@
 
                 <div class="divider"></div>
                 
-                <p class="info">560 de 15.445 Apoyos necesarios<br>
-                0,1% de 10% necesario</p>
+                <p class="info">
+                    <%= formatted_support_count(@proposal) %> Apoyos necesarios
+                    <br>
+                    <%= formatted_support_percentage(@proposal, significant: true) %> de 10% necesario
+                </p>
                 
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="10" style="width: 10%">
