@@ -8,10 +8,10 @@
     
     <div class="container">
         <nav>
-            <%= link_to "Nuevas",     proposals_path(filter: 'new'),  :class => "active" %>
-            <%= link_to "Populares",  proposals_path(filter: 'top'),  :class => "" %>
-            <%= link_to "Por tiempo", proposals_path(filter: 'time'), :class => "" %>
-            <%= link_to "Candentes",  proposals_path(filter: 'hot'),  :class => "" %>
+            <%= filtered_proposals 'Nuevas',     'recent' %>
+            <%= filtered_proposals 'Populares',  'popular' %>
+            <%= filtered_proposals 'Por tiempo', 'time' %>
+            <%= filtered_proposals 'Candentes',  'hot' %>
         </nav>
   
         <div>

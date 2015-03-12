@@ -24,4 +24,12 @@ module ProposalsHelper
     "#support_proposal_#{@proposal.id} input[type=submit]"
   end
 
+  def filtered_proposals(text, filter)
+    link_to text, proposals_path(filter: filter), :class => active?(filter)
+  end
+
+  def active?(filter)
+    params[:filter] == filter ? 'active' : ''
+  end
+
 end
