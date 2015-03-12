@@ -29,6 +29,7 @@ table.index_table td {
     tr td div {
       max-height: 1.5em;
       overflow: hidden;
+      max-width: 100em;
     }
     tr.full td div {
       max-height: inherit;
