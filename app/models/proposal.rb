@@ -1,10 +1,12 @@
 require 'numeric'
 class Proposal < ActiveRecord::Base
-
   has_many :supports
 
-  scope :reddit, -> { where(reddit_threshold: true) }
-  scope :hot,    -> { order(:created_at).limit(3) }
+  scope :reddit,  -> { where(reddit_threshold: true) }
+  scope :recent,  -> { order('created_at desc') }
+  scope :popular, -> { order('supports_count desc') }
+  scope :time,    -> { order('created_at asc') }
+  scope :hot,     -> { order('hotness desc') }
   
   before_save :update_threshold
 
@@ -67,4 +69,21 @@ class Proposal < ActiveRecord::Base
   def supported?(user)
     user.supports.where(proposal: self).any?
   end
+
+  def self.filter(filtering_params)
+    results = self.reddit
+    results = results.public_send(filtering_params) if filtering_params.present?
+    results
+  end
+
+  
+
+  def hotness
+    supports.count + (days_since_created * 1000)
+  end
+
+  def days_since_created
+    ((Time.now - created_at)/60/60/24).to_i
+  end
+
 end
