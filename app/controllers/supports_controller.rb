@@ -1,4 +1,5 @@
 class SupportsController < ApplicationController
+  before_action :authenticate_user!
   
   def create
     @proposal = Proposal.find(params[:proposal_id])
