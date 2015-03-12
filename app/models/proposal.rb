@@ -77,8 +77,6 @@ class Proposal < ActiveRecord::Base
     results
   end
 
-  
-
   def hotness
     supports.count + (days_since_created * 1000)
   end
