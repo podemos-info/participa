@@ -36,7 +36,7 @@ ActiveAdmin.register Report do
               column :users do |r|
                 div(r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe) if r[:users]
               end
-              column :info do |r|
+              column do |r|
                 div status_tag("BLACKLIST", :error) if group.blacklist? r[:name]
               end
             end
