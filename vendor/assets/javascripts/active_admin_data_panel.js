@@ -17,7 +17,7 @@ $(function() {
       $h3.each(function() {
         $(this).addClass('panel-collapsed')
       });
-      $this.find(".panel_contents").each(function() {
+      $this.find(".panel_contents:first").each(function() {
         $(this).hide()
       });
     }
