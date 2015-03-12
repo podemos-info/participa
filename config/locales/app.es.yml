@@ -22,6 +22,8 @@ es:
       orders: Ordenes de pago
       election: Elección
       elections: Elecciones
+      proposal: Iniciativa
+      proposals: Iniciativas
       notice: Aviso
       notices: Avisos
       participation_team: Equipo de Acción Participativa
@@ -97,6 +99,10 @@ es:
         starts_at: "Empieza"
         ends_at: "Termina"
         close_message: "Mensaje de cierre"
+      proposal: 
+        title: "Título"
+        description: "Descripción"
+        image_url: "URL de la imagen"
       notice:
         title: "Título"
         body: "Mensaje" 
