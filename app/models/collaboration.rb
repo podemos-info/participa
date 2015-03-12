@@ -73,7 +73,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def has_payment?
-    self.status>1 or (self.status==1 and self.is_credit_card?)
+    self.status>0
   end
   
   def check_spanish_bic
@@ -229,7 +229,7 @@ class Collaboration < ActiveRecord::Base
         self.redsys_identifier = order.payment_identifier
         self.redsys_expiration = order.redsys_expiration
       end
-    else
+    elsif self.has_payment?
       self.status = 1
     end
     self.save
