@@ -10,4 +10,8 @@ module ProposalsHelper
     end
   end
 
+  def support_button
+    "#support_proposal_#{@proposal.id} input[type=submit]"
+  end
+
 end

@@ -61,4 +61,8 @@ class Proposal < ActiveRecord::Base
   def finishes_at
     created_at + 3.months
   end
+
+  def supported?(user)
+    user.supports.where(proposal: self).any?
+  end
 end
