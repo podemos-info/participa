@@ -61,6 +61,7 @@ Rails.application.routes.draw do
 
     get '/proposals', to: 'proposals#index', as: 'proposals'
     get '/proposals/:id', to: 'proposals#show', as: 'proposal'
+    post 'supports/:proposal_id', to: 'supports#create', as: 'proposal_supports'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
