@@ -1,0 +1,6 @@
+<%= semantic_form_for :process_bank_response, :url => { :action => "process_bank_response" } do |f| %>  
+    <%= f.input :file, :as => :file, :label => false %>
+    <%= f.actions do %>
+        <%= f.action :submit, :as => :button %>
+    <% end %>
+<% end %>  
