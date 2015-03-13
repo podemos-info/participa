@@ -27,7 +27,7 @@ ActiveAdmin.register Report do
             if results.length>200
               new_results = results.first(200)
               has_rest_row = results[-1][:count] > results[-2][:count]
-              new_results << { name: "(#{results.length-(has_rest_row?201:200)} entradas más)", count: (results[200..(has_rest_row?-2:-1)].map {|r| r[:count]} .sum)}
+              new_results << { name: "(#{results.length-(has_rest_row ? 201 : 200)} entradas más)", count: (results[200..(has_rest_row ? -2 : -1)].map {|r| r[:count]} .sum)}
               new_results << results[-1] if has_rest_row
             end
             table_for results do
