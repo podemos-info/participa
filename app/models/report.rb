@@ -64,9 +64,9 @@ class Report < ActiveRecord::Base
     # Generate rank
     main_width = @main_group ? @main_group.width : 0
     @groups.each do |group|
-      width = group.width-1
+      width = group.width
 
-      %x(cut -c#{id_width+1}- #{raw_folder}/#{group.id}.dat | sort | uniq -w#{width+main_width} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
+      %x(cut -c#{id_width+1}- #{raw_folder}/#{group.id}.dat | sort | uniq -w#{width+main_width+1} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
       rest = Hash.new {|h,k| h[k] = []}
       separator = nil
       File.open( "#{rank_folder}/#{group.id}.dat", 'r:UTF-8' ).each do |line|
@@ -82,13 +82,13 @@ class Report < ActiveRecord::Base
         else
           result = { count: count, name: name, users:[], samples:Hash.new(0)}
           %x(grep "#{'.'*id_width}#{@main_group.format_group_name(main_name) if @main_group}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,101].min}).split("\n").each do |s|
-            result[:users] << s[0..id_width].to_i
-            sample = s[(id_width+main_width+width+1)..-1].strip
+            result[:users] << s[0..id_width-1].to_i
+            sample = s[(id_width+main_width+width)..-1].strip
             result[:samples][sample] += 1
             result[:users].uniq!
           end
 
-          result[:users] = Hash[result[:users].first(20)]
+          result[:users] = result[:users].first(20)
           tmp_results[:data][main_name][group.id] << result
         end
       end
@@ -97,7 +97,7 @@ class Report < ActiveRecord::Base
         count = entries.map {|e| e[:count] } .sum
         result = { count: count, name: group.minimum_label, samples:Hash.new(0)}
         entries.each {|e| result[:samples][e[:name]] += e[:count] }
-        result[:samples] = Hash[result[:samples].sort.reverse]
+        result[:samples] = Hash[result[:samples].sort {|k,v| [-v, k]}]
         if result[:samples].length>100
           result[:samples] = Hash[result[:samples].first(100)]
           result[:samples]["+"] = count - (result[:samples].map {|k,v| v} .sum)

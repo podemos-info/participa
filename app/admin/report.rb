@@ -27,8 +27,9 @@ ActiveAdmin.register Report do
             if results.length>200
               new_results = results.first(200)
               has_rest_row = results[-1][:count] > results[-2][:count]
-              new_results << { name: "(#{results.length-(has_rest_row ? 201 : 200)} entradas más)", count: (results[200..(has_rest_row ? -2 : -1)].map {|r| r[:count]} .sum)}
+              new_results << { name: "(#{results.length-(has_rest_row ? 201 : 200)} más)", count: (results[200..(has_rest_row ? -2 : -1)].map {|r| r[:count]} .sum)}
               new_results << results[-1] if has_rest_row
+              results = new_results
             end
             table_for results do
               column group.label do |r|
@@ -38,7 +39,7 @@ ActiveAdmin.register Report do
                 div r[:count]
               end
               column group.data_label do |r|
-                div(r[:samples].map {|k,v| if v>1 then "#{k}(#{if v>100 then "100+" else v end})" else k end } .join(", ")) if r[:samples]
+                div(r[:samples].map {|k,v| if k=="+" then "y #{v} más" elsif v>1 then "#{k}(#{if v>100 then "+100" else v end})" else k end } .join(", ")) if r[:samples]
               end
               column :users do |r|
                 div(r[:users][0..20].map do |u| link_to(u, admin_user_path(u)).html_safe end .join(" ").html_safe) if r[:users]
@@ -52,7 +53,7 @@ ActiveAdmin.register Report do
       end
 
       if @main_group
-        @results[:data].each do |main_group, groups|
+        @results[:data].sort.each do |main_group, groups|
           panel "#{@main_group.title}: #{main_group}", 'data-panel' => :collapsed do
             block.call main_group
           end
