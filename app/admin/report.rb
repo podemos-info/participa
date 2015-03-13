@@ -22,7 +22,7 @@ ActiveAdmin.register Report do
 
       block = Proc.new do |main_group|
         @groups.each do |group|
-          panel group.title, 'data-panel' => :collapsed do
+          panel "#{main_group} - #{group.title}", 'data-panel' => :collapsed, 'data-panel-id' => group.id, 'data-panel-parent' => main_group do
             results = @results[:data][main_group][group.id]
             if results.length>200
               new_results = results.first(200)
@@ -54,7 +54,7 @@ ActiveAdmin.register Report do
 
       if @main_group
         @results[:data].sort.each do |main_group, groups|
-          panel "#{@main_group.title}: #{main_group}", 'data-panel' => :collapsed do
+          panel "#{@main_group.title}: #{main_group}", 'data-panel' => :collapsed, 'data-panel-id' => main_group do
             block.call main_group
           end
         end

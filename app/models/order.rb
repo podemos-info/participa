@@ -73,19 +73,9 @@ class Order < ActiveRecord::Base
   end
 
   def error_message
-    case self.status
-    when 4
-      case self.payment_type
-      when 1
-        self.redsys_text_status
-      else
-        ""
-      end
-    when 5
-      "Devuelta"
-    else
-      ""
-    end
+    return self.redsys_text_status if self.status == 4 and self.payment_type == 1
+    return self.bank_returned_reason if self.status == 5 and self.payment_type != 1
+    ""
   end
 
   def self.parent_from_order_id order_id
@@ -148,11 +138,17 @@ class Order < ActiveRecord::Base
     end 
   end
 
-  def mark_as_returned!
+  def mark_as_returned! code=nil
+    self.payment_response = code if code
     self.status = 5
     self.save
     if self.parent
-      self.parent.returned_order
+      reason = SEPA_RETURNED_REASONS[self.payment_response]
+      if reason
+        self.parent.returned_order reason[:error], reason[:warn]
+      else
+        self.parent.returned_order
+      end
     end
   end
 
@@ -162,6 +158,45 @@ class Order < ActiveRecord::Base
   
   def self.mark_bank_orders_as_paid!(date=Date.today)
     Order.banks.by_date(date, date).charging.update_all(status:2, payed_at: date)
+  end
+
+  SEPA_RETURNED_REASONS = {
+    "AC01" => { error: true, warn: true, text: "El IBAN o BIN son incorrectos."},
+    "AC04" => { error: true, text: "La cuenta ha sido cerrada."},
+    "AC06" => { error: true, text: "Cuenta bloqueada."},
+    "AC13" => { error: true, warn: true, text: "Cuenta de cliente no apta para operaciones entre comercios."},
+    "AG01" => { error: true, text: "Cuenta de ahorro, no admite recibos."},
+    "AG02" => { error: false, warn: true, text: "Código de pago incorrecto (ejemplo: RCUR sin FRST previo)."},
+    "AM04" => { error: false, text: "Fondos insuficientes."},
+    "AM05" => { error: false, warn: true, text: "Orden duplicada (ID repetido o dos operaciones FRST)."},
+    "BE01" => { error: true, text: "El nombre dado no coincide con el titular de la cuenta."},
+    "BE05" => { error: false, text: "Creditor Identifier incorrecto."},
+    "FF01" => { error: false, warn: true, text: "Código de transacción incorrecto o formato de fichero inválido."},
+    "FF05" => { error: false, warn: true, text: "Tipo de 'Direct Debit' incorrecto."},
+    "MD01" => { error: false, text: "Transacción no autorizada."},
+    "MD02" => { error: false, text: "Información del cliente incompleta o incorrecta."},
+    "MD06" => { error: false, text: "El cliente reclama no haber autorizado esta orden (hasta 8 semanas dé plazo)."},
+    "MD07" => { error: true, text: "El titular de la cuenta ha muerto."},
+    "MS02" => { error: false, text: "El cliente ha devuelto esta orden."},
+    "MS03" => { error: false, text: "Razón no especificada por el banco."},
+    "RC01" => { error: true, warn: true, text: "El código BIC provisto es incorrecto."},
+    "RR01" => { error: true, warn: true, text: "La identificación del titular de la cuenta requerida legalmente es insuficiente o inexistente."},
+    "RR02" => { error: true, warn: true, text: "El nombre o la dirección del cliente requerida legalmente es insuficiente o inexistente."},
+    "RR03" => { error: false, warn: true, text: "El nombre o la dirección del cliente requerida legalmente es insuficiente o inexistente."},
+    "RR04" => { error: true, warn: true, text: "Motivos legales. Contactar al banco para más información."},
+    "SL01" => { error: true, text: "Cobro bloqueado a entidad por lista negra o ausencia en lista de cobros autorizados."}
+  }
+
+  def bank_returned_reason
+    if self.payment_response
+      if SEPA_RETURNED_REASONS[self.payment_response]
+        "#{self.payment_response}: #{SEPA_RETURNED_REASONS[self.payment_response][:error]}"
+      else
+        "#{self.payment_response}"
+      end
+    else
+      "Orden devuelta"
+    end
   end
 
   #### REDSYS CC PAYMENTS ####
@@ -335,26 +370,27 @@ class Order < ActiveRecord::Base
 
   def redsys_text_status
     if self.redsys_response
-
-      # Given a status code, returns the status message
-      case self.redsys_response["Ds_Response"].to_i
-        when 0..99      then "Transacción autorizada para pagos y preautorizaciones"
-        when 900        then "Transacción autorizada para devoluciones y confirmaciones"
-        when 101        then "Tarjeta caducada"
-        when 102        then "Tarjeta en excepción transitoria o bajo sospecha de fraude"
-        when 104, 9104  then "Operación no permitida para esa tarjeta o terminal"
-        when 116        then "Disponible insuficiente"
-        when 118        then "Tarjeta no registrada"
-        when 129        then "Código de seguridad (CVV2/CVC2) incorrecto"
-        when 180        then "Tarjeta ajena al servicio"
-        when 184        then "Error en la autenticación del titular"
-        when 190        then "Denegación sin especificar Motivo"
-        when 191        then "Fecha de caducidad errónea"
-        when 202        then "Tarjeta en excepción transitoria o bajo sospecha de fraude con retirada de tarjeta"
-        when 912, 9912  then "Emisor no disponible"
-        else
-          "Transacción denegada"
-      end
+      
+        # Given a status code, returns the status message
+      message = case self.redsys_response["Ds_Response"].to_i
+          when 0..99      then "Transacción autorizada para pagos y preautorizaciones"
+          when 900        then "Transacción autorizada para devoluciones y confirmaciones"
+          when 101        then "Tarjeta caducada"
+          when 102        then "Tarjeta en excepción transitoria o bajo sospecha de fraude"
+          when 104, 9104  then "Operación no permitida para esa tarjeta o terminal"
+          when 116        then "Disponible insuficiente"
+          when 118        then "Tarjeta no registrada"
+          when 129        then "Código de seguridad (CVV2/CVC2) incorrecto"
+          when 180        then "Tarjeta ajena al servicio"
+          when 184        then "Error en la autenticación del titular"
+          when 190        then "Denegación sin especificar Motivo"
+          when 191        then "Fecha de caducidad errónea"
+          when 202        then "Tarjeta en excepción transitoria o bajo sospecha de fraude con retirada de tarjeta"
+          when 912, 9912  then "Emisor no disponible"
+          else
+            "Transacción denegada"
+        end
+      "#{self.redsys_response["Ds_Response"]}: #{message}"
     else
       "Transacción no procesada"
     end
