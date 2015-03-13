@@ -135,9 +135,9 @@ class OrderTest < ActiveSupport::TestCase
     @order.update_attribute(:status, 4)
     @order.update_attribute(:payment_type, 1)
     @order.update_attribute(:payment_response, {"Ds_Response"=> "101"}.to_json)
-    assert_equal("Tarjeta caducada", @order.error_message)
+    assert_equal("101: Tarjeta caducada", @order.error_message)
     @order.update_attribute(:status, 5)
-    assert_equal("Devuelta", @order.error_message)
+    assert_equal("Orden devuelta", @order.error_message)
   end
 
   test "should .parent_from_order_id work" do
@@ -347,14 +347,14 @@ class OrderTest < ActiveSupport::TestCase
 
     # some possible payment responses 
     @order.update_attribute(:payment_response, {"Ds_Response" => 0}.to_json)
-    assert_equal("Transacción autorizada para pagos y preautorizaciones", @order.redsys_text_status)
+    assert_equal("0: Transacción autorizada para pagos y preautorizaciones", @order.redsys_text_status)
 
     order1 = @collaboration.create_order Date.today+1.month
     order1.save
 #    @order.update_attribute(:payment_response, {"Ds_Response" => 111111}.to_json)
 #    assert_equal("Transacción denegada", @order.redsys_text_status)
     order1.update_attribute(:payment_response, {"Ds_Response" => 116}.to_json)
-    assert_equal("Disponible insuficiente", order1.redsys_text_status)
+    assert_equal("116: Disponible insuficiente", order1.redsys_text_status)
   end
 
 end

@@ -120,8 +120,12 @@ ActiveAdmin.register Collaboration do
       li link_to "Marcar órdenes enviadas como pagadas", params.merge(:action => :mark_as_paid), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
     end
   end
+  
+  sidebar "Procesar respuestas del banco", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
+    render("admin/process_bank_response")
+  end 
 
-  sidebar "Ayuda", 'data-panel' => :collapsed, only: :index, priority: 1 do
+  sidebar "Ayuda", 'data-panel' => :collapsed, only: :index, priority: 2 do
     h4 "Nomenclatura de las órdenes"
     ul do
       li "_ = pendiente"
@@ -273,16 +277,49 @@ ActiveAdmin.register Collaboration do
       send_file Collaboration.bank_filename Date.today
     else
       flash[:notice] = "El fichero no existe aún"
+      redirect_to :admin_collaborations
     end
   end
 
   collection_action :mark_as_charged, :method => :get do
     Order.mark_bank_orders_as_charged!
+    redirect_to :admin_collaborations
   end
 
   collection_action :mark_as_paid, :method => :get do
     Order.mark_bank_orders_as_paid!
+    redirect_to :admin_collaborations
   end
+
+  collection_action :process_bank_response, :method => :post do  
+    items = Nokogiri::XML(params[:import][:file]).xpath('/Document/CstmrPmtStsRpt/OrgnlPmtInfAndSts/TxInfAndSts')
+    items.each do |item|
+      begin
+        code = item.at_xpath("StsRsnInf/Rsn/Cd").text
+        col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
+        date = Date.civil( * item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").split(/\D/).map {|i| i.to_i} )
+
+        col = Collaboration.find(col_id)
+        if col
+          orders = Collaboration.find(col_id).get_orders(date, date)
+          if orders[-1].is_paid?
+            orders[-1].mark_as_returned! code
+          else
+            para "La colaboración #{col_id} no tiene órdenes registradas como pagadas."
+          end
+        else
+          para "La colaboración #{col_id} no existe."
+        end
+
+      rescue
+        para "No posible procesar la devolucion:"
+        pre "#{item.to_yaml}"
+      end
+
+
+    end
+    link_to 'Volver', :admin_collaborations
+  end  
 
   member_action :charge_order do
     resource.charge!
@@ -297,12 +334,6 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  controller do
-    def show
-      @collaboration = Collaboration.with_deleted.find(params[:id])
-      show! #it seems to need this
-    end
-  end
 
   csv do
     column :id

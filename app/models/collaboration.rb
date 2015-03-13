@@ -236,12 +236,17 @@ class Collaboration < ActiveRecord::Base
   end
 
   MAX_RETURNED_ORDERS = 2
-  def returned_order
+  def returned_order error=nil, warn=false
     # FIXME: this should be orders for the inflextions
     # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
     # should have a solid test base before doing this change and review where .order
     # is called. 
-    if self.order.count >= MAX_RETURNED_ORDERS
+
+    if error
+      self.set_error
+    elsif warn
+      self.set_warning
+    elsif self.order.count >= MAX_RETURNED_ORDERS
       last_order = self.last_order_for(Date.today)
       if last_order
         last_month = last_order.payable_at.unique_month 
@@ -250,6 +255,7 @@ class Collaboration < ActiveRecord::Base
       end
       self.set_warning if Date.today.unique_month - last_month >= self.frequency*MAX_RETURNED_ORDERS
     end
+    self.save
   end
 
   def has_warnings?
@@ -260,9 +266,12 @@ class Collaboration < ActiveRecord::Base
     self.status==1
   end
 
+  def set_error
+    self.status = 1
+  end
+
   def set_warning
     self.status = 4
-    self.save
   end
 
   def must_have_order? date
