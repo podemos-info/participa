@@ -321,7 +321,7 @@ ActiveAdmin.register Collaboration do
         orders = nil
         col = Collaboration.joins(:order).find_by_id(col_id)
         if col
-          orders = col.get_orders(date, date)
+          orders = col.get_orders(date, date)[0]
           if orders[-1].is_paid?
             if orders[-1].mark_as_returned! code
               result = :ok

@@ -195,7 +195,7 @@ class Order < ActiveRecord::Base
   def bank_returned_reason
     if self.payment_response
       if SEPA_RETURNED_REASONS[self.payment_response]
-        "#{self.payment_response}: #{SEPA_RETURNED_REASONS[self.payment_response][:error]}"
+        "#{self.payment_response}: #{SEPA_RETURNED_REASONS[self.payment_response][:text]}"
       else
         "#{self.payment_response}"
       end
