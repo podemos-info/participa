@@ -1,4 +1,4 @@
-def show_order order
+def show_order order, html_output = true
   otext  = if o.has_errors?
               "x"
             elsif o.has_warnings?
@@ -22,7 +22,7 @@ def show_collaboration_orders(collaboration, html_output = true)
     odate = orders[0].payable_at
     month = odate.month.to_s
     month = (html_output ? content_tag(:strong, month).html_safe : "|"+month+"|") if odate.unique_month==today
-    month_orders = orders.sort {|a,b| a.id <=> b.id }.map {|o| show_order o } .join("")
+    month_orders = orders.sort_by {|o| o.created_at or Date.civil(2100,1,1) }.map {|o| show_order o, html_output } .join("")
     if html_output
       month + month_orders.html_safe
     else
@@ -320,7 +320,7 @@ ActiveAdmin.register Collaboration do
         end
         messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders.map {|o| show_order o}}
       rescue
-        messages << { result: :error, info: item }
+        messages << { result: :error, info: item, message: $!.message }
       end
     end
     render "admin/process_bank_response_results", locals: {messages: messages}, layout: true
