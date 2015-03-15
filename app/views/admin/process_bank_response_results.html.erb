@@ -1,0 +1,40 @@
+<%= Arbre::Context.new({}, self) do
+
+  table do
+    th "Colaboración"
+    th "Ordenes"
+    th "Código"
+    th "Resultado"
+  
+    messages.each do |m|
+      tr do
+        if m[:collaboration].is_a? Collaboration
+          td link_to m[:collaboration].id, admin_collaboration_path(m[:collaboration]) 
+        else
+          td m[:collaboration]
+        end
+
+        if m[:result] == :error
+          td colspan: 3 do
+            para "No ha sido posible procesar la devolucion:"
+            pre item
+          end
+        else
+          td "#{m[:date]} #{ m[:orders].join if m[:orders] }"
+          td m[:ret_code]
+          case m[:result]
+           when :ok
+            td "La respuesta ha sido procesada correctamente."
+          when :no_collaboration
+            td "La colaboración no existe."
+          when :no_order
+            td "La colaboración no tiene órdenes registradas como pagadas."
+          when :no_mark
+            td "Ha ocurrido un fallo al marcar la orden como devuelta."
+          end
+        end
+      end
+    end
+  end
+  link_to 'Volver', :admin_collaborations 
+end %>

@@ -1,27 +1,28 @@
+def show_order order
+  otext  = if o.has_errors?
+              "x"
+            elsif o.has_warnings?
+              "!"
+            elsif o.is_paid?
+              "o"
+            elsif o.was_returned?
+              "d"
+            elsif o.is_chargable? or not o.persisted?
+              "_"
+            else
+              "~"
+            end
+  otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
+  otext
+end
+
 def show_collaboration_orders(collaboration, html_output = true)
   today = Date.today.unique_month
   output = (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |orders|
     odate = orders[0].payable_at
     month = odate.month.to_s
     month = (html_output ? content_tag(:strong, month).html_safe : "|"+month+"|") if odate.unique_month==today
-    month_orders = orders.sort {|a,b| a.id <=> b.id }.map do |o|
-      otext  = if o.has_errors?
-                "x"
-              elsif o.has_warnings?
-                "!"
-              elsif o.is_paid?
-                "o"
-              elsif o.was_returned?
-                "d"
-              elsif o.is_chargable? or not o.persisted?
-                "_"
-              else
-                "~"
-              end
-
-      otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
-      otext
-    end .join("")
+    month_orders = orders.sort {|a,b| a.id <=> b.id }.map {|o| show_order o } .join("")
     if html_output
       month + month_orders.html_safe
     else
@@ -317,7 +318,7 @@ ActiveAdmin.register Collaboration do
         else
           result = :no_collaboration
         end
-        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders}
+        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders.map {|o| show_order o}}
       rescue
         messages << { result: :error, info: item }
       end
