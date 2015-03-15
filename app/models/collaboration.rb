@@ -450,4 +450,8 @@ class Collaboration < ActiveRecord::Base
   def self.has_bank_file? date
     [ File.exists?(BANK_FILE_LOCK), File.exists?(self.bank_filename(date)) ]
   end
+
+  def self.update_paid_recent_bank_collaborations orders
+    Collaboration.recent.joins(:order).merge(orders).update_all(status: 3)
+  end
 end

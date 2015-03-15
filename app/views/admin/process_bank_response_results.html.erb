@@ -2,6 +2,7 @@
 
   table do
     th "Colaboración"
+    th "Fecha"
     th "Ordenes"
     th "Código"
     th "Resultado"
@@ -20,7 +21,8 @@
             pre m[:info]
           end
         else
-          td "#{m[:date]} #{ m[:orders].join if m[:orders] }"
+          td m[:date]
+          td m[:orders] ? m[:orders].map {|o| show_order o} .join.html_safe : ""
           td m[:ret_code]
           case m[:result]
            when :ok
