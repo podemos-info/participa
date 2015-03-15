@@ -4,7 +4,7 @@ def show_collaboration_orders(collaboration, html_output = true)
     odate = orders[0].payable_at
     month = odate.month.to_s
     month = (html_output ? content_tag(:strong, month).html_safe : "|"+month+"|") if odate.unique_month==today
-    month_orders = orders.map do |o|
+    month_orders = orders.sort {|a,b| a.id <=> b.id }.map do |o|
       otext  = if o.has_errors?
                 "x"
               elsif o.has_warnings?
@@ -291,34 +291,38 @@ ActiveAdmin.register Collaboration do
     redirect_to :admin_collaborations
   end
 
-  collection_action :process_bank_response, :method => :post do  
-    items = Nokogiri::XML(params[:import][:file]).xpath('/Document/CstmrPmtStsRpt/OrgnlPmtInfAndSts/TxInfAndSts')
+  collection_action :process_bank_response, :method => :post do
+    messages = []
+    xml = Nokogiri::XML(params["process_bank_response"]["file"])
+    xml.remove_namespaces!
+    items = xml.xpath('/Document/CstmrPmtStsRpt/OrgnlPmtInfAndSts/TxInfAndSts')
     items.each do |item|
       begin
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
         col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
-        date = Date.civil( * item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").split(/\D/).map {|i| i.to_i} )
-
-        col = Collaboration.find(col_id)
+        date = Date.civil( * item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text.split(/\D/).map {|i| i.to_i} )
+        orders = nil
+        col = Collaboration.joins(:order).find_by_id(col_id)
         if col
-          orders = Collaboration.find(col_id).get_orders(date, date)
+          orders = col.get_orders(date, date)
           if orders[-1].is_paid?
-            orders[-1].mark_as_returned! code
+            if orders[-1].mark_as_returned! code
+              result = :ok
+            else
+              result = :no_mark
+            end
           else
-            para "La colaboración #{col_id} no tiene órdenes registradas como pagadas."
+            result = :no_order
           end
         else
-          para "La colaboración #{col_id} no existe."
+          result = :no_collaboration
         end
-
+        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders}
       rescue
-        para "No posible procesar la devolucion:"
-        pre "#{item.to_yaml}"
+        messages << { result: :error, info: item }
       end
-
-
     end
-    link_to 'Volver', :admin_collaborations
+    render "admin/process_bank_response_results", locals: {messages: messages}, layout: true
   end  
 
   member_action :charge_order do
