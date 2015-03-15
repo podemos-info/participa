@@ -16,8 +16,8 @@
 
         if m[:result] == :error
           td colspan: 3 do
-            para "No ha sido posible procesar la devolucion:"
-            pre item
+            para "No ha sido posible procesar la devolucion: #{m[:message]}"
+            pre m[:info]
           end
         else
           td "#{m[:date]} #{ m[:orders].join if m[:orders] }"
