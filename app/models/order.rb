@@ -141,14 +141,18 @@ class Order < ActiveRecord::Base
   def mark_as_returned! code=nil
     self.payment_response = code if code
     self.status = 5
-    self.save
-    if self.parent
-      reason = SEPA_RETURNED_REASONS[self.payment_response]
-      if reason
-        self.parent.returned_order reason[:error], reason[:warn]
-      else
-        self.parent.returned_order
+    if self.save
+      if self.parent
+        reason = SEPA_RETURNED_REASONS[self.payment_response]
+        if reason
+          self.parent.returned_order reason[:error], reason[:warn]
+        else
+          self.parent.returned_order
+        end
       end
+      true
+    else
+      false
     end
   end
 
@@ -264,7 +268,7 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_response
-    @redsys_response ||= if self.payment_response.nil? then nil else JSON.parse(self.payment_response) end
+    @redsys_response ||= if not self.first or self.payment_response.nil? then nil else JSON.parse(self.payment_response) end
   end
 
   def redsys_parse_response! params, xml = nil
@@ -391,6 +395,17 @@ class Order < ActiveRecord::Base
             "Transacción denegada"
         end
       "#{self.redsys_response["Ds_Response"]}: #{message}"
+    elsif self.payment_response
+      meessage = case self.payment_response
+      when "SIS0298"  then  "El comercio no permite realizar operaciones de Tarjeta en Archivo."
+      when "SIS0319"  then  "El comercio no pertenece al grupo especificado en Ds_Merchant_Group."
+      when "SIS0321"  then  "La referencia indicada en Ds_Merchant_Identifier no está asociada al comercio."
+      when "SIS0322"  then  "Error de formato en Ds_Merchant_Group."
+      when "SIS0325"  then  "Se ha pedido no mostrar pantallas pero no se ha enviado ninguna referencia de tarjeta."
+      else
+        "Código desconocido"
+      end
+      "self.payment_response: #{message}"
     else
       "Transacción no procesada"
     end
