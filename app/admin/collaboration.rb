@@ -1,4 +1,4 @@
-def show_order order, html_output = true
+def show_order o, html_output = true
   otext  = if o.has_errors?
               "x"
             elsif o.has_warnings?
@@ -117,8 +117,22 @@ ActiveAdmin.register Collaboration do
         active = status[0] ? " (en progreso)" : ""
         li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
       end
-      li link_to "Marcar órdenes generadas como enviadas", params.merge(:action => :mark_as_charged), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
-      li link_to "Marcar órdenes enviadas como pagadas", params.merge(:action => :mark_as_paid), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
+      li do
+        this_month = Order.banks.by_date(Date.today, Date.today).to_be_charged.count
+        prev_month = Order.banks.by_date(Date.today-1.month, Date.today-1.month).to_be_charged.count
+        """Marcar como enviadas:
+        #{link_to Date.today.strftime("%b (#{this_month})").downcase, params.merge(action: :mark_as_charged, date: Date.today), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        #{link_to (Date.today-1.month).strftime("%b (#{prev_month})").downcase, params.merge(action: :mark_as_charged, date: Date.today-1.month), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        """.html_safe
+      end
+      li do
+        this_month = Order.banks.by_date(Date.today, Date.today).charging.count
+        prev_month = Order.banks.by_date(Date.today-1.month, Date.today-1.month).charging.count
+        """Marcar como pagadas:
+        #{link_to Date.today.strftime("%b (#{this_month})").downcase, params.merge(action: :mark_as_paid, date: Date.today), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        #{link_to (Date.today-1.month).strftime("%b (#{prev_month})").downcase, params.merge(action: :mark_as_paid, date: Date.today-1.month), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        """.html_safe
+      end
     end
   end
   
@@ -283,12 +297,14 @@ ActiveAdmin.register Collaboration do
   end
 
   collection_action :mark_as_charged, :method => :get do
-    Order.mark_bank_orders_as_charged!
+    date = Date.parse params[:date]
+    Order.mark_bank_orders_as_charged! date
     redirect_to :admin_collaborations
   end
 
   collection_action :mark_as_paid, :method => :get do
-    Order.mark_bank_orders_as_paid!
+    date = Date.parse params[:date]
+    Order.mark_bank_orders_as_paid! date
     redirect_to :admin_collaborations
   end
 
@@ -301,7 +317,7 @@ ActiveAdmin.register Collaboration do
       begin
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
         col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
-        date = Date.civil( * item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text.split(/\D/).map {|i| i.to_i} )
+        date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
         orders = nil
         col = Collaboration.joins(:order).find_by_id(col_id)
         if col
@@ -318,12 +334,12 @@ ActiveAdmin.register Collaboration do
         else
           result = :no_collaboration
         end
-        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders.map {|o| show_order o}}
+        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders }
       rescue
         messages << { result: :error, info: item, message: $!.message }
       end
     end
-    render "admin/process_bank_response_results", locals: {messages: messages}, layout: true
+    render "admin/process_bank_response_results", locals: {messages: messages}
   end  
 
   member_action :charge_order do
