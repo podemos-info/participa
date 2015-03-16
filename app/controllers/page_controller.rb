@@ -137,6 +137,10 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Cuéntanos que tal te acogieron en su casa o coche", form_id: 66, extra_qs:"" }
   end
 
+  def responsable_web_autonomico
+    render :form_iframe, locals: { title: "Responsables webs autonómicos", form_id: 68, extra_qs:"" }
+  end
+
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []
