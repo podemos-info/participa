@@ -16,7 +16,7 @@ class Collaboration < ActiveRecord::Base
   has_many :order, as: :parent
 
   attr_accessor :skip_queries_validations
-  validates :amount, :frequency, presence: true
+  validates :payment_type, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
   validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
