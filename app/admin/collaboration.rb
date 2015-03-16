@@ -320,8 +320,14 @@ ActiveAdmin.register Collaboration do
         date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
         iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
         bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
+        fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
         orders = nil
-        col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
+        if date < Date.civil(2015,2,1)
+          col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
+        else
+          cols = Collaboration.with_deleted.joins(:user).joins(:order).where(iban_account: iban).select {|c| I18n.transliterate(c.user.full_name).upcase == fullname}
+          col = cols.first if cols.length == 1
+        end
         if col
           orders = col.get_orders(date, date)[0]
           if orders[-1].payment_identifier == "#{iban}/#{bic}"
@@ -340,7 +346,7 @@ ActiveAdmin.register Collaboration do
         else
           result = :no_collaboration
         end
-        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}" }
+        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}", fullname: fullname }
       rescue
         messages << { result: :error, info: item, message: $!.message }
       end
