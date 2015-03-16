@@ -80,7 +80,7 @@ class Collaboration < ActiveRecord::Base
     self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
-  def set_active
+  def   
     self.status=2 if self.status < 2
     self.save
   end
@@ -217,7 +217,7 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def payment_processed order
+  def payment_processed! order
     if order.is_paid?
       if order.has_warnings?
         self.status = 4
@@ -236,7 +236,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   MAX_RETURNED_ORDERS = 2
-  def returned_order error=nil, warn=false
+  def returned_order! error=nil, warn=false
     # FIXME: this should be orders for the inflextions
     # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
     # should have a solid test base before doing this change and review where .order
@@ -253,7 +253,7 @@ class Collaboration < ActiveRecord::Base
       else
         last_month = self.created_at.unique_month
       end
-      self.set_warning if Date.today.unique_month - last_month >= self.frequency*MAX_RETURNED_ORDERS
+      self.set_warning if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
     end
     self.save
   end

@@ -136,7 +136,7 @@ class Order < ActiveRecord::Base
     self.payed_at = date
     self.save
     if self.parent
-      self.parent.payment_processed self
+      self.parent.payment_processed! self
     end 
   end
 
@@ -147,9 +147,9 @@ class Order < ActiveRecord::Base
       if self.parent and not self.parent.deleted?
         reason = SEPA_RETURNED_REASONS[self.payment_response]
         if reason
-          self.parent.returned_order reason[:error], reason[:warn]
+          self.parent.returned_order! reason[:error], reason[:warn]
         else
-          self.parent.returned_order
+          self.parent.returned_order!
         end
       end
       true
@@ -317,7 +317,7 @@ class Order < ActiveRecord::Base
     self.save
 
     if self.parent
-      self.parent.payment_processed self
+      self.parent.payment_processed! self
     end    
   end
 
@@ -378,7 +378,7 @@ class Order < ActiveRecord::Base
     self.save
     
     if self.parent
-      self.parent.payment_processed self
+      self.parent.payment_processed! self
     end
   end
 

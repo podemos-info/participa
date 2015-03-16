@@ -361,6 +361,16 @@ ActiveAdmin.register Collaboration do
     end
   end
 
+  action_item :only => :show do
+    link_to('Recuperar colaboración borrada', recover_admin_collaboration_path(collaboration), method: :post, data: { confirm: "¿Estas segura de querer recuperar esta colaboración?" }) if collaboration.deleted?
+  end
+
+  member_action :recover, :method => :post do
+    collaboration = Collaboration.with_deleted.find(params[:id])
+    collaboration.restore
+    flash[:notice] = "Ya se ha recuperado la colaboración."
+    redirect_to action: :show
+  end
 
   csv do
     column :id
