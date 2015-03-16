@@ -56,10 +56,11 @@ Rails.application.routes.draw do
 
 	get '/comparte-el-cambio', to: 'page#demo', as: 'demo'
     get '/comparte-el-cambio/compartir-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
-    get '/comparte-el-cambio/compartir-coche-sevilla', to: 'page#share_car_sevilla', as: 'share_car_sevilla'
-    get '/comparte-el-cambio/compartir-coche-doshermanas', to: 'page#share_car_doshermanas', as: 'share_car_doshermanas'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
-    get '/comparte-el-cambio/encuentra-viaje', to: 'page#find_car', as: 'find_car'
+    get '/comparte-el-cambio/compartir-coche-sevilla', to: 'page#share_car_sevilla', as: 'share_car_sevilla'
+    get '/comparte-el-cambio/encuentra-viaje-sevilla', to: 'page#find_car_sevilla', as: 'find_car_sevilla'
+    get '/comparte-el-cambio/compartir-coche-doshermanas', to: 'page#share_car_doshermanas', as: 'share_car_doshermanas'
+    get '/comparte-el-cambio/encuentra-viaje-doshermanas', to: 'page#find_car_doshermanas', as: 'find_car_doshermanas'
     get '/comparte-el-cambio/valoracion-propietarios', to: 'page#comparte_cambio_valoracion_propietarios', as: 'comparte_cambio_valoracion_propietarios'
     get '/comparte-el-cambio/valoracion-usuarios', to: 'page#comparte_cambio_valoracion_usuarios', as: 'comparte_cambio_valoracion_usuarios'
 
