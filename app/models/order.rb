@@ -182,7 +182,7 @@ class Order < ActiveRecord::Base
     "FF05" => { error: false, warn: true, text: "Tipo de 'Direct Debit' incorrecto."},
     "MD01" => { error: false, text: "Transacción no autorizada."},
     "MD02" => { error: false, text: "Información del cliente incompleta o incorrecta."},
-    "MD06" => { error: false, text: "El cliente reclama no haber autorizado esta orden (hasta 8 semanas dé plazo)."},
+    "MD06" => { error: false, text: "El cliente reclama no haber autorizado esta orden (hasta 8 semanas de plazo)."},
     "MD07" => { error: true, text: "El titular de la cuenta ha muerto."},
     "MS02" => { error: false, text: "El cliente ha devuelto esta orden."},
     "MS03" => { error: false, text: "Razón no especificada por el banco."},
