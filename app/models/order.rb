@@ -73,9 +73,11 @@ class Order < ActiveRecord::Base
   end
 
   def error_message
-    return self.redsys_text_status if self.status == 4 and self.payment_type == 1
-    return self.bank_returned_reason if self.status == 5 and self.payment_type != 1
-    ""
+    if self.payment_type == 1
+      return self.redsys_text_status
+    else
+      return self.bank_text_status
+    end
   end
 
   def self.parent_from_order_id order_id
@@ -192,15 +194,22 @@ class Order < ActiveRecord::Base
     "SL01" => { error: true, text: "Cobro bloqueado a entidad por lista negra o ausencia en lista de cobros autorizados."}
   }
 
-  def bank_returned_reason
-    if self.payment_response
-      if SEPA_RETURNED_REASONS[self.payment_response]
-        "#{self.payment_response}: #{SEPA_RETURNED_REASONS[self.payment_response][:text]}"
+  def bank_text_status
+    case self.status
+    when 4
+      "Error"
+    when 5
+      if self.payment_response
+        if SEPA_RETURNED_REASONS[self.payment_response]
+          "#{self.payment_response}: #{SEPA_RETURNED_REASONS[self.payment_response][:text]}"
+        else
+          "#{self.payment_response}"
+        end
       else
-        "#{self.payment_response}"
+        "Orden devuelta"
       end
     else
-      "Orden devuelta"
+      ""
     end
   end
 
@@ -374,10 +383,26 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_text_status
-    if self.redsys_response
-      
-        # Given a status code, returns the status message
-      message = case self.redsys_response["Ds_Response"].to_i
+    case self.status
+    when 5
+      "Orden devuelta"
+    else
+      code =  if self.redsys_response
+                self.redsys_response["Ds_Response"]
+              elsif self.payment_response
+                self.payment_response
+              else
+                nil
+              end
+      if code
+        code = code.to_i if code.is_a? String and not code.start_with? "SIS"
+          # Given a status code, returns the status message
+        message = case code
+          when "SIS0298"  then "El comercio no permite realizar operaciones de Tarjeta en Archivo."
+          when "SIS0319"  then "El comercio no pertenece al grupo especificado en Ds_Merchant_Group."
+          when "SIS0321"  then "La referencia indicada en Ds_Merchant_Identifier no está asociada al comercio."
+          when "SIS0322"  then "Error de formato en Ds_Merchant_Group."
+          when "SIS0325"  then "Se ha pedido no mostrar pantallas pero no se ha enviado ninguna referencia de tarjeta."
           when 0..99      then "Transacción autorizada para pagos y preautorizaciones"
           when 900        then "Transacción autorizada para devoluciones y confirmaciones"
           when 101        then "Tarjeta caducada"
@@ -395,20 +420,10 @@ class Order < ActiveRecord::Base
           else
             "Transacción denegada"
         end
-      "#{self.redsys_response["Ds_Response"]}: #{message}"
-    elsif self.payment_response
-      meessage = case self.payment_response
-      when "SIS0298"  then  "El comercio no permite realizar operaciones de Tarjeta en Archivo."
-      when "SIS0319"  then  "El comercio no pertenece al grupo especificado en Ds_Merchant_Group."
-      when "SIS0321"  then  "La referencia indicada en Ds_Merchant_Identifier no está asociada al comercio."
-      when "SIS0322"  then  "Error de formato en Ds_Merchant_Group."
-      when "SIS0325"  then  "Se ha pedido no mostrar pantallas pero no se ha enviado ninguna referencia de tarjeta."
+        "#{code}: #{message}"
       else
-        "Código desconocido"
+        "Transacción no procesada"
       end
-      "self.payment_response: #{message}"
-    else
-      "Transacción no procesada"
     end
   end
 
