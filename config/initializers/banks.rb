@@ -6,7 +6,7 @@ module Podemos
     19 => "DEUTESBBXXX",
     21 => "BCNDESM1XXX",
     30 => "ESPCESMMXXX",
-    31 => "ETCHES2GXXX",
+    31 => "CAGLESMMXXX",
     36 => "SABNESMMXXX",
     38 => "BSSSESM2XXX",
     42 => "BSABESBBXXX",
