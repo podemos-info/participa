@@ -118,7 +118,7 @@ class PageController < ApplicationController
   end
 
   def candidaturas_primarias_autonomicas
-    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias autonómicas e insulares", form_id: 63, extra_qs:"" }
+    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias Forales Euskadi", form_id: 63, extra_qs:"" }
   end
 
   def listas_primarias_autonomicas
