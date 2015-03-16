@@ -80,7 +80,7 @@ class Collaboration < ActiveRecord::Base
     self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
-  def   
+  def set_active
     self.status=2 if self.status < 2
     self.save
   end
