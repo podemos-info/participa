@@ -76,9 +76,10 @@
     <span class="no-label">Aportación económica</span>
     <span class="no-input"><span id="js-collaboration-alert-amount"></span></span>
   </div>
-<% 
-=begin
+
+  <% if not @collaboration.has_payment? %>
   <p><%= link_to "Indicar financiación territorial", "#", class: "js-collaboration-assignment-toggle", style:"float:right" %></p>
+  <% end %>
   <div class="js-collaboration-assignment">
   <%= content_tag(:h3, "Financiación territorial") %>
     <p>Marcando estas casillas un porcentaje de tu colaboración se destinará a la financiación de los consejos ciudadanos territoriales:</p>
@@ -94,6 +95,4 @@
       </div>
     </div>
   </div>
-<%
-=end %>
 </fieldset>

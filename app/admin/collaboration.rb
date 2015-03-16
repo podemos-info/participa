@@ -318,23 +318,35 @@ ActiveAdmin.register Collaboration do
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
         col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
         date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
+        iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
+        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
+        fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
         orders = nil
-        col = Collaboration.joins(:order).find_by_id(col_id)
+        if date < Date.civil(2015,2,1)
+          col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
+        else
+          cols = Collaboration.with_deleted.joins(:user).joins(:order).where(iban_account: iban).select {|c| I18n.transliterate(c.user.full_name).upcase == fullname}
+          col = cols.first if cols.length == 1
+        end
         if col
           orders = col.get_orders(date, date)[0]
-          if orders[-1].is_paid?
-            if orders[-1].mark_as_returned! code
-              result = :ok
+          if orders[-1].payment_identifier == "#{iban}/#{bic}"
+            if orders[-1].is_paid?
+              if orders[-1].mark_as_returned! code
+                result = :ok
+              else
+                result = :no_mark
+              end
             else
-              result = :no_mark
+              result = :no_order
             end
           else
-            result = :no_order
+            result = :wrong_account
           end
         else
           result = :no_collaboration
         end
-        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders }
+        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}", fullname: fullname }
       rescue
         messages << { result: :error, info: item, message: $!.message }
       end
@@ -355,6 +367,16 @@ ActiveAdmin.register Collaboration do
     end
   end
 
+  action_item :only => :show do
+    link_to('Recuperar colaboración borrada', recover_admin_collaboration_path(collaboration), method: :post, data: { confirm: "¿Estas segura de querer recuperar esta colaboración?" }) if collaboration.deleted?
+  end
+
+  member_action :recover, :method => :post do
+    collaboration = Collaboration.with_deleted.find(params[:id])
+    collaboration.restore
+    flash[:notice] = "Ya se ha recuperado la colaboración."
+    redirect_to action: :show
+  end
 
   csv do
     column :id

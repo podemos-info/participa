@@ -136,7 +136,7 @@ class Order < ActiveRecord::Base
     self.payed_at = date
     self.save
     if self.parent
-      self.parent.payment_processed self
+      self.parent.payment_processed! self
     end 
   end
 
@@ -144,12 +144,12 @@ class Order < ActiveRecord::Base
     self.payment_response = code if code
     self.status = 5
     if self.save
-      if self.parent
+      if self.parent and not self.parent.deleted?
         reason = SEPA_RETURNED_REASONS[self.payment_response]
         if reason
-          self.parent.returned_order reason[:error], reason[:warn]
+          self.parent.returned_order! reason[:error], reason[:warn]
         else
-          self.parent.returned_order
+          self.parent.returned_order!
         end
       end
       true
@@ -182,7 +182,7 @@ class Order < ActiveRecord::Base
     "FF05" => { error: false, warn: true, text: "Tipo de 'Direct Debit' incorrecto."},
     "MD01" => { error: false, text: "Transacción no autorizada."},
     "MD02" => { error: false, text: "Información del cliente incompleta o incorrecta."},
-    "MD06" => { error: false, text: "El cliente reclama no haber autorizado esta orden (hasta 8 semanas dé plazo)."},
+    "MD06" => { error: false, text: "El cliente reclama no haber autorizado esta orden (hasta 8 semanas de plazo)."},
     "MD07" => { error: true, text: "El titular de la cuenta ha muerto."},
     "MS02" => { error: false, text: "El cliente ha devuelto esta orden."},
     "MS03" => { error: false, text: "Razón no especificada por el banco."},
@@ -317,7 +317,7 @@ class Order < ActiveRecord::Base
     self.save
 
     if self.parent
-      self.parent.payment_processed self
+      self.parent.payment_processed! self
     end    
   end
 
@@ -378,7 +378,7 @@ class Order < ActiveRecord::Base
     self.save
     
     if self.parent
-      self.parent.payment_processed self
+      self.parent.payment_processed! self
     end
   end
 
