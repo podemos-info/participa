@@ -6,6 +6,7 @@
     th "Ordenes"
     th "Código"
     th "Resultado"
+    th "Alertas"
   
     messages.each do |m|
       tr do
@@ -25,8 +26,10 @@
           td m[:orders] ? m[:orders].map {|o| show_order o} .join.html_safe : ""
           td m[:ret_code]
           case m[:result]
-           when :ok
+          when :ok
             td "La respuesta ha sido procesada correctamente."
+          when :wrong_account
+            td "El número de cuenta no coincide: #{m[:account]}."
           when :no_collaboration
             td "La colaboración no existe."
           when :no_order
