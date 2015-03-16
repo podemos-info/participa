@@ -65,6 +65,9 @@ init_collaborations = () ->
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
     calculate_collaboration()
 
+  if ($('.js-collaboration-assignment-toggle').length==0)
+    show_assignments = true;
+    
   update_assigments()
   $('.js-collaboration-assignment-autonomy').on 'change', () ->
     update_assigments()

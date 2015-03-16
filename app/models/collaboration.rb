@@ -16,7 +16,7 @@ class Collaboration < ActiveRecord::Base
   has_many :order, as: :parent
 
   attr_accessor :skip_queries_validations
-  validates :amount, :frequency, presence: true
+  validates :payment_type, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
   validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
@@ -80,7 +80,7 @@ class Collaboration < ActiveRecord::Base
     self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
-  def set_active
+  def   
     self.status=2 if self.status < 2
     self.save
   end
@@ -217,7 +217,7 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def payment_processed order
+  def payment_processed! order
     if order.is_paid?
       if order.has_warnings?
         self.status = 4
@@ -236,20 +236,26 @@ class Collaboration < ActiveRecord::Base
   end
 
   MAX_RETURNED_ORDERS = 2
-  def returned_order
+  def returned_order! error=nil, warn=false
     # FIXME: this should be orders for the inflextions
     # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
     # should have a solid test base before doing this change and review where .order
     # is called. 
-    if self.order.count >= MAX_RETURNED_ORDERS
+
+    if error
+      self.set_error
+    elsif warn
+      self.set_warning
+    elsif self.order.count >= MAX_RETURNED_ORDERS
       last_order = self.last_order_for(Date.today)
       if last_order
         last_month = last_order.payable_at.unique_month 
       else
         last_month = self.created_at.unique_month
       end
-      self.set_warning if Date.today.unique_month - last_month >= self.frequency*MAX_RETURNED_ORDERS
+      self.set_warning if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
     end
+    self.save
   end
 
   def has_warnings?
@@ -260,9 +266,12 @@ class Collaboration < ActiveRecord::Base
     self.status==1
   end
 
+  def set_error
+    self.status = 1
+  end
+
   def set_warning
     self.status = 4
-    self.save
   end
 
   def must_have_order? date
@@ -440,5 +449,9 @@ class Collaboration < ActiveRecord::Base
 
   def self.has_bank_file? date
     [ File.exists?(BANK_FILE_LOCK), File.exists?(self.bank_filename(date)) ]
+  end
+
+  def self.update_paid_recent_bank_collaborations orders
+    Collaboration.recent.joins(:order).merge(orders).update_all(status: 3)
   end
 end
