@@ -1,27 +1,28 @@
+def show_order o, html_output = true
+  otext  = if o.has_errors?
+              "x"
+            elsif o.has_warnings?
+              "!"
+            elsif o.is_paid?
+              "o"
+            elsif o.was_returned?
+              "d"
+            elsif o.is_chargable? or not o.persisted?
+              "_"
+            else
+              "~"
+            end
+  otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
+  otext
+end
+
 def show_collaboration_orders(collaboration, html_output = true)
   today = Date.today.unique_month
   output = (collaboration.get_orders(Date.today-6.months, Date.today+6.months).map do |orders|
     odate = orders[0].payable_at
     month = odate.month.to_s
     month = (html_output ? content_tag(:strong, month).html_safe : "|"+month+"|") if odate.unique_month==today
-    month_orders = orders.map do |o|
-      otext  = if o.has_errors?
-                "x"
-              elsif o.has_warnings?
-                "!"
-              elsif o.is_paid?
-                "o"
-              elsif o.was_returned?
-                "d"
-              elsif o.is_chargable? or not o.persisted?
-                "_"
-              else
-                "~"
-              end
-
-      otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
-      otext
-    end .join("")
+    month_orders = orders.sort_by {|o| o.created_at or Date.civil(2100,1,1) }.map {|o| show_order o, html_output } .join("")
     if html_output
       month + month_orders.html_safe
     else
@@ -116,12 +117,30 @@ ActiveAdmin.register Collaboration do
         active = status[0] ? " (en progreso)" : ""
         li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
       end
-      li link_to "Marcar órdenes generadas como enviadas", params.merge(:action => :mark_as_charged), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
-      li link_to "Marcar órdenes enviadas como pagadas", params.merge(:action => :mark_as_paid), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" }
+      li do
+        this_month = Order.banks.by_date(Date.today, Date.today).to_be_charged.count
+        prev_month = Order.banks.by_date(Date.today-1.month, Date.today-1.month).to_be_charged.count
+        """Marcar como enviadas:
+        #{link_to Date.today.strftime("%b (#{this_month})").downcase, params.merge(action: :mark_as_charged, date: Date.today), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        #{link_to (Date.today-1.month).strftime("%b (#{prev_month})").downcase, params.merge(action: :mark_as_charged, date: Date.today-1.month), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        """.html_safe
+      end
+      li do
+        this_month = Order.banks.by_date(Date.today, Date.today).charging.count
+        prev_month = Order.banks.by_date(Date.today-1.month, Date.today-1.month).charging.count
+        """Marcar como pagadas:
+        #{link_to Date.today.strftime("%b (#{this_month})").downcase, params.merge(action: :mark_as_paid, date: Date.today), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        #{link_to (Date.today-1.month).strftime("%b (#{prev_month})").downcase, params.merge(action: :mark_as_paid, date: Date.today-1.month), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        """.html_safe
+      end
     end
   end
+  
+  sidebar "Procesar respuestas del banco", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
+    render("admin/process_bank_response")
+  end 
 
-  sidebar "Ayuda", 'data-panel' => :collapsed, only: :index, priority: 1 do
+  sidebar "Ayuda", 'data-panel' => :collapsed, only: :index, priority: 2 do
     h4 "Nomenclatura de las órdenes"
     ul do
       li "_ = pendiente"
@@ -273,16 +292,61 @@ ActiveAdmin.register Collaboration do
       send_file Collaboration.bank_filename Date.today
     else
       flash[:notice] = "El fichero no existe aún"
+      redirect_to :admin_collaborations
     end
   end
 
   collection_action :mark_as_charged, :method => :get do
-    Order.mark_bank_orders_as_charged!
+    date = Date.parse params[:date]
+    Order.mark_bank_orders_as_charged! date
+    redirect_to :admin_collaborations
   end
 
   collection_action :mark_as_paid, :method => :get do
-    Order.mark_bank_orders_as_paid!
+    date = Date.parse params[:date]
+    Order.mark_bank_orders_as_paid! date
+    redirect_to :admin_collaborations
   end
+
+  collection_action :process_bank_response, :method => :post do
+    messages = []
+    xml = Nokogiri::XML(params["process_bank_response"]["file"])
+    xml.remove_namespaces!
+    items = xml.xpath('/Document/CstmrPmtStsRpt/OrgnlPmtInfAndSts/TxInfAndSts')
+    items.each do |item|
+      begin
+        code = item.at_xpath("StsRsnInf/Rsn/Cd").text
+        col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
+        date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
+        iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
+        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
+        orders = nil
+        col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
+        if col
+          orders = col.get_orders(date, date)[0]
+          if orders[-1].payment_identifier == "#{iban}/#{bic}"
+            if orders[-1].is_paid?
+              if orders[-1].mark_as_returned! code
+                result = :ok
+              else
+                result = :no_mark
+              end
+            else
+              result = :no_order
+            end
+          else
+            result = :wrong_account
+          end
+        else
+          result = :no_collaboration
+        end
+        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}" }
+      rescue
+        messages << { result: :error, info: item, message: $!.message }
+      end
+    end
+    render "admin/process_bank_response_results", locals: {messages: messages}
+  end  
 
   member_action :charge_order do
     resource.charge!
@@ -297,12 +361,6 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  controller do
-    def show
-      @collaboration = Collaboration.with_deleted.find(params[:id])
-      show! #it seems to need this
-    end
-  end
 
   csv do
     column :id
