@@ -144,7 +144,7 @@ class Order < ActiveRecord::Base
     self.payment_response = code if code
     self.status = 5
     if self.save
-      if self.parent
+      if self.parent and not self.parent.deleted?
         reason = SEPA_RETURNED_REASONS[self.payment_response]
         if reason
           self.parent.returned_order reason[:error], reason[:warn]

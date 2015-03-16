@@ -321,7 +321,7 @@ ActiveAdmin.register Collaboration do
         iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
         bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
         orders = nil
-        col = Collaboration.joins(:order).find_by_id(col_id)
+        col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
         if col
           orders = col.get_orders(date, date)[0]
           if orders[-1].payment_identifier == "#{iban}/#{bic}"
