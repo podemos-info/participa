@@ -319,7 +319,7 @@ ActiveAdmin.register Collaboration do
         col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
         date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
         iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
-        bic = item.at_xpath("DbtrAgt/FinInstnId/BIC").text
+        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
         orders = nil
         col = Collaboration.joins(:order).find_by_id(col_id)
         if col
