@@ -74,6 +74,7 @@ ActiveAdmin.register Order do
       row :amount do |order|
         number_to_euro order.amount
       end
+      row :error_message
       row :first
       row :reference
       row :payment_type_name
