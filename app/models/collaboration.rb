@@ -242,20 +242,22 @@ class Collaboration < ActiveRecord::Base
     # should have a solid test base before doing this change and review where .order
     # is called. 
 
-    if error
-      self.set_error
-    elsif warn
-      self.set_warning
-    elsif self.order.count >= MAX_RETURNED_ORDERS
-      last_order = self.last_order_for(Date.today)
-      if last_order
-        last_month = last_order.payable_at.unique_month 
-      else
-        last_month = self.created_at.unique_month
+    if self.is_payable?
+      if error
+        self.set_error
+      elsif warn
+        self.set_warning
+      elsif self.order.count >= MAX_RETURNED_ORDERS
+        last_order = self.last_order_for(Date.today)
+        if last_order
+          last_month = last_order.payable_at.unique_month 
+        else
+          last_month = self.created_at.unique_month
+        end
+        self.set_warning if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
-      self.set_warning if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
+      self.save
     end
-    self.save
   end
 
   def has_warnings?

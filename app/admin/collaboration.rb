@@ -325,7 +325,7 @@ ActiveAdmin.register Collaboration do
         if date > Date.civil(2015,1,31)
           col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
         else
-          cols = Collaboration.with_deleted.joins(:user).joins(:order).where(iban_account: iban).select do |c|
+          cols = Collaboration.with_deleted.joins(:user).eager_load(:order).where(iban_account: iban).select do |c|
             I18n.transliterate(c.get_non_user.full_name).upcase == fullname
           end
           col = cols.first if cols.length == 1
