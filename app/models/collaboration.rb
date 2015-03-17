@@ -148,6 +148,13 @@ class Collaboration < ActiveRecord::Base
     "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}" if ccc_account
   end
 
+  def calculate_iban
+    return iban_account.gsub(" ","") if iban_account and !iban_account.empty?
+
+    ccc = self.ccc_full
+    iban = 98-("#{self.ccc_full}142800".to_i % 97)
+    "ES#{iban.to_s.rjust(2,"0")}#{ccc}"
+  end
   def calculate_bic
     return iban_bic if iban_bic and !iban_bic.empty?
     return Podemos::SpanishBIC[ccc_entity] if is_bank_national?
@@ -209,9 +216,7 @@ class Collaboration < ActiveRecord::Base
     if self.is_credit_card?
       self.redsys_identifier
     elsif self.is_bank_national?
-      ccc = self.ccc_full
-      iban = 98-("#{self.ccc_full}142800".to_i % 97)
-      "ES#{iban.to_s.rjust(2,"0")}#{ccc}/#{calculate_bic}"
+      "#{calculate_iban}/#{calculate_bic}"
     else
       "#{self.iban_account}/#{self.iban_bic}"
     end
@@ -368,7 +373,7 @@ class Collaboration < ActiveRecord::Base
           col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
           col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
           col_user.postal_code, col_user.country.upcase, 
-          self.iban_account, self.ccc_full, self.iban_bic, 
+          self.calculate_iban, self.ccc_full, self.calculate_bic, 
           order.amount/100, order.due_code, order.url_source, self.id, 
           self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
           self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
