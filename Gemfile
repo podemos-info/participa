@@ -46,6 +46,7 @@ gem 'ruby-openid'
 gem 'secure_headers'
 
 gem 'rake-progressbar'
+gem 'rails_autolink'
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114

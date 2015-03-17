@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306160407) do
+ActiveRecord::Schema.define(version: 20150312192438) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -111,15 +111,6 @@ ActiveRecord::Schema.define(version: 20150306160407) do
     t.text     "payment_response"
   end
 
-  create_table "pages", force: true do |t|
-    t.integer  "id_form"
-    t.string   "titulo"
-    t.string   "slug"
-    t.boolean  "require_login"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "participation_teams", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -135,6 +126,22 @@ ActiveRecord::Schema.define(version: 20150306160407) do
 
   add_index "participation_teams_users", ["participation_team_id"], name: "index_participation_teams_users_on_participation_team_id"
   add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
+
+  create_table "proposals", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "votes"
+    t.string   "reddit_url"
+    t.string   "reddit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "reddit_threshold", default: false
+    t.string   "image_url"
+    t.integer  "supports_count",   default: 0
+    t.integer  "hotness",          default: 0
+    t.integer  "supports_count",   default: 0
+    t.string   "image_url"
+  end
 
   create_table "report_groups", force: true do |t|
     t.string   "title"
@@ -169,6 +176,13 @@ ActiveRecord::Schema.define(version: 20150306160407) do
   end
 
   add_index "simple_captcha_data", ["key"], name: "idx_key"
+
+  create_table "supports", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "proposal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                    default: "", null: false
