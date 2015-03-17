@@ -181,6 +181,7 @@ module Podemos
     2065 => "CAIXESBBXXX",
     2066 => "CECAESMM066",
     2069 => "CAHMESMMXXX",
+    2074 => "BBVAESMMXXX",
     2077 => "CAHMESMMXXX",
     2080 => "CAGLESMMXXX",
     2081 => "CECAESMM081",

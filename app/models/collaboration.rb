@@ -149,15 +149,20 @@ class Collaboration < ActiveRecord::Base
   end
 
   def calculate_iban
-    return iban_account.gsub(" ","") if iban_account and !iban_account.empty?
-
-    ccc = self.ccc_full
-    iban = 98-("#{self.ccc_full}142800".to_i % 97)
-    "ES#{iban.to_s.rjust(2,"0")}#{ccc}"
+    iban = nil
+    if ccc_account and (not iban_account or is_bank_national?)
+      ccc = self.ccc_full
+      iban = 98-("#{ccc}142800".to_i % 97)
+      iban = "ES#{iban.to_s.rjust(2,"0")}#{ccc}"
+    end
+    iban = iban_account.gsub(" ","") if not iban and iban_account and !iban_account.empty?
+    iban
   end
   def calculate_bic
-    return iban_bic if iban_bic and !iban_bic.empty?
-    return Podemos::SpanishBIC[ccc_entity] if is_bank_national?
+    bic = Podemos::SpanishBIC[ccc_entity] if ccc_account and (not iban_account or is_bank_national?)
+    bic = Podemos::SpanishBIC[iban_account[4..7].to_i] if not bic and iban_account and !iban_account.empty? and iban_account[0..1]=="ES"
+    bic = iban_bic.gsub(" ","") if not bic and iban_bic and !iban_bic.empty?
+    bic
   end
 
   def admin_permalink
