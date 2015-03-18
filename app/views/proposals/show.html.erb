@@ -10,7 +10,7 @@
                   <%= image_tag("author-example.jpg", alt: @proposal.author) %>
                 </figure>            
                 <p class="name"><%= @proposal.author %><br>
-                <span class="date">hace 1 día</span></p>
+                <span class="date">hace <%= formatted_created_at(@proposal) %></span></p>
             </div>
 
             <%= image_tag(proposal_image(@proposal), alt: "") %>
