@@ -221,12 +221,12 @@ class Order < ActiveRecord::Base
 
   def redsys_expiration
     # Credit card is valid until the last day of expiration month
-    DateTime.strptime(self.redsys_response["Ds_ExpiryDate"], "%y%m") + 1.month - 1.seconds if self.redsys_response
+    DateTime.strptime(self.redsys_response["Ds_ExpiryDate"], "%y%m") + 1.month - 1.seconds if self.redsys_response and self.first
   end
 
   def redsys_order_id
     @order_id ||= 
-      if self.redsys_response
+      if self.redsys_response and self.first
         self.redsys_response["Ds_Order"]
       else
         if self.persisted?
@@ -261,7 +261,6 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_response_signature
-
     msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}"
     if self.raw_xml
       request_start = self.raw_xml.index "<Request"
@@ -278,7 +277,7 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_response
-    @redsys_response ||= if not self.first or self.payment_response.nil? then nil else JSON.parse(self.payment_response) end
+    @redsys_response ||= if self.payment_response.nil? then nil else JSON.parse(self.payment_response) end
   end
 
   def redsys_parse_response! params, xml = nil
@@ -387,13 +386,16 @@ class Order < ActiveRecord::Base
     when 5
       "Orden devuelta"
     else
-      code =  if self.redsys_response
-                self.redsys_response["Ds_Response"]
-              elsif self.payment_response
-                self.payment_response
+      code =  if self.redsys_response 
+                if self.first
+                  self.redsys_response["Ds_Response"]
+                else
+                  self.redsys_response[-1]
+                end
               else
                 nil
               end
+
       if code
         code = code.to_i if code.is_a? String and not code.start_with? "SIS"
           # Given a status code, returns the status message
