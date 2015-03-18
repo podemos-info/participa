@@ -24,7 +24,7 @@
             </p>
         
             <div class="info">
-                <%= link_to "Debate en Plaza Podemos", @proposal.reddit_url, :target => '_blank' %> | Termina en 34 días         
+                <%= link_to "Debate en Plaza Podemos", @proposal.reddit_url, :target => '_blank' %> | Termina en <%= time_left(@proposal) %>
             </div>
         </article>
     
