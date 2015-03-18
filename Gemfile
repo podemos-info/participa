@@ -73,5 +73,10 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'simplecov'
   gem 'webmock'
+  gem 'capybara'
+  gem "capybara-webkit"
+  gem 'rspec-rails', '~> 3.0'
+  gem 'launchy'
+  gem 'database_cleaner'
 end
 
