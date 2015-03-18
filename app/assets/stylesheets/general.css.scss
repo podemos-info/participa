@@ -982,7 +982,7 @@ proposals
     font-size: 1.4em;
     text-align: justify;
   }
-
+  
   img {
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1076,6 +1076,81 @@ proposals
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+/* -----------------------------------
+info page
+----------------------------------- */
+
+.video {
+background: #9e76a0; /* Old browsers */
+background: -moz-linear-gradient(top,  #9e76a0 0%, #c3a6cf 50%, #ffffff 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9e76a0), color-stop(50%,#c3a6cf), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e76a0', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+
+  width: 100%;
+  text-align: center;
+  // border-bottom: 2px solid #612D62;
+  padding: 20px 0;
+  height: 340px;
+
+  iframe {
+    width: 100%; 
+    max-width: 560px;
+    height:315px;
+  }
+}
+
+#info {
+  margin: 0 auto;
+  max-width: 940px;
+  min-height: 700px;
+  text-align: justify;
+  padding-bottom: 52px;
+
+  h1 {
+    color: #612d62;
+    font-family: Montserrat,Arial,sans-serif;
+    font-size: 2.6em;
+    padding: 20px;
+    text-transform: uppercase;  
+    text-align: left;
+  }
+
+  h2 {
+    border-top: 3px solid #612d62;
+    color: #612d62;
+    display: inline-block;
+    font-size: 2em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+  }
+
+  h3 {
+    color: #612d62;
+    font-size: 1.4em;   
+    padding: 10px 20px;
+  }
+  
+  p {
+    color: #333;
+    font-size: 1.4em;
+    text-align: justify;
+    padding: 0 20px;
+    line-height: 26px;
+  }
+  
+  a {
+    border-bottom: 1px solid #269283;
+    color: #269283;
+    padding-bottom: 2px;
+    text-decoration: none; 
+  }
 }
 
 /* -----------------------------------

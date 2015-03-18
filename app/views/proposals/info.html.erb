@@ -1,27 +1,31 @@
-<div>
+<div class="video">
+  <iframe style="width: 100%; max-width: 560px;height:315px;" src="https://www.youtube.com/embed/nXLu9xfMZPI" frameborder="0" allowfullscreen></iframe>
+</div>
 
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/nXLu9xfMZPI" frameborder="0" allowfullscreen></iframe>
-  
-  <p>Las Iniciativas Ciudadanas Podemos (ICP) es un mecanismo de democracia directa real dentro de Podemos.</p>
+<div id="info">  
+  <h1>Las Iniciativas Ciudadanas Podemos (ICP) es un mecanismo de democracia directa real dentro de Podemos.</h1>
 
   <p>Las ICP permiten que cualquier persona pueda proponer algo en Podemos, y sobre las propuestas más apoyadas por los inscritos se celebre un referéndum donde todos los inscritos decidan de manera vinculante si se llevan a cabo o no.</p>
 
   <p>La gente propone y la gente decide. Así de sencillo.</p>
 
-  <p>---</p>
+  <h2>El mecanismo consta de varias fases:</h2>
 
-  <p>El mecanismo consta de varias fases:</p>
+  <h3>1. RECOGIDA DE PROPUESTAS</h3>
+  <p>Cualquier persona puede colgar una propuesta en Plaza Podemos (<%= link_to 'plaza.podemos.info', 'http://plaza.podemos.info', target: "_blank" %>). Las propuestas que tengan un cierto número de votos positivos (el equivalente al 0,2% de los inscritos en Podemos, y tened en cuenta que los votos negativos son irrelevantes), pasan a la web de participación <%= link_to 'participa.podemos.info', 'http://participa.podemos.info', target: 'blank' %></p>
 
-  <p>1. RECOGIDA DE PROPUESTAS. Cualquier persona puede colgar una propuesta en Plaza Podemos (<%= link_to 'plaza.podemos.info', 'http://plaza.podemos.info', target: "_blank" %>). Las propuestas que tengan un cierto número de votos positivos (el equivalente al 0,2% de los inscritos en Podemos, y tened en cuenta que los votos negativos son irrelevantes), pasan a la web de participación <%= link_to 'participa.podemos.info', 'http://participa.podemos.info', target: 'blank' %></p>
-
-  <p>2. APOYO DE PROPUESTAS. En la web de participación los inscritos en Podemos y los círculos pueden apoyar las propuestas. Cuando el 2% de los inscritos ha apoyado una propuesta, se manda un correo electrónico a todos los inscritos anunciándolo, para darle una buena visibilidad.
+  <h3>2. APOYO DE PROPUESTAS</h3> 
+  <p>En la web de participación los inscritos en Podemos y los círculos pueden apoyar las propuestas. Cuando el 2% de los inscritos ha apoyado una propuesta, se manda un correo electrónico a todos los inscritos anunciándolo, para darle una buena visibilidad.
   Cuando en 3 meses el 10% de los inscritos o el 20% de los círculos ha apoyado una propuesta, pasa a la siguiente fase.</p>
 
-  <p>3. DESARROLLO DE PROPUESTAS. La organización pone en marcha un grupo de trabajo junto a quienes la propusieron para desarrollar la propuesta, que en el plazo máximo de un mes debe finalizar su redacción final. Si no hay acuerdo entre ambas partes, la dos versiones (la propuesta inicial y la del grupo de trabajo) serán presentadas.</p>
+  <h3>3. DESARROLLO DE PROPUESTAS</h3>
+  <p>La organización pone en marcha un grupo de trabajo junto a quienes la propusieron para desarrollar la propuesta, que en el plazo máximo de un mes debe finalizar su redacción final. Si no hay acuerdo entre ambas partes, la dos versiones (la propuesta inicial y la del grupo de trabajo) serán presentadas.</p>
 
-  <p>4. REFERENDUM VINCULANTE. La propuesta se difunde y pasa a votarse de manera segura en la plataforma Agora Voting. La decisión se tomará por mayoría simple y será vinculante, y sólo podrá ser modificada mediante el mismo mecanismo (asegurando que mecanismos indirectos no modifiquen estas decisiones).</p>
+  <h3>4. REFERENDUM VINCULANTE</h3>
+  <p>La propuesta se difunde y pasa a votarse de manera segura en la plataforma Agora Voting. La decisión se tomará por mayoría simple y será vinculante, y sólo podrá ser modificada mediante el mismo mecanismo (asegurando que mecanismos indirectos no modifiquen estas decisiones).</p>
 
-  <p>[ Puedes encontrar el texto aprobado en la Asamblea Ciudadana definiendo el mecanismo en el siguiente enlace (páginas 42 y 43): 
+  <p><em>[ Puedes encontrar el texto aprobado en la Asamblea Ciudadana definiendo el mecanismo en el siguiente enlace (páginas 42 y 43):<em> <br/>
     <% url = 'https://web-podemos.s3.amazonaws.com/wordpress/wp-content/uploads/2014/11/documento_organizativo_alta_03.pdf' %>
-    <%= link_to url, url, target: "_blank" %> ]</p>
+    <%= link_to url, url, target: "_blank" %> ]
+  </p>
 </div>
