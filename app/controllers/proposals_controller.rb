@@ -9,4 +9,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
   end
 
+  def info
+  end
+
 end
