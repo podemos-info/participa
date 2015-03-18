@@ -139,8 +139,6 @@ ActiveRecord::Schema.define(version: 20150312192438) do
     t.string   "image_url"
     t.integer  "supports_count",   default: 0
     t.integer  "hotness",          default: 0
-    t.integer  "supports_count",   default: 0
-    t.string   "image_url"
   end
 
   create_table "report_groups", force: true do |t|

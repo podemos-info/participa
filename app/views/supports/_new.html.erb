@@ -1,5 +1,5 @@
 <% if proposal.supported?(current_user) %>
-    <span>Ya has apoyado esta propuesta. ¡Muchas gracias!</span>
+    <span class="supported">Ya has apoyado esta propuesta. ¡Muchas gracias!</span>
 <% else %>
     <%= form_for [proposal, Support.new], 
                html: {id: "support_proposal_#{proposal.id}", remote: true,
