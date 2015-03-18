@@ -1,7 +1,11 @@
 module ProposalsHelper
 
   def time_left(proposal)
-    distance_of_time_in_words(proposal.finishes_at, Time.now)
+    distance_of_time_in_words_to_now(proposal.finishes_at)
+  end
+
+  def formatted_created_at(proposal)
+    distance_of_time_in_words_to_now(proposal.created_at)
   end
 
   def formatted_description(proposal)
