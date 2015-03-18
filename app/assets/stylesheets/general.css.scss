@@ -936,12 +936,30 @@ proposals
     -moz-border-radius: 3px;
     -o-border-radius: 3px;
     color: white;
-    display: inline-block;
+    display: block;
     font-size: 1.4em;
     padding: 10px;
     text-align: center;
     text-transform: uppercase;
     width: 90%;
+    margin: 0 auto;
+    border: 0; 
+  }
+
+  .supported, .thanks {
+    background: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
+    display: block;
+    font-size: 1.7em;
+    font-weight: bold;   
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;    
+    border-radius: 3px;    
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
   }
 
 }
@@ -1000,6 +1018,12 @@ proposals
   .info {
     font-size: 1.4em;
     color: #858585;
+    line-height: 24px;
+
+    .supported, .thanks {
+      color: #3c763d;
+      font-weight: bold;
+    }
   }
 
   .support {
@@ -1010,9 +1034,11 @@ proposals
     -o-border-radius: 3px;
     color: white;
     display: inline-block;
-    margin: 10px;    
+    margin: 10px 0;    
     padding: 5px 10px;
     text-transform: uppercase;
+    border: 0;
+    line-height: 24px;
   }
 }
 
@@ -1295,6 +1321,12 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
     }
   }
   
+  .proposal {
+    .support {
+      width: 100%;
+    }
+  } 
+
   .proposal-wrapper {
     .container {
       width: 100%;
