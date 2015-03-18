@@ -74,6 +74,7 @@ ActiveAdmin.register Order do
       row :amount do |order|
         number_to_euro order.amount
       end
+      row :error_message
       row :first
       row :reference
       row :payment_type_name
@@ -125,4 +126,14 @@ ActiveAdmin.register Order do
     end
   end
 
+  action_item :only => :show do
+    link_to('Recuperar orden borrada', recover_admin_order_path(order), method: :post, data: { confirm: "¿Estas segura de querer recuperar esta order?" }) if order.deleted?
+  end
+
+  member_action :recover, :method => :post do
+    order = Order.with_deleted.find(params[:id])
+    order.restore
+    flash[:notice] = "Ya se ha recuperado la orden"
+    redirect_to action: :show
+  end
 end
