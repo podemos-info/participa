@@ -31,6 +31,7 @@ class Reddit
     { title:       data["title"],
       description: data["selftext"],
       votes:       data["ups"],
+      author:      data["author"],
       reddit_url:  data["url"],
       reddit_id:   data["name"] }
   end
