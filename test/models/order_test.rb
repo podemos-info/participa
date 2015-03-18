@@ -9,7 +9,7 @@ class OrderTest < ActiveSupport::TestCase
 
   setup do
     @collaboration = FactoryGirl.create(:collaboration, :ccc)
-    @order = @collaboration.create_order Date.today
+    @order = @collaboration.create_order Date.today, true
   end
 
   test "should .unique_month work for Date, Time and DateTime" do 
@@ -131,13 +131,13 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal("", @order.error_message)
     @order.update_attribute(:status, 4)
     @order.update_attribute(:payment_type, 2)
-    assert_equal("", @order.error_message)
+    assert_equal("Error", @order.error_message)
     @order.update_attribute(:status, 4)
     @order.update_attribute(:payment_type, 1)
     @order.update_attribute(:payment_response, {"Ds_Response"=> "101"}.to_json)
-    assert_equal("Tarjeta caducada", @order.error_message)
+    assert_equal("101: Tarjeta caducada", @order.error_message)
     @order.update_attribute(:status, 5)
-    assert_equal("Devuelta", @order.error_message)
+    assert_equal("Orden devuelta", @order.error_message)
   end
 
   test "should .parent_from_order_id work" do
@@ -204,7 +204,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .mark_bank_orders_as_charged! work" do
     collaboration1 = FactoryGirl.create(:collaboration, :credit_card)
-    order1 = collaboration1.create_order Date.today
+    order1 = collaboration1.create_order Date.today, true
     order1.save
     Order.mark_bank_orders_as_charged! Date.today
     order1.reload
@@ -213,7 +213,7 @@ class OrderTest < ActiveSupport::TestCase
 
     # shouldnt mark as charged iban type collaboration order 
     collaboration2 = FactoryGirl.create(:collaboration, :iban)
-    order2 = collaboration2.create_order Date.today
+    order2 = collaboration2.create_order Date.today, true
     order2.save
     Order.mark_bank_orders_as_charged! Date.today+1.hour
     order2.reload
@@ -228,7 +228,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal(0, @order.status)
 
     collaboration2 = FactoryGirl.create(:collaboration, :iban)
-    order2 = collaboration2.create_order Date.today 
+    order2 = collaboration2.create_order Date.today, true
     order2.save
 
     # shouldnt mark as charged on bank no status charging
@@ -261,7 +261,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal 12, @order.redsys_order_id.length
 
     # reusing Ds_Order from redsys response 
-    order2 = @collaboration.create_order Date.today
+    order2 = @collaboration.create_order Date.today, true
     order2_id = "000000#{order2.id}Caaaa"
     order2.payment_response = {"Ds_Order" => order2_id}.to_json
     order2.save
@@ -274,11 +274,11 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_merchant_url work" do
     @order.save
-    assert_equal "", @order.redsys_merchant_url
-
-    @order.first = true 
-    @order.save
     assert_equal "https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=00000000000#{@order.id}&user_id=#{@collaboration.user.id}", @order.redsys_merchant_url
+
+    @order.first = false 
+    @order.save
+    assert_equal "", @order.redsys_merchant_url
   end
 
   test "should .redsys_merchant_request_signature work" do
@@ -329,7 +329,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_params work" do
     @order.save
-    response = {"Ds_Merchant_Currency"=>"978", "Ds_Merchant_MerchantCode"=>"054517297", "Ds_Merchant_MerchantName"=>"Podemos", "Ds_Merchant_Terminal"=>"001", "Ds_Merchant_TransactionType"=>"0", "Ds_Merchant_PayMethods"=>"T", "Ds_Merchant_MerchantData"=>1, "Ds_Merchant_MerchantURL"=>"", "Ds_Merchant_Order"=>"000000000001", "Ds_Merchant_Amount"=>1000, "Ds_Merchant_MerchantSignature"=>@order.redsys_merchant_request_signature, "Ds_Merchant_Identifier"=>@order.parent.payment_identifier, "Ds_Merchant_DirectPayment"=>"true"}
+    response = {"Ds_Merchant_Currency"=>"978", "Ds_Merchant_MerchantCode"=>"054517297", "Ds_Merchant_MerchantName"=>"Podemos", "Ds_Merchant_Terminal"=>"001", "Ds_Merchant_TransactionType"=>"0", "Ds_Merchant_PayMethods"=>"T", "Ds_Merchant_MerchantData"=>1, "Ds_Merchant_MerchantURL"=>"https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=000000000001&user_id=1", "Ds_Merchant_Order"=>"000000000001", "Ds_Merchant_Amount"=>1000, "Ds_Merchant_MerchantSignature"=>@order.redsys_merchant_request_signature, "Ds_Merchant_Identifier"=>"REQUIRED", "Ds_Merchant_UrlOK"=>"http://localhost/colabora/OK", "Ds_Merchant_UrlKO"=>"http://localhost/colabora/KO"}
     assert_equal response, @order.redsys_params
   end
 
@@ -347,14 +347,14 @@ class OrderTest < ActiveSupport::TestCase
 
     # some possible payment responses 
     @order.update_attribute(:payment_response, {"Ds_Response" => 0}.to_json)
-    assert_equal("Transacción autorizada para pagos y preautorizaciones", @order.redsys_text_status)
+    assert_equal("0: Transacción autorizada para pagos y preautorizaciones", @order.redsys_text_status)
 
-    order1 = @collaboration.create_order Date.today+1.month
+    order1 = @collaboration.create_order Date.today+1.month, true
     order1.save
 #    @order.update_attribute(:payment_response, {"Ds_Response" => 111111}.to_json)
 #    assert_equal("Transacción denegada", @order.redsys_text_status)
     order1.update_attribute(:payment_response, {"Ds_Response" => 116}.to_json)
-    assert_equal("Disponible insuficiente", order1.redsys_text_status)
+    assert_equal("116: Disponible insuficiente", order1.redsys_text_status)
   end
 
 end
