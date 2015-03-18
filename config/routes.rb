@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     get '/listas-primarias-autonomicas', to: 'page#listas_primarias_autonomicas', as: 'listas_primarias_autonomicas'
 
     get '/proposals', to: 'proposals#index', as: 'proposals'
+    get '/proposals/info', to: 'proposals#info', as: 'proposals_info'
     get '/proposals/:id', to: 'proposals#show', as: 'proposal'
     post 'supports/:proposal_id', to: 'supports#create', as: 'proposal_supports'
 
