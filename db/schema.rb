@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312192438) do
+ActiveRecord::Schema.define(version: 20150318123902) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20150312192438) do
   create_table "proposals", force: true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "votes"
+    t.integer  "votes",            default: 0
     t.string   "reddit_url"
     t.string   "reddit_id"
     t.datetime "created_at"
@@ -139,8 +139,7 @@ ActiveRecord::Schema.define(version: 20150312192438) do
     t.string   "image_url"
     t.integer  "supports_count",   default: 0
     t.integer  "hotness",          default: 0
-    t.integer  "supports_count",   default: 0
-    t.string   "image_url"
+    t.string   "author"
   end
 
   create_table "report_groups", force: true do |t|

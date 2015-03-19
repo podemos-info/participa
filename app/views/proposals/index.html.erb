@@ -1,7 +1,8 @@
+<% content_for :title, "Iniciativas ciudadanas" %>
 <section class="proposal-wrapper">
 
     <div class="how-info">
-        <a href="#">¿Qué son y cómo funcionan las Iniciativas Ciudadanas Podemos?</a>
+        <%= link_to '¿Qué son y cómo funcionan las Iniciativas Ciudadanas Podemos?', proposals_info_path %>
     </div>
     
     <h1>Iniciativas Ciudadanas</h1>
@@ -25,11 +26,11 @@
         <% @hot.each do |proposal| %>
             <article class="proposal-sidebar">    
                 <div>
-                    <p class="finish">Termina en <strong><%= time_left(proposal) %></strong></p>
+                    <p class="finish"><span>Termina en </span><strong><%= time_left(proposal) %></strong></p>
                     <p class="support">
                         <strong>
                             <%= formatted_support_percentage(proposal, precision: 1) %>
-                        </strong> de Avales
+                        </strong><span> de avales</span>
                     </p>
                     <h3><%= proposal.title %></h3>
                     <%= link_to("Ver iniciativa", proposal_path(proposal), :class => "show" ) %>
