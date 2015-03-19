@@ -2,7 +2,7 @@ class ProposalsController < ApplicationController
 
   def index
     @proposals = Proposal.filter(params[:filter])
-    @hot = Proposal.hot.limit(3)
+    @hot = Proposal.reddit.hot.limit(3)
   end
 
   def show
