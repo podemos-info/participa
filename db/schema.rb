@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318123902) do
+ActiveRecord::Schema.define(version: 20150319151721) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -128,17 +128,17 @@ ActiveRecord::Schema.define(version: 20150318123902) do
   add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
 
   create_table "proposals", force: true do |t|
-    t.string   "title"
+    t.text     "title",            limit: 255
     t.text     "description"
-    t.integer  "votes",            default: 0
+    t.integer  "votes",                        default: 0
     t.string   "reddit_url"
     t.string   "reddit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "reddit_threshold", default: false
+    t.boolean  "reddit_threshold",             default: false
     t.string   "image_url"
-    t.integer  "supports_count",   default: 0
-    t.integer  "hotness",          default: 0
+    t.integer  "supports_count",               default: 0
+    t.integer  "hotness",                      default: 0
     t.string   "author"
   end
 
