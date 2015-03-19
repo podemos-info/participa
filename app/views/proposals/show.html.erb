@@ -39,12 +39,12 @@
             <p class="check"><strong>0,2%</strong><span> de votos positivos en </span><br>
             <%= link_to "Plaza Podemos", @proposal.reddit_url, :target => '_blank' %>
             </p>
-            <p class="times"><strong>2%</strong><span> de apoyos</span></p>
-            <p class="times"><strong>10%</strong><span> de apoyos</span></p>
+            <p class="<%= @proposal.monthly_email_required_votes? ? "check" : "times"%>"><strong>2%</strong><span> de apoyos</span></p>
+            <p class="<%= @proposal.agoravoting_required_votes? ? "check" : "times"%>"><strong>10%</strong><span> de apoyos</span></p>
            
             <div class="divider"></div>
            
-            <p class="times"><strong>20%</strong><span> de círculos apoyando</span></p>
+            <p class="times soon"><strong>20%</strong><span> de círculos apoyando</span></p>
 
             <div class="divider"></div>
             
@@ -59,7 +59,7 @@
                 </div>
             </div>
             
-            <%= link_to "0,6% de círculos apoyando", "#", :class => 'info-circles' %>
+            <%= link_to "0% de círculos apoyando", "#", :class => 'info-circles soon' %>
 
             <p class="time-left">Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
             <%= render "supports/new", {proposal: @proposal, button_class: 'button-support'} %>
