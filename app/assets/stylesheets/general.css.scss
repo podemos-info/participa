@@ -362,7 +362,7 @@ header & menu
 .menu ul{
   width:100%;
   overflow:hidden;
-  padding:1.5em 0;
+  padding:1em 0 0;
   float:right;
 }
 .menu ul li{
@@ -372,14 +372,16 @@ header & menu
 .menu ul li a{
   display:inline-block;
   font-family:Arial,sans-serif;
-  margin:0 0 0 1.5em;
-  padding:1.5em;
-  font-weight:bold;;
-  color:#000;
+  margin:0em;
+  padding:0.8em 1.5em;
+  font-weight:bold;
+  color: white;
+  text-shadow: 1px 1px 1px #612d62, -1px -1px 0 #612d62, 1px -1px 0 #612d62, -1px 1px 0 #612d62;
+  max-width: 80px;
 }
-.menu li span{
+/*.menu li span{
   display:none;
-}
+}*/
 .menu-logout{
   background:image-url("bg.purple-divide-v.png") 0 0 no-repeat;
 }
@@ -885,13 +887,17 @@ proposals
     line-height: 20px;
     vertical-align: top;
 
-    strong {
+    strong, span {
       vertical-align: top;      
     }
   }
 
   .time-left {
     text-align: center;
+  }
+
+  .soon {
+    opacity: 0.5;
   }
   
   h3 {
@@ -974,7 +980,10 @@ proposals
 
   h2 {
     color: #612d62;
-    font-size: 2em;    
+    font-size: 2em;
+    a {
+      color: #612d62;
+    }
   }
 
   p {
@@ -988,7 +997,7 @@ proposals
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -o-border-radius: 3px;
-    max-width: 500px;
+    max-width: 800px;
     width: 100%;
   }
 

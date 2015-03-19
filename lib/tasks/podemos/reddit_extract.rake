@@ -1,5 +1,4 @@
 require 'reddit'
-WebMock.allow_net_connect!
 
 namespace :podemos do
   desc "[podemos] Extract best proposals from Reddit - Plaza Podemos"
