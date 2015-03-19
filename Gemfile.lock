@@ -114,6 +114,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.4.1)
+      capybara (>= 2.3.0, < 2.5.0)
+      json
     carmen (1.0.1)
       unicode_utils (~> 1.4.0)
     carmen-rails (1.0.1)
@@ -391,6 +394,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
+  capybara-webkit
   carmen-rails
   coffee-rails (~> 4.0.0)
   database_cleaner
