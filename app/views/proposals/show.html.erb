@@ -1,3 +1,4 @@
+<% content_for :title, "Iniciativas ciudadanas" %>
 <section class="proposal-wrapper">
   
     <div class="container">
@@ -34,34 +35,34 @@
         <h2>Información</h2>
 
         <article class="proposal-sidebar no-border-bottom">    
-                <p class="threshold">Umbrales</p>
-                <p class="check"><strong>0,2%</strong> de Votos positivos en <br>
-                <%= link_to "Plaza Podemos", @proposal.reddit_url, :target => '_blank' %>
-                </p>
-                <p class="times"><strong>2%</strong> de Apoyos</p>
-                <p class="times"><strong>10%</strong> de Apoyos</p>
-               
-                <div class="divider"></div>
-               
-                <p class="times"><strong>20%</strong> de círculos apoyando</p>
+            <p class="threshold">Umbrales</p>
+            <p class="check"><strong>0,2%</strong><span> de votos positivos en </span><br>
+            <%= link_to "Plaza Podemos", @proposal.reddit_url, :target => '_blank' %>
+            </p>
+            <p class="times"><strong>2%</strong><span> de apoyos</span></p>
+            <p class="times"><strong>10%</strong><span> de apoyos</span></p>
+           
+            <div class="divider"></div>
+           
+            <p class="times"><strong>20%</strong><span> de círculos apoyando</span></p>
 
-                <div class="divider"></div>
-                
-                <p class="info">
-                    <%= formatted_support_count(@proposal) %> Apoyos necesarios
-                    <br>
-                    <%= formatted_support_percentage(@proposal, significant: true) %> de 10% necesario
-                </p>
-                
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="10" style="width: 10%">
-                    </div>
+            <div class="divider"></div>
+            
+            <p class="info">
+                <%= formatted_support_count(@proposal) %> apoyos necesarios
+                <br>
+                <%= formatted_support_percentage(@proposal, significant: true) %> de 10% necesario
+            </p>
+            
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="10" style="width: 10%">
                 </div>
-                
-                <%= link_to "0,6% de círculos apoyando", "#", :class => 'info-circles' %>
+            </div>
+            
+            <%= link_to "0,6% de círculos apoyando", "#", :class => 'info-circles' %>
 
-                <p class="time-left">Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
-                <%= render "supports/new", {proposal: @proposal, button_class: 'button-support'} %>
+            <p class="time-left">Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
+            <%= render "supports/new", {proposal: @proposal, button_class: 'button-support'} %>
         </article>
     </div>
 

@@ -20,7 +20,7 @@ class Proposal < ActiveRecord::Base
 
   #For testing purpose, temporarily using 300,000 as the number of confirmed users in the Census
   def confirmed_users
-    300000
+    User.confirmed.count
   end
 
   #For testing purpose, temporarily using 0 as the number of endorsements
