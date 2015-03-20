@@ -122,7 +122,7 @@ class PageController < ApplicationController
   end
 
   def listas_primarias_autonomicas
-    render :form_iframe, locals: { title: "Formulario de listas de primarias autonómicas e insulares", form_id: 67, extra_qs:"" }
+    render :form_iframe, locals: { title: "Formulario de listas de primarias Forales Euskadi", form_id: 67, extra_qs:"" }
   end
   
   def apoderados_campana_autonomica_andalucia
@@ -145,6 +145,10 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Avales para candidaturas de primarias", form_id: 83, extra_qs:"" }
   end
 
+  def iniciativas_ciudadanas
+    render :form_iframe, locals: { title: "Iniciativas ciudadanas", form_id: 84, extra_qs:"" }
+  end
+  
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []
