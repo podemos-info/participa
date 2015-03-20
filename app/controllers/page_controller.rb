@@ -145,8 +145,8 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Avales para candidaturas de primarias", form_id: 83, extra_qs:"" }
   end
 
-  def iniciativas_ciudadanas
-    render :form_iframe, locals: { title: "Iniciativas ciudadanas", form_id: 84, extra_qs:"" }
+  def iniciativa_ciudadana
+    render :form_iframe, locals: { title: "Iniciativa ciudadana", form_id: 84, extra_qs:"" }
   end
   
   def credits_status

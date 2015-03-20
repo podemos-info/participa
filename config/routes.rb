@@ -69,7 +69,7 @@ Rails.application.routes.draw do
     get '/candidaturas-primarias-autonomicas', to: 'page#candidaturas_primarias_autonomicas', as: 'candidaturas_primarias_autonomicas'
     get '/listas-primarias-autonomicas', to: 'page#listas_primarias_autonomicas', as: 'listas_primarias_autonomicas'
     get '/avales-candidaturas-primarias', to: 'page#avales_candidaturas_primarias', as: 'avales_candidaturas_primarias'
-    get '/iniciativas-ciudadanas', to: 'page#iniciativas_ciudadanas', as: 'iniciativas_ciudadanas'
+    get '/iniciativa-ciudadana', to: 'page#iniciativa_ciudadana', as: 'iniciativa_ciudadana'
 
     get '/propuestas', to: 'proposals#index', as: 'proposals'
     get '/propuestas/info', to: 'proposals#info', as: 'proposals_info'
