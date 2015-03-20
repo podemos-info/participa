@@ -8,7 +8,7 @@ class PageController < ApplicationController
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
                                               :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
                                               :apoderados_campana_autonomica_andalucia, :comparte_cambio_valoracion_propietarios,
-                                              :comparte_cambio_valoracion_usuarios, :avales_candidaturas_primarias]
+                                              :comparte_cambio_valoracion_usuarios, :avales_candidaturas_primarias, :iniciativa_ciudadana]
 
   def privacy_policy
   end
