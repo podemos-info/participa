@@ -70,6 +70,11 @@ Rails.application.routes.draw do
     get '/listas-primarias-autonomicas', to: 'page#listas_primarias_autonomicas', as: 'listas_primarias_autonomicas'
     get '/avales-candidaturas-primarias', to: 'page#avales_candidaturas_primarias', as: 'avales_candidaturas_primarias'
 
+    get '/propuestas', to: 'proposals#index', as: 'proposals'
+    get '/propuestas/info', to: 'proposals#info', as: 'proposals_info'
+    get '/propuestas/:id', to: 'proposals#show', as: 'proposal'
+    post '/apoyar/:proposal_id', to: 'supports#create', as: 'proposal_supports'
+
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote

@@ -1,0 +1,45 @@
+<% content_for :title, "Iniciativas ciudadanas" %>
+<section class="proposal-wrapper">
+
+    <div class="how-info">
+        <%= link_to '¿Qué son y cómo funcionan las Iniciativas Ciudadanas Podemos?', proposals_info_path %>
+    </div>
+    
+    <h1>Iniciativas Ciudadanas</h1>
+    
+
+
+    <div class="container">
+        <nav>
+            <%= filtered_proposals 'Nuevas',     'recent' %>
+            <%= filtered_proposals 'Populares',  'popular' %>
+            <%= filtered_proposals 'Por tiempo', 'time' %>
+            <%= filtered_proposals 'Candentes',  'hot' %>
+        </nav>
+  
+        <div>
+            <p>Las propuestas que ya han superado el primer umbral aparecerán en los próximos días.</p>
+          <%= render @proposals %>
+        </div>
+    </div>
+
+    <div class="sidebar">
+
+        <h2>Candentes</h2>
+        <% @hot.each do |proposal| %>
+            <article class="proposal-sidebar">    
+                <div>
+                    <p class="finish"><span>Termina en </span><strong><%= time_left(proposal) %></strong></p>
+                    <p class="support">
+                        <strong>
+                            <%= formatted_support_percentage(proposal, precision: 1) %>
+                        </strong><span> de avales</span>
+                    </p>
+                    <h3><%= proposal.title %></h3>
+                    <%= link_to("Ver iniciativa", proposal_path(proposal), :class => "show" ) %>
+                </div>
+            </article>
+        <% end %>
+    </div>
+
+</section>
