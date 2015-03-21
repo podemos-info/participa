@@ -7,8 +7,6 @@
     
     <h1>Iniciativas Ciudadanas</h1>
     
-
-
     <div class="container">
         <nav>
             <%= filtered_proposals 'Nuevas',     'recent' %>
@@ -18,9 +16,6 @@
         </nav>
   
         <div>
-            <article class="proposal">
-            <h2>Las propuestas que ya han superado el primer umbral aparecerán en los próximos días.</h2>
-            </article>
           <%= render @proposals %>
         </div>
     </div>
