@@ -3,7 +3,7 @@ es:
     show:
       "404":
         title: "Página no encontrada" 
-        message_html: "No pudimos encontrar esa página. Vuelvelo a intenarlo más tarde o <a href='/'>prueba desde la página principal</a>."
+        message_html: "No pudimos encontrar esa página. Vuelvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a>."
       "500":
         title: "Error en el servidor" 
         message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='mailto:soportevotaciones@podemos.info'>soportevotaciones@podemos.info</a>"
@@ -22,6 +22,8 @@ es:
       orders: Ordenes de pago
       election: Elección
       elections: Elecciones
+      proposal: Iniciativa
+      proposals: Iniciativas
       notice: Aviso
       notices: Avisos
       participation_team: Equipo de Acción Participativa
@@ -97,6 +99,10 @@ es:
         starts_at: "Empieza"
         ends_at: "Termina"
         close_message: "Mensaje de cierre"
+      proposal: 
+        title: "Título"
+        description: "Descripción"
+        image_url: "URL de la imagen"
       notice:
         title: "Título"
         body: "Mensaje" 

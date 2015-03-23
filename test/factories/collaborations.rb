@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :collaboration do
+    payment_type 1
     association :user
     amount 1000
     frequency 1

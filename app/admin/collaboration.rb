@@ -320,8 +320,16 @@ ActiveAdmin.register Collaboration do
         date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
         iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
         bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
+        fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
         orders = nil
-        col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
+        if date > Date.civil(2015,1,31)
+          col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
+        else
+          cols = Collaboration.with_deleted.joins(:user).eager_load(:order).where(iban_account: iban).select do |c|
+            I18n.transliterate(c.get_non_user.full_name).upcase == fullname
+          end
+          col = cols.first if cols.length == 1
+        end
         if col
           orders = col.get_orders(date, date)[0]
           if orders[-1].payment_identifier == "#{iban}/#{bic}"
@@ -340,7 +348,7 @@ ActiveAdmin.register Collaboration do
         else
           result = :no_collaboration
         end
-        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}" }
+        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}", fullname: fullname }
       rescue
         messages << { result: :error, info: item, message: $!.message }
       end
@@ -361,6 +369,16 @@ ActiveAdmin.register Collaboration do
     end
   end
 
+  action_item :only => :show do
+    link_to('Recuperar colaboración borrada', recover_admin_collaboration_path(collaboration), method: :post, data: { confirm: "¿Estas segura de querer recuperar esta colaboración?" }) if collaboration.deleted?
+  end
+
+  member_action :recover, :method => :post do
+    collaboration = Collaboration.with_deleted.find(params[:id])
+    collaboration.restore
+    flash[:notice] = "Ya se ha recuperado la colaboración."
+    redirect_to action: :show
+  end
 
   csv do
     column :id

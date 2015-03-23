@@ -1,0 +1,26 @@
+<article class="proposal">
+    
+    <div class="author">
+		<figure>
+			<%= image_tag("author-default.png", alt: proposal.author) %>
+		</figure>
+    	<p class="name"><%= proposal.author %><br>
+		<span class="date">hace <%= formatted_created_at(proposal) %></span></p>
+    </div>
+
+	<%= image_tag(proposal_image(proposal), alt: "") %>
+    
+    <h2>
+    	<%= link_to(proposal.title, proposal ) %>
+    </h2>
+    
+    <p>
+      <%= simple_format(truncate(proposal.description, length: 300)) %>
+    </p>
+
+	<div class="info">
+    	<%= link_to("Ver iniciativa", proposal ) %> | Termina en <%= time_left(proposal) %> | 
+        <%= render "supports/new", {proposal: proposal, button_class: 'support'} %>
+    </div>  	
+
+</article>

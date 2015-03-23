@@ -46,6 +46,7 @@ gem 'ruby-openid'
 gem 'secure_headers'
 
 gem 'rake-progressbar'
+gem 'rails_autolink'
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
@@ -73,5 +74,10 @@ group :development, :test do
   gem 'simplecov'
   gem 'webmock'
   gem 'minitest-reporters'
+  gem 'capybara'
+  gem "capybara-webkit"
+  gem 'rspec-rails', '~> 3.0'
+  gem 'launchy'
+  gem 'database_cleaner'
 end
 

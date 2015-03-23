@@ -16,7 +16,7 @@ class Collaboration < ActiveRecord::Base
   has_many :order, as: :parent
 
   attr_accessor :skip_queries_validations
-  validates :amount, :frequency, presence: true
+  validates :payment_type, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
   validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
@@ -148,9 +148,21 @@ class Collaboration < ActiveRecord::Base
     "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}" if ccc_account
   end
 
+  def calculate_iban
+    iban = nil
+    if ccc_account and (not iban_account or is_bank_national?)
+      ccc = self.ccc_full
+      iban = 98-("#{ccc}142800".to_i % 97)
+      iban = "ES#{iban.to_s.rjust(2,"0")}#{ccc}"
+    end
+    iban = iban_account.gsub(" ","") if not iban and iban_account and !iban_account.empty?
+    iban
+  end
   def calculate_bic
-    return iban_bic if iban_bic and !iban_bic.empty?
-    return Podemos::SpanishBIC[ccc_entity] if is_bank_national?
+    bic = Podemos::SpanishBIC[ccc_entity] if ccc_account and (not iban_account or is_bank_national?)
+    bic = Podemos::SpanishBIC[iban_account[4..7].to_i] if not bic and iban_account and !iban_account.empty? and iban_account[0..1]=="ES"
+    bic = iban_bic.gsub(" ","") if not bic and iban_bic and !iban_bic.empty?
+    bic
   end
 
   def admin_permalink
@@ -209,15 +221,13 @@ class Collaboration < ActiveRecord::Base
     if self.is_credit_card?
       self.redsys_identifier
     elsif self.is_bank_national?
-      ccc = self.ccc_full
-      iban = 98-("#{self.ccc_full}142800".to_i % 97)
-      "ES#{iban.to_s.rjust(2,"0")}#{ccc}/#{calculate_bic}"
+      "#{calculate_iban}/#{calculate_bic}"
     else
       "#{self.iban_account}/#{self.iban_bic}"
     end
   end
 
-  def payment_processed order
+  def payment_processed! order
     if order.is_paid?
       if order.has_warnings?
         self.status = 4
@@ -236,26 +246,28 @@ class Collaboration < ActiveRecord::Base
   end
 
   MAX_RETURNED_ORDERS = 2
-  def returned_order error=nil, warn=false
+  def returned_order! error=nil, warn=false
     # FIXME: this should be orders for the inflextions
     # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
     # should have a solid test base before doing this change and review where .order
     # is called. 
 
-    if error
-      self.set_error
-    elsif warn
-      self.set_warning
-    elsif self.order.count >= MAX_RETURNED_ORDERS
-      last_order = self.last_order_for(Date.today)
-      if last_order
-        last_month = last_order.payable_at.unique_month 
-      else
-        last_month = self.created_at.unique_month
+    if self.is_payable?
+      if error
+        self.set_error
+      elsif warn
+        self.set_warning
+      elsif self.order.count >= MAX_RETURNED_ORDERS
+        last_order = self.last_order_for(Date.today)
+        if last_order
+          last_month = last_order.payable_at.unique_month 
+        else
+          last_month = self.created_at.unique_month
+        end
+        self.set_warning if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
-      self.set_warning if Date.today.unique_month - last_month >= self.frequency*MAX_RETURNED_ORDERS
+      self.save
     end
-    self.save
   end
 
   def has_warnings?
@@ -366,7 +378,7 @@ class Collaboration < ActiveRecord::Base
           col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
           col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
           col_user.postal_code, col_user.country.upcase, 
-          self.iban_account, self.ccc_full, self.iban_bic, 
+          self.calculate_iban, self.ccc_full, self.calculate_bic, 
           order.amount/100, order.due_code, order.url_source, self.id, 
           self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
           self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
