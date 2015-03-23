@@ -20,7 +20,7 @@ class PageController < ApplicationController
   end
 
   def guarantees_form
-    render :form_iframe, locals: { title: "Comisión de Garantías Democráticas", form_id: 77, extra_qs:"", return_path: guarantees_path }
+    render :form_iframe, locals: { title: "Comunicación a Comisiones de Garantías Democráticas", form_id: 77, extra_qs:"", return_path: guarantees_path }
   end
 
   def circles_validation
