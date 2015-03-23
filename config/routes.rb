@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     get '/representantes-electorales-extranjeros', to: 'page#representantes_electorales_extranjeros', as:"representantes_electorales_extranjeros"
     get '/responsables-areas-cc-autonomicos', to: 'page#responsables_areas_cc_autonomicos', as:"responsables_areas_cc_autonomicos"
     get '/boletin-correo-electronico', to: 'page#boletin_correo_electronico', as:"boletin_correo_electronico"
+    get '/responsable-web-autonomico', to: 'page#responsable_web_autonomico', as: 'responsable_web_autonomico'
 
 	get '/comparte-el-cambio', to: 'page#demo', as: 'demo'
     get '/comparte-el-cambio/compartir-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
@@ -67,6 +68,13 @@ Rails.application.routes.draw do
     get '/apoderados-campana-autonomica-andalucia', to: 'page#apoderados_campana_autonomica_andalucia', as: 'apoderados_campana_autonomica_andalucia'
     get '/candidaturas-primarias-autonomicas', to: 'page#candidaturas_primarias_autonomicas', as: 'candidaturas_primarias_autonomicas'
     get '/listas-primarias-autonomicas', to: 'page#listas_primarias_autonomicas', as: 'listas_primarias_autonomicas'
+    get '/avales-candidaturas-primarias', to: 'page#avales_candidaturas_primarias', as: 'avales_candidaturas_primarias'
+    get '/iniciativa-ciudadana', to: 'page#iniciativa_ciudadana', as: 'iniciativa_ciudadana'
+
+    get '/propuestas', to: 'proposals#index', as: 'proposals'
+    get '/propuestas/info', to: 'proposals#info', as: 'proposals_info'
+    get '/propuestas/:id', to: 'proposals#show', as: 'proposal'
+    post '/apoyar/:proposal_id', to: 'supports#create', as: 'proposal_supports'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote

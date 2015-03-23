@@ -8,7 +8,7 @@ class PageController < ApplicationController
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
                                               :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
                                               :apoderados_campana_autonomica_andalucia, :comparte_cambio_valoracion_propietarios,
-                                              :comparte_cambio_valoracion_usuarios]
+                                              :comparte_cambio_valoracion_usuarios, :avales_candidaturas_primarias, :iniciativa_ciudadana]
 
   def privacy_policy
   end
@@ -118,11 +118,11 @@ class PageController < ApplicationController
   end
 
   def candidaturas_primarias_autonomicas
-    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias autonómicas e insulares", form_id: 63, extra_qs:"" }
+    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias Forales Euskadi", form_id: 63, extra_qs:"" }
   end
 
   def listas_primarias_autonomicas
-    render :form_iframe, locals: { title: "Formulario de listas de primarias autonómicas e insulares", form_id: 67, extra_qs:"" }
+    render :form_iframe, locals: { title: "Formulario de listas de primarias Forales Euskadi", form_id: 67, extra_qs:"" }
   end
   
   def apoderados_campana_autonomica_andalucia
@@ -137,6 +137,18 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Cuéntanos que tal te acogieron en su casa o coche", form_id: 66, extra_qs:"" }
   end
 
+  def responsable_web_autonomico
+    render :form_iframe, locals: { title: "Responsables webs autonómicos", form_id: 68, extra_qs:"" }
+  end
+
+  def avales_candidaturas_primarias
+    render :form_iframe, locals: { title: "Avales para candidaturas de primarias", form_id: 83, extra_qs:"" }
+  end
+
+  def iniciativa_ciudadana
+    render :form_iframe, locals: { title: "Iniciativa ciudadana", form_id: 84, extra_qs:"" }
+  end
+  
   def credits_status
     Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
       credits = []
