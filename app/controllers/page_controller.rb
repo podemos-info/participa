@@ -19,16 +19,8 @@ class PageController < ApplicationController
   def guarantees
   end
 
-  def guarantees_conflict
-    render :form_iframe, locals: { title: "Comisión de Garantías Democráticas - Área de Conflictos y Garantías", form_id: 42, extra_qs:"", return_path: guarantees_path }
-  end
-
-  def guarantees_compliance
-    render :form_iframe, locals: { title: "Comisión de Garantías Democráticas - Área de Cumplimiento y Transparencia", form_id: 43, extra_qs:"", return_path: guarantees_path }
-  end
-
-  def guarantees_ethic
-    render :form_iframe, locals: { title: "Comisión de Garantías Democráticas - Área de Etica y Validación", form_id: 46, extra_qs:"", return_path: guarantees_path }
+  def guarantees_form
+    render :form_iframe, locals: { title: "Comisión de Garantías Democráticas", form_id: 77, extra_qs:"", return_path: guarantees_path }
   end
 
   def circles_validation
