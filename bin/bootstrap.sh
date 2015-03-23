@@ -4,7 +4,7 @@
 USER=vagrant
 
 sudo apt-get update
-sudo apt-get install -y postgresql-9.3 imagemagick redis-server curl git-core libpq-dev build-essential sqlite3
+sudo apt-get install -y postgresql-9.3 imagemagick redis-server curl git-core libpq-dev build-essential sqlite3 qt5-default libqt5webkit5-dev
 
 rm -rf /usr/local/rvm
 

@@ -325,6 +325,33 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal( 1, file_contents.grep(/#{payment_info}/).count ) 
     assert_equal( 1, file_contents.grep(/Status: OK, but with warnings/).count )
     FileUtils.rm("#{Rails.root}/log/redsys_test.log")
+
+    # TODO: migrate from collaboration to order 
+    #
+    ## response KO 
+    #params = {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:46", "Ds_SecurePayment"=>"0", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0913", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_ErrorCode"=>"SIS0051", "Ds_AuthorisationCode"=>"      "}
+    #collaboration.redsys_parse_response! params
+    #assert_equal(collaboration.redsys_response_code, "0913")
+    #assert_equal(collaboration.response_status, "KO")
+
+    ## response OK
+    #params = { "user_id"=>collaboration.user.id, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
+    #collaboration.redsys_parse_response! params
+    #assert_equal(collaboration.redsys_response_code, "0000")
+    #assert_equal(collaboration.response_status, "OK")
+
+    ## invalid user_id
+    #params = { "user_id"=>1, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
+    #collaboration.redsys_parse_response! params
+    #assert_equal(collaboration.redsys_response_code, "0000")
+    #assert_equal(collaboration.response_status, "KO")
+
+    ## invalid collaboration_id
+    #params = { "user_id"=>collaboration.user.id, "collaboration_id"=>333, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
+    #collaboration.redsys_parse_response! params
+    #assert_equal(collaboration.redsys_response_code, "0000")
+    #assert_equal(collaboration.response_status, "KO")
+
   end
 
   test "should .redsys_params work" do
@@ -336,8 +363,10 @@ class OrderTest < ActiveSupport::TestCase
   test "should .redsys_send_request work" do
     # webmock for mock requests
     @order.save
-    stub_request(:any, @order.redsys_post_url)
+    assert_equal nil, @order.payment_response
+    stub_request(:post, @order.redsys_post_url).to_return(:status => 200, :body => "<!-- +(RSisReciboOK)+ -->", :headers => {})
     @order.redsys_send_request
+    assert_equal "[\"RSisReciboOK\"]", @order.payment_response
   end
 
   test "should .redsys_text_status work" do

@@ -163,7 +163,7 @@ class Order < ActiveRecord::Base
   end
   
   def self.mark_bank_orders_as_paid!(date=Date.today)
-    Collaboration.update_paid_recent_bank_collaborations(Order.banks.by_date(date, date).charging)
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
     Order.banks.by_date(date, date).charging.update_all(status:2, payed_at: date)
   end
 

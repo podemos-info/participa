@@ -493,7 +493,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should in_participation_team? work" do
-    skip
+    p = ParticipationTeam.create
+    assert_not @user.in_participation_team? p.id
+    @user.participation_team << p 
+    @user.save
+    assert @user.in_participation_team? p.id
   end
 
   test "should not change vote location to a user without old user" do

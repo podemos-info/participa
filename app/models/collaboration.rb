@@ -52,7 +52,7 @@ class Collaboration < ActiveRecord::Base
   scope :amount_3, -> { created.where("amount > 2000")}
 
   scope :incomplete, -> { created.where(status: 0)}
-  scope :recent, -> { created.where(status: 2)}
+  scope :unconfirmed, -> { created.where(status: 2)}
   scope :active, -> { created.where(status: 3)}
   scope :warnings, -> { created.where(status: 4)}
   scope :errors, -> { created.where(status: 1)}
@@ -448,7 +448,7 @@ class Collaboration < ActiveRecord::Base
     end      
   end
 
-  BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.lock"
+  BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.#{Rails.env}.lock"
   def self.bank_file_lock status
     if status 
       folder = File.dirname BANK_FILE_LOCK
@@ -463,7 +463,7 @@ class Collaboration < ActiveRecord::Base
     [ File.exists?(BANK_FILE_LOCK), File.exists?(self.bank_filename(date)) ]
   end
 
-  def self.update_paid_recent_bank_collaborations orders
-    Collaboration.recent.joins(:order).merge(orders).update_all(status: 3)
+  def self.update_paid_unconfirmed_bank_collaborations orders
+    Collaboration.unconfirmed.joins(:order).merge(orders).update_all(status: 3)
   end
 end

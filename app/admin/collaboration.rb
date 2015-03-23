@@ -49,7 +49,7 @@ ActiveAdmin.register Collaboration do
   scope :bank_nationals
   scope :bank_internationals
   scope :incomplete
-  scope :recent
+  scope :unconfirmed
   scope :active
   scope :warnings
   scope :errors

@@ -69,6 +69,7 @@ GEM
     airbrake (4.1.0)
       builder
       multi_json
+    ansi (1.4.3)
     arbre (1.0.2)
       activesupport (>= 3.0.0)
     arel (5.0.1.20140414130214)
@@ -211,6 +212,11 @@ GEM
     mime-types (2.4.3)
     mini_portile (0.6.0)
     minitest (5.5.0)
+    minitest-reporters (1.0.8)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     mono_logger (1.1.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
@@ -300,6 +306,7 @@ GEM
     rspec-support (3.1.2)
     ruby-openid (2.6.0)
     ruby-prof (0.14.2)
+    ruby-progressbar (1.7.1)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -411,6 +418,7 @@ DEPENDENCIES
   kaminari
   launchy
   mailcatcher
+  minitest-reporters
   newrelic_rpm
   paper_trail
   paranoia!

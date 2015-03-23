@@ -42,20 +42,4 @@ FactoryGirl.define do
     frequency 12
   end
 
-  trait :non_user do
-    user nil
-    non_user_document_vatid "XXXXXXXXX"
-    non_user_email "pepito@example.com"
-    non_user_data "--- !ruby/object:Collaboration::NonUser
-legacy_id: 1
-full_name: XXXXXXXXXXXXXXXXX
-document_vatid: XXXXXXXXX
-email: pepito@example.com
-address: Av. Siempreviva 123
-town_name: Madrid
-postal_code: '28024'
-country: ES
-province: 'Madrid'
-phone: '666666'"
-  end
 end
