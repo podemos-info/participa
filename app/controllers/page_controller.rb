@@ -118,7 +118,7 @@ class PageController < ApplicationController
   end
 
   def candidaturas_primarias_autonomicas
-    render :form_iframe, locals: { title: "Formulario de candidaturas de primarias Forales Euskadi", form_id: 63, extra_qs:"" }
+    render :form_iframe, locals: { title: "Formulario de candidaturas", form_id: 63, extra_qs:"" }
   end
 
   def listas_primarias_autonomicas
@@ -147,6 +147,14 @@ class PageController < ApplicationController
 
   def iniciativa_ciudadana
     render :form_iframe, locals: { title: "Iniciativa ciudadana", form_id: 84, extra_qs:"" }
+  end
+
+  def cuentas_consejos_autonomicos
+    render :form_iframe, locals: { title: "Solicitud de cuentas institucionales para consejos Autonómicos", form_id: 79, extra_qs:"" }
+  end
+
+  def condiciones_uso_correo
+    render :form_iframe, locals: { title: "Condiciones de uso del correo electrónico PODEMOS", form_id: 80, extra_qs:"" }
   end
   
   def credits_status
