@@ -43,10 +43,9 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .validates_not_passport work" do
-    @user = FactoryGirl.create(:user, :foreign)
-    @collaboration.user = @user
-    assert_not @collaboration.valid?
-    assert @collaboration.errors[:user].include? "No puedes colaborar si eres extranjero."
+    collaboration = FactoryGirl.build(:collaboration, :foreign_user)
+    assert_not collaboration.valid?
+    assert(collaboration.errors[:user].include? "No puedes colaborar si no dispones de DNI o NIE.")
   end
 
   test "should .validates_age_over work" do
@@ -146,12 +145,41 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_equal "90000001050123456789", @collaboration.ccc_full
   end
 
+  test "should .pretty_ccc_full work" do 
+    assert_equal "9000 0001 21 0123456789", @collaboration.pretty_ccc_full
+    @collaboration.ccc_dc = 5
+    assert_equal "9000 0001 05 0123456789", @collaboration.pretty_ccc_full
+  end
+
+  test "should .calculate_bic work" do 
+    ccc = FactoryGirl.create(:collaboration, :ccc) 
+    assert_equal "ESPBESMMXXX", ccc.calculate_bic
+    iban = FactoryGirl.create(:collaboration, :iban) 
+    assert_equal "ESPBESMMXXX", iban.calculate_bic
+  end
+
   test "should .is_recurrent? work" do
     assert @collaboration.is_recurrent?
   end
 
   test "should .is_payable? work" do
-    assert false
+    @collaboration.update_attribute(:status, 0) 
+    assert_not @collaboration.is_payable?
+    @collaboration.update_attribute(:status, 1) 
+    assert_not @collaboration.is_payable?
+    @collaboration.update_attribute(:status, 2) 
+    assert @collaboration.is_payable?
+    @collaboration.update_attribute(:status, 3) 
+    assert @collaboration.is_payable?
+    @collaboration.update_attribute(:status, 4) 
+    assert_not @collaboration.is_payable?
+    @collaboration.update_attribute(:deleted_at, DateTime.now) 
+    assert_not @collaboration.is_payable?
+    @collaboration.update_attribute(:status, 2) 
+    @collaboration.update_attribute(:deleted_at, nil) 
+    assert @collaboration.is_payable?
+    @collaboration.update_attribute(:user, nil) 
+    assert_not @collaboration.is_payable?
   end
 
   test "should .is_active? work" do
@@ -160,15 +188,32 @@ class CollaborationTest < ActiveSupport::TestCase
     @collaboration.update_attribute(:status, 1)
     assert_not @collaboration.is_active?
     @collaboration.update_attribute(:status, 2)
-    assert_not @collaboration.is_active?
+    assert @collaboration.is_active?
     @collaboration.update_attribute(:status, 3)
     assert @collaboration.is_active?
     @collaboration.update_attribute(:status, 4)
     assert @collaboration.is_active?
+    @collaboration.update_attribute(:deleted_at, DateTime.now)
+    @collaboration.update_attribute(:status, 4)
+    assert_not @collaboration.is_active?
   end
 
   test "should .has_payment? work" do
-    skip
+    @collaboration.update_attribute(:status, 0)
+    assert_not @collaboration.has_payment?
+    @collaboration.update_attribute(:status, 1)
+    assert @collaboration.has_payment?
+    @collaboration.update_attribute(:status, 2)
+    assert @collaboration.has_payment?
+    @collaboration.update_attribute(:status, 3)
+    assert @collaboration.has_payment?
+    @collaboration.update_attribute(:status, 4)
+    assert @collaboration.has_payment?
+  end
+
+  test "should .check_spanish_bic work" do 
+    ccc = FactoryGirl.create(:collaboration, :ccc) 
+    assert_equal "ESPBESMMXXX", ccc.calculate_bic
   end
 
   test "should .admin_permalink work" do
@@ -218,11 +263,16 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_equal 0, @collaboration.status
 
     @collaboration.payment_processed order
-    assert_equal 1, @collaboration.status
+    assert_equal 0, @collaboration.status
+
+    order.update_attribute(:status, 2) 
+    order.update_attribute(:payed_at, Date.today) 
+    @collaboration.payment_processed order
+    assert_equal 3, @collaboration.status
 
     order.update_attribute(:status, 4) 
     @collaboration.payment_processed order
-    assert_equal 4, @collaboration.status
+    assert_equal 1, @collaboration.status
 
     credit_card = FactoryGirl.create(:collaboration, :credit_card) 
     credit_card_order = credit_card.create_order Date.today
@@ -296,11 +346,19 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .charge! work" do
-    order = @collaboration.create_order Date.today
+    collaboration = FactoryGirl.create(:collaboration, :credit_card) 
+    collaboration.update_attribute(:status, 2)
+    order = collaboration.create_order Date.today
     order.save
-    @collaboration.charge!
-    assert_mock 
-    assert false
+    assert_equal "Nueva", order.status_name
+    assert_equal nil, order.payment_response 
+
+    stub_request(:post, order.redsys_post_url).to_return(:status => 200, :body => "<!-- +(RSisReciboOK)+ -->", :headers => {})
+    collaboration.charge!
+    assert_requested :post, order.redsys_post_url
+    order.reload
+    assert_equal "OK", order.status_name
+    assert_equal "[\"RSisReciboOK\"]", order.payment_response 
   end
 
   test "should .get_bank_data work" do
@@ -360,12 +418,11 @@ phone: '666666'"
       invalid_field: "do not save"
     }
     @collaboration.user = nil
-    @collaboration.non_user_data = info.to_yaml
-    @collaboration.format_non_user
+    @collaboration.set_non_user info
     @collaboration.save
-    assert_equal "bla", @collaboration.non_user_document_vatid 
-    assert_equal "bla", @collaboration.non_user_email
     assert @collaboration.valid?
+    assert_equal "XXXXXX", @collaboration.non_user_document_vatid 
+    assert_equal "foo@example.com", @collaboration.non_user_email
   end
 
   test "should .set_non_user work" do
@@ -384,24 +441,46 @@ phone: '666666'"
   end
 
   test "should .get_user work" do
+    info = {
+      legacy_id: 2,
+      full_name: "Pepito Perez",
+      document_vatid: "XXXXXX", 
+      email: "foo@example.com",
+      invalid_field: "do not save"
+    }
     assert_equal "User", @collaboration.get_user.class.name
-    non_user_collaboration = FactoryGirl.create(:collaboration, :non_user)
-    assert_equal "Collaboration::NonUser", non_user_collaboration.get_user.class.name
+    @collaboration.user = nil
+    @collaboration.set_non_user info
+    assert_equal "Collaboration::NonUser", @collaboration.get_user.class.name
   end
 
   test "should .get_non_user work" do
-    non_user_collaboration = FactoryGirl.create(:collaboration, :non_user)
-    user = non_user_collaboration.get_non_user
-    assert_equal u.legacy_id, 1
-    assert_equal u.full_name, 'XXXXXXXXXXXXXXXXX'
-    assert_equal u.document_vatid, 'XXXXXXXXX'
-    assert_equal u.email, 'pepito@example.com'
-    assert_equal u.address, 'Av. Siempreviva 123'
-    assert_equal u.town_name, 'Madrid'
-    assert_equal u.postal_code, '28024'
-    assert_equal u.country, 'ES'
-    assert_equal u.province, 'Madrid'
-    assert_equal u.phone, '666666'
+    info = {
+      legacy_id: 2,
+      full_name: "Pepito Perez",
+      document_vatid: "XXXXXX11", 
+      email: "pepito@example.com",
+      address: "Av. Siempreviva 123",
+      town_name: "Madrid",
+      postal_code: "28024",
+      country: "ES",
+      province: "Madrid",
+      phone: "666666",
+      invalid_field: "do not save"
+    }
+    @collaboration.user = nil
+    @collaboration.set_non_user info
+    user = @collaboration.get_non_user
+    assert_equal user.legacy_id, 2
+    assert_equal user.full_name, 'Pepito Perez'
+    assert_equal user.document_vatid, 'XXXXXX11'
+    assert_equal user.email, 'pepito@example.com'
+    assert_equal user.address, 'Av. Siempreviva 123'
+    assert_equal user.town_name, 'Madrid'
+    assert_equal user.postal_code, '28024'
+    assert_equal user.country, 'ES'
+    assert_equal user.province, 'Madrid'
+    assert_equal user.phone, '666666'
   end
 
   test "should .validates_has_user work" do
@@ -410,10 +489,10 @@ phone: '666666'"
 
     # invalid without user
     @collaboration.user = nil 
+    assert_not @collaboration.valid?
     assert @collaboration.errors[:user].include? "La colaboración debe tener un usuario asociado."
 
     # valid with non_user model
-    assert_not @collaboration.valid?
     info = {
       legacy_id: 2,
       full_name: "Pepito Perez",
@@ -421,8 +500,8 @@ phone: '666666'"
       email: "foo@example.com",
       invalid_field: "do not save"
     }
-    @collaboration.non_user_data = info.to_yaml
-    @collaboration.format_non_user
+    @collaboration.user = nil
+    @collaboration.set_non_user info
     assert @collaboration.valid?
   end
 
@@ -434,23 +513,53 @@ phone: '666666'"
     assert_equal filename, Collaboration.bank_filename(Date.today, false)
   end
 
+  test "should .bank_file_lock work" do 
+    assert_not File.exists? Collaboration::BANK_FILE_LOCK
+    Collaboration.bank_file_lock true
+    assert File.exists? Collaboration::BANK_FILE_LOCK
+    Collaboration.bank_file_lock false
+    assert_not File.exists? Collaboration::BANK_FILE_LOCK
+  end
+
   test "should Collaboration.has_bank_file? work" do 
     assert Collaboration.has_bank_file? Date.today
     #@collaboration.BANK_FILE_LOCK
   end
 
-  test "should .generating_bank_file work" do 
-    assert false
-  end
+  test "should update_paid_unconfirmed_bank_collaborations orders work" do 
+    date = Date.today
+    @collaboration.create_order(date - 1.month ).save
+    @collaboration.create_order(date - 2.month ).save
+    @collaboration.create_order(date - 3.month ).save
+    @collaboration.create_order(date - 4.month ).save
 
+    Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 0) }
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    @collaboration.reload
+    assert_equal 0, @collaboration.status
+
+    Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 1) }
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    @collaboration.reload
+    assert_equal 0, @collaboration.status
+
+    Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 2) }
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    @collaboration.reload
+    assert_equal 3, @collaboration.status
+
+    Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 3) }
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    @collaboration.reload
+    assert_equal 3, @collaboration.status
+
+    Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 4) }
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    @collaboration.reload
+    assert_equal 3, @collaboration.status
+  end
 
   ##############################################
-
-  test "should not save collaboration if foreign user (passport)" do
-    collaboration = FactoryGirl.build(:collaboration, :foreign_user)
-    assert_not collaboration.valid?
-    assert(collaboration.errors[:user].include? "No puedes colaborar si no dispones de DNI o NIE.")
-  end
 
   test "should not save collaboration if userr is not over legal age (18 years old)" do
     user = FactoryGirl.build(:user)
@@ -458,33 +567,6 @@ phone: '666666'"
     @collaboration.user = user
     assert_not @collaboration.valid?
     assert(@collaboration.errors[:user].include? "No puedes colaborar si eres menor de edad.")
-  end
-
-  test "should .redsys_parse_response! work" do
-    collaboration = FactoryGirl.create(:collaboration, :credit_card)
-    # response KO 
-    params = {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:46", "Ds_SecurePayment"=>"0", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0913", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_ErrorCode"=>"SIS0051", "Ds_AuthorisationCode"=>"      "}
-    collaboration.redsys_parse_response! params
-    assert_equal(collaboration.redsys_response_code, "0913")
-    assert_equal(collaboration.response_status, "KO")
-
-    # response OK
-    params = { "user_id"=>collaboration.user.id, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
-    collaboration.redsys_parse_response! params
-    assert_equal(collaboration.redsys_response_code, "0000")
-    assert_equal(collaboration.response_status, "OK")
-
-    # invalid user_id
-    params = { "user_id"=>1, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
-    collaboration.redsys_parse_response! params
-    assert_equal(collaboration.redsys_response_code, "0000")
-    assert_equal(collaboration.response_status, "KO")
-
-    # invalid collaboration_id
-    params = { "user_id"=>collaboration.user.id, "collaboration_id"=>333, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
-    collaboration.redsys_parse_response! params
-    assert_equal(collaboration.redsys_response_code, "0000")
-    assert_equal(collaboration.response_status, "KO")
   end
 
   test "should .validate_ccc work" do 
@@ -534,9 +616,11 @@ phone: '666666'"
   end
 
   test "should .create_order after collection created but the same month returns false" do
-    coll = FactoryGirl.create(:collaboration, created_at: DateTime.new(2014,6,10))
-      assert_not coll.create_order(DateTime.new(2014,6,5)).save, "create_order should not consider collaboration created after date"
-    assert coll.create_order(DateTime.new(2014,6,15)).save, "create_order should consider collaboration created before date"
+    coll = FactoryGirl.create(:collaboration, :ccc, created_at: DateTime.new(2014,6,10))
+    order = coll.create_order(DateTime.new(2014,6,5))
+    assert_not order.save, "create_order should not consider collaboration created after date"
+    order = coll.create_order(DateTime.new(2014,6,15))
+    assert order.save, "create_order should consider collaboration created before date"
     coll.delete
   end
 
@@ -565,11 +649,17 @@ phone: '666666'"
   end
 
   test "should .get_orders work with collaboration created but not paid the same month" do
-    assert false
+    @collaboration.update_attribute(:created_at, Date.today)
+    order = @collaboration.get_orders
+    assert_equal "order", order
   end
 
   test "should .get_orders work after and before payment day." do
-    assert false
+    @collaboration.update_attribute(:created_at, Date.today)
+    orders = @collaboration.get_orders(Date.today-2.month, Date.today-1.month)
+    assert_equal 0, orders.count
+    orders = @collaboration.get_orders(Date.today, Date.today+1.month)
+    assert_equal 1, orders.count
   end
 
   test "should .get_orders work with paid and unpaid collaborations." do
