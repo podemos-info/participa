@@ -5,6 +5,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
+require "minitest/reporters"
+
+Minitest::Reporters.use!
 
 class ActionController::TestCase
   include Devise::TestHelpers
