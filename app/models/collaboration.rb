@@ -436,7 +436,7 @@ class Collaboration < ActiveRecord::Base
     end      
   end
 
-  BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.lock"
+  BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.#{Rails.env}.lock"
   def self.bank_file_lock status
     if status 
       folder = File.dirname BANK_FILE_LOCK
