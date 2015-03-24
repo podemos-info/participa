@@ -98,4 +98,20 @@ class Election < ActiveRecord::Base
       end
     end
   end
+
+  def self.available_servers
+    Rails.application.secrets.agora["servers"].keys
+  end
+
+  def server_shared_key
+    server = Rails.application.secrets.agora["default"]
+    server = self.server if self.server and !self.server.empty?
+    Rails.application.secrets.agora["servers"][server]["shared_key"]
+  end
+
+  def server_url
+    server = Rails.application.secrets.agora["default"]
+    server = self.server if self.server and !self.server.empty?
+    Rails.application.secrets.agora["servers"][server]["url"]
+  end
 end
