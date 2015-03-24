@@ -1,6 +1,7 @@
 class ProposalsController < ApplicationController
 
   def index
+    params[:filter] ||= "popular"
     @proposals = Proposal.filter(params[:filter])
     @hot = Proposal.reddit.hot.limit(3)
   end

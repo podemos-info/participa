@@ -1,8 +1,8 @@
 require 'securerandom'
 class PageController < ApplicationController
 
-  before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_conflict, :guarantees_compliance, 
-                                              :guarantees_ethic, :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
+  before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_form, 
+                                              :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
