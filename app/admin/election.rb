@@ -1,11 +1,12 @@
 ActiveAdmin.register Election do
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :starts_at, :ends_at, :close_message, :locations
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations
 
   index do
     selectable_column
     id_column
     column :title
+    column :server
     column :agora_election_id
     column :scope_name
     column :starts_at
@@ -20,6 +21,7 @@ ActiveAdmin.register Election do
     attributes_table do
       row :title
       row :info_url
+      row :server
       row :agora_election_id
       row :scope_name
       row :starts_at
@@ -45,6 +47,7 @@ ActiveAdmin.register Election do
     f.inputs "Election" do
       f.input :title
       f.input :info_url
+      f.input :server, as: :select, collection: Election.available_servers
       f.input :agora_election_id
       f.input :scope, as: :select, collection: Election::SCOPE
       f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  }

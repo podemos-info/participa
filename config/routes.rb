@@ -16,6 +16,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # /form dinámicos
+  Rails.application.routes.draw do
+    #root 'home#index'
+    #get 'not_found' => 'pages#not_found'
+    DynamicRouter.load
+  end
+
   scope "/(:locale)", locale: /es|ca|eu/ do 
 
     get '/openid/discover', to: 'open_id#discover', as: "open_id_discover"
