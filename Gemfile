@@ -47,6 +47,7 @@ gem 'secure_headers'
 
 gem 'rake-progressbar'
 gem 'rails_autolink'
+gem 'flag_shih_tzu'
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114

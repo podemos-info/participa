@@ -1,4 +1,5 @@
 ActiveAdmin.register ParticipationTeam do
+  menu :parent => "Users"
 
 
   # See permitted parameters documentation:
