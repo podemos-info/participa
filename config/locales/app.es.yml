@@ -144,8 +144,7 @@ es:
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
-    banned: "
-          p1: "Tu cuenta ha sido bloqueada. Para solicitar que sea desbloqueada contáctanos en soportevotaciones@podemos.info.""
+    banned: "Tu cuenta ha sido bloqueada. Para solicitar que sea desbloqueada contáctanos en soportevotaciones@podemos.info."
     user:
       general_data: "Datos generales"
       collaborations: "Colaboraciones económicas"
