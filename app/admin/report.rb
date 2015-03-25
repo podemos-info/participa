@@ -1,6 +1,4 @@
 ActiveAdmin.register Report do
-  menu false
-
   permit_params  :title, :query, :main_group, :groups
 
   index do

@@ -22,8 +22,8 @@ es:
       orders: Ordenes de pago
       election: Elección
       elections: Elecciones
-      proposal: Iniciativa
-      proposals: Iniciativas
+      proposal: Iniciativa ciudadanas
+      proposals: Iniciativas ciudadanas
       notice: Aviso
       notices: Avisos
       participation_team: Equipo de Acción Participativa
@@ -144,6 +144,7 @@ es:
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
+    banned: "Tu cuenta ha sido bloqueada. Para solicitar que sea desbloqueada contáctanos en soportevotaciones@podemos.info."
     user:
       general_data: "Datos generales"
       collaborations: "Colaboraciones económicas"

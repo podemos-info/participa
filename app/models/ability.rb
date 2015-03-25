@@ -10,6 +10,11 @@ class Ability
       can :manage, Notice
       can :manage, Resque
       can :manage, ActiveAdmin
+
+      if not user.superadmin?
+        cannot :manage, Report
+        cannot :manage, ReportGroup
+      end
     else
       can [:show, :update], User, id: user.id
       cannot :manage, Resque

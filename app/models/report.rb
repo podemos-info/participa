@@ -6,11 +6,15 @@ class Report < ActiveRecord::Base
 
   after_initialize do |report|
     if report.persisted?
-      table_name = query.match(/\s*SELECT\s*.*\s*FROM\s*\"?(\w+)\"?\s*/).captures.first
-      @model = ActiveRecord::Base.send(:descendants).select do |m| m.table_name==table_name end .first
+      table_name = query.match(/\s*SELECT\s*.*\s*FROM\s*\"?(\w+)\"?\s*/)
+      table_name = table_name.captures.first if table_name
 
-      @main_group = YAML.load(report.main_group) if report.main_group
-      @groups = YAML.load(report.groups)
+      if table_name
+        @model = ActiveRecord::Base.send(:descendants).select do |m| m.table_name==table_name end .first
+
+        @main_group = YAML.load(report.main_group) if report.main_group
+        @groups = YAML.load(report.groups)
+      end
     end
   end
 
@@ -110,8 +114,3 @@ class Report < ActiveRecord::Base
     self.save
   end
 end
-
-=begin
-            Whitelist
-            Blacklist 
-=end

@@ -1,5 +1,5 @@
 ActiveAdmin.register ReportGroup do
-  menu false
+  menu :parent => "Reports"
 
   permit_params  :title, :proc, :width, :label, :data_label, :whitelist, :blacklist, :minimum, :minimum_label, :visualization
 
