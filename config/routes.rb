@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # /form dinámicos
+  # formularios dinámicos
   Rails.application.routes.draw do
     #root 'home#index'
     #get 'not_found' => 'pages#not_found'
