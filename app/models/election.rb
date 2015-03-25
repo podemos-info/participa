@@ -1,20 +1,24 @@
 class Election < ActiveRecord::Base
 
-  SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3]]
+  SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
   
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
   has_many :election_locations
+ 
+  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
+  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now)}
 
-  scope :actived, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
-
-  def is_actived?
+  def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
   end
 
+  def is_upcoming?
+    self.starts_at > DateTime.now and self.starts_at < 12.hours.from_now
+  end
+
   def recently_finished?
-    # Devuelve true si ha finalizado en menos de 7 días
-    self.ends_at < DateTime.now and self.ends_at > 7.days.ago
+    self.ends_at > 2.days.ago and self.ends_at < DateTime.now 
   end
 
   def scope_name
@@ -22,32 +26,59 @@ class Election < ActiveRecord::Base
   end
 
   def full_title_for user
-    case self.scope
-      when 0 then location = nil
-      when 1 then location = user.vote_ca_name
-      when 2 then location = user.vote_province_name
-      when 3 then location = user.vote_town_name
+    if multiple_territories?
+      suffix =  case self.scope
+                  when 1 then " en #{user.vote_autonomy_name}"
+                  when 2 then " en #{user.vote_province_name}"
+                  when 3 then " en #{user.vote_town_name}"
+                  when 4 then " en #{user.vote_island_name}"      
+                end
+      if not has_valid_location_for? user
+        suffix = " (no hay votación#{suffix})"
+      end
     end
-    location.nil? ? self.title : self.title + " en #{location}" 
+    "#{self.title}#{suffix}"
+  end
+
+  def has_location_for? user
+    not ((self.scope==5 and user.country=="ES") or (self.scope==4 and not user.vote_in_spanish_island?))
   end
 
   def has_valid_location_for? user
     case self.scope
       when 0 then true
-      when 1 then self.election_locations.exists?(location: user.vote_ca_code)
-      when 2 then self.election_locations.exists?(location: user.vote_province_code)
-      when 3 then self.election_locations.exists?(location: user.vote_town_code)
+      when 1 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_autonomy_numeric}
+      when 2 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_province_numeric}
+      when 3 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_town_numeric}
+      when 4 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_island_numeric}
+      when 5 then user.country!="ES"
     end
+  end
+
+  def multiple_territories?
+    [1,2,3,4].member? self.scope
   end
 
   def scoped_agora_election_id user
     case self.scope
-      when 0 then self.agora_election_id
-      when 1 then (self.agora_election_id.to_s + user.vote_ca_code).to_i
-      when 2 then (self.agora_election_id.to_s + user.vote_province_code).to_i
+      when 0 
+        location = self.election_locations.find_by_location "00"
+        (self.agora_election_id.to_s + "00" + location.agora_version.to_s).to_i
+      when 1
+        location = self.election_locations.find_by_location user.vote_autonomy_numeric
+        (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
+      when 2
+        location = self.election_locations.find_by_location user.vote_province_numeric
+        (self.agora_election_id.to_s + user.vote_province_numeric.to_s + location.agora_version.to_s).to_i
       when 3
-        location = self.election_locations.find_by_location user.vote_town_code
-        (self.agora_election_id.to_s + location.agora_version.to_s + user.vote_town_code.to_s).to_i
+        location = self.election_locations.find_by_location user.vote_town_numeric
+        (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
+      when 4
+        location = self.election_locations.find_by_location user.vote_island_numeric
+        (self.agora_election_id.to_s + user.vote_island_numeric.to_s + location.agora_version.to_s).to_i
+      when 5
+        location = self.election_locations.find_by_location "00"
+        (self.agora_election_id.to_s + "00" + location.agora_version.to_s).to_i
     end
   end
 
@@ -68,4 +99,19 @@ class Election < ActiveRecord::Base
     end
   end
 
+  def self.available_servers
+    Rails.application.secrets.agora["servers"].keys
+  end
+
+  def server_shared_key
+    server = Rails.application.secrets.agora["default"]
+    server = self.server if self.server and !self.server.empty?
+    Rails.application.secrets.agora["servers"][server]["shared_key"]
+  end
+
+  def server_url
+    server = Rails.application.secrets.agora["default"]
+    server = self.server if self.server and !self.server.empty?
+    Rails.application.secrets.agora["servers"][server]["url"]
+  end
 end

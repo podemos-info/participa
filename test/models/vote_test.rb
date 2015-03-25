@@ -54,7 +54,7 @@ class VoteTest < ActiveSupport::TestCase
     v = FactoryGirl.create(:vote)
     message = v.generate_message
     assert_equal(message.split(':')[0], v.voter_id)
-    assert_equal(message.split(':')[2], v.election_id.to_s)
+    assert_equal(message.split(':')[2], v.scoped_agora_election_id.to_s)
     # es un timestamp que no podemos comprobar mas que sea epoch valido de hoy
     timestamp = message.split(':')[4].to_i
     assert(Time.at(timestamp).to_date == Date.today)
@@ -72,11 +72,13 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   test "should .test_url work" do
+    WebMock.allow_net_connect!
     v = FactoryGirl.create(:vote)
     assert(v.test_url.starts_with? "https://")
     assert(v.test_url.length > 64)
     result = Net::HTTP.get(URI.parse(v.test_url))
     assert(result.include? "IE10 viewport hack for Surface/desktop Windows 8 bug")
+    WebMock.disable_net_connect!
     # no podemos comprobar más ya que en agoravoting no permiten ejecutarlo sin JS
   end
 

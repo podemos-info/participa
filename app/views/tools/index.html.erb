@@ -1,15 +1,17 @@
-<% content_for :title, "Herramientas de participación ciudadana" %>
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
-      <br>
-
-      <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
-      <% if Election.actived.count > 0 %>
+      <% if @elections.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
-        <% if Election.last and Election.last.recently_finished? %>
-          <%= render partial: 'election_finished', locals: { election: Election.last } %>
+        <% if @upcoming_elections.count > 0 %>
+          <%= render partial: 'election_upcoming', locals: { election: @upcoming_elections[-1] } %>
+        <% elsif @finished_elections.count > 0 %>
+          <%= render partial: 'election_finished', locals: { election: @finished_elections[-1] } %>
+        <% elsif Rails.env.development? %>
+          <%= render partial: "other_tools" %>
+        <% elsif Date.today < Date.civil(2015,03,20) %>
+          <%= render partial: 'demo' %>
         <% else %>
           <%= render partial: "other_tools" %>
         <% end %>

@@ -1,73 +1,28 @@
 class CollaborationsController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token, only: [ :redsys_callback ] 
-
-  before_action :authenticate_user!, except: [ :redsys_callback ] 
-  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :destroy]
-  # TODO: before_action :check_if_user_over_age
-  # TODO: before_action :check_if_user_passport
-  # TODO: before_action :check_if_user_already_collaborated
+  before_action :authenticate_user!
+  before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
  
-  # GET /collaborations/new
   def new
     redirect_to edit_collaboration_path if current_user.collaboration 
     @collaboration = Collaboration.new
   end
 
-  # GET /collaborations/confirm
-  def confirm
-  end
+  def modify
+    redirect_to new_collaboration_path unless @collaboration
+    redirect_to confirm_collaboration_path unless @collaboration.has_payment?
 
-  # POST /collaborations/confirm_bank
-  def confirm_bank
-    unless @collaboration.is_credit_card?
-      @collaboration.update_attribute(:response_status, "OK")
-      redirect_to :validate_ok_collaboration
-    end
-  end
+    # update collaboration
+    @collaboration.assign_attributes collaboration_params
 
-  # POST /collaborations/validate/callback
-  def redsys_callback
-    # Callback de Redsys para MerchantURL MerchantURLOK y MerchantURLKO
-    # recibe la respuesta en el formato de Redsys y la parsea
-
-    @collaboration = Collaboration.find_by_redsys_order! params["Ds_Order"]
-    @collaboration.redsys_parse_response!(params)
-    if @collaboration.redsys_response?
-      render json: "OK"
+    if @collaboration.save
+      flash[:notice] = "Los cambios han sido guardados"
+      redirect_to edit_collaboration_path
     else
-      render json: "KO"
+      render 'edit'
     end
   end
 
-  # GET /collaborations/validate/status/:order.json
-  def redsys_status
-    # Comprobamos y devolvemos el response_status de un Order dado
-    # es para la comprobación por AJAX del resultado de la ventana de Redsys
-
-    @collaboration = Collaboration.find_by_redsys_order! params["order"]
-    respond_to do |format|
-      format.json { render json: { status: @collaboration.response_status } }
-    end
-  end
-
-  # GET /collaborations/validate/OK
-  def OK
-    @collaboration = current_user.collaboration
-  end
-
-  # GET /collaborations/validate/KO
-  def KO
-    @collaboration = current_user.collaboration
-  end
-
-  # GET /collaborations/edit
-  def edit
-    # borrar una colaboración
-  end
-
-  # POST /collaborations
-  # POST /collaborations.json
   def create
     @collaboration = Collaboration.new(collaboration_params)
     @collaboration.user = current_user
@@ -83,8 +38,13 @@ class CollaborationsController < ApplicationController
     end
   end
 
-  # DELETE /collaborations
+  def edit
+    redirect_to new_collaboration_path unless @collaboration
+    redirect_to confirm_collaboration_path unless @collaboration.has_payment?
+  end
+
   def destroy
+    redirect_to new_collaboration_path unless @collaboration
     @collaboration.destroy
     respond_to do |format|
       format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
@@ -92,14 +52,43 @@ class CollaborationsController < ApplicationController
     end
   end
 
+  def confirm
+    redirect_to new_collaboration_path unless @collaboration
+    redirect_to edit_collaboration_path if @collaboration.has_payment?
+    # ensure credit card order is not persisted, to allow create a new id for each payment try
+    @order = @collaboration.create_order Time.now, true if @collaboration.is_credit_card?
+  end
+
+  def OK
+    redirect_to new_collaboration_path unless @collaboration
+    if not @collaboration.is_active?
+      if @collaboration.is_credit_card?
+        @collaboration.set_warning
+      else
+        @collaboration.set_active
+      end
+    end
+  end
+
+  def KO
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_collaboration
     @collaboration = current_user.collaboration
+
+    start_date = [@collaboration.created_at, Date.today - 6.months].max
+    @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
+    @order = @orders[0][-1]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic)
+    if current_user.collaboration and current_user.collaboration.has_payment?
+      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
+    else
+      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc)
+    end
   end
 end

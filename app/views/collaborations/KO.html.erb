@@ -7,12 +7,13 @@
 
       <%= render partial: "steps", locals: {step: 3} %>
 
-      <%= error_box "Hubo un problema", false do %>
-          <p> <%= t("podemos.collaboration.ko.p1") %> </p>
-          <p><b><%= show_redsys_response(@collaboration.redsys_response_code) %></b></p>
-          <p> <%= t("podemos.collaboration.ko.p2") %> </p>
+      <%= error_box t("podemos.collaboration.ko.title"), false do %>
+          <p><%= @order.error_message %></p>
       <% end %>
-
+      <p><%= t("podemos.collaboration.ko.contact") %></p>
+      <div class="buttonbox">
+        <%= link_to "Intentar pagar nuevamente", confirm_collaboration_path, class: 'button' %>
+      </div>
     </div>
   </div>
 </div>

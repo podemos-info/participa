@@ -53,6 +53,8 @@ APIs externas
 
 * Para el envío de correo en producción usamos [Amazon SES](http://aws.amazon.com/es/ses/). La configuración va en `config/secrets.yml`.
 
+* Para descargar las últimas iniciativas ciudadanas en Plaza Podemos ejecutamos el comando: `rake podemos:reddit`
+
 Dependencias
 ------------
 
@@ -63,6 +65,8 @@ sudo apt-get install libicu52                       # para manejar cadenas Unico
 sudo apt-get install postgres                       # para la base de datos, o mysql-server si lo prefieres
 sudo apt-get install imagemagick                    # para la generación del captcha
 sudo apt-get install redis-server                   # para la gestión de las colas de trabajo (resque)
+sudo apt-get install libpq-dev                      # para la gema pg
+sudo apt-get install qt5-default libqt5webkit5-dev  # para capybara (tests)
 ```
 
 Configuraciones
@@ -109,4 +113,18 @@ TODO: documentar integración con Sendy
 Colaboraciones
 --------------
 
-TODO: documentar integración con RedSYS/Banco
+Para la forma de pago "Suscripción con Tarjeta de Crédito/Débito" hemos hecho una integración con Redsys.
+
+Para esto hace falta tener una cuenta bancaria dada de alta en Redsys, tener acceso a su (entorno de pruebas)[https://sis-t.redsys.es:25443/canales/] y configurar los parámetros necesarios en config/secrets.yml
+
+Para realizar las pruebas en su entorno y que finalice correctamente es necesario poner la siguiente información de tarjeta:
+
+```
+  Tarjeta: 4548812049400004
+  Fecha de caducidad: 12/20
+  Código de Seguridad: 123
+  CIP: 123456
+```
+
+Se pueden ver los documentos desde los que se han partido para su implementación en `doc/redsys`.
+

@@ -1,0 +1,58 @@
+<% content_for :title, "Forma parte del cambio en Andalucía" %>
+
+<section class="tools">
+<%= link_to image_tag("banner_collabs.png", alt: "colabora.podemos.info", style: 'max-width:100%'), new_collaboration_path %>
+</section>
+
+<%= content_tag(:h2, "Forma parte del cambio en Andalucía") %>
+<section class="tools">
+<ul>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Comparte viaje a Sevilla</h3>
+    <div class="tool-text">
+      <p>Si vas en coche a Sevilla y te sobran plazas, anúncialo y otras personas podrán ponerse en contacto contigo para compartir el viaje y los gastos del mismo. </p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Comparte tu coche", share_car_sevilla_path, class: "button" %>
+      <%= link_to "Encuentra coche", find_car_sevilla_path, class: "button" %>
+    </div>
+  </div><!--.box-tool-->
+  </li>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Comparte viaje a Dos Hermanas</h3>
+    <div class="tool-text">
+      <p>Si vas en coche a Dos Hermanas y te sobran plazas, anúncialo y otras personas podrán ponerse en contacto contigo para compartir el viaje y los gastos del mismo. </p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Comparte tu coche", share_car_doshermanas_path, class: "button" %>
+      <%= link_to "Encuentra coche", find_car_doshermanas_path, class: "button" %>
+    </div>
+  </div><!--.box-tool-->
+  </li>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>Comparte casa</h3>
+    <div class="tool-text">
+      <p>Si tienes sitio en tu casa en Sevilla, compártelo y haz posible que otras personas puedan participar en el cambio en Andalucía.</p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <%= link_to "Comparte tu casa", offer_hospitality_path, class: "button" %>
+      <%= link_to "Encuentra alojamiento", find_hospitality_path, class: "button" %>
+    </div><!--.buttonbox-->
+  </div><!--.box-tool-->
+  </li>
+  <li class="box-tool">
+  <div class="box-tool">
+    <h3>La expresión del cambio en Andalucía</h3>
+    <div class="tool-text">
+      <p>Comparte tus creaciones por el cambio en Andalucía. También puedes participar en el concurso de carteles para el 20M.</p>
+    </div><!--.tool-text-->
+    <div class="buttonbox">
+      <a href="https://laexpresiondelcambio.info" class="button">COMPARTE TUS CREACIONES</a>
+    </div><!--.buttonbox-->
+  </div><!--.box-tool-->
+  </li>
+</ul>
+</section>

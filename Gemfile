@@ -39,6 +39,14 @@ gem 'phone'
 gem 'iban-tools'
 gem 'paper_trail'
 gem 'newrelic_rpm'
+gem 'ffi-icu', '~> 0.1.4'
+gem 'unicode'
+gem 'rack-openid'
+gem 'ruby-openid'
+gem 'secure_headers'
+
+gem 'rake-progressbar'
+gem 'rails_autolink'
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
@@ -52,8 +60,6 @@ gem 'newrelic_rpm'
 # gem 'paranoia', '~> 2.0' 
 gem 'paranoia', :github => 'codeodor/paranoia', :branch => 'rails4'
 
-gem 'ffi-icu', '~> 0.1.4'
-gem 'unicode'
 
 group :development, :test do
   gem 'capistrano-rvm'
@@ -66,5 +72,12 @@ group :development, :test do
   gem 'rails-perftest'
   gem 'ruby-prof'
   gem 'simplecov'
+  gem 'webmock'
+  gem 'minitest-reporters'
+  gem 'capybara'
+  gem "capybara-webkit"
+  gem 'rspec-rails', '~> 3.0'
+  gem 'launchy'
+  gem 'database_cleaner'
 end
 

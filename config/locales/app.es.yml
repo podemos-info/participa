@@ -3,7 +3,7 @@ es:
     show:
       "404":
         title: "Página no encontrada" 
-        message_html: "No pudimos encontrar esa página. Vuelvelo a intenarlo más tarde o <a href='/'>prueba desde la página principal</a>."
+        message_html: "No pudimos encontrar esa página. Vuelvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a>."
       "500":
         title: "Error en el servidor" 
         message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='mailto:soportevotaciones@podemos.info'>soportevotaciones@podemos.info</a>"
@@ -22,8 +22,12 @@ es:
       orders: Ordenes de pago
       election: Elección
       elections: Elecciones
+      proposal: Iniciativa
+      proposals: Iniciativas
       notice: Aviso
       notices: Avisos
+      participation_team: Equipo de Acción Participativa
+      participation_teams: Equipos de Acción Participativa
     errors:
       models: 
         user:
@@ -84,7 +88,7 @@ es:
         status_name: "Estado"
         collaboration: "Colaboración"
         user: "Usuario"
-        payable_at: "Ha cobrarse el" 
+        payable_at: "A cobrarse el" 
         payed_at: "Cobrada el"
         created_at: "Creada el"
         deleted_at: "Borrada el"
@@ -95,11 +99,15 @@ es:
         starts_at: "Empieza"
         ends_at: "Termina"
         close_message: "Mensaje de cierre"
+      proposal: 
+        title: "Título"
+        description: "Descripción"
+        image_url: "URL de la imagen"
       notice:
         title: "Título"
         body: "Mensaje" 
       user:
-        login: "Correo elctrónico o Nº de documento"
+        login: "Correo electrónico o Nº de documento"
         first_name: "Nombre"
         last_name: "Apellidos"
         document_type: "Tipo de documento"
@@ -112,6 +120,8 @@ es:
         address: "Dirección"
         town: "Municipio"
         province: "Provincia"
+        vote_town: "Municipio de origen"
+        province_town: "Provincia de origen"
         postal_code: "Código postal"
         country: "País"
         password: "Contraseña"
@@ -122,6 +132,7 @@ es:
         over_18: "Declaro ser mayor de 18 años"
         captcha: "Captcha"
         current_password: "Contraseña actual"
+        circle: "Círculo"
   formtastic:
     hints:
       user:
@@ -142,6 +153,7 @@ es:
       change_phone: "Cambiar teléfono móvil"
       change_phone_explain_html: "Ahora mismo tienes el móvil <b> %{phone} </b>"
       change_password: "Cambiar contraseña"
+      location_change_blocked: "El cambio de ubicación está bloqueado durante las votaciones. Por favor, espera a que estas acaben para cambiar tu domicilio o lugar de participación."
       recover_password: "Recuperar contraseña"
       cancel_account: "Darme de baja"
       cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal.</p>
@@ -155,7 +167,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         hello: "Hola"
         welcome: "Bienvenida"
         lock: 
-          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de inscripciones@podemos.info."
+          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de soportevotaciones@podemos.info."
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
           p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
         confirm:
@@ -194,21 +206,55 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         p1: Tu donación se ha dado de alta correctamente.
         p2: Gracias por colaborar con Podemos.
       ko:
-        p1: Hubo un error con tu colaboración.
-        p2: Por favor contacta a donaciones@podemos.info
+        title: Hubo un error con tu colaboración.
+        contact: Por favor intenta realizar el pago nuevamente. Si continúas teniendo problemas contacta a donaciones@podemos.info.
       terms_of_service:
-        title: "Condiciones generales"
-        p1_title: "Relación entre Podemos y el colaborador."
-        p1: 'La realización de aportaciones económicas no implica la vinculación del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o simpatizante, ni de derechos frente al partido, ni queda obligado por sus estatutos y demás normas internas. Conforme a lo dispuesto en el artículo 8 de la Ley Orgánica 8/2007 de 4 de julio sobre Financiación de los Partidos Políticos, su donativo tendrá la consideración de “aportación privada”, distinta de las cuotas de afiliados, adheridos y simpatizantes.'
+        title: Condiciones Generales
+        p1_title: "Relación entre PODEMOS y el colaborador."
+        p1: '
+La realización de aportaciones económicas es totalmente voluntaria, no implica la vinculación
+del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o 
+simpatizante, ni de derechos frente al partido, ni queda obligado por sus estatutos y demás normas internas.
+
+Para colaborar económicamente con PODEMOS y poder cumplimentar el formulario de alta como colaborador es
+imprescindible disponer de DNI o NIE y estar inscrito en la web http://participa.podemos.info.
+
+Conforme a lo dispuesto en el artículo 8 de la Ley Orgánica 8/2007 de 4 de julio sobre
+Financiación de los Partidos Políticos, su donativo tendrá la consideración de “aportación
+privada”, distinta de las cuotas de afiliados, adheridos y simpatizantes.'
         p2_title: "Protección de datos de carácter personal."
-        p2: 'PODEMOS Partido Político, de acuerdo con la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal, le informa de que sus datos serán incorporados al fichero “APORTACIONES”, del que es responsable PODEMOS, que los utilizará para tramitar su colaboración, gestionar los adeudos bancarios, cumplir con la normativa de financiación de partidos políticos, para fines estadísticos y hacerle llegar periódicamente información sobre sus actividades. Sus datos no serán cedidos a terceras personas. Para ejercer sus derechos de acceso, rectificación, cancelación u oposición, como cancelar su suscripción, modificar los datos bancarios o el importe y frecuencia de su aportación, puede utilizar el formulario de “bajas y modificaciones” de nuestra página web. También podrá contactar con nosotros por formulario para cursar baja en http://podemos.info/datos o, para modificación de los datos, por correo electrónico a la dirección colaboraciones@podemos.info, indicando la referencia “modificación de la aportación” o, por correo postal en la sede social sita en la calle Zurita, 21 de Madrid, adjuntando copia de su documento nacional de identidad.'
-        p3_title: "Consentimiento orden de domiciliación y cargos en tarjeta de crédito o débito."
-        p3: 'Al pulsar el botón “ENVIAR” usted autoriza a Podemos y a su entidad bancaria a efectuar las operaciones de cobro mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera que usted nos ha facilitado, por el importe y con la frecuencia que nos ha indicado en el formulario. Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 10 de cada mes, trimestre o año dependiendo de la frecuencia de pago que ha elegido.'
+        p2: '
+PODEMOS Partido Político, de acuerdo con la Ley Orgánica 15/1999 de Protección de
+Datos de Carácter Personal, le informa de que sus datos serán incorporados al fichero
+“APORTACIONES”, del que es responsable PODEMOS, que los utilizará para tramitar su
+colaboración, gestionar los adeudos bancarios, cumplir con la normativa de financiación
+de partidos políticos, para fines estadísticos y hacerle llegar periódicamente información
+sobre sus actividades.
+
+Para ejercer sus derechos de acceso, rectificación, cancelación y oposición, como
+cancelar su suscripción, modificar los datos de cobro o el importe y frecuencia de su
+aportación, podrá utilizar la web participa.podemos.info accediendo a su perfil personal
+mediante su nombre de usuario y contraseña.
+
+También podrá ejercer sus derechos solicitándolo por correo electrónico a la dirección
+colaboraciones@podemos.info, indicando tu nombre, apellidos y adjuntando copia de su
+DNI o documento legal de identificación.'
+        p3_title: "Consentimiento cesión de datos y orden de domiciliación y cargos en tarjeta de crédito o débito"
+        p3: '
+A los efectos previstos en la Ley 16/2009, de 13 de Noviembre, de Servicios de Pago, al
+confirmar el alta de la colaboración económica el colaborador autoriza expresamente a
+PODEMOS partido político y a su entidad bancaria para efectuar las operaciones de cobro
+mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera, por el importe
+y con la frecuencia de pago que ha indicado en el formulario.
+
+Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 15 de cada
+mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
     registration:
       message: 
         dni: "El formato deben ser 8 números y una letra, sin guiones ni espacios."
         nie: "El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios."
         passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
+        existing_user_location: "Se ha recuperado tu lugar de participación de un usuario anterior."
       p1_html: "<p> Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos.  </p>
 <p> Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción.  </p>
 <p><b> ¿Es seguro el sistema de inscripción? </b> </p>
@@ -505,3 +551,5 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       has_collaboration_credit_card: "Con colaboración económica (tarjeta de crédito)"
       has_collaboration_bank_national: "Con colaboración económica (banco nacional)"
       has_collaboration_bank_international: "Con colaboración económica (banco internacional)"
+      participation_team: "En equipos de participación"
+      has_circle: "En Círculo"

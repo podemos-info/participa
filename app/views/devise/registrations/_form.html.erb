@@ -76,10 +76,8 @@
                   end_year: 1900 %>
     </div>
   </fieldset>
-
   <fieldset>
     <legend><span>Domicilio</span></legend>
-
     <div class="inputlabel-box">
       <% if resource.errors.include?(:country) %>
           <%= field_notice_box %>
@@ -88,19 +86,19 @@
         País
         <abbr title="requerido">*</abbr>
       <% end %>
-      <%= select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", @user_location[:country]), {required: true, data: {allowClear: true} } %>
+      <%= select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", @user_location[:country]), { disabled: false, required: true, data: {allowClear: true} } %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:province) %>
           <%= field_notice_box %>
       <% end %>
-      <%= render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], required: true, field: :province, title:"Provincia"} %>
+      <%= render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia"} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:town) %>
           <%= field_notice_box %>
       <% end %>
-      <%= render partial: 'municipies_select', locals:{country: @user_location[:country], province: @user_location[:province], town: @user_location[:town], required: true, field: :town, title:"Municipio"}%>
+      <%= render partial: 'municipies_select', locals:{country: @user_location[:country], province: @user_location[:province], town: @user_location[:town], disabled: false, required: true, field: :town, title:"Municipio"}%>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:postal_code) %>
@@ -116,16 +114,16 @@
     </div>
   </fieldset>
 
-  <fieldset id="foreign_vote_town">
-    <legend><span>Municipio de participación en España</span></legend>
+  <fieldset id="vote_town_section">
+    <legend><span>Lugar de participación</span></legend>
     <div class="inputlabel-box">
-      <%= render partial: 'subregion_select', locals:{country: "ES", province: @user_location[:vote_province], required: false,   field: :vote_province, title:"Provincia de origen"} %>
+      <%= render partial: 'subregion_select', locals:{country: "ES", province: @user_location[:vote_province], disabled: !resource.can_change_location?, required: false, field: :vote_province, title:"Provincia de participación"} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:vote_town) %>
           <%= field_notice_box %>
       <% end %>
-      <%= render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de origen"}%>
+      <%= render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], disabled: !resource.can_change_location?, required: false, field: :vote_town, title:"Municipio de participación"}%>
     </div>
   </fieldset>
 
@@ -225,7 +223,7 @@
           <% if resource.errors.include?(:current_password) %>
               <%= field_notice_box %>
           <% end %>
-          <%= f.input :current_password, hint: raw(t("devise.hints.current_password", :link => link_to(t("devise.links.here"), "#recover-password"))), input_html: {required: true, class: 'input-m'} %>
+          <%= f.input :current_password, hint: raw(t("devise.hints.current_password", :link => link_to(t("devise.links.here"), "#recover-password", class: "js-change-tab"))), input_html: {required: true, class: 'input-m'} %>
         </div>
         <%= f.actions class: 'enter' do %>
             <%= f.action :submit, label: t("devise.buttons.edit"), button_html: {class: "button"} %>

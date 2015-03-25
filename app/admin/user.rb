@@ -1,8 +1,8 @@
 ActiveAdmin.register User do
 
-  scope_to :current_user, :association_method => :users_with_deleted
+  scope_to User, association_method: :with_deleted
 
-  scope :created
+  scope :created, default: true
   scope :confirmed
   scope :deleted
   scope :unconfirmed_mail
@@ -15,9 +15,10 @@ ActiveAdmin.register User do
   scope :has_collaboration_credit_card
   scope :has_collaboration_bank_national
   scope :has_collaboration_bank_international
-  scope :wants_participation_team
+  scope :participation_team
+  scope :has_circle
 
-  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :wants_newsletter
+  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
 
   index do
     selectable_column
@@ -26,6 +27,7 @@ ActiveAdmin.register User do
     column :email
     column :last_sign_in_ip
     column :phone
+    column :created_at
     column :validations do |user|
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
@@ -87,15 +89,38 @@ ActiveAdmin.register User do
       row :vote_town_name
       row :address
       row :postal_code
-      row :province do
-        user.province_name
-      end
+      
       row :country do
         user.country_name
+      end
+      row :autonomy do
+        user.autonomy_name
+      end
+      row :province do
+        user.province_name
       end
       row :town do
         user.town_name
       end
+      row :in_spanish_island? do
+        if user.in_spanish_island?
+          user.island_name
+        else
+          status_tag("NO", :error)
+        end
+      end
+
+      row :vote_place do
+        user.vote_autonomy_name + " / " + user.vote_province_name + " / " + user.vote_town_name
+      end
+      row :vote_in_spanish_island? do
+        if user.vote_in_spanish_island?
+          user.vote_island_name
+        else
+          status_tag("NO", :error)
+        end
+      end
+
       row :admin
       row :circle
       row :created_at
@@ -126,6 +151,7 @@ ActiveAdmin.register User do
       row :remember_created_at
       row :deleted_at
     end
+
     panel "Votos" do
       if user.votes.any?
         table_for user.votes do
@@ -135,6 +161,19 @@ ActiveAdmin.register User do
         end
       else
         "No hay votos asociados a este usuario."
+      end
+    end    
+
+    if user.wants_participation
+      panel "Equipos de Acción Participativa" do
+        if user.participation_team.any?
+          table_for user.participation_team do
+            column :name
+            column :active
+          end
+        else
+          "El usuario no está inscrito en equipos específicos."
+        end
       end
     end
     active_admin_comments
@@ -163,27 +202,20 @@ ActiveAdmin.register User do
   filter :sign_in_count
   filter :wants_participation
   filter :vote_town
+  filter :participation_team_id, as: :select, collection: ParticipationTeam.all
   filter :votes_election_id, as: :select, collection: Election.all
 
   form partial: "form"
-
-  #collection_action :download_newsletter_csv, :method => :get do
-  #  users = User.wants_newsletter
-  #  csv = CSV.generate(encoding: 'utf-8') do |csv|
-  #    users.each { |user| csv << [ user.email ] }
-  #  end
-  #  send_data csv.encode('utf-8'),
-  #    type: 'text/csv; charset=utf-8; header=present',
-  #    disposition: "attachment; filename=podemos.newsletter.#{Date.today.to_s}.csv"
-  #end
 
   csv do
     column :id
     column("Nombre") { |u| u.full_name }
     column :email
+    column :document_vatid
     column :country_name
     column :province_name
     column :town_name
+    column :address
     column :postal_code
     column :country
     column :province
@@ -192,6 +224,7 @@ ActiveAdmin.register User do
     column :vote_town
     column :phone
     column :last_sign_in_ip
+    column :circle
   end
 
   action_item :only => :show do
@@ -234,9 +267,66 @@ ActiveAdmin.register User do
 
   sidebar :versionate, :partial => "admin/version", :only => :show
 
-  # FIXME: bug, only 2 mails
-  #  action_item only: :index do
-  #    link_to('Descargar correos para Newsletter (CSV)', params.merge(:action => :download_newsletter_csv))
-  #  end
+  collection_action :download_participation_teams_tsv, :method => :get do
+    users = User.participation_team
+
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Círculo", "Email", "Equipos"]
+      users.each do |user| 
+        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle, user.email, user.participation_team.map { |team| team.name }.join(",") ]
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+      type: 'text/tsv; charset=utf-8; header=present',
+      disposition: "attachment; filename=podemos.participationteams.#{Date.today.to_s}.csv"
+  end
+
+  action_item only: :index do
+    link_to('Descargar Equipos de participación', params.merge(:action => :download_participation_teams_tsv))
+  end
+
+  sidebar :report, only: :index do
+    form action: create_report_admin_users_path, method: :post do
+      input :name => :authenticity_token, :type => :hidden, :value => form_authenticity_token.to_s
+      input :name => :query, :type => :hidden, :value => Report.serialize_relation_query(users)
+      div class: :filter_form_field do
+        label "Titulo"
+        input name: :title
+      end
+      label "Grupos"
+      div class: :filter_form_field do
+        label "Principal"
+        select name: :main_group do
+          option value: nil do "-- Ninguno --" end
+          ReportGroup.all.each do |g|
+            option value: g.id do g.title end
+          end
+        end
+      end
+      div class: :filter_form_field do
+        ReportGroup.all.each do |g|
+          label do
+            input name: "groups[]", type: :checkbox, value: g.id
+            span g.title
+          end
+        end
+      end
+      div class: :buttons do
+        input :type => :submit, value: "Crear informe"
+      end
+    end
+  end
+
+  collection_action :create_report, :method => :post do
+    Report.create do |r|
+      r.title = params[:title]
+      r.query = params[:query]
+      r.main_group = ReportGroup.find(params[:main_group].to_i).to_yaml if params[:main_group].to_i>0
+      r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_yaml
+    end
+    flash[:notice] = "El informe ha sido generado"
+    redirect_to action: :index
+  end
 
 end

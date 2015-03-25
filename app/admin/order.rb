@@ -1,8 +1,10 @@
 ActiveAdmin.register Order do
+  scope_to Order, association_method: :full_view
+  config.sort_order = 'updated_at_desc'
 
   menu :parent => "Colaboraciones"
 
-  actions :all, :except => [:new, :edit]
+  permit_params :status, :reference, :amount, :first, :payment_type, :payment_identifier, :payment_response, :payable_at, :payed_at, :created_at
 
   # Nº RECIBO Es el identificador del cargo a todos los efectos y no se ha de repetir en la remesa y en las remesas sucesivas. Es un nº correlativo
   # NOMBRE  
@@ -29,43 +31,109 @@ ActiveAdmin.register Order do
   #"Nº RECIBO", "NOMBRE", "DNI/NIE/PASAPORTE", "EMAIL", "DIRECCIÓN", "CIUDAD", "CÓDIGO POSTAL", "CODIGO PAIS", "IBAN", "CCC", "BIC/SWIFT", "TOTAL", "CÓDIGO DE ADEUDO", "URL FUENTE", "ID - ENTRADA", "FECHA DE LA ENTRADA", "COMPROBACIÓN", "FECHA TRIODOS", "FRECUENCIA", "TITULAR"
   #
   
-  collection_action :mensual_orders, :method => :get do
-    # TODO: only download orders for this month
-    orders = Order.all
-    csv = CSV.generate(encoding: 'utf-8') do |csv|
-      orders.each do |order| 
-        # TODO: user.town_name 
-        # FIXME: revisar
-        csv << [ order.receipt, order.collaboration.user.full_name, order.collaboration.user.document_vatid, order.collaboration.user.email, order.collaboration.user.address, order.collaboration.user.town, order.collaboration.user.postal_code, order.collaboration.user.country, order.collaboration.iban_account, order.collaboration.ccc_full, order.collaboration.iban_bic, order.collaboration.amount, order.due_code, order.url_source, order.collaboration.id, order.created_at.to_s, order.concept, order.payable_at, order.collaboration.frequency_name, order.collaboration.user.full_name ] 
-      end 
-    end
-    send_data csv.encode('utf-8'),
-      type: 'text/csv; charset=utf-8; header=present',
-      disposition: "attachment; filename=podemos.orders.#{Date.today.to_s}.csv"
-  end
-
-  action_item only: :index do
-    link_to('Descargar orden de pago para este mes', params.merge(:action => :mensual_orders))
-  end
+  scope :to_be_paid
+  scope :paid
+  scope :warnings
+  scope :errors
+  scope :returned
+  scope :deleted
 
   index do
     selectable_column
     id_column
-    column :id
     column :status_name
-    column :collaboration
+    column :parent
     column :user do |order|
-      link_to(order.collaboration.user.full_name, admin_user_path(order.collaboration.user))
+      if order.user
+        link_to(order.user.full_name, admin_user_path(order.user))
+      elsif order.parent
+        order.parent.get_user
+      end
+    end
+    column :amount do |order|
+      number_to_euro order.amount
     end
     column :payable_at
     column :payed_at
-    column :created_at
     actions
   end
 
-  filter :collaboration_user_email, as: :string
+  show do
+    attributes_table do
+      row :id
+      row :status_name
+      row :user do |order|
+        if order.user
+          link_to(order.user.full_name, admin_user_path(order.user))
+        elsif order.parent
+          order.parent.get_user
+        end
+      end
+      row :parent
+      row :parent_type
+      row :amount do |order|
+        number_to_euro order.amount
+      end
+      row :error_message
+      row :first
+      row :reference
+      row :payment_type_name
+      row :payment_identifier
+      row :payment_response
+      row :created_at
+      row :updated_at
+      row :payable_at
+      row :payed_at
+      row :deleted_at
+    end
+    active_admin_comments
+  end
+
+  filter :status, :as => :select, :collection => Order::STATUS.to_a
+  filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
+  filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
+  filter :first
   filter :payable_at
   filter :payed_at
   filter :created_at
   
+  form do |f|
+    f.inputs "Order" do
+      f.input :status, as: :select, collection: Order::STATUS.to_a
+      f.input :reference
+      f.input :amount
+      f.input :first
+      f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a
+      f.input :payment_identifier
+      f.input :payment_response
+      f.input :payable_at
+      f.input :payed_at
+      f.input :created_at
+    end
+    f.actions
+  end
+
+  member_action :return_order do
+    if resource.is_paid?
+      resource.mark_as_returned!
+    end
+    redirect_to admin_order_path(id: resource.id)
+  end
+
+  action_item only: :show do
+    if resource.is_paid?
+      link_to 'Orden devuelta', return_order_admin_order_path(id: resource.id), data: { confirm: "Esta orden no será contabilizada como cobrada. ¿Deseas continuar?" }
+    end
+  end
+
+  action_item :only => :show do
+    link_to('Recuperar orden borrada', recover_admin_order_path(order), method: :post, data: { confirm: "¿Estas segura de querer recuperar esta order?" }) if order.deleted?
+  end
+
+  member_action :recover, :method => :post do
+    order = Order.with_deleted.find(params[:id])
+    order.restore
+    flash[:notice] = "Ya se ha recuperado la orden"
+    redirect_to action: :show
+  end
 end

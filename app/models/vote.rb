@@ -20,8 +20,8 @@ class Vote < ActiveRecord::Base
   end
 
   def generate_hash(message)
-    key = Rails.application.secrets.agora["shared_key"]
-    Digest::HMAC.hexdigest(message, key, Digest::SHA256)
+    key = self.election.server_shared_key
+    OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new('sha256'), key, message)
   end
 
   def scoped_agora_election_id
@@ -29,17 +29,17 @@ class Vote < ActiveRecord::Base
   end
 
   def url
-    key = Rails.application.secrets.agora["shared_key"]
+    key = self.election.server_shared_key
     message =  self.generate_message
     hash = self.generate_hash message
-    "https://vota.podemos.info/#/election/#{self.scoped_agora_election_id}/vote/#{hash}/#{message}"
+    "#{self.election.server_url}#/election/#{self.scoped_agora_election_id}/vote/#{hash}/#{message}"
   end
 
   def test_url
-    key = Rails.application.secrets.agora["shared_key"]
+    key = self.election.server_shared_key
     message =  self.generate_message
     hash = self.generate_hash message
-    "https://vota.podemos.info/#/test_hmac/#{key}/#{hash}/#{message}"
+    "#{self.election.server_url}#/test_hmac/#{key}/#{hash}/#{message}"
   end
 
   private

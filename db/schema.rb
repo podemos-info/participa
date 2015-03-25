@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226174858) do
+ActiveRecord::Schema.define(version: 20150324152242) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -32,11 +32,6 @@ ActiveRecord::Schema.define(version: 20141226174858) do
     t.integer  "user_id"
     t.integer  "amount"
     t.integer  "frequency"
-    t.string   "redsys_order"
-    t.datetime "redsys_response_recieved_at"
-    t.string   "redsys_response_code"
-    t.string   "response_status"
-    t.text     "redsys_response"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "payment_type"
@@ -47,9 +42,19 @@ ActiveRecord::Schema.define(version: 20141226174858) do
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
+    t.integer  "status",                  default: 0
+    t.string   "redsys_identifier"
+    t.datetime "redsys_expiration"
+    t.string   "non_user_document_vatid"
+    t.string   "non_user_email"
+    t.text     "non_user_data"
+    t.boolean  "for_autonomy_cc"
+    t.boolean  "for_town_cc"
   end
 
   add_index "collaborations", ["deleted_at"], name: "index_collaborations_on_deleted_at"
+  add_index "collaborations", ["non_user_document_vatid"], name: "index_collaborations_on_non_user_document_vatid"
+  add_index "collaborations", ["non_user_email"], name: "index_collaborations_on_non_user_email"
 
   create_table "election_locations", force: true do |t|
     t.integer  "election_id"
@@ -68,6 +73,8 @@ ActiveRecord::Schema.define(version: 20141226174858) do
     t.datetime "updated_at"
     t.text     "close_message"
     t.integer  "scope"
+    t.string   "info_url"
+    t.string   "server"
   end
 
   create_table "notice_registrars", force: true do |t|
@@ -88,11 +95,75 @@ ActiveRecord::Schema.define(version: 20141226174858) do
   end
 
   create_table "orders", force: true do |t|
-    t.integer  "collaboration_id"
     t.integer  "status"
     t.datetime "payable_at"
     t.datetime "payed_at"
     t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.string   "reference"
+    t.integer  "amount"
+    t.boolean  "first"
+    t.integer  "payment_type"
+    t.string   "payment_identifier"
+    t.text     "payment_response"
+  end
+
+  create_table "participation_teams", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participation_teams_users", id: false, force: true do |t|
+    t.integer "participation_team_id"
+    t.integer "user_id"
+  end
+
+  add_index "participation_teams_users", ["participation_team_id"], name: "index_participation_teams_users_on_participation_team_id"
+  add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
+
+  create_table "proposals", force: true do |t|
+    t.text     "title"
+    t.text     "description"
+    t.integer  "votes",            default: 0
+    t.string   "reddit_url"
+    t.string   "reddit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "reddit_threshold", default: false
+    t.string   "image_url"
+    t.integer  "supports_count",   default: 0
+    t.integer  "hotness",          default: 0
+    t.string   "author"
+  end
+
+  create_table "report_groups", force: true do |t|
+    t.string   "title"
+    t.text     "proc"
+    t.integer  "width"
+    t.string   "label"
+    t.string   "data_label"
+    t.text     "whitelist"
+    t.text     "blacklist"
+    t.integer  "minimum"
+    t.string   "minimum_label"
+    t.string   "visualization"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reports", force: true do |t|
+    t.string   "title"
+    t.text     "query",      limit: 255
+    t.text     "main_group"
+    t.text     "groups"
+    t.text     "results"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -105,6 +176,13 @@ ActiveRecord::Schema.define(version: 20141226174858) do
   end
 
   add_index "simple_captcha_data", ["key"], name: "idx_key"
+
+  create_table "supports", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "proposal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                    default: "", null: false

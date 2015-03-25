@@ -1,0 +1,25 @@
+<% content_for :title, "Iniciativas ciudadanas" %>
+
+<div id="info">  
+  <h1>Iniciativas Ciudadanas Podemos</h1>
+
+  <h2>El mecanismo consta de varias fases:</h2>
+
+  <h3>1. RECOGIDA DE PROPUESTAS</h3>
+  <p>Cualquier persona puede colgar una propuesta en Plaza Podemos (<%= link_to 'plaza.podemos.info', 'http://plaza.podemos.info', target: "_blank" %>). Las propuestas que tengan un cierto número de votos positivos (el equivalente al 0,2% de los inscritos en Podemos, y tened en cuenta que los votos negativos son irrelevantes), pasan al portal de participación <%= link_to 'participa.podemos.info', 'http://participa.podemos.info', target: 'blank' %></p>
+
+  <h3>2. APOYO DE PROPUESTAS</h3> 
+  <p>En el portal de participación los inscritos en Podemos y los círculos pueden apoyar las propuestas. Cuando el 2% de los inscritos ha apoyado una propuesta, se manda un correo electrónico a todos los inscritos anunciándolo, para darle una buena visibilidad.
+  Cuando en 3 meses el 10% de los inscritos o el 20% de los círculos ha apoyado una propuesta, pasa a la siguiente fase.</p>
+
+  <h3>3. DESARROLLO DE PROPUESTAS</h3>
+  <p>La organización pone en marcha un grupo de trabajo junto a quienes la propusieron para desarrollar la propuesta, que en el plazo máximo de un mes debe finalizar su redacción final. Si no hay acuerdo entre ambas partes, la dos versiones (la propuesta inicial y la del grupo de trabajo) serán presentadas.</p>
+
+  <h3>4. REFERENDUM VINCULANTE</h3>
+  <p>La propuesta se difunde y pasa a votarse de manera segura en la plataforma Agora Voting. La decisión se tomará por mayoría simple y será vinculante, y sólo podrá ser modificada mediante el mismo mecanismo (asegurando que mecanismos indirectos no modifiquen estas decisiones).</p>
+
+  <p><em>[ Puedes encontrar el texto aprobado en la Asamblea Ciudadana definiendo el mecanismo en el siguiente enlace (páginas 42 y 43):<em> <br/>
+    <% url = 'https://web-podemos.s3.amazonaws.com/wordpress/wp-content/uploads/2014/11/documento_organizativo_alta_03.pdf' %>
+    <%= link_to url, url, target: "_blank" %> ]
+  </p>
+</div>

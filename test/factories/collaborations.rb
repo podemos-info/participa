@@ -2,23 +2,28 @@
 
 FactoryGirl.define do
   factory :collaboration do
+    payment_type 1
     association :user
     amount 1000
     frequency 1
+  end
+
+  trait :ccc do 
     payment_type 2
     ccc_entity '9000'
     ccc_office '0001'
     ccc_dc '21'
     ccc_account '0123456789'
   end
+  
+  trait :iban do 
+    payment_type 3
+    iban_account "ES0690000001210123456789"
+    iban_bic "ESPBESMMXXX"
+  end
 
   trait :credit_card do
-    association :user
     payment_type 1
-    ccc_entity nil
-    ccc_office nil
-    ccc_dc nil
-    ccc_account nil
   end
 
   trait :foreign_user do 
@@ -36,4 +41,5 @@ FactoryGirl.define do
   trait :yearly do
     frequency 12
   end
+
 end

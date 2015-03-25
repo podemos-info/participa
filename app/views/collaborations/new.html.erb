@@ -6,149 +6,72 @@
 
       <%= content_tag(:h2, t("podemos.collaboration.title")) %>
 
-      <%= render partial: 'steps', locals: {step: 1} %>
+      <% if current_user.is_passport? %>
+        <%= info_box do %>
+        <p>Según nuestra base de datos estás inscrito con un número de pasaporte.</p>
+        <p>Dado que la Ley Orgánica 8/2007, de 4 de julio, sobre financiación de los partidos políticos, exige la identificación fiscal de los donantes, para poder colaborar económicamente con PODEMOS y poder cumplimentar el formulario de alta como colaborador es imprescindible disponer de DNI o NIE.</p>
+        <p>Si eres español o extranjero con NIE envíanos una copia de tu DNI o documento donde conste tu número de identificación de extranjero a la dirección colaboraciones@podemos.info para que podamos actualizar los datos de tu inscripción.</p>
+        <% end %>
+      <% else %>
 
-      <%= info_box do %>
-          <p><%= t("podemos.collaboration.p1") %></p>
-      <% end %>
+        <%= render partial: 'steps', locals: {step: 1} %>
 
-      <%= errors_in_form @collaboration %>
+        <%= info_box do %>
+            <p><%= t("podemos.collaboration.p1") %></p>
+        <% end %>
 
-      <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post} do |f| %>
-          <fieldset>
-            <legend class="invisible">Nueva colaboración</legend>
+        <%= errors_in_form @collaboration %>
 
-            <div class="inputlabel-box">
-              <% if @collaboration.errors.include?(:amount) %>
-                  <%= field_notice_box %>
-              <% end %>
-              <%= f.input :amount,
-                          required: true,
-                          as: :select,
-                          collection: Collaboration::AMOUNTS,
-                          input_html: {required: true, class: 'js-collaboration-amount'} %>
-            </div>
+        <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post, autocomplete: 'off'} do |f| %>
 
-            <div class="inputlabel-box">
-              <% if @collaboration.errors.include?(:frequency) %>
-                  <%= field_notice_box %>
-              <% end %>
-              <%= f.input :frequency,
-                          required: true,
-                          as: :select,
-                          collection: Collaboration::FREQUENCIES,
-                          input_html: {required: true, class: 'js-collaboration-frequency'} %>
-            </div>
+            <%= render partial: "form", locals: { f: f } %>
 
-            <div class="inputlabel-box">
-              <% if @collaboration.errors.include?(:payment_type) %>
-                  <%= field_notice_box %>
-              <% end %>
-              <%= f.input :payment_type,
-                          required: true,
-                          as: :select,
-                          collection: Collaboration::TYPES,
-                          input_html: {required: true, class: 'js-collaboration-type'} %>
-            </div>
+            <fieldset class="with-tos">
 
-            <div class="inputlabel-box js-collaboration-type-form-2">
-              <% if @collaboration.errors.include?(:ccc_entity) ||
-                      @collaboration.errors.include?(:ccc_office) ||
-                      @collaboration.errors.include?(:ccc_dc) ||
-                      @collaboration.errors.include?(:ccc_account) %>
-                  <%= field_notice_box %>
-              <% end %>
+              <legend><span>Consentimiento</span></legend>
 
-              <div class="input required form-group">
-                <label class="control-label" for="account">
-                  CCC<abbr title="requerido">*</abbr>
-                </label>
-                <span class="form-wrapper">
-                  <%= f.text_field :ccc_entity, maxlength: 4, class: 'input-account-4 form-control', placeholder: 'xxxx' %>
-                  <%= f.text_field :ccc_office, maxlength: 4, class: 'input-account-4 form-control', placeholder: 'xxxx' %>
-                  <%= f.text_field :ccc_dc, maxlength: 2, class: 'input-account-2 form-control', placeholder: 'xx' %>
-                  <%= f.text_field :ccc_account, maxlength: 10, class: 'input-account-10 form-control', placeholder: 'xxxxxxxxxx' %>
+              <div class="inputlabel-box">
+                <span class="no-label"><%= t('podemos.collaboration.terms_of_service.title') %></span>
+                <span class="no-input">
+                  <div class="tos">
+                    <p>1. <%= t('podemos.collaboration.terms_of_service.p1_title') %> </p>
+                    <%= simple_format t('podemos.collaboration.terms_of_service.p1') %>
+                    <p>2. <%= t('podemos.collaboration.terms_of_service.p2_title') %> </p>
+                    <%= simple_format t('podemos.collaboration.terms_of_service.p2') %>
+                    <p>3. <%= t('podemos.collaboration.terms_of_service.p3_title') %> </p>
+                    <%= simple_format t('podemos.collaboration.terms_of_service.p3') %>
+                  </div>
                 </span>
               </div>
-            </div>
 
-            <div class="js-collaboration-type-form-3">
               <div class="inputlabel-box">
-                <% if @collaboration.errors.include? :iban_account %>
+                <% if @collaboration.errors.include?(:terms_of_service) %>
                     <%= field_notice_box %>
                 <% end %>
 
-                <%= f.input :iban_account %>
-              </div>
-              <div class="inputlabel-box">
-                <% if @collaboration.errors.include? :iban_bic %>
-                    <%= field_notice_box %>
-                <% end %>
-
-                <%= f.input :iban_bic %>
-              </div>
-            </div>
-
-            <div class="inputlabel-box js-collaboration-alert invisible">
-              <span class="no-label">Aportación económica</span>
-              <span class="no-input"><span id="js-collaboration-alert-amount"></span></span>
-            </div>
-
-          </fieldset>
-
-          <fieldset class="with-tos">
-
-            <legend><span>Consentimiento</span></legend>
-
-            <div class="inputlabel-box">
-              <span class="no-label"><%= t('podemos.collaboration.terms_of_service.title') %></span>
-              <span class="no-input">
-                <div class="tos">
-                  <p> <%= t('podemos.collaboration.terms_of_service.p1_title') %> </p>
-
-                  <p> <%= t('podemos.collaboration.terms_of_service.p1') %> </p>
-
-                  <p> <%= t('podemos.collaboration.terms_of_service.p2_title') %> </p>
-
-                  <p> <%= t('podemos.collaboration.terms_of_service.p2') %> </p>
-
-                  <p> <%= t('podemos.collaboration.terms_of_service.p3_title') %> </p>
-
-                  <p> <%= t('podemos.collaboration.terms_of_service.p3') %> </p>
+                <%= f.label :terms_of_service %>
+                <div class="input-box">
+                  <%= f.check_box :terms_of_service, class: 'checkbox' %>
+                  <p class="text-xl">Acepto las condiciones generales.</p>
                 </div>
-              </span>
-            </div>
-
-            <div class="inputlabel-box">
-              <% if @collaboration.errors.include?(:terms_of_service) %>
-                  <%= field_notice_box %>
-              <% end %>
-
-              <%= f.label :terms_of_service %>
-              <div class="input-box">
-                <%= f.check_box :terms_of_service, class: 'checkbox' %>
-                <p class="text-xl">Acepto las condiciones generales.</p>
               </div>
-            </div>
 
-            <div class="inputlabel-box">
-              <% if @collaboration.errors.include?(:minimal_year_old) %>
-                  <%= field_notice_box %>
-              <% end %>
-              <%= f.label :minimal_year_old %>
-              <div class="input-box">
-                <%= f.check_box :minimal_year_old, class: 'checkbox' %>
-                <p class="text-xl">Declaro ser mayor de 18 años.</p>
+              <div class="inputlabel-box">
+                <% if @collaboration.errors.include?(:minimal_year_old) %>
+                    <%= field_notice_box %>
+                <% end %>
+                <%= f.label :minimal_year_old %>
+                <div class="input-box">
+                  <%= f.check_box :minimal_year_old, class: 'checkbox' %>
+                  <p class="text-xl">Declaro ser mayor de 18 años.</p>
+                </div>
               </div>
-            </div>
 
-
-            <%= f.actions class: 'enter' do %>
+              <%= f.actions class: 'enter' do %>
                 <%= f.action :submit, :as => :input, button_html: {class: 'button'} %>
-            <% end %>
-
-          </fieldset>
-
+              <% end %>
+            </fieldset>
+        <% end %>
       <% end %>
     </div>
   </div>

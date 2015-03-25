@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  ensure_security_headers
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -36,6 +37,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
+    cookies[:cookiepolicy] = {
+       :value => 'hide',
+       :expires => 18.year.from_now
+    }
 
     # reset session value
     session[:no_unresolved_issues] = false

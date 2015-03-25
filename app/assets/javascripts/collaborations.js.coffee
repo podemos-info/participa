@@ -3,51 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
 
-open_redsys_window = () ->
-  vent = window.open("", "tpv", "width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no")
-  document.forms[0].submit()
-  return
-
-show_collaboration_ajax_loader = () ->
-  $('.js-collaboration-confirm-buttons').hide()
-  $('.js-collaboration-confirm-ajax').show()
-
-check_collaboration_by_ajax = () -> 
-  order = $('.js-collaboration-order').attr('value')
-  timeOutId = 0
-  retry_check_collaboration_by_ajax = ->
-    $.ajax
-      url: "/collaborations/validate/redsys/status/" + order + ".json"
-      success: (response) ->
-        if response.status?
-          switch response.status
-            when "OK"
-              window.location = "/collaborations/validate/OK"
-              clearTimeout timeOutId
-            when "KO"
-              window.location = "/collaborations/validate/KO"
-              clearTimeout timeOutId
-            else
-              window.location = "/collaborations/validate/KO"
-              clearTimeout timeOutId
-        else
-          timeOutId = setTimeout(retry_check_collaboration_by_ajax, 10000)
-        return
-
-    return
-  retry_check_collaboration_by_ajax()
-  #OR use BELOW line to wait 10 secs before first call
-  #timeOutId = setTimeout(ajaxFn, 10000)
-
-start_collaboration_confirm = () ->
-  show_collaboration_ajax_loader()
-  open_redsys_window()
-  check_collaboration_by_ajax()
-
 calculate_collaboration = () ->
   $amount = $('.js-collaboration-amount option:selected')
   $freq = $('.js-collaboration-frequency option:selected')
-  if (($amount.length > 0) && ($freq.length > 0))
+  if (($amount.index() > 0) && ($freq.index() > 0))
     total = $amount.val() / 100.0 * $freq.val()
     switch $freq.val()
       when "1"
@@ -56,39 +15,75 @@ calculate_collaboration = () ->
         message = total + " € cada 3 meses, en total " + total * 4 + " € al año"
       when "12"
         message = total + " € cada año en un pago único anual"
+    $('.js-collaboration-alert').show()
     $('#js-collaboration-alert-amount').text(message)
+  else
+    $('.js-collaboration-alert').hide()
 
 change_payment_type = (type) ->
   switch type
     when "2"
       $('.js-collaboration-type-form-3').hide()
-      $('.js-collaboration-type-form-2').show('fast')
+      $('.js-collaboration-type-form-2').show('slide')
     when "3"
       $('.js-collaboration-type-form-2').hide()
-      $('.js-collaboration-type-form-3').show('fast')
-    when "1"
-      $('.js-collaboration-type-form-2').hide()
-      $('.js-collaboration-type-form-3').hide()
+      $('.js-collaboration-type-form-3').show('slide')
     else
       $('.js-collaboration-type-form-2').hide()
       $('.js-collaboration-type-form-3').hide()
 
+show_assignments = false
+update_assigments = () ->
+  if (show_assignments)
+    $('.js-collaboration-assignment-toggle').hide()
+    $('.js-collaboration-assignment').show('slide')
+  else
+    $('.js-collaboration-assignment').hide('slide')
+    $('.js-collaboration-assignment-toggle').show()
+
 init_collaborations = () ->
 
+  must_reload = $('#js-must-reload')
+  
+  if (must_reload)
+    if (must_reload.val()!="1")
+      $("form").on 'submit', (event) ->
+        must_reload.val("1")
+        $("#js-confirm-button").hide()
+    else
+      must_reload.val("0")
+      $("#js-confirm-button").hide()
+      location.reload()
+  
   change_payment_type($('.js-collaboration-type').val() || $('.js-collaboration-type').select2('val'))
 
   $('.js-collaboration-type').on 'change', (event) ->
     type = $(this).val()
     change_payment_type(type)
 
-  $('.js-collaboration-confirm').on 'click', (event) ->
-    event.preventDefault()
-    start_collaboration_confirm()
-
   calculate_collaboration()
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
     calculate_collaboration()
 
+  if ($('.js-collaboration-assignment-toggle').length==0)
+    show_assignments = true;
+    
+  update_assigments()
+  $('.js-collaboration-assignment-autonomy').on 'change', () ->
+    update_assigments()
+
+  $('.js-collaboration-assignment-toggle').on 'click', (e) ->
+    e.preventDefault()
+    show_assignments = true
+    update_assigments()
+
+  $('.js-collaboration-assignment-town input').on 'click', () ->
+    if ($(this).prop('checked'))
+      $('.js-collaboration-assignment-autonomy input').prop('checked', true)
+
+  $('.js-collaboration-assignment-autonomy input').on 'click', () ->
+    if (!$(this).prop('checked'))
+      $('.js-collaboration-assignment-town input').prop('checked', false)
 
 $(window).bind 'page:change', ->
   init_collaborations()

@@ -25,22 +25,20 @@
           <li class="menu-logout">
             <%= nav_menu_link_to "Salir", destroy_user_session_path, [destroy_user_session_path], method: :delete, title: "Cerrar sesión" %>
           </li>
-          <li class="menu-tools">
-            <%= nav_menu_link_to "Herramientas", root_path, [root_path], title: "Herramientas" %>
-          </li>
           <li class="menu-team">
             <%= nav_menu_link_to "Equipos de Participación", participation_teams_path, [participation_teams_path], title: "Equipos de Participación" %>
+          </li>
+          <li class="menu-tools">
+            <%= nav_menu_link_to "Iniciativas ciudadanas", proposals_path, [proposals_path], title: "Iniciativas ciudadanas " %>
           </li>
           <!-- li class="menu-notif">
             <%# nav_menu_link_to "Avisos", notices_path, [notices_path], class: new_notifications_class %>
           </li -->
-          <% if Rails.env.development? or Rails.env.staging? %>
-              <li class="menu-econ">
-                <%= nav_menu_link_to "Colaboración económica", new_collaboration_path, [new_collaboration_path] %>
-              </li>
-          <% end %>
+          <li class="menu-econ">
+            <%= nav_menu_link_to "Colaboración económica", new_collaboration_path, [new_collaboration_path], title: "Colaboración económica"  %>
+          </li>
           <li class="menu-profile">
-            <%= nav_menu_link_to "Datos personales", edit_user_registration_path, [edit_user_registration_path], title: "Datos personales" %>
+            <%= nav_menu_link_to "Datos personales", edit_user_registration_url, [edit_user_registration_path], title: "Datos personales" %>
           </li>
           <li class="menu-name">
             <% link_to edit_user_registration_path do %>
