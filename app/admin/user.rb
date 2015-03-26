@@ -17,6 +17,7 @@ ActiveAdmin.register User do
   scope :has_collaboration_bank_international
   scope :participation_team
   scope :has_circle
+  scope :banned
 
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
 
@@ -231,7 +232,7 @@ ActiveAdmin.register User do
   action_item :only => :show do
     link_to('Recuperar usuario borrado', recover_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer recuperar este usuario?" }) if user.deleted?
   end
- 
+
   action_item :only => :show do   
     if can? :ban, User
       if user.banned?
