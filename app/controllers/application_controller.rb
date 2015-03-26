@@ -67,8 +67,9 @@ class ApplicationController < ActionController::Base
   
   def banned_user
     if current_user and current_user.banned?
+      name = current_user.full_name
       sign_out_and_redirect current_user
-      flash[:alert] = t("podemos.banned")
+      flash[:notice] = t("podemos.banned", full_name: name)
     end
   end
 
