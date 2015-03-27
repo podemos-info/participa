@@ -280,6 +280,8 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar :versionate, :partial => "admin/version", :only => :show
+
   sidebar "Control de IPs", only: :show do
     ips = [user.last_sign_in_ip, user.current_sign_in_ip]
     t = User.arel_table
@@ -304,8 +306,6 @@ ActiveAdmin.register User do
       show! #it seems to need this
     end
   end
-
-  sidebar :versionate, :partial => "admin/version", :only => :show
 
   collection_action :download_participation_teams_tsv, :method => :get do
     users = User.participation_team

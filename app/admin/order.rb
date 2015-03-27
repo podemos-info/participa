@@ -136,4 +136,22 @@ ActiveAdmin.register Order do
     flash[:notice] = "Ya se ha recuperado la orden"
     redirect_to action: :show
   end
+
+  csv do
+    column :id
+    column :parent_id do |collaboration|
+      order.parent_id
+    end
+    column :full_name do |collaboration|
+      order.parent.get_user.full_name
+    end
+    column :dni_nie do |collaboration|
+      order.parent.get_user.document_vatid.upcase if collaboration.get_user.document_vatid
+    end
+    column :address do |collaboration|
+      order.parent.get_user.address
+    end
+
+    
+  end
 end
