@@ -136,21 +136,21 @@ ActiveAdmin.register Order do
     flash[:notice] = "Ya se ha recuperado la orden"
     redirect_to action: :show
   end
-
+  
   csv do
     column :id
-    column :parent_id do |order|
+    column :colaboracion do |order|
       order.parent_id
     end
     column :user_id
     column :full_name do |order|
-      order.parent.get_user.full_name
+      order.parent.get_user.full_name if order.parent and order.parent.get_user
     end
-    column :dni_nie do |order|
-      order.parent.get_user.document_vatid.upcase if order.parent.get_user.document_vatid
+    column :dni do |order|
+      order.parent.get_user.document_vatid.upcase if order.parent and order.parent.get_user and order.parent.get_user.document_vatid
     end
     column :address do |order|
-      order.parent.get_user.address
+      order.parent.get_user.address if order.parent and order.parent.get_user
     end
 
     column :status_name
