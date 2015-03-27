@@ -144,4 +144,20 @@ class ElectionTest < ActiveSupport::TestCase
     assert_equal("280797", el.location)
   end
 
+  test "should Election.available_servers work" do 
+    assert_equal( ["agora", "beta"], Election.available_servers )
+  end
+
+  test "should server_shared_key work" do 
+    election = FactoryGirl.create(:election)
+    assert_equal( "changeme", election.server_shared_key ) 
+  end
+
+  test "should server_url work" do 
+    election = FactoryGirl.create(:election)
+    beta_election = FactoryGirl.create(:election, :beta_server)
+    assert_equal( "https://vota.podemos.info/", election.server_url ) 
+    assert_equal( "https://beta.vota.podemos.info/", beta_election.server_url ) 
+  end
+
 end

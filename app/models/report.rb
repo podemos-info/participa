@@ -101,7 +101,7 @@ class Report < ActiveRecord::Base
         count = entries.map {|e| e[:count] } .sum
         result = { count: count, name: group.minimum_label, samples:Hash.new(0)}
         entries.each {|e| result[:samples][e[:name]] += e[:count] }
-        result[:samples] = Hash[result[:samples].sort {|k,v| [-v, k]}]
+        result[:samples] = Hash[result[:samples].sort_by {|k,v| [-v, k]}]
         if result[:samples].length>100
           result[:samples] = Hash[result[:samples].first(100)]
           result[:samples]["+"] = count - (result[:samples].map {|k,v| v} .sum)

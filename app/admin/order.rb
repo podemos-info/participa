@@ -136,4 +136,35 @@ ActiveAdmin.register Order do
     flash[:notice] = "Ya se ha recuperado la orden"
     redirect_to action: :show
   end
+
+  csv do
+    column :id
+    column :parent_id do |order|
+      order.parent_id
+    end
+    column :user_id
+    column :full_name do |order|
+      order.parent.get_user.full_name
+    end
+    column :dni_nie do |order|
+      order.parent.get_user.document_vatid.upcase if parent.order.get_user.document_vatid
+    end
+    column :address do |order|
+      order.parent.get_user.address
+    end
+
+    column :status_name
+    column :payable_at
+    column :payed_at
+    column :deleted_at
+    column :created_at
+    column :reference
+    column :amount
+    column :first
+    column :payment_type_name
+    column :payment_identifier
+    column :redsys_id do |order|
+      order.redsys_order_id if order.is_credit_card?
+    end
+  end
 end
