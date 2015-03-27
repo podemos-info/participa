@@ -280,6 +280,22 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar "Control de IPs", only: :show do
+    ips = [user.last_sign_in_ip, user.current_sign_in_ip]
+    t = User.arel_table
+    users = User.where.not(id:user.id).where(t[:last_sign_in_ip].in(ips).or(t[:current_sign_in_ip].in(ips)))
+    table_for users.first(25) do
+      column "Usuarios con la misma IP: #{users.count}" do |u|
+        span link_to(u.full_name, admin_user_path(u))
+        br
+        span u.document_vatid
+        span " - #{u.phone}" if u.phone
+        br
+        span b u.created_at.strftime "%Y-%m-%d %H:%M"
+      end
+    end
+  end
+
   controller do
     def show
       @user = User.with_deleted.find(params[:id])

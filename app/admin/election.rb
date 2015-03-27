@@ -66,7 +66,7 @@ ActiveAdmin.register Election do
     election_id = params[:id]
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       prev_user_id = nil
-      Vote.joins(:user).merge!(User.confirmed).where(election_id: election_id).select(:user_id, :voter_id).order(user_id: :asc, created_at: :desc).each do |vote| 
+      Vote.joins(:user).merge!(User.confirmed.not_banned).where(election_id: election_id).select(:user_id, :voter_id).order(user_id: :asc, created_at: :desc).each do |vote| 
         csv << [ vote.voter_id ] if prev_user_id != vote.user_id
         prev_user_id = vote.user_id
       end
