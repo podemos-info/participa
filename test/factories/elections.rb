@@ -7,6 +7,7 @@ FactoryGirl.define do
     scope 0
     starts_at "2014-09-22 17:01:18"
     ends_at "2014-09-28 17:01:18"
+    server "agora"
     
     after(:build) { |election| election.election_locations << FactoryGirl.create(:election_location, election: election) }
   end
@@ -46,4 +47,9 @@ FactoryGirl.define do
   trait :foreign_election do
     scope 5
   end
+
+  trait :beta_server do 
+    server "beta"
+  end
+
 end

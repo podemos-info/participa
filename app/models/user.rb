@@ -1,9 +1,13 @@
 class User < ActiveRecord::Base
+  include FlagShihTzu
 
   include Rails.application.routes.url_helpers
   require 'phone'
 
   has_and_belongs_to_many :participation_team
+
+  has_flags 1 => :banned,
+            2 => :superadmin
 
   # Include default devise modules. Others available are:
   # :omniauthable
@@ -525,7 +529,7 @@ class User < ActiveRecord::Base
     end
 
     # params from user profile
-    if (params[:no_profile]==nil) && current_user
+    if (params[:no_profile]==nil) && current_user && current_user.persisted?
       user_location[:country] ||= current_user.country
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
@@ -543,6 +547,11 @@ class User < ActiveRecord::Base
     user_location[:country] ||= "ES"
 
     user_location
+  end
+
+  def self.ban_users ids, value
+    t = User.arel_table
+    User.where(id:ids).where(t[:admin].eq(false).or(t[:admin].eq(nil))).update_all User.set_flag_sql(:banned, value)
   end
 
   def before_save

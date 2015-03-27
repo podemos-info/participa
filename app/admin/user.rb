@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  config.per_page = 50
 
   scope_to User, association_method: :with_deleted
 
@@ -17,6 +18,7 @@ ActiveAdmin.register User do
   scope :has_collaboration_bank_international
   scope :participation_team
   scope :has_circle
+  scope :banned
 
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
 
@@ -29,6 +31,7 @@ ActiveAdmin.register User do
     column :phone
     column :created_at
     column :validations do |user|
+      status_tag("Baneado", :error) + br if user.banned?
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
       user.valid? ? status_tag("Val", :ok) : status_tag("Val", :error)
@@ -229,6 +232,27 @@ ActiveAdmin.register User do
 
   action_item :only => :show do
     link_to('Recuperar usuario borrado', recover_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer recuperar este usuario?" }) if user.deleted?
+  end
+
+  action_item :only => :show do   
+    if can? :ban, User
+      if user.banned?
+        link_to('Desbanear usuario', ban_admin_user_path(user), method: :delete, data: { confirm: "¿Estas segura de querer desbanear a este usuario?" }) 
+      else
+        link_to('Banear usuario', ban_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer banear a este usuario?" }) 
+      end
+    end
+  end
+
+  batch_action :ban, if: proc{ can? :ban, User } do |ids|
+    User.ban_users(ids, true)
+    redirect_to collection_path, alert: "Los usuarios han sido baneados."
+  end
+
+  member_action :ban,  if: proc{ can? :ban, User }, :method => [:post, :delete] do
+    User.ban_users([ params[:id] ], request.post?)
+    flash[:notice] = "El usuario ha sido modificado"
+    redirect_to action: :show
   end
 
   member_action :recover, :method => :post do

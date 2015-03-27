@@ -153,7 +153,7 @@ GEM
     esendex (0.3.2)
       nestful (~> 0.0.8)
       nokogiri (>= 1.4.4.1)
-    eventmachine (1.0.3)
+    eventmachine (1.0.4)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -163,6 +163,7 @@ GEM
     ffi (1.9.6)
     ffi-icu (0.1.4)
       ffi (~> 1.0, >= 1.0.9)
+    flag_shih_tzu (0.3.13)
     formtastic (2.3.1)
       actionpack (>= 3.0)
     formtastic-bootstrap (3.0.0)
@@ -410,6 +411,7 @@ DEPENDENCIES
   esendex
   factory_girl_rails
   ffi-icu (~> 0.1.4)
+  flag_shih_tzu
   formtastic
   formtastic-bootstrap
   iban-tools
