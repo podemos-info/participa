@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  config.per_page = 50
 
   scope_to User, association_method: :with_deleted
 
