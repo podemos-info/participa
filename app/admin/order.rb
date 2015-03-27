@@ -147,7 +147,7 @@ ActiveAdmin.register Order do
       order.parent.get_user.full_name
     end
     column :dni_nie do |order|
-      order.parent.get_user.document_vatid.upcase if parent.order.get_user.document_vatid
+      order.parent.get_user.document_vatid.upcase if order.parent.get_user.document_vatid
     end
     column :address do |order|
       order.parent.get_user.address
