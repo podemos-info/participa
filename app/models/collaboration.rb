@@ -323,12 +323,14 @@ class Collaboration < ActiveRecord::Base
     orders = []
 
     while current<=date_end
-      # Check last saved order for this month
-      month_orders = saved_orders[current.unique_month]
-      order = month_orders[-1]
+      # month orders sorted by creation date
+      month_orders = saved_orders[current.unique_month].sort_by { |o| o.created_at }
 
-      # if don't have a saved order, create it (not persistent)
-      if self.deleted_at.nil? and create_orders and ((not order and self.must_have_order? current) or (order and order.has_errors?))
+      # valid orders without errors
+      valid_orders = month_orders.select {|o| not o.has_errors? }
+      
+      # if collaboration is active, should create orders, this month should have an order and it doesn't have a valid saved order, create it (not persistent)
+      if self.deleted_at.nil? and create_orders and self.must_have_order? current and valid_orders.empty?
         order = self.create_order current, orders.empty?
         month_orders << order if order
       end
