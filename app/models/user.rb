@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :participation_team
 
   has_flags 1 => :banned,
-            2 => :superadmin
+            2 => :superadmin,
+            3 => :verified
 
   # Include default devise modules. Others available are:
   # :omniauthable
