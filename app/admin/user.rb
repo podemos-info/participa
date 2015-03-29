@@ -244,6 +244,9 @@ ActiveAdmin.register User do
         link_to('Banear usuario', ban_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer banear a este usuario?" }) 
       end
     end
+  end
+
+  action_item :only => :show do  
     link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer verificar a este usuario?" })
   end
 

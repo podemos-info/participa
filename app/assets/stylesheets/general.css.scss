@@ -2065,3 +2065,34 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 div.ginput_container.ginput_list {
   clear:left;
 }
+
+
+div.help {
+  background:#612D62;
+  z-index: 1;
+  font-family: Montserrat,Arial,sans-serif;
+  right: -35px;
+  padding: 5px 10px;
+  position: fixed;
+  top: 30%;
+  transform: rotate(-90deg);
+  text-align: center;
+  a {
+    color: #FFF;
+    font-size: 1.5em;
+  }
+  a:first-child {
+    width:18px;
+    height:18px;
+    font-size:14px;
+    line-height: 17px;
+    font-family: Montserrat,Arial,sans-serif;
+    font-weight: bold;  
+    color: #612D62;
+    background: white;
+    border-radius: 100%;
+    transform: rotate(+90deg);
+    float:right;
+    margin: 2px 0px 0px 5px;
+  }
+}
