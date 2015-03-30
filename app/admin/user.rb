@@ -45,6 +45,8 @@ ActiveAdmin.register User do
   show do
     attributes_table do
       row :status do
+        status_tag("Verificado", :ok) if user.verified?
+        status_tag("Baneado", :error) if user.banned?
         user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
         if user.confirmed_at?
           status_tag("El usuario ha confirmado por email", :ok)
@@ -246,8 +248,10 @@ ActiveAdmin.register User do
     end
   end
 
-  action_item :only => :show do  
-    link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer verificar a este usuario?" })
+  action_item :only => :show do
+    if user.not_verified?
+      link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer verificar a este usuario?" })
+    end
   end
 
   batch_action :ban, if: proc{ can? :ban, User } do |ids|

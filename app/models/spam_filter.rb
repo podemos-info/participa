@@ -16,7 +16,7 @@ class SpamFilter < ActiveRecord::Base
     matches = []
     percent = 1.0*max_rows/User.where(query).count
     sample = percent<1 ? "random()<#{percent}" : ""
-    User.where(query).where(sample).limit(max_rows).find_each do |user|
+    User.confirmed.not_verified.not_banned.where(query).where(sample).limit(max_rows).find_each do |user|
       matches << user.id if @proc.call user, @data
       break if matches.length > max_matches
     end
