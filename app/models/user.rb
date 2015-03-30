@@ -257,8 +257,12 @@ class User < ActiveRecord::Base
         self.update_attribute(:phone, self.unconfirmed_phone)
         self.update_attribute(:unconfirmed_phone, nil)
 
-        if not self.verified? and not self.is_admin? and SpamFilter.any? self
-          self.update_attribute(:banned, true)
+        if not self.verified? and not self.is_admin?
+          filter = SpamFilter.any? self
+          if filter
+            self.update_attribute(:banned, true)
+            ActiveAdmin::Comment.create(author:nil,resource:user,namespace:'admin',body:"Usuario baneado automáticamente por el filtro: #{filter.name}")
+          end
         end
       end
       true
