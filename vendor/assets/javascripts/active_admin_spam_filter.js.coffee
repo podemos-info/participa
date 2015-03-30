@@ -11,12 +11,12 @@ load_filter_users = (offset, total, progress_label, users_div) ->
       progress_label.text(total)
     else
       progress_label.text(offset)
-      load_filter_users(offset)
+      load_filter_users(offset, total, progress_label, users_div)
 
 $ ->
   spam_filter_progress = $('#js-spam-filter-progress')
 
   if (spam_filter_progress)
-    spam_filter_total = parseInt($('#js-spam-filter-total').text())
     spam_filter_users = $('#js-spam-filter-users')
+    spam_filter_total = parseInt($('#js-spam-filter-total').text())
     load_filter_users(0, spam_filter_total, spam_filter_progress, spam_filter_users)
