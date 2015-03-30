@@ -27,7 +27,7 @@ ActiveAdmin.register SpamFilter do
   TEST_MAX_MATCHES = 1000
   member_action :test do
     id = params[:id]
-    full = params[:full]
+    full = params[:full]=="true"
     filter = SpamFilter.find(id)
     if full
       users = filter.test User.count, User.count
