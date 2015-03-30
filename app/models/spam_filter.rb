@@ -13,16 +13,13 @@ class SpamFilter < ActiveRecord::Base
     end
   end
 
-  MAX_TEST_ROWS = 100000
-  MAX_TEST_MATCHES = 10000
-  def test
+  def test max_rows, max_matches
     matches = []
-    total = User.where(query).count
-    offset = total > MAX_TEST_ROWS ? rand(total-MAX_TEST_ROWS) : 0
-
-    User.where(query).offset(offset).limit(MAX_TEST_ROWS).find_each do |user|
+    percent = 1.0*max_rows/User.where(query).count
+    sample = percent<1 ? "random()<#{percent}" : ""
+    User.where(query).where(sample).limit(max_rows).find_each do |user|
       matches << user.id if @proc.call user, @data
-      break if matches.length > MAX_TEST_MATCHES
+      break if matches.length > max_matches
     end
     matches
   end

@@ -3,17 +3,30 @@ ActiveAdmin.register SpamFilter do
 
   permit_params :name, :code, :data, :query, :active
 
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :code
+    column :data do |filter|
+      (filter.data.split("\r\n")[0..1].join("<br>") + "<br>...").html_safe
+    end
+    column :active
+    actions
+  end
+
   member_action :test do
     id = params[:id]
     filter = SpamFilter.find(id)
-    users = filter.test
+    users = filter.test 10000, 1000
     html = Arbre::Context.new({}, self) do
-      h2 "Usuarios afectados: #{users.count}"
+      h2 "Usuarios afectados: #{users.count} (#{[10000,User.count].min} tomados aleatoriamente de #{User.count})"
       div do
         users.each do |u|
           a u, href:admin_user_path(u)
         end
       end
+      a 'Repetir prueba', href:test_admin_spam_filter_path(id: id)
       a 'Volver', href:admin_spam_filter_path(id: id)
     end
 
