@@ -1,4 +1,6 @@
 class SpamFilter < ActiveRecord::Base
+  scope :active, -> { where(active:true) }
+
   after_initialize do |filter|
     if persisted?
       @proc = eval("Proc.new { |user, data| #{filter.code} }")
@@ -7,10 +9,7 @@ class SpamFilter < ActiveRecord::Base
   end
 
   def process user
-    if @proc.call user, @data
-      user.banned = true
-      user.save
-    end
+    @proc.call user, @data
   end
 
   def test max_rows, max_matches
@@ -22,5 +21,12 @@ class SpamFilter < ActiveRecord::Base
       break if matches.length > max_matches
     end
     matches
+  end
+
+  def self.any? user
+    SpamFilter.active.each do |filter|
+      return true if filter.process user
+    end
+    false
   end
 end

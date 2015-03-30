@@ -256,6 +256,10 @@ class User < ActiveRecord::Base
       if self.unconfirmed_phone? 
         self.update_attribute(:phone, self.unconfirmed_phone)
         self.update_attribute(:unconfirmed_phone, nil)
+
+        if not self.verified? and not self.is_admin? and SpamFilter.any? self
+          self.update_attribute(:banned, true)
+        end
       end
       true
     else 
