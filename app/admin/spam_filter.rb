@@ -18,9 +18,9 @@ ActiveAdmin.register SpamFilter do
   member_action :test do
     id = params[:id]
     filter = SpamFilter.find(id)
-    users = filter.test 10000, 1000
+    users = filter.test 50000, 1000
     html = Arbre::Context.new({}, self) do
-      h2 "Usuarios afectados: #{users.count} (#{[10000,User.count].min} tomados aleatoriamente de #{User.count})"
+      h2 "Usuarios afectados: #{users.count} - #{users.count*100/User.count}% (#{[50000,User.count].min} tomados aleatoriamente de #{User.count})"
       div do
         users.each do |u|
           a u, href:admin_user_path(u)
