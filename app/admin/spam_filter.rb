@@ -15,27 +15,50 @@ ActiveAdmin.register SpamFilter do
     actions
   end
 
+  action_item only: :show do
+    link_to 'Prueba rápida', test_admin_spam_filter_path(id: resource.id, full: false)
+  end
+
+  action_item only: :show do
+    link_to 'Ejecutar', test_admin_spam_filter_path(id: resource.id, full: true)
+  end
+
+  TEST_MAX_USERS = 10000
+  TEST_MAX_MATCHES = 1000
   member_action :test do
     id = params[:id]
+    full = params[:full]
     filter = SpamFilter.find(id)
-    users = filter.test 50000, 1000
+    if full
+      users = filter.test User.count, User.count
+    else
+      users = filter.test TEST_MAX_USERS, TEST_MAX_MATCHES
+    end
     html = Arbre::Context.new({}, self) do
-      h2 "Usuarios afectados: #{users.count} - #{users.count*100/User.count}% (#{[50000,User.count].min} tomados aleatoriamente de #{User.count})"
+      if full
+        h2 "Usuarios afectados: #{users.count}"
+      else
+        h2 "Usuarios afectados: #{users.count} - #{users.count*100/User.count}% (#{[TEST_MAX_USERS,User.count].min} tomados aleatoriamente de #{User.count})"
+      end
       div do
-        users.each do |u|
+        users.first(TEST_MAX_MATCHES).each do |u|
           a u, href:admin_user_path(u)
         end
+        para "... y #{users.length-TEST_MAX_MATCHES} más" if users.length>TEST_MAX_MATCHES
       end
-      a 'Repetir prueba', href:test_admin_spam_filter_path(id: id)
+      if users.length>0
+        a 'Banear', href:ban_admin_spam_filter_path(id: id, ids: users, data: {confirm:"¿Estas segura de querer banear a estos usuarios?"})
+      end
       a 'Volver', href:admin_spam_filter_path(id: id)
     end
 
     render inline: html.to_s, layout: true
   end
 
-  action_item only: :show do
-    link_to 'Probar', test_admin_spam_filter_path(id: resource.id)    
+  member_action :ban do
+    id = params[:id]
+    ids = params[:ids]
+    User.ban_users(ids, true)
+    redirect_to admin_spam_filter_path(id: id)
   end
-
-
 end
