@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319151721) do
+ActiveRecord::Schema.define(version: 20150330140810) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150319151721) do
     t.text     "close_message"
     t.integer  "scope"
     t.string   "info_url"
+    t.string   "server"
   end
 
   create_table "notice_registrars", force: true do |t|
@@ -111,6 +112,18 @@ ActiveRecord::Schema.define(version: 20150319151721) do
     t.text     "payment_response"
   end
 
+  create_table "pages", force: true do |t|
+    t.string   "title"
+    t.integer  "id_form"
+    t.string   "slug"
+    t.boolean  "require_login"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at"
+
   create_table "participation_teams", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -128,17 +141,17 @@ ActiveRecord::Schema.define(version: 20150319151721) do
   add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
 
   create_table "proposals", force: true do |t|
-    t.text     "title",            limit: 255
+    t.text     "title"
     t.text     "description"
-    t.integer  "votes",                        default: 0
+    t.integer  "votes",            default: 0
     t.string   "reddit_url"
     t.string   "reddit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "reddit_threshold",             default: false
+    t.boolean  "reddit_threshold", default: false
     t.string   "image_url"
-    t.integer  "supports_count",               default: 0
-    t.integer  "hotness",                      default: 0
+    t.integer  "supports_count",   default: 0
+    t.integer  "hotness",          default: 0
     t.string   "author"
   end
 
@@ -175,6 +188,16 @@ ActiveRecord::Schema.define(version: 20150319151721) do
   end
 
   add_index "simple_captcha_data", ["key"], name: "idx_key"
+
+  create_table "spam_filters", force: true do |t|
+    t.string   "name"
+    t.text     "code"
+    t.text     "data"
+    t.string   "query"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "supports", force: true do |t|
     t.integer  "user_id"
@@ -225,6 +248,7 @@ ActiveRecord::Schema.define(version: 20150319151721) do
     t.string   "unconfirmed_phone"
     t.boolean  "wants_participation"
     t.string   "vote_town"
+    t.integer  "flags",                    default: 0,  null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -234,6 +258,7 @@ ActiveRecord::Schema.define(version: 20150319151721) do
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
   add_index "users", ["document_vatid"], name: "index_users_on_document_vatid"
   add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["flags"], name: "index_users_on_flags"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["sms_confirmation_token"], name: "index_users_on_sms_confirmation_token", unique: true
 

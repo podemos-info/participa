@@ -1,9 +1,14 @@
 class User < ActiveRecord::Base
+  include FlagShihTzu
 
   include Rails.application.routes.url_helpers
   require 'phone'
 
   has_and_belongs_to_many :participation_team
+
+  has_flags 1 => :banned,
+            2 => :superadmin,
+            3 => :verified
 
   # Include default devise modules. Others available are:
   # :omniauthable
@@ -251,6 +256,14 @@ class User < ActiveRecord::Base
       if self.unconfirmed_phone? 
         self.update_attribute(:phone, self.unconfirmed_phone)
         self.update_attribute(:unconfirmed_phone, nil)
+
+        if not self.verified? and not self.is_admin?
+          filter = SpamFilter.any? self
+          if filter
+            self.update_attribute(:banned, true)
+            ActiveAdmin::Comment.create(author:nil,resource:user,namespace:'admin',body:"Usuario baneado automáticamente por el filtro: #{filter.name}")
+          end
+        end
       end
       true
     else 
@@ -525,7 +538,7 @@ class User < ActiveRecord::Base
     end
 
     # params from user profile
-    if (params[:no_profile]==nil) && current_user
+    if (params[:no_profile]==nil) && current_user && current_user.persisted?
       user_location[:country] ||= current_user.country
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
@@ -543,6 +556,11 @@ class User < ActiveRecord::Base
     user_location[:country] ||= "ES"
 
     user_location
+  end
+
+  def self.ban_users ids, value
+    t = User.arel_table
+    User.where(id:ids).where(t[:admin].eq(false).or(t[:admin].eq(nil))).update_all User.set_flag_sql(:banned, value)
   end
 
   def before_save

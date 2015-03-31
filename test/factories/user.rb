@@ -33,6 +33,7 @@ FactoryGirl.define do
     postal_code "28021"
     phone
     sms_confirmed_at DateTime.now
+    flags 0
   end
 
   trait :admin do

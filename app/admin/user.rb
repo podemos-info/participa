@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  config.per_page = 50
 
   scope_to User, association_method: :with_deleted
 
@@ -17,6 +18,8 @@ ActiveAdmin.register User do
   scope :has_collaboration_bank_international
   scope :participation_team
   scope :has_circle
+  scope :banned
+  scope :verified
 
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
 
@@ -29,6 +32,8 @@ ActiveAdmin.register User do
     column :phone
     column :created_at
     column :validations do |user|
+      status_tag("Verificado", :ok) + br if user.verified?
+      status_tag("Baneado", :error) + br if user.banned?
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
       user.valid? ? status_tag("Val", :ok) : status_tag("Val", :error)
@@ -40,6 +45,8 @@ ActiveAdmin.register User do
   show do
     attributes_table do
       row :status do
+        status_tag("Verificado", :ok) if user.verified?
+        status_tag("Baneado", :error) if user.banned?
         user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
         if user.confirmed_at?
           status_tag("El usuario ha confirmado por email", :ok)
@@ -231,6 +238,42 @@ ActiveAdmin.register User do
     link_to('Recuperar usuario borrado', recover_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer recuperar este usuario?" }) if user.deleted?
   end
 
+  action_item :only => :show do   
+    if can? :ban, User
+      if user.banned?
+        link_to('Desbanear usuario', ban_admin_user_path(user), method: :delete) 
+      else
+        link_to('Banear usuario', ban_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer banear a este usuario?" }) 
+      end
+    end
+  end
+
+  action_item :only => :show do
+    if user.not_verified?
+      link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer verificar a este usuario?" })
+    end
+  end
+
+  batch_action :ban, if: proc{ can? :ban, User } do |ids|
+    User.ban_users(ids, true)
+    redirect_to collection_path, alert: "Los usuarios han sido baneados."
+  end
+
+  member_action :ban, if: proc{ can? :ban, User }, :method => [:post, :delete] do
+    User.ban_users([ params[:id] ], request.post?)
+    flash[:notice] = "El usuario ha sido modificado"
+    redirect_to action: :show
+  end
+
+  member_action :verify, :method => [:post] do
+    u = User.find( params[:id] )
+    u.verified = true
+    u.banned = false
+    u.save
+    flash[:notice] = "El usuario ha sido modificado"
+    redirect_to action: :show
+  end
+
   member_action :recover, :method => :post do
     user = User.with_deleted.find(params[:id])
     user.restore
@@ -256,6 +299,24 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar :versionate, :partial => "admin/version", :only => :show
+
+  sidebar "Control de IPs", only: :show do
+    ips = [user.last_sign_in_ip, user.current_sign_in_ip]
+    t = User.arel_table
+    users = User.where.not(id:user.id).where(t[:last_sign_in_ip].in(ips).or(t[:current_sign_in_ip].in(ips)))
+    table_for users.first(25) do
+      column "Usuarios con la misma IP: #{users.count}" do |u|
+        span link_to(u.full_name, admin_user_path(u))
+        br
+        span u.document_vatid
+        span " - #{u.phone}" if u.phone
+        br
+        span b u.created_at.strftime "%Y-%m-%d %H:%M"
+      end
+    end
+  end
+
   controller do
     def show
       @user = User.with_deleted.find(params[:id])
@@ -264,8 +325,6 @@ ActiveAdmin.register User do
       show! #it seems to need this
     end
   end
-
-  sidebar :versionate, :partial => "admin/version", :only => :show
 
   collection_action :download_participation_teams_tsv, :method => :get do
     users = User.participation_team

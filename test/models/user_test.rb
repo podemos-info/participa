@@ -294,6 +294,15 @@ class UserTest < ActiveSupport::TestCase
     assert_not(u.check_sms_token("LALALAAL"))
   end
 
+  test "should .check_sms_token work ban user with spam data" do
+    spam = FactoryGirl.create(:spam_filter)
+    u = User.new
+    u.set_sms_token!
+    token = u.sms_confirmation_token
+    assert(u.check_sms_token(token))
+    assert(u.banned?)
+  end
+  
   test "should .document_type_name work" do 
     @user.update_attribute(:document_type, 1)
     assert_equal "DNI", @user.document_type_name
@@ -345,6 +354,7 @@ class UserTest < ActiveSupport::TestCase
     user1.valid?
     assert user1.valid?
     user1.save
+
 
     # don't allow save after the @user is created again (uniqueness is working)
     user2 = FactoryGirl.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)

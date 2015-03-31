@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :banned_user
   before_filter :unresolved_issues
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
@@ -64,6 +65,14 @@ class ApplicationController < ActionController::Base
     super    
   end
   
+  def banned_user
+    if current_user and current_user.banned?
+      name = current_user.full_name
+      sign_out_and_redirect current_user
+      flash[:notice] = t("podemos.banned", full_name: name)
+    end
+  end
+
   def unresolved_issues
     if current_user
 

@@ -1,4 +1,5 @@
 class ReportGroup < ActiveRecord::Base
+
   after_initialize do |group|
     if persisted?
       @proc = eval("Proc.new { |row| #{group.proc} }")
