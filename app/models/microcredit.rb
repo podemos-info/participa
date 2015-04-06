@@ -35,4 +35,9 @@ class Microcredit < ActiveRecord::Base
   def total_confirmed
     loans.confirmed.sum(:amount)
   end
+
+  def reset
+    self.reset_at = DateTime.now
+    save
+  end
 end
