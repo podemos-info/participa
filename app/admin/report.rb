@@ -1,4 +1,5 @@
 ActiveAdmin.register Report do
+  menu :parent => "Users"
   permit_params  :title, :query, :main_group, :groups
 
   index do

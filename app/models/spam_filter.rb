@@ -19,7 +19,7 @@ class SpamFilter < ActiveRecord::Base
 
   def run offset, limit
     matches = []
-    User.confirmed.not_verified.not_banned.where(query).offset(offset).limit(limit).find_each do |user|
+    User.confirmed.not_verified.not_banned.where(query).offset(offset).limit(limit).each do |user|
       matches << user if @proc.call user, @data
     end
     matches
