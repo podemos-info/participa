@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="<%= stylesheet_path("microcredit.print.css") %>" type="text/css" />
-    <title>Microcrédito</title> 
+    <title>Microcrédito</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <%= wicked_pdf_stylesheet_link_tag "microcredit.print.css" %>
     <style type="text/css">
         .grey {background: #ddd;}
-        div {padding:10px; line-height:2;} 
-        .microcreditos {font-size:13px;}     
-    </style>   
-</head> 
+        div {padding:10px; line-height:2;}
+        .microcreditos {font-size:17px;padding:30px;}
+    </style>
+</head>
   <body>
         <div class="microcreditos">
             <div style="width:100%;">  
-                <img style="float:right; width:250px;" src="<%=image_path("logo.fiare.jpg")%>">
-                <img style="float:left; width:250px;" src="<%=image_path("logo.podemos-425-p.jpg")%>">
+                <%= wicked_pdf_image_tag "logo.fiare.jpg", style: "float:right; width:40%;"%>
+                <%= wicked_pdf_image_tag "logo.podemos-425-p.jpg", style: "float:left; width:40%;"%>
             </div>
-            <p>Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:</p>
+            <p style="clear:both">Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:</p>
            <div class="grey"><strong>Beneficiario</strong><br>PODEMOS</div>
             <div><strong>Banco</strong><br>Fiare Banca Ética</div>
             <div class="grey"><strong>Número de cuenta</strong><br><%=@microcredit.account_number%></div>
             <div><strong>Importe</strong><br><%=@loan.amount%>€</div>
             <div class="grey"><strong>Concepto del ingreso </strong><br><%=@loan.id%></div>
-            <br>   
-            <p><br> Muchas gracias por colaborar. El cambio en Andalucía empieza gracias a ti.</p>   
+            <br>
+            <p><br> Muchas gracias por colaborar. El cambio empieza gracias a ti.</p>
         </div>
   </body>
 </html>
