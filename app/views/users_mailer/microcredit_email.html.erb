@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hola <%= @loan.first_name %> <%= @loan.last_name %>,</p>
+
+    <p>Te adjuntamos el documento con toda la información necesaria para poder realizar la transferencia del microcrédito Podemos que acabas de suscribir. Recuerda que el plazo de ingreso es de 24 horas desde la recepción de este correo electrónico.</p>
+
+    <p>Importe suscrito: <%= @loan.amount %>€</p>
+
+    <p><a href="https://forms.podemos.info/wp-content/uploads/2015/02/ContratoMicrocréditosPodemos.pdf" download="ContratoMicrocréditosPodemos.pdf">Descarga el Contrato civil de suscripción de microcréditos de Podemos haciendo clic en este enlace.</a></p>
+
+    <p>¡Gracias por colaborar con Podemos! El cambio empieza gracias a ti.</p>
+
+    <p>Podemos - Área de Finanzas y Transparencia</p>
+  </body>
+</html>

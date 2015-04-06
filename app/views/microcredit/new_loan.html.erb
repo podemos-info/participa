@@ -1,0 +1,128 @@
+<% content_for :title, "Microcréditos" %>
+
+<div class="content-content">
+<h2>Microcréditos Podemos</h2>
+<p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito Podemos. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada.</p>
+<p><%= link_to "Ver más informacion", microcredits_info_path %></p>
+
+<%= errors_in_form @loan %>
+<%= semantic_form_for @loan, url: create_microcredit_loan_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+
+  <% if not current_user %>
+    <fieldset>
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:first_name) %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true, class: 'input-xl'} %>
+      </div>
+
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:last_name) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :last_name, required: true, input_html: {required: true, class: 'input-xl'} %>
+      </div>
+
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:document_vatid) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :document_vatid,
+                    required: true %>
+      </div>
+
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:email) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :email,
+                    required: true %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend><span>Domicilio</span></legend>
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:country) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= label @loan, :country, class: "control-label", required: :required do %>
+          País
+          <abbr title="requerido">*</abbr>
+        <% end %>
+        <%= select_tag "microcredit_loan[country]", options_from_collection_for_select(get_countries, "code", "name", @loan.country), { disabled: false, required: true, data: { allowClear: true } } %>
+      </div>
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:province) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= render partial: 'subregion_select', locals:{ country: @loan.country, province: @loan.province, disabled: false, required: true, title:"Provincia" } %>
+      </div>
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:town) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= render partial: 'municipies_select', locals: { country: @loan.country, province: @loan.province, town:  @loan.town, disabled: false, required: true, title: "Municipio" } %>
+      </div>
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:postal_code) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :postal_code, required: true, input_html: {required: true, class: 'input-s'} %>
+      </div>
+      <div class="inputlabel-box">
+        <% if @loan.errors.include?(:address) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :address, required: true, input_html: {required: true, class: 'input-xl'} %>
+      </div>
+    </fieldset>
+  <% end %>
+  <fieldset class="with-tos">
+    <div class="inputlabel-box">
+     <% if @loan.errors.include?(:amount) %>
+        <%= field_notice_box %>
+    <% end %>
+    <%= f.input :amount,
+                required: true,
+                as: :radio,
+                collection: @microcredit.current_remaining.map {|k,v| [ "#{number_to_euro k*100} (quedan #{v})", k ] if v>0 },
+                input_html: {required: true} %>
+    </div>
+
+  <% if not current_user %>
+    <div class="inputlabel-box">
+      <%= f.label :captcha %>
+      <div class="input-box">
+        <%= recaptcha_tags %>
+      </div>
+    </div>
+  <% end %>
+
+    <div class="inputlabel-box">
+      <% if @loan.errors.include?(:minimal_year_old) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.label :minimal_year_old %>
+      <div class="input-box">
+        <%= f.check_box :minimal_year_old, class: 'checkbox' %>
+        <p class="text-xl">Declaro ser mayor de 18 años.</p>
+      </div>
+    </div>
+
+    <div class="inputlabel-box">
+      <% if @loan.errors.include?(:terms_of_service) %>
+          <%= field_notice_box %>
+      <% end %>
+      <div class="input-box">
+        <%= f.check_box :terms_of_service, class: 'checkbox' %>
+        <p class="text-xl">Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos. <a href="https://forms.podemos.info/wp-content/uploads/2015/02/ContratoMicrocr%C3%A9ditosPodemos.pdf" target="_blank">Contrato civil de suscripción de microcréditos de Podemos</a></p>
+      </div>
+    </div>
+  </fieldset>
+  <%= f.actions class: 'enter' do %>
+    <%= f.action :submit, :as => :input, button_html: {class: 'button'} %>
+  <% end %>
+<% end %>
+
+</div>
