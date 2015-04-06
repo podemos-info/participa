@@ -1,5 +1,5 @@
 ActiveAdmin.register Microcredit do
-  permit_params :title, :starts_at, :ends_at, :limits
+  permit_params :title, :starts_at, :ends_at, :limits, :account_number
 
   index do
     selectable_column
@@ -20,6 +20,7 @@ ActiveAdmin.register Microcredit do
       f.input :title
       f.input :starts_at
       f.input :ends_at
+      f.input :account_number
       f.input :limits
     end
     f.actions
