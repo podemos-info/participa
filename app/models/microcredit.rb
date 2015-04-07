@@ -10,6 +10,10 @@ class Microcredit < ActiveRecord::Base
     @limits = Hash[* limits.scan(/\d+/).map {|x| x.to_i}] if persisted?
   end
 
+  def has_amount_available? amount
+    @limits[amount] and @limits[amount] > 0
+  end
+
   def current_remaining
     @limits.map do |k,v|
       [k, v-loans.current.where(amount:k).count]

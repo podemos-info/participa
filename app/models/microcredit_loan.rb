@@ -13,6 +13,8 @@ class MicrocreditLoan < ActiveRecord::Base
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
 
+  validate :amount, :check_amount, on: :create
+
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :current, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at") }
 
@@ -47,5 +49,11 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def has_not_user?
     user.nil?
+  end
+
+  def check_amount
+    if not microcredit.has_amount_available? amount
+      self.errors.add(:amount, "Lamentablemente, ya no quedan préstamos por esa cantidad.")
+    end
   end
 end
