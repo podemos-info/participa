@@ -6,9 +6,17 @@ class MicrocreditLoan < ActiveRecord::Base
 
   attr_accessor :first_name, :last_name, :email, :document_vatid, :address, :postal_code, :town, :province, :country
 
-  validates :document_vatid, valid_nie: true, if: :has_not_user?
+  # TODO: valid_nie: true also
+  validates :document_vatid, valid_nif: true, if: :has_not_user?
   validates :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country, presence: true, if: :has_not_user?
+
+  # FIXME: review email_validator without email
+  #  m = MicrocreditLoan.new
+  #  m.valid? 
+  #  NoMethodError: undefined method `length' for nil:NilClass
+  #   from app/validators/email_validator.rb:6:in `validate_each'
   validates :email, email: true, if: :has_not_user?
+
   validates :amount, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
