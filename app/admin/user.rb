@@ -28,6 +28,7 @@ ActiveAdmin.register User do
     id_column
     column :full_name
     column :email
+    column :current_sign_in_ip
     column :last_sign_in_ip
     column :phone
     column :created_at
@@ -200,6 +201,7 @@ ActiveAdmin.register User do
   filter :province
   filter :country
   filter :circle
+  filter :current_sign_in_ip
   filter :last_sign_in_at
   filter :last_sign_in_ip
   filter :has_legacy_password
@@ -230,6 +232,7 @@ ActiveAdmin.register User do
     column :vote_town_name
     column :vote_town
     column :phone
+    column :current_sign_in_ip
     column :last_sign_in_ip
     column :circle
   end
