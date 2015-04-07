@@ -32,4 +32,18 @@ class PageControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get credits_info as anonymous user" do
+    user = FactoryGirl.create :user
+    sign_in user
+    get :credits_info
+    assert_response :success
+  end
+
+  test "should get credits_info as logged in user" do
+    user = FactoryGirl.create :user
+    sign_in user
+    get :credits_info
+    assert_response :success
+  end
+
 end

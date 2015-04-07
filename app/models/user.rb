@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   require 'phone'
 
-  has_and_belongs_to_many :participation_team
-
   has_flags 1 => :banned,
             2 => :superadmin,
             3 => :verified
@@ -24,6 +22,8 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :supports, dependent: :destroy
   has_one :collaboration, dependent: :destroy
+  has_and_belongs_to_many :participation_team
+  has_many :microcredit_loans
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true

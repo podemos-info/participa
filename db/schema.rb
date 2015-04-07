@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330140810) do
+ActiveRecord::Schema.define(version: 20150406210630) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -75,6 +75,29 @@ ActiveRecord::Schema.define(version: 20150330140810) do
     t.integer  "scope"
     t.string   "info_url"
     t.string   "server"
+  end
+
+  create_table "microcredit_loans", force: true do |t|
+    t.integer  "microcredit_id"
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.text     "user_data"
+    t.datetime "confirmed_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "microcredits", force: true do |t|
+    t.string   "title"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "reset_at"
+    t.text     "limits"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "account_number"
   end
 
   create_table "notice_registrars", force: true do |t|
