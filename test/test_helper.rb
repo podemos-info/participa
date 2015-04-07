@@ -4,11 +4,15 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'simplecov'
 require 'webmock/minitest'
-require "minitest/reporters"
+require 'minitest/reporters'
+require 'minitest/rails/capybara'
 
 SimpleCov.start
 WebMock.disable_net_connect!(allow_localhost: true)
 Minitest::Reporters.use!
+Capybara.javascript_driver = :webkit
+include Warden::Test::Helpers
+Warden.test_mode!
 
 class ActionController::TestCase
   include Devise::TestHelpers
