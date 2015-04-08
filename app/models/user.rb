@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
   has_flags 1 => :banned,
             2 => :superadmin,
-            3 => :verified
+            3 => :verified,
+            4 => :microcredits_admin
 
   # Include default devise modules. Others available are:
   # :omniauthable

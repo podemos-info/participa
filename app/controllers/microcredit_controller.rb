@@ -25,9 +25,10 @@ class MicrocreditController < ApplicationController
 
   def create_loan
     @microcredit = Microcredit.find(params[:id])
-    @loan = MicrocreditLoan.new(loan_params) do |g|
-      g.microcredit = @microcredit
-      g.user = current_user if current_user
+    @loan = MicrocreditLoan.new(loan_params) do |loan|
+      loan.microcredit = @microcredit
+      loan.user = current_user if current_user
+      loan.ip = request.remote_ip
     end
 
     @loan.set_user_data loan_params if not current_user
