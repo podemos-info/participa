@@ -8,10 +8,10 @@ ActiveAdmin.register Microcredit do
     column :starts_at
     column :limits do |m|
       m.limits.map do |amount, limit|
-        "#{amount}€:&nbsp;#{limit}"
+        "#{number_to_euro amount, 0}:&nbsp;#{limit}"
       end .join("<br/>").html_safe
     end
-    column :totals do |m|
+    column :totals, text_align:"right" do |m|
       (m.phase_status.group_by(&:first).map do |amount, info|
         "#{amount}€:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.join "&nbsp;"}"
       end + ["------"] + m.campaign_status.group_by(&:first).map do |amount, info|
@@ -19,12 +19,12 @@ ActiveAdmin.register Microcredit do
       end).join("<br/>").html_safe
     end
     column :percentages do |m|
-      m.limits.map do |amount, limit|
-        "#{amount}€:&nbsp;#{(m.current_percent(amount, false, 0)*100).round(2)}/#{((1-m.ellapsed_time_percent)*100).round(2)}%&nbsp;#{(m.current_percent(amount, true, 0)*100).round(2)}/#{(m.ellapsed_time_percent*100).round(2)}%"
-      end .join("<br/>").html_safe
+      ([ "<strong>&cross;:#{((1-m.ellapsed_time_percent)*100).round(2)}%&nbsp;&check;:#{(m.ellapsed_time_percent*100).round(2)}%</strong>" ] + m.limits.map do |amount, limit|
+        "#{amount}€:&nbsp;#{(m.current_percent(amount, false, 0)*100).round(2)}%&nbsp;#{(m.current_percent(amount, true, 0)*100).round(2)}%"
+      end).join("<br/>").html_safe
     end
     column :progress do |m|
-      "&check;:&nbsp;#{m.campaign_confirmed_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_confirmed_amount/m.total_goal).round(2)}%)<br/>&oplus;:&nbsp;#{m.campaign_counted_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_counted_amount/m.total_goal).round(2)}%)".html_safe
+      "<strong>Total: #{number_to_euro m.total_goal*100, 0}</strong><br/>&check;:&nbsp;#{number_to_euro(m.campaign_confirmed_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_confirmed_amount/m.total_goal).round(2)}%)<br/>&oplus;:&nbsp;#{number_to_euro(m.campaign_counted_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_counted_amount/m.total_goal).round(2)}%)".html_safe
     end
     actions
   end
@@ -41,6 +41,16 @@ ActiveAdmin.register Microcredit do
       f.input :agreement_link
     end
     f.actions
+  end
+
+  sidebar "Ayuda", only: :index, priority: 0 do
+    h4 "Nomenclatura microcrédito"
+    ul do
+      li "&cross; = suscrito".html_safe
+      li "&check; = confirmado".html_safe
+      li "&ominus; = NO se cuenta en la web".html_safe
+      li "&oplus; = se cuenta en la web".html_safe
+    end
   end
 
   action_item :only => :show do

@@ -1,11 +1,9 @@
-colors=['#c3a6cf','#954e99','#612d62','#97c2b8','#269283']
-
 draw_pie_chart = ($el, data) ->
   ctx = $el.get(0).getContext("2d")
   options = {
     responsive: true,
     legendTemplate:"",
-    percentageInnerCutout : 50,
+    percentageInnerCutout : 52,
     animationEasing: "easeInOutCubic"
   }
   piechart = new Chart(ctx).Pie(data,options)
@@ -54,9 +52,9 @@ show_towns = (country_code, province_code) ->
 
 $ ->
   for graph in $(".js-mc-graph")
-    vs = $('.js-mc-total', graph)
-    parts = ({ value: parseInt($(v).html()), color:colors[Math.round(2*_i/vs.length)], highlight: colors[0], label: "" } for v in vs)
-    parts.unshift({ value: parseInt($('.js-mc-pending', graph).html()), color:'#eeeeee', highlight: colors[3], label: "" })
+    parts = []
+    parts.push({ value: parseInt($('.js-mc-total', graph).html()), color:'#612d62', highlight: '#97c2b8', label: "" })
+    parts.push({ value: parseInt($('.js-mc-pending', graph).html()), color:'#eaeaea', highlight: '#97c2b8', label: "" })
 
     draw_pie_chart( $('canvas',graph), parts)
 

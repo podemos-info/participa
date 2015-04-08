@@ -2114,56 +2114,59 @@ div.help {
 }
 
 
-.microcredit_box {
-  display: inline-block;
-  margin: 0 !important;
-  padding: 0;
-  vertical-align: top;
-  text-align: center;
+.microcredit_boxes {
+  margin: 2em -0.75em;
+  section {
+    width: 30em;
+    display: inline-block;
+    margin: 0.75em !important;
+    padding: 0;
+    vertical-align: top;
 
-  > div {
-    border: 1px solid #612d62;
-    padding: 1em;
-    margin: 1em;
-    canvas {
-      top: -20px;
-      left: -5px;
-      position: absolute;
-      width: 100% !important;
-      height: auto !important;
+    h2 {
+      font-size: 2em;
+      margin-bottom: 0.75em;
     }
-    .info {
-      vertical-align: middle;
-      display: inline-block;
-      width: 55%;
-      font-size:0.9em;
-    }
-    .js-mc-graph {
-      text-align: left;
-      vertical-align: middle;
-      display: inline-block;
+    > div {
       position: relative;
-      width:40%;
-      div {
-        padding-bottom: 140%;
+      border: 1px solid #b5b5b5;
+      padding: 1em 1.5em;
+      canvas {
+        top: -3.5em;
+        left: -0.5em;
+        position: absolute;
+        width: 100%;
+        height: auto;
+      }
+      .info {
+        padding-left: 45%;
+        font-family:Montserrat,Arial,sans-serif;
+        vertical-align: top;
         display: inline-block;
-        width:1px;
+        width: 60%;
+        height: 13em;
+        p {
+          font-size: 1.2em;
+          letter-spacing: 0.3px;
+          line-height: 1.5em;
+        }
+      }
+      .js-mc-graph {
+        position: absolute;
+        width:38%;
+        div {
+          padding-bottom: 140%;
+          display: inline-block;
+          width:1px;
+        }
+      }
+      .buttonbox {
+        margin: 3.5em 0;
+        font-size: 0.8em;
+        a {
+          padding: 1em 1em;
+        }
       }
     }
-    .buttonbox {
-      font-size: 0.9em;
-    }
-  }
-
-  &.full {
-    width:100%;
-    > div {
-      padding: 0;
-      border: none;  
-    }
-  }
-
-  &.half {
-    width: 31em;
   }
 }
