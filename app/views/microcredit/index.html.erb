@@ -13,12 +13,12 @@
     <div class="js-mc-graph">
       <div></div>
       <canvas width="90" heigth="100"></canvas>
-      <div alt="<%=m.current_lent%>€" class="hide js-mc-total"><%= m.current_lent %>€</div>
-      <div alt="Restante" class="hide js-mc-pending"><%= m.current_limit-m.current_lent %>€</div>
+      <div alt="<%=m.phase_counted_amount%>€" class="hide js-mc-total"><%= m.phase_counted_amount %>€</div>
+      <div alt="Restante" class="hide js-mc-pending"><%= m.phase_limit_amount-m.phase_counted_amount %>€</div>
     </div>
     <div class="info">
       <h3><%=m.title%></h3>
-      <p>Objetivo: <%=m.current_limit%>€<br/>Recaudado: <%=m.current_lent%>€</p>
+      <p>Objetivo: <%=m.phase_limit_amount%>€<br/>Recaudado: <%=m.phase_counted_amount%>€<br/>Acumulado: <%=m.campaign_counted_amount%>€</p>
     </div>    
     <div class="buttonbox">
       <%= link_to "Colaborar", new_microcredit_loan_path(m.id), class: 'button' %>

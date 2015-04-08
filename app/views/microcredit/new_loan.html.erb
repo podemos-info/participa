@@ -86,7 +86,7 @@
     <%= f.input :amount,
                 required: true,
                 as: :radio,
-                collection: @microcredit.current_remaining.map {|k,v| [ "#{number_to_euro k*100} (quedan #{v})", k ] if v>0 },
+                collection: @microcredit.phase_remaining.map {|k,v| [ "#{number_to_euro k*100} (quedan #{v})", k ] if v>0 },
                 input_html: {required: true} %>
     </div>
 
@@ -116,7 +116,7 @@
       <% end %>
       <div class="input-box">
         <%= f.check_box :terms_of_service, class: 'checkbox' %>
-        <p class="text-xl">Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos. <a href="https://forms.podemos.info/wp-content/uploads/2015/02/ContratoMicrocr%C3%A9ditosPodemos.pdf" target="_blank">Contrato civil de suscripción de microcréditos de Podemos</a></p>
+        <p class="text-xl">Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos. <a href="<%=@microcredit.agreement_link%>" target="_blank">Contrato civil de suscripción de microcréditos de Podemos</a></p>
       </div>
     </div>
   </fieldset>

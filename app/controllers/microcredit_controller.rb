@@ -9,7 +9,7 @@ class MicrocreditController < ApplicationController
   end
 
   def index
-    @microcredits = Microcredit.current
+    @microcredits = Microcredit.active
 
     @box_class = case @microcredits.length
                     when 1 then "full"

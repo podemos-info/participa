@@ -11,6 +11,10 @@ ActiveAdmin.register MicrocreditLoan do
     end
     column :created_at
     column :confirmed_at
+    column :counted_at
   end
 
+  filter :microcredit
+  filter :created_at
+  filter :counted_at
 end

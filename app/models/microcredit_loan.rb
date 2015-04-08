@@ -24,7 +24,7 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :amount, :check_amount, on: :create
 
   scope :confirmed, -> { where.not(confirmed_at:nil) }
-  scope :current, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at") }
+  scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
 
   after_initialize do |microcredit|
     if user
@@ -53,6 +53,7 @@ class MicrocreditLoan < ActiveRecord::Base
     else
       self.user_data = {first_name: first_name, last_name: last_name, email: email, address: address, postal_code: postal_code, town: town, province: province, country: country}.to_yaml
     end
+    self.counted_at = DateTime.now if counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
   end
 
   def has_not_user?
@@ -60,7 +61,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def check_amount
-    if not microcredit.has_amount_available? amount
+    if not self.microcredit.has_amount_available? amount
       self.errors.add(:amount, "Lamentablemente, ya no quedan préstamos por esa cantidad.")
     end
   end
