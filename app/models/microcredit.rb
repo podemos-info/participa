@@ -17,15 +17,17 @@ class Microcredit < ActiveRecord::Base
   end
 
   def parse_limits limits_string
-    Hash[* limits_string.scan(/\d+/).map {|x| x.to_i} ]
+    Hash[* limits_string.scan(/\d+/).map {|x| x.to_i} ] if limits_string
   end
 
   def campaign_status
-    @campaign_status ||= loans.group(:amount, "confirmed_at IS NOT NULL", "NOT counted_at IS  NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], x[1]==1, x[2]==1, x[3]] }
+    # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
+    @campaign_status ||= loans.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], (x[1]||x[1]==1), (x[2]||x[2]==1), x[3]] }
   end
 
   def phase_status
-    @phase_status ||= loans.phase.group(:amount, "confirmed_at IS NOT NULL", "NOT counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], x[1]==1, x[2]==1, x[3]] }
+    # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
+    @phase_status ||= loans.phase.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], (x[1]||x[1]==1), (x[2]||x[2]==1), x[3]] }
   end
 
   def ellapsed_time_percent
