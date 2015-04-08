@@ -2117,14 +2117,14 @@ div.help {
       height: auto !important;
     }
     .info {
-      vertical-align: bottom;
+      vertical-align: middle;
       display: inline-block;
       width: 55%;
       font-size:0.9em;
     }
     .js-mc-graph {
       text-align: left;
-      vertical-align: top;
+      vertical-align: middle;
       display: inline-block;
       position: relative;
       width:40%;
@@ -2148,6 +2148,6 @@ div.help {
   }
 
   &.half {
-    width: 23em;
+    width: 31em;
   }
 }
