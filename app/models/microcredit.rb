@@ -17,19 +17,27 @@ class Microcredit < ActiveRecord::Base
   end
 
   def parse_limits limits_string
-    Hash[* limits_string.scan(/\d+/).map {|x| x.to_i} ]
+    Hash[* limits_string.scan(/\d+/).map {|x| x.to_i} ] if limits_string
   end
 
   def campaign_status
-    @campaign_status ||= loans.group(:amount, "confirmed_at IS NOT NULL", "NOT counted_at IS  NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], x[1]==1, x[2]==1, x[3]] }
+    # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
+    @campaign_status ||= loans.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
   end
 
   def phase_status
-    @phase_status ||= loans.phase.group(:amount, "confirmed_at IS NOT NULL", "NOT counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], x[1]==1, x[2]==1, x[3]] }
+    # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
+    @phase_status ||= loans.phase.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort.map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
   end
 
   def ellapsed_time_percent
     [ [(DateTime.now.to_f-starts_at.to_f) / (ends_at.to_f-starts_at.to_f), 0.0].max, 100.0].min
+  end
+
+  def current_percent amount, confirmed, add
+    current = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed} .compact.sum
+    current_counted = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed and x[2]} .compact.sum
+    current == 0 ? 0 : (1.0*current_counted+add)/current
   end
 
   def has_amount_available? amount
@@ -39,10 +47,7 @@ class Microcredit < ActiveRecord::Base
 
   def should_count? amount, confirmed
     percent = confirmed ? ellapsed_time_percent : 1-ellapsed_time_percent
-    current = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed} .compact.sum
-    current_counted = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed and x[2]} .compact.sum
-
-    current == 0 or (1.0*current_counted/current-percent).abs>((current_counted+1.0)/current-percent).abs
+    (current_percent(amount, confirmed, 1)-percent).abs<(current_percent(amount, confirmed, 0)-percent).abs
   end
 
   def phase_remaining

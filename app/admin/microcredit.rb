@@ -22,8 +22,13 @@ ActiveAdmin.register Microcredit do
         "#{amount}€:&nbsp;#{info.map {|x| "#{x[3]}#{'o' if x[1]}#{'+' if x[2]}"}.join "&nbsp;"}"
       end .join("<br/>").html_safe
     end
+    column :percentages do |m|
+      m.limits.map do |amount, limit|
+        "#{amount}€:&nbsp;#{(m.current_percent(amount, false, 0)*100).round(2)}/#{((1-m.ellapsed_time_percent)*100).round(2)}%&nbsp;#{(m.current_percent(amount, true, 0)*100).round(2)}/#{(m.ellapsed_time_percent*100).round(2)}%"
+      end .join("<br/>").html_safe
+    end
     column :progress do |m|
-      "o:&nbsp;#{m.campaign_confirmed_amount}/#{m.total_goal}&nbsp;(#{100.0*m.campaign_confirmed_amount/m.total_goal}%)<br/>+:&nbsp;#{m.campaign_counted_amount}/#{m.total_goal}&nbsp;(#{100.0*m.campaign_counted_amount/m.total_goal}%)".html_safe
+      "o:&nbsp;#{m.campaign_confirmed_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_confirmed_amount/m.total_goal).round(2)}%)<br/>+:&nbsp;#{m.campaign_counted_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_counted_amount/m.total_goal).round(2)}%)".html_safe
     end
     actions
   end
@@ -43,7 +48,7 @@ ActiveAdmin.register Microcredit do
   end
 
   action_item :only => :show do
-    link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas reiniciar esta campaña?" })
+    link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas cambiar de fase en esta campaña?" })
   end
 
   member_action :change_phase, :method => :post do

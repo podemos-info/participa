@@ -9,6 +9,7 @@
 <%= semantic_form_for @loan, url: create_microcredit_loan_path, html: {method: :post, autocomplete: 'off'} do |f| %>
 
   <% if not current_user %>
+    <p>Si tienes usuario en el Portal de Participación, te recomendamos que <%= link_to "ingreses con tu usuario", new_user_session_path(:passthru => request.fullpath )%> para evitar tener que rellenar estos datos nuevamente y poder consultar el estado del préstamo en el futuro.</p>
     <fieldset>
       <div class="inputlabel-box">
         <% if @loan.errors.include?(:first_name) %>
