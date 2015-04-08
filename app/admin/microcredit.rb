@@ -6,21 +6,17 @@ ActiveAdmin.register Microcredit do
     id_column
     column :title
     column :starts_at
-    column :ends_at
     column :limits do |m|
       m.limits.map do |amount, limit|
         "#{amount}€:&nbsp;#{limit}"
       end .join("<br/>").html_safe
     end
-    column :phase do |m|
-      m.phase_status.group_by(&:first).map do |amount, info|
-        "#{amount}€:&nbsp;#{info.map {|x| "#{x[3]}#{'o' if x[1]}#{'+' if x[2]}"}.join "&nbsp;"}"
-      end .join("<br/>").html_safe
-    end
-    column :campaign do |m|
-      m.campaign_status.group_by(&:first).map do |amount, info|
-        "#{amount}€:&nbsp;#{info.map {|x| "#{x[3]}#{'o' if x[1]}#{'+' if x[2]}"}.join "&nbsp;"}"
-      end .join("<br/>").html_safe
+    column :totals do |m|
+      (m.phase_status.group_by(&:first).map do |amount, info|
+        "#{amount}€:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.join "&nbsp;"}"
+      end + ["------"] + m.campaign_status.group_by(&:first).map do |amount, info|
+        "#{amount}€:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.join "&nbsp;"}"
+      end).join("<br/>").html_safe
     end
     column :percentages do |m|
       m.limits.map do |amount, limit|
@@ -28,7 +24,7 @@ ActiveAdmin.register Microcredit do
       end .join("<br/>").html_safe
     end
     column :progress do |m|
-      "o:&nbsp;#{m.campaign_confirmed_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_confirmed_amount/m.total_goal).round(2)}%)<br/>+:&nbsp;#{m.campaign_counted_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_counted_amount/m.total_goal).round(2)}%)".html_safe
+      "&check;:&nbsp;#{m.campaign_confirmed_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_confirmed_amount/m.total_goal).round(2)}%)<br/>&oplus;:&nbsp;#{m.campaign_counted_amount}/#{m.total_goal}&nbsp;(#{(100.0*m.campaign_counted_amount/m.total_goal).round(2)}%)".html_safe
     end
     actions
   end
