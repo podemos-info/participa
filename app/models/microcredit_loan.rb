@@ -4,7 +4,7 @@ class MicrocreditLoan < ActiveRecord::Base
   belongs_to :microcredit
   belongs_to :user
 
-  attr_accessor :first_name, :last_name, :email, :document_vatid, :address, :postal_code, :town, :province, :country
+  attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
   # TODO: valid_nie: true also
   validates :document_vatid, valid_nif: true, if: :has_not_user?
@@ -23,12 +23,14 @@ class MicrocreditLoan < ActiveRecord::Base
 
   validate :amount, :check_amount, on: :create
 
+  scope :counted, -> { where.not(counted_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
-
+  
   after_initialize do |microcredit|
     if user
       set_user_data user
+      self.document_vatid = user.document_vatid
     elsif user_data
       set_user_data YAML.load(self.user_data)
     else
@@ -37,14 +39,14 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def set_user_data _user
-    self.first_name = _user["first_name"]
-    self.last_name = _user["last_name"]
-    self.email = _user["email"]
-    self.address = _user["address"]
-    self.postal_code = _user["postal_code"]
-    self.town = _user["town"]
-    self.province = _user["province"]
-    self.country = _user["country"]
+    self.first_name = _user[:first_name]
+    self.last_name = _user[:last_name]
+    self.email = _user[:email]
+    self.address = _user[:address]
+    self.postal_code = _user[:postal_code]
+    self.town = _user[:town]
+    self.province = _user[:province]
+    self.country = _user[:country]
   end
 
   before_save do |microcredit|

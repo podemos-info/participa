@@ -78,6 +78,8 @@ es:
             terms_of_service: "Acepto las condiciones generales"
     attributes:
       microcredit_loan:
+        first_name: "Nombre"
+        last_name: "Apellidos"
         document_vatid: "DNI o NIE"
         address: "Dirección"
         minimal_year_old: "Edad mínima requerida" 
