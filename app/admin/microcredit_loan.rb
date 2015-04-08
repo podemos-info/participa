@@ -18,6 +18,7 @@ ActiveAdmin.register MicrocreditLoan do
         "#{loan.first_name} #{loan.last_name}"
       end
     end
+    column :document_vatid
     column :amount do |loan|
       number_to_euro loan.amount*100
     end
@@ -46,6 +47,7 @@ ActiveAdmin.register MicrocreditLoan do
       row :amount do
         number_to_euro microcredit_loan.amount*100
       end
+      row :document_vatid
       row :user_data do
         attributes_table_for YAML.load(microcredit_loan.user_data) do
             row :first_name

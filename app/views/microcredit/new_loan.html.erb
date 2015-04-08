@@ -8,8 +8,20 @@
 <%= errors_in_form @loan %>
 <%= semantic_form_for @loan, url: create_microcredit_loan_path, html: {method: :post, autocomplete: 'off'} do |f| %>
 
-  <% if not current_user %>
-    <p>Si tienes usuario en el Portal de Participación, te recomendamos que <%= link_to "ingreses con tu usuario", new_user_session_path(:passthru => request.fullpath )%> para evitar tener que rellenar estos datos nuevamente y poder consultar el estado del préstamo en el futuro.</p>
+  <% if  current_user %>
+    <% if @user_loans %>
+      <%= alert_box "Información" do %>
+        <p>Ya has suscrito microcréditos para esta campaña por monto de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
+        <% @user_loans.each do |loan| %>
+          <p>El <%= loan.created_at.strftime "%d-%M-%Y" %> por un importe de <%= number_to_euro loan.amount*100%><%= loan.confirmed_at.nil? ? "." : " que ya hemos recibido." %>
+          </p>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= alert_box "Información" do %>
+    <p>Si tienes usuario en el Portal de Participación, te recomendamos que <%= link_to "ingreses con tu usuario", new_user_session_path(:passthru => request.fullpath )%> para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro.</p>
+    <% end %>
     <fieldset>
       <div class="inputlabel-box">
         <% if @loan.errors.include?(:first_name) %>

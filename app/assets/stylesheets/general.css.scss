@@ -767,6 +767,22 @@ tools
 }
 
 /* -----------------------------------
+microcredits
+----------------------------------- */
+.microcredits-wrapper {
+  p, li {
+    color: #333;
+    font-size: 1.4em;
+    text-align: justify;
+  }
+
+  li {
+    margin: 0em 0em 1em 1em;
+    list-style-type: circle;
+  }
+}
+
+/* -----------------------------------
 proposals
 ----------------------------------- */
 
