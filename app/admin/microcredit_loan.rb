@@ -1,8 +1,8 @@
 ActiveAdmin.register MicrocreditLoan do
   menu :parent => "Microcredits"
 
-  index do
-    selectable_column
+  index download_links: proc{ can?(:admin, MicrocreditLoan) } do
+    selectable_column if can? :admin, MicrocreditLoan
     id_column
     column :microcredit do |loan|
       if can? :show, loan.microcredit
@@ -25,7 +25,6 @@ ActiveAdmin.register MicrocreditLoan do
     column :confirmed_at
     column :counted_at if can? :admin, MicrocreditLoan
   end
-
 
   show do
     attributes_table do
@@ -69,7 +68,28 @@ ActiveAdmin.register MicrocreditLoan do
   scope :confirmed
   scope :counted, if: proc{ can? :admin, MicrocreditLoan }
   
+  filter :id
   filter :microcredit
   filter :created_at
   filter :counted_at, if: proc{ can? :admin, MicrocreditLoan }
+
+  action_item :only => :show do
+    if microcredit_loan.confirmed_at.nil?
+      link_to('Confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "¿Estas segura de querer confirmar la recepción de este microcrédito?" })
+    else
+      link_to('Des-confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :delete, data: { confirm: "¿Estas segura de querer cancelar la confirmación de la recepción de este microcrédito?" })
+    end
+  end
+
+  member_action :confirm, :method => [:post, :delete] do
+    m = MicrocreditLoan.find(params[:id])
+    if request.post?
+      m.confirmed_at = DateTime.now
+    else
+      m.confirmed_at = nil
+    end
+    m.save
+    flash[:notice] = "La recepción del microcrédito ha sido confirmada."
+    redirect_to action: :show
+  end
 end

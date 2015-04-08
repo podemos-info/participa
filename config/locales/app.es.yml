@@ -84,6 +84,13 @@ es:
         address: "Dirección"
         minimal_year_old: "Edad mínima requerida" 
         amount: "Importe"
+        microcredit: "Microcrédito"
+        microcredits: "Microcréditos"
+        user: "Usuario"
+        created_at: "Fecha de suscripción"
+        confirmed_at: "Fecha de confirmación"
+        all: "Todos"
+        id: "Identificador"
       collaboration: 
         user: "Usuario"
         created_at: "Creada el"
