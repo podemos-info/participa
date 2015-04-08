@@ -14,13 +14,14 @@ class MicrocreditController < ApplicationController
     @box_class = case @microcredits.length
                     when 1 then "full"
                     else "half"
-                end
-
+                end       
   end
 
   def new_loan
     @microcredit = Microcredit.find(params[:id])
     @loan = MicrocreditLoan.new
+
+    @user_loans = current_user ? @microcredit.loans.where(user:current_user) : []
   end
 
   def create_loan
@@ -33,7 +34,7 @@ class MicrocreditController < ApplicationController
 
     @loan.set_user_data loan_params if not current_user
 
-    if @loan.save
+    if verify_recaptcha and @loan.save
       UsersMailer.microcredit_email(@microcredit, @loan).deliver
       redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. ¡Gracias por colaborar!'
     else

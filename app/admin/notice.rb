@@ -1,4 +1,6 @@
 ActiveAdmin.register Notice do
+  menu :parent => "Users"
+
   permit_params :title, :body, :link, :created_at
 
   index do
