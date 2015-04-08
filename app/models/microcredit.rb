@@ -6,6 +6,19 @@ class Microcredit < ActiveRecord::Base
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
+  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now)}
+
+  def is_active?
+    ( self.starts_at .. self.ends_at ).cover? DateTime.now
+  end
+
+  def is_upcoming?
+    self.starts_at > DateTime.now and self.starts_at < 1.day.from_now
+  end
+
+  def recently_finished?
+    self.ends_at > 7.days.ago and self.ends_at < DateTime.now 
+  end
 
   def limits
     @limits ||= parse_limits self[:limits]
@@ -31,7 +44,7 @@ class Microcredit < ActiveRecord::Base
   end
 
   def ellapsed_time_percent
-    [ [(DateTime.now.to_f-starts_at.to_f) / (ends_at.to_f-starts_at.to_f), 0.0].max, 100.0].min
+    [ [(DateTime.now.to_f-starts_at.to_f) / (ends_at.to_f-starts_at.to_f), 0.0].max, 1.0].min
   end
 
   def current_percent amount, confirmed, add

@@ -9,12 +9,14 @@ class MicrocreditController < ApplicationController
   end
 
   def index
-    @microcredits = Microcredit.active
+    @all_microcredits = Microcredit.upcoming_finished
 
-    @box_class = case @microcredits.length
-                    when 1 then "full"
-                    else "half"
-                end       
+    @microcredits = @all_microcredits.select { |m| m.is_active? }
+
+    if @microcredits.length == 0
+      @upcoming_microcredits = @all_microcredits.select { |m| m.is_upcoming? } .sort_by(&:starts_at)
+      @finished_microcredits = @all_microcredits.select { |m| m.recently_finished? } .sort_by(&:ends_at).reverse
+    end
   end
 
   def new_loan
@@ -34,7 +36,7 @@ class MicrocreditController < ApplicationController
 
     @loan.set_user_data loan_params if not current_user
 
-    if verify_recaptcha and @loan.save
+    if (current_user or verify_recaptcha) and @loan.save
       UsersMailer.microcredit_email(@microcredit, @loan).deliver
       redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. ¡Gracias por colaborar!'
     else

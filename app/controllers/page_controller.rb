@@ -3,7 +3,7 @@ class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_form, :show_form,
                                               :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
-                                              :responsables_organizacion_municipales, :credits, :credits_add, :credits_info,
+                                              :responsables_organizacion_municipales, 
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
                                               :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
@@ -158,27 +158,4 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Condiciones de uso del correo electrónico PODEMOS", form_id: 80, extra_qs:"" }
   end
   
-  def credits_status
-    Rails.cache.fetch("credits_status", expires_in: 2.minutes) do
-      credits = []
-      CSV.foreach( "#{Rails.root}/db/podemos/credits.tsv", { :col_sep => "\t"} ) do |c|
-        credits << c.map {|i| i.to_i }
-      end
-      credits
-    end
-  end
-
-  def credits
-    @credits = self.credits_status
-    @totals = [@credits.map {|c| c[0]*c[1]} .inject(:+) ]
-    @totals << @credits.map {|c| c[0]*c[2]} .inject(:+) 
-  end
-
-  def credits_add
-    credits_param=self.credits_status.map {|c| [c[1], c[1]-c[2]]} .flatten.join ","
-    render :form_iframe, locals: { title: "Microcréditos Podemos - Elecciones al Parlamento de Andalucía", form_id: 25, extra_qs: "&hash=#{SecureRandom.random_number(10000000000)}&credits=#{credits_param}" }
-  end
-
-  def credits_info
-  end
 end
