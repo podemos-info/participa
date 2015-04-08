@@ -9,7 +9,7 @@ class MicrocreditController < ApplicationController
   end
 
   def index
-    @microcredits = Microcredit.current
+    @microcredits = Microcredit.active
 
     @box_class = case @microcredits.length
                     when 1 then "full"
@@ -36,6 +36,7 @@ class MicrocreditController < ApplicationController
       UsersMailer.microcredit_email(@microcredit, @loan).deliver
       redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. ¡Gracias por colaborar!'
     else
+      flash[:error] = @loan.errors
       render :new_loan
     end
   end
