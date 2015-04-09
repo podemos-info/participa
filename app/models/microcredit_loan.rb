@@ -53,7 +53,24 @@ class MicrocreditLoan < ActiveRecord::Base
     else
       self.user_data = {first_name: first_name, last_name: last_name, email: email, address: address, postal_code: postal_code, town: town, province: province, country: country}.to_yaml
     end
-    self.counted_at = DateTime.now if counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
+  end
+
+  after_save do |microcredit|
+    if self.counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
+      unconfirmed = confirmed_at.nil? ? nil : self.microcredit.loans.where(amount: amount).where(confirmed_at:nil).where.not(counted_at:nil).first
+
+      if unconfirmed
+        self.counted_at = unconfirmed.counted_at
+        unconfirmed.counted_at = nil
+          
+        MicrocreditLoan.transaction do
+          self.save
+          unconfirmed.save
+        end
+      else
+        self.counted_at = DateTime.now
+        self.save
+      end
   end
 
   def has_not_user?
