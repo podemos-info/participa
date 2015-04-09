@@ -3,12 +3,14 @@
 <div class="content-content microcredits-wrapper ">
 <h2>Microcréditos Podemos - <%=@microcredit.title%></h2>
 <p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito Podemos. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada. <%= link_to "Más informacion", microcredits_info_path %></p>
-<p><%=fa_icon "phone-square"%> Si necesitas ayuda contacta telefónicamente al <strong><%=@microcredit.contact_phone%></strong>.</p>
+<% if @microcredit.contact_phone and not @microcredit.contact_phone.empty?%>
+<p><%=fa_icon "phone-square"%> Si necesitas ayuda contacta al <strong><%=@microcredit.contact_phone%></strong>.</p>
+<% end %>
 <%= errors_in_form @loan %>
 <%= semantic_form_for @loan, url: create_microcredit_loan_path, html: {method: :post, autocomplete: 'off'} do |f| %>
 
   <% if  current_user %>
-    <% if @user_loans %>
+    <% if @user_loans.length > 0 %>
       <%= alert_box "Información" do %>
         <p>Ya has suscrito microcréditos para esta campaña por monto de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
         <% @user_loans.each do |loan| %>

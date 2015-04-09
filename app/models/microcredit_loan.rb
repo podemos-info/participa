@@ -9,9 +9,6 @@ class MicrocreditLoan < ActiveRecord::Base
   validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
   validates :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country, presence: true, if: :has_not_user?
 
-  validate :validates_not_passport
-  validate :validates_age_over
-
   validates :email, email: true, if: :has_not_user?
 
   validates :amount, presence: true
@@ -20,6 +17,9 @@ class MicrocreditLoan < ActiveRecord::Base
 
   validate :amount, :check_amount, on: :create
   validate :user, :check_user_limits, on: :create
+  validate :microcredit, :check_microcredit_active, on: :create
+  validate :validates_not_passport
+  validate :validates_age_over
 
   scope :counted, -> { where.not(counted_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
@@ -53,7 +53,25 @@ class MicrocreditLoan < ActiveRecord::Base
     else
       self.user_data = {first_name: first_name, last_name: last_name, email: email, address: address, postal_code: postal_code, town: town, province: province, country: country}.to_yaml
     end
-    self.counted_at = DateTime.now if counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
+  end
+
+  after_save do |microcredit|
+    if self.counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
+      unconfirmed = confirmed_at.nil? ? nil : self.microcredit.loans.where(amount: amount).where(confirmed_at:nil).where.not(counted_at:nil).first
+
+      if unconfirmed
+        self.counted_at = unconfirmed.counted_at
+        unconfirmed.counted_at = nil
+          
+        MicrocreditLoan.transaction do
+          self.save
+          unconfirmed.save
+        end
+      else
+        self.counted_at = DateTime.now
+        self.save
+      end
+    end
   end
 
   def has_not_user?
@@ -91,5 +109,11 @@ class MicrocreditLoan < ActiveRecord::Base
     end
 
     self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
+  end
+
+  def check_microcredit_active
+    if not self.microcredit.is_active?
+      self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
+    end
   end
 end

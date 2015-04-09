@@ -33,6 +33,7 @@ class PageController < ApplicationController
   end
 
   def circles_validation
+    render :form_iframe, locals: { title: "Validación de Círculos", form_id: 45, extra_qs:"" }
   end
 
   def list_register
