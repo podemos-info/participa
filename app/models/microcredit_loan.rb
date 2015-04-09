@@ -4,6 +4,7 @@ class MicrocreditLoan < ActiveRecord::Base
   belongs_to :microcredit
   belongs_to :user
 
+  attr_accessor :skip_callbacks
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
   validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
@@ -25,6 +26,8 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
   
+  after_save :update_counted_at, unless: :skip_callbacks
+
   after_initialize do |microcredit|
     if user
       set_user_data user
@@ -47,7 +50,7 @@ class MicrocreditLoan < ActiveRecord::Base
     self.country = _user[:country]
   end
 
-  before_save do |microcredit|
+  before_save do
     if user
       self.user_data = nil
     else
@@ -55,18 +58,20 @@ class MicrocreditLoan < ActiveRecord::Base
     end
   end
 
-  after_save do |microcredit|
+  def update_counted_at
     if self.counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
       unconfirmed = confirmed_at.nil? ? nil : self.microcredit.loans.where(amount: amount).where(confirmed_at:nil).where.not(counted_at:nil).first
 
       if unconfirmed
+
         self.counted_at = unconfirmed.counted_at
         unconfirmed.counted_at = nil
           
+        unconfirmed.skip_callbacks = self.skip_callbacks = true
         MicrocreditLoan.transaction do
-          self.save
-          unconfirmed.save
+          self.save if unconfirmed.save
         end
+        unconfirmed.skip_callbacks = self.skip_callbacks = false
       else
         self.counted_at = DateTime.now
         self.save
