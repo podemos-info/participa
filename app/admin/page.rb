@@ -1,4 +1,4 @@
-ActiveAdmin.register Page, as: "Formulario" do
+ActiveAdmin.register Page do
 
   permit_params :id_form, :title, :slug, :require_login
 

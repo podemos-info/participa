@@ -2096,3 +2096,58 @@ div.help {
     margin: 2px 0px 0px 5px;
   }
 }
+
+
+.microcredit_box {
+  display: inline-block;
+  margin: 0 !important;
+  padding: 0;
+  vertical-align: top;
+  text-align: center;
+
+  > div {
+    border: 1px solid #612d62;
+    padding: 1em;
+    margin: 1em;
+    canvas {
+      top: -20px;
+      left: -5px;
+      position: absolute;
+      width: 100% !important;
+      height: auto !important;
+    }
+    .info {
+      vertical-align: middle;
+      display: inline-block;
+      width: 55%;
+      font-size:0.9em;
+    }
+    .js-mc-graph {
+      text-align: left;
+      vertical-align: middle;
+      display: inline-block;
+      position: relative;
+      width:40%;
+      div {
+        padding-bottom: 140%;
+        display: inline-block;
+        width:1px;
+      }
+    }
+    .buttonbox {
+      font-size: 0.9em;
+    }
+  }
+
+  &.full {
+    width:100%;
+    > div {
+      padding: 0;
+      border: none;  
+    }
+  }
+
+  &.half {
+    width: 31em;
+  }
+}

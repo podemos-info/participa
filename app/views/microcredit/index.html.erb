@@ -1,0 +1,30 @@
+<% content_for :title, "Microcréditos" %>
+<div class="content-content">
+<h2>Microcréditos Podemos</h2>
+<p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito Podemos. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada.</p>
+<p><%= link_to "Ver más informacion", microcredits_info_path %></p>
+
+<% if @microcredits.length==0 %>
+  <p>En este momento no hay campañas activas.</p>
+<% else %>
+  <% @microcredits.each do |m| %>
+  <section class="microcredit_box <%=@box_class%>">
+  <div>
+    <div class="js-mc-graph">
+      <div></div>
+      <canvas width="90" heigth="100"></canvas>
+      <div alt="<%=m.phase_counted_amount%>€" class="hide js-mc-total"><%= m.phase_counted_amount %>€</div>
+      <div alt="Restante" class="hide js-mc-pending"><%= m.phase_limit_amount-m.phase_counted_amount %>€</div>
+    </div>
+    <div class="info">
+      <h3><%=m.title%></h3>
+      <p>Objetivo: <%=m.phase_limit_amount%>€<br/>Recaudado: <%=m.phase_counted_amount%>€<br/>Acumulado: <%=m.campaign_counted_amount%>€</p>
+    </div>    
+    <div class="buttonbox">
+      <%= link_to "Colaborar", new_microcredit_loan_path(m.id), class: 'button' %>
+    </div>
+  </div>
+  </section>
+  <% end %>
+<% end %>
+</div>
