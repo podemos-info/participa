@@ -48,6 +48,7 @@ ActiveAdmin.register MicrocreditLoan do
         number_to_euro microcredit_loan.amount*100
       end
       row :document_vatid
+      row :ip if can? :admin, MicrocreditLoan
       row :user_data do
         attributes_table_for YAML.load(microcredit_loan.user_data) do
             row :first_name
@@ -72,6 +73,7 @@ ActiveAdmin.register MicrocreditLoan do
   
   filter :id
   filter :microcredit
+  filter :document_vatid
   filter :created_at
   filter :counted_at, if: proc{ can? :admin, MicrocreditLoan }
 

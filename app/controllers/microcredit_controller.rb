@@ -34,14 +34,17 @@ class MicrocreditController < ApplicationController
       loan.ip = request.remote_ip
     end
 
-    @loan.set_user_data loan_params if not current_user
+    if not current_user
+      @loan.set_user_data loan_params
+    end 
 
-    if (current_user or verify_recaptcha) and @loan.save
-      UsersMailer.microcredit_email(@microcredit, @loan).deliver
-      redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. ¡Gracias por colaborar!'
-    else
-      flash[:error] = @loan.errors
-      render :new_loan
+    @loan.transaction do
+      if (current_user or verify_recaptcha) and @loan.save
+        UsersMailer.microcredit_email(@microcredit, @loan).deliver
+        redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. ¡Gracias por colaborar!'
+      else
+        render :new_loan
+      end
     end
   end
 

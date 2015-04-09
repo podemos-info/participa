@@ -83,6 +83,7 @@ es:
         document_vatid: "DNI o NIE"
         address: "Dirección"
         minimal_year_old: "Edad mínima requerida" 
+        terms_of_service: "Acuerdo legal"
         amount: "Importe"
         microcredit: "Microcrédito"
         microcredits: "Microcréditos"

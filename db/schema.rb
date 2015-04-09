@@ -91,6 +91,9 @@ ActiveRecord::Schema.define(version: 20150408101421) do
     t.string   "document_vatid"
   end
 
+  add_index "microcredit_loans", ["document_vatid"], name: "index_microcredit_loans_on_document_vatid"
+  add_index "microcredit_loans", ["ip"], name: "index_microcredit_loans_on_ip"
+
   create_table "microcredits", force: true do |t|
     t.string   "title"
     t.datetime "starts_at"
