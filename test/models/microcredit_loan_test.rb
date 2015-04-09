@@ -82,4 +82,14 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
     skip
   end
 
+  test "should .check_microcredit_active" do
+    skip
+  end
+
+  test "should .after_save work" do
+    # create two unconfirmed loans: one counted and the other not
+    # confirm the uncounted loan
+    # the confirmed should be counted now and the other not
+    skip
+  end
 end
