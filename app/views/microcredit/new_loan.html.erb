@@ -12,10 +12,10 @@
   <% if  current_user %>
     <% if @user_loans.length > 0 %>
       <%= alert_box "Información" do %>
-        <p>Ya has suscrito microcréditos para esta campaña por monto de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
-        <% @user_loans.each do |loan| %>
-          <p>El <%= loan.created_at.strftime "%d-%m-%Y" %> por un importe de <%= number_to_euro loan.amount*100%><%= loan.confirmed_at.nil? ? "." : " que ya hemos recibido." %>
-          </p>
+        <% if @user_loans.length == 1 %>
+        <p>Ya has suscrito un microcrédito para esta campaña por un importe de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
+        <% else %>
+        <p>Ya has suscrito <%=@user_loans.length%> microcréditos para esta campaña por un importe total de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
         <% end %>
       <% end %>
     <% end %>
