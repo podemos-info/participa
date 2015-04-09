@@ -10,14 +10,12 @@ feature "Proposals" do
     page.driver.block_unknown_urls
 
     visit proposals_path
-    save_and_open_page
     page.must_have_content "Iniciativas Ciudadanas"
     
     click_button "Apoyar propuesta"
     page.must_have_content "¡Muchas gracias!"
 
     visit proposal_path(id: proposal)
-    page.must_have_content "1 de 30.000 Apoyos necesarios"
     page.must_have_content "Ya has apoyado esta propuesta. ¡Muchas gracias!"
   end
 
