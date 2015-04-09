@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408101421) do
+ActiveRecord::Schema.define(version: 20150409103952) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20150408101421) do
   end
 
   create_table "elections", force: true do |t|
-    t.string   "title"
     t.integer  "agora_election_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
@@ -74,8 +73,22 @@ ActiveRecord::Schema.define(version: 20150408101421) do
     t.text     "close_message"
     t.integer  "scope"
     t.string   "info_url"
+    t.string   "title"
     t.string   "server"
   end
+
+  create_table "friendly_id_slugs", force: true do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "microcredit_loans", force: true do |t|
     t.integer  "microcredit_id"
@@ -107,7 +120,10 @@ ActiveRecord::Schema.define(version: 20150408101421) do
     t.string   "agreement_link"
     t.string   "contact_phone"
     t.integer  "total_goal"
+    t.string   "slug"
   end
+
+  add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
 
   create_table "notice_registrars", force: true do |t|
     t.string   "registration_id"

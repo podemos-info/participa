@@ -212,4 +212,16 @@ class MicrocreditTest < ActiveSupport::TestCase
     assert_not_nil @microcredit.reset_at
   end
 
+  test "friendly id slug candidates work" do 
+    now = DateTime.now
+    microcredit1 = FactoryGirl.create(:microcredit, title: "Barna") 
+    assert_equal("barna", microcredit1.slug)
+    microcredit2 = FactoryGirl.create(:microcredit, title: "Barna") 
+    assert_equal("barna-#{now.year}", microcredit2.slug)
+    microcredit3 = FactoryGirl.create(:microcredit, title: "Barna") 
+    assert_equal("barna-#{now.year}-#{now.month}", microcredit3.slug)
+    microcredit4 = FactoryGirl.create(:microcredit, title: "Barna") 
+    assert_equal("barna-#{now.year}-#{now.month}-#{now.day}", microcredit4.slug)
+  end
+
 end

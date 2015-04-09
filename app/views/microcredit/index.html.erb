@@ -28,7 +28,7 @@
       </div>
       <div class="info">
         <p><strong>Objetivo:</strong> <%= number_to_euro m.phase_limit_amount*100, 0%><br/><strong>Total Semanal:</strong> <%=number_to_euro m.phase_counted_amount*100, 0%><br/><strong>Acumulado:</strong> <%= number_to_euro m.campaign_counted_amount*100, 0%></p>
-        <div class="buttonbox"><%= link_to "Quiero colaborar", new_microcredit_loan_path(m.id), class: 'button' %></div>
+        <div class="buttonbox"><%= link_to "Quiero colaborar", new_microcredit_loan_path(m), class: 'button' %></div>
       </div>    
     </div>
     </section>

@@ -169,6 +169,8 @@ GEM
       actionpack (>= 3.0)
     formtastic-bootstrap (3.0.0)
       formtastic (>= 2.2)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     haml (4.0.5)
       tilt
     has_scope (0.6.0.rc)
@@ -416,6 +418,7 @@ DEPENDENCIES
   font-awesome-rails
   formtastic
   formtastic-bootstrap
+  friendly_id (~> 5.1.0)
   iban-tools
   jbuilder (~> 2.0)
   jquery-rails
