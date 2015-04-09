@@ -67,7 +67,6 @@ class Microcredit < ActiveRecord::Base
   end
 
   def phase_remaining
-    p phase_status
     limits.map do |amount, limit|
       [amount, [0, limit-phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum].max ]
     end

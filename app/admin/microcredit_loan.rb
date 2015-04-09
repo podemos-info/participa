@@ -87,13 +87,17 @@ ActiveAdmin.register MicrocreditLoan do
 
   member_action :confirm, :method => [:post, :delete] do
     m = MicrocreditLoan.find(params[:id])
-    if request.post?
+    if request.post? and m.confirmed_at.nil?
       m.confirmed_at = DateTime.now
-    else
+    elsif request.delete? and not m.confirmed_at.nil?
       m.confirmed_at = nil
     end
-    m.save
-    flash[:notice] = "La recepción del microcrédito ha sido confirmada."
+    
+    if m.save
+      flash[:notice] = "La recepción del microcrédito ha sido confirmada."
+    else
+      flash[:notice] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
+    end
     redirect_to action: :show
   end
 end
