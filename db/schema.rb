@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20150409103952) do
   end
 
   create_table "elections", force: true do |t|
+    t.string   "title"
     t.integer  "agora_election_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
@@ -73,7 +74,6 @@ ActiveRecord::Schema.define(version: 20150409103952) do
     t.text     "close_message"
     t.integer  "scope"
     t.string   "info_url"
-    t.string   "title"
     t.string   "server"
   end
 

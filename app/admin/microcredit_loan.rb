@@ -50,14 +50,14 @@ ActiveAdmin.register MicrocreditLoan do
       row :document_vatid
       row :ip if can? :admin, MicrocreditLoan
       row :user_data do
-        attributes_table_for YAML.load(microcredit_loan.user_data) do
+        attributes_table_for microcredit_loan do
             row :first_name
             row :last_name
             row :address
             row :postal_code
-            row :town
-            row :province
-            row :country
+            row :country_name
+            row :province_name
+            row :town_name
           end
       end if microcredit_loan.user.nil? and can? :admin, MicrocreditLoan
       row :created_at

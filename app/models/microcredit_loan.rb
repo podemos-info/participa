@@ -50,6 +50,36 @@ class MicrocreditLoan < ActiveRecord::Base
     self.country = _user[:country]
   end
 
+  def country_name
+    _country = Carmen::Country.coded(self.country)
+    if _country
+      _country.name
+    else
+      self.country
+    end
+  end
+
+  def province_name
+    _country = Carmen::Country.coded(self.country)
+    _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
+    if _prov
+      _prov.name
+    else
+      self.province
+    end
+  end
+
+  def town_name
+    _country = Carmen::Country.coded(self.country)
+    _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
+    _town = _prov.subregions.coded(self.town) if _prov
+    if _town
+      _town.name
+    else
+      self.town
+    end
+  end
+
   before_save do
     if user
       self.user_data = nil

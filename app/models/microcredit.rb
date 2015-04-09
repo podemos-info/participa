@@ -9,7 +9,7 @@ class Microcredit < ActiveRecord::Base
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
-  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now)}
+  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
