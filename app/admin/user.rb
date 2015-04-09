@@ -44,6 +44,7 @@ ActiveAdmin.register User do
   end
 
   show do
+    authorize! :admin, user
     attributes_table do
       row :status do
         status_tag("Verificado", :ok) if user.verified?
