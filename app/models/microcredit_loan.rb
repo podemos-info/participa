@@ -71,6 +71,7 @@ class MicrocreditLoan < ActiveRecord::Base
         self.counted_at = DateTime.now
         self.save
       end
+    end
   end
 
   def has_not_user?
