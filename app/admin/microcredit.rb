@@ -1,15 +1,21 @@
 ActiveAdmin.register Microcredit do
   permit_params :title, :starts_at, :ends_at, :total_goal, :limits, :account_number, :contact_phone, :agreement_link
 
+  scope :all
+  scope :active
+  scope :upcoming_finished
+  
   index do
     selectable_column
     id_column
     column :title
-    column :starts_at
+    column :dates do |m|
+      "#{m.starts_at}<br/>#{m.ends_at}".html_safe
+    end
     column :limits do |m|
-      m.limits.map do |amount, limit|
+      ([ "<strong>#{number_to_euro(m.limits.map { |amount, limit| amount*limit*100 } .sum, 0)}</strong>" ] + m.limits.map do |amount, limit|
         "#{number_to_euro amount*100, 0}:&nbsp;#{limit}"
-      end .join("<br/>").html_safe
+      end).join("<br/>").html_safe
     end
     column :totals, text_align:"right" do |m|
       (m.phase_status.group_by(&:first).map do |amount, info|
@@ -48,8 +54,8 @@ ActiveAdmin.register Microcredit do
     ul do
       li "&cross; = suscrito".html_safe
       li "&check; = confirmado".html_safe
-      li "&ominus; = NO se cuenta en la web".html_safe
-      li "&oplus; = se cuenta en la web".html_safe
+      li "&ominus; = NO se ve en la web".html_safe
+      li "&oplus; = visible en la web".html_safe
     end
   end
 
@@ -57,6 +63,7 @@ ActiveAdmin.register Microcredit do
     ul do
       li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100}"
       li "Suscritos: #{number_to_euro MicrocreditLoan.total_current*100}"
+      li "Visibles: #{number_to_euro MicrocreditLoan.total_counted_current*100}"
       li "Confirmados: #{number_to_euro MicrocreditLoan.total_confirmed_current*100}"
     end
   end
