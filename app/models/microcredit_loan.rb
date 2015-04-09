@@ -6,15 +6,12 @@ class MicrocreditLoan < ActiveRecord::Base
 
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
-  # TODO: valid_nie: true also
-  validates :document_vatid, valid_nif: true, if: :has_not_user?
+  validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
   validates :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country, presence: true, if: :has_not_user?
 
-  # FIXME: review email_validator without email
-  #  m = MicrocreditLoan.new
-  #  m.valid? 
-  #  NoMethodError: undefined method `length' for nil:NilClass
-  #   from app/validators/email_validator.rb:6:in `validate_each'
+  validate :validates_not_passport
+  validate :validates_age_over
+
   validates :email, email: true, if: :has_not_user?
 
   validates :amount, presence: true
@@ -22,6 +19,7 @@ class MicrocreditLoan < ActiveRecord::Base
   validates :minimal_year_old, acceptance: true
 
   validate :amount, :check_amount, on: :create
+  validate :user, :check_user_limits, on: :create
 
   scope :counted, -> { where.not(counted_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
@@ -62,9 +60,36 @@ class MicrocreditLoan < ActiveRecord::Base
     user.nil?
   end
 
+  def validates_not_passport
+    if self.user and self.user.is_passport? 
+      self.errors.add(:user, "No puedes suscribir un microcrédito si no dispones de DNI o NIE.")
+    end
+  end
+
+  def validates_age_over
+    if self.user and self.user.born_at > Date.today-18.years
+      self.errors.add(:user, "No puedes suscribir un microcrédito si eres menor de edad.")
+    end
+  end
+
   def check_amount
-    if not self.microcredit.has_amount_available? amount
+    if self.amount and not self.microcredit.has_amount_available? amount
       self.errors.add(:amount, "Lamentablemente, ya no quedan préstamos por esa cantidad.")
     end
+  end
+
+  def check_user_limits
+    limit = self.microcredit.loans.where(ip:self.ip).count>50
+    if not limit
+      if self.user
+        loans = self.microcredit.loans.where(user:self.user).pluck(:amount)
+      else
+        limit = User.where("lower(document_vatid) = ?", self.document_vatid).count>0
+        loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount) if not limit
+      end
+      limit = loans.length>10 or loans.sum>10000 if not limit
+    end
+
+    self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
   end
 end

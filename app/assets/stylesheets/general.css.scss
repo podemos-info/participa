@@ -773,12 +773,61 @@ microcredits
   p, li {
     color: #333;
     font-size: 1.4em;
-    text-align: justify;
   }
 
   li {
     margin: 0em 0em 1em 1em;
     list-style-type: circle;
+  }
+
+  .control-label {
+    float: left;
+    color: #612D62;
+  }
+  .radio_options {
+    float: left;
+    input, div {
+      width:200px;
+      height:40px;
+      line-height:40px;
+    }
+      input {
+        position:absolute;
+        z-index:1;
+        cursor:pointer;
+        opacity:0;
+
+        &:checked + div {
+          border: 1px solid #269283;
+          i {
+            visibility: visible;
+            color: #269283;
+          }
+        }
+        &:hover  + div {
+          border: 1px solid #c3a6cf;
+          i { visibility: visible; color: #c3a6cf; }
+        }
+      }
+      input + div {
+        position: relative;
+        font-size: 2em;
+        border: 1px solid white;
+        padding: 0em 1em;
+        text-align: center;
+        i {
+          visibility: hidden;
+          position: absolute;
+          left: 2em;          
+          top: 10px;
+        }
+        span {
+          position: absolute;
+          font-size: 0.5em;
+          right: 5px;
+          bottom: 0px;
+        }
+      }
   }
 }
 

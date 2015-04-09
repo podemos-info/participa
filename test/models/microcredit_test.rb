@@ -59,9 +59,9 @@ class MicrocreditTest < ActiveSupport::TestCase
     assert_equal 0, @microcredit.total_confirmed
   end
 
-  test "should .reset work" do 
+  test "should .change_phase work" do 
     assert_nil @microcredit.reset_at
-    @microcredit.reset
+    @microcredit.change_phase
     assert @microcredit.reset_at
   end
 
