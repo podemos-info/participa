@@ -53,6 +53,14 @@ ActiveAdmin.register Microcredit do
     end
   end
 
+  sidebar "Estadísticas últimas campañas", only: :index, priority: 0 do
+    ul do
+      li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100}"
+      li "Suscritos: #{number_to_euro MicrocreditLoan.total_current*100}"
+      li "Confirmados: #{number_to_euro MicrocreditLoan.total_confirmed_current*100}"
+    end
+  end
+
   action_item :only => :show do
     link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas cambiar de fase en esta campaña?" })
   end

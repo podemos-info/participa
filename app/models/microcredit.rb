@@ -102,4 +102,8 @@ class Microcredit < ActiveRecord::Base
       [:title, DateTime.now.year, DateTime.now.month, DateTime.now.day]
     ]
   end
+
+  def self.total_current_amount
+    Microcredit.upcoming_finished.sum(:total_goal)
+  end
 end

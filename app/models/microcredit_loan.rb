@@ -153,4 +153,12 @@ class MicrocreditLoan < ActiveRecord::Base
       self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
     end
   end
+
+  def self.total_confirmed_current
+    MicrocreditLoan.confirmed.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+  end
+
+  def self.total_current
+    MicrocreditLoan.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+  end
 end
