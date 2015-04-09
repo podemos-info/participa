@@ -1,4 +1,5 @@
 ActiveAdmin.register Election do
+  menu :parent => "Participación"
 
   permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations
 

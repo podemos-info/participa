@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
             issue[:message].each { |type, text| flash.now[type] = t("issues."+text) }
           end
         # user wants to log out or edit his profile
-        elsif params[:controller] == 'devise/sessions' or params[:controller] == "registrations"
+        elsif params[:controller] == 'devise/sessions' or params[:controller] == "registrations" or params[:controller].start_with? "admin/"
         # user can't do anything else but fix the issue
         else
           redirect_to issue[:path]
@@ -109,7 +109,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    unless signed_in? && current_user.is_admin?
+    unless signed_in? && (current_user.is_admin? || current_user.microcredits_admin?)
       redirect_to root_url, flash: { error: t('podemos.unauthorized') }
     end
   end 
