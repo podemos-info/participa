@@ -87,9 +87,22 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
   end
 
   test "should .after_save work" do
-    # create two unconfirmed loans: one counted and the other not
-    # confirm the uncounted loan
-    # the confirmed should be counted now and the other not
-    skip
+    # Ending campaign
+    microcredit = FactoryGirl.create(:microcredit)
+    microcredit.starts_at = DateTime.now-3.month
+    microcredit.ends_at = DateTime.now+10.minute
+    microcredit.save
+
+    l1 = microcredit.loans.create user: @user1, amount: 100, counted_at: DateTime.now
+    l2 = microcredit.loans.create user: @user1, amount: 100, counted_at: nil
+    
+    l2.confirmed_at = DateTime.now
+    l2.update_counted_at
+
+    # reload l1 from database
+    l1 = MicrocreditLoan.find(l1.id)
+    
+    assert_not_equal l2.counted_at, nil, "Confirmed loans should be counted now"
+    assert_equal l1.counted_at, nil, "Unconfirmed loans should not be counted now"
   end
 end
