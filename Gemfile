@@ -44,7 +44,7 @@ gem 'unicode'
 gem 'rack-openid'
 gem 'ruby-openid'
 gem 'secure_headers'
-
+gem 'minitest-rails'
 gem 'rake-progressbar'
 gem 'rails_autolink'
 gem 'flag_shih_tzu'
@@ -78,9 +78,9 @@ group :development, :test do
   gem 'webmock'
   gem 'minitest-reporters'
   gem 'capybara'
-  gem "capybara-webkit"
-  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'minitest-rails-capybara'
 end
 

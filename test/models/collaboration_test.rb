@@ -9,16 +9,16 @@ class CollaborationTest < ActiveSupport::TestCase
   test "should validations on collaborations work" do
     c = Collaboration.new
     assert_not c.save
+    assert(c.errors[:payment_type].include? "no puede estar en blanco")
     assert(c.errors[:amount].include? "no puede estar en blanco")
     assert(c.errors[:frequency].include? "no puede estar en blanco")
-    #assert(c.errors[:terms_of_service].include? "debes aceptar.")
-    #assert(c.errors[:minimal_year_old].include? "debes aceptar.")
-    #validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true
-    #validates :non_user_email, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true
-    #validates :non_user_document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true 
-    #validate :validates_age_over
-    #validate :validates_has_user
-  end 
+    assert(c.errors[:non_user_email].include? "no puede estar en blanco")
+    assert(c.errors[:non_user_document_vatid].include? "no puede estar en blanco")
+    assert(c.errors[:non_user_data].include? "no puede estar en blanco")
+    assert(c.errors[:user].include? "La colaboración debe tener un usuario asociado.")
+    #assert(c.errors[:terms_of_service].include? "debe ser aceptado")
+    #assert(c.errors[:minimal_year_old].include? "debe ser aceptado")
+  end
 
   test "should set_initial_status work" do
     assert_equal( @collaboration.status, 0 ) 
@@ -529,33 +529,37 @@ phone: '666666'"
 
   test "should update_paid_unconfirmed_bank_collaborations orders work" do 
     date = Date.today
+    start_date = Date.today - 4.month
     @collaboration.create_order(date - 1.month ).save
     @collaboration.create_order(date - 2.month ).save
     @collaboration.create_order(date - 3.month ).save
     @collaboration.create_order(date - 4.month ).save
 
+    assert_equal 4, Order.banks.count
+
     Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 0) }
-    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(start_date, date).charging)
     @collaboration.reload
     assert_equal 0, @collaboration.status
 
     Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 1) }
-    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(start_date, date).charging)
     @collaboration.reload
     assert_equal 0, @collaboration.status
 
-    Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 2) }
-    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 1) }
+    @collaboration.update_attribute(:status, 2)
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(start_date, date).charging)
     @collaboration.reload
     assert_equal 3, @collaboration.status
 
     Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 3) }
-    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(start_date, date).charging)
     @collaboration.reload
     assert_equal 3, @collaboration.status
 
     Order.where(collaboration: @collaboration).each {|o| o.update_attribute(:status, 4) }
-    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(date, date).charging)
+    Collaboration.update_paid_unconfirmed_bank_collaborations(Order.banks.by_date(start_date, date).charging)
     @collaboration.reload
     assert_equal 3, @collaboration.status
   end
@@ -609,44 +613,6 @@ phone: '666666'"
     @collaboration.iban_account = "ES4621770993232366222222"
     assert_not @collaboration.valid?
     assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
-  end
-
-  test "should .create_order before collection created returns false" do
-    coll = FactoryGirl.create(:collaboration, :june2014)
-    assert_not coll.create_order(DateTime.new(2014,3,1)).save, "create_order should not consider dates previous to collaboration creation"
-  end
-
-  test "should .create_order after collection created but the same month returns false" do
-    coll = FactoryGirl.create(:collaboration, :ccc, created_at: DateTime.new(2014,6,10))
-    order = coll.create_order(DateTime.new(2014,6,5))
-    assert_not order.save, "create_order should not consider collaboration created after date"
-    order = coll.create_order(DateTime.new(2014,6,15))
-    assert order.save, "create_order should consider collaboration created before date"
-    coll.delete
-  end
-
-  test "should .create_order returns existing order for given period" do
-    coll = FactoryGirl.create(:collaboration, :june2014)
-    order = coll.create_order(DateTime.new(2014,7,15)).save
-    assert order, "create_order should result a new order"
-    assert_equal coll.create_order(DateTime.new(2014,7,15)), order, "create_order should return existing order"
-    assert_equal coll.create_order(DateTime.new(2014,7,15)), order, "create_order should return existing order"
-    coll.delete
-  end
-
-  test "should .create_order works with quarterly collaborations" do
-    coll = FactoryGirl.create(:collaboration, :june2014, :quarterly)
-    assert coll.create_order(DateTime.new(2014,6,15)), "create_order should return a new order for 1st month of quarterly collaboration"
-    assert_nil coll.create_order(DateTime.new(2014,7,15)), "create_order should return nil for 2st month of quarterly collaboration"
-    assert_nil coll.create_order(DateTime.new(2014,8,15)), "create_order should return nil for 3st month of quarterly collaboration"
-    assert coll.create_order(DateTime.new(2014,9,15)), "create_order should return a new order for 4st month of quarterly collaboration"
-  end
-
-  test "should .create_order works with yearly collaborations" do
-    coll = FactoryGirl.create(:collaboration, :june2014, :yearly)
-    assert coll.create_order(DateTime.new(2014,6,15)), "create_order should return a new order for 1st month of yearly collaboration"
-    assert_nil coll.create_order(DateTime.new(2014,7,15)), "create_order should return nil for 2nd month of yearly collaboration"
-    assert coll.create_order(DateTime.new(2015,6,15)), "create_order should return a new order for 12th month of yearly collaboration"
   end
 
   #test "should .get_orders work with collaboration created but not paid the same month" do
