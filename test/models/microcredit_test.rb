@@ -211,5 +211,4 @@ class MicrocreditTest < ActiveSupport::TestCase
     @microcredit.change_phase
     assert_not_nil @microcredit.reset_at
   end
-
 end

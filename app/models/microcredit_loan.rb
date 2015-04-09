@@ -9,9 +9,6 @@ class MicrocreditLoan < ActiveRecord::Base
   validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
   validates :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country, presence: true, if: :has_not_user?
 
-  validate :validates_not_passport
-  validate :validates_age_over
-
   validates :email, email: true, if: :has_not_user?
 
   validates :amount, presence: true
@@ -20,6 +17,9 @@ class MicrocreditLoan < ActiveRecord::Base
 
   validate :amount, :check_amount, on: :create
   validate :user, :check_user_limits, on: :create
+  validate :microcredit, :check_microcredit_active, on: :create
+  validate :validates_not_passport
+  validate :validates_age_over
 
   scope :counted, -> { where.not(counted_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
@@ -109,5 +109,11 @@ class MicrocreditLoan < ActiveRecord::Base
     end
 
     self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
+  end
+
+  def check_microcredit_active
+    if not self.microcredit.is_active?
+      self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
+    end
   end
 end
