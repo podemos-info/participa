@@ -74,7 +74,9 @@ class MicrocreditLoan < ActiveRecord::Base
         unconfirmed.skip_callbacks = self.skip_callbacks = false
       else
         self.counted_at = DateTime.now
+        self.skip_callbacks = true
         self.save
+        self.skip_callbacks = false
       end
     end
   end
