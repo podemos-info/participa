@@ -1,4 +1,7 @@
 class Microcredit < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   acts_as_paranoid
   has_many :loans, class_name: "MicrocreditLoan"
 
@@ -89,5 +92,14 @@ class Microcredit < ActiveRecord::Base
   def change_phase
     self.reset_at = DateTime.now
     save
+  end
+
+  def slug_candidates
+    [
+      :title,
+      [:title, DateTime.now.year],
+      [:title, DateTime.now.year, DateTime.now.month],
+      [:title, DateTime.now.year, DateTime.now.month, DateTime.now.day]
+    ]
   end
 end

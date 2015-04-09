@@ -50,6 +50,7 @@ gem 'rails_autolink'
 gem 'flag_shih_tzu'
 gem 'wicked_pdf'
 gem "font-awesome-rails"
+gem 'friendly_id', '~> 5.1.0' 
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
