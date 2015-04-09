@@ -21,13 +21,16 @@ class MicrocreditController < ApplicationController
 
   def new_loan
     @microcredit = Microcredit.find(params[:id])
-    @loan = MicrocreditLoan.new
+    redirect_to microcredit_path unless @microcredit and @microcredit.is_active?
 
+    @loan = MicrocreditLoan.new
     @user_loans = current_user ? @microcredit.loans.where(user:current_user) : []
   end
 
   def create_loan
     @microcredit = Microcredit.find(params[:id])
+    redirect_to microcredit_path unless @microcredit and @microcredit.is_active?
+
     @loan = MicrocreditLoan.new(loan_params) do |loan|
       loan.microcredit = @microcredit
       loan.user = current_user if current_user
