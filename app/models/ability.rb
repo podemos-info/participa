@@ -9,12 +9,14 @@ class Ability
       can :manage, :all
       can :manage, Notice
       can :manage, Resque
+      can :manage, Report
       can :manage, ActiveAdmin
       can :admin, User
       can :admin, MicrocreditLoan
 
       if not user.superadmin?
-        cannot :manage, Report
+        cannot :manage, Election
+        cannot :manage, Notice
         cannot :manage, ReportGroup
         cannot :manage, SpamFilter
       end
