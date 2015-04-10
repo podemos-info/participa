@@ -25,7 +25,8 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :counted, -> { where.not(counted_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
-  
+  scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }
+
   after_save :update_counted_at, unless: :skip_callbacks
 
   after_initialize do |microcredit|
@@ -155,14 +156,14 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def self.total_current
-    MicrocreditLoan.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+    MicrocreditLoan.upcoming_finished.sum(:amount)
   end
 
   def self.total_confirmed_current
-    MicrocreditLoan.confirmed.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+    MicrocreditLoan.upcoming_finished.confirmed.sum(:amount)
   end
 
   def self.total_counted_current
-    MicrocreditLoan.counted.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+    MicrocreditLoan.upcoming_finished.counted.sum(:amount)
   end
 end

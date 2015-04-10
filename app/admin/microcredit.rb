@@ -62,9 +62,9 @@ ActiveAdmin.register Microcredit do
   sidebar "Estadísticas últimas campañas", only: :index, priority: 0 do
     ul do
       li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100}"
-      li "Suscritos: #{number_to_euro MicrocreditLoan.total_current*100}"
-      li "Visibles: #{number_to_euro MicrocreditLoan.total_counted_current*100}"
-      li "Confirmados: #{number_to_euro MicrocreditLoan.total_confirmed_current*100}"
+      li "Suscritos: #{number_to_euro MicrocreditLoan.total_current*100} (#{MicrocreditLoan.upcoming_finished.count})"
+      li "Visibles: #{number_to_euro MicrocreditLoan.total_counted_current*100} (#{MicrocreditLoan.upcoming_finished.counted.count})"
+      li "Confirmados: #{number_to_euro MicrocreditLoan.total_confirmed_current*100} (#{MicrocreditLoan.upcoming_finished.confirmed.count})"      
     end
   end
 
