@@ -75,8 +75,8 @@ ActiveAdmin.register Election do
 
   sidebar "Progreso", only: :show, priority: 0 do
     ul do
-      li "Votos totales: #{election.votes.joins(:user).merge(User.banned).count}"
-      li "Votos de usuarios baneados: #{election.votes.count}"
+      li "Votos totales: #{election.votes.count}"
+      li "Votos de usuarios baneados: #{election.votes.joins(:user).merge(User.banned).count}"
       a 'Descargar voter ids', href: download_voter_ids_admin_election_path(election)
     end
   end
