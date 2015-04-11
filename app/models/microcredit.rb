@@ -9,7 +9,7 @@ class Microcredit < ActiveRecord::Base
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
-  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now)}
+  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
@@ -32,6 +32,21 @@ class Microcredit < ActiveRecord::Base
     @limits = parse_limits self[:limits]
   end
 
+  def single_limit
+    @limits
+  end
+  
+  def method_missing(name, *args, &blk)
+    if name.to_s.start_with? "single_limit_"
+      amount = name[13..-1].to_i
+      if @limits.include? amount
+        @limits[amount]
+      end
+    else
+      super
+    end
+  end
+
   def parse_limits limits_string
     Hash[* limits_string.scan(/\d+/).map {|x| x.to_i} ] if limits_string
   end
@@ -46,8 +61,10 @@ class Microcredit < ActiveRecord::Base
     @phase_status ||= loans.phase.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
   end
 
-  def ellapsed_time_percent
-    [ [(DateTime.now.to_f-starts_at.to_f) / (ends_at.to_f-starts_at.to_f), 0.0].max, 1.0].min
+  def remaining_percent
+    time = 1-[ [(DateTime.now.to_f-starts_at.to_f) / (ends_at.to_f-starts_at.to_f), 0.0].max, 1.0].min
+    progress = 1-[ [1.0*self.campaign_counted_amount / self.total_goal, 0.0].max, 1.0].min
+    progress*time
   end
 
   def current_percent amount, confirmed, add
@@ -62,12 +79,15 @@ class Microcredit < ActiveRecord::Base
   end
 
   def should_count? amount, confirmed
-    percent = confirmed ? ellapsed_time_percent : 1-ellapsed_time_percent
+    percent = confirmed ? 1-self.remaining_percent : self.remaining_percent
     (current_percent(amount, confirmed, 1)-percent).abs<(current_percent(amount, confirmed, 0)-percent).abs
   end
 
+  def phase_current_for_amount amount
+    phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum
+  end
+
   def phase_remaining
-    p phase_status
     limits.map do |amount, limit|
       [amount, [0, limit-phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum].max ]
     end
@@ -81,8 +101,16 @@ class Microcredit < ActiveRecord::Base
     phase_status.collect {|x| x[0]*x[3] if x[2] } .compact.sum
   end
 
+  def campaign_unconfirmed_amount
+    campaign_status.collect {|x| x[0]*x[3] if not x[1] } .compact.sum
+  end
+
   def campaign_confirmed_amount
     campaign_status.collect {|x| x[0]*x[3] if x[1] } .compact.sum
+  end
+
+  def campaign_not_counted_amount
+    campaign_status.collect {|x| x[0]*x[3] if not x[2] } .compact.sum
   end
 
   def campaign_counted_amount
@@ -101,5 +129,9 @@ class Microcredit < ActiveRecord::Base
       [:title, DateTime.now.year, DateTime.now.month],
       [:title, DateTime.now.year, DateTime.now.month, DateTime.now.day]
     ]
+  end
+
+  def self.total_current_amount
+    Microcredit.upcoming_finished.sum(:total_goal)
   end
 end

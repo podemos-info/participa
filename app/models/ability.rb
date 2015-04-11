@@ -9,12 +9,15 @@ class Ability
       can :manage, :all
       can :manage, Notice
       can :manage, Resque
+      can :manage, Report
       can :manage, ActiveAdmin
       can :admin, User
+      can :admin, Microcredit
       can :admin, MicrocreditLoan
 
       if not user.superadmin?
-        cannot :manage, Report
+        cannot :manage, Election
+        cannot :manage, Notice
         cannot :manage, ReportGroup
         cannot :manage, SpamFilter
       end
@@ -24,6 +27,8 @@ class Ability
       cannot :manage, ActiveAdmin
 
       can [:read], MicrocreditLoan if user.microcredits_admin?
+      can [:read, :update], Microcredit if user.microcredits_admin?
+
       can [:show, :update], User, id: user.id
       can :show, Notice
 

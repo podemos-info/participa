@@ -40,6 +40,10 @@ FactoryGirl.define do
     admin true
   end
 
+  trait :superadmin do
+    superadmin true
+  end
+
   trait :legacy_password_user do
     has_legacy_password true
   end

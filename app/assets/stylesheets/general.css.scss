@@ -791,25 +791,26 @@ microcredits
       height:40px;
       line-height:40px;
     }
-      input {
-        position:absolute;
-        z-index:1;
-        cursor:pointer;
-        opacity:0;
 
-        &:checked + div {
-          border: 1px solid #269283;
-          i {
-            visibility: visible;
-            color: #269283;
-          }
-        }
-        &:hover  + div {
-          border: 1px solid #c3a6cf;
-          i { visibility: visible; color: #c3a6cf; }
+    input {
+      position:absolute;
+      z-index:1;
+      cursor:pointer;
+      opacity:0;
+
+      &:checked + div, &:checked:hover + div {
+        border: 1px solid #269283;
+        i {
+          visibility: visible;
+          color: #269283;
         }
       }
-      input + div {
+      &:hover + div {
+        border: 1px solid #97c2b8;
+        i { visibility: visible; color: #97c2b8; }
+      }
+
+      & + div {
         position: relative;
         font-size: 2em;
         border: 1px solid white;
@@ -828,6 +829,14 @@ microcredits
           bottom: 0px;
         }
       }
+      &.disabled + div {
+        color: #e96161;
+      }
+      &.disabled:hover + div {
+        border: 1px solid #e96161;
+        i { visibility: visible; color: #e96161; }
+      }
+    }
   }
 }
 

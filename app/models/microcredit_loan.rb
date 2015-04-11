@@ -25,7 +25,8 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :counted, -> { where.not(counted_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
-  
+  scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }
+
   after_save :update_counted_at, unless: :skip_callbacks
 
   after_initialize do |microcredit|
@@ -48,6 +49,36 @@ class MicrocreditLoan < ActiveRecord::Base
     self.town = _user[:town]
     self.province = _user[:province]
     self.country = _user[:country]
+  end
+
+  def country_name
+    _country = Carmen::Country.coded(self.country)
+    if _country
+      _country.name
+    else
+      self.country
+    end
+  end
+
+  def province_name
+    _country = Carmen::Country.coded(self.country)
+    _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
+    if _prov
+      _prov.name
+    else
+      self.province
+    end
+  end
+
+  def town_name
+    _country = Carmen::Country.coded(self.country)
+    _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
+    _town = _prov.subregions.coded(self.town) if _prov
+    if _town
+      _town.name
+    else
+      self.town
+    end
   end
 
   before_save do
@@ -122,5 +153,17 @@ class MicrocreditLoan < ActiveRecord::Base
     if not self.microcredit.is_active?
       self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
     end
+  end
+
+  def self.total_current
+    MicrocreditLoan.upcoming_finished.sum(:amount)
+  end
+
+  def self.total_confirmed_current
+    MicrocreditLoan.upcoming_finished.confirmed.sum(:amount)
+  end
+
+  def self.total_counted_current
+    MicrocreditLoan.upcoming_finished.counted.sum(:amount)
   end
 end
