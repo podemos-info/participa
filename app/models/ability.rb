@@ -12,6 +12,7 @@ class Ability
       can :manage, Report
       can :manage, ActiveAdmin
       can :admin, User
+      can :admin, Microcredit
       can :admin, MicrocreditLoan
 
       if not user.superadmin?
@@ -26,6 +27,8 @@ class Ability
       cannot :manage, ActiveAdmin
 
       can [:read], MicrocreditLoan if user.microcredits_admin?
+      can [:read, :update], Microcredit if user.microcredits_admin?
+
       can [:show, :update], User, id: user.id
       can :show, Notice
 

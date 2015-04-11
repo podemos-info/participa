@@ -8,6 +8,7 @@ FactoryGirl.define do
     ends_at DateTime.now+1.month
     account_number "XXXXXXXXXX"
     limits "100€: 100\r500€: 22\r1000€: 10"
+    total_goal 100000
   end
 
   trait :expired do
