@@ -78,7 +78,7 @@ class MicrocreditTest < ActiveSupport::TestCase
     assert_equal resp, @microcredit.phase_status
 
     @microcredit = Microcredit.find @microcredit.id
-    resp = [[100, false, false, 7]]
+    resp = [[100, false, true, 7]]
     assert_equal resp, @microcredit.phase_status
 
     @microcredit.change_phase

@@ -1,4 +1,6 @@
 ActiveAdmin.register Microcredit do
+  config.sort_order = 'updated_at_desc'
+  
   scope :all
   scope :active
   scope :upcoming_finished
@@ -11,7 +13,7 @@ ActiveAdmin.register Microcredit do
       "#{m.starts_at}<br/>#{m.ends_at}".html_safe
     end
     column :limits do |m|
-      ([ "<strong>#{number_to_euro(m.phase_limit_amount*100, 0)}</strong>" ] + m.limits.map do |amount, limit|
+      ([ "<strong>Total&nbsp;fase:&nbsp;#{number_to_euro(m.phase_limit_amount*100, 0)}</strong>" ] + m.limits.map do |amount, limit|
         "#{number_to_euro amount*100, 0}:&nbsp;#{limit}"
       end).join("<br/>").html_safe
     end
@@ -23,8 +25,8 @@ ActiveAdmin.register Microcredit do
       end).join("<br/>").html_safe
     end
     column :percentages do |m|
-      ([ "<strong>&cross;:#{(m.remaining_percent*100).round(2)}%&nbsp;&check;:#{((1-m.remaining_percent)*100).round(2)}%</strong>" ] + m.limits.map do |amount, limit|
-        "#{number_to_euro amount*100, 0}:&nbsp;#{(m.current_percent(amount, false, 0)*100).round(2)}%&nbsp;#{(m.current_percent(amount, true, 0)*100).round(2)}%"
+      ([ "<strong>Confianza:&nbsp;#{(m.remaining_percent*100).round(2)}%</strong>" ] + m.limits.map do |amount, limit|
+        "#{number_to_euro amount*100, 0}:&nbsp;#{(m.current_percent(amount, false, 0)*100).round(2)}%"
       end).join("<br/>").html_safe
     end
     column :progress do |m|
@@ -46,8 +48,8 @@ ActiveAdmin.register Microcredit do
         f.input :limits
         f.input :account_number
         f.input :agreement_link
+        f.input :total_goal, step: 5000
       else
-        
         f.inputs "Importes de los microcréditos" do
           f.input :phase_limit_amount, label: "Total por fase", input_html: { disabled: true }
           f.object.limits.each do |amount, limit|
@@ -55,14 +57,14 @@ ActiveAdmin.register Microcredit do
           end
         end
       end
-      f.input :total_goal, step: 5000
       f.input :contact_phone
     end
     f.actions
   end
 
   sidebar "Ayuda", only: :index, priority: 0 do
-    h4 "Nomenclatura microcrédito"
+    para "Para compensar el retraso en la confirmación de los ingresos, al inicio de la campaña se muestran en la web suscripciones no confirmadas."
+    para "La confianza en que los ingresos van a ser confirmados decrece progresivamente a medida que pasa el tiempo y que se reciben más suscripciones, para evitar que al finalizar la campaña el total que aparece en la web supere el total efectivamente recibido."
     ul do
       li "&cross; = suscrito".html_safe
       li "&check; = confirmado".html_safe
@@ -105,7 +107,7 @@ ActiveAdmin.register Microcredit do
     if can? :admin, Microcredit
       [:title, :starts_at, :ends_at, :limits, :account_number, :total_goal, :contact_phone, :agreement_link]
     else
-      [:total_goal, :contact_phone]
+      [:contact_phone]
     end
   end
 

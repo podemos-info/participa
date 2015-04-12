@@ -1,4 +1,5 @@
 ActiveAdmin.register MicrocreditLoan do
+  config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
 
   index download_links: proc{ can?(:admin, MicrocreditLoan) } do
@@ -24,7 +25,7 @@ ActiveAdmin.register MicrocreditLoan do
     end
     column :created_at
     column :confirmed_at
-    column :counted_at if can? :admin, MicrocreditLoan
+    column :counted_at
   end
 
   show do
@@ -62,7 +63,7 @@ ActiveAdmin.register MicrocreditLoan do
       end if microcredit_loan.user.nil? and can? :admin, MicrocreditLoan
       row :created_at
       row :confirmed_at
-      row :counted_at if can? :admin, MicrocreditLoan
+      row :counted_at
     end
     active_admin_comments
   end
@@ -82,6 +83,26 @@ ActiveAdmin.register MicrocreditLoan do
       link_to('Confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "¿Estas segura de querer confirmar la recepción de este microcrédito?" })
     else
       link_to('Des-confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :delete, data: { confirm: "¿Estas segura de querer cancelar la confirmación de la recepción de este microcrédito?" })
+    end
+  end
+
+  action_item :only => :show do
+    if microcredit_loan.counted_at.nil?
+      link_to('Mostrar en la web', count_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "Por favor, utiliza esta funcionalidad en ocasiones puntuales. Una vez hecho no podrá deshacerse, ¿Estas segura de querer contar este microcrédito en la web?" })
+    end
+  end
+
+  member_action :count, :method => [:post] do
+    m = MicrocreditLoan.find(params[:id])
+    if request.post? and m.counted_at.nil?
+      m.counted_at = DateTime.now
+    
+      if m.save
+        flash[:notice] = "El microcrédito ha sido modificado y ahora se cuenta en la web."
+      else
+        flash[:notice] = "El microcrédito no no ha sido modificado: #{m.errors.messages.to_s}"
+      end
+      redirect_to action: :show
     end
   end
 
