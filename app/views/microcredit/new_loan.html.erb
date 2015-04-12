@@ -121,10 +121,11 @@
       <% if @loan.errors.include?(:minimal_year_old) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.label :minimal_year_old %>
       <div class="input-box">
         <%= f.check_box :minimal_year_old, class: 'checkbox' %>
-        <p class="text-xl">Declaro ser mayor de 18 años.</p>
+        <%= f.label :minimal_year_old, class: 'text-xl' do %>
+          Declaro ser mayor de 18 años.
+        <% end %>
       </div>
     </div>
 
@@ -134,7 +135,9 @@
       <% end %>
       <div class="input-box">
         <%= f.check_box :terms_of_service, class: 'checkbox' %>
-        <p class="text-xl">Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos. <a href="<%=@microcredit.agreement_link%>" target="_blank">Contrato civil de suscripción de microcréditos de Podemos</a></p>
+        <%= f.label :terms_of_service, class: 'text-xl' do %>
+          Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos. <a href="<%=@microcredit.agreement_link%>" target="_blank">Contrato civil de suscripción de microcréditos de Podemos</a>
+        <% end %>
       </div>
     </div>
   </fieldset>

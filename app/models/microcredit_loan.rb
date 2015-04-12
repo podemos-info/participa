@@ -90,14 +90,22 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def update_counted_at
-    if self.counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
-      unconfirmed = confirmed_at.nil? ? nil : self.microcredit.loans.where(amount: amount).where(confirmed_at:nil).where.not(counted_at:nil).first
+    must_count = false
+    unconfirmed = nil
+    if self.counted_at.nil?
+      if self.confirmed_at.nil?
+        must_count = self.microcredit.should_count?(amount, false)
+      else
+        must_count = true
+        unconfirmed = self.microcredit.loans.where(amount: self.amount).where(confirmed_at:nil).where.not(counted_at:nil).order(created_at: :asc).first
+      end
+    end
 
+    if must_count
       if unconfirmed
-
         self.counted_at = unconfirmed.counted_at
         unconfirmed.counted_at = nil
-          
+
         unconfirmed.skip_callbacks = self.skip_callbacks = true
         MicrocreditLoan.transaction do
           self.save if unconfirmed.save
@@ -143,7 +151,7 @@ class MicrocreditLoan < ActiveRecord::Base
         limit = User.where("lower(document_vatid) = ?", self.document_vatid).count>0
         loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount) if not limit
       end
-      limit = loans.length>10 or loans.sum>10000 if not limit
+      limit = ((loans.length>=15) or (loans.sum + self.amount>10000)) if not limit
     end
 
     self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
