@@ -2,7 +2,7 @@ ActiveAdmin.register MicrocreditLoan do
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
 
-  index download_links: proc{ can?(:admin, MicrocreditLoan) } do
+  index do
     selectable_column if can? :admin, MicrocreditLoan
     id_column
     column :microcredit do |loan|
@@ -120,5 +120,19 @@ ActiveAdmin.register MicrocreditLoan do
       flash[:notice] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
     end
     redirect_to action: :show
+  end
+
+  csv do
+    column :id
+    column :microcredit do |loan|
+      loan.microcredit.title
+    end
+    column :document_vatid
+    column :first_name
+    column :last_name
+    column :amount
+    column :created_at
+    column :counted_at
+    column :confirmed_at
   end
 end
