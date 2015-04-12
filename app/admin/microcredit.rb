@@ -1,5 +1,5 @@
 ActiveAdmin.register Microcredit do
-  config.sort_order = 'updated_at_desc'
+  config.sort_order = 'title_asc'
   
   scope :all
   scope :active
