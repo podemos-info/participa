@@ -72,6 +72,26 @@ class Order < ActiveRecord::Base
     Order::STATUS.invert[self.status]
   end
 
+  def payment_type_name
+    Order::PAYMENT_TYPES.invert[self.payment_type]
+  end
+
+  def is_credit_card?
+    self.payment_type == 1
+  end
+
+  def is_bank?
+    self.payment_type != 1
+  end
+
+  def is_bank_national?
+    self.payment_type == 2
+  end
+
+  def is_bank_international?
+    self.payment_type == 3
+  end
+  
   def error_message
     if self.payment_type == 1
       return self.redsys_text_status

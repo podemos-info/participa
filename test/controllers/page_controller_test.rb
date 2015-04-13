@@ -13,8 +13,6 @@ class PageControllerTest < ActionController::TestCase
   end
   
   test "should only get not auth iframes as anonymous user" do
-    get :circles_validation
-    assert_response :success
     get :list_register
     assert_response :redirect
     get :town_legal
@@ -24,8 +22,6 @@ class PageControllerTest < ActionController::TestCase
   test "should get all iframes as logged in user" do
     user = FactoryGirl.create :user
     sign_in user
-    get :circles_validation
-    assert_response :success
     get :list_register
     assert_response :success
     get :town_legal

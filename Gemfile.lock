@@ -147,7 +147,6 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    diff-lcs (1.2.5)
     docile (1.1.5)
     erubis (2.7.0)
     esendex (0.3.2)
@@ -163,10 +162,15 @@ GEM
     ffi (1.9.6)
     ffi-icu (0.1.4)
       ffi (~> 1.0, >= 1.0.9)
+    flag_shih_tzu (0.3.13)
+    font-awesome-rails (4.3.0.0)
+      railties (>= 3.2, < 5.0)
     formtastic (2.3.1)
       actionpack (>= 3.0)
     formtastic-bootstrap (3.0.0)
       formtastic (>= 2.2)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     haml (4.0.5)
       tilt
     has_scope (0.6.0.rc)
@@ -176,7 +180,7 @@ GEM
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    i18n (0.6.11)
+    i18n (0.7.0)
     iban-tools (1.0.0)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
@@ -189,7 +193,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
-    json (1.8.1)
+    json (1.8.2)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -210,8 +214,22 @@ GEM
       sqlite3-ruby
       thin
     mime-types (2.4.3)
-    mini_portile (0.6.0)
-    minitest (5.5.0)
+    mini_portile (0.6.2)
+    minitest (5.5.1)
+    minitest-capybara (0.7.1)
+      capybara (~> 2.2)
+      minitest (~> 5.0)
+      rake
+    minitest-metadata (0.5.3)
+      minitest (>= 4.7, < 6.0)
+    minitest-rails (2.1.1)
+      minitest (~> 5.4)
+      railties (~> 4.1)
+    minitest-rails-capybara (2.1.1)
+      capybara (~> 2.0)
+      minitest-capybara (~> 0.7.0)
+      minitest-metadata (~> 0.5.0)
+      minitest-rails (~> 2.1)
     minitest-reporters (1.0.8)
       ansi
       builder
@@ -226,8 +244,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     newrelic_rpm (3.8.1.221)
-    nokogiri (1.6.3.1)
-      mini_portile (= 0.6.0)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     paper_trail (3.0.6)
       activerecord (>= 3.0, < 5.0)
@@ -245,7 +263,7 @@ GEM
       ruby-openid (>= 2.1.8)
     rack-protection (1.5.3)
       rack
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.1.6)
       actionmailer (= 4.1.6)
@@ -288,22 +306,6 @@ GEM
       rake
       resque (~> 1.20)
       trollop (~> 1.16)
-    rspec-core (3.1.7)
-      rspec-support (~> 3.1.0)
-    rspec-expectations (3.1.2)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.1.0)
-    rspec-mocks (3.1.3)
-      rspec-support (~> 3.1.0)
-    rspec-rails (3.1.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 3.1.0)
-      rspec-expectations (~> 3.1.0)
-      rspec-mocks (~> 3.1.0)
-      rspec-support (~> 3.1.0)
-    rspec-support (3.1.2)
     ruby-openid (2.6.0)
     ruby-prof (0.14.2)
     ruby-progressbar (1.7.1)
@@ -357,7 +359,7 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.19.1)
-    thread_safe (0.3.4)
+    thread_safe (0.3.5)
     tilt (1.4.1)
     trollop (1.16.2)
     turbolinks (2.3.0)
@@ -380,6 +382,8 @@ GEM
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+    wicked_pdf (0.11.0)
+      rails
     xml-simple (1.1.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -410,14 +414,19 @@ DEPENDENCIES
   esendex
   factory_girl_rails
   ffi-icu (~> 0.1.4)
+  flag_shih_tzu
+  font-awesome-rails
   formtastic
   formtastic-bootstrap
+  friendly_id (~> 5.1.0)
   iban-tools
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
   launchy
   mailcatcher
+  minitest-rails
+  minitest-rails-capybara
   minitest-reporters
   newrelic_rpm
   paper_trail
@@ -434,7 +443,6 @@ DEPENDENCIES
   recaptcha
   resque!
   resque-pool
-  rspec-rails (~> 3.0)
   ruby-openid
   ruby-prof
   sass-rails (~> 4.0.3)
@@ -450,3 +458,4 @@ DEPENDENCIES
   unicode
   unicorn
   webmock
+  wicked_pdf

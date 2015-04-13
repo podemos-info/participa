@@ -1,6 +1,5 @@
 ActiveAdmin.register Report do
-  menu false
-
+  menu :parent => "Users"
   permit_params  :title, :query, :main_group, :groups
 
   index do
@@ -16,6 +15,9 @@ ActiveAdmin.register Report do
 
   show do
     if resource.results
+
+      h3 "Ultima actualización: #{resource.updated_at}"
+
       @main_group = YAML.load(resource.main_group) if resource.main_group
       @groups = YAML.load(resource.groups)
       @results = YAML.load(resource.results)

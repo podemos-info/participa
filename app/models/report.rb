@@ -6,11 +6,15 @@ class Report < ActiveRecord::Base
 
   after_initialize do |report|
     if report.persisted?
-      table_name = query.match(/\s*SELECT\s*.*\s*FROM\s*\"?(\w+)\"?\s*/).captures.first
-      @model = ActiveRecord::Base.send(:descendants).select do |m| m.table_name==table_name end .first
+      table_name = query.match(/\s*SELECT\s*.*\s*FROM\s*\"?(\w+)\"?\s*/)
+      table_name = table_name.captures.first if table_name
 
-      @main_group = YAML.load(report.main_group) if report.main_group
-      @groups = YAML.load(report.groups)
+      if table_name
+        @model = ActiveRecord::Base.send(:descendants).select do |m| m.table_name==table_name end .first
+
+        @main_group = YAML.load(report.main_group) if report.main_group
+        @groups = YAML.load(report.groups)
+      end
     end
   end
 
@@ -97,7 +101,7 @@ class Report < ActiveRecord::Base
         count = entries.map {|e| e[:count] } .sum
         result = { count: count, name: group.minimum_label, samples:Hash.new(0)}
         entries.each {|e| result[:samples][e[:name]] += e[:count] }
-        result[:samples] = Hash[result[:samples].sort {|k,v| [-v, k]}]
+        result[:samples] = Hash[result[:samples].sort_by {|k,v| [-v, k]}]
         if result[:samples].length>100
           result[:samples] = Hash[result[:samples].first(100)]
           result[:samples]["+"] = count - (result[:samples].map {|k,v| v} .sum)
@@ -110,8 +114,3 @@ class Report < ActiveRecord::Base
     self.save
   end
 end
-
-=begin
-            Whitelist
-            Blacklist 
-=end

@@ -85,6 +85,8 @@ ActiveAdmin.register Order do
       row :payable_at
       row :payed_at
       row :deleted_at
+      row :town_code
+      row :autonomy_code
     end
     active_admin_comments
   end
@@ -96,6 +98,8 @@ ActiveAdmin.register Order do
   filter :payable_at
   filter :payed_at
   filter :created_at
+  filter :town_code
+  filter :autonomy_code
   
   form do |f|
     f.inputs "Order" do
@@ -135,5 +139,36 @@ ActiveAdmin.register Order do
     order.restore
     flash[:notice] = "Ya se ha recuperado la orden"
     redirect_to action: :show
+  end
+  
+  csv do
+    column :id
+    column :colaboracion do |order|
+      order.parent_id
+    end
+    column :user_id
+    column :full_name do |order|
+      order.parent.get_user.full_name if order.parent and order.parent.get_user
+    end
+    column :dni do |order|
+      order.parent.get_user.document_vatid.upcase if order.parent and order.parent.get_user and order.parent.get_user.document_vatid
+    end
+    column :address do |order|
+      order.parent.get_user.address if order.parent and order.parent.get_user
+    end
+
+    column :status_name
+    column :payable_at
+    column :payed_at
+    column :deleted_at
+    column :created_at
+    column :reference
+    column :amount
+    column :first
+    column :payment_type_name
+    column :payment_identifier
+    column :redsys_id do |order|
+      order.redsys_order_id if order.is_credit_card?
+    end
   end
 end

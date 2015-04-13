@@ -1,4 +1,6 @@
+require 'dynamic_router'
 Rails.application.routes.draw do
+
   get '', to: redirect("/#{I18n.locale}")
 
   # redsys MerchantURL 
@@ -14,13 +16,6 @@ Rails.application.routes.draw do
         get 'exists', to: 'v1#user_exists'
       end
     end
-  end
-
-  # formularios dinámicos
-  Rails.application.routes.draw do
-    #root 'home#index'
-    #get 'not_found' => 'pages#not_found'
-    DynamicRouter.load
   end
 
   scope "/(:locale)", locale: /es|ca|eu/ do 
@@ -60,8 +55,8 @@ Rails.application.routes.draw do
     get '/responsables-areas-cc-autonomicos', to: 'page#responsables_areas_cc_autonomicos', as:"responsables_areas_cc_autonomicos"
     get '/boletin-correo-electronico', to: 'page#boletin_correo_electronico', as:"boletin_correo_electronico"
     get '/responsable-web-autonomico', to: 'page#responsable_web_autonomico', as: 'responsable_web_autonomico'
-
-	get '/comparte-el-cambio', to: 'page#demo', as: 'demo'
+    
+    get '/comparte-el-cambio', to: 'page#demo', as: 'demo'
     get '/comparte-el-cambio/compartir-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
     get '/comparte-el-cambio/compartir-coche-sevilla', to: 'page#share_car_sevilla', as: 'share_car_sevilla'
@@ -77,8 +72,8 @@ Rails.application.routes.draw do
     get '/avales-candidaturas-primarias', to: 'page#avales_candidaturas_primarias', as: 'avales_candidaturas_primarias'
     get '/iniciativa-ciudadana', to: 'page#iniciativa_ciudadana', as: 'iniciativa_ciudadana'
 
-	get '/cuentas-consejos-autonomicos-33', to: 'page#cuentas_consejos_autonomicos', as: 'cuentas_consejos_autonomicos'
-	get '/condiciones-uso-correo-34', to: 'page#condiciones_uso_correo', as: 'condiciones_uso_correo'
+    get '/cuentas-consejos-autonomicos-33', to: 'page#cuentas_consejos_autonomicos', as: 'cuentas_consejos_autonomicos'
+    get '/condiciones-uso-correo-34', to: 'page#condiciones_uso_correo', as: 'condiciones_uso_correo'
 
     get '/propuestas', to: 'proposals#index', as: 'proposals'
     get '/propuestas/info', to: 'proposals#info', as: 'proposals_info'
@@ -96,9 +91,12 @@ Rails.application.routes.draw do
       confirmations: 'confirmations'
     } 
 
-    get '/microcreditos', to: 'page#credits', as: 'credits'
-    get '/microcreditos/informacion', to: 'page#credits_info', as: 'credits_info'
-    get '/microcreditos/colaborar', to: 'page#credits_add', as: 'credits_add'
+    get '/microcreditos', to: 'microcredit#index', as: 'microcredit'
+    get '/microcreditos/provincias', to: 'microcredit#provinces'
+    get '/microcreditos/municipios', to: 'microcredit#towns'
+    get '/microcreditos/informacion', to: 'microcredit#info', as: 'microcredits_info'
+    get '/microcreditos/:id', to: 'microcredit#new_loan', as: :new_microcredit_loan
+    post '/microcreditos/:id', to: 'microcredit#create_loan', as: :create_microcredit_loan
     
     authenticate :user do
       scope :validator do
@@ -144,6 +142,8 @@ Rails.application.routes.draw do
     %w(404 422 500).each do |code|
       get code, to: 'errors#show', code: code
     end
+
+    DynamicRouter.load
   end
   # /admin
   ActiveAdmin.routes(self)

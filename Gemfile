@@ -44,9 +44,13 @@ gem 'unicode'
 gem 'rack-openid'
 gem 'ruby-openid'
 gem 'secure_headers'
-
+gem 'minitest-rails'
 gem 'rake-progressbar'
 gem 'rails_autolink'
+gem 'flag_shih_tzu'
+gem 'wicked_pdf'
+gem "font-awesome-rails"
+gem 'friendly_id', '~> 5.1.0' 
 
 # FIXME we use a fork for this issue with uniqueness
 # https://github.com/radar/paranoia/issues/114
@@ -75,9 +79,9 @@ group :development, :test do
   gem 'webmock'
   gem 'minitest-reporters'
   gem 'capybara'
-  gem "capybara-webkit"
-  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'minitest-rails-capybara'
 end
 

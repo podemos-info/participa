@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324152242) do
+ActiveRecord::Schema.define(version: 20150413105745) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -77,6 +77,55 @@ ActiveRecord::Schema.define(version: 20150324152242) do
     t.string   "server"
   end
 
+  create_table "friendly_id_slugs", force: true do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "microcredit_loans", force: true do |t|
+    t.integer  "microcredit_id"
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.text     "user_data"
+    t.datetime "confirmed_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "counted_at"
+    t.string   "ip"
+    t.string   "document_vatid"
+  end
+
+  add_index "microcredit_loans", ["document_vatid"], name: "index_microcredit_loans_on_document_vatid"
+  add_index "microcredit_loans", ["ip"], name: "index_microcredit_loans_on_ip"
+  add_index "microcredit_loans", ["microcredit_id"], name: "index_microcredit_loans_on_microcredit_id"
+
+  create_table "microcredits", force: true do |t|
+    t.string   "title"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "reset_at"
+    t.text     "limits"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "account_number"
+    t.string   "agreement_link"
+    t.string   "contact_phone"
+    t.integer  "total_goal"
+    t.string   "slug"
+  end
+
+  add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
+
   create_table "notice_registrars", force: true do |t|
     t.string   "registration_id"
     t.boolean  "status"
@@ -110,7 +159,21 @@ ActiveRecord::Schema.define(version: 20150324152242) do
     t.integer  "payment_type"
     t.string   "payment_identifier"
     t.text     "payment_response"
+    t.string   "town_code"
+    t.string   "autonomy_code"
   end
+
+  create_table "pages", force: true do |t|
+    t.string   "title"
+    t.integer  "id_form"
+    t.string   "slug"
+    t.boolean  "require_login"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at"
 
   create_table "participation_teams", force: true do |t|
     t.string   "name"
@@ -177,6 +240,16 @@ ActiveRecord::Schema.define(version: 20150324152242) do
 
   add_index "simple_captcha_data", ["key"], name: "idx_key"
 
+  create_table "spam_filters", force: true do |t|
+    t.string   "name"
+    t.text     "code"
+    t.text     "data"
+    t.string   "query"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "supports", force: true do |t|
     t.integer  "user_id"
     t.integer  "proposal_id"
@@ -226,6 +299,7 @@ ActiveRecord::Schema.define(version: 20150324152242) do
     t.string   "unconfirmed_phone"
     t.boolean  "wants_participation"
     t.string   "vote_town"
+    t.integer  "flags",                    default: 0,  null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -235,6 +309,7 @@ ActiveRecord::Schema.define(version: 20150324152242) do
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
   add_index "users", ["document_vatid"], name: "index_users_on_document_vatid"
   add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["flags"], name: "index_users_on_flags"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["sms_confirmation_token"], name: "index_users_on_sms_confirmation_token", unique: true
 

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :banned_user
   before_filter :unresolved_issues
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
@@ -64,6 +65,14 @@ class ApplicationController < ActionController::Base
     super    
   end
   
+  def banned_user
+    if current_user and current_user.banned?
+      name = current_user.full_name
+      sign_out_and_redirect current_user
+      flash[:notice] = t("podemos.banned", full_name: name)
+    end
+  end
+
   def unresolved_issues
     if current_user
 
@@ -79,7 +88,7 @@ class ApplicationController < ActionController::Base
             issue[:message].each { |type, text| flash.now[type] = t("issues."+text) }
           end
         # user wants to log out or edit his profile
-        elsif params[:controller] == 'devise/sessions' or params[:controller] == "registrations"
+        elsif params[:controller] == 'devise/sessions' or params[:controller] == "registrations" or params[:controller].start_with? "admin/"
         # user can't do anything else but fix the issue
         else
           redirect_to issue[:path]
@@ -100,7 +109,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    unless signed_in? && current_user.is_admin?
+    unless signed_in? && (current_user.is_admin? || current_user.microcredits_admin?)
       redirect_to root_url, flash: { error: t('podemos.unauthorized') }
     end
   end 

@@ -767,6 +767,80 @@ tools
 }
 
 /* -----------------------------------
+microcredits
+----------------------------------- */
+.microcredits-wrapper {
+  p, li {
+    color: #333;
+    font-size: 1.4em;
+  }
+
+  li {
+    margin: 0em 0em 1em 1em;
+    list-style-type: circle;
+  }
+
+  .control-label {
+    float: left;
+    color: #612D62;
+  }
+  .radio_options {
+    float: left;
+    input, div {
+      width:200px;
+      height:40px;
+      line-height:40px;
+    }
+
+    input {
+      position:absolute;
+      z-index:1;
+      cursor:pointer;
+      opacity:0;
+
+      &:checked + div, &:checked:hover + div {
+        border: 1px solid #269283;
+        i {
+          visibility: visible;
+          color: #269283;
+        }
+      }
+      &:hover + div {
+        border: 1px solid #97c2b8;
+        i { visibility: visible; color: #97c2b8; }
+      }
+
+      & + div {
+        position: relative;
+        font-size: 2em;
+        border: 1px solid white;
+        padding: 0em 1em;
+        text-align: center;
+        i {
+          visibility: hidden;
+          position: absolute;
+          left: 2em;          
+          top: 10px;
+        }
+        span {
+          position: absolute;
+          font-size: 0.5em;
+          right: 5px;
+          bottom: 0px;
+        }
+      }
+      &.disabled + div {
+        color: #e96161;
+      }
+      &.disabled:hover + div {
+        border: 1px solid #e96161;
+        i { visibility: visible; color: #e96161; }
+      }
+    }
+  }
+}
+
+/* -----------------------------------
 proposals
 ----------------------------------- */
 
@@ -2064,4 +2138,96 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 }
 div.ginput_container.ginput_list {
   clear:left;
+}
+
+
+div.help {
+  background:#612D62;
+  z-index: 1;
+  font-family: Montserrat,Arial,sans-serif;
+  right: -35px;
+  padding: 5px 10px;
+  position: fixed;
+  top: 30%;
+  transform: rotate(-90deg);
+  text-align: center;
+  a {
+    color: #FFF;
+    font-size: 1.5em;
+  }
+  a:first-child {
+    width:18px;
+    height:18px;
+    font-size:14px;
+    line-height: 17px;
+    font-family: Montserrat,Arial,sans-serif;
+    font-weight: bold;  
+    color: #612D62;
+    background: white;
+    border-radius: 100%;
+    transform: rotate(+90deg);
+    float:right;
+    margin: 2px 0px 0px 5px;
+  }
+}
+
+
+.microcredit_boxes {
+  margin: 2em -0.75em;
+  section {
+    width: 30em;
+    display: inline-block;
+    margin: 0.75em !important;
+    padding: 0;
+    vertical-align: top;
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 0.75em;
+    }
+    > div {
+      position: relative;
+      border: 1px solid #b5b5b5;
+      padding: 1em 1.5em;
+      canvas {
+        top: -3.5em;
+        left: -0.5em;
+        position: absolute;
+        width: 100%;
+        height: auto;
+      }
+      .info {
+        padding-left: 45%;
+        font-family:Montserrat,Arial,sans-serif;
+        vertical-align: top;
+        display: inline-block;
+        width: 60%;
+        height: 13em;
+        p {
+          font-size: 1.2em;
+          letter-spacing: 0.3px;
+          line-height: 1.5em;
+        }
+      }
+      .js-mc-graph {
+        position: absolute;
+        width:38%;
+        div {
+          padding-bottom: 140%;
+          display: inline-block;
+          width:1px;
+        }
+      }
+      .buttonbox {
+        margin: 3.5em 0;
+        font-size: 0.8em;
+        a {
+          padding: 1em 1em;
+        }
+      }
+    }
+  }
+}
+fieldset .inputlabel-box label.text-xl {
+  width: 90%;
 }

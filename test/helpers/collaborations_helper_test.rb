@@ -10,11 +10,11 @@ class CollaborationsHelperTest < ActionView::TestCase
   end
 
   test "should number_to_euro work" do 
-    assert_equal( "20,00 €", number_to_euro(2000) )
-    assert_equal( "1,00 €", number_to_euro(100) )
-    assert_equal( "0,00 €", number_to_euro(0) )
-    assert_equal( "-2,00 €", number_to_euro(-200) )
-    assert_equal( "66.666.666.666,66 €", number_to_euro(6666666666666) )
+    assert_equal( "20,00€", number_to_euro(2000) )
+    assert_equal( "1,00€", number_to_euro(100) )
+    assert_equal( "0,00€", number_to_euro(0) )
+    assert_equal( "-2,00€", number_to_euro(-200) )
+    assert_equal( "66.666.666.666,66€", number_to_euro(6666666666666) )
   end
 
 end
