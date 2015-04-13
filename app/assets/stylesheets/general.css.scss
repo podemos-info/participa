@@ -772,8 +772,9 @@ microcredits
 .microcredits-wrapper {
   &.completed {
     >div {
-      margin: 3em 12em;
+      margin: 3em 1em;
       i {
+        position: absolute;
         display: block;
         float: left;
         font-size:5em;
@@ -781,7 +782,7 @@ microcredits
         margin: 0 10px;
       }
       .microcredit-ended {
-        float: left;
+        margin-left: 6em;
         h3 {
           border: none;
           margin-bottom:0.5em;
