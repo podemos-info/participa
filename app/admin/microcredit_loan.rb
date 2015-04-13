@@ -2,7 +2,7 @@ ActiveAdmin.register MicrocreditLoan do
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
 
-  index download_links: proc{ can?(:admin, MicrocreditLoan) } do
+  index do
     selectable_column if can? :admin, MicrocreditLoan
     id_column
     column :microcredit do |loan|
@@ -80,7 +80,7 @@ ActiveAdmin.register MicrocreditLoan do
 
   action_item :only => :show do
     if microcredit_loan.confirmed_at.nil?
-      link_to('Confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "¿Estas segura de querer confirmar la recepción de este microcrédito?" })
+      link_to('Confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "Por favor, no utilices este botón antes de aparezca el ingreso en la cuenta bancaria. ¿Estas segura de querer confirmar la recepción de este microcrédito?" })
     else
       link_to('Des-confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :delete, data: { confirm: "¿Estas segura de querer cancelar la confirmación de la recepción de este microcrédito?" })
     end
@@ -120,5 +120,19 @@ ActiveAdmin.register MicrocreditLoan do
       flash[:notice] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
     end
     redirect_to action: :show
+  end
+
+  csv do
+    column :id
+    column :microcredit do |loan|
+      loan.microcredit.title
+    end
+    column :document_vatid
+    column :first_name
+    column :last_name
+    column :amount
+    column :created_at
+    column :counted_at
+    column :confirmed_at
   end
 end

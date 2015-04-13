@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409103952) do
+ActiveRecord::Schema.define(version: 20150413105745) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20150409103952) do
 
   add_index "microcredit_loans", ["document_vatid"], name: "index_microcredit_loans_on_document_vatid"
   add_index "microcredit_loans", ["ip"], name: "index_microcredit_loans_on_ip"
+  add_index "microcredit_loans", ["microcredit_id"], name: "index_microcredit_loans_on_microcredit_id"
 
   create_table "microcredits", force: true do |t|
     t.string   "title"
