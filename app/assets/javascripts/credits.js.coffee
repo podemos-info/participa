@@ -11,8 +11,7 @@ draw_pie_chart = ($el, data, template) ->
   $el.after(piechart.generateLegend())
   
 $ ->
-  graph = $(".js-col-total-graph")
-  if graph.length>0
+  for graph in $(".js-col-total-graph")
     vs = $('.js-col-total', graph)
     parts = ({ value: parseInt($(v).html()), color:colors[Math.round(2*_i/vs.length)], highlight: colors[0], label: $(v).attr("alt") } for v in vs)
     parts.unshift({ value: parseInt($('.js-col-pending').html()), color:'#eeeeee', highlight: colors[3], label: $('.js-col-pending').attr("alt") })

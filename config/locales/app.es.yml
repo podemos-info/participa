@@ -16,18 +16,30 @@ es:
     models:
       user: Usuario
       users: Usuarios
+      spam_filter: Filtro anti-spam
+      spam_filters: Filtros anti-spam
       collaboration: Colaboración económica
       collaborations: Colaboraciónes económicas
       order: Orden de pago
       orders: Ordenes de pago
       election: Elección
       elections: Elecciones
-      proposal: Iniciativa ciudadanas
+      proposal: Iniciativa ciudadana
       proposals: Iniciativas ciudadanas
       notice: Aviso
       notices: Avisos
       participation_team: Equipo de Acción Participativa
       participation_teams: Equipos de Acción Participativa
+      report: Informe
+      reports: Informes
+      report_group: Parte de Informe
+      report_groups: Partes de Informe
+      microcredit: Microcrédito
+      microcredits: Microcréditos
+      microcredit_loan: Suscripción
+      microcredit_loans: Suscripciones
+      page: Formulario
+      pages: Formularios
     errors:
       models: 
         user:
@@ -65,6 +77,36 @@ es:
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
             terms_of_service: "Acepto las condiciones generales"
     attributes:
+      microcredit:
+        id: "Identificador"
+        starts_at: "Fecha de inicio"
+        ends_at: "Fecha de final"
+        reset_at: "Fecha último cambio de fase"
+        limits: "Montos y limites por fase"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+        account_number: "Número de cuenta"
+        agreement_link: "Enlace al contrato"
+        contact_phone: "Teléfono de contacto"
+        total_goal: "Objetivo final"
+        slug: "Dirección página"
+      microcredit_loan:
+        first_name: "Nombre"
+        last_name: "Apellidos"
+        document_vatid: "DNI o NIE"
+        address: "Dirección"
+        minimal_year_old: "Edad mínima requerida" 
+        terms_of_service: "Acuerdo legal"
+        amount: "Importe"
+        microcredit: "Microcrédito"
+        microcredits: "Microcréditos"
+        user: "Usuario"
+        created_at: "Fecha de suscripción"
+        confirmed_at: "Fecha de confirmación"
+        counted_at: "Fecha de aparición en la web"
+        all: "Todos"
+        id: "Identificador"
       collaboration: 
         user: "Usuario"
         created_at: "Creada el"

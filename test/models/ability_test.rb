@@ -6,6 +6,7 @@ class AbilityTest < ActiveSupport::TestCase
     @user1 = FactoryGirl.create(:user)
     @user2 = FactoryGirl.create(:user, document_type: 3, document_vatid: "22222D")
     @admin = FactoryGirl.create(:user, :admin)
+    @superadmin = FactoryGirl.create(:user, :admin, :superadmin)
     @notice = FactoryGirl.create(:notice)
   end
 
@@ -39,7 +40,7 @@ class AbilityTest < ActiveSupport::TestCase
   end
 
   test "should an admin create a notice" do
-    ability = Ability.new @admin
+    ability = Ability.new @superadmin
     assert ability.can?(:create, Notice.new)
     assert ability.can?(:edit, @notice)
     assert ability.can?(:manage, @notice)
