@@ -25,7 +25,8 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :counted, -> { where.not(counted_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
-  
+  scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }
+
   after_save :update_counted_at, unless: :skip_callbacks
 
   after_initialize do |microcredit|
@@ -89,14 +90,20 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def update_counted_at
-    if self.counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
-      unconfirmed = confirmed_at.nil? ? nil : self.microcredit.loans.where(amount: amount).where(confirmed_at:nil).where.not(counted_at:nil).first
+    must_count = false
+    unconfirmed = nil
+    if self.counted_at.nil?
+      must_count = self.microcredit.should_count?(amount, !self.confirmed_at.nil?)
+      if must_count and !self.confirmed_at.nil?
+        unconfirmed = self.microcredit.loans.where(amount: self.amount).where(confirmed_at:nil).where.not(counted_at:nil).order(created_at: :asc).first
+      end
+    end
 
+    if must_count
       if unconfirmed
-
         self.counted_at = unconfirmed.counted_at
         unconfirmed.counted_at = nil
-          
+
         unconfirmed.skip_callbacks = self.skip_callbacks = true
         MicrocreditLoan.transaction do
           self.save if unconfirmed.save
@@ -142,7 +149,7 @@ class MicrocreditLoan < ActiveRecord::Base
         limit = User.where("lower(document_vatid) = ?", self.document_vatid).count>0
         loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount) if not limit
       end
-      limit = loans.length>10 or loans.sum>10000 if not limit
+      limit = ((loans.length>=15) or (loans.sum + self.amount>10000)) if not limit and self.amount
     end
 
     self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
@@ -155,14 +162,14 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def self.total_current
-    MicrocreditLoan.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+    MicrocreditLoan.upcoming_finished.sum(:amount)
   end
 
   def self.total_confirmed_current
-    MicrocreditLoan.confirmed.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+    MicrocreditLoan.upcoming_finished.confirmed.sum(:amount)
   end
 
   def self.total_counted_current
-    MicrocreditLoan.counted.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+    MicrocreditLoan.upcoming_finished.counted.sum(:amount)
   end
 end
