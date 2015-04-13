@@ -151,7 +151,7 @@ class MicrocreditLoan < ActiveRecord::Base
         limit = User.where("lower(document_vatid) = ?", self.document_vatid).count>0
         loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount) if not limit
       end
-      limit = ((loans.length>=15) or (loans.sum + self.amount>10000)) if not limit
+      limit = ((loans.length>=15) or (loans.sum + self.amount>10000)) if not limit and self.amount
     end
 
     self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
