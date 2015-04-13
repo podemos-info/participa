@@ -129,6 +129,9 @@ class Microcredit < ActiveRecord::Base
   def change_phase
     self.reset_at = DateTime.now
     save
+    self.loans.where.not(confirmed_at:nil).where(counted_at:nil).each do |loan|
+      loan.update_counted_at
+    end
   end
 
   def slug_candidates
