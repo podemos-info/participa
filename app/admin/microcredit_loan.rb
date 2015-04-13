@@ -26,6 +26,13 @@ ActiveAdmin.register MicrocreditLoan do
     column :created_at
     column :confirmed_at
     column :counted_at
+    actions defaults: true do |loan|    
+      if loan.confirmed_at.nil?
+        link_to('Confirmar', confirm_admin_microcredit_loan_path(loan), method: :post, data: { confirm: "Por favor, no utilices este botón antes de aparezca el ingreso en la cuenta bancaria. ¿Estas segura de querer confirmar la recepción de este microcrédito?" })
+      else
+        link_to('Des-confirmar', confirm_admin_microcredit_loan_path(loan), method: :delete, data: { confirm: "¿Estas segura de querer cancelar la confirmación de la recepción de este microcrédito?" })
+      end
+    end
   end
 
   show do
@@ -61,6 +68,12 @@ ActiveAdmin.register MicrocreditLoan do
             row :town_name
           end
       end if microcredit_loan.user.nil? and can? :admin, MicrocreditLoan
+      row :user_data do
+        attributes_table_for microcredit_loan do
+            row :first_name
+            row :last_name
+          end
+      end if microcredit_loan.user.nil? and can? :admin, MicrocreditLoan
       row :created_at
       row :confirmed_at
       row :counted_at
@@ -70,13 +83,13 @@ ActiveAdmin.register MicrocreditLoan do
 
   scope :all
   scope :confirmed
-  scope :counted, if: proc{ can? :admin, MicrocreditLoan }
+  scope :counted
   
   filter :id
   filter :microcredit
   filter :document_vatid
   filter :created_at
-  filter :counted_at, if: proc{ can? :admin, MicrocreditLoan }
+  filter :counted_at
 
   action_item :only => :show do
     if microcredit_loan.confirmed_at.nil?
@@ -119,7 +132,7 @@ ActiveAdmin.register MicrocreditLoan do
     else
       flash[:notice] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
     end
-    redirect_to action: :show
+    redirect_to :back
   end
 
   csv do

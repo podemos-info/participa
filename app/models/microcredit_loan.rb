@@ -93,10 +93,8 @@ class MicrocreditLoan < ActiveRecord::Base
     must_count = false
     unconfirmed = nil
     if self.counted_at.nil?
-      if self.confirmed_at.nil?
-        must_count = self.microcredit.should_count?(amount, false)
-      else
-        must_count = true
+      must_count = self.microcredit.should_count?(amount, !self.confirmed_at.nil?)
+      if must_count and !self.confirmed_at.nil?
         unconfirmed = self.microcredit.loans.where(amount: self.amount).where(confirmed_at:nil).where.not(counted_at:nil).order(created_at: :asc).first
       end
     end

@@ -62,6 +62,9 @@ ActiveAdmin.register Microcredit do
     f.actions
   end
 
+  filter :starts_at
+  filter :ends_at
+  
   sidebar "Ayuda", only: :index, priority: 0 do
     para "Para compensar el retraso en la confirmación de los ingresos, al inicio de la campaña se muestran en la web suscripciones no confirmadas."
     para "La confianza en que los ingresos van a ser confirmados decrece progresivamente a medida que pasa el tiempo y que se reciben más suscripciones, para evitar que al finalizar la campaña el total que aparece en la web supere el total efectivamente recibido."

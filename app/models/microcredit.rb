@@ -79,18 +79,27 @@ class Microcredit < ActiveRecord::Base
   end
 
   def should_count? amount, confirmed
-    percent = confirmed ? 1-self.remaining_percent : self.remaining_percent
-    (current_percent(amount, confirmed, 1)-percent).abs<(current_percent(amount, confirmed, 0)-percent).abs
+    
+    # check that there is any remaining loan for this amount and phase
+    remaining = phase_remaining(amount)
+    return false if (remaining and remaining.first.last<=0)
+    
+    if confirmed
+      return true
+    else
+      percent = self.remaining_percent
+      (current_percent(amount, false, 1)-percent).abs<(current_percent(amount, false, 0)-percent).abs
+    end
   end
 
   def phase_current_for_amount amount
     phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum
   end
 
-  def phase_remaining
+  def phase_remaining filter_amount=nil
     limits.map do |amount, limit|
-      [amount, [0, limit-phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum].max ]
-    end
+      [amount, [0, limit-phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum].max ] if filter_amount.nil? or filter_amount==amount
+    end .compact
   end
 
   def phase_limit_amount
