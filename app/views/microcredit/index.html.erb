@@ -17,9 +17,17 @@
 <% else %>
   <div class="microcredit_boxes">
     <% @microcredits.each do |m| %>
-    <section>
+    <section class="<%= m.completed ? 'completed' : 'active' %>">
     <div>
       <h2><%=m.title%></h2>
+      <% if m.completed %>
+      <%= fa_icon "check-circle" %>
+      <div class="info">
+        <p><strong>Objetivo alcanzado</strong></p>
+        <p>Hemos recaudado <%=number_to_euro m.campaign_confirmed_amount*100, 0%>.</p>
+        <p>¡Muchas gracias por colaborar con el cambio!</p>
+      </div>
+      <% else %>
       <div class="js-mc-graph">
         <div></div>
         <canvas width="90" heigth="100"></canvas>
@@ -29,7 +37,8 @@
       <div class="info">
         <p><strong>Fase actual:</strong><br/><%=number_to_euro m.phase_counted_amount*100, 0%> / <%= number_to_euro m.phase_limit_amount*100, 0%><br/><strong>Acumulado:</strong> <%= number_to_euro m.campaign_counted_amount*100, 0%></p>
         <div class="buttonbox"><%= link_to "Quiero colaborar", new_microcredit_loan_path(m), class: 'button' %></div>
-      </div>    
+      </div>
+      <% end %>
     </div>
     </section>
     <% end %>

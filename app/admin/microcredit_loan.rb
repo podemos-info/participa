@@ -83,7 +83,9 @@ ActiveAdmin.register MicrocreditLoan do
 
   scope :all
   scope :confirmed
+  scope :not_confirmed
   scope :counted
+  scope :not_counted
   
   filter :id
   filter :microcredit

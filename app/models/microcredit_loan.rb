@@ -22,7 +22,9 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
+  scope :not_counted, -> { where(confirmed_at:nil) }
   scope :counted, -> { where.not(counted_at:nil) }
+  scope :not_confirmed, -> { where(confirmed_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
   scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }
@@ -93,9 +95,13 @@ class MicrocreditLoan < ActiveRecord::Base
     must_count = false
     unconfirmed = nil
     if self.counted_at.nil?
-      must_count = self.microcredit.should_count?(amount, !self.confirmed_at.nil?)
-      if must_count and !self.confirmed_at.nil?
-        unconfirmed = self.microcredit.loans.where(amount: self.amount).where(confirmed_at:nil).where.not(counted_at:nil).order(created_at: :asc).first
+      unless self.confirmed_at.nil?
+        unconfirmed = self.microcredit.loans.where(amount: self.amount).counted.not_confirmed.order(created_at: :asc).first
+      end
+      if unconfirmed
+        must_count = true
+      else
+        must_count = self.microcredit.should_count?(amount, !self.confirmed_at.nil?)
       end
     end
 
