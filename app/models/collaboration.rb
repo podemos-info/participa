@@ -204,6 +204,7 @@ class Collaboration < ActiveRecord::Base
     end
 
     date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
+    user = User.find(self.user);
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
@@ -213,6 +214,16 @@ class Collaboration < ActiveRecord::Base
       o.payable_at = date
       o.payment_type = self.payment_type
       o.payment_identifier = self.payment_identifier
+      if self.for_town_cc
+        o.town_code = user.vote_town
+      else
+        o.town_code = nil
+      end
+      if self.for_autonomy_cc
+        o.autonomy_code = user.vote_autonomy_code
+      else
+        o.autonomy_code = nil
+      end
     end
     order
   end
