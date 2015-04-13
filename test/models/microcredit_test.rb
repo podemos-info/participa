@@ -207,6 +207,8 @@ class MicrocreditTest < ActiveSupport::TestCase
     assert_nil @microcredit.reset_at
     @microcredit.change_phase
     assert_not_nil @microcredit.reset_at
+
+    # TO-DO: check update_counted_at counts confirmed uncounted loans
   end
 
   test "friendly id slug candidates work" do 
