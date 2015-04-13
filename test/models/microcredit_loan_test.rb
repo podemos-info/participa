@@ -87,6 +87,14 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
   end
 
   test "should .after_save work" do
+    # this test should check 6 cases:
+    # - create a loan at the beginning of the campaign, that should be counted
+    # - create a loan at the end of the campaign, that should not be counted
+    # - confirm a counted loan, that should not do anything else
+    # - confirm an uncounted loan without any other loan, that should count the loan
+    # - confirm an uncounted loan with an older unconfirmed and counted loan, that should transfer the count to the confirmed one
+    # - confirm an uncounted loan with the phase out of stock of the loan amount, that should not do anything else
+
     # Ending campaign
     microcredit = FactoryGirl.create(:microcredit)
     microcredit.starts_at = DateTime.now-3.month
