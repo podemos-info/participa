@@ -4,23 +4,23 @@
     <div class="col-b-4a12">
       <% if flash[:error].present? %>
           <%= error_box "Error" do %>
-              <%= flash[:error] %>
+              <%= flash[:error].html_safe %>
           <% end %>
       <% end %>
       <% if flash[:notice].present? %>
           <%= alert_box "Información" do %>
-              <%= flash[:notice] %>
+              <%= flash[:notice].html_safe %>
           <% end %>
       <% end %>
       <% if flash[:recaptcha_error].present? %>
           <%= error_box "Error" do %>
-              <%= flash[:recaptcha_error] %>
+              <%= flash[:recaptcha_error].html_safe %>
           <% end %>
       <% end %>
 
       <% if flash[:alert].present? %>
           <%= error_box "Atención" do %>
-              <%= flash[:alert] %>
+              <%= flash[:alert].html_safe %>
           <% end %>
       <% end %>
     </div>

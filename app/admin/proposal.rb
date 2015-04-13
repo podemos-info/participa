@@ -1,4 +1,5 @@
 ActiveAdmin.register Proposal do
+  menu :parent => "Participación"
 
   controller do
     def scoped_collection

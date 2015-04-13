@@ -20,9 +20,14 @@ module PodemosParticipa
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'carmen', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'carmen', 'es', '*.{rb,yml}').to_s]
     config.action_mailer.default_url_options = { host: Rails.application.secrets.host }
+    
+    config.generators do |g|
+      g.test_framework :test_unit, fixture: true
+    end
   end
 end
 
 Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host
 
 require 'add_unique_month_to_dates'
+
