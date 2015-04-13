@@ -30,6 +30,7 @@ class MicrocreditController < ApplicationController
   def create_loan
     @microcredit = Microcredit.find(params[:id])
     redirect_to microcredit_path unless @microcredit and @microcredit.is_active?
+    @user_loans = current_user ? @microcredit.loans.where(user:current_user) : []
 
     @loan = MicrocreditLoan.new(loan_params) do |loan|
       loan.microcredit = @microcredit
@@ -44,7 +45,7 @@ class MicrocreditController < ApplicationController
     @loan.transaction do
       if (current_user or verify_recaptcha) and @loan.save
         UsersMailer.microcredit_email(@microcredit, @loan).deliver
-        redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. ¡Gracias por colaborar!'
+        redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. ¡Gracias por colaborar!<br/>Si quieres ayudarnos a difundir esta campaña, <a href="http://twitter.com/home/?status=Acabo%20de%20suscribir%20un%20microcr%C3%A9dito%20Podemos%20para%20financiar%20la%20campa%C3%B1a%20electoral.%20Puedes%20invertir%20en%20el%20cambio%20en%20microcreditos.podemos.info">compártelo en Twitter</a>.'
       else
         render :new_loan
       end

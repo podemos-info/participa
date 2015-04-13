@@ -4,6 +4,7 @@ class MicrocreditLoan < ActiveRecord::Base
   belongs_to :microcredit
   belongs_to :user
 
+  attr_accessor :skip_callbacks
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
   validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
@@ -25,6 +26,8 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
   
+  after_save :update_counted_at, unless: :skip_callbacks
+
   after_initialize do |microcredit|
     if user
       set_user_data user
@@ -47,7 +50,37 @@ class MicrocreditLoan < ActiveRecord::Base
     self.country = _user[:country]
   end
 
-  before_save do |microcredit|
+  def country_name
+    _country = Carmen::Country.coded(self.country)
+    if _country
+      _country.name
+    else
+      self.country
+    end
+  end
+
+  def province_name
+    _country = Carmen::Country.coded(self.country)
+    _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
+    if _prov
+      _prov.name
+    else
+      self.province
+    end
+  end
+
+  def town_name
+    _country = Carmen::Country.coded(self.country)
+    _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
+    _town = _prov.subregions.coded(self.town) if _prov
+    if _town
+      _town.name
+    else
+      self.town
+    end
+  end
+
+  before_save do
     if user
       self.user_data = nil
     else
@@ -55,21 +88,25 @@ class MicrocreditLoan < ActiveRecord::Base
     end
   end
 
-  after_save do |microcredit|
+  def update_counted_at
     if self.counted_at.nil? and self.microcredit.should_count?(amount, !confirmed_at.nil?)
       unconfirmed = confirmed_at.nil? ? nil : self.microcredit.loans.where(amount: amount).where(confirmed_at:nil).where.not(counted_at:nil).first
 
       if unconfirmed
+
         self.counted_at = unconfirmed.counted_at
         unconfirmed.counted_at = nil
           
+        unconfirmed.skip_callbacks = self.skip_callbacks = true
         MicrocreditLoan.transaction do
-          self.save
-          unconfirmed.save
+          self.save if unconfirmed.save
         end
+        unconfirmed.skip_callbacks = self.skip_callbacks = false
       else
         self.counted_at = DateTime.now
+        self.skip_callbacks = true
         self.save
+        self.skip_callbacks = false
       end
     end
   end
@@ -115,5 +152,17 @@ class MicrocreditLoan < ActiveRecord::Base
     if not self.microcredit.is_active?
       self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
     end
+  end
+
+  def self.total_current
+    MicrocreditLoan.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+  end
+
+  def self.total_confirmed_current
+    MicrocreditLoan.confirmed.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
+  end
+
+  def self.total_counted_current
+    MicrocreditLoan.counted.joins(:microcredit).merge(Microcredit.upcoming_finished).sum(:amount)
   end
 end

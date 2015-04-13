@@ -50,14 +50,14 @@ ActiveAdmin.register MicrocreditLoan do
       row :document_vatid
       row :ip if can? :admin, MicrocreditLoan
       row :user_data do
-        attributes_table_for YAML.load(microcredit_loan.user_data) do
+        attributes_table_for microcredit_loan do
             row :first_name
             row :last_name
             row :address
             row :postal_code
-            row :town
-            row :province
-            row :country
+            row :country_name
+            row :province_name
+            row :town_name
           end
       end if microcredit_loan.user.nil? and can? :admin, MicrocreditLoan
       row :created_at
@@ -87,13 +87,17 @@ ActiveAdmin.register MicrocreditLoan do
 
   member_action :confirm, :method => [:post, :delete] do
     m = MicrocreditLoan.find(params[:id])
-    if request.post?
+    if request.post? and m.confirmed_at.nil?
       m.confirmed_at = DateTime.now
-    else
+    elsif request.delete? and not m.confirmed_at.nil?
       m.confirmed_at = nil
     end
-    m.save
-    flash[:notice] = "La recepción del microcrédito ha sido confirmada."
+    
+    if m.save
+      flash[:notice] = "La recepción del microcrédito ha sido confirmada."
+    else
+      flash[:notice] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
+    end
     redirect_to action: :show
   end
 end

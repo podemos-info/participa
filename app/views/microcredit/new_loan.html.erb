@@ -12,10 +12,10 @@
   <% if  current_user %>
     <% if @user_loans.length > 0 %>
       <%= alert_box "Información" do %>
-        <p>Ya has suscrito microcréditos para esta campaña por monto de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
-        <% @user_loans.each do |loan| %>
-          <p>El <%= loan.created_at.strftime "%d-%m-%Y" %> por un importe de <%= number_to_euro loan.amount*100%><%= loan.confirmed_at.nil? ? "." : " que ya hemos recibido." %>
-          </p>
+        <% if @user_loans.length == 1 %>
+        <p>Ya has suscrito un microcrédito para esta campaña por un importe de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
+        <% else %>
+        <p>Ya has suscrito <%=@user_loans.length%> microcréditos para esta campaña por un importe total de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
         <% end %>
       <% end %>
     <% end %>
@@ -103,8 +103,8 @@
         <% end %>
       <div class="radio_options">
         <% @microcredit.phase_remaining.each do |amount,remaining| %> 
-        <input id="microcredit_loan_amount_<%=amount%>" name="microcredit_loan[amount]" value="<%=amount%>" type="radio" <%="checked" if amount==@loan.amount%>/>
-        <div><%=fa_icon "check-circle", text: "#{number_to_euro amount*100,0}"%><span>(quedan <%=remaining%>)</span></div>
+        <input id="microcredit_loan_amount_<%=amount%>" name="microcredit_loan[amount]" value="<%=amount%>" type="radio"<%=" checked" if amount==@loan.amount%><%=' disabled class=disabled' if remaining==0%> />
+        <div><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span>(quedan <%=remaining%>)</span></div>
         <% end %>
       </div>
     </div>

@@ -9,7 +9,7 @@ class Microcredit < ActiveRecord::Base
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
-  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now)}
+  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
@@ -51,7 +51,7 @@ class Microcredit < ActiveRecord::Base
   end
 
   def current_percent amount, confirmed, add
-    current = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed} .compact.sum
+    current = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed} .compact.sum + add
     current_counted = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed and x[2]} .compact.sum
     current == 0 ? 0 : (1.0*current_counted+add)/current
   end
@@ -67,7 +67,6 @@ class Microcredit < ActiveRecord::Base
   end
 
   def phase_remaining
-    p phase_status
     limits.map do |amount, limit|
       [amount, [0, limit-phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum].max ]
     end
@@ -101,5 +100,9 @@ class Microcredit < ActiveRecord::Base
       [:title, DateTime.now.year, DateTime.now.month],
       [:title, DateTime.now.year, DateTime.now.month, DateTime.now.day]
     ]
+  end
+
+  def self.total_current_amount
+    Microcredit.upcoming_finished.sum(:total_goal)
   end
 end
