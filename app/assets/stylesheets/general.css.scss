@@ -770,6 +770,26 @@ tools
 microcredits
 ----------------------------------- */
 .microcredits-wrapper {
+  &.completed {
+    >div {
+      margin: 3em 12em;
+      i {
+        display: block;
+        float: left;
+        font-size:5em;
+        color: #269283;
+        margin: 0 10px;
+      }
+      .microcredit-ended {
+        float: left;
+        h3 {
+          border: none;
+          margin-bottom:0.5em;
+        }
+      }
+    }
+  }
+
   p, li {
     color: #333;
     font-size: 1.4em;
@@ -2106,32 +2126,6 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   text-align: justify
 }
 
-.credits {
-  section {
-    max-width: 50%;
-    margin-right:20px;
-    float:left;
-    li {
-      &:first {display:none}
-      float:left;
-      margin:1px;
-      span {
-        font-weight:bold;
-        color:white;
-        padding:2px 6px;
-      }
-    }
-  }
-  ol {
-    margin: 1em 0em;
-    padding-left: 2em;
-    li {
-      list-style-type: lower-latin;
-      font-size:1.3em;
-    }
-  }
-}
-
 .no_float_label label {
   float:none !important;
   width: 100%;
@@ -2180,6 +2174,20 @@ div.help {
     margin: 0.75em !important;
     padding: 0;
     vertical-align: top;
+
+    &.completed {
+      background: #269283;
+      color: white;
+      h2 {
+        color: white;
+      }
+      i {
+        position: absolute;
+        display: block;
+        float: left;
+        font-size:12em;
+      }
+    }
 
     h2 {
       font-size: 2em;
