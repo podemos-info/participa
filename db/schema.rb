@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(version: 20150413105745) do
     t.integer  "payment_type"
     t.string   "payment_identifier"
     t.text     "payment_response"
+    t.string   "town_code"
+    t.string   "autonomy_code"
   end
 
   create_table "pages", force: true do |t|
