@@ -238,8 +238,8 @@ class User < ActiveRecord::Base
 
   def can_change_vote_location?
     # use database version if vote_town has changed
-    not self.has_verified_vote_town? or not self.persisted? or 
-      (Rails.application.secrets.users["allows_location_change"] and !User.blocked_provinces.member?(self.vote_town_changed? ? self.vote_town_was : self.vote_town))
+    !self.has_verified_vote_town? or !self.persisted? or 
+      (Rails.application.secrets.users["allows_location_change"] and !User.blocked_provinces.member?(vote_province_persisted))
   end
 
   def generate_sms_token
@@ -434,6 +434,23 @@ class User < ActiveRecord::Base
     else
       ""
     end
+  end
+
+  def vote_province_persisted
+    prov = _vote_province
+    if self.vote_town_changed?
+      begin
+        previous_province = Carmen::Country.coded("ES").subregions[self.vote_town_was[2,2].to_i-1]
+        prov = previous_province if previous_province
+      rescue
+      end
+    end
+
+    if prov
+      prov.code
+    else
+      ""
+    end  
   end
 
   def vote_province

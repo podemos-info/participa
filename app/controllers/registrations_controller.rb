@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def regions_provinces
-    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia"}
+    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia", options_filter:(current_user.can_change_vote_location? ? User.blocked_provinces : nil) }
   end
 
   def regions_municipies
@@ -17,7 +17,7 @@ class RegistrationsController < Devise::RegistrationsController
   def vote_municipies
     render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], disabled: false, required: false, field: :vote_town, title:"Municipio de participación"}
   end
-
+  
   def create
     if verify_recaptcha
       super do 

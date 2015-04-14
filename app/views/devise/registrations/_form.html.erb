@@ -92,7 +92,7 @@
       <% if resource.errors.include?(:province) %>
           <%= field_notice_box %>
       <% end %>
-      <%= render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia", options_filter: resource.can_change_vote_location? ? User.blocked_provinces : nil } %>
+      <%= render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia", options_filter: (resource.can_change_vote_location? ? User.blocked_provinces : nil ) } %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:town) %>
