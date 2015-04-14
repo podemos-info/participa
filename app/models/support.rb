@@ -1,6 +1,6 @@
 class Support < ActiveRecord::Base
-  belongs_to :user, dependent: :destroy
-  belongs_to :proposal, dependent: :destroy, counter_cache: true
+  belongs_to :user
+  belongs_to :proposal, counter_cache: true
 
   after_save :update_hotness
 
