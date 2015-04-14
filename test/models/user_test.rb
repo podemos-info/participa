@@ -286,7 +286,7 @@ class UserTest < ActiveSupport::TestCase
     assert( @user.confirmation_sms_sent_at - DateTime.now  > -10 )
   end
 
-  test "should .check_sms_token work" do
+  test "should .check_sms_token and ActiveAdmin::Comment work" do
     u = User.new
     u.set_sms_token!
     token = u.sms_confirmation_token
@@ -295,12 +295,18 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should .check_sms_token work ban user with spam data" do
-    spam = FactoryGirl.create(:spam_filter)
     u = User.new
+    u.set_sms_token!
+    spam = FactoryGirl.create(:spam_filter)
+    u.unconfirmed_phone = "0034661234567"
+    u.phone = nil
     u.set_sms_token!
     token = u.sms_confirmation_token
     assert(u.check_sms_token(token))
     assert(u.banned?)
+    comment = ActiveAdmin::Comment.last
+    assert_equal u, comment.resource
+    assert_equal "Usuario baneado automáticamente por el filtro: #{spam.name}", comment.body
   end
   
   test "should .document_type_name work" do 

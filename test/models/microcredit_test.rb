@@ -68,7 +68,7 @@ class MicrocreditTest < ActiveSupport::TestCase
     # if confirmed loans increase, then the status should change
     create_loans(@microcredit, 5, {user: @user3, amount: 100, confirmed_at: DateTime.now})
     @microcredit = Microcredit.find @microcredit.id
-    resp = [[100, false, true, 7], [100, true, false, 5], [500, false, true, 2]]
+    resp = [[100, false, false, 5], [100, false, true, 2], [100, true, true, 5], [500, false, true, 2]]
     assert_equal resp, @microcredit.campaign_status
   end 
 
@@ -91,7 +91,7 @@ class MicrocreditTest < ActiveSupport::TestCase
     create_loans(@microcredit, 5, {user: @user4, amount: 1000})
     create_loans(@microcredit, 2, {user: @user1, amount: 100, confirmed_at: DateTime.now})
     @microcredit = Microcredit.find @microcredit.id
-    resp = [[100, false, true, 3], [100, true, false, 2], [500, false, true, 4], [1000, false, true, 5]]
+    resp = [[100, false, true, 3], [100, true, true, 2], [500, false, true, 4], [1000, false, true, 5]]
     assert_equal resp, @microcredit.phase_status
   end
 
