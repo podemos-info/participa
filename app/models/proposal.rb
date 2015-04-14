@@ -1,6 +1,6 @@
 require 'numeric'
 class Proposal < ActiveRecord::Base
-  has_many :supports
+  has_many :supports, dependent: :destroy
 
   scope :reddit,  -> { where(reddit_threshold: true) }
   scope :recent,  -> { order('created_at desc') }
