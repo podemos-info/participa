@@ -232,9 +232,14 @@ class User < ActiveRecord::Base
     self.sms_confirmed_at.nil? or self.sms_confirmed_at < DateTime.now-3.months
   end
 
-  def can_change_location?
-      not self.has_verified_vote_town? or not self.persisted? or 
-        (@override_allows_location_change.nil? ? Rails.application.secrets.users["allows_location_change"] : @override_allows_location_change)
+  def self.blocked_provinces
+    Rails.application.secrets.users["blocked_provinces"]
+  end
+
+  def can_change_vote_location?
+    # use database version if vote_town has changed
+    not self.has_verified_vote_town? or not self.persisted? or 
+      (Rails.application.secrets.users["allows_location_change"] and !User.blocked_provinces.member?(self.vote_town_changed? ? self.vote_town_was : self.vote_town))
   end
 
   def generate_sms_token
@@ -567,7 +572,7 @@ class User < ActiveRecord::Base
   def before_save
     unless @skip_before_save
       # Spanish users can't set a different town for vote, except when blocked
-      if self.in_spain? and self.can_change_location?
+      if self.in_spain? and self.can_change_vote_location?
         self.vote_town = self.town
       end
     end
