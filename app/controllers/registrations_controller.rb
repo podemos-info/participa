@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def regions_provinces
-    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia", options_filter:(current_user.can_change_vote_location? ? User.blocked_provinces : nil) }
+    render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia", options_filter:((!current_user or current_user.can_change_vote_location?) ? User.blocked_provinces : nil) }
   end
 
   def regions_municipies
