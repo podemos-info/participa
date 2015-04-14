@@ -27,7 +27,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
 
   test "should counted scope work" do
     create_loans(@microcredit, 5, {user: @user1, amount: 100, counted_at: nil}) 
-    m = Microcredit.last
+    m = MicrocreditLoan.last
     m.update_attribute(:counted_at, nil)
     assert_equal 4, @microcredit.loans.counted.count
   end
