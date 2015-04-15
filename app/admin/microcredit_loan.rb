@@ -1,4 +1,7 @@
 ActiveAdmin.register MicrocreditLoan do
+
+  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at
+
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
 
@@ -83,7 +86,6 @@ ActiveAdmin.register MicrocreditLoan do
 
   form do |f|
     f.inputs "Microcrédito" do
-      f.input :id
       f.input :microcredit
       f.input :user_id
       f.input :amount
