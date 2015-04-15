@@ -105,6 +105,7 @@ ActiveAdmin.register MicrocreditLoan do
   scope :not_counted
   
   filter :id
+  filter :user_last_name_or_user_data_cont, label: "Apellido"
   filter :microcredit
   filter :document_vatid
   filter :created_at
