@@ -78,9 +78,11 @@ class CollaborationsController < ApplicationController
   def set_collaboration
     @collaboration = current_user.collaboration
 
-    start_date = [@collaboration.created_at, Date.today - 6.months].max
-    @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
-    @order = @orders[0][-1]
+    if @collaboration
+      start_date = [@collaboration.created_at, Date.today - 6.months].max
+      @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
+      @order = @orders[0][-1]
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

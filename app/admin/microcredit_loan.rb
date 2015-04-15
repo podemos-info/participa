@@ -20,7 +20,7 @@ ActiveAdmin.register MicrocreditLoan do
       end
     end
     column :document_vatid
-    column :amount do |loan|
+    column :amount, sortable: :amount do |loan|
       number_to_euro loan.amount*100
     end
     column :created_at
@@ -83,13 +83,16 @@ ActiveAdmin.register MicrocreditLoan do
 
   scope :all
   scope :confirmed
+  scope :not_confirmed
   scope :counted
+  scope :not_counted
   
   filter :id
   filter :microcredit
   filter :document_vatid
   filter :created_at
   filter :counted_at
+  filter :amount
 
   action_item :only => :show do
     if microcredit_loan.confirmed_at.nil?

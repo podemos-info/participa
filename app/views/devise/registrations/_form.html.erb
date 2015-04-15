@@ -92,7 +92,7 @@
       <% if resource.errors.include?(:province) %>
           <%= field_notice_box %>
       <% end %>
-      <%= render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia"} %>
+      <%= render partial: 'subregion_select', locals:{country: @user_location[:country], province: @user_location[:province], disabled: false, required: true, field: :province, title:"Provincia", options_filter: (resource.can_change_vote_location? ? User.blocked_provinces : nil ) } %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:town) %>
@@ -117,13 +117,13 @@
   <fieldset id="vote_town_section">
     <legend><span>Lugar de participación</span></legend>
     <div class="inputlabel-box">
-      <%= render partial: 'subregion_select', locals:{country: "ES", province: @user_location[:vote_province], disabled: !resource.can_change_location?, required: false, field: :vote_province, title:"Provincia de participación"} %>
+      <%= render partial: 'subregion_select', locals:{country: "ES", province: @user_location[:vote_province], disabled: !resource.can_change_vote_location?, required: false, field: :vote_province, title:"Provincia de participación", options_filter: User.blocked_provinces } %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:vote_town) %>
           <%= field_notice_box %>
       <% end %>
-      <%= render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], disabled: !resource.can_change_location?, required: false, field: :vote_town, title:"Municipio de participación"}%>
+      <%= render partial: 'municipies_select', locals:{country: "ES", province: @user_location[:vote_province], town: @user_location[:vote_town], disabled: !resource.can_change_vote_location?, required: false, field: :vote_town, title:"Municipio de participación"}%>
     </div>
   </fieldset>
 

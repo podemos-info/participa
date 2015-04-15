@@ -12,7 +12,7 @@
                         "<option></option><option value='-' "+(province=='-'? ' selected="selected"':'')+">-- Ninguna --</option>"
                       end
       %>
-      <%= select_tag "user[#{field}]", first_options.html_safe+options_from_collection_for_select(provinces, "code", "name", province), {disabled: disabled, required: required, data: {placeholder: "-- Elige una provincia --", allowClear: true} } %>
+      <%= select_tag "user[#{field}]", first_options.html_safe+options_from_collection_for_select(provinces, "code", "name", selected: province, disabled: (disabled ? [] : options_filter)), {disabled: disabled, required: required, data: {placeholder: "-- Elige una provincia --", allowClear: true} } %>
   <% else %>
     <%= text_field(:user, field, class: "form-control input-xl") %>
   <% end %>
