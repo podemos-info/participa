@@ -152,6 +152,13 @@ class User < ActiveRecord::Base
   scope :participation_team, -> { includes(:participation_team).where(wants_participation: true) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
 
+  ransacker :vote_autonomy, formatter: proc { |value|
+    spain = Carmen::Country.coded("ES")
+    Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..4].to_i-1].subregions.map {|r| r.code }  if v[0]==value } .compact.flatten
+  } do |parent|
+    parent.table[:vote_town]
+  end
+
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
   # Based on 
