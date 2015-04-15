@@ -232,9 +232,14 @@ class User < ActiveRecord::Base
     self.sms_confirmed_at.nil? or self.sms_confirmed_at < DateTime.now-3.months
   end
 
-  def can_change_location?
-      not self.has_verified_vote_town? or not self.persisted? or 
-        (@override_allows_location_change.nil? ? Rails.application.secrets.users["allows_location_change"] : @override_allows_location_change)
+  def self.blocked_provinces
+    Rails.application.secrets.users["blocked_provinces"]
+  end
+
+  def can_change_vote_location?
+    # use database version if vote_town has changed
+    !self.has_verified_vote_town? or !self.persisted? or 
+      (Rails.application.secrets.users["allows_location_change"] and !User.blocked_provinces.member?(vote_province_persisted))
   end
 
   def generate_sms_token
@@ -262,7 +267,7 @@ class User < ActiveRecord::Base
           filter = SpamFilter.any? self
           if filter
             self.update_attribute(:banned, true)
-            ActiveAdmin::Comment.create(author:nil,resource:user,namespace:'admin',body:"Usuario baneado automáticamente por el filtro: #{filter.name}")
+            ActiveAdmin::Comment.create(author:nil, resource: self, namespace:'admin', body:"Usuario baneado automáticamente por el filtro: #{filter}")
           end
         end
       end
@@ -431,6 +436,23 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vote_province_persisted
+    prov = _vote_province
+    if self.vote_town_changed?
+      begin
+        previous_province = Carmen::Country.coded("ES").subregions[self.vote_town_was[2,2].to_i-1]
+        prov = previous_province if previous_province
+      rescue
+      end
+    end
+
+    if prov
+      prov.code
+    else
+      ""
+    end  
+  end
+
   def vote_province
     if _vote_province
       _vote_province.code
@@ -567,7 +589,7 @@ class User < ActiveRecord::Base
   def before_save
     unless @skip_before_save
       # Spanish users can't set a different town for vote, except when blocked
-      if self.in_spain? and self.can_change_location?
+      if self.in_spain? and self.can_change_vote_location?
         self.vote_town = self.town
       end
     end

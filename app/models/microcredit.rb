@@ -126,6 +126,10 @@ class Microcredit < ActiveRecord::Base
     campaign_status.collect {|x| x[0]*x[3] if x[2] } .compact.sum
   end
 
+  def completed
+    self.campaign_confirmed_amount>=self.total_goal
+  end
+
   def change_phase
     self.reset_at = DateTime.now
     save

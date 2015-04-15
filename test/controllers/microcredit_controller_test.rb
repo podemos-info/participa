@@ -44,7 +44,7 @@ class MicrocreditControllerTest < ActionController::TestCase
     }
     assert_difference('MicrocreditLoan.count') do
       post :create_loan, id: @microcredit.id, microcredit_loan: params
-      assert_response :success
+      assert flash[:notice].include?("¡Gracias por colaborar!")
     end
 
     sign_in @user
@@ -55,7 +55,7 @@ class MicrocreditControllerTest < ActionController::TestCase
     }
     assert_difference('MicrocreditLoan.count') do
       post :create_loan, id: @microcredit.id, microcredit_loan: params
-      assert_response :success
+      assert flash[:notice].include?("¡Gracias por colaborar!")
     end
 
     user2 = FactoryGirl.create(:user)
@@ -67,7 +67,7 @@ class MicrocreditControllerTest < ActionController::TestCase
     }
     assert_difference('MicrocreditLoan.count') do
       post :create_loan, id: @microcredit.id, microcredit_loan: params
-      assert_response :success
+      assert flash[:notice].include?("¡Gracias por colaborar!")
     end
     loan = MicrocreditLoan.last
     assert_equal loan.user.id, @user.id

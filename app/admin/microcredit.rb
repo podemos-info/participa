@@ -19,9 +19,9 @@ ActiveAdmin.register Microcredit do
     end
     column :totals, text_align:"right" do |m|
       (m.phase_status.group_by(&:first).map do |amount, info|
-        "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.join "&nbsp;"}"
+        "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.sort{|a,b| a.gsub(/\d/,"")<=>b.gsub(/\d/,"")}.join "&nbsp;"}"
       end + ["------"] + m.campaign_status.group_by(&:first).map do |amount, info|
-        "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.join "&nbsp;"}"
+        "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.sort{|a,b| a.gsub(/\d/,"")<=>b.gsub(/\d/,"")}.join "&nbsp;"}"
       end).join("<br/>").html_safe
     end
     column :percentages do |m|
@@ -48,7 +48,7 @@ ActiveAdmin.register Microcredit do
         f.input :limits
         f.input :account_number
         f.input :agreement_link
-        f.input :total_goal, step: 5000
+        f.input :total_goal, step: 100
       else
         f.inputs "Importes de los microcréditos" do
           f.input :phase_limit_amount, label: "Total por fase", input_html: { disabled: true }
