@@ -48,7 +48,7 @@ class Collaboration < ActiveRecord::Base
   scope :frequency_quarterly, -> { created.where(frequency: 3)}
   scope :frequency_anual, -> { created.where(frequency: 12) }
   scope :amount_1, -> { created.where("amount < 1000")}
-  scope :amount_2, -> { created.where("amount > 1000 and amount < 2000")}
+  scope :amount_2, -> { created.where("amount >= 1000 and amount < 2000")}
   scope :amount_3, -> { created.where("amount > 2000")}
 
   scope :incomplete, -> { created.where(status: 0)}
@@ -268,7 +268,7 @@ class Collaboration < ActiveRecord::Base
         else
           last_month = self.created_at.unique_month
         end
-        self.set_warning if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
+        self.set_error if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
       self.save
     end
