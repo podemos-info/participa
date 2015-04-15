@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  belongs_to :parent, polymorphic: true, -> { with_deleted }
+  belongs_to :parent, -> { with_deleted }, polymorphic: true
   belongs_to :collaboration, -> { with_deleted.joins(:order).where(orders: {parent_type: 'Collaboration'}) }, foreign_key: 'parent_id'
   belongs_to :user, -> { with_deleted }
 
