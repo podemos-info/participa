@@ -81,6 +81,21 @@ ActiveAdmin.register MicrocreditLoan do
     active_admin_comments
   end
 
+  form do |f|
+    f.inputs "Microcrédito" do
+      f.input :id
+      f.input :microcredit
+      f.input :user_id
+      f.input :amount
+      f.input :document_vatid
+      f.input :user_data
+      f.input :created_at
+      f.input :confirmed_at
+      f.input :counted_at
+    end
+    f.actions
+  end
+
   scope :all
   scope :confirmed
   scope :not_confirmed
