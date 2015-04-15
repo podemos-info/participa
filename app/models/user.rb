@@ -267,7 +267,7 @@ class User < ActiveRecord::Base
           filter = SpamFilter.any? self
           if filter
             self.update_attribute(:banned, true)
-            ActiveAdmin::Comment.create(author:nil,resource:user,namespace:'admin',body:"Usuario baneado automáticamente por el filtro: #{filter.name}")
+            ActiveAdmin::Comment.create(author:nil, resource: self, namespace:'admin', body:"Usuario baneado automáticamente por el filtro: #{filter}")
           end
         end
       end
