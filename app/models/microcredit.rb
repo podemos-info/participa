@@ -7,6 +7,7 @@ class Microcredit < ActiveRecord::Base
 
   # example: "100€: 100\r500€: 22\r1000€: 10"
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
+  validate :check_limits_with_phase
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
@@ -104,6 +105,12 @@ class Microcredit < ActiveRecord::Base
 
   def phase_limit_amount
     limits.map do |k,v| k*v end .sum
+  end
+
+  def check_limits_with_phase
+    if self.limits.any? { |amount, limit| limit < self.phase_current_for_amount(amount) }
+      self.errors.add(:limits, "No puedes establecer un limite para un monto por debajo de los microcréditos visibles en la web con ese monto en la fase actual.")
+    end
   end
 
   def phase_counted_amount

@@ -223,4 +223,17 @@ class MicrocreditTest < ActiveSupport::TestCase
     assert_equal("barna-#{now.year}-#{now.month}-#{now.day}", microcredit4.slug)
   end
 
+  test "should .check_limits_with_phase work" do
+    @microcredit.limits[300] = 10
+    @microcredit.save
+    create_loans(@microcredit, 10, {user: @user1, amount: 300})
+    @microcredit = Microcredit.find @microcredit.id
+
+    @microcredit.limits[300] = 1
+    assert_equal false, @microcredit.save
+    assert_equal "No puedes establecer un limite para un monto por debajo de los microcréditos visibles en la web con ese monto en la fase actual.", @microcredit.errors.messages[:limits][0]
+
+    @microcredit.limits[300] = 11
+    assert_equal true, @microcredit.save    
+  end
 end
