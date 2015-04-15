@@ -437,8 +437,5 @@ ActiveAdmin.register Collaboration do
         0
       end
     end
-    column :orders do |collaboration|
-      show_collaboration_orders collaboration, false
-    end
   end
 end
