@@ -489,10 +489,11 @@ ActiveAdmin.register Collaboration do
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      csv << ["Provincia", "Municipio"] + months.values
-      provinces.each do |province|
+      csv << ["Comunidad Autónoma", "Provincia", "Municipio"] + months.values
+      provinces.each_with_index do |province,i|
+        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
         province.subregions.each do |town|
-          csv << [ province.name, town.name ] + months.keys.map{|k| towns_data[town.code][k]/100}
+          csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name ] + months.keys.map{|k| towns_data[town.code][k]/100}
         end
       end
     end
