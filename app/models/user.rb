@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
   def validates_unconfirmed_phone_uniqueness
     if self.unconfirmed_phone.present? 
       if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
-        self.update_attribute(:unconfirmed_phone, nil)
         self.errors.add(:phone, "Ya hay alguien con ese número de teléfono")
       end
     end
@@ -151,6 +150,13 @@ class User < ActiveRecord::Base
   scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where(wants_participation: true) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
+
+  ransacker :vote_autonomy, formatter: proc { |value|
+    spain = Carmen::Country.coded("ES")
+    Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..4].to_i-1].subregions.map {|r| r.code }  if v[0]==value } .compact.flatten
+  } do |parent|
+    parent.table[:vote_town]
+  end
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 

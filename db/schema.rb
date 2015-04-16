@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413105745) do
+ActiveRecord::Schema.define(version: 20150415224156) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -312,6 +312,7 @@ ActiveRecord::Schema.define(version: 20150413105745) do
   add_index "users", ["flags"], name: "index_users_on_flags"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["sms_confirmation_token"], name: "index_users_on_sms_confirmation_token", unique: true
+  add_index "users", ["vote_town"], name: "index_users_on_vote_town"
 
   create_table "versions", force: true do |t|
     t.string   "item_type",  null: false
