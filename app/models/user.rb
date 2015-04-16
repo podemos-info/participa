@@ -151,9 +151,21 @@ class User < ActiveRecord::Base
   scope :participation_team, -> { includes(:participation_team).where(wants_participation: true) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
 
+  ransacker :vote_province, formatter: proc { |value|
+    Carmen::Country.coded("ES").subregions[(value[2..3].to_i-1)].subregions.map {|r| r.code }
+  } do |parent|
+    parent.table[:vote_town]
+  end
+
   ransacker :vote_autonomy, formatter: proc { |value|
     spain = Carmen::Country.coded("ES")
-    Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..4].to_i-1].subregions.map {|r| r.code }  if v[0]==value } .compact.flatten
+    Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..3].to_i-1].subregions.map {|r| r.code } if v[0]==value } .compact.flatten
+  } do |parent|
+    parent.table[:vote_town]
+  end
+
+  ransacker :vote_island, formatter: proc { |value|
+    Podemos::GeoExtra::ISLANDS.map {|k,v| k if v[0]==value} .compact
   } do |parent|
     parent.table[:vote_town]
   end

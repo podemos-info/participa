@@ -55,6 +55,17 @@ class Election < ActiveRecord::Base
     end
   end
 
+  def current_total_census
+    case self.scope
+      when 0 then User.confirmed.count
+      when 1 then User.confirmed.ransack( {vote_autonomy_in: Election.last.election_locations.map {|l| "c_#{l.location}" }}).result.count
+      when 2 then User.confirmed.ransack( {vote_province_in: Election.last.election_locations.map {|l| "p_#{l.location}" }}).result.count
+      when 3 then User.confirmed.where(vote_town: Election.last.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" })
+      when 4 then User.confirmed.ransack( {vote_island_in: Election.last.election_locations.map {|l| "i_#{l.location}" }}).result.count
+      when 5 then User.confirmed.where.not(country:"ES").count
+    end
+  end
+
   def multiple_territories?
     [1,2,3,4].member? self.scope
   end
