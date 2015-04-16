@@ -458,7 +458,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_autonomy, :method => :get do
     date = Date.parse params[:date]
-    months = Hash[(0..3).map{|i| [(date-i.months).month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
     autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
@@ -480,7 +480,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_town, :method => :get do
     date = Date.parse params[:date]
-    months = Hash[(0..3).map{|i| [(date-i.months).month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
@@ -490,13 +490,12 @@ ActiveAdmin.register Collaboration do
 
     i = 1
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      i += 1
       provinces.each do |province|
-        i += 1
         csv << [i, "#{province.name}"] + months.values
-        province.subregions.each do |town| 
-          i += 1
+        i += 1
+        province.subregions.each do |town|
           csv << [ i, town.name ] + months.keys.map{|k| towns_data[town.code][k]/100}
+          i += 1
         end
       end
     end
