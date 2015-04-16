@@ -488,8 +488,8 @@ ActiveAdmin.register Collaboration do
       towns_data[k[0]][k[1].to_i] = v
     end
 
-    csv << ["Provincia", "Municipio"] + months.values
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["Provincia", "Municipio"] + months.values
       provinces.each do |province|
         province.subregions.each do |town|
           csv << [ province.name, town.name ] + months.keys.map{|k| towns_data[town.code][k]/100}
