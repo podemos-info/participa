@@ -96,6 +96,7 @@ es:
         last_name: "Apellidos"
         document_vatid: "DNI o NIE"
         address: "Dirección"
+        postal_code: "Código postal"
         minimal_year_old: "Edad mínima requerida" 
         terms_of_service: "Acuerdo legal"
         amount: "Importe"
