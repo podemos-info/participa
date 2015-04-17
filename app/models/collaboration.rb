@@ -106,7 +106,9 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_iban
-    unless IBANTools::IBAN.valid?(self.iban_account)
+    iban_validation = IBANTools::IBAN.valid?(self.iban_account)
+    ccc_validation = self.iban_account.start_with?("ES") ? BankCccValidator.validate(self.iban_account[4..-1]) : true
+    unless iban_validation and ccc_validation
       self.errors.add(:iban_account, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
     end
   end
