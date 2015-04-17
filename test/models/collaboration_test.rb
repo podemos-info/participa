@@ -102,6 +102,12 @@ class CollaborationTest < ActiveSupport::TestCase
     @collaboration.iban_bic = "BSABESBBXXX"
     assert @collaboration.valid?
 
+    # valid IBAN (mod-97 and spanish digits) but should fail on DC CCC validation
+    @collaboration.iban_account = "ES6042205973917631919738"
+    @collaboration.iban_bic = "BSABESBBXXX"
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+
     @collaboration.iban_account = "ES3342205973927631919739"
     @collaboration.iban_bic = "BSABESBBXXX"
     assert_not @collaboration.valid?
@@ -147,9 +153,9 @@ class CollaborationTest < ActiveSupport::TestCase
     @collaboration.update_attribute(:payment_type, 1)
     assert_equal( "Suscripción con Tarjeta de Crédito/Débito", @collaboration.payment_type_name ) 
     @collaboration.update_attribute(:payment_type, 2)
-    assert_equal( "Domiciliación en cuenta bancaria (CCC)", @collaboration.payment_type_name ) 
+    assert_equal( "Domiciliación en cuenta bancaria (formato CCC)", @collaboration.payment_type_name ) 
     @collaboration.update_attribute(:payment_type, 3)
-    assert_equal( "Domiciliación en cuenta extranjera (IBAN)", @collaboration.payment_type_name ) 
+    assert_equal( "Domiciliación en cuenta bancaria (formato IBAN)", @collaboration.payment_type_name ) 
   end
 
   test "should .frequency_name work" do
