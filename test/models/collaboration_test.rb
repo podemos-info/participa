@@ -97,6 +97,23 @@ class CollaborationTest < ActiveSupport::TestCase
     @collaboration.iban_bic = "ESPBESMMXXX"
     assert_not @collaboration.valid?
     assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+
+    @collaboration.iban_account = "ES3342205973917631919739"
+    @collaboration.iban_bic = "BSABESBBXXX"
+    assert @collaboration.valid?
+
+    @collaboration.iban_account = "ES3342205973927631919739"
+    @collaboration.iban_bic = "BSABESBBXXX"
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+
+    @collaboration.iban_account = "ES4621770993232366217197"
+    @collaboration.iban_bic = "XXXXXX"
+    assert @collaboration.valid?
+
+    @collaboration.iban_account = "ES4621770993232366222222"
+    assert_not @collaboration.valid?
+    assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
   end
 
   test "should .is_credit_card? work" do
@@ -620,17 +637,6 @@ phone: '666666'"
     assert(@collaboration.errors[:ccc_office].include? "no es un número")
     assert(@collaboration.errors[:ccc_dc].include? "no es un número")
     assert(@collaboration.errors[:ccc_account].include? "no es un número")
-  end
-
-  test "should validate_iban work" do 
-    @collaboration.payment_type = 3
-    @collaboration.iban_account = "ES4621770993232366217197"
-    @collaboration.iban_bic = "XXXXXX"
-    assert @collaboration.valid?
-
-    @collaboration.iban_account = "ES4621770993232366222222"
-    assert_not @collaboration.valid?
-    assert(@collaboration.errors[:iban_account].include? "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
   end
 
   #test "should .get_orders work with collaboration created but not paid the same month" do
