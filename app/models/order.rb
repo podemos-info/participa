@@ -15,8 +15,8 @@ class Order < ActiveRecord::Base
   STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4, "Devuelta" => 5}
   PAYMENT_TYPES = {
     "Suscripción con Tarjeta de Crédito/Débito" => 1, 
-    "Domiciliación en cuenta bancaria (CCC)" => 2, 
-    "Domiciliación en cuenta extranjera (IBAN)" => 3 
+    "Domiciliación en cuenta bancaria (formato CCC)" => 2, 
+    "Domiciliación en cuenta bancaria (formato IBAN)" => 3 
   }
 
   PARENT_CLASSES = {

@@ -42,8 +42,8 @@ class Collaboration < ActiveRecord::Base
   scope :created, -> { where(deleted_at: nil)  }
   scope :credit_cards, -> { created.where(payment_type: 1)}
   scope :banks, -> { created.where.not(payment_type: 1)}
-  scope :bank_nationals, -> { created.where(payment_type: 2)}
-  scope :bank_internationals, -> { created.where(payment_type: 3)}
+  scope :bank_nationals, -> { created.where(payment_type: 2) | created.where(payment_type: 3).where("iban_account LIKE ?", "ES%") }
+  scope :bank_internationals, -> { created.where(payment_type: 3).where("iban_account NOT LIKE ?", "ES%") }
   scope :frequency_month, -> { created.where(frequency: 1)}
   scope :frequency_quarterly, -> { created.where(frequency: 3)}
   scope :frequency_anual, -> { created.where(frequency: 12) }

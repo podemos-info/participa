@@ -27,6 +27,24 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_equal c.status, 0
   end
 
+  test "should national and international scopes work" do 
+    c1 = FactoryGirl.create(:collaboration, :ccc)
+    c2 = FactoryGirl.create(:collaboration, :iban)
+    c2.iban_account = "ES0690000001210123456789"
+    c2.iban_bic = "ESPBESMMXXX"
+    c2.save
+
+    c3 = FactoryGirl.create(:collaboration, :iban)
+    c3.iban_account = "BE62510007547061"
+    c3.iban_bic = "BEXXXXX"
+    c3.save
+
+    assert_equal 4, Collaboration.all.count
+    assert_equal 3, Collaboration.bank_nationals.count
+    assert_equal 1, Collaboration.bank_internationals.count
+
+  end
+
   test "should .set_active work" do
     @collaboration.update_attribute(:status, 0)
     @collaboration.set_active 
