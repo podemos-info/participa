@@ -22,7 +22,7 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
-  scope :not_counted, -> { where(confirmed_at:nil) }
+  scope :not_counted, -> { where(counted_at:nil) }
   scope :counted, -> { where.not(counted_at:nil) }
   scope :not_confirmed, -> { where(confirmed_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }

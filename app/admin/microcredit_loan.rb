@@ -1,4 +1,7 @@
 ActiveAdmin.register MicrocreditLoan do
+
+  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at
+
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
 
@@ -81,6 +84,20 @@ ActiveAdmin.register MicrocreditLoan do
     active_admin_comments
   end
 
+  form do |f|
+    f.inputs "Microcrédito" do
+      f.input :microcredit
+      f.input :user_id
+      f.input :amount
+      f.input :document_vatid
+      f.input :user_data
+      f.input :created_at
+      f.input :confirmed_at
+      f.input :counted_at
+    end
+    f.actions
+  end
+
   scope :all
   scope :confirmed
   scope :not_confirmed
@@ -88,6 +105,7 @@ ActiveAdmin.register MicrocreditLoan do
   scope :not_counted
   
   filter :id
+  filter :user_last_name_or_user_data_cont, label: "Apellido"
   filter :microcredit
   filter :document_vatid
   filter :created_at

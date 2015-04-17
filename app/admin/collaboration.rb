@@ -104,6 +104,7 @@ ActiveAdmin.register Collaboration do
 
   sidebar "Acciones", 'data-panel' => :collapsed, only: :index, priority: 0 do
     status = Collaboration.has_bank_file? Date.today
+
     h4 "Pagos con tarjeta" 
     ul do
       li link_to 'Cobrar tarjetas', params.merge(:action => :charge), data: { confirm: "Se enviarán los datos de todas las órdenes para que estas sean cobradas. ¿Deseas continuar?" }
@@ -131,6 +132,22 @@ ActiveAdmin.register Collaboration do
         """Marcar como pagadas:
         #{link_to Date.today.strftime("%b (#{this_month})").downcase, params.merge(action: :mark_as_paid, date: Date.today), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
         #{link_to (Date.today-1.month).strftime("%b (#{prev_month})").downcase, params.merge(action: :mark_as_paid, date: Date.today-1.month), data: { confirm: "Esta acción no se puede deshacer. ¿Deseas continuar?" } }
+        """.html_safe
+      end
+    end
+
+    h4 "Asignación territorial"
+    ul do
+      li do
+        """Autonómica:
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today-1.month) }
+        """.html_safe
+      end
+      li do
+        """Municipal:
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today-1.month) }
         """.html_safe
       end
     end
@@ -437,8 +454,52 @@ ActiveAdmin.register Collaboration do
         0
       end
     end
-    column :orders do |collaboration|
-      show_collaboration_orders collaboration, false
+  end
+
+  collection_action :download_for_autonomy, :method => :get do
+    date = Date.parse params[:date]
+    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+
+    autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
+    autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+    Order.paid.where.not(autonomy_code:nil).group(:autonomy_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+      autonomies_data[k[0]][k[1].to_i] = v
     end
+
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["Comunidad Autónoma"] + months.values
+      autonomies_data.each do |k,v|
+        csv << [autonomies[k] ] + months.keys.map{|k| v[k]/100}
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+      type: 'text/tsv; charset=utf-8; header=present',
+      disposition: "attachment; filename=podemos.for_autonomy_cc.#{Date.today.to_s}.csv"
+  end
+
+  collection_action :download_for_town, :method => :get do
+    date = Date.parse params[:date]
+    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+
+    provinces = Carmen::Country.coded("ES").subregions
+    towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+    Order.paid.where.not(autonomy_code:nil).where.not(town_code:nil).group(:town_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+      towns_data[k[0]][k[1].to_i] = v
+    end
+
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["Comunidad Autónoma", "Provincia", "Municipio"] + months.values
+      provinces.each_with_index do |province,i|
+        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+        province.subregions.each do |town|
+          csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name ] + months.keys.map{|k| towns_data[town.code][k]/100}
+        end
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+      type: 'text/tsv; charset=utf-8; header=present',
+      disposition: "attachment; filename=podemos.for_town_cc.#{Date.today.to_s}.csv"
   end
 end
