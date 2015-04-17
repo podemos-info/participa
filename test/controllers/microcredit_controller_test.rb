@@ -48,23 +48,19 @@ class MicrocreditControllerTest < ActionController::TestCase
     end
 
     sign_in @user
-    params = {
-      amount: 2000,
-      terms_of_service: 1,
-      minimal_year_old: 1,
-    }
+    params = { amount: 1000, terms_of_service: 1, minimal_year_old: 1 }
     assert_difference('MicrocreditLoan.count') do
       post :create_loan, id: @microcredit.id, microcredit_loan: params
       assert flash[:notice].include?("¡Gracias por colaborar!")
     end
+    params = { amount: 2000, terms_of_service: 1, minimal_year_old: 1 }
+    assert_no_difference('MicrocreditLoan.count') do
+      post :create_loan, id: @microcredit.id, microcredit_loan: params
+      assert flash[:errors].include?("ya no quedan préstamos por esa cantidad")
+    end
 
     user2 = FactoryGirl.create(:user)
-    params = {
-      amount: 2000,
-      terms_of_service: 1,
-      minimal_year_old: 1,
-      user_id: user2.id,
-    }
+    params = { amount: 100, terms_of_service: 1, minimal_year_old: 1 }
     assert_difference('MicrocreditLoan.count') do
       post :create_loan, id: @microcredit.id, microcredit_loan: params
       assert flash[:notice].include?("¡Gracias por colaborar!")
