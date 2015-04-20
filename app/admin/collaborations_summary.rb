@@ -1,8 +1,8 @@
-ActiveAdmin.register_page "Summary" do
+ActiveAdmin.register_page "collaborations_summary" do
 
-  menu :parent => "Colaboraciones"
+  menu parent: "Colaboraciones", label: "Resumen de colaboraciones"
 
-  content do
+  content title: "Resumen de colaboraciones" do
     columns do
       column do 
         panel "Colaboraciones por tipo" do 

@@ -1,0 +1,31 @@
+<canvas class="graph line" data-scope="microcredits-history" width="840px" height="400" style="margin-left: auto; margin-right:auto; display: block;"></canvas>
+<%
+parent = params[:id] ? Microcredit.find(params[:id]) : nil
+query = parent ? { microcredit: parent.id } : {}
+created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).sum(:amount)
+confirmed = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:confirmed_at)).sum(:amount)
+counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).sum(:amount)
+
+days = [ created, confirmed, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%31}/#{i.to_i%366/31}/#{i.to_i/366}"] }
+%>    
+
+<table class="microcredits-history">
+  <th>Día</th>
+  <th class="serie">Suscritos</th>
+  <th class="serie">Visibles</th>
+  <th class="serie">Confirmados</th>
+<% created_acum = counted_acum = confirmed_acum = 0 %>
+<% days.each do | key, text | 
+    created_acum += (created[key] || 0)
+    counted_acum += (counted[key] || 0)
+    confirmed_acum += (confirmed[key] || 0)
+  %>
+
+  <tr class="row">
+  <td class="label"><%=text%></td>
+  <td class="cell"><%=created_acum%></td>
+  <td class="cell"><%=counted_acum%></td>
+  <td class="cell"><%=confirmed_acum%></td>
+  </tr>
+<% end %>
+</table>

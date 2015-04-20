@@ -62,6 +62,12 @@ ActiveAdmin.register Microcredit do
     f.actions
   end
 
+  show do
+    panel "Evolución" do
+      render "admin/microcredits_history"
+    end
+  end
+
   filter :starts_at
   filter :ends_at
   

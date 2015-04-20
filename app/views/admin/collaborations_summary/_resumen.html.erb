@@ -1,0 +1,14 @@
+<table class="collaboration-evolution">
+  <thead>
+    <th>Mes</th>
+    <th>Nº de ordenes (<span class="serie" data-label="# pendientes">pend</span>/<span class="serie" data-label="# errores">error</span>/<span class="serie" data-label="# ok">ok</span>)</th>
+    <th>Total (<span class="serie" data-label="€ pendientes">pend</span>/<span class="serie" data-label="€ errores">error</span>/<span class="serie" data-label="€ ok">ok</span>)</th>
+    <th>Remesas</th>
+  </thead>
+  <tbody>
+  <% (0..12).each do |i| 
+    date = Date.today - (12-i).months %>
+    <%= render "row_month", month: date.month, year: date.year %>
+  <% end %>
+  </tbody>
+</table>
