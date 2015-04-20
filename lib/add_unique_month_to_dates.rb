@@ -24,4 +24,12 @@ class ActiveRecord::Base
       else "year(#{field})*12+month(#{field})" # MySQL, SQL Server, ...
     end
   end
+
+  def self.unique_day field
+    case self.connection.adapter_name
+      when 'SQLite' then "strftime('%Y', #{field})*366+strftime('%m', #{field})*31+strftime('%d', #{field})"
+      when 'PostgreSQL' then "extract(year from #{field})*366+extract(month from #{field})*31+extract(day from #{field})"
+      else "year(#{field})*366+month(#{field})*31+day(#{field})" # MySQL, SQL Server, ...
+    end
+  end
 end
