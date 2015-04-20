@@ -178,4 +178,8 @@ class MicrocreditLoan < ActiveRecord::Base
   def self.total_counted_current
     MicrocreditLoan.upcoming_finished.counted.sum(:amount)
   end
+
+  def possible_user
+    @possible_user ||= self.user.nil? && User.where(document_vatid: self.document_vatid).first
+  end
 end

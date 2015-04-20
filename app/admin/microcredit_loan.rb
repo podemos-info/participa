@@ -48,6 +48,10 @@ ActiveAdmin.register MicrocreditLoan do
           microcredit_loan.microcredit.title
         end
       end
+      row :amount do
+        number_to_euro microcredit_loan.amount*100
+      end
+      row :document_vatid
       row :user do
         if microcredit_loan.user and can? :show, microcredit_loan.user
           link_to(microcredit_loan.user.full_name, admin_user_path(microcredit_loan.user))
@@ -55,28 +59,26 @@ ActiveAdmin.register MicrocreditLoan do
           "#{microcredit_loan.first_name} #{microcredit_loan.last_name}"
         end
       end
-      row :amount do
-        number_to_euro microcredit_loan.amount*100
+      row :phone do
+        if microcredit_loan.user
+          microcredit_loan.user.phone
+        elsif microcredit_loan.possible_user
+          "Posible: #{microcredit_loan.possible_user.phone} (COMPROBAR! #{microcredit_loan.possible_user.full_name} - #{microcredit_loan.possible_user.email})"
+        end
       end
-      row :document_vatid
+      row :email
+      row :user_data do
+        attributes_table_for microcredit_loan do
+          row :first_name
+          row :last_name
+          row :address
+          row :postal_code
+          row :country_name
+          row :province_name
+          row :town_name
+        end
+      end
       row :ip if can? :admin, MicrocreditLoan
-      row :user_data do
-        attributes_table_for microcredit_loan do
-            row :first_name
-            row :last_name
-            row :address
-            row :postal_code
-            row :country_name
-            row :province_name
-            row :town_name
-          end
-      end if microcredit_loan.user.nil? and can? :admin, MicrocreditLoan
-      row :user_data do
-        attributes_table_for microcredit_loan do
-            row :first_name
-            row :last_name
-          end
-      end if microcredit_loan.user.nil? and can? :admin, MicrocreditLoan
       row :created_at
       row :confirmed_at
       row :counted_at
