@@ -63,9 +63,46 @@ ActiveAdmin.register Microcredit do
   end
 
   show do
+    attributes_table do
+      row :id
+      row :title
+      row :slug
+      row :starts_at
+      row :ends_at
+      row :account_number
+      row :agreement_link
+      row :total_goal
+      row :limits do
+        ([ "<strong>Total&nbsp;fase:&nbsp;#{number_to_euro(microcredit.phase_limit_amount*100, 0)}</strong>" ] + microcredit.limits.map do |amount, limit|
+        "#{number_to_euro amount*100, 0}:&nbsp;#{limit}"
+        end).join("<br/>").html_safe
+      end
+      row :totals do
+        (microcredit.phase_status.group_by(&:first).map do |amount, info|
+          "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.sort{|a,b| a.gsub(/\d/,"")<=>b.gsub(/\d/,"")}.join "&nbsp;"}"
+        end + ["------"] + microcredit.campaign_status.group_by(&:first).map do |amount, info|
+          "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.sort{|a,b| a.gsub(/\d/,"")<=>b.gsub(/\d/,"")}.join "&nbsp;"}"
+        end).join("<br/>").html_safe
+      end
+      row :percentages do
+        ([ "<strong>Confianza:&nbsp;#{(microcredit.remaining_percent*100).round(2)}%</strong>" ] + microcredit.limits.map do |amount, limit|
+          "#{number_to_euro amount*100, 0}:&nbsp;#{(microcredit.current_percent(amount, false, 0)*100).round(2)}%"
+        end).join("<br/>").html_safe
+      end
+      row :progress do
+        ["<strong>Total: #{number_to_euro microcredit.total_goal*100, 0}</strong>",
+          "&cross;:&nbsp;#{number_to_euro(microcredit.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_unconfirmed_amount/microcredit.total_goal).round(2)}%)",
+          "&check;:&nbsp;#{number_to_euro(microcredit.campaign_confirmed_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_confirmed_amount/microcredit.total_goal).round(2)}%)",
+          "&ominus;:&nbsp;#{number_to_euro(microcredit.campaign_not_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_not_counted_amount/microcredit.total_goal).round(2)}%)",
+          "&oplus;:&nbsp;#{number_to_euro(microcredit.campaign_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_counted_amount/microcredit.total_goal).round(2)}%)"].join("<br/>").html_safe
+      end
+      row :created_at
+      row :updated_at
+    end
     panel "Evolución" do
       render "admin/microcredits_history"
     end
+    active_admin_comments
   end
 
   filter :starts_at
