@@ -28,12 +28,12 @@ class Collaboration < ActiveRecord::Base
   validate :validates_age_over
   validate :validates_has_user
 
-  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
-  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
-  validate :validates_ccc, if: :is_bank_national?
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :has_ccc_account?
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :has_ccc_account?
+  validate :validates_ccc, if: :has_ccc_account?
 
-  validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
-  validate :validates_iban, if: :is_bank_international?
+  validates :iban_account, :iban_bic, presence: true, if: :has_iban_account?
+  validate :validates_iban, if: :has_iban_account?
 
   AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000}
   FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
@@ -92,7 +92,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_age_over
-    if self.user and self.user.born_at > Date.today-18.years
+    if self.user and self.user.born_at and self.user.born_at > Date.today-18.years
       self.errors.add(:user, "No puedes colaborar si eres menor de edad.")
     end
   end
@@ -122,11 +122,19 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_bank_national?
-    self.payment_type == 2
+    self.is_bank? and !self.is_bank_international?
   end
 
   def is_bank_international?
-    self.payment_type == 3
+    self.has_iban_account? and !self.iban_account.start_with?("ES")
+  end
+
+  def has_ccc_account?
+    self.payment_type==2
+  end
+
+  def has_iban_account?
+    self.payment_type==3
   end
 
   def payment_type_name
@@ -213,7 +221,7 @@ class Collaboration < ActiveRecord::Base
       o.first = is_first
       o.amount = self.amount*self.frequency
       o.payable_at = date
-      o.payment_type = self.payment_type
+      o.payment_type = self.is_credit_card? ? 1 : 3
       o.payment_identifier = self.payment_identifier
       if self.for_autonomy_cc and self.user and !self.user.vote_autonomy_code.empty?
         o.autonomy_code = self.user.vote_autonomy_code
@@ -226,7 +234,7 @@ class Collaboration < ActiveRecord::Base
   def payment_identifier
     if self.is_credit_card?
       self.redsys_identifier
-    elsif self.is_bank_national?
+    elsif self.has_ccc_account?
       "#{calculate_iban}/#{calculate_bic}"
     else
       "#{self.iban_account}/#{self.iban_bic}"

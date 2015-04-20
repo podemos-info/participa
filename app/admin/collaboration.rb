@@ -194,12 +194,15 @@ ActiveAdmin.register Collaboration do
       row :updated_at
       row :deleted_at
       
-      row :ccc_full if collaboration.is_bank_national?
-      row :iban_account if collaboration.is_bank_international?
       if collaboration.is_bank?
-        row :iban_bic do
-          status_tag(t("active_admin.empty"), :error) if collaboration.calculate_bic.nil?
-          collaboration.calculate_bic
+        if collaboration.has_iban_account?
+          row :iban_account 
+          row :iban_bic do
+            status_tag(t("active_admin.empty"), :error) if collaboration.calculate_bic.nil?
+            collaboration.calculate_bic
+          end
+        else
+          row :ccc_full
         end
       end
       if collaboration.is_credit_card?

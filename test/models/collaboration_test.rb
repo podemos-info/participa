@@ -136,7 +136,9 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_not @collaboration.is_bank_national?
     @collaboration.update_attribute(:payment_type, 2)
     assert @collaboration.is_bank_national?
-    @collaboration.update_attribute(:payment_type, 3)
+    @collaboration.update_attributes(payment_type: 3, iban_account: "ES4621770993232366222222")
+    assert @collaboration.is_bank_national?
+    @collaboration.update_attributes(payment_type: 3, iban_account: "DE123123123123123123")
     assert_not @collaboration.is_bank_national?
   end
 
@@ -145,7 +147,9 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_not @collaboration.is_bank_international?
     @collaboration.update_attribute(:payment_type, 2)
     assert_not @collaboration.is_bank_international?
-    @collaboration.update_attribute(:payment_type, 3)
+    @collaboration.update_attributes(payment_type: 3, iban_account: "ES4621770993232366222222")
+    assert_not @collaboration.is_bank_international?
+    @collaboration.update_attributes(payment_type: 3, iban_account: "DE123123123123123123")
     assert @collaboration.is_bank_international?
   end
 
