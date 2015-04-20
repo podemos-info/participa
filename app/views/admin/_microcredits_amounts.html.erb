@@ -2,10 +2,10 @@
 <%
 parent = params[:id] ? Microcredit.find(params[:id]) : nil
 query = parent ? { microcredit: parent.id } : {}
-created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).sum(:amount)
-confirmed = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:confirmed_at)).sum(:amount)
-confirmed_created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).sum(:amount)
-counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).sum(:amount)
+created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).sum(:amount)
+confirmed = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:confirmed_at)).sum(:amount)
+confirmed_created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).sum(:amount)
+counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).sum(:amount)
 
 days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%31}/#{i.to_i%366/31}/#{i.to_i/366}"] }
 %>    

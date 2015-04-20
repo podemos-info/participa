@@ -2,10 +2,10 @@
 <%
 parent = params[:id] ? Microcredit.find(params[:id]) : nil
 query = parent ? { microcredit: parent.id } : {}
-created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
-confirmed = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:confirmed_at)).count
-confirmed_created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
-counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).reorder('').where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).count
+created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
+confirmed = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:confirmed_at)).count
+confirmed_created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
+counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).count
 
 days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%31}/#{i.to_i%366/31}/#{i.to_i/366}"] }
 %>    
@@ -16,7 +16,6 @@ days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.
   <th class="serie">Visibles</th>
   <th class="serie">Confirmados (por fecha de confirmación)</th>
   <th class="serie">Confirmados (por fecha de suscripción)</th>
-
 <% created_acum = counted_acum = confirmed_acum = confirmed_created_acum = 0 %>
 <% days.each do | key, text | 
     created_acum += (created[key] || 0)
