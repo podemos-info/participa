@@ -26,10 +26,10 @@ days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.
 
   <tr class="row">
   <td class="label"><%=text%></td>
-  <td class="cell"><%=number_to_euro created_acum, 0%></td>
-  <td class="cell"><%=number_to_euro counted_acum, 0%></td>
-  <td class="cell"><%=number_to_euro confirmed_acum, 0%></td>
-  <td class="cell"><%=number_to_euro confirmed_created_acum, 0%></td>
+  <td class="cell"><%=number_to_euro created_acum*100, 0%></td>
+  <td class="cell"><%=number_to_euro counted_acum*100, 0%></td>
+  <td class="cell"><%=number_to_euro confirmed_acum*100, 0%></td>
+  <td class="cell"><%=number_to_euro confirmed_created_acum*100, 0%></td>
   </tr>
 <% end %>
 </table>
