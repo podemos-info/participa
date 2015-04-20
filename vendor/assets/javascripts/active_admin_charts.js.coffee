@@ -22,6 +22,7 @@ draw_chart = ($el) ->
     percentageInnerCutout : 20,
     animationEasing: "easeInOutCubic",
     bezierCurveTension : 0.2,
+    responsive: true
   }
 
   graph_data = $("."+scope)

@@ -100,7 +100,18 @@ ActiveAdmin.register Microcredit do
       row :updated_at
     end
     panel "Evolución" do
-      render "admin/microcredits_history"
+      columns do
+        column do 
+          panel "Evolución €" do 
+            render "admin/microcredits_amounts", width: "80%", height: "100"
+          end
+        end
+        column do 
+          panel "Evolución #" do 
+            render "admin/microcredits_count", width: "80%", height: "100"
+          end
+        end
+      end
     end
     active_admin_comments
   end
