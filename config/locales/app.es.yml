@@ -106,6 +106,7 @@ es:
         created_at: "Fecha de suscripción"
         confirmed_at: "Fecha de confirmación"
         counted_at: "Fecha de aparición en la web"
+        discarded_at: "Fecha de descarte"
         all: "Todos"
         id: "Identificador"
       collaboration: 

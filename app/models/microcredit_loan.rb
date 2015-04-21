@@ -4,7 +4,6 @@ class MicrocreditLoan < ActiveRecord::Base
   belongs_to :microcredit
   belongs_to :user
 
-  attr_accessor :skip_callbacks
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
   validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
@@ -26,10 +25,11 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :counted, -> { where.not(counted_at:nil) }
   scope :not_confirmed, -> { where(confirmed_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
+  scope :not_discarded, -> { where(discarded_at:nil) }
+  scope :discarded, -> { where.not(discarded_at:nil) }
+
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
   scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }
-
-  after_save :update_counted_at, unless: :skip_callbacks
 
   after_initialize do |microcredit|
     if user
@@ -93,12 +93,13 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def update_counted_at
     must_count = false
-    unconfirmed = nil
-    if self.counted_at.nil?
-      unless self.confirmed_at.nil?
-        unconfirmed = self.microcredit.loans.where(amount: self.amount).counted.not_confirmed.order(created_at: :asc).first
+    replacement = nil
+    if self.counted_at.nil? and self.discarded_at.nil?
+      replacement = self.microcredit.loans.where(amount: self.amount).counted.discarded.order(created_at: :asc).first
+      if not replacement and not self.confirmed_at.nil?
+        replacement = self.microcredit.loans.where(amount: self.amount).counted.not_confirmed.order(created_at: :asc).first
       end
-      if unconfirmed
+      if replacement
         must_count = true
       else
         must_count = self.microcredit.should_count?(amount, !self.confirmed_at.nil?)
@@ -106,20 +107,15 @@ class MicrocreditLoan < ActiveRecord::Base
     end
 
     if must_count
-      if unconfirmed
-        self.counted_at = unconfirmed.counted_at
-        unconfirmed.counted_at = nil
-
-        unconfirmed.skip_callbacks = self.skip_callbacks = true
+      if replacement
+        self.counted_at = replacement.counted_at
+        replacement.counted_at = nil
         MicrocreditLoan.transaction do
-          self.save if unconfirmed.save
+          self.save if replacement.save
         end
-        unconfirmed.skip_callbacks = self.skip_callbacks = false
       else
         self.counted_at = DateTime.now
-        self.skip_callbacks = true
         self.save
-        self.skip_callbacks = false
       end
     end
   end

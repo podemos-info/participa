@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415224156) do
+ActiveRecord::Schema.define(version: 20150420233814) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20150415224156) do
     t.datetime "counted_at"
     t.string   "ip"
     t.string   "document_vatid"
+    t.datetime "discarded_at"
   end
 
   add_index "microcredit_loans", ["document_vatid"], name: "index_microcredit_loans_on_document_vatid"
