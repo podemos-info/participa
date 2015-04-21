@@ -1,4 +1,4 @@
-<div style="margin:auto;width:<%=width%>"><canvas class="graph line" data-scope="microcredits-count" width="100" height="40"></canvas></div>
+<div style="margin:auto;width:<%=width%>"><canvas class="js-graph js-line" data-scope="microcredits-count" width="100" height="40"></canvas></div>
 <%
 parent = params[:id] ? Microcredit.find(params[:id]) : nil
 query = parent ? { microcredit: parent.id } : {}
@@ -10,12 +10,12 @@ counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upc
 days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%31}/#{i.to_i%366/31}/#{i.to_i/366}"] }
 %>    
 
-<table class="microcredits-count">
+<table class="js-microcredits-count">
   <th>Día</th>
-  <th class="serie">Suscritos</th>
-  <th class="serie">Visibles</th>
-  <th class="serie">Confirmados (por fecha de confirmación)</th>
-  <th class="serie">Confirmados (por fecha de suscripción)</th>
+  <th class="js-serie">Suscritos</th>
+  <th class="js-serie">Visibles</th>
+  <th class="js-serie">Confirmados (por fecha de confirmación)</th>
+  <th class="js-serie">Confirmados (por fecha de suscripción)</th>
 <% created_acum = counted_acum = confirmed_acum = confirmed_created_acum = 0 %>
 <% days.each do | key, text | 
     created_acum += (created[key] || 0)
@@ -23,12 +23,12 @@ days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.
     confirmed_acum += (confirmed[key] || 0)
     confirmed_created_acum += (confirmed_created[key] || 0)
   %>
-  <tr class="row">
-  <td class="label"><%=text%></td>
-  <td class="cell"><%=created_acum%></td>
-  <td class="cell"><%=counted_acum%></td>
-  <td class="cell"><%=confirmed_acum%></td>
-  <td class="cell"><%=confirmed_created_acum%></td>
+  <tr class="js-row">
+  <td class="js-label"><%=text%></td>
+  <td class="js-cell"><%=created_acum%></td>
+  <td class="js-cell"><%=counted_acum%></td>
+  <td class="js-cell"><%=confirmed_acum%></td>
+  <td class="js-js-cell"><%=confirmed_created_acum%></td>
   </tr>
 <% end %>
 </table>

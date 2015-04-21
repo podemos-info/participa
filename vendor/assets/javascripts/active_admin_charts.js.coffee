@@ -16,7 +16,7 @@ String::to_i = ->
 draw_chart = ($el) ->
   ctx = $el.get(0).getContext("2d")
   scope = $el.data("scope")
-  pie = $el.hasClass("pie")
+  pie = $el.hasClass("js-pie")
 
   options = {
     percentageInnerCutout : 20,
@@ -25,15 +25,15 @@ draw_chart = ($el) ->
     responsive: true
   }
 
-  graph_data = $("."+scope)
+  graph_data = $(".js-"+scope)
   chart = null
   if (pie)
-    data = ( {value: $(cell).text().to_i(), color: purple(i,1.0), highlight: green(0,1.0), label: $(cell).data("label") } for cell, i in $(".cell", graph_data))
+    data = ( {value: $(cell).text().to_i(), color: purple(i,1.0), highlight: green(0,1.0), label: $(cell).data("label") } for cell, i in $(".js-cell", graph_data))
     options["legendTemplate"] = "<ul style=\"list-style-type: none;\" class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;<%if(segments[i].label){%><%=segments[i].label%> (<%=segments[i].value%>)<%}%></li><%}%></ul>"
     chart = new Chart(ctx).Pie(data,options)
   else
-    series = ($(serie).data("label")||$(serie).text() for serie in $(".serie", graph_data))
-    grid = (($(cell).text().to_i() for cell in $(".cell", row)) for row in $(".row", graph_data))
+    series = ($(serie).data("label")||$(serie).text() for serie in $(".js-serie", graph_data))
+    grid = (($(cell).text().to_i() for cell in $(".js-cell", row)) for row in $(".js-row", graph_data))
     series_data = grid[0].map (col, i) -> grid.map (row) -> row[i]
     datasets = ( {
         label: serie,
@@ -45,7 +45,7 @@ draw_chart = ($el) ->
         pointHighlightStroke: all(i,1.0),
         data: series_data[i]
       } for serie, i in series)
-    data = { labels: $(label).text().trim() for label in $(".label", graph_data), datasets: datasets }
+    data = { labels: $(label).text().trim() for label in $(".js-label", graph_data), datasets: datasets }
 
     options["legendTemplate"] = "<ul style=\"list-style-type: none;\" class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
     chart = new Chart(ctx).Line(data,options)
@@ -53,5 +53,5 @@ draw_chart = ($el) ->
   $el.after(chart.generateLegend())
   
 $ ->
-  $(".graph").each ->
+  $(".js-graph").each ->
     draw_chart $(this)

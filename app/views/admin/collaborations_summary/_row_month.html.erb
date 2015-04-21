@@ -1,17 +1,17 @@
-<tr class="row">
+<tr class="js-row">
   <% date = DateTime.new(year, month, 1) %>
-  <td class="label">
+  <td class="js-label">
     <%= date.month %> / <%= date.year %>
   </td>
   <td>
-    <span class="cell"><%= Order.to_be_paid.by_month_count(date) %></span> / 
-    <span class="cell"><%= Order.errors.by_month_count(date) %></span> / 
-    <span class="cell"><%= Order.paid.by_month_count(date) %></span>
+    <span class="js-cell"><%= Order.to_be_paid.by_month_count(date) %></span> / 
+    <span class="js-cell"><%= Order.errors.by_month_count(date) %></span> / 
+    <span class="js-cell"><%= Order.paid.by_month_count(date) %></span>
   </td>
   <td>
-    <span class="cell"><%= number_to_currency(Order.to_be_paid.by_month_amount(date)) %></span> /
-    <span class="cell"><%= number_to_currency(Order.errors.by_month_amount(date)) %></span> /
-    <span class="cell"><%= number_to_currency(Order.paid.by_month_amount(date)) %></span>
+    <span class="js-cell"><%= number_to_currency(Order.to_be_paid.by_month_amount(date)) %></span> /
+    <span class="js-cell"><%= number_to_currency(Order.errors.by_month_amount(date)) %></span> /
+    <span class="js-cell"><%= number_to_currency(Order.paid.by_month_amount(date)) %></span>
   </td>
   <td>
     <%= link_to "Descargar", "#" %>
