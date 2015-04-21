@@ -11,4 +11,12 @@ ActiveAdmin.register_page "microcredits_summary" do
     end
   end
 
+  controller do
+    private
+
+    def authorize_access!
+      authorize! :read, Microcredit
+    end
+  end
+
 end
