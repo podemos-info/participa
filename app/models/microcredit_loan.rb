@@ -75,7 +75,7 @@ class MicrocreditLoan < ActiveRecord::Base
   def town_name
     _country = Carmen::Country.coded(self.country)
     _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
-    _town = _prov.subregions.coded(self.town) if _prov and _prov.subregions
+    _town = _prov.subregions.coded(self.town) if _prov and not _prov.subregions.empty?
     if _town
       _town.name
     else
