@@ -63,7 +63,7 @@ class CollaborationsController < ApplicationController
     redirect_to new_collaboration_path unless @collaboration
     if not @collaboration.is_active?
       if @collaboration.is_credit_card?
-        @collaboration.set_warning! "Se ha visitado la página de que la colaboración está pagada pero no consta el pago."
+        @collaboration.set_warning! "Marcada como alerta porque se ha visitado la página de que la colaboración está pagada pero no consta el pago."
       else
         @collaboration.set_active!
       end

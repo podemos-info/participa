@@ -77,7 +77,7 @@ class Collaboration < ActiveRecord::Base
   end
   
   def check_spanish_bic
-    self.set_warning! "Código de entidad inválido o no encontrado en la base de datos de BICs españoles." if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
+    self.set_warning! "Marcada como alerta porque el número de cuenta indica un código de entidad inválido o no encontrado en la base de datos de BICs españoles." if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
   def validates_not_passport
@@ -239,7 +239,7 @@ class Collaboration < ActiveRecord::Base
   def payment_processed! order
     if order.is_paid?
       if order.has_warnings?
-        self.set_warning! "Se han producido alertas al procesar el pago."
+        self.set_warning! "Marcada como alerta porque se han producido alertas al procesar el pago."
       else
         self.set_ok!
       end
@@ -248,7 +248,7 @@ class Collaboration < ActiveRecord::Base
         self.update_attributes redsys_identifier: order.payment_identifier, redsys_expiration: order.redsys_expiration
       end
     elsif self.has_payment?
-      self.set_error! "Error al procesar el pago."
+      self.set_error! "Marcada como error porque se ha producido un error al procesar el pago."
     end
   end
 
@@ -261,9 +261,9 @@ class Collaboration < ActiveRecord::Base
 
     if self.is_payable?
       if error
-        self.set_error! "Orden devuelta con código asociado a error en la colaboración."
+        self.set_error! "Marcada como error porque se ha devuelto una orden con código asociado a error en la colaboración."
       elsif warn
-        self.set_warning! "Orden devuelta con código asociado a alerta en la colaboración."
+        self.set_warning! "Marcada como alerta porque se ha devuelto una orden con código asociado a alerta en la colaboración."
       elsif self.order.count >= MAX_RETURNED_ORDERS
         last_order = self.last_order_for(Date.today)
         if last_order
@@ -271,7 +271,7 @@ class Collaboration < ActiveRecord::Base
         else
           last_month = self.created_at.unique_month
         end
-        self.set_error! "Superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
+        self.set_error! "Marcada como error porque se ha superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
     end
   end
@@ -367,7 +367,7 @@ class Collaboration < ActiveRecord::Base
 
   def fix_status!
     if not self.valid? and not self.has_errors?
-      self.set_error! "La colaboración no supera todas las validaciones."
+      self.set_error! "Marcada como error porque la colaboración no supera todas las validaciones antes de generar su orden."
       true
     else
       false
