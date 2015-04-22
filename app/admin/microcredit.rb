@@ -31,10 +31,10 @@ ActiveAdmin.register Microcredit do
     end
     column :progress do |m|
       ["<strong>Total: #{number_to_euro m.total_goal*100, 0}</strong>",
-        "&cross;:&nbsp;#{number_to_euro(m.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_unconfirmed_amount/m.total_goal).round(2)}%)",
-        "&check;:&nbsp;#{number_to_euro(m.campaign_confirmed_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_confirmed_amount/m.total_goal).round(2)}%)",
-        "&ominus;:&nbsp;#{number_to_euro(m.campaign_not_counted_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_not_counted_amount/m.total_goal).round(2)}%)",
-        "&oplus;:&nbsp;#{number_to_euro(m.campaign_counted_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_counted_amount/m.total_goal).round(2)}%)"].join("<br/>").html_safe
+        "&cross;:&nbsp;#{number_to_euro(m.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_unconfirmed_amount/m.total_goal, precision: 2})",
+        "&check;:&nbsp;#{number_to_euro(m.campaign_confirmed_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_confirmed_amount/m.total_goal, precision: 2})",
+        "&ominus;:&nbsp;#{number_to_euro(m.campaign_not_counted_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_not_counted_amount/m.total_goal, precision: 2})",
+        "&oplus;:&nbsp;#{number_to_euro(m.campaign_counted_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_counted_amount/m.total_goal, precision: 2})"].join("<br/>").html_safe
     end
     actions
   end

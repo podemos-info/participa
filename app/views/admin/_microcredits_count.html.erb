@@ -10,12 +10,14 @@ counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upc
 days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%31}/#{i.to_i%366/31}/#{i.to_i/366}"] }
 %>    
 
-<table class="js-microcredits-count">
-  <th>Día</th>
-  <th class="js-serie">Suscritos</th>
-  <th class="js-serie">Visibles</th>
-  <th class="js-serie">Confirmados (por fecha de confirmación)</th>
-  <th class="js-serie">Confirmados (por fecha de suscripción)</th>
+<table class="js-microcredits-count data_table">
+  <tr>
+    <th>Día</th>
+    <th class="js-serie">Suscritos</th>
+    <th class="js-serie">Visibles</th>
+    <th class="js-serie">Confirmados<br/>(por fecha de confirmación)</th>
+    <th class="js-serie">Confirmados<br/>(por fecha de suscripción)</th>
+  </tr>
 <% created_acum = counted_acum = confirmed_acum = confirmed_created_acum = 0 %>
 <% days.each do | key, text | 
     created_acum += (created[key] || 0)

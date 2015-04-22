@@ -10,19 +10,24 @@ counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upc
 days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%31}/#{i.to_i%366/31}/#{i.to_i/366}"] }
 %>    
 
-<table class="js-microcredits-amounts">
-  <th>Día</th>
-  <th class="js-serie">Suscritos</th>
-  <th class="js-serie">Visibles</th>
-  <th class="js-serie">Confirmados (por fecha de confirmación)</th>
-  <th class="js-serie">Confirmados (por fecha de suscripción)</th>
-<% created_acum = counted_acum = confirmed_acum = confirmed_created_acum = 0 %>
-<% days.each do | key, text | 
-    created_acum += (created[key] || 0)
-    counted_acum += (counted[key] || 0)
-    confirmed_acum += (confirmed[key] || 0)
-    confirmed_created_acum += (confirmed_created[key] || 0)
-  %>
+<table class="js-microcredits-amounts data_table">
+  <tr>
+    <th>Día</th>
+    <th class="js-serie">Suscritos</th>
+    <th class="js-serie">Visibles</th>
+    <th class="js-serie">Confirmados<br/>(por fecha de confirmación)</th>
+    <th class="js-serie">Confirmados<br/>(por fecha de suscripción)</th>
+    <th>% confirmado<br/>(dia/acumulado)</th>
+  </tr>
+<% 
+created_acum = counted_acum = confirmed_acum = confirmed_created_acum = 0  
+created.default = counted.default = confirmed.default = confirmed_created.default = 0
+days.each do | key, text | 
+  created_acum += created[key]
+  counted_acum += counted[key]
+  confirmed_acum += confirmed[key]
+  confirmed_created_acum += confirmed_created[key]
+%>
 
   <tr class="js-row">
   <td class="js-label"><%=text%></td>
@@ -30,6 +35,7 @@ days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.
   <td class="js-cell"><%=number_to_euro counted_acum*100, 0%></td>
   <td class="js-cell"><%=number_to_euro confirmed_acum*100, 0%></td>
   <td class="js-cell"><%=number_to_euro confirmed_created_acum*100, 0%></td>
+  <td><%=created[key]==0 ? "&infin;".html_safe : number_to_percentage(100*confirmed_created[key]/created[key], precision:2)%> / <%= created_acum==0 ? "&infin;".html_safe : number_to_percentage(100*confirmed_created_acum/created_acum, precision:2)%></td>
   </tr>
 <% end %>
 </table>
