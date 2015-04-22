@@ -41,6 +41,7 @@ ActiveAdmin.register Microcredit do
 
   form do |f|
     f.inputs do
+      f.semantic_errors *f.object.errors.keys
       if can? :admin, Microcredit
         f.input :title
         f.input :starts_at
@@ -156,8 +157,14 @@ ActiveAdmin.register Microcredit do
       if can? :admin, Microcredit
         super
       else
+        current_phase_total = resource.phase_limit_amount
         resource.limits = params[:microcredit].map {|k,v| "#{k[13..-1]} #{v.to_i} " if k.start_with?("single_limit_") } .join ""
-        super
+        if resource.phase_limit_amount != current_phase_total
+          resource.errors.add(:limits, "La suma total de la fase debe permanecer constante en #{current_phase_total}€.")
+          show!
+        else
+          super
+        end
       end
     end
   end
