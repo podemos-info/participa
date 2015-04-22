@@ -97,6 +97,7 @@ ActiveAdmin.register Microcredit do
           "&ominus;:&nbsp;#{number_to_euro(microcredit.campaign_not_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_not_counted_amount/microcredit.total_goal).round(2)}%)",
           "&oplus;:&nbsp;#{number_to_euro(microcredit.campaign_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_counted_amount/microcredit.total_goal).round(2)}%)"].join("<br/>").html_safe
       end
+      row :reset_at
       row :created_at
       row :updated_at
     end
@@ -147,7 +148,7 @@ ActiveAdmin.register Microcredit do
   end
 
   member_action :change_phase, :method => :post do
-    Microcredit.find(params[:id]).change_phase
+    Microcredit.find(params[:id]).change_phase!
     flash[:notice] = "La campaña ha cambiado de fase."
     redirect_to action: :show
   end

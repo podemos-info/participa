@@ -137,11 +137,12 @@ class Microcredit < ActiveRecord::Base
     self.campaign_confirmed_amount>=self.total_goal
   end
 
-  def change_phase
-    self.reset_at = DateTime.now
-    save
-    self.loans.where.not(confirmed_at:nil).where(counted_at:nil).each do |loan|
-      loan.update_counted_at
+  def change_phase!
+    if self.update_attribute(:reset_at, DateTime.now)
+      @phase_status = nil # resets phase status
+      self.loans.where.not(confirmed_at:nil).where(counted_at:nil).each do |loan|
+        loan.update_counted_at
+      end
     end
   end
 
