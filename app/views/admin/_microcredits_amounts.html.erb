@@ -35,7 +35,7 @@ days.each do | key, text |
   <td class="js-cell"><%=number_to_euro counted_acum*100, 0%></td>
   <td class="js-cell"><%=number_to_euro confirmed_acum*100, 0%></td>
   <td class="js-cell"><%=number_to_euro confirmed_created_acum*100, 0%></td>
-  <td><%=created[key]==0 ? "&infin;".html_safe : number_to_percentage(100*confirmed_created[key]/created[key], precision:2)%> / <%= created_acum==0 ? "&infin;".html_safe : number_to_percentage(100*confirmed_created_acum/created_acum, precision:2)%></td>
+  <td><%=created[key]==0 ? "&infin;".html_safe : number_to_percentage(100.0*confirmed_created[key]/created[key], precision:2)%> / <%= created_acum==0 ? "&infin;".html_safe : number_to_percentage(100.0*confirmed_created_acum/created_acum, precision:2)%></td>
   </tr>
 <% end %>
 </table>
