@@ -140,7 +140,9 @@ ActiveAdmin.register Microcredit do
   end
 
   action_item :only => :show do
-    link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas cambiar de fase en esta campaña?" })
+    if resource.phase_remaining.sum(&:last)==0
+      link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas cambiar de fase en esta campaña?" })
+    end
   end
 
   member_action :change_phase, :method => :post do
