@@ -77,12 +77,7 @@ class Collaboration < ActiveRecord::Base
   end
   
   def check_spanish_bic
-    self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
-  end
-
-  def set_active
-    self.status=2 if self.status < 2
-    self.save
+    self.set_warning! "Código de entidad inválido o no encontrado en la base de datos de BICs españoles." if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
   def validates_not_passport
@@ -244,19 +239,17 @@ class Collaboration < ActiveRecord::Base
   def payment_processed! order
     if order.is_paid?
       if order.has_warnings?
-        self.status = 4
+        self.set_warning! "Se han producido alertas al procesar el pago."
       else
-        self.status = 3
+        self.set_ok!
       end
 
       if self.is_credit_card? and order.first
-        self.redsys_identifier = order.payment_identifier
-        self.redsys_expiration = order.redsys_expiration
+        self.update_attributes redsys_identifier: order.payment_identifier, redsys_expiration: order.redsys_expiration
       end
     elsif self.has_payment?
-      self.status = 1
+      self.set_error! "Error al procesar el pago."
     end
-    self.save
   end
 
   MAX_RETURNED_ORDERS = 2
@@ -268,9 +261,9 @@ class Collaboration < ActiveRecord::Base
 
     if self.is_payable?
       if error
-        self.set_error
+        self.set_error! "Orden devuelta con código asociado a error en la colaboración."
       elsif warn
-        self.set_warning
+        self.set_warning! "Orden devuelta con código asociado a alerta en la colaboración."
       elsif self.order.count >= MAX_RETURNED_ORDERS
         last_order = self.last_order_for(Date.today)
         if last_order
@@ -278,9 +271,8 @@ class Collaboration < ActiveRecord::Base
         else
           last_month = self.created_at.unique_month
         end
-        self.set_error if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
+        self.set_error! "Superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
-      self.save
     end
   end
 
@@ -292,12 +284,22 @@ class Collaboration < ActiveRecord::Base
     self.status==1
   end
 
-  def set_error
-    self.status = 1
+  def set_error! reason
+    self.update_attribute :status, 1
+    self.add_comment reason
   end
 
-  def set_warning
-    self.status = 4
+  def set_active!
+    self.update_attribute(:status, 2) if self.status < 2
+  end
+
+  def set_ok!
+    self.update_attribute :status, 3
+  end
+
+  def set_warning! reason
+    self.update_attribute :status, 4
+    self.add_comment reason
   end
 
   def must_have_order? date
@@ -365,7 +367,7 @@ class Collaboration < ActiveRecord::Base
 
   def fix_status!
     if not self.valid? and not self.has_errors?
-      self.update_attribute :status, 1
+      self.set_error! "La colaboración no supera todas las validaciones."
       true
     else
       false

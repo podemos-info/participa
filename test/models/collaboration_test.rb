@@ -47,16 +47,16 @@ class CollaborationTest < ActiveSupport::TestCase
 
   test "should .set_active work" do
     @collaboration.update_attribute(:status, 0)
-    @collaboration.set_active 
+    @collaboration.set_active!
     assert_equal( 2, @collaboration.status)
     @collaboration.update_attribute(:status, 1)
-    @collaboration.set_active 
+    @collaboration.set_active!
     assert_equal( 2, @collaboration.status)
     @collaboration.update_attribute(:status, 3)
-    @collaboration.set_active 
+    @collaboration.set_active!
     assert_equal( 3, @collaboration.status)
     @collaboration.update_attribute(:status, 4)
-    @collaboration.set_active 
+    @collaboration.set_active!
     assert_equal( 4, @collaboration.status)
   end
 
@@ -349,8 +349,13 @@ class CollaborationTest < ActiveSupport::TestCase
     assert_not @collaboration.has_errors?
   end
 
-  test "should .set_warning work" do
-    @collaboration.set_warning
+  test "should .set_error! work" do
+    @collaboration.set_error! "Prueba de error"
+    assert_equal @collaboration.status, 1
+  end
+
+  test "should .set_warning! work" do
+    @collaboration.set_warning! "Prueba de warning"
     assert_equal @collaboration.status, 4
   end
 
