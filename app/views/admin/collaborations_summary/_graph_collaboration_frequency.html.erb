@@ -1,0 +1,7 @@
+<canvas class="js-graph js-pie" data-scope="collaboration-freq" width="300" height="300"></canvas>
+
+<div class="js-collaboration-freq">
+<div class="hide js-cell" data-label="Mensual"><%= Collaboration.frequency_month.count%></div>
+<div class="hide js-cell" data-label="Trimestral"><%= Collaboration.frequency_quarterly.count%></div>
+<div class="hide js-cell" data-label="Anual"><%= Collaboration.frequency_anual.count%></div>
+</div>

@@ -7,6 +7,7 @@ class Microcredit < ActiveRecord::Base
 
   # example: "100€: 100\r500€: 22\r1000€: 10"
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
+  validate :check_limits_with_phase
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
@@ -106,6 +107,12 @@ class Microcredit < ActiveRecord::Base
     limits.map do |k,v| k*v end .sum
   end
 
+  def check_limits_with_phase
+    if self.limits.any? { |amount, limit| limit < self.phase_current_for_amount(amount) }
+      self.errors.add(:limits, "No puedes establecer un limite para un monto por debajo de los microcréditos visibles en la web con ese monto en la fase actual.")
+    end
+  end
+
   def phase_counted_amount
     phase_status.collect {|x| x[0]*x[3] if x[2] } .compact.sum
   end
@@ -130,11 +137,12 @@ class Microcredit < ActiveRecord::Base
     self.campaign_confirmed_amount>=self.total_goal
   end
 
-  def change_phase
-    self.reset_at = DateTime.now
-    save
-    self.loans.where.not(confirmed_at:nil).where(counted_at:nil).each do |loan|
-      loan.update_counted_at
+  def change_phase!
+    if self.update_attribute(:reset_at, DateTime.now)
+      @phase_status = nil # resets phase status
+      self.loans.where.not(confirmed_at:nil).where(counted_at:nil).each do |loan|
+        loan.update_counted_at
+      end
     end
   end
 

@@ -15,12 +15,14 @@ class Ability
       can :admin, Microcredit
       can :admin, MicrocreditLoan
 
-      if not user.superadmin?
+      if !user.superadmin?
         cannot :manage, Election
         cannot :manage, Notice
         cannot :manage, ReportGroup
         cannot :manage, SpamFilter
+        can :read, Election
       end
+
     else
       cannot :manage, :all
       cannot :manage, Resque

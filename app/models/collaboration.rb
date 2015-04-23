@@ -28,27 +28,27 @@ class Collaboration < ActiveRecord::Base
   validate :validates_age_over
   validate :validates_has_user
 
-  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :is_bank_national?
-  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :is_bank_national?
-  validate :validates_ccc, if: :is_bank_national?
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, numericality: true, if: :has_ccc_account?
+  validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :has_ccc_account?
+  validate :validates_ccc, if: :has_ccc_account?
 
-  validates :iban_account, :iban_bic, presence: true, if: :is_bank_international?
-  validate :validates_iban, if: :is_bank_international?
+  validates :iban_account, :iban_bic, presence: true, if: :has_iban_account?
+  validate :validates_iban, if: :has_iban_account?
 
-  AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000}
+  AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
   FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
   scope :created, -> { where(deleted_at: nil)  }
   scope :credit_cards, -> { created.where(payment_type: 1)}
   scope :banks, -> { created.where.not(payment_type: 1)}
-  scope :bank_nationals, -> { created.where(payment_type: 2)}
-  scope :bank_internationals, -> { created.where(payment_type: 3)}
+  scope :bank_nationals, -> { created.where.not(payment_type: 1).where.not("collaborations.payment_type = 3 and iban_account NOT LIKE ?", "ES%") }
+  scope :bank_internationals, -> { created.where(payment_type: 3).where("iban_account NOT LIKE ?", "ES%") }
   scope :frequency_month, -> { created.where(frequency: 1)}
   scope :frequency_quarterly, -> { created.where(frequency: 3)}
   scope :frequency_anual, -> { created.where(frequency: 12) }
   scope :amount_1, -> { created.where("amount < 1000")}
-  scope :amount_2, -> { created.where("amount > 1000 and amount < 2000")}
+  scope :amount_2, -> { created.where("amount >= 1000 and amount < 2000")}
   scope :amount_3, -> { created.where("amount > 2000")}
 
   scope :incomplete, -> { created.where(status: 0)}
@@ -77,12 +77,7 @@ class Collaboration < ActiveRecord::Base
   end
   
   def check_spanish_bic
-    self.status = 4 if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
-  end
-
-  def set_active
-    self.status=2 if self.status < 2
-    self.save
+    self.set_warning! "Marcada como alerta porque el número de cuenta indica un código de entidad inválido o no encontrado en la base de datos de BICs españoles." if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
   def validates_not_passport
@@ -92,7 +87,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_age_over
-    if self.user and self.user.born_at > Date.today-18.years
+    if self.user and self.user.born_at and self.user.born_at > Date.today-18.years
       self.errors.add(:user, "No puedes colaborar si eres menor de edad.")
     end
   end
@@ -106,7 +101,9 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_iban
-    unless IBANTools::IBAN.valid?(self.iban_account)
+    iban_validation = IBANTools::IBAN.valid?(self.iban_account)
+    ccc_validation = self.iban_account.start_with?("ES") ? BankCccValidator.validate(self.iban_account[4..-1]) : true
+    unless iban_validation and ccc_validation
       self.errors.add(:iban_account, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
     end
   end
@@ -120,11 +117,19 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_bank_national?
-    self.payment_type == 2
+    self.is_bank? and !self.is_bank_international?
   end
 
   def is_bank_international?
-    self.payment_type == 3
+    self.has_iban_account? and !self.iban_account.start_with?("ES")
+  end
+
+  def has_ccc_account?
+    self.payment_type==2
+  end
+
+  def has_iban_account?
+    self.payment_type==3
   end
 
   def payment_type_name
@@ -204,7 +209,6 @@ class Collaboration < ActiveRecord::Base
     end
 
     date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
-    user = User.find(self.user);
     order = Order.new do |o|
       o.user = self.user
       o.parent = self
@@ -212,17 +216,11 @@ class Collaboration < ActiveRecord::Base
       o.first = is_first
       o.amount = self.amount*self.frequency
       o.payable_at = date
-      o.payment_type = self.payment_type
+      o.payment_type = self.is_credit_card? ? 1 : 3
       o.payment_identifier = self.payment_identifier
-      if self.for_town_cc
-        o.town_code = user.vote_town
-      else
-        o.town_code = nil
-      end
-      if self.for_autonomy_cc
-        o.autonomy_code = user.vote_autonomy_code
-      else
-        o.autonomy_code = nil
+      if self.for_autonomy_cc and self.user and !self.user.vote_autonomy_code.empty?
+        o.autonomy_code = self.user.vote_autonomy_code
+        o.town_code = self.user.vote_town if self.for_town_cc
       end
     end
     order
@@ -231,7 +229,7 @@ class Collaboration < ActiveRecord::Base
   def payment_identifier
     if self.is_credit_card?
       self.redsys_identifier
-    elsif self.is_bank_national?
+    elsif self.has_ccc_account?
       "#{calculate_iban}/#{calculate_bic}"
     else
       "#{self.iban_account}/#{self.iban_bic}"
@@ -241,19 +239,17 @@ class Collaboration < ActiveRecord::Base
   def payment_processed! order
     if order.is_paid?
       if order.has_warnings?
-        self.status = 4
+        self.set_warning! "Marcada como alerta porque se han producido alertas al procesar el pago."
       else
-        self.status = 3
+        self.set_ok!
       end
 
       if self.is_credit_card? and order.first
-        self.redsys_identifier = order.payment_identifier
-        self.redsys_expiration = order.redsys_expiration
+        self.update_attributes redsys_identifier: order.payment_identifier, redsys_expiration: order.redsys_expiration
       end
     elsif self.has_payment?
-      self.status = 1
+      self.set_error! "Marcada como error porque se ha producido un error al procesar el pago."
     end
-    self.save
   end
 
   MAX_RETURNED_ORDERS = 2
@@ -265,9 +261,9 @@ class Collaboration < ActiveRecord::Base
 
     if self.is_payable?
       if error
-        self.set_error
+        self.set_error! "Marcada como error porque se ha devuelto una orden con código asociado a error en la colaboración."
       elsif warn
-        self.set_warning
+        self.set_warning! "Marcada como alerta porque se ha devuelto una orden con código asociado a alerta en la colaboración."
       elsif self.order.count >= MAX_RETURNED_ORDERS
         last_order = self.last_order_for(Date.today)
         if last_order
@@ -275,9 +271,8 @@ class Collaboration < ActiveRecord::Base
         else
           last_month = self.created_at.unique_month
         end
-        self.set_warning if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
+        self.set_error! "Marcada como error porque se ha superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
-      self.save
     end
   end
 
@@ -289,12 +284,22 @@ class Collaboration < ActiveRecord::Base
     self.status==1
   end
 
-  def set_error
-    self.status = 1
+  def set_error! reason
+    self.update_attribute :status, 1
+    self.add_comment reason
   end
 
-  def set_warning
-    self.status = 4
+  def set_active!
+    self.update_attribute(:status, 2) if self.status < 2
+  end
+
+  def set_ok!
+    self.update_attribute :status, 3
+  end
+
+  def set_warning! reason
+    self.update_attribute :status, 4
+    self.add_comment reason
   end
 
   def must_have_order? date
@@ -362,7 +367,7 @@ class Collaboration < ActiveRecord::Base
 
   def fix_status!
     if not self.valid? and not self.has_errors?
-      self.update_attribute :status, 1
+      self.set_error! "Marcada como error porque la colaboración no supera todas las validaciones antes de generar su orden."
       true
     else
       false

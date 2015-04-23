@@ -31,16 +31,17 @@ ActiveAdmin.register Microcredit do
     end
     column :progress do |m|
       ["<strong>Total: #{number_to_euro m.total_goal*100, 0}</strong>",
-        "&cross;:&nbsp;#{number_to_euro(m.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_unconfirmed_amount/m.total_goal).round(2)}%)",
-        "&check;:&nbsp;#{number_to_euro(m.campaign_confirmed_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_confirmed_amount/m.total_goal).round(2)}%)",
-        "&ominus;:&nbsp;#{number_to_euro(m.campaign_not_counted_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_not_counted_amount/m.total_goal).round(2)}%)",
-        "&oplus;:&nbsp;#{number_to_euro(m.campaign_counted_amount*100, 0)}&nbsp;(#{(100.0*m.campaign_counted_amount/m.total_goal).round(2)}%)"].join("<br/>").html_safe
+        "&cross;:&nbsp;#{number_to_euro(m.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_unconfirmed_amount/m.total_goal, precision: 2})",
+        "&check;:&nbsp;#{number_to_euro(m.campaign_confirmed_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_confirmed_amount/m.total_goal, precision: 2})",
+        "&ominus;:&nbsp;#{number_to_euro(m.campaign_not_counted_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_not_counted_amount/m.total_goal, precision: 2})",
+        "&oplus;:&nbsp;#{number_to_euro(m.campaign_counted_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_counted_amount/m.total_goal, precision: 2})"].join("<br/>").html_safe
     end
     actions
   end
 
   form do |f|
     f.inputs do
+      f.semantic_errors *f.object.errors.keys
       if can? :admin, Microcredit
         f.input :title
         f.input :starts_at
@@ -60,6 +61,61 @@ ActiveAdmin.register Microcredit do
       f.input :contact_phone
     end
     f.actions
+  end
+
+  show do
+    attributes_table do
+      row :id
+      row :title
+      row :slug
+      row :starts_at
+      row :ends_at
+      row :account_number
+      row :agreement_link
+      row :total_goal
+      row :limits do
+        ([ "<strong>Total&nbsp;fase:&nbsp;#{number_to_euro(microcredit.phase_limit_amount*100, 0)}</strong>" ] + microcredit.limits.map do |amount, limit|
+        "#{number_to_euro amount*100, 0}:&nbsp;#{limit}"
+        end).join("<br/>").html_safe
+      end
+      row :totals do
+        (microcredit.phase_status.group_by(&:first).map do |amount, info|
+          "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.sort{|a,b| a.gsub(/\d/,"")<=>b.gsub(/\d/,"")}.join "&nbsp;"}"
+        end + ["------"] + microcredit.campaign_status.group_by(&:first).map do |amount, info|
+          "#{number_to_euro amount*100, 0}:&nbsp;#{info.map {|x| "#{x[3]}#{x[1] ? '&check;' : '&cross;'}#{x[2] ? '&oplus;' : '&ominus;'}"}.sort{|a,b| a.gsub(/\d/,"")<=>b.gsub(/\d/,"")}.join "&nbsp;"}"
+        end).join("<br/>").html_safe
+      end
+      row :percentages do
+        ([ "<strong>Confianza:&nbsp;#{(microcredit.remaining_percent*100).round(2)}%</strong>" ] + microcredit.limits.map do |amount, limit|
+          "#{number_to_euro amount*100, 0}:&nbsp;#{(microcredit.current_percent(amount, false, 0)*100).round(2)}%"
+        end).join("<br/>").html_safe
+      end
+      row :progress do
+        ["<strong>Total: #{number_to_euro microcredit.total_goal*100, 0}</strong>",
+          "&cross;:&nbsp;#{number_to_euro(microcredit.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_unconfirmed_amount/microcredit.total_goal).round(2)}%)",
+          "&check;:&nbsp;#{number_to_euro(microcredit.campaign_confirmed_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_confirmed_amount/microcredit.total_goal).round(2)}%)",
+          "&ominus;:&nbsp;#{number_to_euro(microcredit.campaign_not_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_not_counted_amount/microcredit.total_goal).round(2)}%)",
+          "&oplus;:&nbsp;#{number_to_euro(microcredit.campaign_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_counted_amount/microcredit.total_goal).round(2)}%)"].join("<br/>").html_safe
+      end
+      row :reset_at
+      row :created_at
+      row :updated_at
+    end
+    panel "Evolución" do
+      columns do
+        column do 
+          panel "Evolución €" do 
+            render "admin/microcredits_amounts", width: "80%", height: "100"
+          end
+        end
+        column do 
+          panel "Evolución #" do 
+            render "admin/microcredits_count", width: "80%", height: "100"
+          end
+        end
+      end
+    end
+    active_admin_comments
   end
 
   filter :starts_at
@@ -86,11 +142,13 @@ ActiveAdmin.register Microcredit do
   end
 
   action_item :only => :show do
-    link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas cambiar de fase en esta campaña?" })
+    if resource.phase_remaining.sum(&:last)==0
+      link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas cambiar de fase en esta campaña?" })
+    end
   end
 
   member_action :change_phase, :method => :post do
-    Microcredit.find(params[:id]).change_phase
+    Microcredit.find(params[:id]).change_phase!
     flash[:notice] = "La campaña ha cambiado de fase."
     redirect_to action: :show
   end
@@ -100,8 +158,14 @@ ActiveAdmin.register Microcredit do
       if can? :admin, Microcredit
         super
       else
+        current_phase_total = resource.phase_limit_amount
         resource.limits = params[:microcredit].map {|k,v| "#{k[13..-1]} #{v.to_i} " if k.start_with?("single_limit_") } .join ""
-        super
+        if resource.phase_limit_amount != current_phase_total
+          resource.errors.add(:limits, "La suma total de la fase debe permanecer constante en #{current_phase_total}€.")
+          show!
+        else
+          super
+        end
       end
     end
   end

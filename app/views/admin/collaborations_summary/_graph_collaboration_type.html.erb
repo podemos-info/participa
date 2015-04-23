@@ -1,0 +1,7 @@
+<canvas class="js-graph js-pie" data-scope="collaboration-type" width="300" height="300"></canvas>
+
+<div class="js-collaboration-type">
+<div class="hide js-cell" data-label="Tarjetas de crédito/débito"><%= Collaboration.credit_cards.count%></div>
+<div class="hide js-cell" data-label="Banco nacional"><%= Collaboration.bank_nationals.count%></div>
+<div class="hide js-cell" data-label="Banco internacional"><%= Collaboration.bank_internationals.count%></div>
+</div>

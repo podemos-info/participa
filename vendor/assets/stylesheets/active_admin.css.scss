@@ -57,6 +57,14 @@ input[type="number"] {
   width: 6em !important;
   text-align: center;
 }
+
+
+.data_table {
+  width: inherit;
+  margin: auto;
+  th { text-align: center; min-width: 70px }
+  td { text-align: right; padding: 4px 15px }
+}
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //

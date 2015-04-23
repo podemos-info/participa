@@ -4,7 +4,6 @@ class MicrocreditLoan < ActiveRecord::Base
   belongs_to :microcredit
   belongs_to :user
 
-  attr_accessor :skip_callbacks
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
   validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
@@ -22,14 +21,15 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
-  scope :not_counted, -> { where(confirmed_at:nil) }
+  scope :not_counted, -> { where(counted_at:nil) }
   scope :counted, -> { where.not(counted_at:nil) }
   scope :not_confirmed, -> { where(confirmed_at:nil) }
   scope :confirmed, -> { where.not(confirmed_at:nil) }
-  scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or microcredit_loans.created_at>microcredits.reset_at or microcredit_loans.counted_at>microcredits.reset_at") }
-  scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }
+  scope :not_discarded, -> { where(discarded_at:nil) }
+  scope :discarded, -> { where.not(discarded_at:nil) }
 
-  after_save :update_counted_at, unless: :skip_callbacks
+  scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or (microcredit_loans.counted_at IS NULL and microcredit_loans.created_at>microcredits.reset_at) or microcredit_loans.counted_at>microcredits.reset_at") }
+  scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }
 
   after_initialize do |microcredit|
     if user
@@ -75,7 +75,7 @@ class MicrocreditLoan < ActiveRecord::Base
   def town_name
     _country = Carmen::Country.coded(self.country)
     _prov = _country.subregions.coded(self.province) if _country and self.province and not _country.subregions.empty?
-    _town = _prov.subregions.coded(self.town) if _prov
+    _town = _prov.subregions.coded(self.town) if _prov and not _prov.subregions.empty?
     if _town
       _town.name
     else
@@ -93,12 +93,13 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def update_counted_at
     must_count = false
-    unconfirmed = nil
-    if self.counted_at.nil?
-      unless self.confirmed_at.nil?
-        unconfirmed = self.microcredit.loans.where(amount: self.amount).counted.not_confirmed.order(created_at: :asc).first
+    replacement = nil
+    if self.counted_at.nil? and self.discarded_at.nil?
+      replacement = self.microcredit.loans.where(amount: self.amount).counted.discarded.order(created_at: :asc).first
+      if not replacement and not self.confirmed_at.nil?
+        replacement = self.microcredit.loans.where(amount: self.amount).counted.not_confirmed.order(created_at: :asc).first
       end
-      if unconfirmed
+      if replacement
         must_count = true
       else
         must_count = self.microcredit.should_count?(amount, !self.confirmed_at.nil?)
@@ -106,20 +107,15 @@ class MicrocreditLoan < ActiveRecord::Base
     end
 
     if must_count
-      if unconfirmed
-        self.counted_at = unconfirmed.counted_at
-        unconfirmed.counted_at = nil
-
-        unconfirmed.skip_callbacks = self.skip_callbacks = true
+      if replacement
+        self.counted_at = replacement.counted_at
+        replacement.counted_at = nil
         MicrocreditLoan.transaction do
-          self.save if unconfirmed.save
+          self.save if replacement.save
         end
-        unconfirmed.skip_callbacks = self.skip_callbacks = false
       else
         self.counted_at = DateTime.now
-        self.skip_callbacks = true
         self.save
-        self.skip_callbacks = false
       end
     end
   end
@@ -177,5 +173,9 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def self.total_counted_current
     MicrocreditLoan.upcoming_finished.counted.sum(:amount)
+  end
+
+  def possible_user
+    @possible_user ||= self.user.nil? && User.where(document_vatid: self.document_vatid).first
   end
 end

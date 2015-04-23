@@ -44,6 +44,7 @@ class MicrocreditController < ApplicationController
 
     @loan.transaction do
       if (current_user or verify_recaptcha) and @loan.save
+        @loan.update_counted_at
         UsersMailer.microcredit_email(@microcredit, @loan).deliver
         redirect_to microcredit_path, notice: 'En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!<br/>Si quieres ayudarnos a difundir esta campaña, <a href="http://twitter.com/home/?status=Acabo%20de%20suscribir%20un%20microcr%C3%A9dito%20Podemos%20para%20financiar%20la%20campa%C3%B1a%20electoral.%20Puedes%20invertir%20en%20el%20cambio%20en%20microcreditos.podemos.info">compártelo en Twitter</a>.'
       else

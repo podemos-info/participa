@@ -202,6 +202,10 @@ ActiveAdmin.register User do
   filter :province
   filter :country
   filter :circle
+  filter :vote_autonomy_in, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse), label: "Vote autonomy"
+  filter :vote_province_in, as: :select, collection: Carmen::Country.coded("ES").subregions.map{|x|[x.name, "p_#{(x.index+1).to_s.rjust(2,"0")}"]}, label: "Vote province"
+  filter :vote_island_in, as: :select, collection: Podemos::GeoExtra::ISLANDS.values.uniq.map(&:reverse), label: "Vote island"
+  filter :vote_town
   filter :current_sign_in_ip
   filter :last_sign_in_at
   filter :last_sign_in_ip
@@ -211,7 +215,6 @@ ActiveAdmin.register User do
   filter :sms_confirmed_at
   filter :sign_in_count
   filter :wants_participation
-  filter :vote_town
   filter :participation_team_id, as: :select, collection: ParticipationTeam.all
   filter :votes_election_id, as: :select, collection: Election.all
 

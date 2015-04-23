@@ -21,7 +21,7 @@ feature "Microcredits" do
     select('Madrid', :from=>'Provincia') 
     fill_in('Municipio', :with=>'Madrid') 
     #select('Madrid', :from=>'Municipio') 
-    fill_in('Postal code', :with => '28021') 
+    fill_in('Código postal', :with => '28021') 
     fill_in('Dirección', :with => 'C/El Muro, S/N') 
     fill_in('DNI o NIE', :with => user.document_vatid) 
     fill_in('Email', :with => 'john@snow.com') 

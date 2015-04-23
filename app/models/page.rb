@@ -7,9 +7,4 @@ class Page < ActiveRecord::Base
 
   acts_as_paranoid
 
-  after_save :reload_routes
-
-  def reload_routes
-    DynamicRouter.reload
-  end
 end

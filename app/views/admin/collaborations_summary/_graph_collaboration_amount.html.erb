@@ -1,0 +1,7 @@
+<canvas class="js-graph js-pie" data-scope="collaboration-amount" width="300" height="300"></canvas>
+
+<div class="js-collaboration-amount">
+<div class="hide js-cell" data-label="Menor a 10 €"><%= Collaboration.amount_1.count%></div>
+<div class="hide js-cell" data-label="Entre 10 y 20 €"><%= Collaboration.amount_2.count%></div>
+<div class="hide js-cell" data-label="Mayor a 20 €"><%= Collaboration.amount_3.count%></div>
+</div>

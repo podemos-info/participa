@@ -96,6 +96,7 @@ es:
         last_name: "Apellidos"
         document_vatid: "DNI o NIE"
         address: "Dirección"
+        postal_code: "Código postal"
         minimal_year_old: "Edad mínima requerida" 
         terms_of_service: "Acuerdo legal"
         amount: "Importe"
@@ -105,6 +106,7 @@ es:
         created_at: "Fecha de suscripción"
         confirmed_at: "Fecha de confirmación"
         counted_at: "Fecha de aparición en la web"
+        discarded_at: "Fecha de descarte"
         all: "Todos"
         id: "Identificador"
       collaboration: 

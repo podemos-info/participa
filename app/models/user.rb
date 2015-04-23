@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
   def validates_unconfirmed_phone_uniqueness
     if self.unconfirmed_phone.present? 
       if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
-        self.update_attribute(:unconfirmed_phone, nil)
         self.errors.add(:phone, "Ya hay alguien con ese número de teléfono")
       end
     end
@@ -151,6 +150,25 @@ class User < ActiveRecord::Base
   scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where(wants_participation: true) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
+
+  ransacker :vote_province, formatter: proc { |value|
+    Carmen::Country.coded("ES").subregions[(value[2..3].to_i-1)].subregions.map {|r| r.code }
+  } do |parent|
+    parent.table[:vote_town]
+  end
+
+  ransacker :vote_autonomy, formatter: proc { |value|
+    spain = Carmen::Country.coded("ES")
+    Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..3].to_i-1].subregions.map {|r| r.code } if v[0]==value } .compact.flatten
+  } do |parent|
+    parent.table[:vote_town]
+  end
+
+  ransacker :vote_island, formatter: proc { |value|
+    Podemos::GeoExtra::ISLANDS.map {|k,v| k if v[0]==value} .compact
+  } do |parent|
+    parent.table[:vote_town]
+  end
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
@@ -267,7 +285,7 @@ class User < ActiveRecord::Base
           filter = SpamFilter.any? self
           if filter
             self.update_attribute(:banned, true)
-            ActiveAdmin::Comment.create(author:nil, resource: self, namespace:'admin', body:"Usuario baneado automáticamente por el filtro: #{filter}")
+            self.add_comment("Usuario baneado automáticamente por el filtro: #{filter}")
           end
         end
       end

@@ -5,9 +5,9 @@ class Order < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  belongs_to :parent, polymorphic: true
-  belongs_to :collaboration, -> { where(orders: {parent_type: 'Collaboration'}) }, foreign_key: 'parent_id'
-  belongs_to :user
+  belongs_to :parent, -> { with_deleted }, polymorphic: true
+  belongs_to :collaboration, -> { with_deleted.joins(:order).where(orders: {parent_type: 'Collaboration'}) }, foreign_key: 'parent_id'
+  belongs_to :user, -> { with_deleted }
 
   attr_accessor :raw_xml
   validates :payment_type, :amount, :payable_at, presence: true
@@ -15,8 +15,8 @@ class Order < ActiveRecord::Base
   STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4, "Devuelta" => 5}
   PAYMENT_TYPES = {
     "Suscripción con Tarjeta de Crédito/Débito" => 1, 
-    "Domiciliación en cuenta bancaria (CCC)" => 2, 
-    "Domiciliación en cuenta extranjera (IBAN)" => 3 
+    "Domiciliación en cuenta bancaria (formato CCC)" => 2, 
+    "Domiciliación en cuenta bancaria (formato IBAN)" => 3 
   }
 
   PARENT_CLASSES = {
@@ -85,13 +85,21 @@ class Order < ActiveRecord::Base
   end
 
   def is_bank_national?
-    self.payment_type == 2
+    self.is_bank? and !self.is_bank_international?
   end
 
   def is_bank_international?
-    self.payment_type == 3
+    self.has_iban_account? and !self.payment_identifier.start_with("ES")
   end
-  
+
+  def has_ccc_account?
+    self.payment_type==2
+  end
+
+  def has_iban_account?
+    self.payment_type==3
+  end
+
   def error_message
     if self.payment_type == 1
       return self.redsys_text_status
