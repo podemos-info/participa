@@ -283,11 +283,13 @@ class CollaborationTest < ActiveSupport::TestCase
     order1 = @collaboration.create_order DateTime.now-1.month
     assert order1.save
     assert_equal(order1, @collaboration.first_order)
-    assert_equal(order1.payment_type, @collaboration.payment_type)
+    assert_equal "Domiciliación en cuenta bancaria (formato IBAN)", order1.payment_type_name
+    assert_equal "Domiciliación en cuenta bancaria (formato CCC)", @collaboration.payment_type_name
     assert_equal(order1.amount, @collaboration.amount)
     order2 = @collaboration.create_order DateTime.now
     assert order2.save
-    assert_equal(order2.payment_type, @collaboration.payment_type)
+    assert_equal "Domiciliación en cuenta bancaria (formato IBAN)", order2.payment_type_name
+    assert_equal "Domiciliación en cuenta bancaria (formato CCC)", @collaboration.payment_type_name
     assert_equal(order2.amount, @collaboration.amount)
   end
 
@@ -374,6 +376,15 @@ class CollaborationTest < ActiveSupport::TestCase
     @collaboration.created_at = date + 1.day
     assert_not @collaboration.must_have_order? Date.today
 
+  end
+
+  test "should .must_have_order? work for trimestral" do                       
+    @collaboration.update_attribute(:payment_type, 1)
+    @collaboration.update_attribute(:frequency, 3)
+    assert @collaboration.must_have_order? Date.today                          
+    order = @collaboration.create_order Date.today              
+    assert order.valid?                                                        
+    assert_not @collaboration.must_have_order? Date.today+15.days
   end
 
   test "should .get_orders work" do
