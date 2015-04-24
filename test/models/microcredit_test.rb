@@ -11,8 +11,11 @@ class MicrocreditTest < ActiveSupport::TestCase
     @microcredit = FactoryGirl.create(:microcredit)
   end
 
-  def create_loans( microcredit, number, data ) 
-    (1..number.to_i).each {|n| microcredit.loans.create(data) }
+  def create_loans( microcredit, number, data, update_counted=true ) 
+    (1..number.to_i).each do |n| 
+      loan = microcredit.loans.create(data)
+      loan.update_counted_at if update_counted
+    end
   end
 
   test "should validation on limits on microcredits work" do
@@ -81,7 +84,7 @@ class MicrocreditTest < ActiveSupport::TestCase
     resp = [[100, false, true, 7]]
     assert_equal resp, @microcredit.phase_status
 
-    @microcredit.change_phase
+    @microcredit.change_phase!
     @microcredit = Microcredit.find @microcredit.id
     resp = []
     assert_equal resp, @microcredit.phase_status
@@ -146,7 +149,7 @@ class MicrocreditTest < ActiveSupport::TestCase
     @microcredit = Microcredit.find @microcredit.id
     assert_equal 31000, @microcredit.phase_limit_amount
 
-    @microcredit.change_phase 
+    @microcredit.change_phase!
     @microcredit = Microcredit.find @microcredit.id
     assert_equal 31000, @microcredit.phase_limit_amount
   end
@@ -165,7 +168,7 @@ class MicrocreditTest < ActiveSupport::TestCase
     @microcredit = Microcredit.find @microcredit.id
     assert_equal 1800, @microcredit.phase_counted_amount
 
-    @microcredit.change_phase 
+    @microcredit.change_phase!
     @microcredit = Microcredit.find @microcredit.id
     assert_equal 0, @microcredit.phase_counted_amount
   end
@@ -203,9 +206,9 @@ class MicrocreditTest < ActiveSupport::TestCase
     assert_equal 2300, @microcredit.campaign_counted_amount
   end
 
-  test "should .change_phase work" do 
+  test "should .change_phase! work" do 
     assert_nil @microcredit.reset_at
-    @microcredit.change_phase
+    @microcredit.change_phase!
     assert_not_nil @microcredit.reset_at
 
     # TO-DO: check update_counted_at counts confirmed uncounted loans

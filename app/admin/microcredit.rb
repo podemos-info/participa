@@ -26,7 +26,7 @@ ActiveAdmin.register Microcredit do
     end
     column :percentages do |m|
       ([ "<strong>Confianza:&nbsp;#{(m.remaining_percent*100).round(2)}%</strong>" ] + m.limits.map do |amount, limit|
-        "#{number_to_euro amount*100, 0}:&nbsp;#{(m.current_percent(amount, false, 0)*100).round(2)}%"
+        "#{number_to_euro amount*100, 0}:&nbsp;#{(m.current_percent(amount, 0)*100).round(2)}%"
       end).join("<br/>").html_safe
     end
     column :progress do |m|
@@ -87,7 +87,7 @@ ActiveAdmin.register Microcredit do
       end
       row :percentages do
         ([ "<strong>Confianza:&nbsp;#{(microcredit.remaining_percent*100).round(2)}%</strong>" ] + microcredit.limits.map do |amount, limit|
-          "#{number_to_euro amount*100, 0}:&nbsp;#{(microcredit.current_percent(amount, false, 0)*100).round(2)}%"
+          "#{number_to_euro amount*100, 0}:&nbsp;#{(microcredit.current_percent(amount, 0)*100).round(2)}%"
         end).join("<br/>").html_safe
       end
       row :progress do
