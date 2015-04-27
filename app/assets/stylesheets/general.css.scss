@@ -2234,6 +2234,13 @@ div.help {
           padding: 1em 1em;
         }
       }
+      .subgoals {
+        margin: -13px 0px -18px 13px;
+        font-size: 10px;
+        li {
+          list-style-type: disc;
+        }
+      }
     }
   }
 }
