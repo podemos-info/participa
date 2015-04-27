@@ -27,6 +27,7 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :not_discarded, -> { where(discarded_at:nil) }
   scope :discarded, -> { where.not(discarded_at:nil) }
+  scope :ignore_discarded, -> { where("discarded_at is null or counted_at is not null") }
 
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or (microcredit_loans.counted_at IS NULL and microcredit_loans.created_at>microcredits.reset_at) or microcredit_loans.counted_at>microcredits.reset_at") }
   scope :upcoming_finished, -> { joins(:microcredit).merge(Microcredit.upcoming_finished) }

@@ -11,8 +11,11 @@ class MicrocreditTest < ActiveSupport::TestCase
     @microcredit = FactoryGirl.create(:microcredit)
   end
 
-  def create_loans( microcredit, number, data ) 
-    (1..number.to_i).each {|n| microcredit.loans.create(data) }
+  def create_loans( microcredit, number, data, update_counted=true ) 
+    (1..number.to_i).each do |n| 
+      loan = microcredit.loans.create(data)
+      loan.update_counted_at if update_counted
+    end
   end
 
   test "should validation on limits on microcredits work" do
