@@ -54,12 +54,12 @@ class Microcredit < ActiveRecord::Base
 
   def campaign_status
     # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
-    @campaign_status ||= loans.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
+    @campaign_status ||= loans.ignore_discarded.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
   end
 
   def phase_status
     # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
-    @phase_status ||= loans.phase.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
+    @phase_status ||= loans.ignore_discarded.phase.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
   end
 
   def remaining_percent
@@ -68,10 +68,11 @@ class Microcredit < ActiveRecord::Base
     progress*time
   end
 
-  def current_percent amount, confirmed, add
-    current = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed} .compact.sum + add
-    current_counted = campaign_status.collect {|x| x[3] if x[0]==amount and x[1] == confirmed and x[2]} .compact.sum
-    current == 0 ? 0 : (1.0*current_counted+add)/current
+  def current_percent amount, add
+    remaining = self.remaining_percent
+    current = campaign_status.collect {|x| x[3]*(x[1] ? remaining : 1.0) if x[0]==amount} .compact.sum + add
+    current_counted = campaign_status.collect {|x| x[3]*(x[1] ? remaining : 1.0) if x[0]==amount and x[2]} .compact.sum
+    current == 0 ? 0 : (current_counted+add)/current
   end
 
   def has_amount_available? amount
@@ -89,7 +90,7 @@ class Microcredit < ActiveRecord::Base
       return true
     else
       percent = self.remaining_percent
-      (current_percent(amount, false, 1)-percent).abs<(current_percent(amount, false, 0)-percent).abs
+      (current_percent(amount, 1)-percent).abs<(current_percent(amount, 0)-percent).abs
     end
   end
 
