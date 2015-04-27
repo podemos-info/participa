@@ -192,6 +192,11 @@ ActiveAdmin.register MicrocreditLoan do
     column :email
     column :first_name
     column :last_name
+    column :address
+    column :postal_code
+    column :town_name
+    column :province_name
+    column :country_name
     column :amount
     column :created_at
     column :counted_at
