@@ -780,6 +780,10 @@ tools
     padding: 10px;
     text-align: center;
     margin: 8%;
+    p {
+      max-width: 650px;
+      margin: 15px auto;
+    }
     .button {
       margin: 5px;
       display: inline-block;

@@ -6,8 +6,8 @@
   <div class="modal-dialog">
     <div>    
       <h2>Microcréditos Podemos - <%=@microcredit.title%></h2>
-      <p>Si tienes usuario en el Portal de Participación, te recomendamos que <%= link_to "accedas con tu usuario", microcredit_login_path%> para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro.</p>
-      <div class="buttonbox"><%= link_to "Acceder con tu usuario", microcredit_login_path, class:"button"%>&nbsp;&nbsp; &nbsp;&nbsp;<a class="close button">Continuar</a></div>
+      <p>Te recomendamos que <%= link_to "accedas con tu usuario del Portal de Participación", microcredit_login_path%> para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro.</p>
+      <div class="buttonbox"><a class="close button">Continuar sin identificarse</a>&nbsp;&nbsp; &nbsp;&nbsp;<%= link_to "Acceder con tu usuario", microcredit_login_path, class:"button"%></div>
     </div>
   </div>
 <% end %>
