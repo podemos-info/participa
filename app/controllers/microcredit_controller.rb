@@ -19,6 +19,11 @@ class MicrocreditController < ApplicationController
     end
   end
 
+  def login
+    authenticate_user!
+    redirect_to new_microcredit_loan_path(params[:id])
+  end
+
   def new_loan
     @microcredit = Microcredit.find(params[:id])
     redirect_to microcredit_path unless @microcredit and @microcredit.is_active?
