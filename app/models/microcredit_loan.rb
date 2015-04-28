@@ -163,7 +163,7 @@ class MicrocreditLoan < ActiveRecord::Base
       self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
     end
   end
-  
+
   def self.count_current
     MicrocreditLoan.upcoming_finished.ignore_discarded.count
   end
@@ -176,6 +176,10 @@ class MicrocreditLoan < ActiveRecord::Base
     MicrocreditLoan.upcoming_finished.ignore_discarded.counted.count
   end
 
+  def self.count_discarded_current
+    MicrocreditLoan.upcoming_finished.discarded.count
+  end
+
   def self.amount_current
     MicrocreditLoan.upcoming_finished.ignore_discarded.sum(:amount)
   end
@@ -186,6 +190,14 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def self.amount_counted_current
     MicrocreditLoan.upcoming_finished.ignore_discarded.counted.sum(:amount)
+  end
+
+  def self.amount_discarded_current
+    MicrocreditLoan.upcoming_finished.discarded.sum(:amount)
+  end
+
+  def self.amount_discarded_counted_current
+    MicrocreditLoan.upcoming_finished.discarded.counted.sum(:amount)
   end
 
   def self.unique_current

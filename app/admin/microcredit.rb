@@ -139,13 +139,13 @@ ActiveAdmin.register Microcredit do
 
   sidebar "Estadísticas últimas campañas", only: :index, priority: 0 do
     ul do
-      li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100}"
-      li "Suscrito: #{number_to_euro MicrocreditLoan.amount_current*100}<br/>Microcréditos: #{MicrocreditLoan.count_current}<br/>Donantes: #{MicrocreditLoan.unique_current}".html_safe
-      li "Visibles: #{number_to_euro MicrocreditLoan.amount_counted_current*100}<br/>Microcréditos: #{MicrocreditLoan.count_counted_current}<br/>Donantes: #{MicrocreditLoan.unique_counted_current}".html_safe
-      li "Confirmados: #{number_to_euro MicrocreditLoan.amount_confirmed_current*100}<br/>Microcréditos: #{MicrocreditLoan.count_confirmed_current}<br/>Donantes: #{MicrocreditLoan.unique_confirmed_current}".html_safe
+      li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100,2}"
+      li "Suscrito: #{number_to_euro MicrocreditLoan.amount_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_current}<br/>Donantes: #{MicrocreditLoan.unique_current}".html_safe
+      li "Visibles: #{number_to_euro MicrocreditLoan.amount_counted_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_counted_current}<br/>Donantes: #{MicrocreditLoan.unique_counted_current}".html_safe
+      li "Confirmados: #{number_to_euro MicrocreditLoan.amount_confirmed_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_confirmed_current}<br/>Donantes: #{MicrocreditLoan.unique_confirmed_current}".html_safe
+      li "Descartados: #{number_to_euro MicrocreditLoan.amount_discarded_current*100,2}<br/>Visibles: #{number_to_euro MicrocreditLoan.amount_discarded_counted_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_discarded_current}".html_safe
     end
   end
-
 
   action_item :only => :show do
     if resource.phase_remaining.sum(&:last)==0
