@@ -30,11 +30,13 @@ ActiveAdmin.register Microcredit do
       end).join("<br/>").html_safe
     end
     column :progress do |m|
-      ["<strong>Total: #{number_to_euro m.total_goal*100, 0}</strong>",
-        "&cross;:&nbsp;#{number_to_euro(m.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_unconfirmed_amount/m.total_goal, precision: 2})",
-        "&check;:&nbsp;#{number_to_euro(m.campaign_confirmed_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_confirmed_amount/m.total_goal, precision: 2})",
-        "&ominus;:&nbsp;#{number_to_euro(m.campaign_not_counted_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_not_counted_amount/m.total_goal, precision: 2})",
-        "&oplus;:&nbsp;#{number_to_euro(m.campaign_counted_amount*100, 0)}&nbsp;(#{number_to_percentage 100.0*m.campaign_counted_amount/m.total_goal, precision: 2})"].join("<br/>").html_safe
+        ["<strong>Objetivo: #{number_to_euro m.total_goal*100, 0}",
+          "#{m.campaign_created_count}:&nbsp;#{number_to_euro(m.campaign_created_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*m.campaign_created_amount/m.total_goal, precision:2)})</strong>",
+          "#{m.campaign_confirmed_count}&check;:&nbsp;#{number_to_euro(m.campaign_confirmed_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*m.campaign_confirmed_amount/m.campaign_created_amount, precision:2)})",
+          "#{m.campaign_unconfirmed_count}&cross;:&nbsp;#{number_to_euro(m.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*m.campaign_unconfirmed_amount/m.campaign_created_amount, precision:2)})",
+          "#{m.campaign_counted_count}&oplus;:&nbsp;#{number_to_euro(m.campaign_counted_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*m.campaign_counted_amount/m.campaign_created_amount, precision:2)})",
+          "#{m.campaign_not_counted_count}&ominus;:&nbsp;#{number_to_euro(m.campaign_not_counted_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*m.campaign_not_counted_amount/m.campaign_created_amount, precision:2)})"
+          ].join("<br/>").html_safe
     end
     actions
   end
@@ -47,6 +49,7 @@ ActiveAdmin.register Microcredit do
         f.input :starts_at
         f.input :ends_at
         f.input :limits
+        f.input :subgoals
         f.input :account_number
         f.input :agreement_link
         f.input :total_goal, step: 100
@@ -91,11 +94,13 @@ ActiveAdmin.register Microcredit do
         end).join("<br/>").html_safe
       end
       row :progress do
-        ["<strong>Total: #{number_to_euro microcredit.total_goal*100, 0}</strong>",
-          "&cross;:&nbsp;#{number_to_euro(microcredit.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_unconfirmed_amount/microcredit.total_goal).round(2)}%)",
-          "&check;:&nbsp;#{number_to_euro(microcredit.campaign_confirmed_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_confirmed_amount/microcredit.total_goal).round(2)}%)",
-          "&ominus;:&nbsp;#{number_to_euro(microcredit.campaign_not_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_not_counted_amount/microcredit.total_goal).round(2)}%)",
-          "&oplus;:&nbsp;#{number_to_euro(microcredit.campaign_counted_amount*100, 0)}&nbsp;(#{(100.0*microcredit.campaign_counted_amount/microcredit.total_goal).round(2)}%)"].join("<br/>").html_safe
+        ["<strong>Objetivo: #{number_to_euro microcredit.total_goal*100, 0}",
+          "#{microcredit.campaign_created_count}:&nbsp;#{number_to_euro(microcredit.campaign_created_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*microcredit.campaign_created_amount/microcredit.total_goal, precision:2)})</strong>",
+          "#{microcredit.campaign_confirmed_count}&check;:&nbsp;#{number_to_euro(microcredit.campaign_confirmed_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*microcredit.campaign_confirmed_amount/microcredit.campaign_created_amount, precision:2)})",
+          "#{microcredit.campaign_unconfirmed_count}&cross;:&nbsp;#{number_to_euro(microcredit.campaign_unconfirmed_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*microcredit.campaign_unconfirmed_amount/microcredit.campaign_created_amount, precision:2)})",
+          "#{microcredit.campaign_counted_count}&oplus;:&nbsp;#{number_to_euro(microcredit.campaign_counted_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*microcredit.campaign_counted_amount/microcredit.campaign_created_amount, precision:2)})",
+          "#{microcredit.campaign_not_counted_count}&ominus;:&nbsp;#{number_to_euro(microcredit.campaign_not_counted_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*microcredit.campaign_not_counted_amount/microcredit.campaign_created_amount, precision:2)})"
+          ].join("<br/>").html_safe
       end
       row :reset_at
       row :created_at
@@ -134,10 +139,11 @@ ActiveAdmin.register Microcredit do
 
   sidebar "Estadísticas últimas campañas", only: :index, priority: 0 do
     ul do
-      li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100}"
-      li "Suscritos: #{number_to_euro MicrocreditLoan.total_current*100} (#{MicrocreditLoan.upcoming_finished.count})"
-      li "Visibles: #{number_to_euro MicrocreditLoan.total_counted_current*100} (#{MicrocreditLoan.upcoming_finished.counted.count})"
-      li "Confirmados: #{number_to_euro MicrocreditLoan.total_confirmed_current*100} (#{MicrocreditLoan.upcoming_finished.confirmed.count})"      
+      li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100,2}"
+      li "Suscrito: #{number_to_euro MicrocreditLoan.amount_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_current}<br/>Donantes: #{MicrocreditLoan.unique_current}".html_safe
+      li "Visibles: #{number_to_euro MicrocreditLoan.amount_counted_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_counted_current}<br/>Donantes: #{MicrocreditLoan.unique_counted_current}".html_safe
+      li "Confirmados: #{number_to_euro MicrocreditLoan.amount_confirmed_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_confirmed_current}<br/>Donantes: #{MicrocreditLoan.unique_confirmed_current}".html_safe
+      li "Descartados: #{number_to_euro MicrocreditLoan.amount_discarded_current*100,2}<br/>Visibles: #{number_to_euro MicrocreditLoan.amount_discarded_counted_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_discarded_current}".html_safe
     end
   end
 
@@ -172,7 +178,7 @@ ActiveAdmin.register Microcredit do
 
   permit_params do
     if can? :admin, Microcredit
-      [:title, :starts_at, :ends_at, :limits, :account_number, :total_goal, :contact_phone, :agreement_link]
+      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link]
     else
       [:contact_phone]
     end
