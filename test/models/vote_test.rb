@@ -78,7 +78,7 @@ class VoteTest < ActiveSupport::TestCase
     assert(v.test_url.length > 64)
     result = Net::HTTP.get(URI.parse(v.test_url))
     assert(result.include? "IE10 viewport hack for Surface/desktop Windows 8 bug")
-    WebMock.disable_net_connect!
+    WebMock.disable_net_connect!(allow_localhost: true)
     # no podemos comprobar más ya que en agoravoting no permiten ejecutarlo sin JS
   end
 
