@@ -164,16 +164,52 @@ class MicrocreditLoan < ActiveRecord::Base
     end
   end
 
-  def self.total_current
-    MicrocreditLoan.upcoming_finished.sum(:amount)
+  def self.count_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.count
   end
 
-  def self.total_confirmed_current
-    MicrocreditLoan.upcoming_finished.confirmed.sum(:amount)
+  def self.count_confirmed_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.confirmed.count
   end
 
-  def self.total_counted_current
-    MicrocreditLoan.upcoming_finished.counted.sum(:amount)
+  def self.count_counted_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.counted.count
+  end
+
+  def self.count_discarded_current
+    MicrocreditLoan.upcoming_finished.discarded.count
+  end
+
+  def self.amount_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.sum(:amount)
+  end
+
+  def self.amount_confirmed_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.confirmed.sum(:amount)
+  end
+
+  def self.amount_counted_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.counted.sum(:amount)
+  end
+
+  def self.amount_discarded_current
+    MicrocreditLoan.upcoming_finished.discarded.sum(:amount)
+  end
+
+  def self.amount_discarded_counted_current
+    MicrocreditLoan.upcoming_finished.discarded.counted.sum(:amount)
+  end
+
+  def self.unique_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.distinct(:document_vatid).count(:document_vatid)
+  end
+
+  def self.unique_confirmed_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.confirmed.distinct(:document_vatid).count(:document_vatid)
+  end
+
+  def self.unique_counted_current
+    MicrocreditLoan.upcoming_finished.ignore_discarded.counted.distinct(:document_vatid).count(:document_vatid)
   end
 
   def possible_user

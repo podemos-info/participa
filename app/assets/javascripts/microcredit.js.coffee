@@ -75,3 +75,10 @@ $ ->
 
     $(document.body).on "change", 'select#microcredit_loan_province', ->
       show_towns country_selector.val(), $(this).val()
+
+  $(".modal-dialog").each ->
+    dialog = $(this)
+    $(".close", dialog).on "click", ->
+      dialog.hide()
+    dialog.show()
+

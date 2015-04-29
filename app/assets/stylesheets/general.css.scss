@@ -766,10 +766,36 @@ tools
   left:0; right:0;
 }
 
+.modal-dialog {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: rgba(0.3,0.3,0.3, 0.5);
+  >div {
+    background: white;
+    padding: 10px;
+    text-align: center;
+    margin: 8%;
+    p {
+      max-width: 650px;
+      margin: 15px auto;
+    }
+    .button {
+      margin: 5px;
+      display: inline-block;
+    }
+  }
+}
+
 /* -----------------------------------
 microcredits
 ----------------------------------- */
 .microcredits-wrapper {
+
   &.completed {
     >div {
       margin: 3em 1em;
@@ -2232,6 +2258,13 @@ div.help {
         font-size: 0.8em;
         a {
           padding: 1em 1em;
+        }
+      }
+      .subgoals {
+        margin: -13px 0px -18px 13px;
+        font-size: 10px;
+        li {
+          list-style-type: disc;
         }
       }
     }

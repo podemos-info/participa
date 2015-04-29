@@ -118,6 +118,10 @@ class Microcredit < ActiveRecord::Base
     phase_status.collect {|x| x[0]*x[3] if x[2] } .compact.sum
   end
 
+  def campaign_created_amount
+    campaign_status.collect {|x| x[0]*x[3] } .compact.sum
+  end
+
   def campaign_unconfirmed_amount
     campaign_status.collect {|x| x[0]*x[3] if not x[1] } .compact.sum
   end
@@ -132,6 +136,26 @@ class Microcredit < ActiveRecord::Base
 
   def campaign_counted_amount
     campaign_status.collect {|x| x[0]*x[3] if x[2] } .compact.sum
+  end
+
+  def campaign_created_count
+    campaign_status.collect {|x| x[3] } .compact.sum
+  end
+
+  def campaign_unconfirmed_count
+    campaign_status.collect {|x| x[3] if not x[1] } .compact.sum
+  end
+
+  def campaign_confirmed_count
+    campaign_status.collect {|x| x[3] if x[1] } .compact.sum
+  end
+
+  def campaign_not_counted_count
+    campaign_status.collect {|x| x[3] if not x[2] } .compact.sum
+  end
+
+  def campaign_counted_count
+    campaign_status.collect {|x| x[3] if x[2] } .compact.sum
   end
 
   def completed
@@ -158,5 +182,9 @@ class Microcredit < ActiveRecord::Base
 
   def self.total_current_amount
     Microcredit.upcoming_finished.sum(:total_goal)
+  end
+
+  def subgoals
+    @subgoals ||= YAML.load(self[:subgoals]) if self[:subgoals]
   end
 end
