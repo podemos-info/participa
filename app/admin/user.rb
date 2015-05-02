@@ -335,12 +335,29 @@ ActiveAdmin.register User do
     end
   end
 
-  collection_action :download_participation_teams_tsv, :method => :get do
-    users = User.participation_team
+  sidebar "Equipos de participación", only: :index, priority: 0 do
+    form action: download_participation_teams_admin_users_path, method: :post do
+      input :name => :authenticity_token, :type => :hidden, :value => form_authenticity_token.to_s
+      div class: :filter_form_field do
+        label "Fecha de inicio"
+        input name: :date, type: :date, placeholder:"dd/mm/aaaa", pattern:'\d{1,2}/\d{1,2}/\d{4}'
+      end
+      div class: :buttons do
+        input :type => :submit, value: "Descargar"
+      end
+    end
+  end
+
+  collection_action :download_participation_teams, :method => :post do
+    if params[:date].nil? or params[:date].empty?
+      date = DateTime.civil(1900,1,1)
+    else  
+      date = DateTime.parse(params[:date])
+    end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Círculo", "Email", "Equipos"]
-      users.each do |user| 
+      User.participation_team.where("participation_team_at>?", date).each do |user| 
         csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle, user.email, user.participation_team.map { |team| team.name }.join(",") ]
       end
     end
@@ -348,10 +365,6 @@ ActiveAdmin.register User do
     send_data csv.encode('utf-8'),
       type: 'text/tsv; charset=utf-8; header=present',
       disposition: "attachment; filename=podemos.participationteams.#{Date.today.to_s}.csv"
-  end
-
-  action_item only: :index do
-    link_to('Descargar Equipos de participación', params.merge(:action => :download_participation_teams_tsv))
   end
 
   sidebar :report, only: :index do
