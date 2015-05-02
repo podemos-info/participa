@@ -92,6 +92,7 @@ Rails.application.routes.draw do
     } 
 
     get '/microcreditos', to: 'microcredit#index', as: 'microcredit'
+    get '/microcréditos', to: redirect('/microcreditos')
     get '/microcreditos/provincias', to: 'microcredit#provinces'
     get '/microcreditos/municipios', to: 'microcredit#towns'
     get '/microcreditos/informacion', to: 'microcredit#info', as: 'microcredits_info'
