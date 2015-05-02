@@ -11,7 +11,7 @@
       Los Equipos de Acción Participativa son la gran apuesta del Área de Participación. Nuestra intención es crear cientos de Equipos para estimular la participación y reforzar la movilización en los municipios. Nuestra principal tarea será ayudar a canalizar en el territorio los proyectos y campañas que ideemos colectivamente, teniendo la labor de contribuir a plasmar en el terreno las grandes ideas y proyectos que se proponen e impulsan en los espacios de participación en red, así como servir de apoyo a todo el tejido social local que requiera de nuestra colaboración. 
       </p>
 
-<% if current_user.wants_participation %>
+<% if !current_user.participation_team_at.nil? %>
      <p><a class="show_info" href="#">Mostrar más información sobre los Equipos de Acción Participativa</a><a class="show_teams" href="#">Mostrar equipos temáticos</a>
       </p>
      <div id="participation_teams">
@@ -80,7 +80,7 @@
 
       <p><%= link_to "Ver la Guía del Área de Participación", "http://podemos.info/guia-del-area-de-participacion/" %></p>
 
-      <% if current_user.wants_participation %>
+      <% if !current_user.participation_team_at.nil? %>
         <p><a class="show_teams" href="#">Mostrar equipos temáticos</a></p>
       <% end %>
     </div>

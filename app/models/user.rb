@@ -148,7 +148,7 @@ class User < ActiveRecord::Base
   scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) } 
   scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
   scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
-  scope :participation_team, -> { includes(:participation_team).where(wants_participation: true) }
+  scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
 
   ransacker :vote_province, formatter: proc { |value|

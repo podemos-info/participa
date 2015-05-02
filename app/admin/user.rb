@@ -159,6 +159,7 @@ ActiveAdmin.register User do
       row :current_sign_in_ip
       row :remember_created_at
       row :deleted_at
+      row :participation_team_at
     end
 
     panel "Votos" do
@@ -173,7 +174,8 @@ ActiveAdmin.register User do
       end
     end    
 
-    if user.wants_participation
+    if !user.participation_team_at.nil?
+
       panel "Equipos de Acción Participativa" do
         if user.participation_team.any?
           table_for user.participation_team do
