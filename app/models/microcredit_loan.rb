@@ -146,12 +146,7 @@ class MicrocreditLoan < ActiveRecord::Base
   def check_user_limits
     limit = self.microcredit.loans.where(ip:self.ip).count>50
     if not limit
-      if self.user
-        loans = self.microcredit.loans.where(user:self.user).pluck(:amount)
-      else
-        limit = User.where("lower(document_vatid) = ?", self.document_vatid).count>0
-        loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount) if not limit
-      end
+      loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount)
       limit = ((loans.length>=15) or (loans.sum + self.amount>10000)) if not limit and self.amount
     end
 

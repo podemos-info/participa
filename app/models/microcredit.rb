@@ -54,12 +54,12 @@ class Microcredit < ActiveRecord::Base
 
   def campaign_status
     # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
-    @campaign_status ||= loans.ignore_discarded.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
+    @campaign_status ||= loans.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "discarded_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "discarded_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), (x[3]==true||x[3]==1), x[4]] }
   end
 
   def phase_status
     # field IS NOT NULL returns integer on SQLite and boolean in postgres, so both values are checked and converted to boolean
-    @phase_status ||= loans.ignore_discarded.phase.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), x[3]] }
+    @phase_status ||= loans.phase.group(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "discarded_at IS NOT NULL").pluck(:amount, "confirmed_at IS NOT NULL", "counted_at IS NOT NULL", "discarded_at IS NOT NULL", "COUNT(*)").sort_by(&:first).map {|x| [x[0], (x[1]==true||x[1]==1), (x[2]==true||x[2]==1), (x[3]==true||x[3]==1), x[4]] }
   end
 
   def remaining_percent
@@ -70,18 +70,17 @@ class Microcredit < ActiveRecord::Base
 
   def current_percent amount, add
     remaining = self.remaining_percent
-    current = campaign_status.collect {|x| x[3]*(x[1] ? remaining*remaining : 1.0) if x[0]==amount} .compact.sum + add
-    current_counted = campaign_status.collect {|x| x[3]*(x[1] ? remaining*remaining : 1.0) if x[0]==amount and x[2]} .compact.sum
+    current = campaign_status.collect {|x| x[4]*(x[1] ? remaining*remaining : 1.0) if x[0]==amount and (not x[3] or x[2])} .compact.sum + add
+    current_counted = campaign_status.collect {|x| x[4]*(x[1] ? remaining*remaining : 1.0) if x[0]==amount and x[2]} .compact.sum
     current == 0 ? 0 : (current_counted+add)/current
   end
 
   def has_amount_available? amount
-    current = phase_status.collect {|x| x[3] if x[0]==amount and x[2] } .compact.sum
+    current = phase_status.collect {|x| x[4] if x[0]==amount and x[2] } .compact.sum
     limits[amount] and limits[amount] > current
   end
 
   def should_count? amount, confirmed
-    
     # check that there is any remaining loan for this amount and phase
     remaining = phase_remaining(amount)
     return false if (remaining and remaining.first.last<=0)
@@ -95,12 +94,12 @@ class Microcredit < ActiveRecord::Base
   end
 
   def phase_current_for_amount amount
-    phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum
+    phase_status.collect {|x| x[4] if x[0]==amount and x[2]} .compact.sum
   end
 
   def phase_remaining filter_amount=nil
     limits.map do |amount, limit|
-      [amount, [0, limit-phase_status.collect {|x| x[3] if x[0]==amount and x[2]} .compact.sum].max ] if filter_amount.nil? or filter_amount==amount
+      [amount, [0, limit-phase_status.collect {|x| x[4] if x[0]==amount and x[2]} .compact.sum].max ] if filter_amount.nil? or filter_amount==amount
     end .compact
   end
 
@@ -115,47 +114,55 @@ class Microcredit < ActiveRecord::Base
   end
 
   def phase_counted_amount
-    phase_status.collect {|x| x[0]*x[3] if x[2] } .compact.sum
+    phase_status.collect {|x| x[0]*x[4] if x[2] } .compact.sum
   end
 
   def campaign_created_amount
-    campaign_status.collect {|x| x[0]*x[3] } .compact.sum
+    campaign_status.collect {|x| x[0]*x[4] } .compact.sum
   end
 
   def campaign_unconfirmed_amount
-    campaign_status.collect {|x| x[0]*x[3] if not x[1] } .compact.sum
+    campaign_status.collect {|x| x[0]*x[4] if not x[1] } .compact.sum
   end
 
   def campaign_confirmed_amount
-    campaign_status.collect {|x| x[0]*x[3] if x[1] } .compact.sum
+    campaign_status.collect {|x| x[0]*x[4] if x[1] } .compact.sum
   end
 
   def campaign_not_counted_amount
-    campaign_status.collect {|x| x[0]*x[3] if not x[2] } .compact.sum
+    campaign_status.collect {|x| x[0]*x[4] if not x[2] } .compact.sum
   end
 
   def campaign_counted_amount
-    campaign_status.collect {|x| x[0]*x[3] if x[2] } .compact.sum
+    campaign_status.collect {|x| x[0]*x[4] if x[2] } .compact.sum
+  end
+
+  def campaign_discarded_amount
+    campaign_status.collect {|x| x[0]*x[4] if x[3] } .compact.sum
   end
 
   def campaign_created_count
-    campaign_status.collect {|x| x[3] } .compact.sum
+    campaign_status.collect {|x| x[4] } .compact.sum
   end
 
   def campaign_unconfirmed_count
-    campaign_status.collect {|x| x[3] if not x[1] } .compact.sum
+    campaign_status.collect {|x| x[4] if not x[1] } .compact.sum
   end
 
   def campaign_confirmed_count
-    campaign_status.collect {|x| x[3] if x[1] } .compact.sum
+    campaign_status.collect {|x| x[4] if x[1] } .compact.sum
   end
 
   def campaign_not_counted_count
-    campaign_status.collect {|x| x[3] if not x[2] } .compact.sum
+    campaign_status.collect {|x| x[4] if not x[2] } .compact.sum
   end
 
   def campaign_counted_count
-    campaign_status.collect {|x| x[3] if x[2] } .compact.sum
+    campaign_status.collect {|x| x[4] if x[2] } .compact.sum
+  end
+
+  def campaign_discarded_count
+    campaign_status.collect {|x| x[4] if x[3] } .compact.sum
   end
 
   def completed
