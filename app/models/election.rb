@@ -55,6 +55,10 @@ class Election < ActiveRecord::Base
     end
   end
 
+  def has_valid_user_created_at? user
+    self.user_created_at_max.nil? or self.user_created_at_max < user.created_at
+  end
+
   def current_total_census
     case self.scope
       when 0 then User.confirmed.not_banned.count
