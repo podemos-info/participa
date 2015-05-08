@@ -189,8 +189,14 @@ ActiveAdmin.register MicrocreditLoan do
       loan.microcredit.title
     end
     column :document_vatid
+    column :email
     column :first_name
     column :last_name
+    column :address
+    column :postal_code
+    column :town_name
+    column :province_name
+    column :country_name
     column :amount
     column :created_at
     column :counted_at

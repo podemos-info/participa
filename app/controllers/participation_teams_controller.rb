@@ -13,7 +13,7 @@ class ParticipationTeamsController < InheritedResources::Base
 				current_user.save
 			end
 		else
-			current_user.update_attribute(:wants_participation, true)
+			current_user.update_attribute(:participation_team_at, DateTime.now)
 			flash[:notice] = "Te damos la bienvienida a los Equipos de Acción Participativa. En los próximos días nos pondremos en contacto contigo."
 		end			
 		redirect_to participation_teams_path
@@ -27,7 +27,7 @@ class ParticipationTeamsController < InheritedResources::Base
 				current_user.save
 			end
 		else
-			current_user.update_attribute(:wants_participation, false)
+			current_user.update_attribute(:participation_team_at, nil)
 			flash[:notice] = "Te has dado de baja de los Equipos de Acción Participativa"
 		end 
 		redirect_to participation_teams_path

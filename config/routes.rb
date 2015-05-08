@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get '/comision-de-garantias-democraticas', to: 'page#guarantees', as: 'guarantees'
     get '/comision-de-garantias-democraticas/comunicacion', to: 'page#guarantees_form', as: 'guarantees_form'
 
+    get '/gente-por-el-cambio', to: redirect('/equipos-de-accion-participativa')
     get '/equipos-de-accion-participativa', to: 'participation_teams#index', as: 'participation_teams'
     put '/equipos-de-accion-participativa/entrar(/:team_id)', to: 'participation_teams#join', as: 'participation_teams_join'
     put '/equipos-de-accion-participativa/dejar(/:team_id)', to: 'participation_teams#leave', as: 'participation_teams_leave'
@@ -92,10 +93,12 @@ Rails.application.routes.draw do
     } 
 
     get '/microcreditos', to: 'microcredit#index', as: 'microcredit'
+    get '/microcréditos', to: redirect('/microcreditos')
     get '/microcreditos/provincias', to: 'microcredit#provinces'
     get '/microcreditos/municipios', to: 'microcredit#towns'
     get '/microcreditos/informacion', to: 'microcredit#info', as: 'microcredits_info'
     get '/microcreditos/:id', to: 'microcredit#new_loan', as: :new_microcredit_loan
+    get '/microcreditos/:id/login', to: 'microcredit#login', as: :microcredit_login
     post '/microcreditos/:id', to: 'microcredit#create_loan', as: :create_microcredit_loan
     
     authenticate :user do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420233814) do
+ActiveRecord::Schema.define(version: 20150508094502) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150420233814) do
     t.integer  "scope"
     t.string   "info_url"
     t.string   "server"
+    t.date     "user_created_at_max"
   end
 
   create_table "friendly_id_slugs", force: true do |t|
@@ -123,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150420233814) do
     t.string   "contact_phone"
     t.integer  "total_goal"
     t.string   "slug"
+    t.text     "subgoals"
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
@@ -301,6 +303,7 @@ ActiveRecord::Schema.define(version: 20150420233814) do
     t.boolean  "wants_participation"
     t.string   "vote_town"
     t.integer  "flags",                    default: 0,  null: false
+    t.datetime "participation_team_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

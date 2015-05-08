@@ -4,52 +4,45 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, "Equipos de Acción Participativa") %>
 
-      <br>
-      <br>
-
-      <p>
-      Los Equipos de Acción Participativa son la gran apuesta del Área de Participación. Nuestra intención es crear cientos de Equipos para estimular la participación y reforzar la movilización en los municipios. Nuestra principal tarea será ayudar a canalizar en el territorio los proyectos y campañas que ideemos colectivamente, teniendo la labor de contribuir a plasmar en el terreno las grandes ideas y proyectos que se proponen e impulsan en los espacios de participación en red, así como servir de apoyo a todo el tejido social local que requiera de nuestra colaboración. 
+  <% if !current_user.participation_team_at.nil? %>
+     <p><a class="show_info" href="#">Mostrar más información sobre los Equipos de Acción Participativa</a> <a class="show_teams" href="#">Mostrar equipos temáticos</a>
       </p>
-
-<% if current_user.wants_participation %>
-     <p><a class="show_info" href="#">Mostrar más información sobre los Equipos de Acción Participativa</a><a class="show_teams" href="#">Mostrar equipos temáticos</a>
-      </p>
-     <div id="participation_teams">
-      <h3>Enlaces de Participación</h3>
-      <p>Si indicas que participas en algún Círculo, contaremos contigo como enlace de participación de este, lo que nos permitirá informar y dinamizar en los círculos las iniciativas de participación que desarrollemos y asegurarnos de que exista una buena coordinación.</p>
-      <%= semantic_form_for current_user, url: participation_teams_update_user_path do |f| %>
-        <fieldset>
-        <div class="inputlabel-box">
-        <% if current_user.errors.include?(:circle) %>
-          <%= field_notice_box %>
+      <div id="participation_teams">
+        <h3>Enlaces de Participación</h3>
+        <p>Si indicas que participas en algún Círculo, contaremos contigo como enlace de participación de este, lo que nos permitirá informar y dinamizar en los círculos las iniciativas de participación que desarrollemos y asegurarnos de que exista una buena coordinación.</p>
+        <%= semantic_form_for current_user, url: participation_teams_update_user_path do |f| %>
+          <fieldset>
+          <div class="inputlabel-box">
+          <% if current_user.errors.include?(:circle) %>
+            <%= field_notice_box %>
+          <% end %>
+          <%= f.input :circle, input_html: {autofocus: true, class: 'input-xl'} %>
+          </div>
+          </fieldset><%= f.action :submit, button_html: {class: "button"}  %>
         <% end %>
-        <%= f.input :circle, input_html: {autofocus: true, class: 'input-xl'} %>
+
+        <br/>
+        <h2>Equipos temáticos</h2>
+        <p>Ahora mismo estás adscrito/a a los Equipos de Acción Participa, que trabajarán en el territorio extendiendo la participación a la ciudadanía. <% if !@participation_teams.empty? %>De forma adicional tenéis la posibilidad de uniros a varios equipos temáticos como es, en este momento, el Equipo <%= @participation_teams[0].name %>.<% end %> Además es muy importante que indiquéis si estáis participando en algún Círculo, para contar con vosotros/as como posibles Enlaces de Participación en vuestro Círculo.</p>
+
+      <% if @participation_teams.empty? %>
+        <div class="team">
+          <p>En este momento no hay equipos de participacion activos.</p> 
         </div>
-        </fieldset><%= f.action :submit, button_html: {class: "button"}  %>
-      <% end %>
-
-      <br/>
-      <h2>Equipos temáticos</h2>
-      <p>Ahora mismo estás adscrito/a a los Equipos de Acción Participa, que trabajarán en el territorio extendiendo la participación a la ciudadanía. <% if !@participation_teams.empty? %>De forma adicional tenéis la posibilidad de uniros a varios equipos temáticos como es, en este momento, el Equipo <%= @participation_teams[0].name %>.<% end %> Además es muy importante que indiquéis si estáis participando en algún Círculo, para contar con vosotros/as como posibles Enlaces de Participación en vuestro Círculo.</p>
-
-    <% if @participation_teams.empty? %>
-      <div class="team">
-        <p>En este momento no hay equipos de participacion activos.</p> 
-      </div>
-    <% else %>
-    <% @participation_teams.each do |participation_team| %>
-      <div class="team">
-        <h3><%= participation_team.name %></h3>
-        <p><%= participation_team.description %></p>
-        <% if current_user.in_participation_team? participation_team.id %>
-          <%= link_to "Dejar", participation_teams_leave_path(team_id: participation_team.id), class: "button button-danger", method: :put %>
-        <% else %>
-          <%= link_to "Unirse", participation_teams_join_path(team_id: participation_team.id), class: "button", method: :put %>
+      <% else %>
+        <% @participation_teams.each do |participation_team| %>
+          <div class="team">
+            <h3><%= participation_team.name %></h3>
+            <p><%= participation_team.description %></p>
+            <% if current_user.in_participation_team? participation_team.id %>
+              <%= link_to "Dejar", participation_teams_leave_path(team_id: participation_team.id), class: "button button-danger", method: :put %>
+            <% else %>
+              <%= link_to "Unirse", participation_teams_join_path(team_id: participation_team.id), class: "button", method: :put %>
+            <% end %>
+          </div>
         <% end %>
-      </div>
-      <% end %>
-    </div>
     <% end %>
+    </div>
 <% else %>
 
       <div class="buttonbox">
@@ -57,33 +50,23 @@
       </div>
 
 <% end %>
-    <div id="participation_teams_info">
+      <div id="participation_teams_info">
 
-      <br>
-      <br>
+        <br/>
+        <br/>
+          <%= content_tag(:h3, "Gente por el cambio") %>
+          <p>Nos encontramos a un momento decisivo para cambiar el rumbo del contexto político de nuestro país. Para ello, frente a otros partidos que tienen un gran capital económico para invertir en campaña, nosotros y nosotras contamos con el apoyo y la ilusión de cientos de personas que quieren apoyar el proyecto. Para canalizar toda esta gente, se lanza “Gente por el cambio”, una iniciativa dirigida a todas aquellas personas que deseen formar parte activa de la campaña que Podemos realiza en las elecciones autonómicas. Gente por el Cambio es una manera de recoger y organizar la ilusión que ha despertado Podemos desde hace más de un año, en forma de pequeñas acciones y actividades que se van a llevar a cabo durante estas campañas autonómicas, y de cuyo éxito dependerá gran parte de nuestras posibilidades electorales. Tiene que ser una red abierta y dinámica, un lugar de encuentro, de acción y participación que resalte nuestro mayor valor: “somos gente corriente haciendo cosas extraordinarias”.</p>
 
-      <p>
-      Llevamos meses desarrollando espacios de dinamización en red donde, entre todos/as, podamos proponer y compartir ideas. Para hacer plenamente efectivos estos equipos, antes de nada, debemos eliminar las brechas que puedan dejar fuera a ciertos sectores o colectivos. Una de ellas es la barrera digital. Para evitarla, intentaremos establecer, en la medida de lo posible, puntos fijos de acceso a internet desde donde poder utilizar las herramientas digitales de participación mediante las que se organicen los Equipos (por ejemplo, tener todos los miércoles un ordenador disponible habilitado para que la gente de la zona pueda acercarse a participar en este proceso). Paralelamente, trataremos de abrir también espacios donde las personas que tengan más dificultades puedan aprender a utilizar estas herramientas y, entre todos/as, sacarles el máximo partido. También será esencial para los equipos fomentar una implicación paritaria e igualitaria entre hombres y mujeres, tratando de corregir las desigualdades a las que apuntan los datos, que aluden normalmente a una participación menor de las mujeres en este tipo de procesos. 
-      </p>
+          <p>Gente por el Cambio se vertebra a partir de toda la gente inscrita en los Equipos de Acción Participativa (EAPs). Gente por el Cambio es la primera fase de despliegue de estos EAPs, los cuales cumplirán funciones relacionadas directamente con las campañas electorales autonómicas. Dadas las grandes diferencias entre municipios y comunidades autónomas, estos equipos tendrán la tarea de adecuar las dinámicas de campañas a las especificidades locales, además de innovar con otras que piensen que puedan cumplir una función relevante en su territorio. Tener la oportunidad de compartir estas experiencias y replicar las que identifiquemos como las más destacadas puede activar un proceso de inteligencia colectiva que nos lleve a superar todas nuestras expectativas.</p>
+          
+          <p>Si quieres formar parte de esta campaña ¡Incorpórate a los Equipos de Acción Participativa y en breve nos pondremos en contacto contigo!</p>
 
-      <p>
-      Queremos que los Equipos de Participación estén integrados por perfiles diversos con los que podamos organizarnos, elaborar propuestas y trabajar en su difusión. Para el desarrollo de estas labores, se estima un nivel de implicación que oscilaría entre el que tienen los cientos de miles de personas que apoyan el proyecto a través de las redes sociales (pero que, por diversos motivos, no participan de forma más activa), y el de aquellos integrantes de los círculos con un alto nivel de implicación. 
-      </p>
+          <p><%= link_to "Ver la Guía del Área de Participación", "http://podemos.info/guia-del-area-de-participacion/" %></p>
 
-      <p>
-      En cualquier caso, para garantizar la acción unitaria y la difusión de iniciativas comunes, será siempre conveniente que los principales impulsores y coordinadores de los Equipos de Acción Participativa sean a su vez compañeros y compañeras que participan de forma regular en los círculos. Las tareas de estos Equipos se coordinarán mediante correo electrónico, Telegram (aplicación de mensajería instantánea que puede utilizarse desde el móvil y desde el ordenador -puedes descargártelo como una aplicación más: https://telegram.org/-) y otras formas de comunicación y coordinación que iremos implantando entre la gente de los equipos. Una buena coordinación nos permitirá construir proyectos y campañas muy potentes con una gran capacidad de acción y difusión en diversos ámbitos y niveles. A la vez, dadas las grandes diferencias entre unos municipios y otros, estos equipos tendrán la tarea de adecuar las dinámicas y campañas generales a las peculiaridades de sus localidades, además de innovar con otras que piensen que puedan cumplir una función relevante en sus municipios. Tener la oportunidad de compartir estas experiencias y replicar las que identifiquemos como las más destacadas puede activar un proceso de inteligencia colectiva que nos lleve a superar todas nuestras expectativas.
-      </p>
-
-      <p>
-      ¡Incorpórate a los Equipos de Acción Participativa y en breve nos pondremos en contacto contigo!
-      </p>
-
-      <p><%= link_to "Ver la Guía del Área de Participación", "http://podemos.info/guia-del-area-de-participacion/" %></p>
-
-      <% if current_user.wants_participation %>
-        <p><a class="show_teams" href="#">Mostrar equipos temáticos</a></p>
-      <% end %>
-    </div>
+        <% if !current_user.participation_team_at.nil? %>
+          <p><a class="show_teams" href="#">Mostrar equipos temáticos</a></p>
+        <% end %>
+      </div>
 
       <div class="buttonbox">
         <%= render partial: "wants_participation_buttons" %>
