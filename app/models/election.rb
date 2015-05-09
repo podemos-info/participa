@@ -56,7 +56,7 @@ class Election < ActiveRecord::Base
   end
 
   def has_valid_user_created_at? user
-    self.user_created_at_max.nil? or self.user_created_at_max < user.created_at
+    self.user_created_at_max.nil? or self.user_created_at_max > user.created_at
   end
 
   def current_total_census
