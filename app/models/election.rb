@@ -71,30 +71,24 @@ class Election < ActiveRecord::Base
   end
 
   def scoped_agora_election_id user
-    case self.scope
-      when 0 
-        location = self.election_locations.find_by_location "00"
-        (self.agora_election_id.to_s + "00" + location.agora_version.to_s).to_i
+    user_location = case self.scope
       when 1
-        location = self.election_locations.find_by_location user.vote_autonomy_numeric
-        (self.agora_election_id.to_s + user.vote_autonomy_numeric.to_s + location.agora_version.to_s).to_i
+        user.vote_autonomy_numeric
       when 2
-        location = self.election_locations.find_by_location user.vote_province_numeric
-        (self.agora_election_id.to_s + user.vote_province_numeric.to_s + location.agora_version.to_s).to_i
+        user.vote_province_numeric
       when 3
-        location = self.election_locations.find_by_location user.vote_town_numeric
-        (self.agora_election_id.to_s + user.vote_town_numeric.to_s + location.agora_version.to_s).to_i
+        user.vote_town_numeric
       when 4
-        location = self.election_locations.find_by_location user.vote_island_numeric
-        (self.agora_election_id.to_s + user.vote_island_numeric.to_s + location.agora_version.to_s).to_i
-      when 5
-        location = self.election_locations.find_by_location "00"
-        (self.agora_election_id.to_s + "00" + location.agora_version.to_s).to_i
+        user.vote_island_numeric
+      else
+        "00"
     end
+    election_location = self.election_locations.find_by_location user_location
+    "#{self.agora_election_id}#{election_location.override or election_location.location}#{election_location.agora_version}".to_i
   end
 
   def locations
-    self.election_locations.map{|e| "#{e.location},#{e.agora_version}" }.join "\n"
+    self.election_locations.map{|l| "#{l.location},#{l.agora_version}#{",#{l.override}" if l.override}"}.join "\n"
   end
 
   def locations= value
@@ -103,8 +97,8 @@ class Election < ActiveRecord::Base
       value.split("\n").each do |line|
         if not line.strip.empty?
           line_raw = line.strip.split(',')
-          location, agora_version = line_raw[0], line_raw[1]
-          self.election_locations.build(location: location, agora_version: agora_version).save
+          location, agora_version, override = line_raw[0], line_raw[1], line_raw[2]
+          self.election_locations.build(location: location, agora_version: agora_version, override: override).save
         end
       end
     end
