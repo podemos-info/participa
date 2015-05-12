@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150512122554) do
     t.integer  "scope"
     t.string   "info_url"
     t.string   "server"
+    t.date     "user_created_at_max"
   end
 
   create_table "friendly_id_slugs", force: true do |t|
