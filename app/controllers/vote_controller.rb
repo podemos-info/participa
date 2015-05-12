@@ -22,7 +22,7 @@ class VoteController < ApplicationController
   def create_token
     election = Election.find params[:election_id]
     if election.is_active?
-      if @election.has_valid_user_created_at? current_user
+      if election.has_valid_user_created_at? current_user
         if election.has_valid_location_for? current_user
           vote = current_user.get_or_create_vote(election.id)
           message = vote.generate_message
