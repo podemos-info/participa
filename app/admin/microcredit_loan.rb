@@ -202,4 +202,15 @@ ActiveAdmin.register MicrocreditLoan do
     column :counted_at
     column :confirmed_at
   end
+
+  action_item :only => :show do
+    link_to('Descargar PDF', download_pdf_admin_microcredit_loan_path(resource))
+  end
+
+  member_action :download_pdf do
+    @loan = MicrocreditLoan.find(params[:id])
+    @microcredit = @loan.microcredit
+
+    render pdf: 'IngresoMicrocreditosPodemos.pdf', template: 'microcredit/email_guide.pdf.erb', encoding: "UTF-8"
+  end
 end
