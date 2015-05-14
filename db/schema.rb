@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512122554) do
+ActiveRecord::Schema.define(version: 20150514170331) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20150512122554) do
     t.string   "info_url"
     t.string   "server"
     t.date     "user_created_at_max"
+    t.integer  "priority"
+    t.string   "info_text"
   end
 
   create_table "friendly_id_slugs", force: true do |t|

@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text
 
   index do
     selectable_column
@@ -23,7 +23,9 @@ ActiveAdmin.register Election do
     attributes_table do
       row :title
       row :info_url
+      row :info_text
       row :server
+      row :priority
       row :agora_election_id
       row :scope_name
       row :starts_at
@@ -50,6 +52,8 @@ ActiveAdmin.register Election do
     f.inputs "Election" do
       f.input :title
       f.input :info_url
+      f.input :info_text
+      f.input :priority
       f.input :server, as: :select, collection: Election.available_servers
       f.input :agora_election_id
       f.input :scope, as: :select, collection: Election::SCOPE

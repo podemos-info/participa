@@ -6,8 +6,8 @@ class Election < ActiveRecord::Base
   has_many :votes
   has_many :election_locations
  
-  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now)}
-  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now)}
+  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc)}
+  scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
