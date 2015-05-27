@@ -1,0 +1,16 @@
+<% content_for :title, @category.name %>
+<div class="content">
+  <div class="content-content cols">
+    <div class="row">
+      <div class="col-b-4a12">
+        <h2>Categoría <%= @category.name %></h2>
+
+        <div>
+            <% @category.posts.each do |post| %>
+                <%= render "post", post: post %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

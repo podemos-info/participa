@@ -14,6 +14,7 @@ class Ability
       can :admin, User
       can :admin, Microcredit
       can :admin, MicrocreditLoan
+      can :manage, Post
 
       if !user.superadmin?
         cannot :manage, Election
@@ -33,6 +34,7 @@ class Ability
 
       can [:show, :update], User, id: user.id
       can :show, Notice
+      can :read, Post.published
 
       cannot :admin, :all
     end

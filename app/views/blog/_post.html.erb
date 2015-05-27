@@ -1,0 +1,13 @@
+<article class="post">
+  <h3>
+    <%= link_to(post.title, post ) %>
+  </h3>
+  
+  <%= formatted_content(post) %> 
+
+  <div class="info">
+    <% post.categories.each do |category| %>
+      <%= link_to(category.name, category ) %>
+    <% end %>
+  </div>
+</article>

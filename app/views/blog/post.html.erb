@@ -1,0 +1,24 @@
+<% content_for :title, @post.title %>
+<div class="content">
+  <div class="content-content cols">
+    <div class="row">
+      <div class="col-b-4a12">
+<article class="post">
+
+  <h2><%= @post.title %></h2>
+  <% if !@post.published? %><%= alert_box "Información" do %><p>Este artículo es un borrador, aún no es visible para la mayoría de usuarios.</p><%end%><%end%>
+
+  <%= formatted_content(@post) %>
+  
+  <div class="info">
+    <% @post.categories.each do |category| %>
+      <%= link_to(category.name, category ) %>
+    <% end %>
+    <p><%= @post.created_at %>
+  </div>
+</article>
+      </div>
+
+    </div>
+  </div>
+</div>

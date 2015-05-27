@@ -1213,16 +1213,6 @@ info page
 ----------------------------------- */
 
 .video {
-background: #9e76a0; /* Old browsers */
-background: -moz-linear-gradient(top,  #9e76a0 0%, #c3a6cf 50%, #ffffff 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9e76a0), color-stop(50%,#c3a6cf), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e76a0', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-
-
   width: 100%;
   text-align: center;
   // border-bottom: 2px solid #612D62;

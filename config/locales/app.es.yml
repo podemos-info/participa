@@ -40,6 +40,8 @@ es:
       microcredit_loans: Suscripciones
       page: Formulario
       pages: Formularios
+      category: Categoría
+      categories: Categorías
     errors:
       models: 
         user:
@@ -177,6 +179,8 @@ es:
         captcha: "Captcha"
         current_password: "Contraseña actual"
         circle: "Círculo"
+      category:
+        name: "nombre"
   formtastic:
     hints:
       user:
