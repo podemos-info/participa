@@ -11,6 +11,8 @@ class Post < ActiveRecord::Base
   scope :published,  -> { where(status: 1) }
   scope :deleted, -> { only_deleted }
 
+  validates :title, :status, presence: true
+
   def published?
     status>0
   end
