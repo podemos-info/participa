@@ -46,6 +46,7 @@ ActiveAdmin.register User do
   show do
     authorize! :admin, user
     attributes_table do
+      row :id
       row :status do
         status_tag("Verificado", :ok) if user.verified?
         status_tag("Baneado", :error) if user.banned?
