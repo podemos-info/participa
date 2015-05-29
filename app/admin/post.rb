@@ -31,7 +31,9 @@ ActiveAdmin.register Post do
       end
       row :title
       row :content do
-        simple_format post.content
+        auto_html(post.content) do
+          redcarpet
+        end
       end
 
       row :slug
@@ -47,11 +49,17 @@ ActiveAdmin.register Post do
   form do |f|
     f.inputs "Posts" do
       f.input :status, as: :select, collection: Post::STATUS.to_a
-      f.input :title
-      f.input :content    
       f.input :media_url
       f.input :categories, as: :check_boxes, collection: Category.all
+      f.input :title
+      f.input :content, :hint => """Importante:<br/>
+        - El primer párrafo (hasta el primer salto de línea) aparecerá en el listado, el resto del contenido se verá en la pagina de la entrada al hacer clic en 'Seguir leyendo'.<br/>
+        - Las direcciones de páginas web se convierten automáticamente en enlaces.<br/>
+        - Las direcciones de imágenes se convierten automáticamente en imágenes.<br/>
+        - Las direcciones de YouTube, Vimeo y Twitter permiten embeber en la página videos o tuits.<br/>
+        - También es posible dar formato básico al texto utilizando <a href='http://es.wikipedia.org/wiki/Markdown' target='_blank'>Markdown</a>.""".html_safe
     end
+    
     f.actions
   end
 
