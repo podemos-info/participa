@@ -1252,7 +1252,7 @@ info page
     margin-top: 0px
   }
   img, .video {
-    margin: 4em auto;
+    margin: 2em auto 4em;
     max-width: 500px;
     width: 100%;
   }
@@ -1274,6 +1274,7 @@ info page
   }
   .post {
     border-top: 1px solid #858585;
+    padding-top: 2em;
     .categories a { text-transform: uppercase; font-weight: bold; margin: 0 10px 0 0}
   }
   .categories {

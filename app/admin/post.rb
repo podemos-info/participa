@@ -15,7 +15,7 @@ ActiveAdmin.register Post do
       (post.categories.map {|c| link_to(c.name, admin_category_path(c)).html_safe } .join ", ").html_safe
     end
     column :created_at
-    column :status do
+    column :status do |post|
       status_tag("Publicado", :ok) if post.published?
       status_tag("Borrado", :error) if post.deleted?
     end
@@ -48,7 +48,7 @@ ActiveAdmin.register Post do
     f.inputs "Posts" do
       f.input :status, as: :select, collection: Post::STATUS.to_a
       f.input :title
-      f.input :content
+      f.input :content    
       f.input :media_url
       f.input :categories, as: :check_boxes, collection: Category.all
     end
