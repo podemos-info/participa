@@ -1,10 +1,11 @@
 module ApplicationHelper
 
+
   # Like link_to but third parameter is an array of options for current_page?.
-  def nav_menu_link_to name, url, current_urls, html_options = {}
+  def nav_menu_link_to name, icon, url, current_urls, html_options = {}
     html_options[:class] ||= ""
     html_options[:class] += " active" if current_urls.any? { |u| current_page?(u) }
-    link_to content_tag(:span, name), url, html_options
+    link_to(fa_icon(icon) + content_tag(:span, name), url, html_options)
   end
 
   def new_notifications_class

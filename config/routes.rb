@@ -124,7 +124,7 @@ Rails.application.routes.draw do
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
 
-      scope :blog do
+      scope :brujula do
         get '', to: 'blog#index', as: 'blog'
         get ':id', to: 'blog#post', as: 'post'
         get 'categoria/:id', to: 'blog#category', as: 'category'

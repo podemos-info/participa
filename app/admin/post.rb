@@ -7,6 +7,21 @@ ActiveAdmin.register Post do
   scope :published
   scope :deleted
 
+  index do
+    selectable_column
+    id_column
+    column :title
+    column :categories do |post|
+      (post.categories.map {|c| link_to(c.name, admin_category_path(c)).html_safe } .join ", ").html_safe
+    end
+    column :created_at
+    column :status do
+      status_tag("Publicado", :ok) if post.published?
+      status_tag("Borrado", :error) if post.deleted?
+    end
+    actions
+  end
+
   show do
     attributes_table do
       row :id
@@ -15,7 +30,10 @@ ActiveAdmin.register Post do
         status_tag("Borrado", :error) if post.deleted?
       end
       row :title
-      row :content, as: :ckeditor
+      row :content do
+        simple_format post.content
+      end
+
       row :slug
       row :categories do
         (post.categories.map {|c| link_to(c.name, admin_category_path(c)).html_safe } .join ", ").html_safe
@@ -31,10 +49,11 @@ ActiveAdmin.register Post do
       f.input :status, as: :select, collection: Post::STATUS.to_a
       f.input :title
       f.input :content
+      f.input :media_url
       f.input :categories, as: :check_boxes, collection: Category.all
     end
     f.actions
   end
 
-  permit_params :title, :content, :slug, :status, category_ids: []
+  permit_params :title, :content, :media_url, :slug, :status, category_ids: []
 end

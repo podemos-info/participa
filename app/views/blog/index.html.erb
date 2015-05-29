@@ -1,16 +1,26 @@
-<% content_for :title, "Blog" %>
-<div class="content">
-  <div class="content-content cols">
-    <div class="row">
-      <div class="col-b-4a12">
-        <h1>Blog</h1>
+<% content_for :title, "Brújula" %>
 
+<section class="generic-wrapper blog">
+    <h1>Brújula</h1>
+
+    <div class="container">
         <div>
             <% @posts.each do |post| %>
                 <%= render "post", post: post %>
             <% end %>
         </div>
-      </div>
+        <p class="links">
+            <%= link_to_previous_page @posts, fa_icon("chevron-circle-right", text:'Posteriores') , class: 'right'%>
+            <%= link_to_next_page @posts, fa_icon("chevron-circle-left", text:'Anteriores') %>
+        </p>
     </div>
-  </div>
-</div>
+
+    <div class="sidebar">
+        <h2>Categorias</h2>
+        <ul>
+        <% @categories.each do |category| %>
+          <li><%= link_to(category.name, category ) %></li>
+        <% end %>
+        </ul>
+    </div> 
+</section>

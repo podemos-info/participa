@@ -359,88 +359,48 @@ header & menu
   max-width:100%;
 }
 
-.menu ul{
-  width:100%;
-  overflow:hidden;
-  padding:1em 0 0;
-  float:right;
+.menu {
+  min-width:90%;
+  float: right;
+  font-family: Montserrat,Arial,sans-serif;
 }
 .menu ul li{
-  width:auto;
-  float:right;
+  font-size: 10px;
+  margin-top: 8px;
+  width:14.22%;
+  float:left;
+  text-align: center;
+  position: relative;
+
+  a {
+    display:block;
+    margin:0em auto;
+    color: white;
+    width: 8em;
+    opacity: 0.7;
+
+    .fa {
+      display: block;
+      font-size: 2em;
+      color: white;
+      width: 4em;
+      margin-bottom: 2px;
+    }
+    span {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      height: 25px;
+      width: 8em;
+      font-size: 1.1em;
+      line-height: 1.05em;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
-.menu ul li a{
-  display:inline-block;
-  font-family:Arial,sans-serif;
-  margin:0em;
-  padding:0.8em 1.5em;
-  font-weight:bold;
-  color: white;
-  text-shadow: 1px 1px 1px #612d62, -1px -1px 0 #612d62, 1px -1px 0 #612d62, -1px 1px 0 #612d62;
-  max-width: 80px;
-}
-/*.menu li span{
-  display:none;
-}*/
-.menu-logout{
-  background:image-url("bg.purple-divide-v.png") 0 0 no-repeat;
-}
-.menu-hamb a{
-  background:image-url("ico.menu-hamb-off.png") 0 0 no-repeat;
-}
-.menu-hamb a.active,
-.menu-hamb a:hover{
-  background:image-url("ico.menu-hamb-on.png") 0 0 no-repeat;
-}
-.menu-logout a{
-  background:image-url("ico.menu-logout-off.png") 0 0 no-repeat;
-}
-.menu-logout a.active,
-.menu-logout a:hover{
-  background:image-url("ico.menu-logout-on.png") 0 0 no-repeat;
-}
-.menu-tools a{
-  background:image-url("ico.menu-tools-off.png") 0 0 no-repeat;
-}
-.menu-tools a.active,
-.menu-tools a:hover{
-  background:image-url("ico.menu-tools-on.png") 0 0 no-repeat;
-}
-.menu-team a{
-  background:image-url("ico.menu-team-off.png") 0 0 no-repeat;
-}
-.menu-team a.active,
-.menu-team a:hover{
-  background:image-url("ico.menu-team-on.png") 0 0 no-repeat;
-}
-.menu-notif a{
-  background:image-url("ico.menu-notif-off.png") 0 0 no-repeat;
-}
-.menu-notif a.active,
-.menu-notif a:hover{
-  background:image-url("ico.menu-notif-on.png") 0 0 no-repeat;
-}
-.menu-notif a.claim{
-  background:image-url("ico.menu-notif-claim-off.png") 0 0 no-repeat;
-}
-.menu-notif a.claim.active,
-.menu-notif a.claim:hover{
-  background:image-url("ico.menu-notif-claim-on.png") 0 0 no-repeat;
-}
-.menu-econ a{
-  background:image-url("ico.menu-econ-off.png") 0 0 no-repeat;
-}
-.menu-econ a.active,
-.menu-econ a:hover{
-  background:image-url("ico.menu-econ-on.png") 0 0 no-repeat;
-}
-.menu-profile a{
-  background:image-url("ico.menu-profile-off.png") 0 0 no-repeat;
-}
-.menu-profile a.active,
-.menu-profile a:hover{
-  background:image-url("ico.menu-profile-on.png") 0 0 no-repeat;
-}
+
 .menu li.menu-name a span{
   display:block;
   float:right;
@@ -891,7 +851,7 @@ microcredits
 proposals
 ----------------------------------- */
 
-.proposal-wrapper {
+.generic-wrapper {
   margin: 0 auto;
   max-width: 940px;
   min-height: 700px;
@@ -922,15 +882,15 @@ proposals
       }
     }
   }
-}
-
-.proposal-wrapper {
   
   .container {
     display: inline-block;
     margin-right: 1%;
     width: 74%;
 
+    div article {
+      margin-left: 10px;
+    }
     .back {
       color: rgba(51,51,51,.6);
       display: inline-block;
@@ -970,6 +930,38 @@ proposals
       margin-top: -2px;
       text-transform: uppercase;
       padding: 10px 0 0 10px;
+    }
+
+    ul {
+      li {
+        margin: 10px 0 0 30px;
+        a {
+          color: #333;
+        }
+      }
+      li.active {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-left: 20px;
+        color: #612d62;
+        a {
+          color: #612d62;
+        }
+        &:before {
+          content:"> ";
+        }
+      }
+    }
+  }
+
+  article {
+
+    h2 {
+      color: #612d62;
+      font-size: 2em;
+      a {
+        color: #612d62;
+      }
     }
   }
 }
@@ -1099,14 +1091,6 @@ proposals
   border-bottom: 1px solid #b5b5b5;
   padding: 20px;
 
-  h2 {
-    color: #612d62;
-    font-size: 2em;
-    a {
-      color: #612d62;
-    }
-  }
-
   p {
     color: #333;
     font-size: 1.4em;
@@ -1212,20 +1196,6 @@ proposals
 info page
 ----------------------------------- */
 
-.video {
-  width: 100%;
-  text-align: center;
-  // border-bottom: 2px solid #612D62;
-  padding: 20px 0;
-  height: 340px;
-
-  iframe {
-    width: 100%; 
-    max-width: 560px;
-    height:315px;
-  }
-}
-
 #info {
   margin: 0 auto;
   max-width: 940px;
@@ -1270,6 +1240,49 @@ info page
     color: #269283;
     padding-bottom: 2px;
     text-decoration: none; 
+  }
+}
+
+
+.generic-wrapper.blog {
+  .media {
+    text-align: center;
+  }
+  .sidebar {
+    margin-top: 0px
+  }
+  img, .video {
+    margin: 4em auto;
+    max-width: 500px;
+    width: 100%;
+  }
+  .video {
+    position: relative;
+    padding-bottom: 40%;
+  }
+  .video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+  }
+  .date {
+    font-size: 0.9em;
+    margin-bottom: 2em;
+    display: inline-block;
+  }
+  .post {
+    border-top: 1px solid #858585;
+    .categories a { text-transform: uppercase; font-weight: bold; margin: 0 10px 0 0}
+  }
+  .categories {
+    display: inline-block;
+  }
+  .alignright {text-align: right}
+  .links {
+    .right {float: right}
+    padding: 2em 1em;
   }
 }
 
@@ -1507,7 +1520,7 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
       text-align: center;
   }
 
-  .proposal-wrapper nav a{
+  .generic-wrapper nav a{
     margin-top: 10px;
     display: inline-block;
 
@@ -1522,7 +1535,12 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
     }
   } 
 
-  .proposal-wrapper {
+  .menu {
+    min-width: 0px;
+    margin-top: 3px;
+  }
+
+  .generic-wrapper {
     .container {
       width: 100%;
     }
@@ -1596,6 +1614,10 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .intro .buttonbox{
     padding:1em 4%;
   }
+  .menu {
+    min-width: 0px;
+    margin-top: 3px;
+  }
   .menu ul li{
     display:none;
   }
@@ -1623,7 +1645,7 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .tools li .box-tool-large div.tool-text{
     padding-top:7em;
   }
-  .proposal-wrapper {
+  .generic-wrapper {
     .container {
       width: 100%;
     }
@@ -1752,6 +1774,7 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .menu ul li{
     display:block;
+    font-size: 8px;
   }
   .menu ul li.menu-hamb{
     display:none;
@@ -1776,7 +1799,7 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .tools li .box-tool-large div.tool-text{
     padding-top:7em;
   }
-  .proposal-wrapper {
+  .generic-wrapper {
     .container {
       width: 100%;
     }
