@@ -2,14 +2,10 @@
 <div class="generic-wrapper blog">
   <article>
     <h1><%= @post.title %></h1>
+    <div class="categories"><% @post.categories.each do |category| %><%= link_to(category.name, category ) %><% end %></div>
+    <p class="date"><%= long_date @post %></p>
     <div class="media"><%= main_media(@post) %></div>
     <%= formatted_content(@post) %>
-    <p class="date"><%= long_date @post %></p>
-    <div class="categories">
-      <% @post.categories.each do |category| %>
-        <%= link_to(category.name, category ) %>
-      <% end %>
-    </div>
     <p class="links">
       <%= link_to fa_icon("chevron-circle-left", text:'Volver'), :back %>
     </p>

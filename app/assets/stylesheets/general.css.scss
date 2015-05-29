@@ -955,10 +955,10 @@ proposals
   }
 
   article {
-
     h2 {
       color: #612d62;
       font-size: 2em;
+      margin-top: 6px;
       a {
         color: #612d62;
       }
@@ -1245,6 +1245,14 @@ info page
 
 
 .generic-wrapper.blog {
+  h1 {
+    color: #612D62;
+    font-family: Montserrat,Arial,sans-serif;
+    font-size: 3em;
+    padding: 20px 0px;
+    text-transform: uppercase;
+  }
+
   .media {
     text-align: center;
   }
@@ -1268,22 +1276,31 @@ info page
       height: 100%;
   }
   .date {
-    font-size: 0.9em;
-    margin-bottom: 2em;
     display: inline-block;
+    margin-bottom: 2em;
+    margin-top: 7px;
+    font-size: 1.2em;
   }
   .post {
-    border-top: 1px solid #858585;
+    border-top: 1px solid #e3e3e3;
     padding-top: 2em;
-    .categories a { text-transform: uppercase; font-weight: bold; margin: 0 10px 0 0}
   }
   .categories {
-    display: inline-block;
+    margin-right: 5px;
+    a { 
+      font-size:1.2em; text-transform: uppercase; font-weight: bold;
+      & + a:before {
+        content: " | ";
+        margin: 0 5px;
+      }
+    }
   }
   .alignright {text-align: right}
   .links {
     .right {float: right}
-    padding: 2em 1em;
+    padding: 1em 1em;
+    border-top: 1px solid #e3e3e3;
+    margin-top: 4em;
   }
 }
 

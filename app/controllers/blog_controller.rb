@@ -2,7 +2,7 @@ class BlogController < ApplicationController
   before_action :get_categories
 
   def index
-    @posts = Post.index.page(params[:page])
+    @posts = Post.index.page(params[:page]).per(5)
   end
 
   def post
@@ -11,7 +11,7 @@ class BlogController < ApplicationController
 
   def category
     @category = Category.find(params[:id])
-    @posts = @category.posts.index.page(params[:page])
+    @posts = @category.posts.index.page(params[:page]).per(5)
   end
 
   def get_categories

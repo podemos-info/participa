@@ -1,6 +1,4 @@
 class Post < ActiveRecord::Base
-  paginates_per 2
-
   acts_as_paranoid
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
