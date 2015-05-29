@@ -12,10 +12,10 @@ module BlogHelper
     end
 
     [ auto_html(content) do
-      redcarpet
       twitter
       youtube
       vimeo
+      redcarpet
       image
       link target: "_blank"
       simple_format
