@@ -51,7 +51,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def finishes_at
-    created_at + 3.months
+    created_at + 3.months + (DateTime.now.to_i-Proposal.now.to_i).seconds
   end
 
   def supported?(user)
@@ -70,7 +70,19 @@ class Proposal < ActiveRecord::Base
   end
 
   def days_since_created
-    ((Time.now - created_at)/60/60/24).to_i
+    (Proposal.now.to_i - created_at.to_i)/60/60/24
   end
 
+  def self.frozen?
+    !Rails.application.secrets.icps["freeze_date"].nil?
+  end
+
+  def self.now
+    freeze_date = Rails.application.secrets.icps["freeze_date"]
+    if freeze_date 
+      Date.civil(*freeze_date).to_datetime
+    else
+      DateTime.now
+    end
+  end
 end
