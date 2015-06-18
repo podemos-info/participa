@@ -123,14 +123,14 @@ Rails.application.routes.draw do
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
-
-      scope :brujula do
-        get '', to: 'blog#index', as: 'blog'
-        get ':id', to: 'blog#post', as: 'post'
-        get 'categoria/:id', to: 'blog#category', as: 'category'
-      end
     end
 
+    scope :brujula do
+      get '', to: 'blog#index', as: 'blog'
+      get ':id', to: 'blog#post', as: 'post'
+      get 'categoria/:id', to: 'blog#category', as: 'category'
+    end
+    
     # http://stackoverflow.com/a/8884605/319241 
     devise_scope :user do
       get '/registrations/regions/provinces', to: 'registrations#regions_provinces'
