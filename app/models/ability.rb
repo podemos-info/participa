@@ -34,6 +34,7 @@ class Ability
 
       can [:show, :update], User, id: user.id
       can :show, Notice
+      cannot :read, Post.drafts
       can :read, Post.published
 
       cannot :admin, :all
