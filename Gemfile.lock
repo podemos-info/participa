@@ -73,6 +73,9 @@ GEM
     arbre (1.0.2)
       activesupport (>= 3.0.0)
     arel (5.0.1.20140414130214)
+    auto_html (1.6.4)
+      redcarpet (~> 3.1)
+      rinku (~> 1.5.0)
     aws-ses (0.5.0)
       builder
       mail (> 2.2.5)
@@ -296,6 +299,7 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     recaptcha (0.3.6)
+    redcarpet (3.2.3)
     redis (3.1.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
@@ -306,6 +310,7 @@ GEM
       rake
       resque (~> 1.20)
       trollop (~> 1.16)
+    rinku (1.5.1)
     ruby-openid (2.6.0)
     ruby-prof (0.14.2)
     ruby-progressbar (1.7.1)
@@ -395,6 +400,7 @@ DEPENDENCIES
   active_skin
   activeadmin!
   airbrake
+  auto_html
   aws-ses (~> 0.5.0)
   better_errors
   binding_of_caller

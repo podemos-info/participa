@@ -359,88 +359,48 @@ header & menu
   max-width:100%;
 }
 
-.menu ul{
-  width:100%;
-  overflow:hidden;
-  padding:1em 0 0;
-  float:right;
+.menu {
+  min-width:90%;
+  float: right;
+  font-family: Montserrat,Arial,sans-serif;
 }
 .menu ul li{
-  width:auto;
-  float:right;
+  font-size: 10px;
+  margin-top: 8px;
+  width:14.22%;
+  float:left;
+  text-align: center;
+  position: relative;
+
+  a {
+    display:block;
+    margin:0em auto;
+    color: white;
+    width: 8em;
+    opacity: 0.7;
+
+    .fa {
+      display: block;
+      font-size: 2em;
+      color: white;
+      width: 4em;
+      margin-bottom: 2px;
+    }
+    span {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      height: 25px;
+      width: 8em;
+      font-size: 1.1em;
+      line-height: 1.05em;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
-.menu ul li a{
-  display:inline-block;
-  font-family:Arial,sans-serif;
-  margin:0em;
-  padding:0.8em 1.5em;
-  font-weight:bold;
-  color: white;
-  text-shadow: 1px 1px 1px #612d62, -1px -1px 0 #612d62, 1px -1px 0 #612d62, -1px 1px 0 #612d62;
-  max-width: 80px;
-}
-/*.menu li span{
-  display:none;
-}*/
-.menu-logout{
-  background:image-url("bg.purple-divide-v.png") 0 0 no-repeat;
-}
-.menu-hamb a{
-  background:image-url("ico.menu-hamb-off.png") 0 0 no-repeat;
-}
-.menu-hamb a.active,
-.menu-hamb a:hover{
-  background:image-url("ico.menu-hamb-on.png") 0 0 no-repeat;
-}
-.menu-logout a{
-  background:image-url("ico.menu-logout-off.png") 0 0 no-repeat;
-}
-.menu-logout a.active,
-.menu-logout a:hover{
-  background:image-url("ico.menu-logout-on.png") 0 0 no-repeat;
-}
-.menu-tools a{
-  background:image-url("ico.menu-tools-off.png") 0 0 no-repeat;
-}
-.menu-tools a.active,
-.menu-tools a:hover{
-  background:image-url("ico.menu-tools-on.png") 0 0 no-repeat;
-}
-.menu-team a{
-  background:image-url("ico.menu-team-off.png") 0 0 no-repeat;
-}
-.menu-team a.active,
-.menu-team a:hover{
-  background:image-url("ico.menu-team-on.png") 0 0 no-repeat;
-}
-.menu-notif a{
-  background:image-url("ico.menu-notif-off.png") 0 0 no-repeat;
-}
-.menu-notif a.active,
-.menu-notif a:hover{
-  background:image-url("ico.menu-notif-on.png") 0 0 no-repeat;
-}
-.menu-notif a.claim{
-  background:image-url("ico.menu-notif-claim-off.png") 0 0 no-repeat;
-}
-.menu-notif a.claim.active,
-.menu-notif a.claim:hover{
-  background:image-url("ico.menu-notif-claim-on.png") 0 0 no-repeat;
-}
-.menu-econ a{
-  background:image-url("ico.menu-econ-off.png") 0 0 no-repeat;
-}
-.menu-econ a.active,
-.menu-econ a:hover{
-  background:image-url("ico.menu-econ-on.png") 0 0 no-repeat;
-}
-.menu-profile a{
-  background:image-url("ico.menu-profile-off.png") 0 0 no-repeat;
-}
-.menu-profile a.active,
-.menu-profile a:hover{
-  background:image-url("ico.menu-profile-on.png") 0 0 no-repeat;
-}
+
 .menu li.menu-name a span{
   display:block;
   float:right;
@@ -766,10 +726,36 @@ tools
   left:0; right:0;
 }
 
+.modal-dialog {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: rgba(0.3,0.3,0.3, 0.5);
+  >div {
+    background: white;
+    padding: 10px;
+    text-align: center;
+    margin: 8%;
+    p {
+      max-width: 650px;
+      margin: 15px auto;
+    }
+    .button {
+      margin: 5px;
+      display: inline-block;
+    }
+  }
+}
+
 /* -----------------------------------
 microcredits
 ----------------------------------- */
 .microcredits-wrapper {
+
   &.completed {
     >div {
       margin: 3em 1em;
@@ -865,7 +851,7 @@ microcredits
 proposals
 ----------------------------------- */
 
-.proposal-wrapper {
+.generic-wrapper {
   margin: 0 auto;
   max-width: 940px;
   min-height: 700px;
@@ -896,15 +882,15 @@ proposals
       }
     }
   }
-}
-
-.proposal-wrapper {
   
   .container {
     display: inline-block;
     margin-right: 1%;
     width: 74%;
 
+    div article {
+      margin-left: 10px;
+    }
     .back {
       color: rgba(51,51,51,.6);
       display: inline-block;
@@ -944,6 +930,38 @@ proposals
       margin-top: -2px;
       text-transform: uppercase;
       padding: 10px 0 0 10px;
+    }
+
+    ul {
+      li {
+        margin: 10px 0 0 30px;
+        a {
+          color: #333;
+        }
+      }
+      li.active {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-left: 20px;
+        color: #612d62;
+        a {
+          color: #612d62;
+        }
+        &:before {
+          content:"> ";
+        }
+      }
+    }
+  }
+
+  article {
+    h2 {
+      color: #612d62;
+      font-size: 2em;
+      margin-top: 6px;
+      a {
+        color: #612d62;
+      }
     }
   }
 }
@@ -1073,14 +1091,6 @@ proposals
   border-bottom: 1px solid #b5b5b5;
   padding: 20px;
 
-  h2 {
-    color: #612d62;
-    font-size: 2em;
-    a {
-      color: #612d62;
-    }
-  }
-
   p {
     color: #333;
     font-size: 1.4em;
@@ -1186,30 +1196,6 @@ proposals
 info page
 ----------------------------------- */
 
-.video {
-background: #9e76a0; /* Old browsers */
-background: -moz-linear-gradient(top,  #9e76a0 0%, #c3a6cf 50%, #ffffff 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9e76a0), color-stop(50%,#c3a6cf), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #9e76a0 0%,#c3a6cf 50%,#ffffff 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e76a0', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-
-
-  width: 100%;
-  text-align: center;
-  // border-bottom: 2px solid #612D62;
-  padding: 20px 0;
-  height: 340px;
-
-  iframe {
-    width: 100%; 
-    max-width: 560px;
-    height:315px;
-  }
-}
-
 #info {
   margin: 0 auto;
   max-width: 940px;
@@ -1254,6 +1240,67 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e76a0', end
     color: #269283;
     padding-bottom: 2px;
     text-decoration: none; 
+  }
+}
+
+
+.generic-wrapper.blog {
+  h1 {
+    color: #612D62;
+    font-family: Montserrat,Arial,sans-serif;
+    font-size: 3em;
+    padding: 20px 0px;
+    text-transform: uppercase;
+  }
+
+  .media {
+    text-align: center;
+  }
+  .sidebar {
+    margin-top: 0px
+  }
+  img, .video {
+    margin: 2em auto 4em;
+    max-width: 500px;
+    width: 100%;
+  }
+  .video {
+    position: relative;
+    padding-bottom: 40%;
+  }
+  .video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+  }
+  .date {
+    display: inline-block;
+    margin-bottom: 2em;
+    margin-top: 7px;
+    font-size: 1.2em;
+  }
+  .post {
+    border-top: 1px solid #e3e3e3;
+    padding-top: 2em;
+  }
+  .categories {
+    margin-right: 5px;
+    a { 
+      font-size:1.2em; text-transform: uppercase; font-weight: bold;
+      & + a:before {
+        content: " | ";
+        margin: 0 5px;
+      }
+    }
+  }
+  .alignright {text-align: right}
+  .links {
+    .right {float: right}
+    padding: 1em 1em;
+    border-top: 1px solid #e3e3e3;
+    margin-top: 4em;
   }
 }
 
@@ -1491,7 +1538,7 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
       text-align: center;
   }
 
-  .proposal-wrapper nav a{
+  .generic-wrapper nav a{
     margin-top: 10px;
     display: inline-block;
 
@@ -1506,7 +1553,12 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
     }
   } 
 
-  .proposal-wrapper {
+  .menu {
+    min-width: 0px;
+    margin-top: 3px;
+  }
+
+  .generic-wrapper {
     .container {
       width: 100%;
     }
@@ -1580,6 +1632,10 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .intro .buttonbox{
     padding:1em 4%;
   }
+  .menu {
+    min-width: 0px;
+    margin-top: 3px;
+  }
   .menu ul li{
     display:none;
   }
@@ -1607,7 +1663,7 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
   .tools li .box-tool-large div.tool-text{
     padding-top:7em;
   }
-  .proposal-wrapper {
+  .generic-wrapper {
     .container {
       width: 100%;
     }
@@ -1736,6 +1792,7 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   }
   .menu ul li{
     display:block;
+    font-size: 8px;
   }
   .menu ul li.menu-hamb{
     display:none;
@@ -1760,7 +1817,7 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
   .tools li .box-tool-large div.tool-text{
     padding-top:7em;
   }
-  .proposal-wrapper {
+  .generic-wrapper {
     .container {
       width: 100%;
     }
@@ -2232,6 +2289,13 @@ div.help {
         font-size: 0.8em;
         a {
           padding: 1em 1em;
+        }
+      }
+      .subgoals {
+        margin: -13px 0px -18px 13px;
+        font-size: 10px;
+        li {
+          list-style-type: disc;
         }
       }
     }

@@ -1,5 +1,5 @@
 <% content_for :title, "Iniciativas ciudadanas" %>
-<section class="proposal-wrapper">
+<section class="generic-wrapper">
 
     <div class="how-info">
         <%= link_to '¿Qué son y cómo funcionan las Iniciativas Ciudadanas Podemos?', proposals_info_path %>
@@ -14,7 +14,14 @@
             <%= filtered_proposals 'Por tiempo', 'time' %>
             <%= filtered_proposals 'Candentes',  'hot' %>
         </nav>
-  
+
+        <br/>
+        <% if Proposal.frozen? %>
+            <%= alert_box "Iniciativas pausadas", false  do %>
+                Las ICP están en pausa ya que es se está estudiando un posible cambio en el tipo de censo de Podemos que regirá las ICP. Serán reanudadas una vez se tome una decisión al respecto.
+            <% end %>
+        <% end %>
+
         <div>
           <%= render @proposals %>
         </div>

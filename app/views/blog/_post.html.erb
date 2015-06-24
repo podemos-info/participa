@@ -1,0 +1,7 @@
+<article class="post">
+  <div class="media"><%= main_media(post) %></div>
+  <div class="categories"><% post.categories.each do |category| %><%= link_to(category.name, category ) %><% end %></div>
+  <h2><%= link_to(post.title, post ) %></h2>
+  <p class="date"><%= long_date post %></p>
+  <%= formatted_content(post, 1) %>
+</article>

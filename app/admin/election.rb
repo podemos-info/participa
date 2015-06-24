@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text
 
   index do
     selectable_column
@@ -17,16 +17,20 @@ ActiveAdmin.register Election do
 
   filter :title
   filter :agora_election_id
+  filter :user_created_at_max
 
   show do 
     attributes_table do
       row :title
       row :info_url
+      row :info_text
       row :server
+      row :priority
       row :agora_election_id
       row :scope_name
       row :starts_at
       row :ends_at
+      row :user_created_at_max
       row :close_message do 
         raw election.close_message
       end
@@ -35,8 +39,8 @@ ActiveAdmin.register Election do
       end
       if election.scope != 0 
         row "Lugares donde se vota" do
-          election.election_locations.each do |loc|
-            li "#{loc.location},#{loc.agora_version}"
+          election.locations.split("\n").each do |loc|
+            li "#{loc}"
           end
         end
       end
@@ -48,6 +52,8 @@ ActiveAdmin.register Election do
     f.inputs "Election" do
       f.input :title
       f.input :info_url
+      f.input :info_text
+      f.input :priority
       f.input :server, as: :select, collection: Election.available_servers
       f.input :agora_election_id
       f.input :scope, as: :select, collection: Election::SCOPE
@@ -55,6 +61,7 @@ ActiveAdmin.register Election do
       f.input :starts_at
       f.input :ends_at
       f.input :close_message
+      f.input :user_created_at_max
     end
     f.actions
   end

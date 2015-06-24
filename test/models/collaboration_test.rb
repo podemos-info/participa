@@ -266,17 +266,20 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .first_order work" do
-    order1 = @collaboration.create_order DateTime.now-6.months
-    order2 = @collaboration.create_order DateTime.now-5.months
-    order3 = @collaboration.create_order DateTime.now-4.months
-    order4 = @collaboration.create_order DateTime.now-3.months
-    order5 = @collaboration.create_order DateTime.now+3.months
+    order1 = @collaboration.create_order DateTime.now-6.months, true
     order1.save
+    @collaboration.reload
+    order2 = @collaboration.create_order DateTime.now-5.months, true
+    order3 = @collaboration.create_order DateTime.now-4.months, true
+    order4 = @collaboration.create_order DateTime.now-3.months, true
+    order5 = @collaboration.create_order DateTime.now+3.months, true
     order2.save
     order3.save
     order4.save
     order5.save
     assert_equal order1, @collaboration.first_order
+    assert_equal order1.first, true
+    assert_equal order2.first, false
   end
 
   test "should .create_order work" do
@@ -447,7 +450,7 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .parse_non_user work" do
-    @collaboration. user = nil
+    @collaboration.user = nil
     @collaboration.non_user_data = "--- !ruby/object:Collaboration::NonUser
 legacy_id: 1
 full_name: XXXXXXXXXXXXXXXXX

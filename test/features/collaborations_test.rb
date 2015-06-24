@@ -1,6 +1,7 @@
 require "test_helper"
 
 feature "Collaborations" do
+
   scenario "new collaboration" do
     # anonymous
     visit new_collaboration_path
@@ -16,25 +17,80 @@ feature "Collaborations" do
     collaboration = FactoryGirl.create(:collaboration, user: user)
     visit new_collaboration_path
     page.must_have_content "Revisa y confirma todos los datos para activar la colaboración."
-
-    # logged in user (with confirmed collaboration)
-    # TODO
   end
 
+  scenario "a user should be able to add and destroy a new collaboration" do
+    user = FactoryGirl.create(:user)
+    assert_equal 0, Collaboration.all.count 
 
+    # logged in user, fill collaboration
+    login_as(user)
+    visit new_collaboration_path
+    page.must_have_content "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes"
+    select('500', :from=>'Importe mensual') 
+    select('Trimestral', :from=>'Frecuencia de pago') 
+    select('Domiciliación en cuenta bancaria (formato IBAN)', :from=>'Método de pago') 
+    fill_in('collaboration_iban_account', :with => "ES0690000001210123456789")
+    fill_in('collaboration_iban_bic', :with => "ESPBESMMXXX")
+    check('collaboration_terms_of_service')
+    check('collaboration_minimal_year_old') 
 
-    #visit new_collaboration_path
-    #select('5 €', :from=>'Importe mensual') 
-    #fill_in('#collaboration_ccc_entity', with: '2222')
-    #fill_in('#collaboration_ccc_office', with: '2222')
-    #fill_in('#collaboration_ccc_dc', with: '91')
-    #fill_in('#collaboration_ccc_account', with: '919191911991')
-    #select('Mensual', :from=>'Frecuencia de pago') 
-    #select('Domiciliación en cuenta bancaria (formato CCC)', :from=>'Método de pago') 
-    #check('collaboration_minimal_year_old')
-    #check('collaboration_terms_of_service')
-    #click_button("Guardar Colaboración económica")
-    #save_and_open_page
+    click_button "Guardar Colaboración económica"
+    page.must_have_content "6.000,00€"
+    assert_equal 1, Collaboration.all.count 
 
+    # confirm collaboration
+    click_link "Confirmar"
+    page.must_have_content "Tu donación se ha dado de alta correctamente."
+
+    # modify collaboration
+    visit new_collaboration_path
+    page.must_have_content "Ya tienes una colaboración"
+
+    # destroy collaboration
+    click_link "Dar de baja colaboración"
+    page.must_have_content "Hemos dado de baja tu colaboración."
+    assert_equal 0, Collaboration.all.count 
+  end
+
+  scenario "a user should be able to add and destroy a new collaboration with orders" do
+    user = FactoryGirl.create(:user)
+    assert_equal 0, Collaboration.all.count 
+
+    login_as(user)
+    visit new_collaboration_path
+    page.must_have_content "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes"
+
+    select('500', :from=>'Importe mensual') 
+    select('Trimestral', :from=>'Frecuencia de pago') 
+    select('Domiciliación en cuenta bancaria (formato IBAN)', :from=>'Método de pago') 
+    fill_in('collaboration_iban_account', :with => "ES0690000001210123456789")
+    fill_in('collaboration_iban_bic', :with => "ESPBESMMXXX")
+    check('collaboration_terms_of_service')
+    check('collaboration_minimal_year_old') 
+
+    click_button "Guardar Colaboración económica"
+    page.must_have_content "6.000,00€"
+    assert_equal 1, Collaboration.all.count 
+
+    click_link "Confirmar"
+    page.must_have_content "Tu donación se ha dado de alta correctamente."
+
+    # modify collaboration
+    visit new_collaboration_path
+    page.must_have_content "Ya tienes una colaboración"
+
+    collaboration = Collaboration.all.last
+    order = collaboration.create_order Date.today+1.day
+    assert order.save
+    assert_equal 1, Order.all.count
+
+    # destroy collaboration
+    click_link "Dar de baja colaboración"
+    page.must_have_content "Hemos dado de baja tu colaboración."
+
+    assert_equal 0, Collaboration.all.count 
+    assert_equal 1, Order.all.count
+  end
 
 end

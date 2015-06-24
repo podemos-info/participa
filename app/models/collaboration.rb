@@ -186,6 +186,10 @@ class Collaboration < ActiveRecord::Base
     self.status > 1 and self.deleted_at.nil?
   end
 
+  def has_confirmed_payment?
+    self.status > 2 and self.deleted_at.nil?
+  end
+
   def admin_permalink
     admin_collaboration_path(self)
   end
@@ -200,7 +204,7 @@ class Collaboration < ActiveRecord::Base
 
   def create_order date, maybe_first=false
     is_first = false
-    if maybe_first and not self.is_active?
+    if maybe_first and not self.has_confirmed_payment?
       if self.first_order.nil?
         is_first = true
       elsif self.first_order.payable_at.unique_month==date.unique_month

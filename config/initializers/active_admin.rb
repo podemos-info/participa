@@ -249,4 +249,4 @@ ActiveAdmin::Views::SidebarSection.class_eval do
     self.id = @section.id
     build_sidebar_content
   end
-end 
+end

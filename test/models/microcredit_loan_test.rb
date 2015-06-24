@@ -9,8 +9,11 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
     @microcredit = FactoryGirl.create(:microcredit)
   end
 
-  def create_loans( microcredit, number, data ) 
-    (1..number.to_i).each {|n| microcredit.loans.create(data) }
+  def create_loans( microcredit, number, data, update_counted=true ) 
+    (1..number.to_i).each do |n| 
+      loan = microcredit.loans.create(data)
+      loan.update_counted_at if update_counted
+    end
   end
 
   test "should validation on microcredit loans work" do
@@ -27,14 +30,16 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
 
   test "should counted scope work" do
     create_loans(@microcredit, 5, {user: @user1, amount: 1000}) 
+    @microcredit = Microcredit.find @microcredit.id
+    assert_equal 0, @microcredit.loans.counted.count
+
+    create_loans(@microcredit, 5, {user: @user1, amount: 1000, counted_at: DateTime.now}) 
+    @microcredit = Microcredit.find @microcredit.id
     assert_equal 5, @microcredit.loans.counted.count
 
-    # when is closer to ends_at, do not count it
-    @microcredit.update_attribute(:starts_at, DateTime.now-1.month)
-    @microcredit.update_attribute(:ends_at, DateTime.now+1.hour)
+    create_loans(@microcredit, 5, {user: @user1, amount: 100, counted_at: DateTime.now}) 
     @microcredit = Microcredit.find @microcredit.id
-    create_loans(@microcredit, 5, {user: @user1, amount: 1000}) 
-    assert_equal 5, @microcredit.loans.counted.count
+    assert_equal 10, @microcredit.loans.counted.count
   end
 
   test "should confirmed scope work" do
@@ -46,11 +51,11 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
 
   test "should phase scope work" do
     create_loans(@microcredit, 2, {user: @user1, amount: 100, counted_at: nil}) 
-    create_loans(@microcredit, 3, {user: @user1, amount: 100, counted_at: DateTime.now}) 
-    create_loans(@microcredit, 4, {user: @user1, amount: 100, confirmed_at: DateTime.now}) 
+    create_loans(@microcredit, 3, {user: @user1, amount: 100, counted_at: DateTime.now-1.day}) 
+    create_loans(@microcredit, 4, {user: @user1, amount: 100, confirmed_at: DateTime.now-1.day}) 
     assert_equal 9, @microcredit.loans.phase.count
 
-    @microcredit.change_phase
+    @microcredit.change_phase!
     @microcredit = Microcredit.find @microcredit.id
     assert_equal 0, @microcredit.loans.phase.count
 
