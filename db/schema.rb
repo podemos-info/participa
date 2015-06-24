@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529103522) do
+ActiveRecord::Schema.define(version: 20150624164530) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20150529103522) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "link"
   end
 
   add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at"
