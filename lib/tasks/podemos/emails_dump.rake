@@ -15,7 +15,7 @@ namespace :podemos do
           row << town
         elsif prov
           prov[0] = "m"
-          row << prov
+          row << prov + "_"
         else
           row << "m_"
         end
