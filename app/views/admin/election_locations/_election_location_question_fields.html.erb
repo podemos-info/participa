@@ -1,0 +1,15 @@
+<div  class="nested-fields">
+<ol>
+<%= f.input :title %>
+<%= f.input :description %>
+<%= f.input :voting_system, as: :select, collection: ElectionLocationQuestion::VOTING_SYSTEMS.invert %>
+<%= f.input :winners, min: 1 %>
+<%= f.input :minimum, min: 0 %>
+<%= f.input :maximum, min: 1 %>
+<%= f.input :totals, collection: ElectionLocationQuestion::TOTALS.invert %>
+<%= f.input :options %>
+<%= f.input :random_order %>
+</ol>
+<%= link_to_remove_association "Borrar", f, class: 'button' %>
+<hr/>
+</div>

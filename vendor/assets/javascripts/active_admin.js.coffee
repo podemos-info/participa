@@ -5,3 +5,4 @@
 #= require active_admin_charts
 #= require active_admin_data_panel
 #= require active_admin_spam_filter
+#= require cocoon

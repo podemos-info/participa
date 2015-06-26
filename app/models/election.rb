@@ -9,6 +9,10 @@ class Election < ActiveRecord::Base
   scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}
 
+  def to_s
+    "#{title}"
+  end
+
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
   end
@@ -88,7 +92,7 @@ class Election < ActiveRecord::Base
         "00"
     end
     election_location = self.election_locations.find_by_location user_location
-    "#{self.agora_election_id}#{election_location.override or election_location.location}#{election_location.agora_version}".to_i
+    election_location.vote_id
   end
 
   def locations
@@ -122,5 +126,9 @@ class Election < ActiveRecord::Base
     server = Rails.application.secrets.agora["default"]
     server = self.server if self.server and !self.server.empty?
     Rails.application.secrets.agora["servers"][server]["url"]
+  end
+
+  def duration
+    ((ends_at-starts_at)/60/60).to_i
   end
 end

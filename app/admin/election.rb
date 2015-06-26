@@ -37,15 +37,31 @@ ActiveAdmin.register Election do
       row "Crear Aviso" do
         link_to "Crear aviso para móviles para esta votación", new_admin_notice_path(notice: { link: create_vote_url(election_id: election.id), title: "Podemos", body: "Nueva votación disponible: #{election.title}" }), class: "button"
       end
-      if election.scope != 0 
-        row "Lugares donde se vota" do
-          election.locations.split("\n").each do |loc|
-            li "#{loc}"
-          end
+    end
+
+    panel "Lugares donde se vota" do
+      table_for election.election_locations do
+        column :territory
+        column :link do |el|
+          link_to el.link, el.link
+        end
+        column :actions do |el|
+          span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
+          span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
+          span link_to "TSV", download_voting_definition_admin_election_path(el)
         end
       end
+      
+      span link_to "Añadir ubicación", new_admin_election_election_location_path(election)
     end
     active_admin_comments
+  end
+
+  member_action :download_voting_definition do
+    election_location = ElectionLocation.find(params[:id])
+    headers["Content-Type"] ||= 'text/csv'
+    headers["Content-Disposition"] = "attachment; filename=\"#{election_location.vote_id}.tsv\"" 
+    render "election_location.tsv", layout: false, locals: { election_location: election_location }
   end
 
   form do |f|
@@ -61,7 +77,7 @@ ActiveAdmin.register Election do
       f.input :starts_at
       f.input :ends_at
       f.input :close_message
-      f.input :user_created_at_max
+      f.input :user_created_at_max, as: :datepicker
     end
     f.actions
   end
@@ -88,4 +104,30 @@ ActiveAdmin.register Election do
       a 'Descargar voter ids', href: download_voter_ids_admin_election_path(election)
     end
   end
+end
+
+ActiveAdmin.register ElectionLocation do
+  menu false
+  belongs_to :election
+  navigation_menu :default
+    
+  permit_params :election_id, :location, :agora_version, :override, :title, :layout, :description, :share_text, :theme, 
+                election_location_questions_attributes: [ :id, :_destroy, :title, :description, :voting_system, :layout, :winners, :minimum, :maximum, :random_order, :totals, :options ]
+
+  form partial: "election_location", locals: { spain: Carmen::Country.coded("ES") }
+
+  controller do
+    def create
+      super do |format|
+        redirect_to admin_election_path(resource.election) and return if resource.valid?
+      end
+    end
+
+    def update
+      super do |format|
+        redirect_to admin_election_path(resource.election) and return if resource.valid?
+      end
+    end
+  end
+
 end

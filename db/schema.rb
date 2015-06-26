@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624164530) do
+ActiveRecord::Schema.define(version: 20150626125744) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -73,6 +73,20 @@ ActiveRecord::Schema.define(version: 20150624164530) do
   add_index "collaborations", ["non_user_document_vatid"], name: "index_collaborations_on_non_user_document_vatid"
   add_index "collaborations", ["non_user_email"], name: "index_collaborations_on_non_user_email"
 
+  create_table "election_location_questions", force: true do |t|
+    t.integer "election_location_id"
+    t.string  "title"
+    t.text    "description"
+    t.string  "voting_system"
+    t.string  "layout"
+    t.integer "winners"
+    t.integer "minimum"
+    t.integer "maximum"
+    t.boolean "random_order"
+    t.string  "totals"
+    t.text    "options"
+  end
+
   create_table "election_locations", force: true do |t|
     t.integer  "election_id"
     t.string   "location"
@@ -80,6 +94,11 @@ ActiveRecord::Schema.define(version: 20150624164530) do
     t.datetime "updated_at"
     t.integer  "agora_version"
     t.string   "override"
+    t.string   "title"
+    t.string   "layout"
+    t.text     "description"
+    t.string   "share_text"
+    t.string   "theme"
   end
 
   create_table "elections", force: true do |t|
@@ -264,6 +283,19 @@ ActiveRecord::Schema.define(version: 20150624164530) do
     t.text     "results"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "rich_rich_files", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "rich_file_file_name"
+    t.string   "rich_file_content_type"
+    t.integer  "rich_file_file_size"
+    t.datetime "rich_file_updated_at"
+    t.string   "owner_type"
+    t.integer  "owner_id"
+    t.text     "uri_cache"
+    t.string   "simplified_type",        default: "file"
   end
 
   create_table "simple_captcha_data", force: true do |t|

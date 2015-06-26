@@ -1,0 +1,48 @@
+<%= semantic_form_for [:admin, @election_location.election, @election_location], builder: Formtastic::FormBuilder do |f| %>
+  <%= f.inputs "Identificación" do %>
+    <%= f.input :election, as: :string, input_html: { disabled: true } %>
+    
+    <% case @election_location.election.scope
+          when 0 then %>
+            <%= f.input :location, as: :select, collection: [[ "Estatal", "00"]] %>
+        <% when 1 then %>
+            <%= f.input :location, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map {|u| [ u[1], u[0][2..-1] ]} %>
+        <% when 2 then %>
+            <%= f.input :location, as: :select, collection: spain.subregions.map {|r| [ r.name, r.index ]} %>
+        <% when 3 then %>
+            <%= f.input :location, as: :select, collection: spain.subregions.map {|r| r.subregions.map {|sr| [ "#{sr.name} (#{r.name})", sr.code.scan(/\d/).join("") ] } } .flatten(1) %>
+        <% when 4 then %>
+            <%= f.input :location, as: :select, collection: Podemos::GeoExtra::ISLANDS.values.uniq.map {|u| [ u[1], u[0][2..-1] ]} %>
+        <% when 5 then %>
+            <%= f.input :location, as: :select, collection: [[ "Exterior", "00"]] %>
+      <% end %>
+    <%= f.input :agora_version %>
+    <%= f.input :override %>
+  <% end %>
+  <%= f.inputs "Votación", style: "padding-right:320px" do %>
+    <%= image_tag("layout-#{@election_location.layout}.png", width:300, id:"layout_preview", alt: @election_location.layout, style: "position:absolute; right:20px") %>
+      <%= f.input :title %>
+  
+      <%= f.input :layout, as: :select, collection: ElectionLocation::LAYOUTS.invert, input_html: {
+          onchange: "$('#layout_preview').attr('src', '#{image_path("layout-simple.png").gsub /simple/, "'+$(this).val()+'"}')" } %>
+      
+      <%= f.input :description %>
+      <%= f.input :share_text %>
+      <%= f.input :theme, as: :select, collection: ElectionLocation::THEMES %>
+  <% end %>
+
+  <%= f.inputs "Preguntas" do %>
+    <li id="preguntas">
+    <%= f.semantic_fields_for :election_location_questions do |felq| %>
+      <%= render 'election_location_question_fields', f: felq %>
+    <% end %>
+    </li>
+    <li>
+      <%= link_to_add_association 'Añadir pregunta', f, :election_location_questions, class: 'button' %>
+    </li>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit %>
+    <li class="cancel"><%= link_to "Cancel", [:admin, @election_location.election ] %></li>
+  <% end %>
+<% end %>
