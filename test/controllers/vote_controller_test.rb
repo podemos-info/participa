@@ -3,6 +3,7 @@ require 'test_helper'
 class VoteControllerTest < ActionController::TestCase
 
   setup do 
+    Rails.application.secrets.features["verification_presencial"] = false
     @user = FactoryGirl.create(:user)
     @election = FactoryGirl.create(:election)
   end

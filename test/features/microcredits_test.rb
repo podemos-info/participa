@@ -16,18 +16,18 @@ feature "Microcredits" do
     click_button "Guardar Suscripción"
     page.must_have_content "no puede estar en blanco"
 
-    fill_in('Nombre', :with => 'John') 
-    fill_in('Apellidos', :with => 'Snow') 
-    select('Madrid', :from=>'Provincia') 
-    fill_in('Municipio', :with=>'Madrid') 
-    #select('Madrid', :from=>'Municipio') 
-    fill_in('Código postal', :with => '28021') 
-    fill_in('Dirección', :with => 'C/El Muro, S/N') 
-    fill_in('DNI o NIE', :with => user.document_vatid) 
-    fill_in('Email', :with => 'john@snow.com') 
+    fill_in('Nombre', :with => 'John')
+    fill_in('Apellidos', :with => 'Snow')
+    select('Madrid', :from=>'Provincia')
+    fill_in('Municipio', :with=>'Madrid')
+    #select('Madrid', :from=>'Municipio')
+    fill_in('Código postal', :with => '28021')
+    fill_in('Dirección', :with => 'C/El Muro, S/N')
+    fill_in('DNI o NIE', :with => user.document_vatid)
+    fill_in('Email', :with => 'john@snow.com')
     choose('microcredit_loan_amount_100')
     check('microcredit_loan_minimal_year_old')
-    check('microcredit_loan_terms_of_service') 
+    check('microcredit_loan_terms_of_service')
 
     click_button "Guardar Suscripción"
     page.must_have_content "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos"
@@ -50,10 +50,10 @@ feature "Microcredits" do
 
     choose('microcredit_loan_amount_100')
     check('microcredit_loan_minimal_year_old')
-    check('microcredit_loan_terms_of_service') 
+    check('microcredit_loan_terms_of_service')
 
     click_button "Guardar Suscripción"
     page.must_have_content "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos"
   end
 
-end 
+end

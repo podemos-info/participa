@@ -28,14 +28,15 @@ def with_blocked_change_location
   end
 end
 
-# FIX Capybara error: SQLite3::BusyException: database is locked  
+# FIX Capybara error: SQLite3::BusyException: database is locked
 # http://atlwendy.ghost.io/capybara-database-locked/
-class ActiveRecord::Base  
+class ActiveRecord::Base
   mattr_accessor :shared_connection
   @@shared_connection = nil
 
   def self.connection
     @@shared_connection || retrieve_connection
   end
-end  
-ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection 
+end
+
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection

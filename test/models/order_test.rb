@@ -1,4 +1,5 @@
 require 'test_helper'
+
 class Order
   def redsys_logger
     @@redsys_logger = Logger.new("#{Rails.root}/log/redsys_test.log")
@@ -12,7 +13,7 @@ class OrderTest < ActiveSupport::TestCase
     @order = @collaboration.create_order Date.today, true
   end
 
-  test "should .unique_month work for Date, Time and DateTime" do 
+  test "should .unique_month work for Date, Time and DateTime" do
     assert_equal( Date.civil(2013,1,1).unique_month, 24157 )
     assert_equal( Date.civil(2014,1,1).unique_month, 24169 )
     assert_equal( Date.civil(2015,1,1).unique_month, 24181 )
@@ -148,9 +149,9 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .payment_day work" do
     Rails.application.secrets.orders["payment_day"] = 10
-    assert_equal(Order.payment_day, 10) 
+    assert_equal(Order.payment_day, 10)
     Rails.application.secrets.orders["payment_day"] = "10"
-    assert_equal(Order.payment_day, 10) 
+    assert_equal(Order.payment_day, 10)
   end
 
   test "should .by_month_count work" do
@@ -167,7 +168,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .admin_permalink work" do
     @order.save
-    assert_equal( "/admin/orders/1", @order.admin_permalink ) 
+    assert_equal( "/admin/orders/1", @order.admin_permalink )
   end
 
   test "should .due_code work" do
@@ -192,8 +193,8 @@ class OrderTest < ActiveSupport::TestCase
     now = DateTime.now
     @order.mark_as_paid! now
     assert_equal( 2, @order.status )
-    assert( @order.payed_at.is_a? Time ) 
-    assert_equal( now, @order.payed_at ) 
+    assert( @order.payed_at.is_a? Time )
+    assert_equal( now, @order.payed_at )
   end
 
   test "should .mark_as_returned! work" do
@@ -208,10 +209,10 @@ class OrderTest < ActiveSupport::TestCase
     order1.save
     Order.mark_bank_orders_as_charged! Date.today
     order1.reload
-    # shouldnt mark as charged ccc type collaboration order 
+    # shouldnt mark as charged ccc type collaboration order
     assert_equal(0, order1.status)
 
-    # shouldnt mark as charged iban type collaboration order 
+    # shouldnt mark as charged iban type collaboration order
     collaboration2 = FactoryGirl.create(:collaboration, :iban)
     order2 = collaboration2.create_order Date.today, true
     order2.save
@@ -224,7 +225,7 @@ class OrderTest < ActiveSupport::TestCase
     @order.save
     Order.mark_bank_orders_as_paid! Date.today
     @order.reload
-    # shouldnt mark as charged ccc type collaboration order 
+    # shouldnt mark as charged ccc type collaboration order
     assert_equal(0, @order.status)
 
     collaboration2 = FactoryGirl.create(:collaboration, :iban)
@@ -237,7 +238,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal(0, order2.status)
 
     # should mark as charged on bank on status charging
-    order2.update_attribute(:status, 1) 
+    order2.update_attribute(:status, 1)
     Order.mark_bank_orders_as_paid! Date.today
     order2.reload
     assert_equal(2, order2.status)
@@ -260,12 +261,12 @@ class OrderTest < ActiveSupport::TestCase
     # a new one
     assert_equal 12, @order.redsys_order_id.length
 
-    # reusing Ds_Order from redsys response 
+    # reusing Ds_Order from redsys response
     order2 = @collaboration.create_order Date.today, true
     order2_id = "000000#{order2.id}Caaaa"
     order2.payment_response = {"Ds_Order" => order2_id}.to_json
     order2.save
-    assert_equal(order2_id, order2.redsys_order_id) 
+    assert_equal(order2_id, order2.redsys_order_id)
   end
 
   test "should .redsys_post_url work" do
@@ -276,7 +277,7 @@ class OrderTest < ActiveSupport::TestCase
     @order.save
     assert_equal "https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=00000000000#{@order.id}&user_id=#{@collaboration.user.id}", @order.redsys_merchant_url
 
-    @order.first = false 
+    @order.first = false
     @order.save
     assert_equal "", @order.redsys_merchant_url
   end
@@ -292,11 +293,6 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal 40, @order.redsys_merchant_response_signature.length
   end
 
-  test "should .redsys_logger work" do
-    @order.redsys_logger.info "test"
-    assert File.exist?("#{Rails.root}/log/redsys.log")
-  end
-
   test "should .redsys_response work" do
     @order.save
     assert_equal nil, @order.redsys_response
@@ -308,7 +304,10 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "should .redsys_parse_response! work" do
-    FileUtils.rm("#{Rails.root}/log/redsys_test.log")
+    filename = "#{Rails.root}/log/redsys_test.log"
+    if File.exists? filename
+      FileUtils.rm(filename)
+    end
     @order.save
     @order.update_attribute(:payment_response, {"Ds_Response" => 0}.to_json)
     params = {}
@@ -319,16 +318,16 @@ class OrderTest < ActiveSupport::TestCase
     params["Ds_Signature"] = @order.redsys_merchant_response_signature
     params["Ds_Merchant_Identifier"] = @order.redsys_secret("identifier")
     @order.redsys_parse_response! params
-    file_contents = File.open("#{Rails.root}/log/redsys_test.log").read().split(/\n/)
-    assert_equal( 1, file_contents.grep(/Redsys: New payment/).count ) 
+    file_contents = File.open(filename).read().split(/\n/)
+    assert_equal( 1, file_contents.grep(/Redsys: New payment/).count )
     payment_info = "User: #{@collaboration.user.id} - Collaboration: #{@collaboration.id}"
-    assert_equal( 1, file_contents.grep(/#{payment_info}/).count ) 
+    assert_equal( 1, file_contents.grep(/#{payment_info}/).count )
     assert_equal( 1, file_contents.grep(/Status: OK, but with warnings/).count )
-    FileUtils.rm("#{Rails.root}/log/redsys_test.log")
+    FileUtils.rm(filename)
 
-    # TODO: migrate from collaboration to order 
+    # TODO: migrate from collaboration to order
     #
-    ## response KO 
+    ## response KO
     #params = {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:46", "Ds_SecurePayment"=>"0", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0913", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_ErrorCode"=>"SIS0051", "Ds_AuthorisationCode"=>"      "}
     #collaboration.redsys_parse_response! params
     #assert_equal(collaboration.redsys_response_code, "0913")
@@ -356,7 +355,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_params work" do
     @order.save
-    response = {"Ds_Merchant_Currency"=>"978", "Ds_Merchant_MerchantCode"=>"054517297", "Ds_Merchant_MerchantName"=>"Podemos", "Ds_Merchant_Terminal"=>"001", "Ds_Merchant_TransactionType"=>"0", "Ds_Merchant_PayMethods"=>"T", "Ds_Merchant_MerchantData"=>1, "Ds_Merchant_MerchantURL"=>"https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=000000000001&user_id=1", "Ds_Merchant_Order"=>"000000000001", "Ds_Merchant_Amount"=>1000, "Ds_Merchant_MerchantSignature"=>@order.redsys_merchant_request_signature, "Ds_Merchant_Identifier"=>"REQUIRED", "Ds_Merchant_UrlOK"=>"http://localhost/colabora/OK", "Ds_Merchant_UrlKO"=>"http://localhost/colabora/KO"}
+    response = {"Ds_Merchant_Currency"=>"978", "Ds_Merchant_MerchantCode"=>"changeme", "Ds_Merchant_MerchantName"=>"Organization", "Ds_Merchant_Terminal"=>"001", "Ds_Merchant_TransactionType"=>"0", "Ds_Merchant_PayMethods"=>"T", "Ds_Merchant_MerchantData"=>1, "Ds_Merchant_MerchantURL"=>"https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=000000000001&user_id=1", "Ds_Merchant_Order"=>"000000000001", "Ds_Merchant_Amount"=>1000, "Ds_Merchant_MerchantSignature"=>"0EB24BD887357BCAE13B01B2AD976810D84C7F36", "Ds_Merchant_Identifier"=>"REQUIRED", "Ds_Merchant_UrlOK"=>"http://localhost/colabora/OK", "Ds_Merchant_UrlKO"=>"http://localhost/colabora/KO"}
     assert_equal response, @order.redsys_params
   end
 
@@ -374,7 +373,7 @@ class OrderTest < ActiveSupport::TestCase
     @order.save
     assert_equal("Transacción no procesada", @order.redsys_text_status)
 
-    # some possible payment responses 
+    # some possible payment responses
     @order.update_attribute(:payment_response, {"Ds_Response" => 0}.to_json)
     assert_equal("0: Transacción autorizada para pagos y preautorizaciones", @order.redsys_text_status)
 

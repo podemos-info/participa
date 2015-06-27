@@ -28,21 +28,21 @@ module ApplicationHelper
 
   def info_box &block
     content = with_output_buffer(&block)
-    render partial: 'info', locals: { content: content }
+    render partial: 'application/info', locals: { content: content }
   end
 
   # Renders an alert with given title,
   # text for close-button and content given in
   # a block.
   def alert_box title, close_text="", &block
-    render_flash 'alert', title, close_text, &block
+    render_flash 'application/alert', title, close_text, &block
   end
 
   # Renders an error with given title,
   # text for close-button and content given in
   # a block.
   def error_box title, close_text="", &block
-    render_flash 'error', title, close_text, &block
+    render_flash 'application/error', title, close_text, &block
   end
 
   # Generalization from render_alert and render_error
@@ -52,13 +52,13 @@ module ApplicationHelper
   end
 
   def field_notice_box
-    render partial: 'form_field_notice'
+    render partial: 'application/form_field_notice'
   end
   def errors_in_form resource
-    render partial: 'errors_in_form', locals: {resource: resource}
+    render partial: 'application/errors_in_form', locals: {resource: resource}
   end
   def steps_nav current_step, *steps_text
-    render partial: 'steps_nav',
+    render partial: 'application/steps_nav',
            locals: { first_step: steps_text[0],
                      second_step: steps_text[1],
                      third_step: steps_text[2],
