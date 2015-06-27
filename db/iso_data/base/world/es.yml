@@ -95,9 +95,9 @@
   type: province
 - code: BI
   type: province
-- code: Z 
-  type: province
 - code: ZA
+  type: province
+- code: Z 
   type: province
 - code: CE
   type: province
