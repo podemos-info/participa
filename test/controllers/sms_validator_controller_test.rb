@@ -122,7 +122,7 @@ class SmsValidatorControllerTest < ActionController::TestCase
   test "should change vote location from previous user when sms token if user give it OK" do
     with_blocked_change_location do
       old_user = FactoryGirl.create(:user)
-      old_user.confirm!
+      old_user.confirm
       old_user.delete
       
       token = 'AAA123'
