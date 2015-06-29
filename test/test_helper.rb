@@ -40,3 +40,7 @@ class ActiveRecord::Base
 end
 
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+
+Capybara::Webkit.configure do |config|
+  config.block_unknown_urls
+end

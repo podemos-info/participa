@@ -7,7 +7,6 @@ feature "Proposals" do
     proposal = FactoryGirl.create(:proposal)
 
     login_as(user)
-    page.driver.block_unknown_urls
 
     visit proposals_path
     page.must_have_content "Iniciativas Ciudadanas"
@@ -17,6 +16,8 @@ feature "Proposals" do
 
     visit proposal_path(id: proposal)
     page.must_have_content "Ya has apoyado esta propuesta. ¡Muchas gracias!"
+
+    # TODO Proposal.frozen?
   end
 
 end

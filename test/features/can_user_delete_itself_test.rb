@@ -8,7 +8,6 @@ def create_resource_and_delete_itself klass, factory, final_count
     assert_equal 1, klass.all.count 
 
     login_as(resource.user)
-    page.driver.block_unknown_urls
     visit edit_user_registration_path
     click_link "Darme de baja" # change tab
     click_button "Darme de baja"
@@ -44,7 +43,6 @@ feature "CanUserDeleteItselfTest" do
     user = FactoryGirl.create(:user)
 
     login_as(user)
-    page.driver.block_unknown_urls
     visit proposals_path
     click_button "Apoyar propuesta"
     page.must_have_content "¡Muchas gracias!"

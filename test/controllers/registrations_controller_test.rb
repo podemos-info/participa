@@ -31,7 +31,7 @@ class RegistrationsControllerTest < ActionController::TestCase
   test "should not allow to change vote location deleting the user and recreating with the same email" do
     with_blocked_change_location do
       old_user = FactoryGirl.create(:user)
-      old_user.confirm!
+      old_user.confirm
       old_user.delete
 
       post :create, { "user" => attributes_for(:user, email: old_user.email, town: "m_03_003_6") }
@@ -44,7 +44,7 @@ class RegistrationsControllerTest < ActionController::TestCase
   test "should not allow to change vote location deleting the user and recreating with the same vat_id" do
     with_blocked_change_location do
       old_user = FactoryGirl.create(:user)
-      old_user.confirm!
+      old_user.confirm
       old_user.delete
       
       post :create, { "user" => attributes_for(:user, document_vatid: old_user.document_vatid, town: "m_03_003_6") }
