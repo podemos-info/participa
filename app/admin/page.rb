@@ -2,7 +2,7 @@ ActiveAdmin.register Page do
 
   permit_params :id_form, :title, :slug, :link, :require_login
 
-  action_item do
+  action_item(:show) do
     link_to('Recargar rutas', reload_admin_pages_path, data: { confirm: "¿Estas segura de querer recargar las rutas?" })
   end
 

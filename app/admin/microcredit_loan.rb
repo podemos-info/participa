@@ -119,7 +119,7 @@ ActiveAdmin.register MicrocreditLoan do
   filter :counted_at
   filter :amount
 
-  action_item :only => :show do
+  action_item(:show) do
     if microcredit_loan.confirmed_at.nil?
       link_to('Confirmar', confirm_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "Por favor, no utilices este botón antes de aparezca el ingreso en la cuenta bancaria. ¿Estas segura de querer confirmar la recepción de este microcrédito?" })
     else
@@ -127,16 +127,20 @@ ActiveAdmin.register MicrocreditLoan do
     end
   end
 
-  action_item :only => :show do
+  action_item(:show) do
     if microcredit_loan.discarded_at.nil?
       link_to('Descartar', discard_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "¿Estas segura de querer descartar este microcrédito?" })
     end
   end
 
-  action_item :only => :show do
+  action_item(:show) do
     if microcredit_loan.counted_at.nil? and microcredit_loan.discarded_at.nil?
       link_to('Mostrar en la web', count_admin_microcredit_loan_path(microcredit_loan), method: :post, data: { confirm: "Por favor, utiliza esta funcionalidad en ocasiones puntuales. Una vez hecho no podrá deshacerse, ¿Estas segura de querer contar este microcrédito en la web?" })
     end
+  end
+
+  action_item(:show) do
+    link_to('Descargar PDF', download_pdf_admin_microcredit_loan_path(resource))
   end
 
   member_action :count, :method => [:post] do
@@ -201,10 +205,6 @@ ActiveAdmin.register MicrocreditLoan do
     column :created_at
     column :counted_at
     column :confirmed_at
-  end
-
-  action_item :only => :show do
-    link_to('Descargar PDF', download_pdf_admin_microcredit_loan_path(resource))
   end
 
   member_action :download_pdf do
