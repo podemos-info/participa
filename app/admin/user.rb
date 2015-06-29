@@ -244,11 +244,11 @@ ActiveAdmin.register User do
     column :circle
   end
 
-  action_item :only => :show do
+  action_item(:show) do
     link_to('Recuperar usuario borrado', recover_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer recuperar este usuario?" }) if user.deleted?
   end
 
-  action_item :only => :show do   
+  action_item(:show) do
     if can? :ban, User
       if user.banned?
         link_to('Desbanear usuario', ban_admin_user_path(user), method: :delete) 
@@ -258,7 +258,7 @@ ActiveAdmin.register User do
     end
   end
 
-  action_item :only => :show do
+  action_item(:show) do
     if user.not_verified?
       link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer verificar a este usuario?" })
     end

@@ -71,7 +71,7 @@ ActiveAdmin.register Report do
     redirect_to :admin_reports
   end
 
-  action_item only: :show do
+  action_item(:show) do
     if resource.results.nil?
       link_to 'Generar', run_admin_report_path(id: resource.id)
     else
