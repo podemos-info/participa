@@ -39,4 +39,7 @@ Rails.application.configure do
   
   # Disable paper_trail during tests
   PaperTrail.enabled = false
+
+  config.active_support.test_order = :sorted # or `:random` if you prefer
+
 end
