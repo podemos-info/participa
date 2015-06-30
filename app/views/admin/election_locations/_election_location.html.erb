@@ -1,3 +1,4 @@
+<% @election_location.has_voting_info = params[:has_voting_info] if params[:has_voting_info] %>
 <%= semantic_form_for [:admin, @election_location.election, @election_location], builder: Formtastic::FormBuilder do |f| %>
   <%= f.inputs "Identificación" do %>
     <%= f.input :election, as: :string, input_html: { disabled: true } %>
@@ -18,28 +19,35 @@
       <% end %>
     <%= f.input :agora_version %>
     <%= f.input :override %>
-  <% end %>
-  <%= f.inputs "Votación", style: "padding-right:320px" do %>
-    <%= image_tag("layout-#{@election_location.layout}.png", width:300, id:"layout_preview", alt: @election_location.layout, style: "position:absolute; right:20px") %>
-      <%= f.input :title %>
-  
-      <%= f.input :layout, as: :select, collection: ElectionLocation::LAYOUTS.invert, input_html: {
-          onchange: "$('#layout_preview').attr('src', '#{image_path("layout-simple.png").gsub /simple/, "'+$(this).val()+'"}')" } %>
-      
-      <%= f.input :description %>
-      <%= f.input :share_text %>
-      <%= f.input :theme, as: :select, collection: ElectionLocation::THEMES %>
+    <%= f.input :has_voting_info, as: :hidden %>
+    <li><% if @election_location.has_voting_info %>
+      <%= link_to "Eliminar información de votación", params.merge(has_voting_info:false), class: 'button', data: { confirm: "Esto borrará la información necesaria para generar el TSV de la votación. ¿Estas segura de borrar la información de esta votación?" } %>
+    <% else %>
+      <%= link_to "Añadir información de votación", params.merge(has_voting_info:true), class: 'button' %>
+    <% end %></li>
   <% end %>
 
-  <%= f.inputs "Preguntas" do %>
-    <li id="preguntas">
-    <%= f.semantic_fields_for :election_location_questions do |felq| %>
-      <%= render 'election_location_question_fields', f: felq %>
+  <% if @election_location.has_voting_info %>
+    <%= f.inputs "Votación", style: "padding-right:320px" do %>
+      <%= image_tag("layout-#{@election_location.layout}.png", width:300, id:"layout_preview", alt: @election_location.layout, style: "position:absolute; right:20px") %>
+        <%= f.input :title %>
+    
+        <%= f.input :layout, as: :select, collection: ElectionLocation::LAYOUTS.invert, input_html: {
+            onchange: "$('#layout_preview').attr('src', '#{image_path("layout-simple.png").gsub /simple/, "'+$(this).val()+'"}')" } %>
+        
+        <%= f.input :description %>
+        <%= f.input :share_text %>
+        <%= f.input :theme, as: :select, collection: ElectionLocation.themes %>
     <% end %>
-    </li>
-    <li>
-      <%= link_to_add_association 'Añadir pregunta', f, :election_location_questions, class: 'button' %>
-    </li>
+
+    <%= f.inputs "Preguntas" do %>
+      <%= f.semantic_fields_for :election_location_questions do |felq| %>
+        <%= render 'election_location_question_fields', f: felq %>
+      <% end %>
+      
+      <li><%= link_to_add_association 'Añadir pregunta', f, :election_location_questions, class: 'button' %>
+      </li>
+    <% end %>
   <% end %>
   <%= f.actions do %>
     <%= f.action :submit %>

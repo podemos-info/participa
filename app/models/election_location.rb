@@ -1,19 +1,51 @@
 class ElectionLocation < ActiveRecord::Base
   belongs_to :election
-  has_many :election_location_questions
+  has_many :election_location_questions, dependent: :destroy
 
   accepts_nested_attributes_for :election_location_questions, :reject_if => :all_blank, :allow_destroy => true
+
+  validates :title, :layout, :theme, presence: true, if: -> { self.has_voting_info }
 
   LAYOUTS = { "simple" => "Listado de respuestas simple", 
               "accordion" => "Listado de respuestas agrupadas por categoría",
               "pcandidates-election" => "Listado respuestas agrupadas por categoría y pregunta", 
-              "2questions-conditional" => "Pregunta inicial con 2 respuestas, si se elige la segunda aparece otra pregunta con hasta 4 respuestas"
+              "2questions-conditional" => "Pregunta con 2 respuestas, si se elige la segunda puede aparecer otra con hasta 4 respuestas"
             }
-  THEMES = [ "podemos" ]
+  ELECTION_LAYOUTS = [ "pcandidates-election", "2questions-conditional" ]
+  
+  def self.themes
+    @@themes ||= Rails.application.secrets.agora["themes"]
+  end
 
   after_initialize do
     self.agora_version = 0 if self.agora_version.nil?
     self.location = "00" if self.location.blank?
+    if self.title.blank?
+      self.has_voting_info = false
+      self.layout = LAYOUTS.keys.first
+      self.theme = ElectionLocation.themes.first
+    else
+      self.has_voting_info = true
+    end
+  end
+
+  def has_voting_info
+    @has_voting_info
+  end
+
+  def has_voting_info= value
+    @has_voting_info = ( value==true || value=="true" || value=="1" )
+  end
+
+  before_save do
+    if !self.has_voting_info
+      self.clear_voting
+    end
+  end
+
+  def clear_voting
+    self.title = self.layout = self.description = self.share_text = self.theme = nil
+    self.election_location_questions.destroy_all
   end
 
   def territory
@@ -44,5 +76,13 @@ class ElectionLocation < ActiveRecord::Base
 
   def link
     "#{election.server_url}#/election/#{vote_id}/vote"
+  end
+
+  def election_layout
+    if ELECTION_LAYOUTS.member? layout
+      layout
+    else
+      ""
+    end
   end
 end

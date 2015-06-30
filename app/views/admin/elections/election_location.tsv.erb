@@ -1,7 +1,7 @@
 #Election
 Title	<%= election_location.title %>
 Id	<%= election_location.vote_id %>
-Layout	<%= election_location.layout %>
+Layout	<%= election_location.election_layout %>
 Description	<%= election_location.description %>
 Start date time	<%= election_location.election.starts_at.strftime("%d/%m/%Y %H:%M:%S") %>
 Duration in hours	<%= election_location.election.duration %> 
@@ -14,7 +14,7 @@ Theme	<%= election_location.theme %>
 Title	<%= elq.title %>
 Description	<%= elq.description %>
 Voting system	<%= elq.voting_system %>
-Layout	<%= elq.title %>
+Layout	<%= elq.layout %>
 Number of winners	<%= elq.winners %>
 Minimum choices	<%= elq.minimum %>
 Maximum choices	<%= elq.maximum %>
@@ -22,7 +22,7 @@ Randomize options order	<%= elq.random_order.to_s.upcase %>
 Totals	<%= elq.totals %>
 		
 @Options
-Id	Text	Category
+Id	<%= elq.options_headers.join("\t") %>
 <% elq.options.split("\n").each_with_index do |option, i| %>
 <%= i%>	<%= option%>
 <% end %>

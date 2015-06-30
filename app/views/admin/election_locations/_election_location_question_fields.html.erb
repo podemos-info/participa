@@ -1,15 +1,18 @@
-<div  class="nested-fields">
+<li class="nested-fields">
 <ol>
-<%= f.input :title %>
-<%= f.input :description %>
-<%= f.input :voting_system, as: :select, collection: ElectionLocationQuestion::VOTING_SYSTEMS.invert %>
-<%= f.input :winners, min: 1 %>
-<%= f.input :minimum, min: 0 %>
-<%= f.input :maximum, min: 1 %>
-<%= f.input :totals, collection: ElectionLocationQuestion::TOTALS.invert %>
-<%= f.input :options %>
-<%= f.input :random_order %>
+<%= f.input :title, label: "Pregunta" %>
+<%= f.input :description, label: "Descripción" %>
+<%= f.input :voting_system, label: "Método de votación", as: :select, collection: ElectionLocationQuestion::VOTING_SYSTEMS.invert, wrapper_html: { class: "small_input first" } %>
+<%= f.input :totals, label: "Método de recuento", collection: ElectionLocationQuestion::TOTALS.invert, wrapper_html: { class: "small_input last" } %>
+<%= f.input :winners, label: "# respuestas ganadoras", min: 1, wrapper_html: { class: "small_input first" }%>
+<%= f.input :minimum, label: "# mínimo de respuestas", min: 0, wrapper_html: { class: "small_input" } %>
+<%= f.input :maximum, label: "# máximo de respuestas", min: 1, wrapper_html: { class: "small_input last" } %>
+<%= f.input :options_headers, label: "Respuestas", as: :check_boxes, collection: ElectionLocationQuestion.headers.invert, wrapper_html: { class: "small_inputs options_headers" } %>
+<li class="presets">Respuestas comunes<br/>- <a href="#" data-presets="No|Si">Si/No</a><br/>- <a href="#" data-presets="No|Si|Abstención">Si/No/Abstención</a></li>
+<%= f.input :options, label: "", hint:"Introducir una línea por cada respuesta y utilizar el caracter [TAB] para separar las columnas.", input_html: { class: "enable_tabs" } do %>
+<% end %>
+<%= f.input :random_order, label: "Presentar respuestas en orden aleatorio", wrapper_html: { class: "small_input first last" } %>
+<li><%= link_to_remove_association "Borrar", f, class: 'button' %></li>
 </ol>
-<%= link_to_remove_association "Borrar", f, class: 'button' %>
 <hr/>
-</div>
+</li>

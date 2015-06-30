@@ -59,7 +59,7 @@ input[type="number"] {
 }
 
 textarea {
-  height: 100px;
+  height: 60px;
 }
 .data_table {
   width: inherit;
@@ -71,3 +71,51 @@ textarea {
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+li.small_input, li.small_inputs ol li {
+  float: left;
+  clear: none;
+  text-align: center;
+  &.first {
+    margin-left: 20%;
+    margin-left: calc(20% + 6px);
+  }
+  &.last + li {
+    clear: both;
+  }
+  label {
+    width: auto;
+    float:none;
+    margin: 5px 10px;
+    input { vertical-align: top; margin-right: 5px}
+  }
+}
+.presets {
+  position:absolute;
+  background: white;
+}
+.options_headers {
+  li.choice {
+    float: right;
+    opacity: 0.5;
+    &.checked {
+      float: left;
+      opacity: 1;
+      label {
+        min-width: 110px;
+      }
+    }
+  }
+  label {
+    font-weight: normal;
+    font-size: 10px;
+    text-align: left;   
+  }
+}
+li.small_inputs {
+  ol { clear: both; }
+}
+.enable_tabs {
+  -moz-tab-size : 65;
+  -o-tab-size : 65;
+  tab-size : 65;
+}

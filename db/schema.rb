@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20150626125744) do
 
   create_table "election_location_questions", force: true do |t|
     t.integer "election_location_id"
-    t.string  "title"
+    t.text    "title"
     t.text    "description"
     t.string  "voting_system"
     t.string  "layout"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150626125744) do
     t.integer "maximum"
     t.boolean "random_order"
     t.string  "totals"
+    t.string  "options_headers"
     t.text    "options"
   end
 
@@ -94,7 +95,7 @@ ActiveRecord::Schema.define(version: 20150626125744) do
     t.datetime "updated_at"
     t.integer  "agora_version"
     t.string   "override"
-    t.string   "title"
+    t.text     "title"
     t.string   "layout"
     t.text     "description"
     t.string   "share_text"
