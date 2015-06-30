@@ -49,7 +49,7 @@ class ElectionLocationQuestion < ActiveRecord::Base
     opt = []
     value.strip.split("\n").each do |line|
       fields = line.strip.split("\t")
-      opt << (fields.map(&:strip).join("\t") if fields.length>0
+      opt << fields.map(&:strip).join("\t") if fields.length>0
     end
     self[:options] = opt.join("\n")
   end
