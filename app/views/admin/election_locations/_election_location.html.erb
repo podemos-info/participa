@@ -29,11 +29,13 @@
 
   <% if @election_location.has_voting_info %>
     <%= f.inputs "Votación", style: "padding-right:320px" do %>
-      <%= image_tag("layout-#{@election_location.layout}.png", width:300, id:"layout_preview", alt: @election_location.layout, style: "position:absolute; right:20px") %>
+      <% ElectionLocation::LAYOUTS.keys.each do |layout| %>
+        <%= image_tag("layout-#{layout}.png", width:300, class:"layout_preview #{layout}", alt: layout, style: "position:absolute; right:20px") %>
+      <%end%>
         <%= f.input :title %>
     
         <%= f.input :layout, as: :select, collection: ElectionLocation::LAYOUTS.invert, input_html: {
-            onchange: "$('#layout_preview').attr('src', '#{image_path("layout-simple.png").gsub /simple/, "'+$(this).val()+'"}')" } %>
+            onclick: "$('.layout_preview').hide();$('.layout_preview.'+$(this).val()).show()" } %>
         
         <%= f.input :description %>
         <%= f.input :share_text %>
