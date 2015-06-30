@@ -18,6 +18,7 @@
             <%= f.input :location, as: :select, collection: [[ "Exterior", "00"]] %>
       <% end %>
     <%= f.input :agora_version %>
+    <%= f.input :new_agora_version %>
     <%= f.input :override %>
     <%= f.input :has_voting_info, as: :hidden %>
     <li><% if @election_location.has_voting_info %>

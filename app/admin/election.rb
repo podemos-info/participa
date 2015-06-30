@@ -43,12 +43,15 @@ ActiveAdmin.register Election do
       table_for election.election_locations do
         column :territory
         column :link do |el|
-          link_to el.link, el.link
+          span link_to el.link, el.link
+          br
+          span link_to el.new_link, el.new_link if el.new_version_pending
         end
         column :actions do |el|
           span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
           span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
           span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info
+          status_tag("VERSION NUEVA", :error) if el.new_version_pending
         end
       end
       
@@ -60,7 +63,7 @@ ActiveAdmin.register Election do
   member_action :download_voting_definition do
     election_location = ElectionLocation.find(params[:id])
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"#{election_location.vote_id}.tsv\"" 
+    headers["Content-Disposition"] = "attachment; filename=\"#{election_location.new_vote_id}.tsv\"" 
     render "election_location.tsv", layout: false, locals: { election_location: election_location }
   end
 
@@ -111,7 +114,7 @@ ActiveAdmin.register ElectionLocation do
   belongs_to :election
   navigation_menu :default
     
-  permit_params :election_id, :location, :agora_version, :override, :title, :layout, :description, :share_text, :theme, :has_voting_info,
+  permit_params :election_id, :location, :agora_version, :new_agora_version, :override, :title, :layout, :description, :share_text, :theme, :has_voting_info,
                 election_location_questions_attributes: [ :id, :_destroy, :title, :description, :voting_system, :layout, :winners, :minimum, :maximum, :random_order, :totals, :options, options_headers: [] ]
 
   form partial: "election_location", locals: { spain: Carmen::Country.coded("ES") }

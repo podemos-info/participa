@@ -19,6 +19,7 @@ class ElectionLocation < ActiveRecord::Base
 
   after_initialize do
     self.agora_version = 0 if self.agora_version.nil?
+    self.new_agora_version = self.agora_version if self.new_agora_version.nil?
     self.location = "00" if self.location.blank?
     if self.title.blank?
       self.has_voting_info = false
@@ -70,12 +71,24 @@ class ElectionLocation < ActiveRecord::Base
     end + " (#{location})"
   end
 
+  def new_version_pending
+    agora_version != new_agora_version
+  end
+
   def vote_id
     "#{election.agora_election_id}#{override.blank? ? location : override}#{agora_version}".to_i
   end
 
+  def new_vote_id
+    "#{election.agora_election_id}#{override.blank? ? location : override}#{new_agora_version}".to_i
+  end
+
   def link
     "#{election.server_url}#/election/#{vote_id}/vote"
+  end
+
+  def new_link
+    "#{election.server_url}#/election/#{new_vote_id}/vote"
   end
 
   def election_layout
