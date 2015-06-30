@@ -38,7 +38,10 @@ class ElectionLocationQuestion < ActiveRecord::Base
   end
 
   def options_headers= value
-    self[:options_headers] = value[1..-1].join("\t") if value and value.length>1
+    if value
+      vs = value.select(&:present?) 
+      self[:options_headers] = vs.join("\t") if vs.length>1
+    end
   end
 
   def options= value
@@ -46,7 +49,7 @@ class ElectionLocationQuestion < ActiveRecord::Base
     opt = []
     value.strip.split("\n").each do |line|
       fields = line.strip.split("\t")
-      opt << (fields.map(&:strip) + Array.new(line_length,""))[0...line_length].join("\t") if fields.length>0
+      opt << (fields.map(&:strip).join("\t") if fields.length>0
     end
     self[:options] = opt.join("\n")
   end
