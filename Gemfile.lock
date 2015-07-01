@@ -17,8 +17,8 @@ GIT
       sass-rails
 
 GIT
-  remote: git://github.com/codeodor/paranoia.git
-  revision: 7232e2f5a76e8cad4c4a664d1ab33d87edcea12e
+  remote: git://github.com/radar/paranoia.git
+  revision: 857ed343dec1c5e438d985d0ea08c759715f8761
   branch: rails4
   specs:
     paranoia (2.1.3)
