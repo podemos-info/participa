@@ -138,6 +138,7 @@ GEM
     carmen-rails (1.0.1)
       carmen (~> 1.0.0)
       rails
+    cocoon (1.2.6)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -432,6 +433,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   carmen-rails
+  cocoon
   coffee-rails (~> 4.1.0)
   database_cleaner
   date_validator
@@ -484,6 +486,3 @@ DEPENDENCIES
   unicorn
   webmock
   wicked_pdf
-
-BUNDLED WITH
-   1.10.5
