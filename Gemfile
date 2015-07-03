@@ -58,6 +58,7 @@ gem "paranoia", :github => "radar/paranoia", :branch => "rails4"
 gem 'cocoon'
 
 group :development, :test do
+  gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
