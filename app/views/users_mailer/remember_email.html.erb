@@ -1,7 +1,15 @@
+<p>
+Hola <%= @user.email %>!
+</p>
 
+<p>
+Tú (o alguien haciendose pasar por tí) ha intentado de crear un usuario con tus datos (correo electrónico o documento único) en el <%= link_to "entorno PODEMOS de participación", root_url %> ).
+</p>
 
-Tú (o alguien haciendose pasar por tí) has intentado de iniciar sesión en la web de Partipación de Podemos.
+<p>
+En caso de que no hayas sido tú puedes ignorar este mensaje, si lo recibes varias veces avísanos a <%= mail_to "soportevotaciones@podemos.info" %>
+</p>
 
-En caso de que no hayas sido tú...
-
-En caso de que
+<p>
+En caso de que hayas sido tú y no recuerdes tu contraseña <%= link_to "puedes cambiarla", new_user_password_url %>.
+</p>
