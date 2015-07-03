@@ -245,7 +245,7 @@ end
 ActiveAdmin::Views::SidebarSection.class_eval do
   def build(section)
     @section = section
-    super(@section.title, @section.options.merge(:icon => @section.icon))
+    super(@section.title)
     self.id = @section.id
     build_sidebar_content
   end
