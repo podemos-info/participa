@@ -427,6 +427,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   cancancan (~> 1.9)
+  capistrano (~> 3.4.0)
   capistrano-bundler
   capistrano-rails
   capistrano-rvm

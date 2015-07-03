@@ -2,6 +2,8 @@ role :app, %w{capistrano@betaparticipa.podemos.info}
 role :web, %w{capistrano@betaparticipa.podemos.info}
 role :db,  %w{capistrano@betaparticipa.podemos.info}
 
+set :rvm_ruby_version, '2.2.2'
+set :repo_url, 'git@github.com:podemos-info/participa.git'
 set :branch, :staging
 set :deploy_to, '/var/www/betaparticipa.podemos.info'
 
