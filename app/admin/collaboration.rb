@@ -381,7 +381,7 @@ ActiveAdmin.register Collaboration do
     redirect_to admin_collaboration_path(id: resource.id)
   end
 
-  action_item(:show) do
+  action_item(:charge_collaboration, only: :show) do
     if resource.is_credit_card? 
       link_to 'Cobrar', charge_order_admin_collaboration_path(id: resource.id), data: { confirm: "Se enviarán los datos de la orden para que esta sea cobrada. ¿Deseas continuar?" }
     else
@@ -389,7 +389,7 @@ ActiveAdmin.register Collaboration do
     end
   end
 
-  action_item(:show) do
+  action_item(:restore_collaboration, only: :show) do
     link_to('Recuperar colaboración borrada', recover_admin_collaboration_path(collaboration), method: :post, data: { confirm: "¿Estas segura de querer recuperar esta colaboración?" }) if collaboration.deleted?
   end
 

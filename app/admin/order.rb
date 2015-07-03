@@ -124,13 +124,13 @@ ActiveAdmin.register Order do
     redirect_to admin_order_path(id: resource.id)
   end
 
-  action_item(:show) do
+  action_item(:return_order, only: :show) do
     if resource.is_paid?
       link_to 'Orden devuelta', return_order_admin_order_path(id: resource.id), data: { confirm: "Esta orden no será contabilizada como cobrada. ¿Deseas continuar?" }
     end
   end
 
-  action_item(:show) do
+  action_item(:restore_order, only: :show) do
     link_to('Recuperar orden borrada', recover_admin_order_path(order), method: :post, data: { confirm: "¿Estas segura de querer recuperar esta order?" }) if order.deleted?
   end
 

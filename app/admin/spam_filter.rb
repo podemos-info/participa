@@ -15,7 +15,7 @@ ActiveAdmin.register SpamFilter do
     actions
   end
 
-  action_item(:show) do
+  action_item(:run, only: :show) do
     link_to 'Ejecutar', run_admin_spam_filter_path(id: resource.id)
   end
 
