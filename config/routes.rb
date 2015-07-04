@@ -12,9 +12,6 @@ Rails.application.routes.draw do
         post 'registrars', to: 'v1#gcm_registrate'
         delete 'registrars/:registrar_id', to: 'v1#gcm_unregister'
       end
-      scope :user do
-        get 'exists', to: 'v1#user_exists'
-      end
     end
   end
 
