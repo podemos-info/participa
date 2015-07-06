@@ -53,12 +53,12 @@ class Election < ActiveRecord::Base
 
   def has_valid_location_for? user
     case self.scope
-      when 0 then true
+      when 0 then self.election_locations.any?
       when 1 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_autonomy_numeric}
       when 2 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_province_numeric}
       when 3 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_town_numeric}
       when 4 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_island_numeric}
-      when 5 then user.country!="ES"
+      when 5 then user.country!="ES" and self.election_locations.any?
     end
   end
 
