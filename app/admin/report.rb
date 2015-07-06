@@ -18,8 +18,8 @@ ActiveAdmin.register Report do
 
       h3 "Ultima actualización: #{resource.updated_at}"
 
-      @main_group = YAML.load(resource.main_group) if resource.main_group
-      @groups = YAML.load(resource.groups)
+      @main_group = resource.get_main_group
+      @groups = resource.get_groups
       @results = YAML.load(resource.results)
 
       block = Proc.new do |main_group|

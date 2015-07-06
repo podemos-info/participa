@@ -15,11 +15,14 @@ class Report < ActiveRecord::Base
     end
   end
 
-  def main_group
+  def get_main_group
     if !defined?(@main_group) then 
       @main_group = ReportGroup.unserialize(self[:main_group]) if self[:main_group]
     end
     @main_group
+  end
+  def get_groups
+    @groups ||= ReportGroup.unserialize(self[:groups])
   end
 
   def main_group= value
@@ -27,12 +30,9 @@ class Report < ActiveRecord::Base
     @main_group = value
   end
 
-  def groups
-    @groups ||= ReportGroup.unserialize(self[:groups])
-  end
-
   def groups= value
-    @groups = self[:groups] = ReportGroup.serialize(value)
+    self[:groups] = ReportGroup.serialize(value)
+    @groups = value
   end
 
   def batch_process batch_size=1000
@@ -61,15 +61,15 @@ class Report < ActiveRecord::Base
     FileUtils.mkdir_p(raw_folder) unless File.directory?(raw_folder)
     FileUtils.mkdir_p(rank_folder) unless File.directory?(rank_folder)
 
-    @groups.each { |group| group.create_temp_file raw_folder }
+    get_groups.each { |group| group.create_temp_file raw_folder }
     # Browse data
     main_name = ""
     self.batch_process do |row|
       row_id = row.id.to_s.ljust(id_width)
 
-      main_name = @main_group.format_group_name(@main_group.process(row)[0][0]) if @main_group
+      main_name = get_main_group.format_group_name(get_main_group.process(row)[0][0]) if get_main_group
 
-      @groups.each do |group|
+      get_groups.each do |group|
         width = group.width
         begin
           group.process(row).each do |name, data|
@@ -80,11 +80,11 @@ class Report < ActiveRecord::Base
         end
       end
     end
-    @groups.each { |group| group.close_temp_file }
+    get_groupss.each { |group| group.close_temp_file }
 
     # Generate rank
-    main_width = @main_group ? @main_group.width : 0
-    @groups.each do |group|
+    main_width = get_main_group ? get_main_group.width : 0
+    get_groups.each do |group|
       width = group.width
 
       %x(cut -c#{id_width+1}- #{raw_folder}/#{group.id}.dat | sort | uniq -w#{width+main_width+1} -c | sort -rn > #{rank_folder}/#{group.id}.dat)
@@ -95,14 +95,14 @@ class Report < ActiveRecord::Base
         count = line[0..separator-1].to_i
         info = line[separator+1..-2]
 
-        main_name = @main_group ? info[0..(main_width-1)].strip : nil
+        main_name = get_main_group ? info[0..(main_width-1)].strip : nil
         name = info[main_width..(main_width+width-1)].strip
         
         if group.whitelist? name or (count <= group.minimum and not group.blacklist? name)
           rest[main_name] << { count: count, name: name }
         else
           result = { count: count, name: name, users:[], samples:Hash.new(0)}
-          %x(grep "#{'.'*id_width}#{@main_group.format_group_name(main_name) if @main_group}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,101].min}).split("\n").each do |s|
+          %x(grep "#{'.'*id_width}#{get_main_group.format_group_name(main_name) if get_main_group}#{group.format_group_name(name)} " #{raw_folder}/#{group.id}.dat | head -n#{[count,101].min}).split("\n").each do |s|
             result[:users] << s[0..id_width-1].to_i
             sample = s[(id_width+main_width+width)..-1].strip
             result[:samples][sample] += 1
