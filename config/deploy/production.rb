@@ -1,7 +1,9 @@
-role :app, %w{capistrano@participa.podemos.info}
-role :web, %w{capistrano@participa.podemos.info}
-role :db,  %w{capistrano@participa.podemos.info}
+role :app, %w{capistrano@newparticipa.podemos.info}
+role :web, %w{capistrano@newparticipa.podemos.info}
+role :db,  %w{capistrano@newparticipa.podemos.info}
 
+set :rvm_ruby_version, '2.2.2'
+set :repo_url, 'git@github.com:podemos-info/participa.git'
 set :branch, :production
 set :deploy_to, '/var/www/participa.podemos.info'
 
