@@ -471,7 +471,7 @@ ActiveAdmin.register Collaboration do
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       csv << ["Comunidad Autónoma"] + months.values
-      autonomies_data.each do |k,v|
+      autonomies_data.sort_by(&:first).each do |k,v|
         csv << [autonomies[k] ] + months.keys.map{|k| v[k]/100}
       end
     end
