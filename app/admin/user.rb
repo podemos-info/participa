@@ -404,8 +404,8 @@ ActiveAdmin.register User do
     Report.create do |r|
       r.title = params[:title]
       r.query = params[:query]
-      r.main_group = ReportGroup.find(params[:main_group].to_i).to_yaml if params[:main_group].to_i>0
-      r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_yaml
+      r.main_group = ReportGroup.find(params[:main_group].to_i) if params[:main_group].to_i>0
+      r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_a
     end
     flash[:notice] = "El informe ha sido generado"
     redirect_to action: :index

@@ -11,11 +11,28 @@ class Report < ActiveRecord::Base
 
       if table_name
         @model = ActiveRecord::Base.send(:descendants).select do |m| m.table_name==table_name end .first
-
-        @main_group = YAML.load(report.main_group) if report.main_group
-        @groups = YAML.load(report.groups)
       end
     end
+  end
+
+  def main_group
+    if !defined?(@main_group) then 
+      @main_group = ReportGroup.unserialize(self[:main_group]) if self[:main_group]
+    end
+    @main_group
+  end
+
+  def main_group= value
+    self[:main_group] = ReportGroup.serialize(value)
+    @main_group = value
+  end
+
+  def groups
+    @groups ||= ReportGroup.unserialize(self[:groups])
+  end
+
+  def groups= value
+    @groups = self[:groups] = ReportGroup.serialize(value)
   end
 
   def batch_process batch_size=1000

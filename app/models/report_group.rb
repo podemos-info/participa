@@ -35,4 +35,21 @@ class ReportGroup < ActiveRecord::Base
   def blacklist? value
     @blacklist.include? value
   end
+
+  def self.serialize data
+    if data.is_a? Array
+      data.map {|d| d.attributes.to_yaml } .to_yaml
+    else
+      data.attributes.to_yaml
+    end
+  end
+
+  def self.unserialize value
+    data = YAML.load(value)
+    if data.is_a? Array
+      data.map { |d| ReportGroup.new YAML.load(d) }
+    else
+      ReportGroup.new data
+    end
+  end
 end
