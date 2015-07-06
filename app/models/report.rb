@@ -26,12 +26,20 @@ class Report < ActiveRecord::Base
   end
 
   def main_group= value
-    self[:main_group] = ReportGroup.serialize(value)
+    if value.is_a? ReportGroup
+      self[:main_group] = ReportGroup.serialize(value)
+    else
+      self[:main_group] = value
+    end
     @main_group = value
   end
 
   def groups= value
-    self[:groups] = ReportGroup.serialize(value)
+    if value.is_a? Array
+      self[:groups] = ReportGroup.serialize(value)
+    else
+      self[:groups] = value
+    end
     @groups = value
   end
 
@@ -80,7 +88,7 @@ class Report < ActiveRecord::Base
         end
       end
     end
-    get_groupss.each { |group| group.close_temp_file }
+    get_groups.each { |group| group.close_temp_file }
 
     # Generate rank
     main_width = get_main_group ? get_main_group.width : 0
