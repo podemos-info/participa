@@ -1,7 +1,10 @@
 class Election < ActiveRecord::Base
+  include FlagShihTzu
 
   SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
   
+  has_flags 1 => :requires_sms_check
+
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
   has_many :election_locations

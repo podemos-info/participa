@@ -83,6 +83,9 @@ Rails.application.routes.draw do
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote
     get '/vote/check/:election_id', to: 'vote#check', as: :check_vote
     
+    get '/vote/sms_check/:election_id', to: 'vote#sms_check', as: :sms_check_vote
+    get '/vote/send_sms_check/:election_id', to: 'vote#send_sms_check', as: :send_sms_check_vote
+    
     devise_for :users, controllers: { 
       registrations: 'registrations', 
       passwords:     'passwords', 

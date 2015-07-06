@@ -2,11 +2,31 @@ class VoteController < ApplicationController
   layout "full", only: [:create]
   before_action :authenticate_user! 
   
+  def send_sms_check
+    if current_user.send_sms_check!
+      redirect_to sms_check_vote_path(params[:election_id]), flash: {info: "El código ha sido enviado a tu teléfono móvil." }
+    else
+      redirect_to sms_check_vote_path(params[:election_id]), flash: {error: "Ya se ha solicitado un código recientemente." }
+    end
+  end
+
+  def sms_check
+    @election_id = params[:election_id]
+    @election = Election.find @election_id
+  end
+
   def create
     @election = Election.find params[:election_id]
     if @election.is_active? 
       if @election.has_valid_user_created_at? current_user
         if @election.has_valid_location_for? current_user
+          if @election.requires_sms_check?
+            if params[:sms_check_token].nil?
+              redirect_to sms_check_vote_path(params[:election_id])
+            elsif !current_user.valid_sms_check? params[:sms_check_token]
+              redirect_to sms_check_vote_path(params[:election_id]), flash: {error: "El código introducido es incorrecto."}
+            end
+          end
           @scoped_agora_election_id = @election.scoped_agora_election_id current_user
         else
           redirect_to root_url, flash: {error: "No hay votaciones en tu municipio." }

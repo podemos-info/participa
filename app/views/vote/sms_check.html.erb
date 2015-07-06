@@ -1,0 +1,37 @@
+<% content_for :title, "Comprobación adicional del teléfono móvil" %>
+
+<div class="content-content cols">
+  <div class="row">
+
+    <div class="col-b-4a12">
+      <h2>Comprobación adicional del teléfono móvil</h2>
+      <p>Esta votación, por su particular relevancia, requiere una validación adicional de tu teléfono para garantizar la seguridad del proceso.</p>
+
+      <% if current_user.can_check_sms_check? %>
+        <h3>Confirmar código recibido</h3>
+        <%= form_tag(create_vote_path(@election_id), method: :get) do |f| %>
+            <fieldset>
+              <p>Por favor, introduce el código que has recibido en tu teléfono móvil. Te recomendamos que conserves este código, pues te permitirá volver a acceder a la cabina de votación en un futuro cercano.</p>
+              <div class="inputlabel-box">
+              <%= label_tag(:sms_check_token, "Código:") %>
+              <%= text_field_tag(:sms_check_token, "", autocomplete: "off", required: true, class: "input-s form-control") %>
+              </div>
+              <%= submit_tag("Confirmar código recibido", class: "button") %>
+            </fieldset>
+        <% end %>
+      <% end %>
+      <p></p>
+      <h3>Solicitar código</h3>
+      <% if current_user.can_request_sms_check? %>
+        <%= form_tag(send_sms_check_vote_path(@election_id), method: :get) do |f| %>
+            <fieldset>
+                <p><% if current_user.can_check_sms_check? %>Si has perdido tu código, te enviaremos un nuevo código<%else%>Utiliza el botón para solicitar que te enviemos el código de validación<%end%> al teléfono móvil (+<%= current_user.phone_prefix %>) <%= current_user.phone_no_prefix %>. Si este número no es correcto, puedes cambiarlo en tu <a href="<%=edit_user_registration_path%>#change-phone">página del perfil</a>.</p>
+                <%= submit_tag("Solicitar código", class: "button") %>
+            </fieldset>
+        <% end %>
+      <% else %>
+        <p>Ya has solicitado un código de validación recientemente, aún puedes utilizarlo para votar. Si lo has perdido, en <%= distance_of_time_in_words(DateTime.now, current_user.next_sms_check_request_at) %> podrás solicitarlo nuevamente.</p>
+      <% end %>
+   </div>
+  </div>
+</div>

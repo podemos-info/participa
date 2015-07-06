@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630014925) do
+ActiveRecord::Schema.define(version: 20150706160021) do
 
-  create_table "active_admin_comments", force: true do |t|
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
@@ -28,14 +28,14 @@ ActiveRecord::Schema.define(version: 20150630014925) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "categories_posts", force: true do |t|
+  create_table "categories_posts", force: :cascade do |t|
     t.integer  "post_id"
     t.integer  "category_id"
     t.datetime "created_at"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
   add_index "categories_posts", ["category_id"], name: "index_categories_posts_on_category_id"
   add_index "categories_posts", ["post_id"], name: "index_categories_posts_on_post_id"
 
-  create_table "collaborations", force: true do |t|
+  create_table "collaborations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "amount"
     t.integer  "frequency"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
   add_index "collaborations", ["non_user_document_vatid"], name: "index_collaborations_on_non_user_document_vatid"
   add_index "collaborations", ["non_user_email"], name: "index_collaborations_on_non_user_email"
 
-  create_table "election_location_questions", force: true do |t|
+  create_table "election_location_questions", force: :cascade do |t|
     t.integer "election_location_id"
     t.text    "title"
     t.text    "description"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.text    "options"
   end
 
-  create_table "election_locations", force: true do |t|
+  create_table "election_locations", force: :cascade do |t|
     t.integer  "election_id"
     t.string   "location"
     t.datetime "created_at"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.integer  "new_agora_version"
   end
 
-  create_table "elections", force: true do |t|
+  create_table "elections", force: :cascade do |t|
     t.string   "title"
     t.integer  "agora_election_id"
     t.datetime "starts_at"
@@ -117,9 +117,10 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.date     "user_created_at_max"
     t.integer  "priority"
     t.string   "info_text"
+    t.integer  "flags"
   end
 
-  create_table "friendly_id_slugs", force: true do |t|
+  create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
@@ -132,7 +133,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
-  create_table "microcredit_loans", force: true do |t|
+  create_table "microcredit_loans", force: :cascade do |t|
     t.integer  "microcredit_id"
     t.integer  "amount"
     t.integer  "user_id"
@@ -151,7 +152,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
   add_index "microcredit_loans", ["ip"], name: "index_microcredit_loans_on_ip"
   add_index "microcredit_loans", ["microcredit_id"], name: "index_microcredit_loans_on_microcredit_id"
 
-  create_table "microcredits", force: true do |t|
+  create_table "microcredits", force: :cascade do |t|
     t.string   "title"
     t.datetime "starts_at"
     t.datetime "ends_at"
@@ -170,14 +171,14 @@ ActiveRecord::Schema.define(version: 20150630014925) do
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
 
-  create_table "notice_registrars", force: true do |t|
+  create_table "notice_registrars", force: :cascade do |t|
     t.string   "registration_id"
     t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "notices", force: true do |t|
+  create_table "notices", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
     t.string   "link"
@@ -187,7 +188,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.datetime "sent_at"
   end
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "status"
     t.datetime "payable_at"
     t.datetime "payed_at"
@@ -207,7 +208,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.string   "autonomy_code"
   end
 
-  create_table "pages", force: true do |t|
+  create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.integer  "id_form"
     t.string   "slug"
@@ -220,7 +221,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
 
   add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at"
 
-  create_table "participation_teams", force: true do |t|
+  create_table "participation_teams", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.boolean  "active"
@@ -228,7 +229,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.datetime "updated_at"
   end
 
-  create_table "participation_teams_users", id: false, force: true do |t|
+  create_table "participation_teams_users", id: false, force: :cascade do |t|
     t.integer "participation_team_id"
     t.integer "user_id"
   end
@@ -236,7 +237,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
   add_index "participation_teams_users", ["participation_team_id"], name: "index_participation_teams_users_on_participation_team_id"
   add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
 
-  create_table "posts", force: true do |t|
+  create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.string   "slug"
@@ -247,7 +248,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.string   "media_url"
   end
 
-  create_table "proposals", force: true do |t|
+  create_table "proposals", force: :cascade do |t|
     t.text     "title"
     t.text     "description"
     t.integer  "votes",            default: 0
@@ -262,7 +263,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.string   "author"
   end
 
-  create_table "report_groups", force: true do |t|
+  create_table "report_groups", force: :cascade do |t|
     t.string   "title"
     t.text     "proc"
     t.integer  "width"
@@ -277,7 +278,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.datetime "updated_at"
   end
 
-  create_table "reports", force: true do |t|
+  create_table "reports", force: :cascade do |t|
     t.string   "title"
     t.text     "query",      limit: 255
     t.text     "main_group"
@@ -287,7 +288,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.datetime "updated_at"
   end
 
-  create_table "rich_rich_files", force: true do |t|
+  create_table "rich_rich_files", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "rich_file_file_name"
@@ -300,7 +301,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.string   "simplified_type",        default: "file"
   end
 
-  create_table "simple_captcha_data", force: true do |t|
+  create_table "simple_captcha_data", force: :cascade do |t|
     t.string   "key",        limit: 40
     t.string   "value",      limit: 6
     t.datetime "created_at"
@@ -309,7 +310,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
 
   add_index "simple_captcha_data", ["key"], name: "idx_key"
 
-  create_table "spam_filters", force: true do |t|
+  create_table "spam_filters", force: :cascade do |t|
     t.string   "name"
     t.text     "code"
     t.text     "data"
@@ -319,14 +320,14 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.datetime "updated_at"
   end
 
-  create_table "supports", force: true do |t|
+  create_table "supports", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "proposal_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                    default: "", null: false
     t.string   "encrypted_password",       default: "", null: false
     t.string   "reset_password_token"
@@ -370,6 +371,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
     t.string   "vote_town"
     t.integer  "flags",                    default: 0,  null: false
     t.datetime "participation_team_at"
+    t.datetime "sms_check_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -384,7 +386,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
   add_index "users", ["sms_confirmation_token"], name: "index_users_on_sms_confirmation_token", unique: true
   add_index "users", ["vote_town"], name: "index_users_on_vote_town"
 
-  create_table "versions", force: true do |t|
+  create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
     t.string   "event",      null: false
@@ -395,7 +397,7 @@ ActiveRecord::Schema.define(version: 20150630014925) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
-  create_table "votes", force: true do |t|
+  create_table "votes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "election_id"
     t.string   "voter_id"

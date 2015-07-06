@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_sms_check
 
   index do
     selectable_column
@@ -21,6 +21,9 @@ ActiveAdmin.register Election do
 
   show do 
     attributes_table do
+      row :requires_sms_check do
+        status_tag("SMS CHECK", :ok)
+      end if election.requires_sms_check
       row :title
       row :info_url
       row :info_text
@@ -81,6 +84,7 @@ ActiveAdmin.register Election do
       f.input :ends_at
       f.input :close_message
       f.input :user_created_at_max, as: :datepicker
+      f.input :requires_sms_check, as: :boolean
     end
     f.actions
   end

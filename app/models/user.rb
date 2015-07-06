@@ -681,4 +681,39 @@ class User < ActiveRecord::Base
     end if not defined? @vote_town_cache
     @vote_town_cache
   end
+
+  def can_request_sms_check?
+    DateTime.now > next_sms_check_request_at
+  end
+  
+  def can_check_sms_check?
+    sms_check_at.present? && (DateTime.now < (sms_check_at + eval(Rails.application.secrets.users["sms_check_valid_interval"])))
+  end
+
+  def next_sms_check_request_at
+    if sms_check_at.present?
+      sms_check_at + eval(Rails.application.secrets.users["sms_check_request_interval"])
+    else
+      DateTime.now - 1.second
+    end
+  end
+  
+  def send_sms_check!
+    require 'sms'
+    if can_request_sms_check?
+      self.update_attribute(:sms_check_at, DateTime.now)
+      SMS::Sender.send_message(self.phone, self.sms_check_token)
+      true
+    else
+      false
+    end
+  end
+
+  def valid_sms_check? value
+    sms_check_at and value == sms_check_token
+  end
+
+  def sms_check_token
+    Digest::SHA1.digest("#{sms_check_at}#{id}#{Rails.application.secrets.users['sms_secret_key'] }")[0..3].codepoints.map { |c| "%02X" % c }.join if sms_check_at
+  end
 end
