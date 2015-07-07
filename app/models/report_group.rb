@@ -1,6 +1,10 @@
 class ReportGroup < ActiveRecord::Base
   def process row
-    get_proc.call row
+    begin
+      get_proc.call row
+    rescue
+      [[ "ERROR", "ERROR" ]]
+    end
   end
 
   def format_group_name name
