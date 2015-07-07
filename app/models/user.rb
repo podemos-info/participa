@@ -710,7 +710,7 @@ class User < ActiveRecord::Base
   end
 
   def valid_sms_check? value
-    sms_check_at and value == sms_check_token
+    sms_check_at and value.upcase == sms_check_token
   end
 
   def sms_check_token
