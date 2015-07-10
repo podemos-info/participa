@@ -27,10 +27,14 @@ ActiveAdmin.register User do
     selectable_column
     id_column
     column :full_name
+    column "Lugar de participación" do |user|
+      "#{user.vote_town_name} (#{user.vote_province_name})"
+    end
     column :email
-    column :current_sign_in_ip
-    column :last_sign_in_ip
     column :phone
+    column :ips do |user|
+      "#{user.current_sign_in_ip}<br/>#{user.last_sign_in_ip}".html_safe
+    end
     column :created_at
     column :validations do |user|
       status_tag("Verificado", :ok) + br if user.verified?
