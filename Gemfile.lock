@@ -330,10 +330,6 @@ GEM
     ref (1.0.5)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    resque-pool (0.5.0)
-      rake
-      resque (~> 1.22)
-      trollop (~> 2.0)
     rinku (1.5.1)
     ruby-openid (2.7.0)
     ruby-prof (0.15.8)
@@ -386,7 +382,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    trollop (2.1.2)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -470,7 +465,6 @@ DEPENDENCIES
   rb-readline
   recaptcha
   resque!
-  resque-pool
   ruby-openid
   ruby-prof
   sass-rails
