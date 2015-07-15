@@ -1,8 +1,7 @@
 # Participa
 
-El objetivo de esta aplicación es ofrecer una interfaz única a los usuarios interesados donde inscribirse a Podemos.
-
-Entre las funcionalidades en las que consiste ahora mismo es con elecciones (integración con Agora Voting), Colaboraciones económicas (donaciones periódicas), Microcréditos (sistema de prestamos distribuidos), Notificaciones móviles (para dispositivos Android), entre otras funcionalidades.
+El objetivo de esta aplicación es ofrecer el siguiente conjunto de herramientas:
+Votaciones (integración con Agora Voting), Colaboraciones económicas (donaciones periódicas), Microcréditos (sistema de prestamos distribuidos), Notificaciones móviles (para dispositivos Android), entre otras funcionalidades.
 
 ![Pantallazo de Participa](doc/images/participa01.png)
 
@@ -14,48 +13,39 @@ Entre las funcionalidades en las que consiste ahora mismo es con elecciones (int
 
 ### Elecciones
 
-Permite servir de censo integrado con Agora Voting: *Agora Voting es un software libre de votaciones que permite a cualquier organización realizar procesos electorales de forma segura, flexible, transparente y a un precio competitivo*. Permite que las elecciones se realicen en función a la localización del inscrito. En el caso de Podemos, se hace para diferenciar las elecciones de los ámbitos Municipales, Provinciales, Autonómicas y Estatales. A través de esta herramienta se han realizado todas las votaciones vinculantes de Podemos desde hace más de medio año, más de 30 votaciones: documentos organizativos, eticos y políticos, elecciones de cargos internos (secretario general, consejos ciudadanos estatales, autonómicos y minicipales), las distintas fases e iniciativas del proyecto Impulsa, etc.
+Permite integrado un censo con Agora Voting: *Agora Voting es un software libre de votaciones que permite a cualquier organización realizar procesos electorales de forma segura, flexible, transparente y a un precio competitivo*. Permite que las elecciones se realicen en función a la localización del inscrito. En el caso de Podemos, se hace para diferenciar las elecciones de los ámbitos Municipales, Provinciales, Autonómicas y Estatales. A través de esta herramienta se han realizado todas las votaciones vinculantes de Podemos desde hace más de un año, más de 30 votaciones: documentos organizativos, eticos y políticos, elecciones de cargos internos (secretario general, consejos ciudadanos estatales, autonómicos y minicipales), las distintas fases e iniciativas del proyecto Impulsa, etc.
 
 * https://agoravoting.com/
-* http://www.eldiario.es/hojaderouter/internet/Podemos-votacion-seguridad-Pablo-Iglesias_0_318118945.html
-
+* 
 ### Colaboraciones económicas
 
-Permite que los usuarios inscritos puedan configurar donaciones de forma periódica (mensual, trimestral o anual) por el importe que quieran (desde 5 a 50 €). Permite que esta colaboración se produzca a través de transferencia bancaria o con tarjeta de crédito (conexión con Redsys). Es uno de las principales formas de ingresos de Podemos (más de € 300.000).
+Permite que los usuarios inscritos puedan suscribir donaciones de forma periódica (mensual, trimestral o anual) por el importe que deseen. Permite que esta colaboración se produzca a través de transferencia bancaria o con tarjeta de crédito (conexión con Redsys). 
 
 * http://transparencia.podemos.info/cuentas-claras/partido/ingresos
 * http://transparencia.podemos.info/preguntas-frecuentes
 
 ### Microcréditos
 
-Permite que usuarios (inscritos o no) den de alta préstamos a la organización de forma puntual. Ha servido para financiar la campaña electoral del año 2015 de Podemos en todas las Comunidades Autonómicas
-(más de € 1.500.000).
+Permite que usuarios (inscritos o no) den de alta microcréditos a la organización de forma puntual. 
 
 * http://transparencia.podemos.info/preguntas-frecuentes
-* http://www.bolsamania.com/noticias/politica/como-funcionan-los-microcreditos-con-los-que-podemos-ha-financiado-la-campana-electoral--743443.html
 
 ### Iniciativas Ciudadanas
 
-Sistema de llegada de propuestas filtradas por votaciones con +1 bottom-up tomando como modelo el sistema planteado en el documento Organizativo de Podemos. Sobre esto mismo se realizará el sistema de Recovatorios de Cargos. Toma iniciativas de una categoría ("Propuestas") en la Plaza Podemos (subreddit de Podemos). Todavía ninguna iniciativa a cumplido los requisitos mínimos de participación impuestos por Podemos.
-
-* http://www.eldiario.es/politica/Podemos-sistema-iniciativas-ciudadanas-revocatorios_0_369914239.html
-* http://labodemo.net/es/2015/03/28/labodemo-ayuda-a-lanzar-las-iniciativas-ciudadanas-en-podemos/
+Sistema de llegada de propuestas filtradas por votaciones con +1 bottom-up tomando como modelo el sistema planteado en el documento Organizativo de Podemos. Toma iniciativas de una categoría ("Propuestas") en la Plaza Podemos (subreddit de Podemos). 
 
 ### Equipos de Participación
 
 Permite a los inscritos darse de alta como interesado en formar parte de equipos localizados geográficamente para fomentar la participación presencial y la formación sobre la participación digital.
 
-* http://www.europapress.es/nacional/noticia-podemos-crea-estructura-participacion-paralela-circulos-articulara-equipos-accion-20141217145841.html
 
 ### Verificación por SMS
 
-Método de verificación utilizado por Podemos. Cuando un usuario se inscribe debe confirmar su correo electrónico y su teléfono móvil con un código que se le envía. Con esto se permite que haya mayor cantidad de Participación en pérdida de una mayor seguridad. Estos problemas se suplen con  herramientas de Reportes de grupos de usuarios y de Anti Spam con blacklists.
-
-* http://www.eldiario.es/turing/tecnologia-detras-voto-online-primarias_0_238326398.html
+Método de verificación utilizado por Podemos. Cuando un usuario se inscribe debe confirmar su correo electrónico y su teléfono móvil con un código que se le envía. 
 
 ### Blog (Brújula)
 
-Sistema de publicación de noticias que sirve de forma de argumentario y comunicación interna con sus inscritos.
+Sistema de publicación de noticia.
 
 ### Newsletter
 
@@ -65,19 +55,19 @@ Sincronización de usuarios entre sistemas (Participa y Sendy) para los distinto
 
 ### Formularios y páginas estáticas
 
-Sistema de integración con formularios basados en Wordpress (con el plugin privativo Gravity Forms).
+Sistema de integración con formularios basados en Wordpress (con el plugin Gravity Forms).
 
 * http://www.gravityforms.com/
 
 ### Notificaciones móviles
 
-Se ha hecho una aplicación en Android que sirve para que se pueda enviar notificaciones a los dispositivos móviles. Se utiliza para avisar cuando hay una nueva votación en curso (módulo de Eleciones) así como para hacer avisos durante la campaña electoral. Se trata de una aplicación realizada con Phonegap, por lo que está planificado su desarrollo para IOS (iPhone e iPad).
+Se ha hecho una aplicación en Android que puede enviar notificaciones a los dispositivos móviles. Se trata de una aplicación realizada con Phonegap, por lo que está planificado su desarrollo para IOS (iPhone e iPad).
 
 * https://play.google.com/store/apps/details?id=info.podemos.participa&hl=en
 
 ### OpenID
 
-Se ha configurado para que la aplicación sea un proveedor de OpenID, por lo que permite que otras aplicaciones autentifiquen contra los usuarios del censo. Se ha utilizado para la aplicación de "La Expresión del Cambio" (concurso de carteles y canciones).
+Se ha configurado para que la aplicación sea un proveedor de OpenID, por lo que permite que otras aplicaciones autentifiquen contra los usuarios del censo. Se ha utilizado para la aplicación de "La Expresión del Cambio".
 
 * https://laexpresiondelcambio.info/board/550096f30ee95e0000000007
 
@@ -142,7 +132,7 @@ sudo apt-get install wkhtmltopdf                    # para generación de PDFs (
 
 ## Configuraciones
 
-Se ha intentado que todas las configuraciones esten accessibles con los ficheros de configuración
+Se ha intentado que todas las configuraciones estén accessibles con los ficheros de configuración
 
 ```
 config/databases.yml
@@ -165,13 +155,5 @@ Para la forma de pago "Suscripción con Tarjeta de Crédito/Débito" hemos hecho
 
 Para esto hace falta tener una cuenta bancaria dada de alta en Redsys, tener acceso a su (entorno de pruebas)[https://sis-t.redsys.es:25443/canales/] y configurar los parámetros necesarios en config/secrets.yml
 
-Para realizar las pruebas en su entorno y que finalice correctamente es necesario poner la siguiente información de tarjeta:
-
-```
-  Tarjeta: 4548812049400004
-  Fecha de caducidad: 12/20
-  Código de Seguridad: 123
-  CIP: 123456
-```
 
 Se pueden ver los documentos desde los que se han partido para su implementación en `doc/redsys`.
