@@ -83,7 +83,7 @@ ActiveAdmin.register Election do
       f.input :starts_at
       f.input :ends_at
       f.input :close_message
-      f.input :user_created_at_max, as: :datepicker
+      f.input :user_created_at_max
       f.input :requires_sms_check, as: :boolean
     end
     f.actions
