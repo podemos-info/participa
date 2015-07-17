@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield :title %> | Podemos</title>
+  <link rel="shortcut icon" href="<%= image_path("favicon.png") %>" type="image/png">
+  <link rel="icon" href="<%= image_path("favicon.png") %>" type="image/png">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= body_class user_signed_in?, controller_name, action_name %>">
+    <%= yield %>
+    <%= render partial: 'analytics' %>
+</body>
+</html>

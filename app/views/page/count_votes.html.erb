@@ -1,0 +1,35 @@
+<% content_for :title, "Número de votos" %>
+
+<style type="text/css">
+	body {
+		margin:0;
+		padding:0;
+	}
+	pre {
+		margin:0.2em;
+		background: #612d62;
+		color: #fff;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		float: left;
+		padding: 0.5em 0.8em;
+		font-size: 1.5em;
+		border-radius: 10px 10px 0;
+		font-family: arial;
+		font-weight: bold;
+		letter-spacing: 2px;
+		text-align: center;
+	}
+	pre span {
+		display: block;
+		font-size: 0.7em;
+		text-transform: uppercase;
+		letter-spacing: normal;
+		/* font-family: inherit; */
+		color: #C3A6CF;
+		margin-top: 0.2em;
+	}
+</style>
+
+<a href="https://participa.podemos.info"><pre><%= votes %><span>votos</span></pre></a>
+

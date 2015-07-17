@@ -26,7 +26,8 @@ class PageController < ApplicationController
     @election = Election.find(params[:election_id])
     votes = 0
     votes = @election.votes.count if @election
-    render plain: "#{votes}"
+	render layout: 'minimal', locals: { votes: votes }
+    #render plain: "#{votes}"
   end
 
   def privacy_policy
