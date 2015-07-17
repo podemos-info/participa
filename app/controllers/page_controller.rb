@@ -3,7 +3,7 @@ class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_form, :show_form,
                                               :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
-                                              :responsables_organizacion_municipales, 
+                                              :responsables_organizacion_municipales, :count_votes,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
                                               :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
