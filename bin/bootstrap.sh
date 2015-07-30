@@ -37,7 +37,7 @@ cp config/secrets.yml.example config/secrets.yml
 
 rake db:migrate
 mailcatcher
-rails server 
+rails server -b 0.0.0.0 
 EOF
 
 # TODO: start resque
