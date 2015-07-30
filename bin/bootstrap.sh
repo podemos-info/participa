@@ -27,6 +27,7 @@ fi
 source ~/.rvm/scripts/rvm
 rvm use --install 2.2.2 
 ruby --version
+gem install bundler
 
 cd /vagrant
 bundle install
