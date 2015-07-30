@@ -25,7 +25,7 @@ if [ ! -d ~/.rvm ] ; then
 fi
 
 source ~/.rvm/scripts/rvm
-rvm use --install 2.1.2 
+rvm use --install 2.2.2 
 ruby --version
 
 cd /vagrant
