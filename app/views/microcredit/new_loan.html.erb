@@ -1,19 +1,26 @@
 <% content_for :title, "Microcréditos" %>
-
-
+<% if @brand_config["color1"] %>
+<style>
+h2, label, fieldset legend span { color: <%=@brand_config["color1"]%> !important; }
+a { color: <%=@brand_config["color2"]%> !important; }
+input.button, a.button { background-color: <%=@brand_config["color2"]%> !important; }
+.microcredits-wrapper .radio_options input:checked + div, .microcredits-wrapper .radio_options input:checked:hover + div { border: 1px solid <%=@brand_config["color2"]%> }
+.microcredits-wrapper .radio_options input:checked + div i, .microcredits-wrapper .radio_options input:checked:hover + div i { visibility: visible; color: <%=@brand_config["color2"]%> }
+</style>
+<% end %>
 <div class="content-content microcredits-wrapper<%= " completed" if @microcredit.completed%>">
-<% if !current_user %>
+<% if !current_user && @brand_config["allow_login"] %>
   <div class="modal-dialog">
     <div>    
-      <h2>Microcréditos Podemos - <%=@microcredit.title%></h2>
+      <h2>Microcréditos <%=@brand_config["name"]%> - <%=@microcredit.title%></h2>
       <p>Te recomendamos que <%= link_to "accedas con tu usuario del Portal de Participación", microcredit_login_path%> para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro.</p>
       <div class="buttonbox"><a class="close button">Continuar sin identificarse</a>&nbsp;&nbsp; &nbsp;&nbsp;<%= link_to "Acceder con tu usuario", microcredit_login_path, class:"button"%></div>
     </div>
   </div>
 <% end %>
 
-<h2>Microcréditos Podemos - <%=@microcredit.title%></h2>
-<p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito Podemos. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada. <%= link_to "Más informacion", microcredits_info_path %></p>
+<h2>Microcréditos <%=@brand_config["name"]%> - <%=@microcredit.title%></h2>
+<p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito <%=@brand_config["name"]%>. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada. <%= link_to "Más informacion", (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
 
 <% if @microcredit.completed %>
   <div>
@@ -28,9 +35,9 @@
   <p><%=fa_icon "phone-square"%> Si necesitas ayuda contacta al <strong><%=@microcredit.contact_phone%></strong>.</p>
   <% end %>
   <%= errors_in_form @loan %>
-  <%= semantic_form_for @loan, url: create_microcredit_loan_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+  <%= semantic_form_for @loan, url: create_microcredit_loan_path(brand: @brand), html: {method: :post, autocomplete: 'off'} do |f| %>
 
-    <% if  current_user %>
+    <% if current_user && @brand_config["allow_login"] %>
       <% if @user_loans.length > 0 %>
         <%= alert_box "Información" do %>
           <% if @user_loans.length == 1 %>
@@ -154,7 +161,7 @@
         <div class="input-box">
           <%= f.check_box :terms_of_service, class: 'checkbox' %>
           <%= f.label :terms_of_service, class: 'text-xl' do %>
-            Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos. <a href="<%=@microcredit.agreement_link%>" target="_blank">Contrato civil de suscripción de microcréditos de Podemos</a>
+            Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de <%=@brand_config["name"]%>. <a href="<%=@microcredit.agreement_link%>" target="_blank">Contrato civil de suscripción de microcréditos de <%=@brand_config["name"]%></a>
           <% end %>
         </div>
       </div>

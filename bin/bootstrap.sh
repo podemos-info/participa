@@ -19,13 +19,15 @@ cat > /home/vagrant/deploy.sh <<EOF
 
 set -x
 
-if [ ! -d ~/.rvm ] ; then 
+if [ ! -d ~/.rvm ] ; then
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
   curl -sSL https://get.rvm.io | bash -s stable 
 fi
 
 source ~/.rvm/scripts/rvm
-rvm use --install 2.1.2 
+rvm use --install 2.2.2 
 ruby --version
+gem install bundler
 
 cd /vagrant
 bundle install
@@ -35,7 +37,7 @@ cp config/secrets.yml.example config/secrets.yml
 
 rake db:migrate
 mailcatcher
-rails server 
+rails server -b 0.0.0.0 
 EOF
 
 # TODO: start resque

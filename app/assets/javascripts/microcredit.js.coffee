@@ -52,9 +52,11 @@ show_towns = (country_code, province_code) ->
 
 $ ->
   for graph in $(".js-mc-graph")
+    color1 = $(graph).data("color1")
+    color2 = $(graph).data("color2")
     parts = []
-    parts.push({ value: parseInt($('.js-mc-total', graph).html()), color:'#612d62', highlight: '#97c2b8', label: "" })
-    parts.push({ value: parseInt($('.js-mc-pending', graph).html()), color:'#eaeaea', highlight: '#97c2b8', label: "" })
+    parts.push({ value: parseInt($('.js-mc-total', graph).html()), color:color1, highlight: color2, label: "" })
+    parts.push({ value: parseInt($('.js-mc-pending', graph).html()), color:'#eaeaea', highlight: color2, label: "" })
 
     draw_pie_chart( $('canvas',graph), parts)
 

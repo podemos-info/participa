@@ -21,16 +21,20 @@ ActiveAdmin.register User do
   scope :banned
   scope :verified
 
-  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
 
   index do
     selectable_column
     id_column
     column :full_name
+    column "Lugar de participación" do |user|
+      "#{user.vote_town_name} (#{user.vote_province_name})"
+    end
     column :email
-    column :current_sign_in_ip
-    column :last_sign_in_ip
     column :phone
+    column :ips do |user|
+      "#{user.current_sign_in_ip}<br/>#{user.last_sign_in_ip}".html_safe
+    end
     column :created_at
     column :validations do |user|
       status_tag("Verificado", :ok) + br if user.verified?

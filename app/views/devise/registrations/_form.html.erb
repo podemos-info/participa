@@ -134,25 +134,25 @@
       <% if resource.errors.include?(:email) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :email, as: :email, required: true, input_html: {required: true, class: 'input-m'} %>
+      <%= f.input :email, as: :email, required: true, input_html: {required: true, class: 'input-m', autocomplete: :off} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:email_confirmation) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :email_confirmation, as: :email, required: true, input_html: {required: true, class: 'input-m'} %>
+      <%= f.input :email_confirmation, as: :email, required: true, input_html: {required: true, class: 'input-m', autocomplete: :off} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:password) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :password, required: true, input_html: {required: true, class: 'input-m'} %>
+      <%= f.input :password, required: true, input_html: {required: true, class: 'input-m', autocomplete: :off} %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:password_confirmation) %>
           <%= field_notice_box %>
       <% end %>
-      <%= f.input :password_confirmation, required: true, input_html: {required: true, class: 'input-m'} %>
+      <%= f.input :password_confirmation, required: true, input_html: {required: true, class: 'input-m', autocomplete: :off} %>
     </div>
     <% end %>
     <!-- div class="inputlabel-box">

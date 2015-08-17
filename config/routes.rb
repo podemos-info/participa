@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get '/user/:id', to: 'open_id#user', as: "open_id_user"
     get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
 
+    get '/countvotes/:election_id', to: 'page#count_votes', as: 'page_count_votes'
+
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
     get '/circulos/validacion', to: 'page#circles_validation', as: 'circles_validation'

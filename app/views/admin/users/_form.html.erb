@@ -1,6 +1,8 @@
 <%= semantic_form_for([:admin, @user], builder: Formtastic::FormBuilder) do |f| %>
   <%= f.inputs "Admin Details" do %>
     <%= f.input :email %>
+	<%= f.input :phone, label: 'Teléfono móvil (confirmado)' %>
+	<%= f.input :unconfirmed_phone, label: 'Teléfono móvil (sin confirmar)' %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :document_type, as: :radio, collection: User::DOCUMENTS_TYPE %>
