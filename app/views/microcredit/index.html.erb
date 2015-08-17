@@ -1,12 +1,19 @@
 <% content_for :title, "Microcréditos" %>
+<% if @brand_config["color1"] %>
+<style>
+h2 { color: <%=@brand_config["color1"]%> !important; }
+label a, p a { color: <%=@brand_config["color2"]%> !important; }
+input.button, a.button { background-color: <%=@brand_config["color2"]%> !important; }
+</style>
+<% end %>
 <div class="content-content">
-<h2>Microcréditos Podemos</h2>
-<p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito Podemos. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada. <%= link_to "Más informacion", microcredits_info_path %></p>
+<h2>Microcréditos <%=@brand_config["name"]%></h2>
+<p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito <%=@brand_config["name"]%>. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada. <%= link_to "Más informacion", (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
 
 <% if @microcredits.length==0 %>
   <% if @upcoming_microcredits.count > 0 %>
     <h3>Las próxima campaña de microcréditos comenzará en unos momentos</h3>
-    <p>Podrás suscribir un microcrédito Podemos a partir de las <%= @upcoming_microcredits.first.starts_at.strftime "%H:%M"%> del día <%= @upcoming_microcredits.first.starts_at.strftime "%d/%m"%>.</p>
+    <p>Podrás suscribir un microcrédito <%=@brand_config["name"]%> a partir de las <%= @upcoming_microcredits.first.starts_at.strftime "%H:%M"%> del día <%= @upcoming_microcredits.first.starts_at.strftime "%d/%m"%>.</p>
   <% elsif @finished_microcredits.count > 0 %>
     <h3>La campaña de microcréditos ha acabado</h3>
     <p>Hemos recaudado en total <%= number_to_euro(@finished_microcredits.map {|m| m.campaign_confirmed_amount*100 } .sum, 0) %>. ¡Muchas gracias a todos por colaborar con el cambio!</p>
@@ -28,7 +35,7 @@
         <p>¡Muchas gracias por colaborar con el cambio!</p>
       </div>
       <% else %>
-      <div class="js-mc-graph">
+      <div class="js-mc-graph" data-color1="<%=@brand_config['color1']%>" data-color2="<%=@brand_config['color2']%>">
         <div></div>
         <canvas width="90" heigth="100"></canvas>
         <div alt="<%=m.phase_counted_amount%>€" class="hide js-mc-total"><%= m.phase_counted_amount %>€</div>
@@ -42,7 +49,7 @@
                 remaining -= subgoal
                 if remaining <= 0 then break end
               end %></ul><% 
-            end %><div class="buttonbox"><%= link_to "Quiero colaborar", new_microcredit_loan_path(m), class: 'button' %></div>
+            end %><div class="buttonbox"><%= link_to "Quiero colaborar", new_microcredit_loan_path(m, brand: @brand), class: 'button' %></div>
       </div>
       <% end %>
     </div>

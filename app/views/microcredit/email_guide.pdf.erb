@@ -14,10 +14,10 @@
   <body>
         <div class="microcreditos">
             <div style="width:100%;">
-                <%= wicked_pdf_image_tag "logo.podemos-425-p.jpg", style: "float:left; width:40%;"%>
+                <%= wicked_pdf_image_tag @brand_config["logo"], style: "float:left; width:40%;"%>
             </div>
             <p style="clear:both">Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:</p>
-           <div class="grey"><strong>Beneficiario</strong><br>PODEMOS</div>
+           <div class="grey"><strong>Beneficiario</strong><br><%=@brand_config["name"].upcase%></div>
             <div><strong>Banco</strong><br>Fiare Banca Ética</div>
             <div class="grey"><strong>Número de cuenta</strong><br><%=@microcredit.account_number%></div>
             <div><strong>Importe</strong><br><%=@loan.amount%>€</div>
