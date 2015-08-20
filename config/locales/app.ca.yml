@@ -9,6 +9,7 @@ ca:
       choose_province: "Tria una província"
       no_province: "Cap província"
       choose_town: "Tria un municipi"
+      amount: "Import"
     index:
       will_start: "La propera campanya de microcrèdits començarà ben aviat"
       will_start_at: "Pots demanar un microcrèdit %{name} a partir de les %{hour} del dia %{date}."
@@ -33,13 +34,20 @@ ca:
       country: "País"
       province: "Província"
       town: "Municipi"
-      amount: "Import"
       remaining_count: "(queden %{total})"
       over_age_message: "Declaro ser major de 18 anys."
       terms_of_service_message: "Accepto les condicions generals del Contracte civil de subscripció de microcrèdits %{name}."
       terms_of_service_link: "Contracte civil de subscripció de microcrèdits %{name}"
       will_receive_email: "En uns instants rebràs un correu electrònic amb tota la informació necessària per a finalitzar el procés de subscripció d'un microcrèdit. Si us plau, tingues en compte que és possible que el comptador no s'actualitzi immediatament. Gràcies per col·laborar!<br/>Si desitges ajudar-nos a difondre aquesta campanya, <a href='http://twitter.com/home/?status=Acabo%20de%20subscriure%20un%20microcr%C3%A8dit%20%{name}%20per%20finan%C3%A7ar%20la%20campanya%20electoral.%20Pots%20invertir%20en%20el%20canvi%20en%20%{main_url}'>comparteix a Twitter</a>."
-      subscribe: "Subscriure"      
+      subscribe: "Subscriure"
+    email:
+      subject: "Confirmació microcrèdits %{name}"
+      intro: "Per acabar de formalitzar el microcrèdit és necessari que realitzis la següent transferència bancària durant les properes 24 hores amb les següents dades:"
+      recipient: "Beneficiari"
+      bank: "Banc"
+      account_number: "Número de compte"
+      concept: "Concepte de l'ingrés"
+      thanks: "Moltes gràcies per col·laborar! El canvi comença gràcies a tu."
   formtastic:
     labels:
       first_name: "Nom"
@@ -48,3 +56,5 @@ ca:
       email: "Correu electrònic"
       address: "Direcció"
       postal_code: "Codi postal"
+
+

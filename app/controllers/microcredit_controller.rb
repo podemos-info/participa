@@ -68,7 +68,7 @@ class MicrocreditController < ApplicationController
       if (current_user or verify_recaptcha) and @loan.save
         @loan.update_counted_at
         UsersMailer.microcredit_email(@microcredit, @loan, @brand_config).deliver_now
-        redirect_to microcredit_path(brand:@brand), notice: t('microcredit.will_receive_email', name: @brand_config["name"], main_url: @brand_config["main_url"])
+        redirect_to microcredit_path(brand:@brand), notice: t('microcredit.new_loan.will_receive_email', name: @brand_config["name"], main_url: @brand_config["main_url"])
       else
         render :new_loan
       end
