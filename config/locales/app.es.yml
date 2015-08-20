@@ -605,6 +605,9 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       more_info: "Más información"
       has_finished: "La campaña de microcréditos ha acabado"
       campaign_results: "Hemos recaudado %{total}.<br/>¡Muchas gracias por colaborar con el cambio!"
+      choose_province: "Elige una provincia"
+      no_province: "Ninguna"
+      choose_town: "Elige un municipio"
     index:
       will_start: "La próxima campaña de microcréditos comenzará en unos momentos"
       will_start_at: "Podrás suscribir un microcrédito %{name} a partir de las %{hour} del día %{date}."

@@ -1,4 +1,4 @@
-<% content_for :title, t('microcredit.common.title'), name: @brand_config["name"] %>
+<% content_for :title, t('microcredit.common.title', name: @brand_config["name"]) %>
 <% if @brand_config["color1"] %>
 <style>
 h2 { color: <%=@brand_config["color1"]%> !important; }
