@@ -6,6 +6,9 @@ ca:
       more_info: "Més informació"
       has_finished: "La campanya de microcrèdits ha finalitzat"
       campaign_results: "Hem aconseguit %{total}.<br/>Moltes gràcies per col·laborar amb el canvi!"
+      choose_province: "Tria una província"
+      no_province: "Cap província"
+      choose_town: "Tria un municipi"
     index:
       will_start: "La propera campanya de microcrèdits començarà ben aviat"
       will_start_at: "Pots demanar un microcrèdit %{name} a partir de les %{hour} del dia %{date}."

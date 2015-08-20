@@ -1,8 +1,8 @@
-<% content_for :title, t('microcredit.common.title'), name: @brand_config["name"] %>
+<% content_for :title, t('microcredit.common.title', name: @brand_config["name"]) %>
 <% if @brand_config["color1"] %>
 <style>
 h2, label, fieldset legend span { color: <%=@brand_config["color1"]%> !important; }
-a { color: <%=@brand_config["color2"]%> !important; }
+form a { color: <%=@brand_config["color2"]%> !important; }
 input.button, a.button { background-color: <%=@brand_config["color2"]%> !important; }
 .microcredits-wrapper .radio_options input:checked + div, .microcredits-wrapper .radio_options input:checked:hover + div { border: 1px solid <%=@brand_config["color2"]%> }
 .microcredits-wrapper .radio_options input:checked + div i, .microcredits-wrapper .radio_options input:checked:hover + div i { visibility: visible; color: <%=@brand_config["color2"]%> }
@@ -87,7 +87,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <% end %>
           <%= label @loan, :country, class: "control-label", required: :required do %>
             <%= t '.country' %>
-            <abbr title="requerido">*</abbr>
+            <abbr title="<%= t '.required' %>">*</abbr>
           <% end %>
           <%= select_tag "microcredit_loan[country]", options_from_collection_for_select(get_countries, "code", "name", @loan.country), { disabled: false, required: true, data: { allowClear: true } } %>
         </div>
@@ -95,13 +95,13 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <% if @loan.errors.include?(:province) %>
               <%= field_notice_box %>
           <% end %>
-          <%= render partial: 'subregion_select', locals:{ country: @loan.country, province: @loan.province, disabled: false, required: true, title:"Provincia" } %>
+          <%= render partial: 'subregion_select', locals:{ country: @loan.country, province: @loan.province, disabled: false, required: true, title: t('.province') } %>
         </div>
         <div class="inputlabel-box">
           <% if @loan.errors.include?(:town) %>
               <%= field_notice_box %>
           <% end %>
-          <%= render partial: 'municipies_select', locals: { country: @loan.country, province: @loan.province, town:  @loan.town, disabled: false, required: true, title: "Municipio" } %>
+          <%= render partial: 'municipies_select', locals: { country: @loan.country, province: @loan.province, town:  @loan.town, disabled: false, required: true, title: t('.town') } %>
         </div>
         <div class="inputlabel-box">
           <% if @loan.errors.include?(:postal_code) %>
@@ -124,7 +124,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
         <% end %>
           <%= label @loan, :amount, class: "control-label", required: :required do %>
             <%= t '.amount' %>
-            <abbr title="requerido">*</abbr>
+            <abbr title="<%= t '.required' %>">*</abbr>
           <% end %>
         <div class="radio_options">
           <% @microcredit.phase_remaining.each do |amount,remaining| %> 
