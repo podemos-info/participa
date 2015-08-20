@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hola <%= @loan.first_name %> <%= @loan.last_name %>,</p>
+
+    <p>t'adjuntem el document amb tota la informació necessària per a poder realitzar la transferència del microcrèdit <%=@brand_config["name"]%> que has demanat. Recorda que el termini d'ingrés és de 24 hores des de la recepció d'aquest correu electrònic.</p>
+
+    <p>Import demanat: <%= @loan.amount %>€</p>
+
+    <p><a href="<%=@microcredit.agreement_link%>" download="ContratoMicrocréditos<%=@brand_config["name"]%>.pdf">Descarrega't el Contracte civil de subscripció de microcrèdits de <%=@brand_config["name"]%> fent clic en aquest enllaç.</a></p>
+
+    <p>Gràcies per col·laborar amb <%=@brand_config["name"]%>! El canvi comença gràcies a tu.</p>
+
+    <p><%=@brand_config["mail_signature"]%></p>
+  </body>
+</html>

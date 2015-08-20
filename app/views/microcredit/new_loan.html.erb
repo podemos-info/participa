@@ -1,4 +1,4 @@
-<% content_for :title, "Microcréditos" %>
+<% content_for :title, t('microcredit.common.title'), name: @brand_config["name"] %>
 <% if @brand_config["color1"] %>
 <style>
 h2, label, fieldset legend span { color: <%=@brand_config["color1"]%> !important; }
@@ -12,27 +12,27 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
 <% if !current_user && @brand_config["allow_login"] %>
   <div class="modal-dialog">
     <div>    
-      <h2>Microcréditos <%=@brand_config["name"]%> - <%=@microcredit.title%></h2>
+      <h2><%= t 'microcredit.common.title', name: @brand_config["name"]%> - <%=@microcredit.title%></h2>
       <p>Te recomendamos que <%= link_to "accedas con tu usuario del Portal de Participación", microcredit_login_path%> para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro.</p>
       <div class="buttonbox"><a class="close button">Continuar sin identificarse</a>&nbsp;&nbsp; &nbsp;&nbsp;<%= link_to "Acceder con tu usuario", microcredit_login_path, class:"button"%></div>
     </div>
   </div>
 <% end %>
 
-<h2>Microcréditos <%=@brand_config["name"]%> - <%=@microcredit.title%></h2>
-<p>Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito <%=@brand_config["name"]%>. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada. <%= link_to "Más informacion", (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
+<h2><%= t 'microcredit.common.title', name: @brand_config["name"]%> - <%=@microcredit.title%></h2>
+<p><%= t 'microcredit.common.help_us', name: @brand_config["name"]%> <%= link_to t('microcredit.common.more_info'), (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
 
 <% if @microcredit.completed %>
   <div>
     <%=fa_icon "check-circle"%>
     <div class="microcredit-ended">
-      <h3>La campaña de microcréditos ha finalizado</h3>
-      <p>Hemos recaudado <%= number_to_euro(@microcredit.campaign_confirmed_amount*100, 0) %>. ¡Muchas gracias a todos por colaborar con el cambio!</p>
+      <h3><%= t 'microcredit.common.has_finished' %></h3>
+      <p><%= t 'microcredit.common.campaign_results', total: number_to_euro(@finished_microcredits.map {|m| m.campaign_confirmed_amount*100 } .sum, 0) %></p>
     </div>
   </div>
 <% else %>
   <% if @microcredit.contact_phone and not @microcredit.contact_phone.empty?%>
-  <p><%=fa_icon "phone-square"%> Si necesitas ayuda contacta al <strong><%=@microcredit.contact_phone%></strong>.</p>
+  <p><%=fa_icon "phone-square"%> <%= t '.help_phone', phone: @microcredit.contact_phone%></p>
   <% end %>
   <%= errors_in_form @loan %>
   <%= semantic_form_for @loan, url: create_microcredit_loan_path(brand: @brand), html: {method: :post, autocomplete: 'off'} do |f| %>
@@ -41,9 +41,9 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
       <% if @user_loans.length > 0 %>
         <%= alert_box "Información" do %>
           <% if @user_loans.length == 1 %>
-          <p>Ya has suscrito un microcrédito para esta campaña por un importe de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
+          <p><%= t '.has_microcredit', total: number_to_euro(@user_loans.map { |l| l.amount*100 } .sum)%></p>
           <% else %>
-          <p>Ya has suscrito <%=@user_loans.length%> microcréditos para esta campaña por un importe total de <%= number_to_euro @user_loans.map { |l| l.amount*100 } .sum%>.</p>
+          <p><%= t '.has_microcredits', count: @user_loans.length, total: number_to_euro(@user_loans.map { |l| l.amount*100 } .sum)%></p>
           <% end %>
         <% end %>
       <% end %>
@@ -86,7 +86,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
               <%= field_notice_box %>
           <% end %>
           <%= label @loan, :country, class: "control-label", required: :required do %>
-            País
+            <%= t '.country' %>
             <abbr title="requerido">*</abbr>
           <% end %>
           <%= select_tag "microcredit_loan[country]", options_from_collection_for_select(get_countries, "code", "name", @loan.country), { disabled: false, required: true, data: { allowClear: true } } %>
@@ -123,13 +123,13 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
             <%= field_notice_box %>
         <% end %>
           <%= label @loan, :amount, class: "control-label", required: :required do %>
-            Importe
+            <%= t '.amount' %>
             <abbr title="requerido">*</abbr>
           <% end %>
         <div class="radio_options">
           <% @microcredit.phase_remaining.each do |amount,remaining| %> 
           <input id="microcredit_loan_amount_<%=amount%>" name="microcredit_loan[amount]" value="<%=amount%>" type="radio"<%=" checked" if amount==@loan.amount%><%=' disabled class=disabled' if remaining==0%> />
-          <div><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span>(quedan <%=remaining%>)</span></div>
+          <div><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span><%=t '.remaining_count', total: remaining%></span></div>
           <% end %>
         </div>
       </div>
@@ -149,7 +149,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
         <div class="input-box">
           <%= f.check_box :minimal_year_old, class: 'checkbox' %>
           <%= f.label :minimal_year_old, class: 'text-xl' do %>
-            Declaro ser mayor de 18 años.
+            <%= t '.over_age_message', name: @brand_config["name"]%>
           <% end %>
         </div>
       </div>
@@ -161,13 +161,14 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
         <div class="input-box">
           <%= f.check_box :terms_of_service, class: 'checkbox' %>
           <%= f.label :terms_of_service, class: 'text-xl' do %>
-            Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de <%=@brand_config["name"]%>. <a href="<%=@microcredit.agreement_link%>" target="_blank">Contrato civil de suscripción de microcréditos de <%=@brand_config["name"]%></a>
+            <%= t '.terms_of_service_message', name: @brand_config["name"]%>
+            <%= link_to t('.terms_of_service_link', name: @brand_config["name"]), @microcredit.agreement_link, target: "_blank"%>
           <% end %>
         </div>
       </div>
     </fieldset>
     <%= f.actions class: 'enter' do %>
-      <%= f.action :submit, :as => :input, button_html: {class: 'button'} %>
+      <%= f.action :submit, label: t(".subscribe"), as: :input, button_html: {class: 'button'} %>
     <% end %>
   <% end %>
 <% end %>
