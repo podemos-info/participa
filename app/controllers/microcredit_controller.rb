@@ -68,7 +68,7 @@ class MicrocreditController < ApplicationController
       if (current_user or verify_recaptcha) and @loan.save
         @loan.update_counted_at
         UsersMailer.microcredit_email(@microcredit, @loan, @brand_config).deliver_now
-        redirect_to microcredit_path(brand:@brand), notice: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito #{@brand_config["name"]}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!<br/>Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/home/?status=Acabo%20de%20suscribir%20un%20microcr%C3%A9dito%20#{@brand_config["name"]}%20para%20financiar%20la%20campa%C3%B1a%20electoral.%20Puedes%20invertir%20en%20el%20cambio%20en%20#{@brand_config["main_url"]}'>compártelo en Twitter</a>."
+        redirect_to microcredit_path(brand:@brand), notice: t('microcredit.will_receive_email', name: @brand_config["name"], main_url: @brand_config["main_url"])
       else
         render :new_loan
       end
