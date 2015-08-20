@@ -16,7 +16,7 @@ module PodemosParticipa
     config.time_zone = 'Madrid'
     config.i18n.default_locale = :es
     config.i18n.available_locales = ['es', 'ca', 'eu']
-    config.i18n.fallbacks = [:en] # https://github.com/jim/carmen-rails/issues/13 
+    config.i18n.fallbacks = [:es, :en] # https://github.com/jim/carmen-rails/issues/13 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'carmen', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'carmen', 'es', '*.{rb,yml}').to_s]
     config.action_mailer.default_url_options = { host: Rails.application.secrets.host }
