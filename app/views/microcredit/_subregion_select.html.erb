@@ -1,7 +1,6 @@
 <div id="js-microcredit_loan-province-wrapper" class="input required form-group">
   <%= label :microcredit_loan, :province, class: "control-label", required: :required do %>
-    <%= title %>
-    <% if required %><abbr title="<%= t 'microcredit.new_loan.required' %>">*</abbr><% end %>
+    <%= title %><% if required %><abbr title="<%= t 'microcredit.new_loan.required' %>">*</abbr><% end %>
   <% end %>
   <span class="form-wrapper">
   <% provinces = get_provinces(country) %>

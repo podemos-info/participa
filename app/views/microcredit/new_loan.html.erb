@@ -86,8 +86,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
               <%= field_notice_box %>
           <% end %>
           <%= label @loan, :country, class: "control-label", required: :required do %>
-            <%= t '.country' %>
-            <abbr title="<%= t '.required' %>">*</abbr>
+            <%= t '.country' %><abbr title="<%= t '.required' %>">*</abbr>
           <% end %>
           <%= select_tag "microcredit_loan[country]", options_from_collection_for_select(get_countries, "code", "name", @loan.country), { disabled: false, required: true, data: { allowClear: true } } %>
         </div>
@@ -123,8 +122,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
             <%= field_notice_box %>
         <% end %>
           <%= label @loan, :amount, class: "control-label", required: :required do %>
-            <%= t '.amount' %>
-            <abbr title="<%= t '.required' %>">*</abbr>
+            <%= t 'microcredit.common.amount' %><abbr title="<%= t '.required' %>">*</abbr>
           <% end %>
         <div class="radio_options">
           <% @microcredit.phase_remaining.each do |amount,remaining| %> 
