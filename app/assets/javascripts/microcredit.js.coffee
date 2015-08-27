@@ -12,7 +12,7 @@ draw_pie_chart = ($el, data) ->
 show_provinces = (country_code) ->
   $('#microcredit_loan_town').disable_control
   $('#microcredit_loan_province').disable_control
-  $('#js-microcredit_loan-province-wrapper').load "/microcreditos/provincias?microcredit_loan_country=" + country_code, ->
+  $('#js-microcredit_loan-province-wrapper').load "/"+window.lang+"/microcreditos/provincias?microcredit_loan_country=" + country_code, ->
     prov_select = $('select#microcredit_loan_province')
     if (prov_select.length>0 && prov_select.select2)
       prov_select.select2 {formatNoMatches: "No se encontraron resultados"}
@@ -27,10 +27,10 @@ show_towns = (country_code, province_code) ->
     return
 
   if (province_code && country_code == "ES")
-    url = "/microcreditos/municipios?microcredit_loan_country=ES&microcredit_loan_province=" + province_code
+    url = "/"+window.lang+"/microcreditos/municipios?microcredit_loan_country=ES&microcredit_loan_province=" + province_code
     has_towns = true
   else
-    url = "/microcreditos/municipios"
+    url = "/"+window.lang+"/microcreditos/municipios"
     has_towns = false
   
   if (!has_towns && no_towns_html)
@@ -52,9 +52,11 @@ show_towns = (country_code, province_code) ->
 
 $ ->
   for graph in $(".js-mc-graph")
+    color1 = $(graph).data("color1")
+    color2 = $(graph).data("color2")
     parts = []
-    parts.push({ value: parseInt($('.js-mc-total', graph).html()), color:'#612d62', highlight: '#97c2b8', label: "" })
-    parts.push({ value: parseInt($('.js-mc-pending', graph).html()), color:'#eaeaea', highlight: '#97c2b8', label: "" })
+    parts.push({ value: parseInt($('.js-mc-total', graph).html()), color:color1, highlight: color2, label: "" })
+    parts.push({ value: parseInt($('.js-mc-pending', graph).html()), color:'#eaeaea', highlight: color2, label: "" })
 
     draw_pie_chart( $('canvas',graph), parts)
 

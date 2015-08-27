@@ -1,0 +1,11 @@
+Hola <%= @loan.first_name %> <%= @loan.last_name %>,
+
+t'adjuntem el document amb tota la informació necessària per a poder realitzar la transferència del microcrèdit <%=@brand_config["name"]%> que has demanat. Recorda que el termini d'ingrés és de 24 hores des de la recepció d'aquest correu electrònic.
+
+Import demanat: <%= @loan.amount %>€
+
+Descarrega't el Contracte civil de subscripció de microcrèdits de Catalunya Sí que es Pot fent clic en aquest enllaç.
+
+Gràcies per col·laborar amb <%=@brand_config["name"]%>! El canvi comença gràcies a tu.
+
+<%=@brand_config["mail_signature"]%>

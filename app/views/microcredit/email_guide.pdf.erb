@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Microcrédito</title>
+    <title><%= t('microcredit.common.title', name: @brand_config["name"])%></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <%= wicked_pdf_stylesheet_link_tag "microcredit.print.css" %>
@@ -14,16 +14,16 @@
   <body>
         <div class="microcreditos">
             <div style="width:100%;">
-                <%= wicked_pdf_image_tag "logo.podemos-425-p.jpg", style: "float:left; width:40%;"%>
+                <%= wicked_pdf_image_tag @brand_config["logo"], style: "float:left; width:40%;"%>
             </div>
-            <p style="clear:both">Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:</p>
-           <div class="grey"><strong>Beneficiario</strong><br>PODEMOS</div>
-            <div><strong>Banco</strong><br>Fiare Banca Ética</div>
-            <div class="grey"><strong>Número de cuenta</strong><br><%=@microcredit.account_number%></div>
-            <div><strong>Importe</strong><br><%=@loan.amount%>€</div>
-            <div class="grey"><strong>Concepto del ingreso </strong><br><%=@loan.id%>-<%=@microcredit.title%></div>
+            <p style="clear:both"><%=t '.intro'%></p>
+           <div class="grey"><strong><%=t '.recipient'%></strong><br><%=@brand_config["name"].upcase%></div>
+            <div><strong><%=t '.bank'%></strong><br>Fiare Banca Ética</div>
+            <div class="grey"><strong><%=t '.account_number'%></strong><br><%=@microcredit.account_number%></div>
+            <div><strong><%=t 'microcredit.common.amount'%></strong><br><%=@loan.amount%>€</div>
+            <div class="grey"><strong><%=t '.concept'%></strong><br><%=@loan.id%>-<%=@microcredit.title%></div>
             <br>
-            <p><br> Muchas gracias por colaborar. El cambio empieza gracias a ti.</p>
+            <p><br><%=t '.thanks'%></p>
         </div>
   </body>
 </html>

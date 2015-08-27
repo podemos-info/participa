@@ -181,10 +181,6 @@ es:
         circle: "Círculo"
       category:
         name: "nombre"
-  formtastic:
-    hints:
-      user:
-        wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante."
   podemos:
     election:
       no_location: "No hay votaciones en tu municipio."
@@ -192,7 +188,7 @@ es:
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
-    banned: "Gracias, %{full_name}. Lamentamos decirte que para poder participar debes enviarnos además una fotocopia de tu documento de identidad a la dirección LOPD@podemos.info o, si te viene mejor, pasarte por cualquier Delegación del Partido. Si quieres más información puedes consultarnos también en órganos.autonomicos@podemos.info. Pero lo más eficaz para poder participar de forma inmediata es escanear tu documento y mandárnoslos al primer correo. Muchas gracias y perdona las molestias."
+    banned: "Gracias, %{full_name}. Lamentamos decirte que para poder participar debes enviarnos además una fotocopia de tu documento de identidad a la dirección LOPD@podemos.info o, si te viene mejor, pasarte por cualquier Delegación del Partido. Si quieres más información puedes consultarnos también en organos.autonomicos@podemos.info. Pero lo más eficaz para poder participar de forma inmediata es escanear tu documento y mandárnoslos al primer correo. Muchas gracias y perdona las molestias."
     user:
       general_data: "Datos generales"
       collaborations: "Colaboraciones económicas"
@@ -602,3 +598,63 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       has_collaboration_bank_international: "Con colaboración económica (banco internacional)"
       participation_team: "En equipos de participación"
       has_circle: "En Círculo"
+  microcredit:
+    common:
+      title: "Microcréditos %{name}"
+      help_us: "Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito %{name}. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
+      more_info: "Más información"
+      has_finished: "La campaña de microcréditos ha acabado"
+      campaign_results: "Hemos recaudado %{total}.<br/>¡Muchas gracias por colaborar con el cambio!"
+      choose_province: "Elige una provincia"
+      no_province: "Ninguna"
+      choose_town: "Elige un municipio"
+      amount: "Importe"
+    index:
+      will_start: "La próxima campaña de microcréditos comenzará en unos momentos"
+      will_start_at: "Podrás suscribir un microcrédito %{name} a partir de las %{hour} del día %{date}."
+      no_campaigns: "En este momento no hay campañas de microcréditos activas."
+      no_campaigns_message: "No te preocupes, te avisaremos cuando abramos la próxima campaña."
+      success: "Objetivo alcanzado"
+      remaining: "Restante"
+      current_phase: "Fase actual:"
+      accumulated: "Acumulado:"
+      want_to_collaborate: "Quiero colaborar"
+    new_loan:
+      user_access: "Te recomendamos que %{link} para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro."
+      user_access_link: "accedas con tu usuario del Portal de Participación"
+      nologin: "Continuar sin identificarse"
+      login: "Acceder con tu usuario"
+      help_phone: "Si necesitas ayuda contacta al <strong>%{phone}</strong>."
+      info: "Información"
+      has_microcredit: "Ya has suscrito un microcrédito para esta campaña por un importe de %{total}."
+      has_microcredits: "Ya has suscrito %{count} microcréditos para esta campaña por un importe total de %{total}."
+      required: "requerido"
+      home_address: "Domicilio"
+      country: "País"
+      province: "Provincia"
+      town: "Municipio"
+      remaining_count: "(quedan %{total})"
+      over_age_message: "Declaro ser mayor de 18 años."
+      terms_of_service_message: "Acepto las condiciones generales del Contrato civil de suscripción de microcréditos %{name}."
+      terms_of_service_link: "Contrato civil de suscripción de microcréditos %{name}"
+      will_receive_email: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito %{name}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!<br/>Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/home/?status=Acabo%20de%20suscribir%20un%20microcr%C3%A9dito%20%{name}%20para%20financiar%20la%20campa%C3%B1a%20electoral.%20Puedes%20invertir%20en%20el%20cambio%20en%20%{main_url}'>compártelo en Twitter</a>."
+      subscribe: "Suscribir"      
+    email:
+      subject: "Confirmación microcréditos %{name}"
+      intro: "Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:"
+      recipient: "Beneficiario"
+      bank: "Banco"
+      account_number: "Número de cuenta"
+      concept: "Concepto del ingreso"
+      thanks: "Muchas gracias por colaborar. El cambio empieza gracias a ti."
+  formtastic:
+    labels:
+      first_name: "Nombre"
+      last_name: "Apellidos"
+      document_vatid: "DNI"
+      email: "Correo electrónico"
+      address: "Dirección"
+      postal_code: "Código postal"
+    hints:
+      user:
+        wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante."

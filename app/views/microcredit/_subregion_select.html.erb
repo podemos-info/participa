@@ -1,7 +1,6 @@
 <div id="js-microcredit_loan-province-wrapper" class="input required form-group">
   <%= label :microcredit_loan, :province, class: "control-label", required: :required do %>
-    <%= title %>
-    <% if required %><abbr title="requerido">*</abbr><% end %>
+    <%= title %><% if required %><abbr title="<%= t 'microcredit.new_loan.required' %>">*</abbr><% end %>
   <% end %>
   <span class="form-wrapper">
   <% provinces = get_provinces(country) %>
@@ -9,10 +8,10 @@
       first_options = if required
                         "<option></option>"
                       else  
-                        "<option></option><option value='-' "+(province=='-'? ' selected="selected"':'')+">-- Ninguna --</option>"
+                        "<option></option><option value='-' %s>-- %s --</option>" % [(province=='-'? ' selected="selected"':''),t('microcredit.common.no_province')]
                       end
       %>
-      <%= select_tag "microcredit_loan[province]", first_options.html_safe+options_from_collection_for_select(provinces, "code", "name", province), {disabled: disabled, required: required, data: {placeholder: "-- Elige una provincia --", allowClear: true} } %>
+      <%= select_tag "microcredit_loan[province]", first_options.html_safe+options_from_collection_for_select(provinces, "code", "name", province), {disabled: disabled, required: required, data: {placeholder: "-- %s --" % t('microcredit.common.choose_province'), allowClear: true} } %>
   <% else %>
     <%= text_field(:microcredit_loan, :province, class: "form-control input-xl") %>
   <% end %>
