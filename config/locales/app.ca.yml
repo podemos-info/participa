@@ -38,7 +38,7 @@ ca:
       over_age_message: "Declaro ser major de 18 anys."
       terms_of_service_message: "Accepto les condicions generals del Contracte civil de subscripció de microcrèdits %{name}."
       terms_of_service_link: "Contracte civil de subscripció de microcrèdits %{name}"
-      will_receive_email: "En uns instants rebràs un correu electrònic amb tota la informació necessària per a finalitzar el procés de subscripció d'un microcrèdit. Si us plau, tingues en compte que és possible que el comptador no s'actualitzi immediatament. Gràcies per col·laborar!<br/>Si desitges ajudar-nos a difondre aquesta campanya, <a href='http://twitter.com/home/?status=Acabo%20de%20subscriure%20un%20microcr%C3%A8dit%20%{name}%20per%20finan%C3%A7ar%20la%20campanya%20electoral.%20Pots%20invertir%20en%20el%20canvi%20en%20%{main_url}'>comparteix a Twitter</a>."
+      will_receive_email: "En uns instants rebràs un correu electrònic amb tota la informació necessària per a finalitzar el procés de subscripció d'un microcrèdit. Si us plau, tingues en compte que és possible que el comptador no s'actualitzi immediatament. Gràcies per col·laborar!<br/>Si desitges ajudar-nos a difondre aquesta campanya, <a target='_top' href='http://twitter.com/home/?status=Acabo%20de%20subscriure%20un%20microcr%C3%A8dit%20%{name}%20per%20finan%C3%A7ar%20la%20campanya%20electoral.%20Pots%20invertir%20en%20el%20canvi%20en%20%{main_url}'>comparteix a Twitter</a>."
       subscribe: "Subscriure"
     email:
       subject: "Confirmació microcrèdits %{name}"

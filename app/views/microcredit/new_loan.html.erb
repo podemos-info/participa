@@ -32,7 +32,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
   </div>
 <% else %>
   <% if @microcredit.contact_phone and not @microcredit.contact_phone.empty?%>
-  <p><%=fa_icon "phone-square"%> <%= t '.help_phone', phone: @microcredit.contact_phone%></p>
+  <p><%=fa_icon "phone-square"%> <%= t('.help_phone', phone: @microcredit.contact_phone).html_safe %></p>
   <% end %>
   <%= errors_in_form @loan %>
   <%= semantic_form_for @loan, url: create_microcredit_loan_path(brand: @brand), html: {method: :post, autocomplete: 'off'} do |f| %>
