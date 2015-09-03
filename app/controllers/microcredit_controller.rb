@@ -18,7 +18,7 @@ class MicrocreditController < ApplicationController
       @brand = default_brand
       @brand_config = Rails.application.secrets.microcredits["brands"][default_brand]
     end
-    @external = @brand!=default_brand
+    @external = Rails.application.secrets.microcredits["brands"][@brand]["external"]
   end
 
   def external_layout
