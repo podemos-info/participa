@@ -80,7 +80,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
         </div>
       </fieldset>
       <fieldset>
-        <legend><span>Domicilio</span></legend>
+        <legend><span><%= t '.home_address' %></span></legend>
         <div class="inputlabel-box">
           <% if @loan.errors.include?(:country) %>
               <%= field_notice_box %>
