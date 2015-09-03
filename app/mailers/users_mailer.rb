@@ -7,7 +7,7 @@ class UsersMailer < ActionMailer::Base
     @brand_config = brand_config
     pdf_name = "IngresoMicrocreditos#{@brand_config["name"]}.pdf"
     attachments[pdf_name] = WickedPdf.new.pdf_from_string(render_to_string pdf: pdf_name, template: 'microcredit/email_guide.pdf.erb', encoding: "UTF-8")
-    mail(from: @brand_config["mail_from"], to: @loan.email, subject: t("microcredit.email.subject"))
+    mail(from: @brand_config["mail_from"], to: @loan.email, subject: t("microcredit.email.subject", name: @brand_config["name"]))
   end
 
   def remember_email(type, query)
