@@ -13,7 +13,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
 <% if @microcredits.length==0 %>
   <% if @upcoming_microcredits.count > 0 %>
     <h3><%= t '.will_start' %></h3>
-    <p><%= t '.will_start_at', name: @brand_config["name"], hour: @upcoming_microcredits.first.starts_at.strftim("%H:%M"), date: @upcoming_microcredits.first.starts_at.strftime("%d/%m") %></p>
+    <p><%= t '.will_start_at', name: @brand_config["name"], hour: @upcoming_microcredits.first.starts_at.strftime("%H:%M"), date: @upcoming_microcredits.first.starts_at.strftime("%d/%m") %></p>
   <% elsif @finished_microcredits.count > 0 %>
     <h3><%= t 'microcredit.common.has_finished' %></h3>
     <p><%= t 'microcredit.common.campaign_results', total: number_to_euro(@finished_microcredits.map {|m| m.campaign_confirmed_amount*100 } .sum, 0) %></p>
