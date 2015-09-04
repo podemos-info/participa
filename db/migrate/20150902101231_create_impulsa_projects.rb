@@ -18,7 +18,7 @@ class CreateImpulsaProjects < ActiveRecord::Migration
       t.string :organization_nif
       t.integer :organization_year
       t.string :organization_legal_name
-      t.string :organization_legal_email
+      t.string :organization_legal_nif
       t.text :organization_mission
       t.text :career
       t.string :counterpart

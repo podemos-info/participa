@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902101231) do
+ActiveRecord::Schema.define(version: 20150904140023) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -146,6 +146,15 @@ ActiveRecord::Schema.define(version: 20150902101231) do
 
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
 
+  create_table "impulsa_edition_topics", force: :cascade do |t|
+    t.integer  "impulsa_edition_id"
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "impulsa_edition_topics", ["impulsa_edition_id"], name: "index_impulsa_edition_topics_on_impulsa_edition_id"
+
   create_table "impulsa_editions", force: :cascade do |t|
     t.string   "name",                                     null: false
     t.date     "start_at"
@@ -177,6 +186,16 @@ ActiveRecord::Schema.define(version: 20150902101231) do
     t.datetime "monitoring_evaluation_model_updated_at"
   end
 
+  create_table "impulsa_project_topics", force: :cascade do |t|
+    t.integer  "impulsa_project_id"
+    t.integer  "impulsa_edition_topic_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "impulsa_project_topics", ["impulsa_edition_topic_id"], name: "index_impulsa_project_topics_on_impulsa_edition_topic_id"
+  add_index "impulsa_project_topics", ["impulsa_project_id"], name: "index_impulsa_project_topics_on_impulsa_project_id"
+
   create_table "impulsa_projects", force: :cascade do |t|
     t.integer  "impulsa_edition_category_id"
     t.integer  "user_id"
@@ -195,7 +214,7 @@ ActiveRecord::Schema.define(version: 20150902101231) do
     t.string   "organization_nif"
     t.integer  "organization_year"
     t.string   "organization_legal_name"
-    t.string   "organization_legal_email"
+    t.string   "organization_legal_nif"
     t.text     "organization_mission"
     t.text     "career"
     t.string   "counterpart"

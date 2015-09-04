@@ -56,6 +56,7 @@ gem 'auto_html'
 gem "paranoia", :github => "radar/paranoia", :branch => "rails4"
 gem 'cocoon'
 gem 'paperclip'
+gem 'validate_url'
 
 group :development, :test do
   gem 'capistrano', '~> 3.4.0'

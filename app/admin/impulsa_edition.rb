@@ -40,19 +40,30 @@ ActiveAdmin.register ImpulsaEdition do
       end
     end
 
-    panel "Categories" do
+    panel t "activerecord.models.impulsa_edition_categories" do
       table_for resource.impulsa_edition_categories do
         column :name
-        column :type_name
+        column :category_type_name
         column :winners
         column :prize
         column :actions do |category|
-          span link_to('Edit', edit_admin_impulsa_edition_impulsa_edition_category_path(resource, category))
-          span link_to('Delete',  admin_impulsa_edition_impulsa_edition_category_path(resource, category), method: :delete)
+          span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, category))
+          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_category_path(resource, category), method: :delete)
           span link_to('Ver proyectos', admin_impulsa_edition_category_impulsa_projects_path(category))
         end
       end
-      div link_to('Add category', new_admin_impulsa_edition_impulsa_edition_category_path(resource))
+      div link_to(t('active_admin.has_many_new', model: t("activerecord.models.impulsa_edition_category")), new_admin_impulsa_edition_impulsa_edition_category_path(resource))
+    end
+
+    panel t "activerecord.models.impulsa_edition_topics" do
+      table_for resource.impulsa_edition_topics do
+        column :name
+        column :actions do |topic|
+          span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_topic_path(resource, topic))
+          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_topic_path(resource, topic), method: :delete)
+        end
+      end
+      div link_to(t('active_admin.has_many_new', model: t("activerecord.models.impulsa_edition_topics")), new_admin_impulsa_edition_impulsa_edition_topic_path(resource))
     end
   end
 
@@ -69,6 +80,26 @@ ActiveAdmin.register ImpulsaEdition do
       f.input :activities_resources_model, as: :file
       f.input :requested_budget_model, as: :file
       f.input :monitoring_evaluation_model, as: :file
+    end
+    f.actions
+  end
+end
+
+ActiveAdmin.register ImpulsaEditionTopic do
+  menu false
+  belongs_to :impulsa_edition
+  navigation_menu :default
+
+  permit_params :impulsa_edition_id, :name
+
+  form do |f|
+    f.inputs do
+      f.input :impulsa_edition_id, as: :hidden
+      li do
+        label :impulsa_edition
+        div class: :readonly do link_to(resource.impulsa_edition.name, admin_impulsa_edition_path(resource.impulsa_edition)) end
+      end
+      f.input :name
     end
     f.actions
   end

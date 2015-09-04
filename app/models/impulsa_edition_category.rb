@@ -10,7 +10,7 @@ class ImpulsaEditionCategory < ActiveRecord::Base
     "Territorial" => 3 
   }
 
-  def type_name
+  def category_type_name
     ImpulsaEditionCategory::CATEGORY_TYPES.invert[self.category_type]
   end
 

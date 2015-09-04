@@ -42,6 +42,14 @@ es:
       pages: Formularios
       category: Categoría
       categories: Categorías
+      impulsa_edition: Edición de Impulsa
+      impulsa_editions: Ediciones de Impulsa
+      impulsa_edition_topic: Temática de Impulsa
+      impulsa_edition_topics: Temáticas de Impulsa
+      impulsa_edition_category: Categoría de Impulsa
+      impulsa_edition_categories: Categorías de Impulsa
+      impulsa_project: Proyecto de Impulsa
+      impulsa_projects: Proyectos de Impulsa
     errors:
       models: 
         user:
@@ -78,7 +86,98 @@ es:
             password_confirmation: "Contraseña (repetir)"
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
             terms_of_service: "Acepto las condiciones generales"
+        impulsa_project:
+          attributes:
+            video_link:
+              url:
     attributes:
+      impulsa_edition:
+        name: "Nombre"
+        start_at: "Fecha de inicio"
+        new_projects_until: "Cierre de inscripciones"
+        review_projects_until: "Fecha de fin revisiones"
+        validation_projects_until: "Fecha de fin validación"
+        ends_at: "Fecha de final"
+        legal: "Bases"
+        schedule_model: "Modelo de cronograma"
+        activities_resources_model: "Modelo de actividades y recursos"
+        requested_budget_model: "Modelo de solicitud de presupuesto"
+        monitoring_evaluation_model: "Modelo de seguimiento y evaluación"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_edition_topic:
+        impulsa_edition: "Edición de Impulsa"
+        name: "Nombre"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_edition_category:
+        impulsa_edition: "Edición de Impulsa"
+        name: "Nombre"
+        category_type: "Tipo de categoría"
+        category_type_name: "Tipo de categoría"
+        winners: "Ganadores"
+        prize: "Premio"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_project:
+        impulsa_edition: "Edición de Impulsa"
+        impulsa_edition_category: "Categoría de Impulsa"
+        impulsa_edition_topics: "Temáticas"
+        name: "Título"
+        user: "Usuario"
+        status: "Estado"
+        status_name: "Estado"
+        additional_contact: "Información adicional de contacto"
+        counterpart_information: "Información adicional sobre la contraparte"
+        authority: "Autoridad que avala el proyecto"
+        authority_name: "Contacto autoridad"
+        authority_phone: "Teléfono autoridad"
+        authority_email: "Email autoridad"
+        organization_name: "Nombre"
+        organization_address: "Dirección postal completa (vía, nº, ciudad, CP)"
+        organization_web: "Página web o blog"
+        organization_nif: "N.I.F."
+        organization_year: "Año de creación"
+        organization_legal_name: "Nombre y apellidos del representante legal"
+        organization_legal_nif: "DNI/NIE de la persona representante legal"
+        organization_mission: "Misión de la organización"
+        career: "Trayectoria"
+        counterpart: "Contrapartes"
+        territorial_context: "Contexto territorial"
+        short_description: "Descripción breve"
+        long_description: "Descripción"
+        aim: "Objetivos"
+        metodology: "Metodología y fomento de la participación"
+        population_segment: "Segmento poblacional objetivo"
+        video_link: "Vídeo"
+        alternative_language: "Idioma cooficial"
+        alternative_name: "Título"
+        alternative_organization_mission: "Misión de la organización"
+        alternative_territorial_context: "Contexto territorial"
+        alternative_short_description: "Descripción breve"
+        alternative_long_description: "Descripción"
+        alternative_aim: "Objetivos"
+        alternative_metodology: "Metodología y fomento de la participación"
+        alternative_population_segment: "Segmento poblacional objetivo"
+        logo: "Foto o logo"
+        endorsement: "Aval de un Círculo, de un Consejo Ciudadano o de una Secretaría General de Podemos"
+        register_entry: "Inscripción de la entidad solicitante en el registro correspondiente"
+        statutes: "Copia de los Estatutos de la entidad solicitante debidamente registrados"
+        responsible_nif: "NIF del encargado de la gestión de proyectos, del representante legal o de la persona solicitante"
+        fiscal_obligations_certificate: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente"
+        labor_obligations_certificate: "Certificado de la Seguridad Social de obligaciones laborales al corriente"
+        last_fiscal_year_report_of_activities: "Memoria de actividades del último ejercicio"
+        last_fiscal_year_annual_accounts: "Cuentas anuales del último ejercicio"
+        schedule: "Cronograma y fases" 
+        activities_resources: "Actividades y Recursos"
+        requested_budget: "Presupuesto solicitado"
+        monitoring_evaluation: "Seguimiento y evaluación"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
       microcredit:
         id: "Identificador"
         starts_at: "Fecha de inicio"

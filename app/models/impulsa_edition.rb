@@ -1,7 +1,8 @@
 class ImpulsaEdition < ActiveRecord::Base
   has_many :impulsa_edition_categories
   has_many :impulsa_projects, through: :impulsa_edition_categories
-
+  has_many :impulsa_edition_topics
+  
   has_attached_file :legal
   has_attached_file :schedule_model
   has_attached_file :activities_resources_model

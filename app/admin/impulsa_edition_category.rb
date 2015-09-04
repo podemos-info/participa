@@ -9,7 +9,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
     f.inputs do
       f.input :impulsa_edition_id, as: :hidden
       li do
-        label "Edition"
+        label :impulsa_edition
         div class: :readonly do link_to(resource.impulsa_edition.name, admin_impulsa_edition_path(resource.impulsa_edition)) end
       end
       f.input :name

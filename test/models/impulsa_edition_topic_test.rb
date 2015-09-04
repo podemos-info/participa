@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImpulsaProjectAttachmentTest < ActiveSupport::TestCase
+class ImpulsaEditionTopicTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
