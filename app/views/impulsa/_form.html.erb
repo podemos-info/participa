@@ -1,0 +1,197 @@
+<!--
+    t.integer  "impulsa_edition_category_id"
+    t.integer  "user_id"
+    t.integer  "status",                                             default: 0, null: false
+    t.string   "review_fields"
+    t.text     "additional_contact"
+    t.text     "counterpart_information"
+    t.string   "name",                                                           null: false
+    t.string   "authority"
+    t.string   "authority_name"
+    t.string   "authority_phone"
+    t.string   "authority_email"
+    t.string   "organization_name"
+    t.text     "organization_address"
+    t.string   "organization_web"
+    t.string   "organization_nif"
+    t.integer  "organization_year"
+    t.string   "organization_legal_name"
+    t.string   "organization_legal_email"
+    t.text     "organization_mission"
+    t.text     "career"
+    t.string   "counterpart"
+    t.text     "territorial_context"
+    t.text     "short_description"
+    t.text     "long_description"
+    t.text     "aim"
+    t.text     "metodology"
+    t.text     "population_segment"
+    t.string   "video_link"
+    t.string   "alternative_language"
+    t.string   "alternative_name"
+    t.text     "alternative_organization_mission"
+    t.text     "alternative_territorial_context"
+    t.text     "alternative_short_description"
+    t.text     "alternative_long_description"
+    t.text     "alternative_aim"
+    t.text     "alternative_metodology"
+    t.text     "alternative_population_segment"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "endorsement_file_name"
+    t.string   "endorsement_content_type"
+    t.integer  "endorsement_file_size"
+    t.datetime "endorsement_updated_at"
+    t.string   "register_entry_file_name"
+    t.string   "register_entry_content_type"
+    t.integer  "register_entry_file_size"
+    t.datetime "register_entry_updated_at"
+    t.string   "statutes_file_name"
+    t.string   "statutes_content_type"
+    t.integer  "statutes_file_size"
+    t.datetime "statutes_updated_at"
+    t.string   "responsible_nif_file_name"
+    t.string   "responsible_nif_content_type"
+    t.integer  "responsible_nif_file_size"
+    t.datetime "responsible_nif_updated_at"
+    t.string   "fiscal_obligations_certificate_file_name"
+    t.string   "fiscal_obligations_certificate_content_type"
+    t.integer  "fiscal_obligations_certificate_file_size"
+    t.datetime "fiscal_obligations_certificate_updated_at"
+    t.string   "labor_obligations_certificate_file_name"
+    t.string   "labor_obligations_certificate_content_type"
+    t.integer  "labor_obligations_certificate_file_size"
+    t.datetime "labor_obligations_certificate_updated_at"
+    t.string   "last_fiscal_year_report_of_activities_file_name"
+    t.string   "last_fiscal_year_report_of_activities_content_type"
+    t.integer  "last_fiscal_year_report_of_activities_file_size"
+    t.datetime "last_fiscal_year_report_of_activities_updated_at"
+    t.string   "last_fiscal_year_annual_accounts_file_name"
+    t.string   "last_fiscal_year_annual_accounts_content_type"
+    t.integer  "last_fiscal_year_annual_accounts_file_size"
+    t.datetime "last_fiscal_year_annual_accounts_updated_at"
+    t.string   "schedule_file_name"
+    t.string   "schedule_content_type"
+    t.integer  "schedule_file_size"
+    t.datetime "schedule_updated_at"
+    t.string   "activities_resources_file_name"
+    t.string   "activities_resources_content_type"
+    t.integer  "activities_resources_file_size"
+    t.datetime "activities_resources_updated_at"
+    t.string   "requested_budget_file_name"
+    t.string   "requested_budget_content_type"
+    t.integer  "requested_budget_file_size"
+    t.datetime "requested_budget_updated_at"
+    t.string   "monitoring_evaluation_file_name"
+    t.string   "monitoring_evaluation_content_type"
+    t.integer  "monitoring_evaluation_file_size"
+    t.datetime "monitoring_evaluation_updated_at"
+-->
+
+<fieldset>
+
+  <!-- título del proyecto -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:name) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :name,
+        required: true %>
+  </div>
+
+</fieldset>
+
+
+<fieldset>
+
+  <!-- nombre de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_name) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_name %>
+  </div>
+
+  <!-- dirección postal de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_address) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_address %>
+  </div>
+
+  <!-- web de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_web) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_web %>
+  </div>
+
+  <!-- nif de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_nif) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_nif %>
+  </div>
+
+
+  <!-- año de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_year) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_year %>
+  </div>
+
+
+  <!-- Nombre y apellidos del representante legal de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_legal_name) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_legal_name %>
+  </div>
+
+  <!-- Email del representante legal de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_legal_email) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_legal_email %>
+  </div>
+
+  <!-- Misión de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:organization_mission) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_mission %>
+  </div>
+
+  <!-- Trayectoria de la organización -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:career) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :career %>
+  </div>
+
+</fieldset>
+
+<fieldset>
+
+  <!--  -->
+  <div class="inputlabel-box">
+    <% if @impulsa_project.errors.include?(:endorsement_file_name) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :endorsement_file_name %>
+  </div>
+
+</fieldset>

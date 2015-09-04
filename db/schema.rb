@@ -214,7 +214,7 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.string   "organization_nif"
     t.integer  "organization_year"
     t.string   "organization_legal_name"
-    t.string   "organization_legal_nif"
+    t.string   "organization_legal_email"
     t.text     "organization_mission"
     t.text     "career"
     t.string   "counterpart"
