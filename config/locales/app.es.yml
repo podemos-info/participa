@@ -669,6 +669,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       title: "Presenta tu proyecto a IMPULSA"
       upcoming: "La próxima edición de IMPULSA comenzará el %{start_at}."
       noupcoming: "La convocatoria de una nueva edición de IMPULSA se realizará próximamente, mantente informado."
+      text_limit: "máximo %{limit} caracteres"
+      model_link: "Utiliza este fichero como modelo."
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."

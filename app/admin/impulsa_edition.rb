@@ -46,6 +46,9 @@ ActiveAdmin.register ImpulsaEdition do
         column :category_type_name
         column :winners
         column :prize
+        column :projects do |category|
+          category.impulsa_projects.count
+        end
         column :actions do |category|
           span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, category))
           span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_category_path(resource, category), method: :delete)

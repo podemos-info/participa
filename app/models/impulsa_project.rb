@@ -58,8 +58,8 @@ class ImpulsaProject < ActiveRecord::Base
     "Premiado" => 7
   }
 
-  USER_EDITABLE_FIELDS = [ :name, :authority, :authority_name, :authority_phone, :authority_email, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids ]
-  ALL_FIELDS = USER_EDITABLE_FIELDS + [ :impulsa_edition_category_id, :user_id, :status, :review_fields, :additional_contact, :counterpart_information ]
+  USER_EDITABLE_FIELDS = [ :impulsa_edition_category_id, :name, :authority, :authority_name, :authority_phone, :authority_email, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids ]
+  ALL_FIELDS = USER_EDITABLE_FIELDS + [ :user_id, :status, :review_fields, :additional_contact, :counterpart_information ]
 
   def editable?
     self.status < 2
@@ -67,6 +67,17 @@ class ImpulsaProject < ActiveRecord::Base
 
   def reviewable?
     persisted? and editable?
+  end
+
+  def user_editable_fields
+    case self.status
+      when 0
+        ImpulsaProject::USER_EDITABLE_FIELDS
+      when 1
+        review_fields.symbolize_keys.keys
+      else
+        []
+      end
   end
 
   def status_name

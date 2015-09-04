@@ -155,21 +155,15 @@ fieldset .inputlabel-box span.no-label,
 .content-content span.no-input{
   font-weight:bold;
 }
-fieldset .inputlabel-box input{
+fieldset .inputlabel-box input, fieldset .inputlabel-box textarea {
   background:#eaeaea;
   float:left;
   border:none;
   padding:0.85em 1.5%;
   color:#555;
 }
-fieldset .inputlabel-box input.input-xl{
-  width:100%;
-}
-fieldset .inputlabel-box input.input-m{
-  width:66%;
-}
-fieldset .inputlabel-box input.input-s{
-  width:33%;
+fieldset .inputlabel-box textarea {
+  height: 4em;
 }
 fieldset .inputlabel-box .input-box,
 fieldset .inputlabel-box .form-wrapper{
@@ -187,14 +181,14 @@ fieldset .inputlabel-box .input-box p{
   float:left;
   border:none;
 }
-fieldset .inputlabel-box input.input-xl{
+fieldset .inputlabel-box input.input-xl, fieldset .inputlabel-box textarea.input-xl{
   width:99%;
 }
-fieldset .inputlabel-box input.input-m{
+fieldset .inputlabel-box input.input-m, fieldset .inputlabel-box textarea.input-m{
   width:62%;
   margin-right:2%;
 }
-fieldset .inputlabel-box input.input-s{
+fieldset .inputlabel-box input.input-s, fieldset .inputlabel-box textarea.input-s{
   width:29%;
   margin-right:2%;
 }

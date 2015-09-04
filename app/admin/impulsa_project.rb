@@ -154,15 +154,11 @@ ActiveAdmin.register ImpulsaProject do
 
   form do |f|
     f.inputs "Datos básicos" do
-      f.input :impulsa_edition_category_id, as: :hidden
       li do
         label "Edition"
         div class: :readonly do link_to(impulsa_project.impulsa_edition.name, admin_impulsa_edition_path(impulsa_project.impulsa_edition)) end
       end
-      li do
-        label "Category"
-        div class: :readonly do link_to(impulsa_project.impulsa_edition_category.name, admin_impulsa_edition_impulsa_edition_category_path(resource.impulsa_edition, resource.impulsa_edition_category)) end
-      end
+      f.input :impulsa_edition_category, hint: link_to(impulsa_project.impulsa_edition_category.name, admin_impulsa_edition_impulsa_edition_category_path(resource.impulsa_edition, resource.impulsa_edition_category))
       if impulsa_project.user
         f.input :user_id, as: :number, hint: link_to(impulsa_project.user.full_name,admin_user_path(impulsa_project.user))
       else

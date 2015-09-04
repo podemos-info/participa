@@ -6,7 +6,7 @@
 
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
 
-      <%= semantic_form_for @project_impulsa, url: modify_impulsa_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+      <%= semantic_form_for @project, url: modify_impulsa_path, html: {method: :post, autocomplete: 'off'} do |f| %>
         <%= render partial: "form", locals: { f: f } %>
 
         <%= f.action :submit, :label=>"Guardar cambios", :as => :input, button_html: {class: 'button'} %>
