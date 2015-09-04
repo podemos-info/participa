@@ -1,0 +1,14 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <% if @upcoming %>
+        <%= content_tag(:p, t("podemos.impulsa.upcoming", start_at: @upcoming.start_at.strftime("%d de %m"))) %>
+      <% else %>
+        <%= content_tag(:p, t("podemos.impulsa.noupcoming")) %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -3,8 +3,7 @@ ActiveAdmin.register ImpulsaProject do
   belongs_to :impulsa_edition_category
   navigation_menu :default
     
-  fields = [ :impulsa_edition_category_id, :user_id, :status, :review_fields, :additional_contact, :counterpart_information, :name, :authority, :authority_name, :authority_phone, :authority_email, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids ]
-  permit_params fields + fields.map {|f| "#{f}_review".to_sym }, impulsa_edition_topic_ids: []
+  permit_params ImpulsaProject::ALL_FIELDS + ImpulsaProject::USER_EDITABLE_FIELDS.map {|f| "#{f}_review".to_sym }, impulsa_edition_topic_ids: []
 
   filter :name
   filter :authority
