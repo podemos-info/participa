@@ -14,12 +14,12 @@
 ActiveRecord::Schema.define(version: 20150904140023) do
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
+    t.string   "namespace",     limit: 255
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: 255, null: false
+    t.string   "resource_type", limit: 255, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.string   "slug"
+    t.string   "name",       limit: 255
+    t.string   "slug",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -56,14 +56,14 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
     t.integer  "ccc_account"
-    t.string   "iban_account"
-    t.string   "iban_bic"
+    t.string   "iban_account",            limit: 255
+    t.string   "iban_bic",                limit: 255
     t.datetime "deleted_at"
-    t.integer  "status",                  default: 0
-    t.string   "redsys_identifier"
+    t.integer  "status",                              default: 0
+    t.string   "redsys_identifier",       limit: 255
     t.datetime "redsys_expiration"
-    t.string   "non_user_document_vatid"
-    t.string   "non_user_email"
+    t.string   "non_user_document_vatid", limit: 255
+    t.string   "non_user_email",          limit: 255
     t.text     "non_user_data"
     t.boolean  "for_autonomy_cc"
     t.boolean  "for_town_cc"
@@ -90,11 +90,11 @@ ActiveRecord::Schema.define(version: 20150904140023) do
 
   create_table "election_locations", force: :cascade do |t|
     t.integer  "election_id"
-    t.string   "location"
+    t.string   "location",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "agora_version"
-    t.string   "override"
+    t.string   "override",          limit: 255
     t.text     "title"
     t.string   "layout"
     t.text     "description"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   end
 
   create_table "elections", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",               limit: 255
     t.integer  "agora_election_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
@@ -112,19 +112,19 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.datetime "updated_at"
     t.text     "close_message"
     t.integer  "scope"
-    t.string   "info_url"
-    t.string   "server"
+    t.string   "info_url",            limit: 255
+    t.string   "server",              limit: 255
     t.datetime "user_created_at_max"
     t.integer  "priority"
-    t.string   "info_text"
+    t.string   "info_text",           limit: 255
     t.integer  "flags"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
+    t.string   "slug",           limit: 255, null: false
+    t.integer  "sluggable_id",               null: false
     t.string   "sluggable_type", limit: 50
-    t.string   "scope"
+    t.string   "scope",          limit: 255
     t.datetime "created_at"
   end
 
@@ -135,8 +135,8 @@ ActiveRecord::Schema.define(version: 20150904140023) do
 
   create_table "impulsa_edition_categories", force: :cascade do |t|
     t.integer  "impulsa_edition_id"
-    t.string   "name"
-    t.integer  "category_type"
+    t.string   "name",               null: false
+    t.integer  "category_type",      null: false
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
@@ -303,8 +303,8 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "counted_at"
-    t.string   "ip"
-    t.string   "document_vatid"
+    t.string   "ip",             limit: 255
+    t.string   "document_vatid", limit: 255
     t.datetime "discarded_at"
   end
 
@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   add_index "microcredit_loans", ["microcredit_id"], name: "index_microcredit_loans_on_microcredit_id"
 
   create_table "microcredits", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",          limit: 255
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "reset_at"
@@ -321,27 +321,27 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "account_number"
-    t.string   "agreement_link"
-    t.string   "contact_phone"
+    t.string   "account_number", limit: 255
+    t.string   "agreement_link", limit: 255
+    t.string   "contact_phone",  limit: 255
     t.integer  "total_goal"
-    t.string   "slug"
+    t.string   "slug",           limit: 255
     t.text     "subgoals"
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
 
   create_table "notice_registrars", force: :cascade do |t|
-    t.string   "registration_id"
+    t.string   "registration_id", limit: 255
     t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "notices", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",          limit: 255
     t.text     "body"
-    t.string   "link"
+    t.string   "link",           limit: 255
     t.datetime "final_valid_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -357,32 +357,32 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "parent_id"
-    t.string   "parent_type"
-    t.string   "reference"
+    t.string   "parent_type",        limit: 255
+    t.string   "reference",          limit: 255
     t.integer  "amount"
     t.boolean  "first"
     t.integer  "payment_type"
-    t.string   "payment_identifier"
+    t.string   "payment_identifier", limit: 255
     t.text     "payment_response"
-    t.string   "town_code"
-    t.string   "autonomy_code"
+    t.string   "town_code",          limit: 255
+    t.string   "autonomy_code",      limit: 255
   end
 
   create_table "pages", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",         limit: 255
     t.integer  "id_form"
-    t.string   "slug"
+    t.string   "slug",          limit: 255
     t.boolean  "require_login"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.string   "link"
+    t.string   "link",          limit: 255
   end
 
   add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at"
 
   create_table "participation_teams", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        limit: 255
     t.text     "description"
     t.boolean  "active"
     t.datetime "created_at"
@@ -398,67 +398,54 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   add_index "participation_teams_users", ["user_id"], name: "index_participation_teams_users_on_user_id"
 
   create_table "posts", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      limit: 255
     t.text     "content"
-    t.string   "slug"
+    t.string   "slug",       limit: 255
     t.integer  "status"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "media_url"
+    t.string   "media_url",  limit: 255
   end
 
   create_table "proposals", force: :cascade do |t|
     t.text     "title"
     t.text     "description"
-    t.integer  "votes",            default: 0
-    t.string   "reddit_url"
-    t.string   "reddit_id"
+    t.integer  "votes",                        default: 0
+    t.string   "reddit_url",       limit: 255
+    t.string   "reddit_id",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "reddit_threshold", default: false
-    t.string   "image_url"
-    t.integer  "supports_count",   default: 0
-    t.integer  "hotness",          default: 0
-    t.string   "author"
+    t.boolean  "reddit_threshold",             default: false
+    t.string   "image_url",        limit: 255
+    t.integer  "supports_count",               default: 0
+    t.integer  "hotness",                      default: 0
+    t.string   "author",           limit: 255
   end
 
   create_table "report_groups", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",         limit: 255
     t.text     "proc"
     t.integer  "width"
-    t.string   "label"
-    t.string   "data_label"
+    t.string   "label",         limit: 255
+    t.string   "data_label",    limit: 255
     t.text     "whitelist"
     t.text     "blacklist"
     t.integer  "minimum"
-    t.string   "minimum_label"
-    t.string   "visualization"
+    t.string   "minimum_label", limit: 255
+    t.string   "visualization", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "reports", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      limit: 255
     t.text     "query",      limit: 255
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "rich_rich_files", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "rich_file_file_name"
-    t.string   "rich_file_content_type"
-    t.integer  "rich_file_file_size"
-    t.datetime "rich_file_updated_at"
-    t.string   "owner_type"
-    t.integer  "owner_id"
-    t.text     "uri_cache"
-    t.string   "simplified_type",        default: "file"
   end
 
   create_table "simple_captcha_data", force: :cascade do |t|
@@ -471,10 +458,10 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   add_index "simple_captcha_data", ["key"], name: "idx_key"
 
   create_table "spam_filters", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.text     "code"
     t.text     "data"
-    t.string   "query"
+    t.string   "query",      limit: 255
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -488,48 +475,48 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                    default: "", null: false
-    t.string   "encrypted_password",       default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                    limit: 255, default: "", null: false
+    t.string   "encrypted_password",       limit: 255, default: "", null: false
+    t.string   "reset_password_token",     limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",            default: 0,  null: false
+    t.integer  "sign_in_count",                        default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",       limit: 255
+    t.string   "last_sign_in_ip",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "first_name",               limit: 255
+    t.string   "last_name",                limit: 255
     t.date     "born_at"
     t.boolean  "wants_newsletter"
     t.integer  "document_type"
-    t.string   "document_vatid"
+    t.string   "document_vatid",           limit: 255
     t.boolean  "admin"
-    t.string   "address"
-    t.string   "town"
-    t.string   "province"
-    t.string   "postal_code"
-    t.string   "country"
-    t.string   "confirmation_token"
+    t.string   "address",                  limit: 255
+    t.string   "town",                     limit: 255
+    t.string   "province",                 limit: 255
+    t.string   "postal_code",              limit: 255
+    t.string   "country",                  limit: 255
+    t.string   "confirmation_token",       limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.string   "phone"
-    t.string   "sms_confirmation_token"
+    t.string   "unconfirmed_email",        limit: 255
+    t.string   "phone",                    limit: 255
+    t.string   "sms_confirmation_token",   limit: 255
     t.datetime "confirmation_sms_sent_at"
     t.datetime "sms_confirmed_at"
     t.boolean  "has_legacy_password"
-    t.integer  "failed_attempts",          default: 0,  null: false
-    t.string   "unlock_token"
+    t.integer  "failed_attempts",                      default: 0,  null: false
+    t.string   "unlock_token",             limit: 255
     t.datetime "locked_at"
-    t.string   "circle"
+    t.string   "circle",                   limit: 255
     t.datetime "deleted_at"
-    t.string   "unconfirmed_phone"
+    t.string   "unconfirmed_phone",        limit: 255
     t.boolean  "wants_participation"
-    t.string   "vote_town"
-    t.integer  "flags",                    default: 0,  null: false
+    t.string   "vote_town",                limit: 255
+    t.integer  "flags",                                default: 0,  null: false
     t.datetime "participation_team_at"
     t.datetime "sms_check_at"
   end
@@ -547,10 +534,10 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   add_index "users", ["vote_town"], name: "index_users_on_vote_town"
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
+    t.string   "item_type",  limit: 255, null: false
+    t.integer  "item_id",                null: false
+    t.string   "event",      limit: 255, null: false
+    t.string   "whodunnit",  limit: 255
     t.text     "object"
     t.datetime "created_at"
   end
@@ -560,7 +547,7 @@ ActiveRecord::Schema.define(version: 20150904140023) do
   create_table "votes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "election_id"
-    t.string   "voter_id"
+    t.string   "voter_id",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
