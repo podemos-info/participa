@@ -119,3 +119,37 @@ li.small_inputs {
   -o-tab-size : 65;
   tab-size : 65;
 }
+
+div.impulsa_project {
+  td.review {
+    color: black;
+    border: 1px solid red;
+    width: 20%;
+    padding: 5px;
+  }
+}
+form.impulsa_project fieldset.reviewable > ol > li {
+  min-height: 70px;
+
+  &.no_review {
+    min-height: inherit;
+  }
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  input[type=number],
+  input[type=url],
+  input[type=tel],
+  input[type=date],
+  input[type=file],
+  textarea {
+    width: calc(60% - 22px);
+  }
+  .review_field {
+    width: calc(15% - 22px);
+    margin: 0 20px;
+    vertical-align: top;
+    position: absolute;
+    right: 0;
+  }
+}

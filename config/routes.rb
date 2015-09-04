@@ -125,6 +125,13 @@ Rails.application.routes.draw do
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
+
+      scope :impulsa do
+        get '', to: 'impulsa#new', as: 'new_impulsa'
+        get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
+        post 'crear', to: 'impulsa#create', as: 'create_impulsa'
+        post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
+      end
     end
 
     scope :brujula do
