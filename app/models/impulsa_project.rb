@@ -8,12 +8,15 @@ class ImpulsaProject < ActiveRecord::Base
   has_many :impulsa_edition_topics, through: :impulsa_project_topics
 
   has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :scanned_nif
   has_attached_file :endorsement
   has_attached_file :register_entry
   has_attached_file :statutes
   has_attached_file :responsible_nif
   has_attached_file :fiscal_obligations_certificate
   has_attached_file :labor_obligations_certificate
+  has_attached_file :home_certificate
+  has_attached_file :bank_certificate
   has_attached_file :last_fiscal_year_report_of_activities
   has_attached_file :last_fiscal_year_annual_accounts
   has_attached_file :schedule
@@ -27,17 +30,22 @@ class ImpulsaProject < ActiveRecord::Base
   validates :organization_web, :video_link, allow_blank: true, url: true
   validates :organization_year, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: Date.today.year }
 
+  validates :terms_of_service, :data_truthfulness, acceptance: true
+
   validates_each :impulsa_edition_topics do |project, attr, value|
     project.errors.add attr, "Demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
   end
 
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]
+  validates_attachment_content_type :scanned_nif, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :endorsement, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :register_entry, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :statutes, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :responsible_nif, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :fiscal_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :labor_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
+  validates_attachment_content_type :home_certificate, content_type: ["application/pdf", "application/x-pdf"]
+  validates_attachment_content_type :bank_certificate, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :last_fiscal_year_report_of_activities, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :last_fiscal_year_annual_accounts, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :schedule, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
@@ -58,8 +66,19 @@ class ImpulsaProject < ActiveRecord::Base
     "Premiado" => 7
   }
 
-  USER_EDITABLE_FIELDS = [ :impulsa_edition_category_id, :name, :authority, :authority_name, :authority_phone, :authority_email, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids ]
+  USER_EDITABLE_FIELDS = [ :impulsa_edition_category_id, :name, :authority, :authority_name, :authority_phone, :authority_email, :organization_type, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_career, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :scanned_nif, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :home_certificate, :bank_certificate,:last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids, :terms_of_service, :data_truthfulness ]
   ALL_FIELDS = USER_EDITABLE_FIELDS + [ :user_id, :status, :review_fields, :additional_contact, :counterpart_information ]
+  ORGANIZATION_TYPE_NAMES = {
+    "Entidad constituida" => 0,
+    "Grupo de personas" => 1,
+    "Residentes en el extranjero" => 2
+  }
+
+  ALTERNATIVE_LANGUAGES = {
+    "ca" => "Català",
+    "eu" => "Euskera",
+    "ga" => "Galego"
+  }
 
   def editable?
     self.status < 2
@@ -84,8 +103,36 @@ class ImpulsaProject < ActiveRecord::Base
     ImpulsaProject::STATUS_NAMES.invert[self.status]
   end
 
+  def organization_type_name
+    ImpulsaProject::ORGANIZATION_TYPES_NAMES.invert[self.organization_type]
+  end
+
   def needs_authority?
     self.impulsa_edition_category.needs_authority?
+  end
+
+  def needs_aditional_info?
+    self.impulsa_edition_category.needs_aditional_info?
+  end
+
+  def needs_aditional_documents?
+    self.impulsa_edition_category.needs_aditional_documents?
+  end
+
+  def allows_organization_types?
+    self.impulsa_edition_category.allows_organization_types?
+  end
+
+  def needs_organization?
+    self.impulsa_edition_category.needs_aditional_documents? || self.organization_type == 0
+  end
+
+  def is_in_spain?
+    !self.impulsa_edition_category.allows_organization_types? || self.organization_type != 2
+  end
+
+  def organization_type
+    self[:organization_type] if self.allows_organization_types?
   end
 
   def review_fields

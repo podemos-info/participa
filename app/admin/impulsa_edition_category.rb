@@ -5,6 +5,17 @@ ActiveAdmin.register ImpulsaEditionCategory do
 
   permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :territories
 
+  show do
+    attributes_table do
+      row :impulsa_edition
+      row :name
+      row :category_type_name
+      row :winners
+      row :prize
+      row :territories
+    end
+  end
+
   form do |f|
     f.inputs do
       f.input :impulsa_edition_id, as: :hidden

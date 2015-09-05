@@ -6,8 +6,7 @@ class ImpulsaController < ApplicationController
   def new
     if @edition
       redirect_to edit_impulsa_path if @project
-      @project = ImpulsaEdition.current.impulsa_projects.build
-      @project.user = current_user
+      new_user_project
     else
       @upcoming = ImpulsaEdition.upcoming.first
       render :inactive
@@ -33,8 +32,8 @@ class ImpulsaController < ApplicationController
   end
 
   def create
-    @project = ImpulsaEdition.current.impulsa_projects.build(project_params)
-    @project.user = current_user
+    redirect_to edit_impulsa_path if @project
+    new_user_project
 
     if params[:commit] and @project.save
       redirect_to edit_impulsa_path, notice: "El proyecto ha sido guardado."
@@ -49,7 +48,14 @@ class ImpulsaController < ApplicationController
     @edition = ImpulsaEdition.current
     @project = @edition.impulsa_projects.where(user:current_user).first if @edition
   end
-    
+
+  def new_user_project
+    @project = ImpulsaEdition.current.impulsa_projects.build
+    @project.impulsa_edition_category = ImpulsaEdition.current.impulsa_edition_categories.first
+    @project.assign_attributes(project_params) unless params[:impulsa_project].blank?
+    @project.user = current_user
+  end
+
   def project_params
     params.require(:impulsa_project).permit(@project.user_editable_fields)
   end
