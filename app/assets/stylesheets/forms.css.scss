@@ -281,6 +281,14 @@ fieldset .inputlabel-box .rb-unit label{
   width:auto;
   white-space:nowrap;
 }
+
+fieldset .inputlabel-box label.choice {
+  width: 100%;
+  input {
+    margin: 5px;
+  }
+}
+
 .rb-box-1col .rb-unit{
   width:63%;
 }

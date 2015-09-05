@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904140023) do
+ActiveRecord::Schema.define(version: 20150904220516) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -214,7 +214,7 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.string   "organization_nif"
     t.integer  "organization_year"
     t.string   "organization_legal_name"
-    t.string   "organization_legal_email"
+    t.string   "organization_legal_nif"
     t.text     "organization_mission"
     t.text     "career"
     t.string   "counterpart"
@@ -288,6 +288,20 @@ ActiveRecord::Schema.define(version: 20150904140023) do
     t.string   "monitoring_evaluation_content_type"
     t.integer  "monitoring_evaluation_file_size"
     t.datetime "monitoring_evaluation_updated_at"
+    t.integer  "organization_type"
+    t.text     "alternative_career"
+    t.string   "scanned_nif_file_name"
+    t.string   "scanned_nif_content_type"
+    t.integer  "scanned_nif_file_size"
+    t.datetime "scanned_nif_updated_at"
+    t.string   "home_certificate_file_name"
+    t.string   "home_certificate_content_type"
+    t.integer  "home_certificate_file_size"
+    t.datetime "home_certificate_updated_at"
+    t.string   "bank_certificate_file_name"
+    t.string   "bank_certificate_content_type"
+    t.integer  "bank_certificate_file_size"
+    t.datetime "bank_certificate_updated_at"
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"

@@ -6,9 +6,22 @@
 
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
 
+      <%= errors_in_form @project %>
       <%= semantic_form_for @project, url: modify_impulsa_path, html: {method: :post, autocomplete: 'off'} do |f| %>
         <%= render partial: "form", locals: { f: f } %>
+        <fieldset>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:data_truthfulness) %>
+                <%= field_notice_box %>
+            <% end %>
 
+            <%= f.label :data_truthfulness %>
+            <div class="input-box">
+              <%= f.check_box :data_truthfulness, class: 'checkbox' %>
+              <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
+            </div>
+          </div>
+        </fieldset>
         <%= f.action :submit, :label=>"Guardar cambios", :as => :input, button_html: {class: 'button'} %>
       <% end %>
     </div>
