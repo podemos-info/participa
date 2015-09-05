@@ -1,88 +1,32 @@
-<!--
-    t.integer  "impulsa_edition_category_id"
-    t.integer  "user_id"
-    t.integer  "status",                                             default: 0, null: false
-    t.string   "review_fields"
-    t.text     "additional_contact"
-    t.text     "counterpart_information"
-    t.string   "name",                                                           null: false
-    t.string   "authority"
-    t.string   "authority_name"
-    t.string   "authority_phone"
-    t.string   "authority_email"
-    t.string   "organization_name"
-    t.text     "organization_address"
-    t.string   "organization_web"
-    t.string   "organization_nif"
-    t.integer  "organization_year"
-    t.string   "organization_legal_name"
-    t.string   "organization_legal_email"
-    t.text     "organization_mission"
-    t.text     "career"
-    t.string   "counterpart"
-    t.text     "territorial_context"
-    t.text     "short_description"
-    t.text     "long_description"
-    t.text     "aim"
-    t.text     "metodology"
-    t.text     "population_segment"
-    t.string   "video_link"
-    t.string   "alternative_language"
-    t.string   "alternative_name"
-    t.text     "alternative_organization_mission"
-    t.text     "alternative_territorial_context"
-    t.text     "alternative_short_description"
-    t.text     "alternative_long_description"
-    t.text     "alternative_aim"
-    t.text     "alternative_metodology"
-    t.text     "alternative_population_segment"
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
-    logo
-    endorsement
-    register_entry
-    statutes
-    responsible_nif
-    fiscal_obligations_certificate
-    labor_obligations_certificate
-    last_fiscal_year_report_of_activities
-    last_fiscal_year_annual_accounts
-    schedule
-    activities_resources
-    requested_budget
-    monitoring_evaluation
--->
-
 <fieldset>
-  <legend>Datos del proyecto</legend>
-
+  <legend><span><%= t "podemos.impulsa.project_data_section" %></span></legend>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:impulsa_edition_category) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :impulsa_edition_category, required: true, input_html: {class: 'input-xl', onchange:"submit()"} %>
   </div>
-
   <div class="inputlabel-box">
     <% if @project.errors.include?(:name) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :name, required: true, input_html: {class: 'input-xl'} %>
   </div>
-
   <div class="inputlabel-box">
     <% if @project.errors.include?(:short_description) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :short_description, hint: t("podemos.impulsa.text_limit", limit: 600), input_html: {class: 'input-xl', maxlength: 600}  %>
-    <p>En este apartado deberá aparecer la descripción que se desee exponer en la página web de Impulsa para dar a conocer el proyecto.</p>
+    <p><%= t "podemos.impulsa.short_description_extra" %></p>
   </div>
+  <% if @project.needs_aditional_info? %>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:impulsa_edition_topics) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :impulsa_edition_topics, as: :check_boxes, hint: "Señalar un máximo de dos entre las diferentes temáticas propuestas." %>
+    <%= f.input :impulsa_edition_topics, as: :check_boxes, hint: true %>
   </div>
+<% end %>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:logo) %>
     <%= field_notice_box %>
@@ -93,181 +37,250 @@
     <% if @project.errors.include?(:video_link) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :video_link, input_html: {class: 'input-xl'}  %>
+    <%= f.input :video_link, as: :url, input_html: {class: 'input-xl'}, hint: true  %>
   </div>
 </fieldset>
-
-
+<% if @project.needs_authority? %>
+<p></p>
 <fieldset>
-  <legend>Datos de la organización que desarrollará el proyecto</legend>
-
-  <!-- nombre de la organización -->
+  <legend><span><%= t "podemos.impulsa.authority_section" %></span></legend>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:authority) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :authority, input_html: {class: 'input-xl'}, hint: true %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:authority_name) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :authority_name, input_html: {class: 'input-xl'} %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:authority_phone) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :authority_phone, input_html: {class: 'input-xl'} %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:authority_email) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :authority_email, input_html: {class: 'input-xl'} %>
+  </div>
+</fieldset>
+<% end %>
+<p></p>
+<fieldset>
+  <legend><span><%= t "podemos.impulsa.organization_data_section" %></span></legend>
+<% if @project.allows_organization_types? %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:organization_type) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :organization_type, input_html: {class: 'input-xl', onchange:"submit()"}, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPE_NAMES.to_a  %>
+  </div>
+<% end %>
+<% if @project.needs_organization? %>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_name) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :organization_name, input_html: {class: 'input-xl'} %>
   </div>
-
-  <!-- dirección postal de la organización -->
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_address) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :organization_address, input_html: {class: 'input-xl'} %>
   </div>
-
-  <!-- web de la organización -->
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_web) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :organization_web, input_html: {class: 'input-xl'} %>
   </div>
-
-  <!-- nif de la organización -->
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_nif) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :organization_nif, input_html: {class: 'input-xl'} %>
   </div>
-    
   <div class="inputlabel-box">
-    <% if @project.errors.include?(:responsible_nif) %>
+    <% if @project.errors.include?(:scanned_nif) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :responsible_nif %>
+    <%= f.input :scanned_nif, input_html: {class: 'input-xl'} %>
   </div>
-
-  <!-- año de la organización -->
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_year) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :organization_year, input_html: {class: 'input-s', min: 1000, max: Date.today.year+1} %>
   </div>
-
-
-  <!-- Nombre y apellidos del representante legal de la organización -->
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_legal_name) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :organization_legal_name, input_html: {class: 'input-xl'} %>
   </div>
-
-  <!-- Email del representante legal de la organización -->
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_legal_nif) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :organization_legal_nif, input_html: {class: 'input-xl'} %>
   </div>
-
-  <!-- Misión de la organización -->
   <div class="inputlabel-box">
     <% if @project.errors.include?(:organization_mission) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :organization_mission, input_html: {class: 'input-xl'} %>
+    <%= f.input :organization_mission, hint: t("podemos.impulsa.text_limit", limit: 1500), input_html: {class: 'input-xl', maxlength: 1500} %>
   </div>
-
-  <!-- Trayectoria de la organización -->
+<% elsif @project.allows_organization_types? %>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:career) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :career, input_html: {class: 'input-xl'} %>
+    <%= f.input :career, label: "Trayectoria formativa y profesional de las personas solicitantes del proyecto", input_html: {class: 'input-xl'} %>
   </div>
-
+<% else %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:career) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :career, hint: t("podemos.impulsa.text_limit", limit: 2000), label: "Trayectoria del colectivo", input_html: {class: 'input-xl', maxlength: 2000} %>
+    <p>Incluir cuándo se formó, qué causas sociales defienden y qué hitos han logrado.</p>
+  </div>
+<% end %>
 </fieldset>
-
+<% if @project.needs_aditional_info? %>
+<p></p>
 <fieldset>
-  <legend>Documentos solicitados</legend>
-
-  <!--  -->
+  <legend><span><%= t "podemos.impulsa.documents_section" %></span></legend>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:endorsement) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :endorsement, input_html: {class: 'input-xl'}  %>
   </div>
-    
+<% if @project.needs_organization? %>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:register_entry) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :register_entry, input_html: {class: 'input-xl'}  %>
   </div>
-    
   <div class="inputlabel-box">
     <% if @project.errors.include?(:statutes) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :statutes, input_html: {class: 'input-xl'}  %>
   </div>
-    
+<% if @project.needs_aditional_documents? %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:responsible_nif) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :responsible_nif, input_html: {class: 'input-xl'} %>
+  </div>
+<% end %>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:fiscal_obligations_certificate) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :fiscal_obligations_certificate, input_html: {class: 'input-xl'}  %>
   </div>
-    
   <div class="inputlabel-box">
     <% if @project.errors.include?(:labor_obligations_certificate) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :labor_obligations_certificate, input_html: {class: 'input-xl'}  %>
   </div>
-    
+<% if @project.needs_aditional_documents? %>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:last_fiscal_year_report_of_activities) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :last_fiscal_year_report_of_activities, input_html: {class: 'input-xl'}  %>
   </div>
-    
   <div class="inputlabel-box">
     <% if @project.errors.include?(:last_fiscal_year_annual_accounts) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :last_fiscal_year_annual_accounts, input_html: {class: 'input-xl'}  %>
   </div>
+<% end %>
+<% elsif @project.is_in_spain? %>
+    <p>Dado que el proyecto se presenta por un <strong>grupo de personas que no tienen una entidad constituida legalmente</strong>, deberán constituirse para poder optar a la subvención en el momento que se comunique que el proyecto es uno de los ganadores.</p>
+      <div class="inputlabel-box">
+        <% if @project.errors.include?(:responsible_nif) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :responsible_nif, label: "DNI/NIE de la persona solicitante del proyecto", input_html: {class: 'input-xl'} %>
+      </div>
+<% else %>
+    <div class="inputlabel-box">
+        <% if @project.errors.include?(:responsible_nif) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :responsible_nif, label: "DNI o pasaporte español en vigor", input_html: {class: 'input-xl'} %>
+    </div>
+    <div class="inputlabel-box">
+        <% if @project.errors.include?(:home_certificate) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :fiscal_obligations_certificate, label: "Certificado de inscripción en el Consulado español del país de su residencia actual", input_html: {class: 'input-xl'}  %>
+    </div>
+    <div class="inputlabel-box">
+        <% if @project.errors.include?(:fiscal_obligations_certificate) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :fiscal_obligations_certificate, label: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto", input_html: {class: 'input-xl'}  %>
+    </div>
+    <div class="inputlabel-box">
+        <% if @project.errors.include?(:labor_obligations_certificate) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :labor_obligations_certificate, label: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto", input_html: {class: 'input-xl'}  %>
+    </div>
+    <div class="inputlabel-box">
+        <% if @project.errors.include?(:bank_certificate) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :fiscal_obligations_certificate, label: "Certificado bancario de titularidad de una cuenta en una entidad financiera resi­dente en España en la que se abonará la ayuda", input_html: {class: 'input-xl'}  %>
+    </div>
+<% end %> 
 </fieldset>
-
-
+<p></p>
 <fieldset>
-  <legend>Desarrollo del proyecto</legend>
-
+  <legend><span><%= t "podemos.impulsa.project_progress_section" %></span></legend>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:counterpart) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :counterpart, input_html: {class: 'input-xl'}  %>
     <p>Si el proyecto se realiza junto a otras entidades, se solicitará también información sobre dichas entidades para confirmar el cumplimiento del código ético.</p>
-  </div>   
+  </div>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:territorial_context) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :territorial_context, input_html: {class: 'input-xl'}  %>
-    <p><ul><li> Nombre del municipio, provincia y/ o comunidad autónoma en que se desarrolla (en caso de desarrollarse en un barrio o distrito específico, indicar también).</li><li>Número de habitantes de la zona en que se realizará el proyecto.</li><li>Contexto general en la zona de realización del proyecto (prestando atención a elementos de desigualdad social, exclusión,...)</li></ul></p>
+    <%= f.input :territorial_context, hint: t("podemos.impulsa.text_limit", limit: 1500), input_html: {class: 'input-xl', maxlength: 1500}   %>
+    <p>Indicar mombre del municipio, provincia y/ o comunidad autónoma en que se desarrolla (en caso de desarrollarse en un barrio o distrito específico, indicar también).<br/>Indicar número de habitantes de la zona en que se realizará el proyecto.<br/>Indicar contexto general en la zona de realización del proyecto (prestando atención a elementos de desigualdad social, exclusión,...)</p>
   </div>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:long_description) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :long_description, hint: t("podemos.impulsa.text_limit", limit: 2000), input_html: {class: 'input-xl', maxlength: 2000}  %>
-    <p>Describe: <ol><li>las necesidades que atiende el proyecto, y las razones por las que es importante atender estas necesidades.</li><li>cómo va a responder el proyecto a estas necesidades.</li></ol></p>
+    <p>Describe las necesidades que atiende el proyecto, y las razones por las que es importante atender estas necesidades.<br/>Describe cómo va a responder el proyecto a estas necesidades.</p>
   </div>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:aim) %>
     <%= field_notice_box %>
     <% end %>
     <%= f.input :aim, hint: t("podemos.impulsa.text_limit", limit: 1500), input_html: {class: 'input-xl', maxlength: 1500} %>
-    <p>Describe: <ol><li>el objetivo general: es la situación deseable a cuya realización contribuirá el proyecto a largo plazo.</li><li>los objetivos específicos: se derivan del objetivo general y lo concretan, señalando el camino que hay que seguir para conseguirlos. Expresan los cambios o efectos más concretos que se pretenden alcanzar.</li></ol></p>
+    <p>Describe el objetivo general: es la situación deseable a cuya realización contribuirá el proyecto a largo plazo.<br/>Describe los objetivos específicos: se derivan del objetivo general y lo concretan, señalando el camino que hay que seguir para conseguirlos. Expresan los cambios o efectos más concretos que se pretenden alcanzar.</p>
   </div>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:metodology) %>
@@ -287,7 +300,7 @@
     <% if @project.errors.include?(:schedule) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :schedule %>
+    <%= f.input :schedule, input_html: {class: 'input-xl'} %>
     <p>Indica las fechas de inicio y finalización del proyecto, sus fases y duración, y los principales hitos a cumplir, mediante un cuadro o cronograma. Recuerda que el periodo de ejecución del proyecto es de 12* meses.
     <%= link_to(t("podemos.impulsa.model_link"), @edition.schedule_model.url) if @edition.schedule_model.exists?%></p>
     <p>* En casos excepcionales, y bajo justificación, se podrá alargar el periodo de duración de un proyecto.</p>
@@ -296,7 +309,7 @@
     <% if @project.errors.include?(:activities_resources) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :activities_resources %>
+    <%= f.input :activities_resources, input_html: {class: 'input-xl'} %>
     <p>Según la planificación presentada en el cronograma, detalla las actividades que prevéis desarrollar durante el periodo de ejecución del proyecto. Para cada actividad, indica los recursos materiales y humanos que serán necesarios para llevarla a cabo.
     <%= link_to(t("podemos.impulsa.model_link"), @edition.activities_resources_model.url) if @edition.activities_resources_model.exists?%></p>
   </div>
@@ -304,7 +317,7 @@
     <% if @project.errors.include?(:requested_budget) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :requested_budget    %>
+    <%= f.input :requested_budget, input_html: {class: 'input-xl'} %>
     <p>Basándote en el cuadro de actividades y recursos, establece el presupuesto de gastos e ingresos utilizando la plantilla adjunta. Asegúrate de rellenar las dos pestañas del documento Excel: Gastos e Ingresos. Recuerda que el presupuesto máximo son <%= number_to_euro @project.impulsa_edition_category.prize*100 %>.
     <%= link_to(t("podemos.impulsa.model_link"), @edition.requested_budget_model.url) if @edition.requested_budget_model.exists?%></p>
   </div>
@@ -312,8 +325,86 @@
     <% if @project.errors.include?(:monitoring_evaluation) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :monitoring_evaluation %>
+    <%= f.input :monitoring_evaluation, input_html: {class: 'input-xl'} %>
     <p>Detalla los indicadores que se utilizarán para la evaluación, especificando el objetivo al que responden, el tiempo estimado para alcanzarlo, el valor esperado al final del proyecto para cada indicador y la fuente de verificación que se utilizará para su medición.
     <%= link_to(t("podemos.impulsa.model_link"), @edition.monitoring_evaluation_model.url) if @edition.monitoring_evaluation_model.exists?%></p>
   </div>
+</fieldset>
+<% end %>
+<p></p>
+<fieldset>
+  <legend><span><%= t "podemos.impulsa.translation_section" %></span></legend>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_language) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_language, input_html: {class: 'input-xl'}, as: :select, collection: ImpulsaProject::ALTERNATIVE_LANGUAGES.invert.to_a  %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_name) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_name, input_html: {class: 'input-xl'} %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:short_description) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :short_description, hint: t("podemos.impulsa.text_limit", limit: 600), input_html: {class: 'input-xl', maxlength: 600}  %>
+    <p><%= t "podemos.impulsa.short_description_extra" %></p>
+  </div>
+<% if @project.needs_organization? %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_organization_mission) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_organization_mission, hint: t("podemos.impulsa.text_limit", limit: 1500), input_html: {class: 'input-xl', maxlength: 1500} %>
+  </div>
+<% elsif @project.allows_organization_types? %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_career) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_career, hint: t("podemos.impulsa.text_limit", limit: 2000), input_html: {class: 'input-xl', maxlength: 2000} %>
+  </div>
+<% else %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_career) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_career, hint: t("podemos.impulsa.text_limit", limit: 2000), input_html: {class: 'input-xl', maxlength: 2000} %>
+  </div>
+<% end %>
+<% if @project.needs_aditional_info? %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_territorial_context) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_territorial_context, hint: t("podemos.impulsa.text_limit", limit: 1500), input_html: {class: 'input-xl', maxlength: 1500}   %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_long_description) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_long_description, hint: t("podemos.impulsa.text_limit", limit: 2000), input_html: {class: 'input-xl', maxlength: 2000}  %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_aim) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_aim, hint: t("podemos.impulsa.text_limit", limit: 1500), input_html: {class: 'input-xl', maxlength: 1500} %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_metodology) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_metodology, hint: t("podemos.impulsa.text_limit", limit: 1500), input_html: {class: 'input-xl', maxlength: 1500} %>
+  </div>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:alternative_population_segment) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :alternative_population_segment, hint: t("podemos.impulsa.text_limit", limit: 1000), input_html: {class: 'input-xl', maxlength: 1000} %>
+  </div>
+<% end %>
 </fieldset>

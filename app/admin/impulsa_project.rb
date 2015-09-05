@@ -26,7 +26,7 @@ ActiveAdmin.register ImpulsaProject do
   end
 
   show do
-    panel "Datos internos" do
+    panel t("podemos.impulsa.admin_section") do
       attributes_table_for impulsa_project do
         row :edition do 
           link_to(impulsa_project.impulsa_edition.name, admin_impulsa_edition_path(impulsa_project.impulsa_edition))
@@ -43,16 +43,10 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    panel "Información del proyecto" do
+    panel t("podemos.impulsa.project_data_section") do
       attributes_table_for impulsa_project do
         row :name
         row :short_description
-        row :long_description
-        row :territorial_context
-        row :aim
-        row :metodology
-        row :population_segment
-        row :counterpart
         row :logo do
           image_tag(impulsa_project.logo.url(:thumb)) if impulsa_project.logo.exists?
         end
@@ -67,7 +61,7 @@ ActiveAdmin.register ImpulsaProject do
     end
 
     if impulsa_project.needs_authority?
-      panel "Autoridad que avala el proyecto" do
+      panel t("podemos.impulsa.project_data_section") do
       attributes_table_for impulsa_project do
           row :authority
           row :authority_name
@@ -77,12 +71,16 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    panel "Organización responsable del proyecto" do
+    panel t("podemos.impulsa.organization_data_section") do
       attributes_table_for impulsa_project do
+        row :organization_type_name
         row :organization_name
         row :organization_address
         row :organization_web
         row :organization_nif
+        row :scanned_nif do |impulsa_project|
+          link_to(impulsa_project.scanned_nif_file_name, impulsa_project.scanned_nif.url) if impulsa_project.scanned_nif.exists?
+        end
         row :organization_year
         row :organization_legal_name
         row :organization_legal_nif
@@ -91,7 +89,7 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    panel "Documentacion" do
+    panel t("podemos.impulsa.documents_section") do
       attributes_table_for impulsa_project do
         row :endorsement do |impulsa_project|
           link_to(impulsa_project.endorsement_file_name, impulsa_project.endorsement.url) if impulsa_project.endorsement.exists?
@@ -120,8 +118,14 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    panel "Planificación" do
+    panel t("podemos.impulsa.project_data_section") do
       attributes_table_for impulsa_project do
+        row :long_description
+        row :territorial_context
+        row :aim
+        row :metodology
+        row :population_segment
+        row :counterpart
         row :schedule do |impulsa_project|
           link_to(impulsa_project.schedule_file_name, impulsa_project.schedule.url) if impulsa_project.schedule.exists?
         end
@@ -137,11 +141,12 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    panel "Traducción" do
+    panel t("podemos.impulsa.project_data_section") do
       attributes_table_for impulsa_project do
         row :alternative_language
         row :alternative_name
         row :alternative_organization_mission
+        row :alternative_career
         row :alternative_territorial_context
         row :alternative_short_description
         row :alternative_long_description
@@ -153,7 +158,7 @@ ActiveAdmin.register ImpulsaProject do
   end
 
   form do |f|
-    f.inputs "Datos básicos" do
+    f.inputs t("podemos.impulsa.project_data_section") do
       li do
         label "Edition"
         div class: :readonly do link_to(impulsa_project.impulsa_edition.name, admin_impulsa_edition_path(impulsa_project.impulsa_edition)) end
@@ -168,39 +173,35 @@ ActiveAdmin.register ImpulsaProject do
       f.input :additional_contact
       f.input :counterpart_information
     end
-    f.inputs "Información del proyecto", class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.project_data_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
       f.input :name
       f.input :impulsa_edition_topics, as: :check_boxes
       f.input :short_description
-      f.input :long_description
-      f.input :territorial_context
-      f.input :aim
-      f.input :metodology
-      f.input :population_segment
-      f.input :counterpart
       f.input :logo, as: :file, hint: proc{ f.template.image_tag(f.object.logo.url(:thumb)) if f.object_has_logo?}
       f.input :video_link
     end
     if impulsa_project.needs_authority?
-      f.inputs "Autoridad que avala el proyecto", class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+      f.inputs t("podemos.impulsa.project_data_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
         f.input :authority
         f.input :authority_name
         f.input :authority_phone
         f.input :authority_email
       end
     end
-    f.inputs "Organización responsable del proyecto", class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.organization_data_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+      f.input :organization_type, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPE_NAMES.to_a
       f.input :organization_name
       f.input :organization_address
       f.input :organization_web
       f.input :organization_nif
+      f.input :scanned_nif, as: :file
       f.input :organization_year
       f.input :organization_legal_name
       f.input :organization_legal_nif
       f.input :organization_mission
       f.input :career
     end
-    f.inputs "Documentacion", class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.documents_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
       f.input :endorsement, as: :file
       f.input :register_entry, as: :file
       f.input :statutes, as: :file
@@ -210,18 +211,24 @@ ActiveAdmin.register ImpulsaProject do
       f.input :last_fiscal_year_report_of_activities, as: :file
       f.input :last_fiscal_year_annual_accounts, as: :file
     end
-    f.inputs "Planificación", class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.project_progress_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+      f.input :counterpart
+      f.input :territorial_context
+      f.input :long_description
+      f.input :aim
+      f.input :metodology
+      f.input :population_segment
       f.input :schedule, as: :file
       f.input :activities_resources, as: :file
       f.input :requested_budget, as: :file
       f.input :monitoring_evaluation, as: :file
     end
-    f.inputs "Traducción", class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.translation_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
       f.input :alternative_language
       f.input :alternative_name
+      f.input :alternative_short_description
       f.input :alternative_organization_mission
       f.input :alternative_territorial_context
-      f.input :alternative_short_description
       f.input :alternative_long_description
       f.input :alternative_aim
       f.input :alternative_metodology
