@@ -2,8 +2,8 @@ ActiveAdmin.register ImpulsaProject do
   menu false
   belongs_to :impulsa_edition_category
   navigation_menu :default
-    
-  permit_params ImpulsaProject::ALL_FIELDS + ImpulsaProject::USER_EDITABLE_FIELDS.map {|f| "#{f}_review".to_sym }, impulsa_edition_topic_ids: []
+
+  permit_params ImpulsaProject::ALL_FIELDS + ImpulsaProject::ADMIN_REVIEWABLE_FIELDS.map {|f| "#{f}_review".to_sym }, impulsa_edition_topic_ids: []
 
   filter :name
   filter :authority
@@ -73,7 +73,9 @@ ActiveAdmin.register ImpulsaProject do
 
     panel t("podemos.impulsa.organization_data_section") do
       attributes_table_for impulsa_project do
-        row :organization_type_name
+        row :organization_type do |impulsa_project|
+          t("podemos.impulsa.organization_type." + impulsa_project.organization_type_name) if impulsa_project.organization_type_name
+        end 
         row :organization_name
         row :organization_address
         row :organization_web
@@ -118,7 +120,7 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    panel t("podemos.impulsa.project_data_section") do
+    panel t("podemos.impulsa.project_progress_section") do
       attributes_table_for impulsa_project do
         row :long_description
         row :territorial_context
@@ -141,24 +143,20 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    panel t("podemos.impulsa.project_data_section") do
-      attributes_table_for impulsa_project do
-        row :alternative_language
-        row :alternative_name
-        row :alternative_organization_mission
-        row :alternative_career
-        row :alternative_territorial_context
-        row :alternative_short_description
-        row :alternative_long_description
-        row :alternative_aim
-        row :alternative_metodology
-        row :alternative_population_segment
+    if impulsa_project.translatable?
+      panel t("podemos.impulsa.translation_section") do
+        attributes_table_for impulsa_project do
+          row :coofficial_translation
+          row :coofficial_name
+          row :coofficial_short_description
+          row :coofficial_video_link
+        end
       end
     end
   end
 
   form do |f|
-    f.inputs t("podemos.impulsa.project_data_section") do
+    f.inputs t("podemos.impulsa.admin_section") do
       li do
         label "Edition"
         div class: :readonly do link_to(impulsa_project.impulsa_edition.name, admin_impulsa_edition_path(impulsa_project.impulsa_edition)) end
@@ -189,7 +187,7 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
     f.inputs t("podemos.impulsa.organization_data_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
-      f.input :organization_type, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPE_NAMES.to_a
+      f.input :organization_type, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPES.map { |k,v| [ t("podemos.impulsa.organization_type.#{k}"), v ]} 
       f.input :organization_name
       f.input :organization_address
       f.input :organization_web
@@ -223,16 +221,13 @@ ActiveAdmin.register ImpulsaProject do
       f.input :requested_budget, as: :file
       f.input :monitoring_evaluation, as: :file
     end
-    f.inputs t("podemos.impulsa.translation_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
-      f.input :alternative_language
-      f.input :alternative_name
-      f.input :alternative_short_description
-      f.input :alternative_organization_mission
-      f.input :alternative_territorial_context
-      f.input :alternative_long_description
-      f.input :alternative_aim
-      f.input :alternative_metodology
-      f.input :alternative_population_segment
+    if impulsa_project.translatable?
+      f.inputs t("podemos.impulsa.translation_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+        f.input :coofficial_translation
+        f.input :coofficial_name
+        f.input :coofficial_short_description
+        f.input :coofficial_video_link
+      end
     end
     f.actions
   end

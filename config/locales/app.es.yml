@@ -1,4 +1,6 @@
-es: 
+es:
+  meta:
+    language_name: "Español"
   errors:
     show:
       "404":
@@ -120,6 +122,8 @@ es:
         winners: "Ganadores"
         prize: "Premio"
         only_authors: "Sólo autores"
+        coofficial_language: "Idioma cooficial"
+        coofficial_language_name: "Idioma cooficial"
         territories: "Territorios"
         deleted_at: "Fecha de borrado"
         created_at: "Fecha de creación"
@@ -157,25 +161,21 @@ es:
         metodology: "Metodología y fomento de la participación"
         population_segment: "Segmento poblacional objetivo"
         video_link: "Vídeo"
-        alternative_language: "Idioma cooficial"
-        alternative_name: "Título traducido"
-        alternative_organization_mission: "Misión de la organización traducido"
-        alternative_career: "Trayectoria traducida"
-        alternative_territorial_context: "Contexto territorial traducido"
-        alternative_short_description: "Descripción breve traducida"
-        alternative_long_description: "Descripción traducida"
-        alternative_aim: "Objetivos traducidos"
-        alternative_metodology: "Metodología y fomento de la participación traducido"
-        alternative_population_segment: "Segmento poblacional objetivo traducido"
+        coofficial_translation: "Traducir"
+        coofficial_name: "Título traducido"
+        coofficial_short_description: "Descripción breve traducida"
+        coofficial_video_link: "Enlace al vídeo traducido"
         logo: "Foto o logo"
         endorsement: "Aval de un Círculo, de un Consejo Ciudadano o de una Secretaría General de Podemos"
         register_entry: "Inscripción de la entidad solicitante en el registro correspondiente"
         statutes: "Copia de los Estatutos de la entidad solicitante debidamente registrados"
-        responsible_nif: "NIF del encargado de la gestión de proyectos, del representante legal o de la persona solicitante"
-        fiscal_obligations_certificate: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente en el momento de la presentación del proyecto"
-        labor_obligations_certificate: "Certificado de la Seguridad Social de obligaciones laborales al corriente en el momento de la presentación del proyecto"
+        responsible_nif: "NIF del responsable (gestor de proyectos o solicitante)"
+        fiscal_obligations_certificate: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente"
+        labor_obligations_certificate: "Certificado de la Seguridad Social de obligaciones laborales al corriente"
         last_fiscal_year_report_of_activities: "Memoria de actividades del último ejercicio"
         last_fiscal_year_annual_accounts: "Cuentas anuales del último ejercicio"
+        home_certificate: "Certificado de inscripción en el Consulado español del país de su residencia actual"
+        bank_certificate: "Certificado bancario de titularidad de una cuenta en una entidad financiera resi­dente en España en la que se abonará la ayuda"
         schedule: "Cronograma y fases" 
         activities_resources: "Actividades y Recursos"
         requested_budget: "Presupuesto solicitado"
@@ -699,6 +699,27 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       save_draft: "Guardar borrador"
       mark_for_review: "Marcar para revisión"
       choose_impulsa_category: "Debes elegir una categoría para que aparezca el resto de campos."
+      organization_type:
+        organization: "Entidad constituida"
+        people: "Grupo de personas que no tienen una entidad constituida legalmente"
+        foreign_people: "Residentes en el extranjero"
+      responsible_nif:
+        organization: "NIF de la persona que representa a la entidad en la gestión de proyectos o, en el caso de que no exista, del representante legal de la entidad"
+        people: "DNI/NIE de la persona solicitante del proyecto"
+        foreign_people: "DNI o pasaporte español en vigor de la persona solicitante"
+      fiscal_obligations_certificate: 
+        local: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente en el momento de la presentación del proyecto"
+        foreign: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto"
+      labor_obligations_certificate: 
+        local: "Certificado de la Seguridad Social de obligaciones laborales al corriente en el momento de la presentación del proyecto"
+        foreign: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto"
+      career:
+        internal: "Trayectoria del colectivo"
+        territorial: "Trayectoria formativa y profesional de las personas solicitantes del proyecto"
+      career_extra:
+        internal: "Incluir cuándo se formó, qué causas sociales defienden y qué hitos han logrado."
+        territorial: "Indica brevemente la formación y experiencia profesional de las personas que desarrollarán el proyecto, incidiendo en las relacionadas con el ámbito del proyecto presentado."
+      coofficial_translation: "Traducir al %{lang}"
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."

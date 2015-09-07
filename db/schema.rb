@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907091228) do
+ActiveRecord::Schema.define(version: 20150907135347) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -140,9 +140,10 @@ ActiveRecord::Schema.define(version: 20150907091228) do
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.boolean  "only_authors"
+    t.string   "coofficial_language"
   end
 
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
@@ -226,15 +227,6 @@ ActiveRecord::Schema.define(version: 20150907091228) do
     t.text     "metodology"
     t.text     "population_segment"
     t.string   "video_link"
-    t.string   "alternative_language"
-    t.string   "alternative_name"
-    t.text     "alternative_organization_mission"
-    t.text     "alternative_territorial_context"
-    t.text     "alternative_short_description"
-    t.text     "alternative_long_description"
-    t.text     "alternative_aim"
-    t.text     "alternative_metodology"
-    t.text     "alternative_population_segment"
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
     t.string   "logo_file_name"
@@ -290,7 +282,6 @@ ActiveRecord::Schema.define(version: 20150907091228) do
     t.integer  "monitoring_evaluation_file_size"
     t.datetime "monitoring_evaluation_updated_at"
     t.integer  "organization_type"
-    t.text     "alternative_career"
     t.string   "scanned_nif_file_name"
     t.string   "scanned_nif_content_type"
     t.integer  "scanned_nif_file_size"
@@ -303,6 +294,10 @@ ActiveRecord::Schema.define(version: 20150907091228) do
     t.string   "bank_certificate_content_type"
     t.integer  "bank_certificate_file_size"
     t.datetime "bank_certificate_updated_at"
+    t.boolean  "coofficial_translation"
+    t.string   "coofficial_name"
+    t.text     "coofficial_short_description"
+    t.string   "coofficial_video_link"
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"

@@ -14,6 +14,8 @@
 
         <%= render partial: "form", locals: { f: f } %>
         <fieldset>
+
+          <% if @project.user_view_field? :terms_of_service %>
           <div class="inputlabel-box">
             <% if @project.errors.include?(:terms_of_service) %>
                 <%= field_notice_box %>
@@ -25,7 +27,9 @@
               <p class="text-xl"><%= t("podemos.impulsa.terms_of_service", link: @edition.legal.url).html_safe %></p>
             </div>
           </div>
+          <% end %>
 
+          <% if @project.user_view_field? :data_truthfulness %>
           <div class="inputlabel-box">
             <% if @project.errors.include?(:data_truthfulness) %>
                 <%= field_notice_box %>
@@ -37,6 +41,7 @@
               <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
             </div>
           </div>
+          <% end %>
         </fieldset>
         <%= f.action :submit, :label=>t("podemos.impulsa.save_draft"), :as => :input, button_html: {class: 'button'} %>
       <% end %>

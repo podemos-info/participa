@@ -14,17 +14,19 @@
 
         <%= render partial: "form", locals: { f: f } %>
         <fieldset>
-          <div class="inputlabel-box">
-            <% if @project.errors.include?(:data_truthfulness) %>
-                <%= field_notice_box %>
-            <% end %>
+          <% if @project.user_view_field? :data_truthfulness %>
+            <div class="inputlabel-box">
+              <% if @project.errors.include?(:data_truthfulness) %>
+                  <%= field_notice_box %>
+              <% end %>
 
-            <%= f.label :data_truthfulness %>
-            <div class="input-box">
-              <%= f.check_box :data_truthfulness, class: 'checkbox' %>
-              <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
+              <%= f.label :data_truthfulness %>
+              <div class="input-box">
+                <%= f.check_box :data_truthfulness, class: 'checkbox' %>
+                <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
+              </div>
             </div>
-          </div>
+          <% end %>
         </fieldset>
         <%= f.action :submit, :label=>t("podemos.impulsa.save_draft"), :as => :input, button_html: {class: 'button'} if @project.new? %>
         <%= f.action :submit, :label=>t("podemos.impulsa.mark_for_review"), :as => :input, button_html: {class: 'button button-danger'} %>

@@ -6,9 +6,9 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   scope :non_authors, -> { where.not only_authors:true }
   CATEGORY_TYPES = {
-    "Organización" => 0, 
-    "Estatal" => 1, 
-    "Territorial" => 2 
+    internal: 0, 
+    state: 1, 
+    territorial: 2 
   }
 
   def category_type_name
@@ -16,23 +16,31 @@ class ImpulsaEditionCategory < ActiveRecord::Base
   end
 
   def needs_authority?
-    self.category_type == CATEGORY_TYPES["Organización"]
+    self.category_type == CATEGORY_TYPES[:internal]
   end
 
-  def needs_aditional_info?
-    self.category_type != CATEGORY_TYPES["Organización"]
+  def needs_project_details?
+    self.category_type != CATEGORY_TYPES[:internal]
   end
 
-  def needs_aditional_documents?
-    self.category_type == CATEGORY_TYPES["Estatal"]
+  def needs_additional_details?
+    self.category_type == CATEGORY_TYPES[:state]
   end
 
   def allows_organization_types?
-    self.category_type == CATEGORY_TYPES["Territorial"]
+    self.category_type == CATEGORY_TYPES[:territorial]
   end
 
   def has_territory?
-    self.category_type == CATEGORY_TYPES["Territorial"]
+    self.category_type == CATEGORY_TYPES[:territorial]
+  end
+
+  def translatable?
+    !self.coofficial_language.blank?
+  end
+
+  def coofficial_language_name
+     I18n.name_for_locale(self[:coofficial_language].to_sym) if self[:coofficial_language]
   end
 
   def territories

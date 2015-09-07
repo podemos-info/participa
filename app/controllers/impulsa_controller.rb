@@ -20,6 +20,7 @@ class ImpulsaController < ApplicationController
   def modify
     redirect_to new_impulsa_path unless @project
 
+    @project.preload(params[:impulsa_project])
     @project.assign_attributes project_params
 
     if params[:commit].blank?
@@ -57,8 +58,8 @@ class ImpulsaController < ApplicationController
 
   def new_user_project
     @project = ImpulsaEdition.current.impulsa_projects.build
+    @project.preload(params[:impulsa_project])
     @project.assign_attributes(project_params) unless params[:impulsa_project].blank?
-    @project.organization_type = 0 if @project.allows_organization_types? and @project.organization_type.nil?
     @project.user = current_user
   end
 
