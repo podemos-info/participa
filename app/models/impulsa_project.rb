@@ -39,21 +39,37 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]
+  validates_with AttachmentSizeValidator, attributes: :logo, less_than: 1.megabytes
   validates_attachment_content_type :scanned_nif, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :scanned_nif, less_than: 1.megabytes
   validates_attachment_content_type :endorsement, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :endorsement, less_than: 1.megabytes
   validates_attachment_content_type :register_entry, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :register_entry, less_than: 1.megabytes
   validates_attachment_content_type :statutes, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :statutes, less_than: 1.megabytes
   validates_attachment_content_type :responsible_nif, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :responsible_nif, less_than: 1.megabytes
   validates_attachment_content_type :fiscal_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :fiscal_obligations_certificate, less_than: 1.megabytes
   validates_attachment_content_type :labor_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :labor_obligations_certificate, less_than: 1.megabytes
   validates_attachment_content_type :home_certificate, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :home_certificate, less_than: 1.megabytes
   validates_attachment_content_type :bank_certificate, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :bank_certificate, less_than: 1.megabytes
   validates_attachment_content_type :last_fiscal_year_report_of_activities, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :last_fiscal_year_report_of_activities, less_than: 1.megabytes
   validates_attachment_content_type :last_fiscal_year_annual_accounts, content_type: ["application/pdf", "application/x-pdf"]
+  validates_with AttachmentSizeValidator, attributes: :last_fiscal_year_annual_accounts, less_than: 1.megabytes
   validates_attachment_content_type :schedule, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
+  validates_with AttachmentSizeValidator, attributes: :schedule, less_than: 1.megabytes
   validates_attachment_content_type :activities_resources, content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]
+  validates_with AttachmentSizeValidator, attributes: :activities_resources, less_than: 1.megabytes
   validates_attachment_content_type :requested_budget, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
+  validates_with AttachmentSizeValidator, attributes: :requested_budget, less_than: 1.megabytes
   validates_attachment_content_type :monitoring_evaluation, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
+  validates_with AttachmentSizeValidator, attributes: :monitoring_evaluation, less_than: 1.megabytes
 
   scope :by_status, ->(status) { where( status: status ) }
 
