@@ -30,7 +30,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
         div class: :readonly do link_to(resource.impulsa_edition.name, admin_impulsa_edition_path(resource.impulsa_edition)) end
       end
       f.input :name
-      f.input :category_type, as: :select, collection: ImpulsaEditionCategory::CATEGORY_TYPES.map{|k,v| [t("podemos.impulsa.category_type_name.#{v}"), k]}
+      f.input :category_type, as: :select, collection: ImpulsaEditionCategory::CATEGORY_TYPES.map{|k,v| [t("podemos.impulsa.category_type_name.#{k}"), v]}
       f.input :winners, min: 1
       f.input :prize, min: 0
       f.input :only_authors
