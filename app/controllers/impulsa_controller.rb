@@ -52,7 +52,7 @@ class ImpulsaController < ApplicationController
 
     @project = @edition.impulsa_projects.where(user:current_user).first 
     @available_categories = @edition.impulsa_edition_categories
-    @available_categories = @available_categories.non_author if !current_user.impulsa_author?
+    @available_categories = @available_categories.non_authors if !current_user.impulsa_author?
   end
 
   def new_user_project
