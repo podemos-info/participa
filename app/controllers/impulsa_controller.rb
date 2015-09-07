@@ -25,7 +25,7 @@ class ImpulsaController < ApplicationController
     if params[:commit].blank?
       render 'edit'
     else
-      @project.mark_for_review if params[:commit]!="Guardar cambios"
+      @project.mark_for_review if params[:commit]==t("podemos.impulsa.mark_for_review")
       if @project.save
         flash[:notice] = "Los cambios han sido guardados"
         redirect_to edit_impulsa_path

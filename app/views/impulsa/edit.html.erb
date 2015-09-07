@@ -6,7 +6,8 @@
 
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
       <%= info_box do %>
-        <%= content_tag(:p, t("podemos.impulsa.allow_save_send_text")) %>
+        <%= content_tag(:p, t("podemos.impulsa.allow_save_text")) %>
+        <%= content_tag(:p, t("podemos.impulsa.mark_for_review_text", mark_for_review:t("podemos.impulsa.mark_for_review"))) %>
       <% end %>
       <%= errors_in_form @project %>
       <%= semantic_form_for @project, url: modify_impulsa_path, html: {method: :post, autocomplete: 'off'} do |f| %>
@@ -25,8 +26,8 @@
             </div>
           </div>
         </fieldset>
-        <%= f.action :submit, :label=>"Guardar cambios", :as => :input, button_html: {class: 'button'} %>
-        <%= f.action :submit, :label=>"Marcar para revisión", :as => :input, button_html: {class: 'button'} if @project.new? %>
+        <%= f.action :submit, :label=>t("podemos.impulsa.save_draft"), :as => :input, button_html: {class: 'button'} %>
+        <%= f.action :submit, :label=>t("podemos.impulsa.mark_for_review"), :as => :input, button_html: {class: 'button button-danger'} if @project.new? %>
       <% end %>
     </div>
   </div>

@@ -113,7 +113,7 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def organization_type_name
-    ImpulsaProject::ORGANIZATION_TYPES_NAMES.invert[self.organization_type]
+    ImpulsaProject::ORGANIZATION_TYPE_NAMES.invert[self.organization_type]
   end
 
   def needs_authority?
