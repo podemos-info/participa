@@ -73,11 +73,11 @@ ActiveAdmin.register ImpulsaEdition do
   form do |f|
     f.inputs "Impulsa edition" do
       f.input :name
-      f.input :start_at, as: :datepicker
-      f.input :new_projects_until, as: :datepicker
-      f.input :review_projects_until, as: :datepicker
-      f.input :validation_projects_until, as: :datepicker
-      f.input :ends_at, as: :datepicker
+      f.input :start_at
+      f.input :new_projects_until
+      f.input :review_projects_until
+      f.input :validation_projects_until
+      f.input :ends_at
       f.input :legal, as: :file
       f.input :schedule_model, as: :file
       f.input :activities_resources_model, as: :file
