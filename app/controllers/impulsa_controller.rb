@@ -57,7 +57,6 @@ class ImpulsaController < ApplicationController
 
   def new_user_project
     @project = ImpulsaEdition.current.impulsa_projects.build
-    @project.impulsa_edition_category = ImpulsaEdition.current.impulsa_edition_categories.first
     @project.assign_attributes(project_params) unless params[:impulsa_project].blank?
     @project.organization_type = 0 if @project.allows_organization_types? and @project.organization_type.nil?
     @project.user = current_user
@@ -66,5 +65,4 @@ class ImpulsaController < ApplicationController
   def project_params
     params.require(:impulsa_project).permit(@project.user_editable_fields)
   end
-
 end

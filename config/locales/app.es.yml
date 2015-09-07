@@ -678,7 +678,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       noupcoming: "La convocatoria de una nueva edición de IMPULSA se realizará próximamente, mantente informado."
       text_limit: "máximo %{limit} caracteres"
       model_link: "Utiliza este fichero como modelo."
-      file_type: "El fichero subido debe ser %{file_type}"
+      file_validation: "el fichero subido debe ser %{file_type} y su tamaño no puede ser superior a %{file_size}"
       file_type_spreadsheet: "una hoja de cálculo (ficheros .xls y .xlsx de MS Excel o .ods de OpenOffice)"
       file_type_document: "un documento de texto (ficheros .doc y .docx de MS Word o .odt de OpenOffice)"
       file_type_pdf: "un documento PDF (ficheros .pdf)"
@@ -698,6 +698,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       data_truthfulness: "Declaro la veracidad de los datos facilitados y de los documentos aportados en la solicitud de la presente convocatoria."
       save_draft: "Guardar borrador"
       mark_for_review: "Marcar para revisión"
+      choose_impulsa_category: "Debes elegir una categoría para que aparezca el resto de campos."
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."

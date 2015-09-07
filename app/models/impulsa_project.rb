@@ -117,27 +117,27 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def needs_authority?
-    self.impulsa_edition_category.needs_authority?
+    self.impulsa_edition_category.needs_authority? if self.impulsa_edition_category
   end
 
   def needs_aditional_info?
-    self.impulsa_edition_category.needs_aditional_info?
+    self.impulsa_edition_category.needs_aditional_info? if self.impulsa_edition_category
   end
 
   def needs_aditional_documents?
-    self.impulsa_edition_category.needs_aditional_documents?
+    self.impulsa_edition_category.needs_aditional_documents? if self.impulsa_edition_category
   end
 
   def allows_organization_types?
-    self.impulsa_edition_category.allows_organization_types?
+    self.impulsa_edition_category.allows_organization_types? if self.impulsa_edition_category
   end
 
   def needs_organization?
-    self.impulsa_edition_category.needs_aditional_documents? || self.organization_type == 0
+    (self.impulsa_edition_category.needs_aditional_documents? if self.impulsa_edition_category) || self.organization_type == 0
   end
 
   def is_in_spain?
-    !self.impulsa_edition_category.allows_organization_types? || self.organization_type != 2
+    (!self.impulsa_edition_category.allows_organization_types? if self.impulsa_edition_category) || self.organization_type != 2
   end
 
   def organization_type
