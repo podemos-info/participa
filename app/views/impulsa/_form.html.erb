@@ -4,7 +4,7 @@
     <% if @project.errors.include?(:impulsa_edition_category) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :impulsa_edition_category, required: true, input_html: {class: 'input-xl', onchange:"submit()"} %>
+    <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories, required: true, include_blank: false, input_html: {class: 'input-xl', onchange:"submit()"} %>
   </div>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:name) %>
@@ -37,7 +37,7 @@
     <% if @project.errors.include?(:video_link) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :video_link, as: :url, input_html: {class: 'input-xl'}, hint: true  %>
+    <%= f.input :video_link, as: :url, input_html: {class: 'input-xl', placeholder: 'http://youtube.com/'}, hint: true  %>
   </div>
 </fieldset>
 <% if @project.needs_authority? %>
@@ -78,7 +78,7 @@
     <% if @project.errors.include?(:organization_type) %>
     <%= field_notice_box %>
     <% end %>
-    <%= f.input :organization_type, input_html: {class: 'input-xl', onchange:"submit()"}, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPE_NAMES.to_a  %>
+    <%= f.input :organization_type, include_blank: false, input_html: {class: 'input-xl', onchange:"submit()"}, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPE_NAMES.to_a  %>
   </div>
 <% end %>
 <% if @project.needs_organization? %>
@@ -144,6 +144,12 @@
     <%= f.input :career, label: "Trayectoria formativa y profesional de las personas solicitantes del proyecto", input_html: {class: 'input-xl'} %>
   </div>
 <% else %>
+  <div class="inputlabel-box">
+    <% if @project.errors.include?(:additional_contact) %>
+    <%= field_notice_box %>
+    <% end %>
+    <%= f.input :additional_contact, input_html: {class: 'input-xl'} %>
+  </div>
   <div class="inputlabel-box">
     <% if @project.errors.include?(:career) %>
     <%= field_notice_box %>

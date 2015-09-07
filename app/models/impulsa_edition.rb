@@ -13,7 +13,7 @@ class ImpulsaEdition < ActiveRecord::Base
 
   validates_attachment_content_type :legal, content_type: ["application/pdf", "application/x-pdf"]
   validates_attachment_content_type :schedule_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
-  validates_attachment_content_type :activities_resources_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
+  validates_attachment_content_type :activities_resources_model, content_type: [  "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]
   validates_attachment_content_type :requested_budget_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
   validates_attachment_content_type :monitoring_evaluation_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
 
@@ -22,5 +22,30 @@ class ImpulsaEdition < ActiveRecord::Base
 
   def self.current
     active.first
+  end
+
+  EDITION_PHASES = {
+    not_started: 0,
+    new_projects: 1,
+    review_projects: 2,
+    validation_projects: 3,
+    votings: 4,
+    ended: 5
+  }
+  def current_phase
+    now = DateTime.now
+    if now < self.start_at
+      EDITION_PHASES[:not_started]
+    elsif now < self.new_projects_until
+      EDITION_PHASES[:new_projects]
+    elsif now < self.review_projects_until
+      EDITION_PHASES[:review_projects]
+    elsif now < self.validation_projects_until
+      EDITION_PHASES[:validation_projects]
+    elsif now < self.ends_at
+      EDITION_PHASES[:votings]
+    else
+      EDITION_PHASES[:ended]
+    end
   end
 end

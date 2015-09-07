@@ -3,7 +3,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
   belongs_to :impulsa_edition
   navigation_menu :default
 
-  permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :territories
+  permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :only_authors, territories: []
 
   show do
     attributes_table do
@@ -12,7 +12,10 @@ ActiveAdmin.register ImpulsaEditionCategory do
       row :category_type_name
       row :winners
       row :prize
-      row :territories
+      row :only_authors
+      row :territories do |impulsa_edition_category|
+        impulsa_edition_category.territories_names.join ", "
+      end
     end
   end
 
@@ -27,7 +30,8 @@ ActiveAdmin.register ImpulsaEditionCategory do
       f.input :category_type, as: :select, collection: ImpulsaEditionCategory::CATEGORY_TYPES.to_a
       f.input :winners, min: 1
       f.input :prize, min: 0
-      f.input :territories, as: :check_boxes, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse) if resource.has_territory?
+      f.input :only_authors
+      f.input :territories, as: :check_boxes, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse).sort if resource.has_territory?
     end
     f.actions
   end

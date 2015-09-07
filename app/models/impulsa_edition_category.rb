@@ -4,6 +4,7 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   validates :name, :category_type, :winners, :prize, presence: true
 
+  scope :non_authors, -> { where.not only_authors:true }
   CATEGORY_TYPES = {
     "Organización" => 0, 
     "Estatal" => 1, 
@@ -11,7 +12,7 @@ class ImpulsaEditionCategory < ActiveRecord::Base
   }
 
   def category_type_name
-    ImpulsaEditionCategory::CATEGORY_TYPES.invert[self.category_type]
+    CATEGORY_TYPES.invert[self.category_type]
   end
 
   def needs_authority?
@@ -32,5 +33,22 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   def has_territory?
     self.category_type == CATEGORY_TYPES["Territorial"]
+  end
+
+  def territories
+    if self[:territories]
+      self[:territories].split("|").compact 
+    else
+      []
+    end
+  end
+
+  def territories= values
+    self[:territories] = values.select {|x| !x.blank? } .join("|")
+  end
+
+  def territories_names
+    names = Hash[Podemos::GeoExtra::AUTONOMIES.values]
+    self.territories.map {|t| names[t]}
   end
 end

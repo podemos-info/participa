@@ -5,9 +5,13 @@
     <div class="col-b-4a12">
 
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
-
+      <%= info_box do %>
+        <%= content_tag(:p, t("podemos.impulsa.choose_user_text")) %>
+        <%= content_tag(:p, t("podemos.impulsa.allow_save_text")) %>
+      <% end %>
       <%= errors_in_form @project %>
       <%= semantic_form_for @project, url: create_impulsa_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+
         <%= render partial: "form", locals: { f: f } %>
         <fieldset>
           <div class="inputlabel-box">
@@ -34,7 +38,7 @@
             </div>
           </div>
         </fieldset>
-        <%= f.action :submit, :label=>"Guardar cambios", :as => :input, button_html: {class: 'button'} %>
+        <%= f.action :submit, :label=>"Guardar proyecto", :as => :input, button_html: {class: 'button'} %>
       <% end %>
     </div>
   </div>

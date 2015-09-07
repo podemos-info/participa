@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904220516) do
+ActiveRecord::Schema.define(version: 20150906223357) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20150904220516) do
     t.string   "territories"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.boolean  "only_authors"
   end
 
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"

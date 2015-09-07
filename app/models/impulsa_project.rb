@@ -58,16 +58,17 @@ class ImpulsaProject < ActiveRecord::Base
   STATUS_NAMES = {
     "Nuevo" => 0,
     "Corregir" => 1,
-    "Por validar" => 2,
-    "Validado" => 3,
-    "No seleccionado" => 4,
-    "Descartado" => 5,
-    "Renuncia" => 6,
-    "Premiado" => 7
+    "Corregible" => 2,
+    "Por validar" => 3,
+    "Validado" => 4,
+    "No seleccionado" => 5,
+    "Descartado" => 6,
+    "Renuncia" => 7,
+    "Premiado" => 8
   }
 
-  USER_EDITABLE_FIELDS = [ :impulsa_edition_category_id, :name, :authority, :authority_name, :authority_phone, :authority_email, :organization_type, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_career, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :scanned_nif, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :home_certificate, :bank_certificate,:last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids, :terms_of_service, :data_truthfulness ]
-  ALL_FIELDS = USER_EDITABLE_FIELDS + [ :user_id, :status, :review_fields, :additional_contact, :counterpart_information ]
+  USER_EDITABLE_FIELDS = [ :impulsa_edition_category_id, :name, :authority, :authority_name, :authority_phone, :authority_email, :organization_type, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :additional_contact, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_career, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :scanned_nif, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :home_certificate, :bank_certificate,:last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids, :terms_of_service, :data_truthfulness ]
+  ALL_FIELDS = USER_EDITABLE_FIELDS + [ :user_id, :status, :review_fields,  :counterpart_information ]
   ORGANIZATION_TYPE_NAMES = {
     "Entidad constituida" => 0,
     "Grupo de personas" => 1,
@@ -80,8 +81,16 @@ class ImpulsaProject < ActiveRecord::Base
     "ga" => "Galego"
   }
 
+  def new?
+    self.status==0
+  end
+
+  def mark_for_review
+    self.status=1
+  end
+  
   def editable?
-    self.status < 2
+    self.status < 3 && self.impulsa_edition.current_phase < ImpulsaEdition::EDITION_PHASES[:validation_projects]
   end
 
   def reviewable?
@@ -92,7 +101,7 @@ class ImpulsaProject < ActiveRecord::Base
     case self.status
       when 0
         ImpulsaProject::USER_EDITABLE_FIELDS
-      when 1
+      when 1..2
         review_fields.symbolize_keys.keys
       else
         []
