@@ -699,6 +699,10 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       save_draft: "Guardar borrador"
       mark_for_review: "Marcar para revisión"
       choose_impulsa_category: "Debes elegir una categoría para que aparezca el resto de campos."
+      category_type_name:
+        internal: "Interna"
+        state: "Estatal"
+        territorial: "Territorial"
       organization_type:
         organization: "Entidad constituida"
         people: "Grupo de personas que no tienen una entidad constituida legalmente"

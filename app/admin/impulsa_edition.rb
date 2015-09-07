@@ -46,13 +46,13 @@ ActiveAdmin.register ImpulsaEdition do
         column :category_type_name
         column :winners
         column :prize
-        column :projects do |category|
-          category.impulsa_projects.count
+        column :projects do |impulsa_edition_category|
+          impulsa_edition_category.impulsa_projects.count
         end
-        column :actions do |category|
-          span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, category))
-          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_category_path(resource, category), method: :delete)
-          span link_to('Ver proyectos', admin_impulsa_edition_category_impulsa_projects_path(category))
+        column :actions do |impulsa_edition_category|
+          span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category))
+          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category), method: :delete)
+          span link_to('Ver proyectos', admin_impulsa_edition_category_impulsa_projects_path(impulsa_edition_category))
         end
       end
       div link_to(t('active_admin.has_many_new', model: t("activerecord.models.impulsa_edition_category")), new_admin_impulsa_edition_impulsa_edition_category_path(resource))

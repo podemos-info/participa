@@ -9,7 +9,8 @@ ActiveAdmin.register ImpulsaEditionCategory do
     attributes_table do
       row :impulsa_edition
       row :name
-      row :category_type_name
+      row :category_type_name do |impulsa_edition_category|
+        t("podemos.impulsa.category_type_name.#{impulsa_edition_category.category_type_name}") if impulsa_edition_category.category_type_name
       row :winners
       row :prize
       row :only_authors
@@ -28,7 +29,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
         div class: :readonly do link_to(resource.impulsa_edition.name, admin_impulsa_edition_path(resource.impulsa_edition)) end
       end
       f.input :name
-      f.input :category_type, as: :select, collection: ImpulsaEditionCategory::CATEGORY_TYPES.to_a
+      f.input :category_type, as: :select, collection: ImpulsaEditionCategory::CATEGORY_TYPES.map{|k,v| [t("podemos.impulsa.category_type_name.#{v}"), k]}
       f.input :winners, min: 1
       f.input :prize, min: 0
       f.input :only_authors
