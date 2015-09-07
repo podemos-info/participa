@@ -11,6 +11,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
       row :name
       row :category_type_name do |impulsa_edition_category|
         t("podemos.impulsa.category_type_name.#{impulsa_edition_category.category_type_name}") if impulsa_edition_category.category_type_name
+      end
       row :winners
       row :prize
       row :only_authors
