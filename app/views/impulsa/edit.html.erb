@@ -26,8 +26,8 @@
             </div>
           </div>
         </fieldset>
-        <%= f.action :submit, :label=>t("podemos.impulsa.save_draft"), :as => :input, button_html: {class: 'button'} %>
-        <%= f.action :submit, :label=>t("podemos.impulsa.mark_for_review"), :as => :input, button_html: {class: 'button button-danger'} if @project.new? %>
+        <%= f.action :submit, :label=>t("podemos.impulsa.save_draft"), :as => :input, button_html: {class: 'button'} if @project.new? %>
+        <%= f.action :submit, :label=>t("podemos.impulsa.mark_for_review"), :as => :input, button_html: {class: 'button button-danger'} %>
       <% end %>
     </div>
   </div>
