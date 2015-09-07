@@ -19,7 +19,6 @@ class ImpulsaController < ApplicationController
 
   def modify
     redirect_to new_impulsa_path unless @project
-
     @project.preload(params[:impulsa_project])
     @project.assign_attributes project_params
 

@@ -39,6 +39,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :logo, input_html: {class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to(@project.logo_file_name, @project.logo.url)) if @project.logo.exists? %>  
     </div>
   <% end %>
   <% if @project.user_view_field? :video_link %>
