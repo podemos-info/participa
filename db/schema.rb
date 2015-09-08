@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907135347) do
+ActiveRecord::Schema.define(version: 20150908112739) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -140,10 +140,26 @@ ActiveRecord::Schema.define(version: 20150907135347) do
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.boolean  "only_authors"
     t.string   "coofficial_language"
+    t.string   "schedule_model_override_file_name"
+    t.string   "schedule_model_override_content_type"
+    t.integer  "schedule_model_override_file_size"
+    t.datetime "schedule_model_override_updated_at"
+    t.string   "activities_resources_model_override_file_name"
+    t.string   "activities_resources_model_override_content_type"
+    t.integer  "activities_resources_model_override_file_size"
+    t.datetime "activities_resources_model_override_updated_at"
+    t.string   "requested_budget_model_override_file_name"
+    t.string   "requested_budget_model_override_content_type"
+    t.integer  "requested_budget_model_override_file_size"
+    t.datetime "requested_budget_model_override_updated_at"
+    t.string   "monitoring_evaluation_model_override_file_name"
+    t.string   "monitoring_evaluation_model_override_content_type"
+    t.integer  "monitoring_evaluation_model_override_file_size"
+    t.datetime "monitoring_evaluation_model_override_updated_at"
   end
 
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
@@ -166,10 +182,6 @@ ActiveRecord::Schema.define(version: 20150907135347) do
     t.datetime "ends_at"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.string   "legal_file_name"
-    t.string   "legal_content_type"
-    t.integer  "legal_file_size"
-    t.datetime "legal_updated_at"
     t.string   "schedule_model_file_name"
     t.string   "schedule_model_content_type"
     t.integer  "schedule_model_file_size"
@@ -186,6 +198,7 @@ ActiveRecord::Schema.define(version: 20150907135347) do
     t.string   "monitoring_evaluation_model_content_type"
     t.integer  "monitoring_evaluation_model_file_size"
     t.datetime "monitoring_evaluation_model_updated_at"
+    t.text     "legal"
   end
 
   create_table "impulsa_project_topics", force: :cascade do |t|

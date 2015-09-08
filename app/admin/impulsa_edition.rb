@@ -1,7 +1,12 @@
 ActiveAdmin.register ImpulsaEdition do
   menu :parent => "Participación"
   config.filters = false
-  permit_params :id, :name, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :ends_at, :legal, :schedule_model, :activities_resources_model, :requested_budget_model, :monitoring_evaluation_model
+  permit_params do
+    fields = [:id, :name, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :ends_at, :schedule_model, :activities_resources_model, :requested_budget_model, :monitoring_evaluation_model]
+    fields += I18n.available_locales.map do |locale|
+      :"legal_#{locale}"
+    end
+  end
 
   index do
     selectable_column
@@ -24,7 +29,9 @@ ActiveAdmin.register ImpulsaEdition do
       row :validation_projects_until
       row :ends_at
       row :legal do |impulsa_edition|
-        link_to impulsa_edition.legal_file_name, impulsa_edition.legal.url if impulsa_edition.legal.exists?
+        I18n.available_locales.each do |locale|
+          span link_to(I18n.name_for_locale(locale), impulsa_edition[:legal]["legal_#{locale}"]) if !impulsa_edition[:legal]["legal_#{locale}"].blank?
+        end .compact
       end
       row :schedule_model do |impulsa_edition|
         link_to impulsa_edition.schedule_model_file_name, impulsa_edition.schedule_model.url if impulsa_edition.schedule_model.exists?
@@ -80,7 +87,9 @@ ActiveAdmin.register ImpulsaEdition do
       f.input :review_projects_until
       f.input :validation_projects_until
       f.input :ends_at
-      f.input :legal, as: :file
+      I18n.available_locales.each do |locale|
+        f.input "legal_#{locale}", label: "#{t("activerecord.attributes.impulsa_edition.legal")} #{I18n.name_for_locale(locale)}"
+      end
       f.input :schedule_model, as: :file
       f.input :activities_resources_model, as: :file
       f.input :requested_budget_model, as: :file

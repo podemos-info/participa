@@ -4,6 +4,16 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   validates :name, :category_type, :winners, :prize, presence: true
 
+  has_attached_file :schedule_model_override
+  has_attached_file :activities_resources_model_override
+  has_attached_file :requested_budget_model_override
+  has_attached_file :monitoring_evaluation_model_override
+
+  validates_attachment_content_type :schedule_model_override, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
+  validates_attachment_content_type :activities_resources_model_override, content_type: [  "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]
+  validates_attachment_content_type :requested_budget_model_override, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
+  validates_attachment_content_type :monitoring_evaluation_model_override, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
+
   scope :non_authors, -> { where.not only_authors:true }
   CATEGORY_TYPES = {
     internal: 0, 
@@ -33,6 +43,22 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   def has_territory?
     self.category_type == CATEGORY_TYPES[:territorial]
+  end
+
+  def schedule_model
+    self.schedule_model_override.exists? ? self.schedule_model_override : self.impulsa_edition.schedule_model
+  end
+
+  def activities_resources_model
+    self.activities_resources_model_override.exists? ? self.activities_resources_model_override : self.impulsa_edition.activities_resources_model
+  end
+
+  def requested_budget_model
+    self.requested_budget_model_override.exists? ? self.requested_budget_model_override : self.impulsa_edition.requested_budget_model
+  end
+
+  def monitoring_evaluation_model
+    self.monitoring_evaluation_model_override.exists? ? self.monitoring_evaluation_model_override : self.impulsa_edition.monitoring_evaluation_model
   end
 
   def translatable?

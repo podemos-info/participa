@@ -25,7 +25,7 @@
             <%= f.label :terms_of_service %>
             <div class="input-box">
               <%= f.check_box :terms_of_service, class: 'checkbox' %>
-              <p class="text-xl"><%= t("podemos.impulsa.terms_of_service", link: @edition.legal.url).html_safe %></p>
+              <p class="text-xl"><%= t("podemos.impulsa.terms_of_service", link: @edition.legal_link).html_safe %></p>
             </div>
           </div>
           <% end %>

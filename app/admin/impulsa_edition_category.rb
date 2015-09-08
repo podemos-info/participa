@@ -3,7 +3,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
   belongs_to :impulsa_edition
   navigation_menu :default
 
-  permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :only_authors, :coofficial_language, territories: []
+  permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :only_authors, :coofficial_language, :schedule_model_override, :activities_resources_model_override, :requested_budget_model_override, :monitoring_evaluation_model_override, territories: []
 
   show do
     attributes_table do
@@ -36,6 +36,10 @@ ActiveAdmin.register ImpulsaEditionCategory do
       f.input :only_authors
       f.input :coofficial_language, as: :select, collection: I18n.available_locales.map {|l| [I18n.name_for_locale(l),l] if l!=I18n.default_locale }
       f.input :territories, as: :check_boxes, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse).sort if resource.has_territory?
+      f.input :schedule_model_override, as: :file
+      f.input :activities_resources_model_override, as: :file
+      f.input :requested_budget_model_override, as: :file
+      f.input :monitoring_evaluation_model_override, as: :file
     end
     f.actions
   end

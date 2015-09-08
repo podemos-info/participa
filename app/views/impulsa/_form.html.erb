@@ -6,7 +6,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories, required: true, input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl', onchange:"submit()"} %>
-      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.impulsa_edition_category_extra", legal: link_to(t("podemos.impulsa.legal"),@edition.legal.url)).html_safe, class: "fa-fw"), class: :note) %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.impulsa_edition_category_extra", legal: link_to(t("podemos.impulsa.legal"),@edition.legal_link)).html_safe, class: "fa-fw"), class: :note) %>
     </div>
   <% end %>
   <% if @project.user_view_field? :name %>
@@ -348,7 +348,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :schedule, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_spreadsheet"))), input_html: {disabled: !@project.user_edit_field?(:schedule), class: 'input-xl'} %>
-      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition.schedule_model.url), class: "note right") if @project.impulsa_edition.schedule_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.schedule_model.url), class: "note right") if @project.impulsa_edition_category.schedule_model.exists? %>
       <%= content_tag(:p, link_to( fa_icon("file-excel-o", text: @project.schedule_file_name, class: "fa-fw"), @project.schedule.url), class: :note) if @project.schedule.exists? %>
       <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.schedule_extra", limit: @project.needs_additional_details? ? 12 : 6), class: "fa-fw"), class: :note) %>
     </div>
@@ -359,7 +359,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :activities_resources, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_document"))), input_html: {disabled: !@project.user_edit_field?(:activities_resources), class: 'input-xl'} %>
-      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition.activities_resources_model.url), class: "note right") if @project.impulsa_edition.activities_resources_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.activities_resources_model.url), class: "note right") if @project.impulsa_edition_category.activities_resources_model.exists? %>
       <%= content_tag(:p, link_to( fa_icon("file-word-o", text: @project.activities_resources_file_name, class: "fa-fw"), @project.activities_resources.url), class: :note) if @project.activities_resources.exists? %>
       <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.activities_resources_extra"), class: "fa-fw"), class: :note) %>
     </div>
@@ -370,7 +370,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :requested_budget, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_spreadsheet"))), input_html: {disabled: !@project.user_edit_field?(:requested_budget), class: 'input-xl'} %>
-      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition.requested_budget_model.url), class: "note right") if @project.impulsa_edition.requested_budget_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.requested_budget_model.url), class: "note right") if @project.impulsa_edition_category.requested_budget_model.exists? %>
       <%= content_tag(:p, link_to( fa_icon("file-excel-o", text: @project.requested_budget_file_name, class: "fa-fw"), @project.requested_budget.url), class: :note) if @project.requested_budget.exists? %>
       <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.requested_budget_extra", limit: number_to_euro(@project.impulsa_edition_category.prize*100)), class: "fa-fw"), class: :note) %>
     </div>
@@ -381,7 +381,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :monitoring_evaluation, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_spreadsheet"))), input_html: {disabled: !@project.user_edit_field?(:monitoring_evaluation), class: 'input-xl'} %>
-      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition.monitoring_evaluation_model.url), class: "note right") if @project.impulsa_edition.monitoring_evaluation_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.monitoring_evaluation_model.url), class: "note right") if @project.impulsa_edition_category.monitoring_evaluation_model.exists? %>
       <%= content_tag(:p, link_to( fa_icon("file-excel-o", text: @project.monitoring_evaluation_file_name, class: "fa-fw"), @project.monitoring_evaluation.url), class: :note) if @project.monitoring_evaluation.exists? %>
       <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.monitoring_evaluation_extra"), class: "fa-fw"), class: :note) %>
     </div>
