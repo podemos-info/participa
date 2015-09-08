@@ -1,0 +1,433 @@
+<fieldset>
+  <legend><span><%= t "podemos.impulsa.project_data_section" %></span></legend>
+  <% if @project.user_view_field? :impulsa_edition_category_id %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:impulsa_edition_category) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories, required: true, input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl', onchange:"submit()"} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.impulsa_edition_category_extra", legal: link_to(t("podemos.impulsa.legal"),@edition.legal_link)).html_safe, class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :name %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:name) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :name, required: true, input_html: {disabled: !@project.user_edit_field?(:name), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :short_description %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:short_description) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :short_description, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 600)), input_html: {disabled: !@project.user_edit_field?(:short_description), class: 'input-xl', maxlength: 600}  %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.short_description#{@project.needs_project_details? ? "": "_internal"}_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :impulsa_edition_topics %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:impulsa_edition_topics) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :impulsa_edition_topics, as: :check_boxes, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.impulsa_edition_topics_hint")), disabled: @project.user_edit_field?(:impulsa_edition_topics) ? [] : @edition.impulsa_edition_topics.all.map(&:id) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :logo %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:logo) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :logo, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_image"))), input_html: {disabled: !@project.user_edit_field?(:logo), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-image-o", text: @project.logo_file_name, class: "fa-fw"), @project.logo.url), class: :note) if @project.logo.exists? %>  
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :video_link %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:video_link) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :video_link, as: :url, input_html: {disabled: !@project.user_edit_field?(:video_link), class: 'input-xl', placeholder: 'http://youtube.com/'}, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.video_link_hint"))  %>
+    </div>
+  <% end %>
+  </fieldset>
+<% if @project.impulsa_edition_category %> 
+<% if @project.needs_authority? %>
+  <fieldset>
+    <legend><span><%= t "podemos.impulsa.authority_section" %></span></legend>
+  <% if @project.user_view_field? :authority %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:authority) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :authority, input_html: {disabled: !@project.user_edit_field?(:authority), class: 'input-xl'}, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.authority_hint")) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :authority_name %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:authority_name) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :authority_name, input_html: {disabled: !@project.user_edit_field?(:authority_name), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :authority_phone %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:authority_phone) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :authority_phone, input_html: {disabled: !@project.user_edit_field?(:authority_phone), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :authority_email %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:authority_email) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :authority_email, input_html: {disabled: !@project.user_edit_field?(:authority_email), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  </fieldset>
+<% end %>
+  <fieldset>
+    <legend><span><%= t "podemos.impulsa.organization_data#{@project.needs_project_details? ? "" : "_internal"}_section" %></span></legend>
+  <% if @project.user_view_field? :organization_type %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_type) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_type, include_blank: false, input_html: { disabled: !@project.user_edit_field?(:organization_type), class: 'input-xl', onchange:"submit()"}, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPES.map { |k,v| [ t("podemos.impulsa.organization_type.#{k}"), v]}  %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_name %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_name) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_name, input_html: {disabled: !@project.user_edit_field?(:organization_name), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_address %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_address) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_address, input_html: {disabled: !@project.user_edit_field?(:organization_address), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_web %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_web) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_web, input_html: {disabled: !@project.user_edit_field?(:organization_web), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_nif %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_nif) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_nif, input_html: {disabled: !@project.user_edit_field?(:organization_nif), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :scanned_nif %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:scanned_nif) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :scanned_nif, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:scanned_nif), class: 'input-xl'} %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.scanned_nif_file_name, class: "fa-fw"), @project.scanned_nif.url), class: :note) if @project.scanned_nif.exists? %>    
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_year %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_year) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_year, input_html: {disabled: !@project.user_edit_field?(:organization_year), class: 'input-s', min: 1000, max: Date.today.year+1} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_legal_name %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_legal_name) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_legal_name, input_html: {disabled: !@project.user_edit_field?(:organization_legal_name), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_legal_nif %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_legal_nif) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_legal_nif, input_html: {disabled: !@project.user_edit_field?(:organization_legal_nif), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :organization_mission %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_mission) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_mission, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 1500)), input_html: {class: 'input-xl', maxlength: 1500} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.organization_mission_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :additional_contact %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:additional_contact) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :additional_contact, input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :career %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:career) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :career, label: t("podemos.impulsa.career.#{@project.impulsa_edition_category.category_type_name}"), hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 2000)), input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl', maxlength: 2000} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.career_extra.#{@project.impulsa_edition_category.category_type_name}"), class: "fa-fw"), class: :note) %> 
+    </div>
+  <% end %>
+  </fieldset>
+  <% if @project.needs_project_details? %>
+  <fieldset>
+    <legend><span><%= t "podemos.impulsa.documents_section" %></span></legend>
+  <% if @project.user_view_field? :endorsement %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:endorsement) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :endorsement, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.endorsement_file_name, class: "fa-fw"), @project.endorsement.url), class: :note) if @project.endorsement.exists? %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :register_entry %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:register_entry) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :register_entry, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:register_entry), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.register_entry_file_name, class: "fa-fw"), @project.register_entry.url), class: :note) if @project.register_entry.exists? %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :statutes %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:statutes) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :statutes, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:statutes), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.statutes_file_name, class: "fa-fw"), @project.statutes.url), class: :note) if @project.statutes.exists? %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :responsible_nif %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:responsible_nif) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :responsible_nif, label: t("podemos.impulsa.responsible_nif.#{@project.organization_type_name}"), hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:responsible_nif), class: 'input-xl'} %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.responsible_nif_file_name, class: "fa-fw"), @project.responsible_nif.url), class: :note) if @project.responsible_nif.exists? %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :fiscal_obligations_certificate %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:fiscal_obligations_certificate) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :fiscal_obligations_certificate, label: t("podemos.impulsa.fiscal_obligations_certificate.#{@project.not_in_spain? ? "foreign" : "local" }"), hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:fiscal_obligations_certificate), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.fiscal_obligations_certificate_file_name, class: "fa-fw"), @project.fiscal_obligations_certificate.url), class: :note) if @project.fiscal_obligations_certificate.exists? %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :labor_obligations_certificate %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:labor_obligations_certificate) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :labor_obligations_certificate, label: t("podemos.impulsa.labor_obligations_certificate.#{@project.not_in_spain? ? "foreign" : "local" }"), hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:labor_obligations_certificate), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.labor_obligations_certificate_file_name, class: "fa-fw"), @project.labor_obligations_certificate.url), class: :note) if @project.labor_obligations_certificate.exists? %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :last_fiscal_year_report_of_activities %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:last_fiscal_year_report_of_activities) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :last_fiscal_year_report_of_activities, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:last_fiscal_year_report_of_activities), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.last_fiscal_year_report_of_activities_file_name, class: "fa-fw"), @project.last_fiscal_year_report_of_activities.url), class: :note) if @project.last_fiscal_year_report_of_activities.exists? %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.last_year_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :last_fiscal_year_annual_accounts %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:last_fiscal_year_annual_accounts) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :last_fiscal_year_annual_accounts, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:last_fiscal_year_annual_accounts), class: 'input-xl'}  %>
+      <%= content_tag(:p, link_to( fa_icon("file-pdf-o", text: @project.last_fiscal_year_annual_accounts_file_name, class: "fa-fw"), @project.last_fiscal_year_annual_accounts.url), class: :note) if @project.last_fiscal_year_annual_accounts.exists? %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.last_year_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :home_certificate %>
+      <div class="inputlabel-box">
+          <% if @project.errors.include?(:home_certificate) %>
+          <%= field_notice_box %>
+          <% end %>
+          <%= f.input :home_certificate, hint: fa_icon("exclamation-circle", t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:home_certificate), class: 'input-xl'}  %>
+      </div>
+  <% end %>
+  <% if @project.user_view_field? :bank_certificate %>
+      <div class="inputlabel-box">
+          <% if @project.errors.include?(:bank_certificate) %>
+          <%= field_notice_box %>
+          <% end %>
+          <%= f.input :bank_certificate, hint: fa_icon("exclamation-circle", t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:bank_certificate), class: 'input-xl'}  %>
+      </div>
+  <% end %>
+  </fieldset>
+  <fieldset>
+    <legend><span><%= t "podemos.impulsa.project_progress_section" %></span></legend>
+  <% if @project.user_view_field? :counterpart %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:counterpart) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :counterpart, input_html: {disabled: !@project.user_edit_field?(:counterpart), class: 'input-xl'}  %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.counterpart_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :territorial_context %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:territorial_context) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :territorial_context, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 1500)), input_html: {disabled: !@project.user_edit_field?(:territorial_context), class: 'input-xl', maxlength: 1500}   %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.territorial_context_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :long_description %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:long_description) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :long_description, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 2000)), input_html: {disabled: !@project.user_edit_field?(:long_description), class: 'input-xl', maxlength: 2000}  %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.long_description_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :aim %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:aim) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :aim, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 1500)), input_html: {disabled: !@project.user_edit_field?(:aim), class: 'input-xl', maxlength: 1500} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.aim_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :metodology %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:metodology) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :metodology, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 1500)), input_html: {disabled: !@project.user_edit_field?(:metodology), class: 'input-xl', maxlength: 1500} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.metodology_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :population_segment %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:population_segment) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :population_segment, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 1000)), input_html: {disabled: !@project.user_edit_field?(:population_segment), class: 'input-xl', maxlength: 1000} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.population_segment_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :schedule %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:schedule) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :schedule, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_spreadsheet"))), input_html: {disabled: !@project.user_edit_field?(:schedule), class: 'input-xl'} %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.schedule_model.url), class: "note right") if @project.impulsa_edition_category.schedule_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("file-excel-o", text: @project.schedule_file_name, class: "fa-fw"), @project.schedule.url), class: :note) if @project.schedule.exists? %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.schedule_extra", limit: @project.needs_additional_details? ? 12 : 6), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :activities_resources %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:activities_resources) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :activities_resources, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_document"))), input_html: {disabled: !@project.user_edit_field?(:activities_resources), class: 'input-xl'} %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.activities_resources_model.url), class: "note right") if @project.impulsa_edition_category.activities_resources_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("file-word-o", text: @project.activities_resources_file_name, class: "fa-fw"), @project.activities_resources.url), class: :note) if @project.activities_resources.exists? %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.activities_resources_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :requested_budget %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:requested_budget) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :requested_budget, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_spreadsheet"))), input_html: {disabled: !@project.user_edit_field?(:requested_budget), class: 'input-xl'} %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.requested_budget_model.url), class: "note right") if @project.impulsa_edition_category.requested_budget_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("file-excel-o", text: @project.requested_budget_file_name, class: "fa-fw"), @project.requested_budget.url), class: :note) if @project.requested_budget.exists? %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.requested_budget_extra", limit: number_to_euro(@project.impulsa_edition_category.prize*100)), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :monitoring_evaluation %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:monitoring_evaluation) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :monitoring_evaluation, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_spreadsheet"))), input_html: {disabled: !@project.user_edit_field?(:monitoring_evaluation), class: 'input-xl'} %>
+      <%= content_tag(:p, link_to( fa_icon("cloud-download", text: t("podemos.impulsa.model_link"), class: "fa-fw"), @project.impulsa_edition_category.monitoring_evaluation_model.url), class: "note right") if @project.impulsa_edition_category.monitoring_evaluation_model.exists? %>
+      <%= content_tag(:p, link_to( fa_icon("file-excel-o", text: @project.monitoring_evaluation_file_name, class: "fa-fw"), @project.monitoring_evaluation.url), class: :note) if @project.monitoring_evaluation.exists? %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.monitoring_evaluation_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  </fieldset>
+  <% end %>
+<% end %>
+  <% if @project.translatable? %>
+  <fieldset>
+    <legend><span><%= t "podemos.impulsa.translation_section" %></span></legend>
+  <% if @project.user_view_field? :coofficial_translation %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:coofficial_translation) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.label :coofficial_translation %>
+      <div class="input-box">
+        <%= f.check_box :coofficial_translation, class: 'checkbox', input_html: {disabled: !@project.user_edit_field?(:coofficial_translation)} %>
+        <%= content_tag(:p, t("podemos.impulsa.coofficial_translation", lang: I18n.name_for_locale(@project.impulsa_edition_category.coofficial_language).downcase), class:"text-xl") %>
+      </div>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :coofficial_name %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:coofficial_name) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :coofficial_name, input_html: {disabled: !@project.user_edit_field?(:coofficial_name), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :coofficial_short_description %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:coofficial_short_description) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :coofficial_short_description, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 600)), input_html: {disabled: !@project.user_edit_field?(:coofficial_short_description), class: 'input-xl', maxlength: 600}  %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.short_description_extra"), class: "fa-fw"), class: :note) %>
+    </div>
+  <% end %>
+  <% if @project.user_view_field? :coofficial_video_link %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:coofficial_video_link) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :coofficial_video_link, input_html: {disabled: !@project.user_edit_field?(:coofficial_video_link), class: 'input-xl'} %>
+    </div>
+  <% end %>
+  </fieldset>
+  <% end %>

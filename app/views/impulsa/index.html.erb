@@ -1,0 +1,33 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+
+      <% if @upcoming %>
+        <% i18n_start_at = I18n.localize @upcoming.start_at, :format => "%d de %B a las %H:%M" %>
+        <p style="text-align:center; margin:80px 0 80px 0;">
+          <%= link_to( t("podemos.impulsa.upcoming", start_at: i18n_start_at ), "http://podemos.info/wp-content/uploads/2015/08/calendario-impulsa2-cas.jpg", :class => "button button-danger", :title => "Ver calendario IMPULSA", :target => "_blank") %>
+        </p>
+      <% else %>
+        <p style="text-align:center; margin:80px 0 80px 0;">
+          <%= link_to "Edición activa: PRESENTA TU PROYECTO", new_impulsa_path, :class => "button", :title => "Presenta tu proyecto" %>
+        </p>
+      <% end %>
+
+<h3 style="margin-top:30px;">¿Qué es IMPULSA?</h3>
+
+<div style="width:50%;margin:0 2% 1% 0;float:left;">
+  <%= link_to image_tag('postal-impulsa2-05.jpg', :style => "width:100%;") %>
+</div>
+
+<p>IMPULSA nace para facilitar el desarrollo de proyectos emprendedores con proyección social. El apoyo ofrecido desde Podemos consiste en una dotación económica para los proyectos más votados por la gente, y en la posibilidad de utilizar el Banco de Talentos de Podemos para así abrir sus proyectos a nuevos colaboradores, y especialmente a aquellos de los que más necesitados están de sus habilidades. La dotación económica del Proyecto IMPULSA procede del remanente de los cargos públicos electos de Podemos, quienes con el compromiso de ser gente corriente y hacer de la política un servicio a la sociedad, tienen un límite salarial, de cuyo excedente procede la financiación de los proyectos ganadores. La existencia de un fondo común y de un sistema democrático, participativo y transparente de selección de proyectos permitirá evitar el desarrollo de vínculos entre los cargos públicos electos y las iniciativas concursantes que desvirtúen los objetivos del proyecto.</p>
+
+<p>En esta segunda edición de IMPULSA se contará con un presupuesto de 300.000 €, que serán distribuidos a partes iguales entre tres categorías: IMPULSA tu país; IMPULSA tu entorno; Podemos IMPULSA. Cada categoría cuenta con unos procesos de selección diferenciados (para más información consultar las bases). El plazo de presentación de proyectos comenzará el martes 8 de septiembre y finalizará el martes 22 de septiembre. Tras los plazos de revisión y del periodo de votaciones, del 13 al 18 de octubre, se presentarán los resultados oficiales el 22 de octubre.</p>
+
+<p style="text-align:right;"><%= link_to "Más información", "http://podemos.info/impulsa", :class => "button" %></p> 
+
+    </div>
+  </div>
+</div>
