@@ -164,6 +164,13 @@ fieldset .inputlabel-box input, fieldset .inputlabel-box textarea {
   padding:0.85em 1.5%;
   color:#555;
 }
+
+fieldset .inputlabel-box .error {
+  input, textarea, select {
+    background: #F5BFC9;
+  }
+}
+
 fieldset .inputlabel-box textarea {
   height: 4em;
 }

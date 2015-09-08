@@ -6,6 +6,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories, required: true, input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl', onchange:"submit()"} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.impulsa_edition_category_extra", legal: link_to(t("podemos.impulsa.legal"),@edition.legal.url)).html_safe, class: "fa-fw"), class: :note) %>
     </div>
   <% end %>
   <% if @project.user_view_field? :name %>
@@ -22,7 +23,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :short_description, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 600)), input_html: {disabled: !@project.user_edit_field?(:short_description), class: 'input-xl', maxlength: 600}  %>
-      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.short_description_extra"), class: "fa-fw"), class: :note) %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.short_description#{@project.needs_project_details? ? "": "_internal"}_extra"), class: "fa-fw"), class: :note) %>
     </div>
   <% end %>
   <% if @project.user_view_field? :impulsa_edition_topics %>
@@ -90,7 +91,7 @@
   </fieldset>
 <% end %>
   <fieldset>
-    <legend><span><%= t "podemos.impulsa.organization_data_section" %></span></legend>
+    <legend><span><%= t "podemos.impulsa.organization_data#{@project.needs_project_details? ? "" : "_internal"}_section" %></span></legend>
   <% if @project.user_view_field? :organization_type %>
     <div class="inputlabel-box">
       <% if @project.errors.include?(:organization_type) %>
@@ -170,6 +171,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :organization_mission, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.text_limit", limit: 1500)), input_html: {class: 'input-xl', maxlength: 1500} %>
+      <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.organization_mission_extra"), class: "fa-fw"), class: :note) %>
     </div>
   <% end %>
   <% if @project.user_view_field? :additional_contact %>

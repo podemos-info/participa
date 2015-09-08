@@ -14,7 +14,9 @@ ActiveAdmin.register ImpulsaProject do
     selectable_column
     id_column
     column :name
-    column :status_name
+    column :status_name do |impulsa_project|
+      t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
+    end
     column :user
     actions
   end
@@ -240,9 +242,9 @@ ActiveAdmin.register ImpulsaProject do
     def update_scopes
       resource = active_admin_config
 
-      ImpulsaProject::STATUS_NAMES.each do |status, id|
+      ImpulsaProject::PROJECT_STATUS.each do |status, id|
         if ! resource.scopes.any? { |scope| scope.name == status.to_s }
-          resource.scopes << ActiveAdmin::Scope.new( status ) do |projects| projects.by_status(id) end
+          resource.scopes << ActiveAdmin::Scope.new( t("podemos.impulsa.project_status.#{status}") ) do |projects| projects.by_status(id) end
         end
       end
     end

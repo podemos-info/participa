@@ -53,7 +53,7 @@ ActiveAdmin.register ImpulsaEdition do
         end
         column :actions do |impulsa_edition_category|
           span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category))
-          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category), method: :delete)
+          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category), method: :delete, data: { confirm: "¿Estas segura de querer borrar esta categoría?" }))
           span link_to('Ver proyectos', admin_impulsa_edition_category_impulsa_projects_path(impulsa_edition_category))
         end
       end
@@ -65,7 +65,7 @@ ActiveAdmin.register ImpulsaEdition do
         column :name
         column :actions do |topic|
           span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_topic_path(resource, topic))
-          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_topic_path(resource, topic), method: :delete)
+          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_topic_path(resource, topic), method: :delete, data: { confirm: "¿Estas segura de querer borrar esta temática?" })
         end
       end
       div link_to(t('active_admin.has_many_new', model: t("activerecord.models.impulsa_edition_topics")), new_admin_impulsa_edition_impulsa_edition_topic_path(resource))

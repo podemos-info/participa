@@ -154,9 +154,10 @@ class ImpulsaProject < ActiveRecord::Base
 
   def preload params
     if params
-      self.impulsa_edition_category_id = params[:impulsa_edition_category_id]
+      self.impulsa_edition_category_id = params[:impulsa_edition_category_id] if params[:impulsa_edition_category_id]
       if self.allows_organization_types?
-        self.organization_type = params[:organization_type] || 0 
+        self.organization_type = params[:organization_type] if params[:organization_type]
+        self.organization_type = 0 if self.organization_type.nil?
       end
     end
   end

@@ -15,6 +15,12 @@ class ImpulsaController < ApplicationController
 
   def edit
     redirect_to new_impulsa_path unless @project
+    
+    if @project.fixes?
+      @project.review_fields.each do |field, message|
+        @project.errors.add field, message
+      end
+    end
   end
 
   def modify
@@ -50,7 +56,8 @@ class ImpulsaController < ApplicationController
     @edition = ImpulsaEdition.current
     return if @edition.nil?
 
-    @project = @edition.impulsa_projects.where(user:current_user).first 
+    @project = @edition.impulsa_projects.where(user:current_user).first
+
     @available_categories = @edition.impulsa_edition_categories
     @available_categories = @available_categories.non_authors if !current_user.impulsa_author?
   end
