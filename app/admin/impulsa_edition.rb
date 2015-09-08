@@ -53,7 +53,7 @@ ActiveAdmin.register ImpulsaEdition do
         end
         column :actions do |impulsa_edition_category|
           span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category))
-          span link_to(t('active_admin.delete'),  admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category), method: :delete, data: { confirm: "¿Estas segura de querer borrar esta categoría?" }))
+          span link_to(t('active_admin.delete'), admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category), method: :delete, data: { confirm: "¿Estas segura de querer borrar esta categoría?" })
           span link_to('Ver proyectos', admin_impulsa_edition_category_impulsa_projects_path(impulsa_edition_category))
         end
       end

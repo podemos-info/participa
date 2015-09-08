@@ -5,7 +5,7 @@ class ImpulsaController < ApplicationController
  
   def new
     if @edition
-      redirect_to edit_impulsa_path if @project
+      redirect_to edit_impulsa_path and return if @project
       new_user_project
     else
       @upcoming = ImpulsaEdition.upcoming.first
@@ -14,7 +14,7 @@ class ImpulsaController < ApplicationController
   end
 
   def edit
-    redirect_to new_impulsa_path unless @project
+    redirect_to new_impulsa_path and return unless @project
     
     if @project.fixes?
       @project.review_fields.each do |field, message|
@@ -24,7 +24,7 @@ class ImpulsaController < ApplicationController
   end
 
   def modify
-    redirect_to new_impulsa_path unless @project
+    redirect_to new_impulsa_path and return unless @project
     @project.preload(params[:impulsa_project])
     @project.assign_attributes project_params
 
@@ -40,7 +40,7 @@ class ImpulsaController < ApplicationController
   end
 
   def create
-    redirect_to edit_impulsa_path if @project
+    redirect_to edit_impulsa_path and return if @project
     new_user_project
 
     if params[:commit] and @project.save
