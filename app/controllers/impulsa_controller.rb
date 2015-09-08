@@ -22,15 +22,15 @@ class ImpulsaController < ApplicationController
     @project.preload(params[:impulsa_project])
     @project.assign_attributes project_params
 
-    if params[:commit].blank?
-      render 'edit'
-    else
+    if params[:commit]
       @project.mark_for_review if params[:commit]==t("podemos.impulsa.mark_for_review")
       if @project.save
         flash[:notice] = "Los cambios han sido guardados"
         redirect_to edit_impulsa_path
+        return
       end
     end
+    render :edit
   end
 
   def create
@@ -39,9 +39,9 @@ class ImpulsaController < ApplicationController
 
     if params[:commit] and @project.save
       redirect_to edit_impulsa_path, notice: "El proyecto ha sido guardado."
-    else
-      render :new
+      return
     end
+    render :new
   end
 
   private

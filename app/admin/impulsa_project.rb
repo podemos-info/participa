@@ -37,7 +37,9 @@ ActiveAdmin.register ImpulsaProject do
         row :user do 
           link_to(impulsa_project.user.full_name,admin_user_path(impulsa_project.user)) if impulsa_project.user
         end
-        row :status_name
+        row :status do
+          t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
+        end
         row :additional_contact
         row :counterpart_information
       end
@@ -167,7 +169,7 @@ ActiveAdmin.register ImpulsaProject do
       else
         f.input :user_id, as: :number
       end
-      f.input :status, as: :select, collection: ImpulsaProject::STATUS_NAMES.to_a
+      f.input :status, as: :select, collection: ImpulsaProject::PROJECT_STATUS.map { |k,v| [ t("podemos.impulsa.project_status.#{k}"), v ]}
       f.input :additional_contact
       f.input :counterpart_information
     end

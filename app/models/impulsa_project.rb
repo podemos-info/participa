@@ -27,7 +27,12 @@ class ImpulsaProject < ActiveRecord::Base
   validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
   validates :name, :impulsa_edition_category_id, :status, presence: true
 
-  #validates :authority, :authority_name, :authority_phone, :authority_email, :organization_type, :organization_name, :organization_address, :organization_web, :organization_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :career, :additional_contact, :counterpart, :territorial_context, :short_description, :long_description, :aim, :metodology, :population_segment, :video_link, :alternative_language, :alternative_name, :alternative_organization_mission, :alternative_career, :alternative_territorial_context, :alternative_short_description, :alternative_long_description, :alternative_aim, :alternative_metodology, :alternative_population_segment, :scanned_nif, :logo, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :schedule, :activities_resources, :requested_budget, :monitoring_evaluation, :endorsement, :register_entry, :statutes, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :home_certificate, :bank_certificate,:last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :impulsa_edition_topic_ids, :terms_of_service, :data_truthfulness
+  validate :if => :marked_for_review? do |project|
+    project.user_editable_fields.each do |field|
+      project.validates_presence_of field if !FIELDS[:optional].member?(field)
+    end
+  end
+
   validates :authority_email, allow_blank: true, email: true
   validates :organization_web, :video_link, allow_blank: true, url: true
   validates :organization_year, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: Date.today.year }
@@ -73,16 +78,17 @@ class ImpulsaProject < ActiveRecord::Base
 
   scope :by_status, ->(status) { where( status: status ) }
 
-  STATUS_NAMES = {
-    "Nuevo" => 0,
-    "Corregir" => 1,
-    "Corregible" => 2,
-    "Por validar" => 3,
-    "Validado" => 4,
-    "No seleccionado" => 5,
-    "Descartado" => 6,
-    "Renuncia" => 7,
-    "Premiado" => 8
+  PROJECT_STATUS = {
+    new: 0,
+    review: 1,
+    fixes: 2,
+    review_fixes: 3,
+    validate: 4,
+    invalidated: 5,
+    validated: 6,
+    discarded: 7,
+    resigned: 8,
+    winner: 9
   }
 
   FIELDS = {
@@ -95,11 +101,13 @@ class ImpulsaProject < ActiveRecord::Base
     non_organization: [ :career ],
     not_in_spain: [ :home_certificate, :bank_certificate ],
     non_project_details: [ :additional_contact ],
-    project_details: [ :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate],
+    project_details: [ :impulsa_edition_topics, :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate],
     additional_details: [ :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :monitoring_evaluation ], 
     translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link ],
     new: [ :terms_of_service, :data_truthfulness ],
-    update: [ :data_truthfulness ]
+    update: [ :data_truthfulness ],
+
+    optional: [ :counterpart_information, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
   }
 
   ADMIN_REVIEWABLE_FIELDS = FIELDS[:always] + FIELDS[:with_category] + FIELDS[:authority] + FIELDS[:organization_types] + FIELDS[:full_organization] + FIELDS[:non_organization] + FIELDS[:not_in_spain] + FIELDS[:non_project_details] + FIELDS[:project_details] + FIELDS[:additional_details] + FIELDS[:translation]
@@ -113,15 +121,31 @@ class ImpulsaProject < ActiveRecord::Base
   }
 
   def new?
-    self.status==0
+    self.status==PROJECT_STATUS[:new]
+  end
+
+  def fixes?
+    self.status==PROJECT_STATUS[:fixes]
+  end
+
+  def allow_save_draft?
+    self.new? || (self.status==PROJECT_STATUS[:review] && self.errors.any?)
+  end
+
+  def marked_for_review?
+    self.status==PROJECT_STATUS[:review] || self.status==PROJECT_STATUS[:review_fixes]
   end
 
   def mark_for_review
-    self.status=1
+    if self.new?
+      self.status=PROJECT_STATUS[:review]
+    elsif self.fixes?
+      self.status=PROJECT_STATUS[:review_fixes]
+    end
   end
-  
+
   def editable?
-    self.status < 3 && self.impulsa_edition.current_phase < ImpulsaEdition::EDITION_PHASES[:validation_projects]
+    self.status < PROJECT_STATUS[:validate] && self.impulsa_edition.current_phase < ImpulsaEdition::EDITION_PHASES[:validation_projects]
   end
 
   def reviewable?
@@ -171,11 +195,15 @@ class ImpulsaProject < ActiveRecord::Base
     fields.uniq
   end
 
+  def user_edit_field? field
+    user_editable_fields.member? field
+  end
+  
   def user_editable_fields
     case self.status
-      when 0
+      when 0..1
         self.user_viewable_fields
-      when 1..2
+      when 2
         review_fields.symbolize_keys.keys
       else
         []

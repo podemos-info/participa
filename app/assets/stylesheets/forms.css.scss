@@ -136,8 +136,10 @@ fieldset .inputlabel-box{
   padding-bottom:1em;
   position:relative;
 }
-fieldset .inputlabel-box *{
-  font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
+fieldset .inputlabel-box {
+  input, label, select, textarea, p {
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
+  }
 }
 fieldset .inputlabel-box-hint label {
   height: 28px;
@@ -226,10 +228,18 @@ fieldset .inputlabel-box p{
   float:left;
   border:none;
   padding:0;
-  color:#999;
+  color:#666;
   margin:0;
 }
-
+fieldset .inputlabel-box p.note {
+  border:none;
+  padding: 0px;
+  margin: 5px 10px 15px;
+  clear: left;
+  &.right {
+    float: right;
+  }
+}
 fieldset .alert-nexttolabel{
   display:inline-block;
   background:#d7cad8;
@@ -396,6 +406,7 @@ span.help-block {
     text-decoration: underline;
     cursor: pointer;
   }
+  display: block;
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------
