@@ -136,6 +136,10 @@ class ImpulsaProject < ActiveRecord::Base
     self.status==PROJECT_STATUS[:review] || self.status==PROJECT_STATUS[:review_fixes]
   end
 
+  def mark_as_new
+    self.status=PROJECT_STATUS[:new] if self.status==PROJECT_STATUS[:review]
+  end
+
   def mark_for_review
     if self.new?
       self.status=PROJECT_STATUS[:review]

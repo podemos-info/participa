@@ -32,6 +32,7 @@ class ImpulsaController < ApplicationController
     @project.assign_attributes project_params
 
     if params[:commit]
+      @project.mark_as_new if params[:commit]==t("podemos.impulsa.save_draft")
       @project.mark_for_review if params[:commit]==t("podemos.impulsa.mark_for_review")
       if @project.save
         flash[:notice] = "Los cambios han sido guardados"
@@ -73,6 +74,10 @@ class ImpulsaController < ApplicationController
   end
 
   def project_params
-    params.require(:impulsa_project).permit(@project.user_editable_fields)
+    if @project.user_edit_field?(:impulsa_edition_topics)
+      params.require(:impulsa_project).permit(@project.user_editable_fields, impulsa_edition_topic_ids:[])
+    else
+      params.require(:impulsa_project).permit(@project.user_editable_fields)
+    end
   end
 end
