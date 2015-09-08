@@ -127,7 +127,8 @@ Rails.application.routes.draw do
       end
 
       scope :impulsa do
-        get '', to: 'impulsa#new', as: 'new_impulsa'
+        get '', to: 'impulsa#index', as: 'index_impulsa'
+        get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
         get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
         post 'crear', to: 'impulsa#create', as: 'create_impulsa'
         post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'

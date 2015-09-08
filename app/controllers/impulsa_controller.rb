@@ -8,8 +8,12 @@ class ImpulsaController < ApplicationController
       new_user_project
     else
       @upcoming = ImpulsaEdition.upcoming.first
-      render :inactive
+      render :index
     end
+  end
+
+  def index
+    @upcoming = ImpulsaEdition.upcoming.first
   end
 
   def edit
