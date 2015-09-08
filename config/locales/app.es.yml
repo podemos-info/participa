@@ -87,11 +87,21 @@ es:
               blank: "Debes indicar tu contraseña para validar los cambios."
             password_confirmation: "Contraseña (repetir)"
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
+        impulsa_edition:
+          attributes:
             terms_of_service: "Acepto las condiciones generales"
+            legal_es:
+              url: "El enlace a las bases en español debe ser una dirección web."
+            legal_eu:
+              url: "El enlace a las bases en euskera debe ser una dirección web."
+            legal_ca:
+              url: "El enlace a las bases en catalán debe ser una dirección web."
+            legal_ga:
+              url: "El enlace a las bases en gallego debe ser una dirección web."
         impulsa_project:
           attributes:
             video_link:
-              url:
+              url: "El enlace al video debe ser una dirección web."
     attributes:
       impulsa_edition:
         name: "Nombre"
