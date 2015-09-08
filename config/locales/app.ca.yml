@@ -1,4 +1,6 @@
 ca:
+  meta:
+    language_name: "Català"
   microcredit:
     common:
       title: "Microcrèdits %{name}"

@@ -288,6 +288,22 @@ ActiveAdmin.register User do
     redirect_to action: :show
   end
 
+  action_item(:impulsa_author, only: :show) do
+    if user.impulsa_author?
+      link_to('Quitar autor Impulsa', impulsa_author_admin_user_path(user), method: :delete, data: { confirm: "¿Estas segura de que este usuario ya no puede crear proyectos especiales en Impulsa?" })
+    else
+      link_to('Autor Impulsa', impulsa_author_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de que este usuario puede crear proyectos especiales en Impulsa?" })
+    end
+  end
+
+  member_action :impulsa_author, :method => [:post, :delete] do
+    u = User.find( params[:id] )
+    u.impulsa_author = request.post?
+    u.save
+    flash[:notice] = "El usuario ya #{"no" if request.delete?} puede crear proyectos especiales en Impulsa"
+    redirect_to action: :show
+  end
+
   member_action :recover, :method => :post do
     user = User.with_deleted.find(params[:id])
     user.restore

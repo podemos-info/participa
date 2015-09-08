@@ -136,8 +136,10 @@ fieldset .inputlabel-box{
   padding-bottom:1em;
   position:relative;
 }
-fieldset .inputlabel-box *{
-  font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
+fieldset .inputlabel-box {
+  input, label, select, textarea, p {
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
+  }
 }
 fieldset .inputlabel-box-hint label {
   height: 28px;
@@ -155,21 +157,22 @@ fieldset .inputlabel-box span.no-label,
 .content-content span.no-input{
   font-weight:bold;
 }
-fieldset .inputlabel-box input{
+fieldset .inputlabel-box input, fieldset .inputlabel-box textarea {
   background:#eaeaea;
   float:left;
   border:none;
   padding:0.85em 1.5%;
   color:#555;
 }
-fieldset .inputlabel-box input.input-xl{
-  width:100%;
+
+fieldset .inputlabel-box .error {
+  input, textarea, select {
+    background: #F5BFC9;
+  }
 }
-fieldset .inputlabel-box input.input-m{
-  width:66%;
-}
-fieldset .inputlabel-box input.input-s{
-  width:33%;
+
+fieldset .inputlabel-box textarea {
+  height: 4em;
 }
 fieldset .inputlabel-box .input-box,
 fieldset .inputlabel-box .form-wrapper{
@@ -187,14 +190,14 @@ fieldset .inputlabel-box .input-box p{
   float:left;
   border:none;
 }
-fieldset .inputlabel-box input.input-xl{
+fieldset .inputlabel-box input.input-xl, fieldset .inputlabel-box textarea.input-xl{
   width:99%;
 }
-fieldset .inputlabel-box input.input-m{
+fieldset .inputlabel-box input.input-m, fieldset .inputlabel-box textarea.input-m{
   width:62%;
   margin-right:2%;
 }
-fieldset .inputlabel-box input.input-s{
+fieldset .inputlabel-box input.input-s, fieldset .inputlabel-box textarea.input-s{
   width:29%;
   margin-right:2%;
 }
@@ -232,10 +235,18 @@ fieldset .inputlabel-box p{
   float:left;
   border:none;
   padding:0;
-  color:#999;
+  color:#666;
   margin:0;
 }
-
+fieldset .inputlabel-box p.note {
+  border:none;
+  padding: 0px;
+  margin: 5px 10px 15px;
+  clear: left;
+  &.right {
+    float: right;
+  }
+}
 fieldset .alert-nexttolabel{
   display:inline-block;
   background:#d7cad8;
@@ -287,6 +298,14 @@ fieldset .inputlabel-box .rb-unit label{
   width:auto;
   white-space:nowrap;
 }
+
+fieldset .inputlabel-box label.choice {
+  width: 100%;
+  input {
+    margin: 5px;
+  }
+}
+
 .rb-box-1col .rb-unit{
   width:63%;
 }
@@ -394,6 +413,7 @@ span.help-block {
     text-decoration: underline;
     cursor: pointer;
   }
+  display: block;
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------

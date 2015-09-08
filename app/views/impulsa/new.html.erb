@@ -1,0 +1,54 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <%= info_box do %>
+        <%= content_tag(:p, t("podemos.impulsa.choose_user_text")) %>
+        <%= content_tag(:p, t("podemos.impulsa.save_draft_text", save_draft:t("podemos.impulsa.save_draft"))) %>
+        <%= content_tag(:p, t("podemos.impulsa.mark_for_review_text", mark_for_review:t("podemos.impulsa.mark_for_review"))) %>
+      <% end %>
+      <%= errors_in_form @project %>
+      <%= semantic_form_for @project, url: create_impulsa_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+
+        <%= render partial: "form", locals: { f: f } %>
+        <fieldset>
+
+          <% if @project.user_view_field? :terms_of_service %>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:terms_of_service) %>
+                <%= field_notice_box %>
+            <% end %>
+
+            <%= f.label :terms_of_service %>
+            <div class="input-box">
+              <%= f.check_box :terms_of_service, class: 'checkbox' %>
+              <p class="text-xl"><%= t("podemos.impulsa.terms_of_service", link: @edition.legal_link).html_safe %></p>
+            </div>
+          </div>
+          <% end %>
+
+          <% if @project.user_view_field? :data_truthfulness %>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:data_truthfulness) %>
+                <%= field_notice_box %>
+            <% end %>
+
+            <%= f.label :data_truthfulness %>
+            <div class="input-box">
+              <%= f.check_box :data_truthfulness, class: 'checkbox' %>
+              <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
+            </div>
+          </div>
+          <% end %>
+        </fieldset>
+        <%= f.actions class: 'enter' do %>
+          <%= f.action :submit, :label=>t("podemos.impulsa.save_draft"), :as => :input, button_html: {class: 'button'} %>
+          <%= f.action :submit, :label=>t("podemos.impulsa.mark_for_review"), :as => :input, button_html: {class: 'button button-danger'} %>
+        <% end %> 
+      <% end %>
+    </div>
+  </div>
+</div>

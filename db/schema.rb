@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716155237) do
+ActiveRecord::Schema.define(version: 20150908112739) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -132,6 +132,189 @@ ActiveRecord::Schema.define(version: 20150716155237) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "impulsa_edition_categories", force: :cascade do |t|
+    t.integer  "impulsa_edition_id"
+    t.string   "name",                                              null: false
+    t.integer  "category_type",                                     null: false
+    t.integer  "winners"
+    t.integer  "prize"
+    t.string   "territories"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.boolean  "only_authors"
+    t.string   "coofficial_language"
+    t.string   "schedule_model_override_file_name"
+    t.string   "schedule_model_override_content_type"
+    t.integer  "schedule_model_override_file_size"
+    t.datetime "schedule_model_override_updated_at"
+    t.string   "activities_resources_model_override_file_name"
+    t.string   "activities_resources_model_override_content_type"
+    t.integer  "activities_resources_model_override_file_size"
+    t.datetime "activities_resources_model_override_updated_at"
+    t.string   "requested_budget_model_override_file_name"
+    t.string   "requested_budget_model_override_content_type"
+    t.integer  "requested_budget_model_override_file_size"
+    t.datetime "requested_budget_model_override_updated_at"
+    t.string   "monitoring_evaluation_model_override_file_name"
+    t.string   "monitoring_evaluation_model_override_content_type"
+    t.integer  "monitoring_evaluation_model_override_file_size"
+    t.datetime "monitoring_evaluation_model_override_updated_at"
+  end
+
+  add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
+
+  create_table "impulsa_edition_topics", force: :cascade do |t|
+    t.integer  "impulsa_edition_id"
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "impulsa_edition_topics", ["impulsa_edition_id"], name: "index_impulsa_edition_topics_on_impulsa_edition_id"
+
+  create_table "impulsa_editions", force: :cascade do |t|
+    t.string   "name",                                     null: false
+    t.datetime "start_at"
+    t.datetime "new_projects_until"
+    t.datetime "review_projects_until"
+    t.datetime "validation_projects_until"
+    t.datetime "ends_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "schedule_model_file_name"
+    t.string   "schedule_model_content_type"
+    t.integer  "schedule_model_file_size"
+    t.datetime "schedule_model_updated_at"
+    t.string   "activities_resources_model_file_name"
+    t.string   "activities_resources_model_content_type"
+    t.integer  "activities_resources_model_file_size"
+    t.datetime "activities_resources_model_updated_at"
+    t.string   "requested_budget_model_file_name"
+    t.string   "requested_budget_model_content_type"
+    t.integer  "requested_budget_model_file_size"
+    t.datetime "requested_budget_model_updated_at"
+    t.string   "monitoring_evaluation_model_file_name"
+    t.string   "monitoring_evaluation_model_content_type"
+    t.integer  "monitoring_evaluation_model_file_size"
+    t.datetime "monitoring_evaluation_model_updated_at"
+    t.text     "legal"
+  end
+
+  create_table "impulsa_project_topics", force: :cascade do |t|
+    t.integer  "impulsa_project_id"
+    t.integer  "impulsa_edition_topic_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "impulsa_project_topics", ["impulsa_edition_topic_id"], name: "index_impulsa_project_topics_on_impulsa_edition_topic_id"
+  add_index "impulsa_project_topics", ["impulsa_project_id"], name: "index_impulsa_project_topics_on_impulsa_project_id"
+
+  create_table "impulsa_projects", force: :cascade do |t|
+    t.integer  "impulsa_edition_category_id"
+    t.integer  "user_id"
+    t.integer  "status",                                             default: 0, null: false
+    t.string   "review_fields"
+    t.text     "additional_contact"
+    t.text     "counterpart_information"
+    t.string   "name",                                                           null: false
+    t.string   "authority"
+    t.string   "authority_name"
+    t.string   "authority_phone"
+    t.string   "authority_email"
+    t.string   "organization_name"
+    t.text     "organization_address"
+    t.string   "organization_web"
+    t.string   "organization_nif"
+    t.integer  "organization_year"
+    t.string   "organization_legal_name"
+    t.string   "organization_legal_email"
+    t.text     "organization_mission"
+    t.text     "career"
+    t.string   "counterpart"
+    t.text     "territorial_context"
+    t.text     "short_description"
+    t.text     "long_description"
+    t.text     "aim"
+    t.text     "metodology"
+    t.text     "population_segment"
+    t.string   "video_link"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "endorsement_file_name"
+    t.string   "endorsement_content_type"
+    t.integer  "endorsement_file_size"
+    t.datetime "endorsement_updated_at"
+    t.string   "register_entry_file_name"
+    t.string   "register_entry_content_type"
+    t.integer  "register_entry_file_size"
+    t.datetime "register_entry_updated_at"
+    t.string   "statutes_file_name"
+    t.string   "statutes_content_type"
+    t.integer  "statutes_file_size"
+    t.datetime "statutes_updated_at"
+    t.string   "responsible_nif_file_name"
+    t.string   "responsible_nif_content_type"
+    t.integer  "responsible_nif_file_size"
+    t.datetime "responsible_nif_updated_at"
+    t.string   "fiscal_obligations_certificate_file_name"
+    t.string   "fiscal_obligations_certificate_content_type"
+    t.integer  "fiscal_obligations_certificate_file_size"
+    t.datetime "fiscal_obligations_certificate_updated_at"
+    t.string   "labor_obligations_certificate_file_name"
+    t.string   "labor_obligations_certificate_content_type"
+    t.integer  "labor_obligations_certificate_file_size"
+    t.datetime "labor_obligations_certificate_updated_at"
+    t.string   "last_fiscal_year_report_of_activities_file_name"
+    t.string   "last_fiscal_year_report_of_activities_content_type"
+    t.integer  "last_fiscal_year_report_of_activities_file_size"
+    t.datetime "last_fiscal_year_report_of_activities_updated_at"
+    t.string   "last_fiscal_year_annual_accounts_file_name"
+    t.string   "last_fiscal_year_annual_accounts_content_type"
+    t.integer  "last_fiscal_year_annual_accounts_file_size"
+    t.datetime "last_fiscal_year_annual_accounts_updated_at"
+    t.string   "schedule_file_name"
+    t.string   "schedule_content_type"
+    t.integer  "schedule_file_size"
+    t.datetime "schedule_updated_at"
+    t.string   "activities_resources_file_name"
+    t.string   "activities_resources_content_type"
+    t.integer  "activities_resources_file_size"
+    t.datetime "activities_resources_updated_at"
+    t.string   "requested_budget_file_name"
+    t.string   "requested_budget_content_type"
+    t.integer  "requested_budget_file_size"
+    t.datetime "requested_budget_updated_at"
+    t.string   "monitoring_evaluation_file_name"
+    t.string   "monitoring_evaluation_content_type"
+    t.integer  "monitoring_evaluation_file_size"
+    t.datetime "monitoring_evaluation_updated_at"
+    t.integer  "organization_type"
+    t.string   "scanned_nif_file_name"
+    t.string   "scanned_nif_content_type"
+    t.integer  "scanned_nif_file_size"
+    t.datetime "scanned_nif_updated_at"
+    t.string   "home_certificate_file_name"
+    t.string   "home_certificate_content_type"
+    t.integer  "home_certificate_file_size"
+    t.datetime "home_certificate_updated_at"
+    t.string   "bank_certificate_file_name"
+    t.string   "bank_certificate_content_type"
+    t.integer  "bank_certificate_file_size"
+    t.datetime "bank_certificate_updated_at"
+    t.boolean  "coofficial_translation"
+    t.string   "coofficial_name"
+    t.text     "coofficial_short_description"
+    t.string   "coofficial_video_link"
+  end
+
+  add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"
+  add_index "impulsa_projects", ["user_id"], name: "index_impulsa_projects_on_user_id"
 
   create_table "microcredit_loans", force: :cascade do |t|
     t.integer  "microcredit_id"
