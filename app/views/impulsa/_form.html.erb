@@ -9,6 +9,14 @@
       <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.impulsa_edition_category_extra", legal: link_to(t("podemos.impulsa.legal"),@edition.legal_link)).html_safe, class: "fa-fw"), class: :note) %>
     </div>
   <% end %>
+  <% if @project.user_view_field? :organization_type %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:organization_type) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :organization_type, include_blank: false, input_html: { disabled: !@project.user_edit_field?(:organization_type), class: 'input-xl', onchange:"submit()"}, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPES.map { |k,v| [ t("podemos.impulsa.organization_type.#{k}"), v]}  %>
+    </div>
+  <% end %>
   <% if @project.user_view_field? :name %>
     <div class="inputlabel-box">
       <% if @project.errors.include?(:name) %>
@@ -92,14 +100,6 @@
 <% end %>
   <fieldset>
     <legend><span><%= t "podemos.impulsa.organization_data#{@project.needs_project_details? ? "" : "_internal"}_section" %></span></legend>
-  <% if @project.user_view_field? :organization_type %>
-    <div class="inputlabel-box">
-      <% if @project.errors.include?(:organization_type) %>
-      <%= field_notice_box %>
-      <% end %>
-      <%= f.input :organization_type, include_blank: false, input_html: { disabled: !@project.user_edit_field?(:organization_type), class: 'input-xl', onchange:"submit()"}, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPES.map { |k,v| [ t("podemos.impulsa.organization_type.#{k}"), v]}  %>
-    </div>
-  <% end %>
   <% if @project.user_view_field? :organization_name %>
     <div class="inputlabel-box">
       <% if @project.errors.include?(:organization_name) %>
@@ -274,7 +274,7 @@
           <% if @project.errors.include?(:home_certificate) %>
           <%= field_notice_box %>
           <% end %>
-          <%= f.input :home_certificate, hint: fa_icon("exclamation-circle", t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:home_certificate), class: 'input-xl'}  %>
+          <%= f.input :home_certificate, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:home_certificate), class: 'input-xl'}  %>
       </div>
   <% end %>
   <% if @project.user_view_field? :bank_certificate %>
@@ -282,7 +282,7 @@
           <% if @project.errors.include?(:bank_certificate) %>
           <%= field_notice_box %>
           <% end %>
-          <%= f.input :bank_certificate, hint: fa_icon("exclamation-circle", t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:bank_certificate), class: 'input-xl'}  %>
+          <%= f.input :bank_certificate, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.file_validation", file_size: "1Mb", file_type: t("podemos.impulsa.file_type_pdf"))), input_html: {disabled: !@project.user_edit_field?(:bank_certificate), class: 'input-xl'}  %>
       </div>
   <% end %>
   </fieldset>
