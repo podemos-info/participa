@@ -78,7 +78,7 @@ ActiveAdmin.register ImpulsaProject do
     panel t("podemos.impulsa.organization_data_section") do
       attributes_table_for impulsa_project do
         row :organization_type do |impulsa_project|
-          t("podemos.impulsa.organization_type." + impulsa_project.organization_type_name) if impulsa_project.organization_type_name
+          t("podemos.impulsa.organization_type.#{impulsa_project.organization_type_name}") if impulsa_project.organization_type
         end 
         row :organization_name
         row :organization_address
