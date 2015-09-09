@@ -1,6 +1,6 @@
 ActiveAdmin.register Report do
   menu :parent => "Users"
-  permit_params  :title, :query, :main_group, :groups
+  permit_params  :title, :query, :main_group, :groups, :version_at
 
   index do
     selectable_column
