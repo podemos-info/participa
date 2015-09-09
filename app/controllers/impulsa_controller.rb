@@ -30,7 +30,7 @@ class ImpulsaController < ApplicationController
 
     @project.preload(params[:impulsa_project])
     @project.assign_attributes project_params
-    cache_files
+    #cache_files
 
     if params[:commit]
       @project.mark_as_new if params[:commit]==t("podemos.impulsa.save_draft")
@@ -49,7 +49,7 @@ class ImpulsaController < ApplicationController
   def create
     redirect_to edit_impulsa_path and return if @project
     new_user_project
-    cache_files
+    #cache_files
 
     if params[:commit] and @project.save
       redirect_to edit_impulsa_path, notice: "El proyecto ha sido guardado."
