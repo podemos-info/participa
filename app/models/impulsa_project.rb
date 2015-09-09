@@ -24,6 +24,27 @@ class ImpulsaProject < ActiveRecord::Base
   has_attached_file :requested_budget
   has_attached_file :monitoring_evaluation
 
+  attr_accessor :logo_cache, :scanned_nif_cache, :endorsement_cache, :register_entry_cache, :statutes_cache, :responsible_nif_cache, :fiscal_obligations_certificate_cache, :labor_obligations_certificate_cache, :home_certificate_cache, :bank_certificate_cache, :last_fiscal_year_report_of_activities_cache, :last_fiscal_year_annual_accounts_cache, :schedule_cache, :activities_resources_cache, :requested_budget_cache, :monitoring_evaluation_cache
+
+  def cache_project_files
+    @logo_cache = cache_files( logo, @logo_cache, lambda {|f| assign_attributes(logo: f)} )
+    @scanned_nif_cache = cache_files( scanned_nif, @scanned_nif_cache, lambda {|f| assign_attributes(scanned_nif: f)} )
+    @endorsement_cache = cache_files( endorsement, @endorsement_cache, lambda {|f| assign_attributes(endorsement: f)} )
+    @register_entry_cache = cache_files( register_entry, @register_entry_cache, lambda {|f| assign_attributes(register_entry: f)} )
+    @statutes_cache = cache_files( statutes, @statutes_cache, lambda {|f| assign_attributes(statutes: f)} )
+    @responsible_nif_cache = cache_files( responsible_nif, @responsible_nif_cache, lambda {|f| assign_attributes(responsible_nif: f)} )
+    @fiscal_obligations_certificate_cache = cache_files( fiscal_obligations_certificate, @fiscal_obligations_certificate_cache, lambda {|f| assign_attributes(fiscal_obligations_certificate: f)} )
+    @labor_obligations_certificate_cache = cache_files( labor_obligations_certificate, @labor_obligations_certificate_cache, lambda {|f| assign_attributes(labor_obligations_certificate: f)} )
+    @home_certificate_cache = cache_files( home_certificate, @home_certificate_cache, lambda {|f| assign_attributes(home_certificate: f)} )
+    @bank_certificate_cache = cache_files( bank_certificate, @bank_certificate_cache, lambda {|f| assign_attributes(bank_certificate: f)} )
+    @last_fiscal_year_report_of_activities_cache = cache_files( last_fiscal_year_report_of_activities, @last_fiscal_year_report_of_activities_cache, lambda {|f| assign_attributes(last_fiscal_year_report_of_activities: f)} )
+    @last_fiscal_year_annual_accounts_cache = cache_files( last_fiscal_year_annual_accounts, @last_fiscal_year_annual_accounts_cache, lambda {|f| assign_attributes(last_fiscal_year_annual_accounts: f)} )
+    @schedule_cache = cache_files( schedule, @schedule_cache, lambda {|f| assign_attributes(schedule: f)} )
+    @activities_resources_cache = cache_files( activities_resources, @activities_resources_cache, lambda {|f| assign_attributes(activities_resources: f)} )
+    @requested_budget_cache = cache_files( requested_budget, @requested_budget_cache, lambda {|f| assign_attributes(requested_budget: f)} )
+    @monitoring_evaluation_cache = cache_files( monitoring_evaluation, @monitoring_evaluation_cache, lambda {|f| assign_attributes(monitoring_evaluation: f)} )
+  end
+
   validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
   validates :name, :impulsa_edition_category_id, :status, presence: true
 
@@ -201,7 +222,7 @@ class ImpulsaProject < ActiveRecord::Base
         review_fields.symbolize_keys.keys
       else
         []
-      end
+    end
   end
 
   def status_name
@@ -285,6 +306,12 @@ class ImpulsaProject < ActiveRecord::Base
       errors.delete(:"#{field}_file_name")
       errors.delete(:"#{field}_content_type")
       errors.delete(:"#{field}_file_size")
+    end
+  end
+
+  def user_editable_cache_fields
+    ImpulsaProject.attachment_definitions.keys.select { |field| self.user_edit_field?(field) }.map do |field|
+      :"#{field}_cache"
     end
   end
 end
