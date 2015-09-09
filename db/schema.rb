@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909095309) do
+ActiveRecord::Schema.define(version: 20150909125942) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -311,6 +311,14 @@ ActiveRecord::Schema.define(version: 20150909095309) do
     t.string   "coofficial_name"
     t.text     "coofficial_short_description"
     t.string   "coofficial_video_link"
+    t.integer  "total_budget"
+    t.text     "coofficial_territorial_context"
+    t.text     "coofficial_long_description"
+    t.text     "coofficial_aim"
+    t.text     "coofficial_metodology"
+    t.text     "coofficial_population_segment"
+    t.text     "coofficial_organization_mission"
+    t.text     "coofficial_career"
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"

@@ -29,7 +29,11 @@ class ImpulsaProject < ActiveRecord::Base
 
   validate :if => :marked_for_review? do |project|
     project.user_editable_fields.each do |field|
-      project.validates_presence_of field if !FIELDS[:optional].member?(field)
+      if FIELDS[:translation].member?(field)
+        project.validates_presence_of field if project.translated? && project.user_view_field?(field.to_s.sub("coofficial_", "").to_sym)
+      else
+        project.validates_presence_of field if !FIELDS[:optional].member?(field)
+      end
     end
   end
 
@@ -39,43 +43,27 @@ class ImpulsaProject < ActiveRecord::Base
 
   validates :terms_of_service, :data_truthfulness, acceptance: true
 
-  validates_each :impulsa_edition_topics do |project, attr, value|
-    project.errors.add attr, "Demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
+  validate do |project|
+    project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
   end
 
-  validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]
-  validates_with AttachmentSizeValidator, attributes: :logo, less_than: 1.megabytes
-  validates_attachment_content_type :scanned_nif, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :scanned_nif, less_than: 1.megabytes
-  validates_attachment_content_type :endorsement, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :endorsement, less_than: 1.megabytes
-  validates_attachment_content_type :register_entry, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :register_entry, less_than: 1.megabytes
-  validates_attachment_content_type :statutes, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :statutes, less_than: 1.megabytes
-  validates_attachment_content_type :responsible_nif, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :responsible_nif, less_than: 1.megabytes
-  validates_attachment_content_type :fiscal_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :fiscal_obligations_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :labor_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :labor_obligations_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :home_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :home_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :bank_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :bank_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :last_fiscal_year_report_of_activities, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :last_fiscal_year_report_of_activities, less_than: 1.megabytes
-  validates_attachment_content_type :last_fiscal_year_annual_accounts, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :last_fiscal_year_annual_accounts, less_than: 1.megabytes
-  validates_attachment_content_type :schedule, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
-  validates_with AttachmentSizeValidator, attributes: :schedule, less_than: 1.megabytes
-  validates_attachment_content_type :activities_resources, content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]
-  validates_with AttachmentSizeValidator, attributes: :activities_resources, less_than: 1.megabytes
-  validates_attachment_content_type :requested_budget, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
-  validates_with AttachmentSizeValidator, attributes: :requested_budget, less_than: 1.megabytes
-  validates_attachment_content_type :monitoring_evaluation, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
-  validates_with AttachmentSizeValidator, attributes: :monitoring_evaluation, less_than: 1.megabytes
-
+  validates_attachment :logo, content_type: { content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]}, size: { less_than: 1.megabyte }
+  validates_attachment :scanned_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :endorsement, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :register_entry, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :statutes, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :responsible_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :fiscal_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :labor_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :home_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :bank_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :last_fiscal_year_report_of_activities, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :last_fiscal_year_annual_accounts, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :schedule, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :activities_resources, content_type: { content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :requested_budget, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :monitoring_evaluation, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  
   scope :by_status, ->(status) { where( status: status ) }
 
   PROJECT_STATUS = {
@@ -101,14 +89,15 @@ class ImpulsaProject < ActiveRecord::Base
     non_organization: [ :career ],
     not_in_spain: [ :home_certificate, :bank_certificate ],
     non_project_details: [ :additional_contact ],
-    project_details: [ :impulsa_edition_topics, :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate],
+    project_details: [ :impulsa_edition_topics, :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :total_budget],
     additional_details: [ :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :monitoring_evaluation ], 
-    translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link ],
+    translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link, :coofficial_territorial_context, :coofficial_long_description, :coofficial_aim, :coofficial_metodology, :coofficial_population_segment, :coofficial_career, :coofficial_organization_mission ],
     new: [ :terms_of_service, :data_truthfulness ],
     update: [ :data_truthfulness ],
 
     optional: [ :counterpart_information, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
   }
+
 
   ADMIN_REVIEWABLE_FIELDS = FIELDS[:always] + FIELDS[:with_category] + FIELDS[:authority] + FIELDS[:organization_types] + FIELDS[:full_organization] + FIELDS[:non_organization] + FIELDS[:not_in_spain] + FIELDS[:non_project_details] + FIELDS[:project_details] + FIELDS[:additional_details] + FIELDS[:translation]
 
@@ -175,7 +164,7 @@ class ImpulsaProject < ActiveRecord::Base
 
     if self.impulsa_edition_category
       fields += FIELDS[:with_category]
-      fields += FIELDS[:translation] if self.translatable? 
+      fields += FIELDS[:translation] if self.translatable?
 
       fields += FIELDS[:authority] if self.needs_authority?
 
@@ -247,8 +236,16 @@ class ImpulsaProject < ActiveRecord::Base
     self.organization_type == 2
   end
 
+  def translated?
+    self.translatable? && self.coofficial_translation?
+  end
+
   def translatable?
     self.impulsa_edition_category.translatable? if self.impulsa_edition_category
+  end
+
+  def locale
+    impulsa_edition_category.coofficial_language
   end
 
   def organization_type
@@ -279,5 +276,15 @@ class ImpulsaProject < ActiveRecord::Base
 
   def respond_to?(name)
     name =~ /^(.*)_review=?$/ || super
+  end
+
+  # paperclip duplicate errors: adds all to :field and one error to :field_[column] (file_name, content_type, file_size)
+  # we use only errors from :field
+  def clear_extra_file_errors
+    ImpulsaProject.attachment_definitions.keys.each do |field|
+      errors.delete(:"#{field}_file_name")
+      errors.delete(:"#{field}_content_type")
+      errors.delete(:"#{field}_file_size")
+    end
   end
 end

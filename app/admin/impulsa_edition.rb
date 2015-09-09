@@ -61,7 +61,6 @@ ActiveAdmin.register ImpulsaEdition do
         column :actions do |impulsa_edition_category|
           span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category))
           span link_to(t('active_admin.delete'), admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category), method: :delete, data: { confirm: "¿Estas segura de querer borrar esta categoría?" })
-          span link_to('Ver proyectos', admin_impulsa_edition_category_impulsa_projects_path(impulsa_edition_category))
         end
       end
       div link_to(t('active_admin.has_many_new', model: t("activerecord.models.impulsa_edition_category")), new_admin_impulsa_edition_impulsa_edition_category_path(resource))
@@ -96,6 +95,10 @@ ActiveAdmin.register ImpulsaEdition do
       f.input :monitoring_evaluation_model, as: :file
     end
     f.actions
+  end
+
+  action_item(:view_projects, only: :show) do
+    link_to('Ver proyectos', admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
   end
 end
 
