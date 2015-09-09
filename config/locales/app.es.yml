@@ -19,6 +19,7 @@ es:
       not_valid_nif: El DNI no es válido
       not_valid_cif: El CIF no es válido
       not_valid_nie: El NIE no es válido
+      url: "no es una dirección web válida (debe comenzar con http:// o https://)"
   activerecord:
     models:
       user: Usuario
@@ -95,18 +96,6 @@ es:
         impulsa_edition:
           attributes:
             terms_of_service: "Acepto las condiciones generales"
-            legal_es:
-              url: "El enlace a las bases en español debe ser una dirección web."
-            legal_eu:
-              url: "El enlace a las bases en euskera debe ser una dirección web."
-            legal_ca:
-              url: "El enlace a las bases en catalán debe ser una dirección web."
-            legal_ga:
-              url: "El enlace a las bases en gallego debe ser una dirección web."
-        impulsa_project:
-          attributes:
-            video_link:
-              url: "El enlace al video debe ser una dirección web."
     attributes:
       impulsa_edition:
         name: "Nombre"
@@ -175,7 +164,7 @@ es:
         aim: "Objetivos"
         metodology: "Metodología y fomento de la participación"
         population_segment: "Segmento poblacional objetivo"
-        video_link: "Vídeo"
+        video_link: "Enlace al vídeo"
         coofficial_translation: "Traducir"
         coofficial_name: "Título traducido"
         coofficial_short_description: "Descripción breve traducida"

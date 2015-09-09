@@ -1,4 +1,4 @@
-class ImpulsaController < ApplicationController
+  class ImpulsaController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user_project
  
@@ -18,7 +18,6 @@ class ImpulsaController < ApplicationController
 
   def edit
     redirect_to new_impulsa_path and return unless @project
-    
     if @project.fixes?
       @project.review_fields.each do |field, message|
         @project.errors.add field, message
@@ -28,8 +27,10 @@ class ImpulsaController < ApplicationController
 
   def modify
     redirect_to new_impulsa_path and return unless @project
+
     @project.preload(params[:impulsa_project])
     @project.assign_attributes project_params
+    cache_files
 
     if params[:commit]
       @project.mark_as_new if params[:commit]==t("podemos.impulsa.save_draft")
@@ -48,6 +49,7 @@ class ImpulsaController < ApplicationController
   def create
     redirect_to edit_impulsa_path and return if @project
     new_user_project
+    cache_files
 
     if params[:commit] and @project.save
       redirect_to edit_impulsa_path, notice: "El proyecto ha sido guardado."
@@ -57,6 +59,10 @@ class ImpulsaController < ApplicationController
   end
 
   private
+
+  def cache_files
+    @project.cache_project_files
+  end
 
   def set_user_project
     @edition = ImpulsaEdition.current
@@ -77,9 +83,9 @@ class ImpulsaController < ApplicationController
 
   def project_params
     if @project.user_edit_field?(:impulsa_edition_topics)
-      params.require(:impulsa_project).permit(@project.user_editable_fields, impulsa_edition_topic_ids:[])
+      params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields , impulsa_edition_topic_ids:[])
     else
-      params.require(:impulsa_project).permit(@project.user_editable_fields)
+      params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields)
     end
   end
 end
