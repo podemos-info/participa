@@ -38,6 +38,8 @@ class ImpulsaController < ApplicationController
         flash[:notice] = "Los cambios han sido guardados"
         redirect_to edit_impulsa_path
         return
+      else
+        @project.clear_extra_file_errors
       end
     end
     render :edit
