@@ -1,4 +1,4 @@
-  class ImpulsaController < ApplicationController
+class ImpulsaController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user_project
  
@@ -56,6 +56,12 @@
       return
     end
     render :new
+  end
+
+  def attachment
+    project = ImpulsaProject.find(params[:id])
+    field = project.get_attachment_field(params[:field])
+    send_file field.path, type: field.content_type if field
   end
 
   private
