@@ -46,7 +46,7 @@ class Report < ActiveRecord::Base
   def batch_process batch_size=1000
     offset = 0
     begin 
-      results = @model.find_by_sql("#{query} OFFSET #{offset} LIMIT #{batch_size}")
+      results = @model.find_by_sql("#{query} LIMIT #{batch_size} OFFSET #{offset}")
       offset += batch_size
       
       results.each do |row|
@@ -73,6 +73,10 @@ class Report < ActiveRecord::Base
     # Browse data
     main_name = ""
     self.batch_process do |row|
+
+      row = row.version_at(self.version_at) if self.version_at 
+      next if row.nil?
+
       row_id = row.id.to_s.ljust(id_width)
 
       main_name = get_main_group.format_group_name(get_main_group.process(row)[0][0]) if get_main_group

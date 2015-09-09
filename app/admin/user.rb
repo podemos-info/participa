@@ -414,6 +414,10 @@ ActiveAdmin.register User do
           end
         end
       end
+      div class: :filter_form_field do
+        label "Fecha de versión (lento)"
+        input name: :version_at
+      end
       div class: :buttons do
         input :type => :submit, value: "Crear informe"
       end
@@ -424,6 +428,7 @@ ActiveAdmin.register User do
     Report.create do |r|
       r.title = params[:title]
       r.query = params[:query]
+      r.version_at = params[:version_at]
       r.main_group = ReportGroup.find(params[:main_group].to_i) if params[:main_group].to_i>0
       r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_a
     end
