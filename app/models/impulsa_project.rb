@@ -202,10 +202,9 @@ class ImpulsaProject < ActiveRecord::Base
       else
         fields += FIELDS[:non_project_details] 
       end
-
-      fields += FIELDS[:new] if !self.persisted?
-      fields += FIELDS[:update] if self.editable?
     end
+    fields += FIELDS[:new] if !self.persisted?
+    fields += FIELDS[:update] if self.editable?
     fields.uniq
   end
 
