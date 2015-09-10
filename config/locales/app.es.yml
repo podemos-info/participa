@@ -720,6 +720,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       coofficial_translation_extra: "Si quieres que, para la fase de votaciones, tu proyecto se pueda ver en %{lang} marca esta casilla y rellena los siguientes campos en ese idioma."
       authority_section: "Órgano que presenta la iniciativa"
       translation_section: "Traducciones a idioma cooficial"
+      next_step: "Continuar"
+      next_step_text: "Introduce los datos básicos del proyecto y presiona '%{next_step}' para cargar el resto de información."
       choose_user_text: "Al dar de alta el proyecto con tu usuario serás la persona de contacto para hacer correcciones en el proyecto. Si crees que hay otra persona más adecuada para esto, por favor comunícalo para que sea quien cargue el proyecto utilizando su usuario del portal de participación."
       save_draft_text: "Puedes utilizar el botón '%{save_draft}' en cualquier momento para guardar la información que has cargado hasta el momento. Esto te permitirá buscar la información que no tengas a mano o revisar con algún compañero los datos ingresados antes de enviárnoslos."
       fixes_text: "Tu proyecto ya ha sido revisado, pero se han encontrado problemas en los datos que debes corregir para que lo revisemos nuevamente."

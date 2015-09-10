@@ -132,7 +132,7 @@ Rails.application.routes.draw do
         get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
         post 'crear', to: 'impulsa#create', as: 'create_impulsa'
         post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
-        get ':id/attachment/:field/:file_name', to: 'impulsa#attachment', as: 'attachments_impulsa'
+        get ':id/attachment/:field/:style/:filename.:extension', to: 'impulsa#attachment', as: 'attachments_impulsa'
       end
     end
 

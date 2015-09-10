@@ -36,10 +36,6 @@ end
 
 module Paperclip
   module Interpolations
-    def user_id attachment, style_name
-      attachment.instance.user_id.to_s
-    end
-
     def field attachment, style_name
       attachment.name.to_s.downcase
     end

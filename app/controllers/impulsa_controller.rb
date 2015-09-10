@@ -59,9 +59,10 @@ class ImpulsaController < ApplicationController
   end
 
   def attachment
-    project = ImpulsaProject.find(params[:id])
-    field = project.get_attachment_field(params[:field])
-    send_file field.path, type: field.content_type if field
+    project = ImpulsaProject.find(params[:id]) # important to avoid users viewing other users attachments
+    path = "#{Rails.application.root}/non-public/system/impulsa_projects/#{project.id}/#{params[:field]}/#{params[:style]}/#{params[:filename]}.#{params[:extension]}"
+
+    send_file path if project.has_attachment_field?(params[:field])
   end
 
   private

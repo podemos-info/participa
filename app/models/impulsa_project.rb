@@ -6,22 +6,22 @@ class ImpulsaProject < ActiveRecord::Base
   has_many :impulsa_project_topics
   has_many :impulsa_edition_topics, through: :impulsa_project_topics
 
-  has_attached_file :logo, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension", styles: { medium: "300x300>", thumb: "100x100>" }
-  has_attached_file :scanned_nif, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :endorsement, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :register_entry, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :statutes, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :responsible_nif, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :fiscal_obligations_certificate, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :labor_obligations_certificate, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :home_certificate, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :bank_certificate, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :last_fiscal_year_report_of_activities, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :last_fiscal_year_annual_accounts, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :schedule, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :activities_resources, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :requested_budget, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
-  has_attached_file :monitoring_evaluation, url: '/impulsa/:id/attachment/:field/:filename', path: ":rails_root/non-public/system/:class/:user_id/:field/:style/:basename.:extension"
+  has_attached_file :logo, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension", styles: { medium: "300x300>", thumb: "100x100>" }
+  has_attached_file :scanned_nif, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :endorsement, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :register_entry, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :statutes, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :responsible_nif, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :fiscal_obligations_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :labor_obligations_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :home_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :bank_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :last_fiscal_year_report_of_activities, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :last_fiscal_year_annual_accounts, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :schedule, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :activities_resources, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :requested_budget, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :monitoring_evaluation, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
 
   attr_accessor :logo_cache, :scanned_nif_cache, :endorsement_cache, :register_entry_cache, :statutes_cache, :responsible_nif_cache, :fiscal_obligations_certificate_cache, :labor_obligations_certificate_cache, :home_certificate_cache, :bank_certificate_cache, :last_fiscal_year_report_of_activities_cache, :last_fiscal_year_annual_accounts_cache, :schedule_cache, :activities_resources_cache, :requested_budget_cache, :monitoring_evaluation_cache
 
@@ -101,8 +101,8 @@ class ImpulsaProject < ActiveRecord::Base
 
   FIELDS = {
     admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact ],
-    always: [ :impulsa_edition_category_id ],
-    with_category: [ :name, :short_description, :logo, :video_link ],
+    always: [ :impulsa_edition_category_id, :name ],
+    with_category: [ :short_description, :logo, :video_link ],
     authority: [ :authority, :authority_name, :authority_phone, :authority_email ],
     organization_types: [ :organization_type ],
     full_organization: [ :organization_name, :organization_address, :organization_web, :organization_nif, :scanned_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :register_entry, :statutes ],
@@ -314,12 +314,7 @@ class ImpulsaProject < ActiveRecord::Base
     end
   end
 
-  def get_attachment_field field_name
-    symbol = field_name.to_sym
-    if ImpulsaProject.attachment_definitions.keys.member? symbol
-      send(symbol)
-    else
-      nil
-    end 
+  def has_attachment_field? field_name
+    ImpulsaProject.attachment_definitions.keys.member? field_name.to_sym
   end
 end
