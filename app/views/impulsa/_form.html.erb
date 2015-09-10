@@ -5,7 +5,7 @@
       <% if @project.errors.include?(:impulsa_edition_category) %>
       <%= field_notice_box %>
       <% end %>
-      <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories, required: true, input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl', onchange: @project.persisted? ? "submit()" : "" } %>
+      <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories.sort_by(&:name), required: true, input_html: {disabled: !@project.user_edit_field?(:impulsa_edition_category_id), class: 'input-xl', onchange: @project.persisted? ? "submit()" : "" } %>
       <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.impulsa_edition_category_extra", legal: link_to(t("podemos.impulsa.legal"),@edition.legal_link)).html_safe, class: "fa-fw"), class: :note) %>
     </div>
   <% end %>
@@ -182,7 +182,7 @@
       <%= field_notice_box %>
       <% end %>
       <%= f.input :additional_contact, input_html: {disabled: !@project.user_edit_field?(:additional_contact), class: 'input-xl'} %>
-    </div>additional_contact
+    </div>
   <% end %>
   <% if @project.user_view_field? :career %>
     <div class="inputlabel-box">
