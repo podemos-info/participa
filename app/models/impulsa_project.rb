@@ -112,8 +112,7 @@ class ImpulsaProject < ActiveRecord::Base
     project_details: [ :impulsa_edition_topics, :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :total_budget],
     additional_details: [ :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :monitoring_evaluation ], 
     translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link, :coofficial_territorial_context, :coofficial_long_description, :coofficial_aim, :coofficial_metodology, :coofficial_population_segment, :coofficial_career, :coofficial_organization_mission ],
-    new: [ :terms_of_service, :data_truthfulness ],
-    update: [ :data_truthfulness ],
+    update: [ :terms_of_service, :data_truthfulness ],
 
     optional: [ :counterpart_information, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
   }
@@ -202,9 +201,8 @@ class ImpulsaProject < ActiveRecord::Base
       else
         fields += FIELDS[:non_project_details] 
       end
+      fields += FIELDS[:update] if self.editable?
     end
-    fields += FIELDS[:new] if !self.persisted?
-    fields += FIELDS[:update] if self.editable?
     fields.uniq
   end
 
