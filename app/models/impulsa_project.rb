@@ -3,7 +3,7 @@ class ImpulsaProject < ActiveRecord::Base
   belongs_to :user
   has_one :impulsa_edition, through: :impulsa_edition_category
 
-  has_many :impulsa_project_topics
+  has_many :impulsa_project_topics, dependent: :destroy
   has_many :impulsa_edition_topics, through: :impulsa_project_topics
 
   has_attached_file :logo, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension", styles: { medium: "300x300>", thumb: "100x100>" }
