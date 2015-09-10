@@ -1,4 +1,4 @@
-  class ImpulsaController < ApplicationController
+class ImpulsaController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user_project
  
@@ -30,7 +30,7 @@
 
     @project.preload(params[:impulsa_project])
     @project.assign_attributes project_params
-    #cache_files
+    cache_files
 
     if params[:commit]
       @project.mark_as_new if params[:commit]==t("podemos.impulsa.save_draft")
@@ -49,13 +49,20 @@
   def create
     redirect_to edit_impulsa_path and return if @project
     new_user_project
-    #cache_files
+    cache_files
 
     if params[:commit] and @project.save
       redirect_to edit_impulsa_path, notice: "El proyecto ha sido guardado."
       return
     end
     render :new
+  end
+
+  def attachment
+    project = ImpulsaProject.find(params[:id]) # important to avoid users viewing other users attachments
+    path = "#{Rails.application.root}/non-public/system/impulsa_projects/#{project.id}/#{params[:field]}/#{params[:style]}/#{params[:filename]}.#{params[:extension]}"
+
+    send_file path if project.has_attachment_field?(params[:field])
   end
 
   private
