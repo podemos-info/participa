@@ -611,6 +611,7 @@ class User < ActiveRecord::Base
       # Spanish users can't set a different town for vote, except when blocked
       if self.in_spain? and self.can_change_vote_location?
         self.vote_town = self.town
+        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district 
       end
     end
   end

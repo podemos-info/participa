@@ -11,8 +11,10 @@ namespace :podemos do
         row = [ user.full_name, user.email ]
         town = user.vote_town
         prov = user.vote_province_code
+        district = user.vote_district
         if town
           row << town
+          row << "#{town.sub("m","d")}_#{district}" if district
         elsif prov
           prov[0] = "m"
           row << prov + "_"
