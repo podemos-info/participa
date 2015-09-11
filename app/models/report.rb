@@ -17,7 +17,7 @@ class Report < ActiveRecord::Base
 
   def get_main_group
     if !defined?(@main_group) then 
-      @main_group = ReportGroup.unserialize(self[:main_group]) if self[:main_group]
+      @main_group = ReportGroup.unserialize(self[:main_group]) if !self[:main_group].blank?
     end
     @main_group
   end
