@@ -336,25 +336,17 @@ ActiveAdmin.register Collaboration do
     items.each do |item|
       begin
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
-        col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
+        order_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text[4..-1].to_i
         date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
         iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
         bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
         fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
-        orders = nil
-        if date > Date.civil(2015,1,31)
-          col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
-        else
-          cols = Collaboration.with_deleted.joins(:user).eager_load(:order).where(iban_account: iban).select do |c|
-            I18n.transliterate(c.get_non_user.full_name).upcase == fullname
-          end
-          col = cols.first if cols.length == 1
-        end
-        if col
-          orders = col.get_orders(date, date)[0]
-          if orders[-1].payment_identifier == "#{iban}/#{bic}"
-            if orders[-1].is_paid?
-              if orders[-1].mark_as_returned! code
+
+        order= Order.find(order_id)
+        if order
+          if order.payment_identifier == "#{iban}/#{bic}"
+            if order.is_paid?
+              if order.mark_as_returned! code
                 result = :ok
               else
                 result = :no_mark
@@ -368,6 +360,7 @@ ActiveAdmin.register Collaboration do
         else
           result = :no_collaboration
         end
+
         messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}", fullname: fullname }
       rescue
         messages << { result: :error, info: item, message: $!.message }
