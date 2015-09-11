@@ -337,7 +337,6 @@ ActiveAdmin.register Collaboration do
       begin
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
         order_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text[4..-1].to_i
-        date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
         iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
         bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
         fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
