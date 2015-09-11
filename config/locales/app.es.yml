@@ -197,6 +197,7 @@ es:
         updated_at: "Fecha de última modificación"
         terms_of_service: "Términos legales"
         data_truthfulness: "Veracidad de los datos"
+        content_rights: "Propiedad intelectual"
       microcredit:
         id: "Identificador"
         starts_at: "Fecha de inicio"
@@ -728,6 +729,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       mark_for_review_text: "Cuando hayas completado todos los datos del proyecto y consideres que son correctos utiliza el botón '%{mark_for_review}' para indicarnos que podemos revisarlo (aunque podrás seguir haciendo correcciones hasta que lo hagamos). Si no utilizas este botón, esperaremos a que finalice la fase actual para revisar tu proyecto."
       terms_of_service: "He leído y acepto <a href='%{link}'>las condiciones generales del proyecto IMPULSA y la política de privacidad</a>."
       data_truthfulness: "Declaro la veracidad de los datos facilitados y de los documentos aportados en la solicitud de la presente convocatoria."
+      content_rights: "Declaro ser titular de todos los derechos de propiedad intelectual, industrial y derechos de imagen, de las obras, textos, imágenes, vídeos, música, logotipos e ideas incluidos en este formulario y que forman parte del proyecto, eximiendo a Podemos de cualquier responsabilidad que pudiera derivarse de las infracciones de estos derechos"
       translated: "en %{lang}"
       save_draft: "Guardar borrador"
       mark_for_review: "Marcar para revisión"
