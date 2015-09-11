@@ -1,14 +1,14 @@
 ActiveAdmin.register ImpulsaProject do
   menu false
-  belongs_to :impulsa_edition_category
+  belongs_to :impulsa_edition
   navigation_menu :default
 
   permit_params ImpulsaProject::ALL_FIELDS + ImpulsaProject::ADMIN_REVIEWABLE_FIELDS.map {|f| "#{f}_review".to_sym }, impulsa_edition_topic_ids: []
 
-  filter :name
+  filter :impulsa_edition_topics, as: :select, collection: -> { parent.impulsa_edition_topics}
+  filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
   filter :authority
   filter :authority_name
-  filter :impulsa_edition_topics
 
   index do
     selectable_column
@@ -18,6 +18,7 @@ ActiveAdmin.register ImpulsaProject do
       t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
     end
     column :user
+    column :total_budget
     actions
   end
 
@@ -138,6 +139,7 @@ ActiveAdmin.register ImpulsaProject do
         row :activities_resources do |impulsa_project|
           link_to(impulsa_project.activities_resources_file_name, impulsa_project.activities_resources.url) if impulsa_project.activities_resources.exists?
         end
+        row :total_budget
         row :requested_budget do |impulsa_project|
           link_to(impulsa_project.requested_budget_file_name, impulsa_project.requested_budget.url) if impulsa_project.requested_budget.exists?
         end
@@ -154,6 +156,13 @@ ActiveAdmin.register ImpulsaProject do
           row :coofficial_name
           row :coofficial_short_description
           row :coofficial_video_link
+          row :coofficial_territorial_context
+          row :coofficial_long_description
+          row :coofficial_aim
+          row :coofficial_metodology
+          row :coofficial_population_segment
+          row :coofficial_organization_mission
+          row :coofficial_career
         end
       end
     end
@@ -222,6 +231,7 @@ ActiveAdmin.register ImpulsaProject do
       f.input :population_segment
       f.input :schedule, as: :file
       f.input :activities_resources, as: :file
+      f.input :total_budget
       f.input :requested_budget, as: :file
       f.input :monitoring_evaluation, as: :file
     end
@@ -231,6 +241,13 @@ ActiveAdmin.register ImpulsaProject do
         f.input :coofficial_name
         f.input :coofficial_short_description
         f.input :coofficial_video_link
+        f.input :coofficial_territorial_context
+        f.input :coofficial_long_description
+        f.input :coofficial_aim
+        f.input :coofficial_metodology
+        f.input :coofficial_population_segment
+        f.input :coofficial_organization_mission
+        f.input :coofficial_career
       end
     end
     f.actions
@@ -243,8 +260,9 @@ ActiveAdmin.register ImpulsaProject do
       resource = active_admin_config
 
       ImpulsaProject::PROJECT_STATUS.each do |status, id|
-        if ! resource.scopes.any? { |scope| scope.name == status.to_s }
-          resource.scopes << ActiveAdmin::Scope.new( t("podemos.impulsa.project_status.#{status}") ) do |projects| projects.by_status(id) end
+        status_name = t("podemos.impulsa.project_status.#{status}")
+        if !resource.scopes.any? { |scope| scope.name == status_name }
+          resource.scopes << ActiveAdmin::Scope.new( status_name ) do |projects| projects.by_status(id) end
         end
       end
     end

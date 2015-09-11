@@ -21,7 +21,7 @@ ActiveAdmin.register User do
   scope :banned
   scope :verified
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district
 
   index do
     selectable_column
@@ -123,9 +123,9 @@ ActiveAdmin.register User do
           status_tag("NO", :error)
         end
       end
-
       row :vote_place do
-        user.vote_autonomy_name + " / " + user.vote_province_name + " / " + user.vote_town_name
+        district = user.vote_district ? " / distrito #{user.vote_district}" : ""
+        "#{user.vote_autonomy_name} / #{user.vote_province_name} / #{user.vote_town_name}#{district}"
       end
       row :vote_in_spanish_island? do
         if user.vote_in_spanish_island?
@@ -134,7 +134,6 @@ ActiveAdmin.register User do
           status_tag("NO", :error)
         end
       end
-
       row :admin
       row :circle
       row :created_at
@@ -414,6 +413,10 @@ ActiveAdmin.register User do
           end
         end
       end
+      div class: :filter_form_field do
+        label "Fecha de versión (lento)"
+        input name: :version_at
+      end
       div class: :buttons do
         input :type => :submit, value: "Crear informe"
       end
@@ -424,6 +427,7 @@ ActiveAdmin.register User do
     Report.create do |r|
       r.title = params[:title]
       r.query = params[:query]
+      r.version_at = params[:version_at]
       r.main_group = ReportGroup.find(params[:main_group].to_i) if params[:main_group].to_i>0
       r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_a
     end

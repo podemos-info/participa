@@ -29,7 +29,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
-  validates :email, confirmation: true, on: :create, :email => true
+  validates :email, email: true
+  validates :email, confirmation: true, on: :create
   validates :email_confirmation, presence: true, on: :create
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
@@ -610,6 +611,7 @@ class User < ActiveRecord::Base
       # Spanish users can't set a different town for vote, except when blocked
       if self.in_spain? and self.can_change_vote_location?
         self.vote_town = self.town
+        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district 
       end
     end
   end

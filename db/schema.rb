@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908112739) do
+ActiveRecord::Schema.define(version: 20150911095546) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -311,6 +311,14 @@ ActiveRecord::Schema.define(version: 20150908112739) do
     t.string   "coofficial_name"
     t.text     "coofficial_short_description"
     t.string   "coofficial_video_link"
+    t.integer  "total_budget"
+    t.text     "coofficial_territorial_context"
+    t.text     "coofficial_long_description"
+    t.text     "coofficial_aim"
+    t.text     "coofficial_metodology"
+    t.text     "coofficial_population_segment"
+    t.text     "coofficial_organization_mission"
+    t.text     "coofficial_career"
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"
@@ -469,6 +477,7 @@ ActiveRecord::Schema.define(version: 20150908112739) do
     t.text     "results"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "version_at"
   end
 
   create_table "simple_captcha_data", force: :cascade do |t|
@@ -542,6 +551,7 @@ ActiveRecord::Schema.define(version: 20150908112739) do
     t.integer  "flags",                    default: 0,  null: false
     t.datetime "participation_team_at"
     t.datetime "sms_check_at"
+    t.string   "vote_district"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

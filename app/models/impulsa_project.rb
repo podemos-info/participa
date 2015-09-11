@@ -2,34 +2,37 @@ class ImpulsaProject < ActiveRecord::Base
   belongs_to :impulsa_edition_category
   belongs_to :user
   has_one :impulsa_edition, through: :impulsa_edition_category
-  has_many :impulsa_project_attachments
 
-  has_many :impulsa_project_topics
+  has_many :impulsa_project_topics, dependent: :destroy
   has_many :impulsa_edition_topics, through: :impulsa_project_topics
 
-  has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-  has_attached_file :scanned_nif
-  has_attached_file :endorsement
-  has_attached_file :register_entry
-  has_attached_file :statutes
-  has_attached_file :responsible_nif
-  has_attached_file :fiscal_obligations_certificate
-  has_attached_file :labor_obligations_certificate
-  has_attached_file :home_certificate
-  has_attached_file :bank_certificate
-  has_attached_file :last_fiscal_year_report_of_activities
-  has_attached_file :last_fiscal_year_annual_accounts
-  has_attached_file :schedule
-  has_attached_file :activities_resources
-  has_attached_file :requested_budget
-  has_attached_file :monitoring_evaluation
+  has_attached_file :logo, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension", styles: { medium: "300x300>", thumb: "100x100>" }
+  has_attached_file :scanned_nif, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :endorsement, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :register_entry, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :statutes, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :responsible_nif, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :fiscal_obligations_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :labor_obligations_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :home_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :bank_certificate, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :last_fiscal_year_report_of_activities, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :last_fiscal_year_annual_accounts, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :schedule, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :activities_resources, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :requested_budget, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :monitoring_evaluation, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
 
   validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
   validates :name, :impulsa_edition_category_id, :status, presence: true
 
   validate :if => :marked_for_review? do |project|
     project.user_editable_fields.each do |field|
-      project.validates_presence_of field if !FIELDS[:optional].member?(field)
+      if FIELDS[:translation].member?(field)
+        project.validates_presence_of field if project.translated? && project.user_view_field?(field.to_s.sub("coofficial_", "").to_sym)
+      else
+        project.validates_presence_of field if !FIELDS[:optional].member?(field)
+      end
     end
   end
 
@@ -37,45 +40,50 @@ class ImpulsaProject < ActiveRecord::Base
   validates :organization_web, :video_link, allow_blank: true, url: true
   validates :organization_year, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: Date.today.year }
 
-  validates :terms_of_service, :data_truthfulness, acceptance: true
+  validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true
 
-  validates_each :impulsa_edition_topics do |project, attr, value|
-    project.errors.add attr, "Demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
+  validate do |project|
+    project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
   end
 
-  validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]
-  validates_with AttachmentSizeValidator, attributes: :logo, less_than: 1.megabytes
-  validates_attachment_content_type :scanned_nif, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :scanned_nif, less_than: 1.megabytes
-  validates_attachment_content_type :endorsement, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :endorsement, less_than: 1.megabytes
-  validates_attachment_content_type :register_entry, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :register_entry, less_than: 1.megabytes
-  validates_attachment_content_type :statutes, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :statutes, less_than: 1.megabytes
-  validates_attachment_content_type :responsible_nif, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :responsible_nif, less_than: 1.megabytes
-  validates_attachment_content_type :fiscal_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :fiscal_obligations_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :labor_obligations_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :labor_obligations_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :home_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :home_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :bank_certificate, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :bank_certificate, less_than: 1.megabytes
-  validates_attachment_content_type :last_fiscal_year_report_of_activities, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :last_fiscal_year_report_of_activities, less_than: 1.megabytes
-  validates_attachment_content_type :last_fiscal_year_annual_accounts, content_type: ["application/pdf", "application/x-pdf"]
-  validates_with AttachmentSizeValidator, attributes: :last_fiscal_year_annual_accounts, less_than: 1.megabytes
-  validates_attachment_content_type :schedule, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
-  validates_with AttachmentSizeValidator, attributes: :schedule, less_than: 1.megabytes
-  validates_attachment_content_type :activities_resources, content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]
-  validates_with AttachmentSizeValidator, attributes: :activities_resources, less_than: 1.megabytes
-  validates_attachment_content_type :requested_budget, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
-  validates_with AttachmentSizeValidator, attributes: :requested_budget, less_than: 1.megabytes
-  validates_attachment_content_type :monitoring_evaluation, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
-  validates_with AttachmentSizeValidator, attributes: :monitoring_evaluation, less_than: 1.megabytes
+  validates_attachment :logo, content_type: { content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]}, size: { less_than: 1.megabyte }
+  validates_attachment :scanned_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :endorsement, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :register_entry, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :statutes, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :responsible_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :fiscal_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :labor_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :home_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :bank_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :last_fiscal_year_report_of_activities, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :last_fiscal_year_annual_accounts, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
+  validates_attachment :schedule, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :activities_resources, content_type: { content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :requested_budget, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :monitoring_evaluation, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  
+  attr_accessor :logo_cache, :scanned_nif_cache, :endorsement_cache, :register_entry_cache, :statutes_cache, :responsible_nif_cache, :fiscal_obligations_certificate_cache, :labor_obligations_certificate_cache, :home_certificate_cache, :bank_certificate_cache, :last_fiscal_year_report_of_activities_cache, :last_fiscal_year_annual_accounts_cache, :schedule_cache, :activities_resources_cache, :requested_budget_cache, :monitoring_evaluation_cache
 
+  def cache_project_files
+    @logo_cache = cache_files( logo, @logo_cache, lambda {|f| assign_attributes(logo: f)} )
+    @scanned_nif_cache = cache_files( scanned_nif, @scanned_nif_cache, lambda {|f| assign_attributes(scanned_nif: f)} )
+    @endorsement_cache = cache_files( endorsement, @endorsement_cache, lambda {|f| assign_attributes(endorsement: f)} )
+    @register_entry_cache = cache_files( register_entry, @register_entry_cache, lambda {|f| assign_attributes(register_entry: f)} )
+    @statutes_cache = cache_files( statutes, @statutes_cache, lambda {|f| assign_attributes(statutes: f)} )
+    @responsible_nif_cache = cache_files( responsible_nif, @responsible_nif_cache, lambda {|f| assign_attributes(responsible_nif: f)} )
+    @fiscal_obligations_certificate_cache = cache_files( fiscal_obligations_certificate, @fiscal_obligations_certificate_cache, lambda {|f| assign_attributes(fiscal_obligations_certificate: f)} )
+    @labor_obligations_certificate_cache = cache_files( labor_obligations_certificate, @labor_obligations_certificate_cache, lambda {|f| assign_attributes(labor_obligations_certificate: f)} )
+    @home_certificate_cache = cache_files( home_certificate, @home_certificate_cache, lambda {|f| assign_attributes(home_certificate: f)} )
+    @bank_certificate_cache = cache_files( bank_certificate, @bank_certificate_cache, lambda {|f| assign_attributes(bank_certificate: f)} )
+    @last_fiscal_year_report_of_activities_cache = cache_files( last_fiscal_year_report_of_activities, @last_fiscal_year_report_of_activities_cache, lambda {|f| assign_attributes(last_fiscal_year_report_of_activities: f)} )
+    @last_fiscal_year_annual_accounts_cache = cache_files( last_fiscal_year_annual_accounts, @last_fiscal_year_annual_accounts_cache, lambda {|f| assign_attributes(last_fiscal_year_annual_accounts: f)} )
+    @schedule_cache = cache_files( schedule, @schedule_cache, lambda {|f| assign_attributes(schedule: f)} )
+    @activities_resources_cache = cache_files( activities_resources, @activities_resources_cache, lambda {|f| assign_attributes(activities_resources: f)} )
+    @requested_budget_cache = cache_files( requested_budget, @requested_budget_cache, lambda {|f| assign_attributes(requested_budget: f)} )
+    @monitoring_evaluation_cache = cache_files( monitoring_evaluation, @monitoring_evaluation_cache, lambda {|f| assign_attributes(monitoring_evaluation: f)} )
+  end
+  
   scope :by_status, ->(status) { where( status: status ) }
 
   PROJECT_STATUS = {
@@ -93,22 +101,22 @@ class ImpulsaProject < ActiveRecord::Base
 
   FIELDS = {
     admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact ],
-    always: [ :impulsa_edition_category_id ],
-    with_category: [ :name, :short_description, :logo, :video_link ],
+    always: [ :impulsa_edition_category_id, :name ],
+    with_category: [ :short_description, :logo, :video_link ],
     authority: [ :authority, :authority_name, :authority_phone, :authority_email ],
     organization_types: [ :organization_type ],
     full_organization: [ :organization_name, :organization_address, :organization_web, :organization_nif, :scanned_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :register_entry, :statutes ],
     non_organization: [ :career ],
     not_in_spain: [ :home_certificate, :bank_certificate ],
     non_project_details: [ :additional_contact ],
-    project_details: [ :impulsa_edition_topics, :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate],
+    project_details: [ :impulsa_edition_topics, :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :total_budget],
     additional_details: [ :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :monitoring_evaluation ], 
-    translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link ],
-    new: [ :terms_of_service, :data_truthfulness ],
-    update: [ :data_truthfulness ],
+    translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link, :coofficial_territorial_context, :coofficial_long_description, :coofficial_aim, :coofficial_metodology, :coofficial_population_segment, :coofficial_career, :coofficial_organization_mission ],
+    update: [ :terms_of_service, :data_truthfulness, :content_rights ],
 
     optional: [ :counterpart_information, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
   }
+
 
   ADMIN_REVIEWABLE_FIELDS = FIELDS[:always] + FIELDS[:with_category] + FIELDS[:authority] + FIELDS[:organization_types] + FIELDS[:full_organization] + FIELDS[:non_organization] + FIELDS[:not_in_spain] + FIELDS[:non_project_details] + FIELDS[:project_details] + FIELDS[:additional_details] + FIELDS[:translation]
 
@@ -175,7 +183,7 @@ class ImpulsaProject < ActiveRecord::Base
 
     if self.impulsa_edition_category
       fields += FIELDS[:with_category]
-      fields += FIELDS[:translation] if self.translatable? 
+      fields += FIELDS[:translation] if self.translatable?
 
       fields += FIELDS[:authority] if self.needs_authority?
 
@@ -193,8 +201,6 @@ class ImpulsaProject < ActiveRecord::Base
       else
         fields += FIELDS[:non_project_details] 
       end
-
-      fields += FIELDS[:new] if !self.persisted?
       fields += FIELDS[:update] if self.editable?
     end
     fields.uniq
@@ -212,7 +218,7 @@ class ImpulsaProject < ActiveRecord::Base
         review_fields.symbolize_keys.keys
       else
         []
-      end
+    end
   end
 
   def status_name
@@ -247,8 +253,16 @@ class ImpulsaProject < ActiveRecord::Base
     self.organization_type == 2
   end
 
+  def translated?
+    self.translatable? && self.coofficial_translation?
+  end
+
   def translatable?
     self.impulsa_edition_category.translatable? if self.impulsa_edition_category
+  end
+
+  def locale
+    impulsa_edition_category.coofficial_language
   end
 
   def organization_type
@@ -279,5 +293,25 @@ class ImpulsaProject < ActiveRecord::Base
 
   def respond_to?(name)
     name =~ /^(.*)_review=?$/ || super
+  end
+
+  # paperclip duplicate errors: adds all to :field and one error to :field_[column] (file_name, content_type, file_size)
+  # we use only errors from :field
+  def clear_extra_file_errors
+    ImpulsaProject.attachment_definitions.keys.each do |field|
+      errors.delete(:"#{field}_file_name")
+      errors.delete(:"#{field}_content_type")
+      errors.delete(:"#{field}_file_size")
+    end
+  end
+
+  def user_editable_cache_fields
+    ImpulsaProject.attachment_definitions.keys.select { |field| self.user_edit_field?(field) }.map do |field|
+      :"#{field}_cache"
+    end
+  end
+
+  def has_attachment_field? field_name
+    ImpulsaProject.attachment_definitions.keys.member? field_name.to_sym
   end
 end

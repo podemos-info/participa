@@ -1,6 +1,11 @@
 es:
   meta:
     language_name: "Español"
+    languages:
+      ca: "catalán"
+      es: "español"
+      eu: "vasco"
+      ga: "gallego"
   errors:
     show:
       "404":
@@ -14,6 +19,7 @@ es:
       not_valid_nif: El DNI no es válido
       not_valid_cif: El CIF no es válido
       not_valid_nie: El NIE no es válido
+      url: "no es una dirección web válida (debe comenzar con http:// o https://)"
   activerecord:
     models:
       user: Usuario
@@ -90,18 +96,6 @@ es:
         impulsa_edition:
           attributes:
             terms_of_service: "Acepto las condiciones generales"
-            legal_es:
-              url: "El enlace a las bases en español debe ser una dirección web."
-            legal_eu:
-              url: "El enlace a las bases en euskera debe ser una dirección web."
-            legal_ca:
-              url: "El enlace a las bases en catalán debe ser una dirección web."
-            legal_ga:
-              url: "El enlace a las bases en gallego debe ser una dirección web."
-        impulsa_project:
-          attributes:
-            video_link:
-              url: "El enlace al video debe ser una dirección web."
     attributes:
       impulsa_edition:
         name: "Nombre"
@@ -164,17 +158,24 @@ es:
         organization_mission: "Misión de la organización"
         career: "Trayectoria"
         counterpart: "Contrapartes"
-        territorial_context: "Contexto territorial"
         short_description: "Descripción breve"
+        territorial_context: "Contexto territorial"
         long_description: "Descripción"
         aim: "Objetivos"
         metodology: "Metodología y fomento de la participación"
         population_segment: "Segmento poblacional objetivo"
-        video_link: "Vídeo"
+        video_link: "Enlace al vídeo"
         coofficial_translation: "Traducir"
         coofficial_name: "Título traducido"
         coofficial_short_description: "Descripción breve traducida"
         coofficial_video_link: "Enlace al vídeo traducido"
+        coofficial_territorial_context: "Contexto territorial traducido"
+        coofficial_long_description: "Descripción traducida"
+        coofficial_aim: "Objetivos traducidos"
+        coofficial_metodology: "Metodología y fomento de la participación traducidas"
+        coofficial_population_segment: "Segmento poblacional objetivo traducido"
+        coofficial_organization_mission: "Misión de la organización traducida"
+        coofficial_career: "Trayectoria traducida"
         logo: "Foto o logo"
         endorsement: "Aval de un Círculo, de un Consejo Ciudadano o de una Secretaría General de Podemos"
         register_entry: "Inscripción de la entidad solicitante en el registro correspondiente"
@@ -188,6 +189,7 @@ es:
         bank_certificate: "Certificado bancario de titularidad de una cuenta en una entidad financiera resi­dente en España en la que se abonará la ayuda"
         schedule: "Cronograma y fases" 
         activities_resources: "Actividades y Recursos"
+        total_budget: "Presupuesto total"
         requested_budget: "Presupuesto solicitado"
         monitoring_evaluation: "Seguimiento y evaluación"
         deleted_at: "Fecha de borrado"
@@ -195,6 +197,7 @@ es:
         updated_at: "Fecha de última modificación"
         terms_of_service: "Términos legales"
         data_truthfulness: "Veracidad de los datos"
+        content_rights: "Propiedad intelectual"
       microcredit:
         id: "Identificador"
         starts_at: "Fecha de inicio"
@@ -715,14 +718,19 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       activities_resources_extra: "Según la planificación presentada en el cronograma, detalla las actividades que prevéis desarrollar durante el periodo de ejecución del proyecto. Para cada actividad, indica los recursos materiales y humanos que serán necesarios para llevarla a cabo."      
       requested_budget_extra: "Basándote en el cuadro de actividades y recursos, establece el presupuesto de gastos e ingresos utilizando la plantilla adjunta. Asegúrate de rellenar las dos pestañas de la hoja de cálculo: Gastos e Ingresos. Recuerda que el presupuesto máximo son %{limit}."
       monitoring_evaluation_extra: "Detalla los indicadores que se utilizarán para la evaluación, especificando el objetivo al que responden, el tiempo estimado para alcanzarlo, el valor esperado al final del proyecto para cada indicador y la fuente de verificación que se utilizará para su medición."
+      coofficial_translation_extra: "Si quieres que, para la fase de votaciones, tu proyecto se pueda ver en %{lang} marca esta casilla y rellena los siguientes campos en ese idioma."
       authority_section: "Órgano que presenta la iniciativa"
       translation_section: "Traducciones a idioma cooficial"
+      next_step: "Continuar"
+      next_step_text: "Introduce los datos básicos del proyecto y presiona '%{next_step}' para cargar el resto de información."
       choose_user_text: "Al dar de alta el proyecto con tu usuario serás la persona de contacto para hacer correcciones en el proyecto. Si crees que hay otra persona más adecuada para esto, por favor comunícalo para que sea quien cargue el proyecto utilizando su usuario del portal de participación."
       save_draft_text: "Puedes utilizar el botón '%{save_draft}' en cualquier momento para guardar la información que has cargado hasta el momento. Esto te permitirá buscar la información que no tengas a mano o revisar con algún compañero los datos ingresados antes de enviárnoslos."
       fixes_text: "Tu proyecto ya ha sido revisado, pero se han encontrado problemas en los datos que debes corregir para que lo revisemos nuevamente."
       mark_for_review_text: "Cuando hayas completado todos los datos del proyecto y consideres que son correctos utiliza el botón '%{mark_for_review}' para indicarnos que podemos revisarlo (aunque podrás seguir haciendo correcciones hasta que lo hagamos). Si no utilizas este botón, esperaremos a que finalice la fase actual para revisar tu proyecto."
       terms_of_service: "He leído y acepto <a href='%{link}'>las condiciones generales del proyecto IMPULSA y la política de privacidad</a>."
       data_truthfulness: "Declaro la veracidad de los datos facilitados y de los documentos aportados en la solicitud de la presente convocatoria."
+      content_rights: "Declaro ser titular de todos los derechos de propiedad intelectual, industrial y derechos de imagen, de las obras, textos, imágenes, vídeos, música, logotipos e ideas incluidos en este formulario y que forman parte del proyecto, eximiendo a Podemos de cualquier responsabilidad que pudiera derivarse de las infracciones de estos derechos"
+      translated: "en %{lang}"
       save_draft: "Guardar borrador"
       mark_for_review: "Marcar para revisión"
       choose_impulsa_category: "Debes elegir una categoría para que aparezca el resto de campos."
