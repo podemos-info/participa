@@ -21,7 +21,7 @@ ActiveAdmin.register User do
   scope :banned
   scope :verified
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district
 
   index do
     selectable_column
@@ -123,9 +123,9 @@ ActiveAdmin.register User do
           status_tag("NO", :error)
         end
       end
-
       row :vote_place do
-        user.vote_autonomy_name + " / " + user.vote_province_name + " / " + user.vote_town_name
+        district = user.vote_district ? " / distrito #{user.vote_district}" : ""
+        "#{user.vote_autonomy_name} / #{user.vote_province_name} / #{user.vote_town_name}#{district}"
       end
       row :vote_in_spanish_island? do
         if user.vote_in_spanish_island?
@@ -134,7 +134,6 @@ ActiveAdmin.register User do
           status_tag("NO", :error)
         end
       end
-
       row :admin
       row :circle
       row :created_at
