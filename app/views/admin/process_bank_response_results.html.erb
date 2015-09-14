@@ -11,7 +11,7 @@
     messages.each do |m|
       tr do
           if m[:order].is_a? Order
-              td link_to m[:order].id, admin_collaboration_path(m[:order])
+              td link_to m[:order].id, admin_order_path(m[:order])
         else
               td m[:order]
         end
