@@ -337,6 +337,7 @@ ActiveAdmin.register Collaboration do
       begin
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
         order_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text[4..-1].to_i
+        date = item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").to_date
         iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
         bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
         fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
@@ -360,7 +361,7 @@ ActiveAdmin.register Collaboration do
           result = :no_collaboration
         end
 
-          messages << { result: result, order: (order), date: date, ret_code: code, account: "#{iban}/#{bic}", fullname: fullname }
+          messages << { result: result, order: (order), date: date, ret_code: code, account: "#{iban}/#{bic}", fullname:                   fullname }
       rescue
         messages << { result: :error, info: item, message: $!.message }
       end
