@@ -1,19 +1,19 @@
 <%= Arbre::Context.new({}, self) do
 
   table do
-    th "Colaboración"
-    th "Titular"
-    th "Fecha"
-    th "Ordenes"
-    th "Código"
-    th "Resultado"
+      th "Orden"
+      th "Titular"
+      th "Fecha"
+      #th "Ordenes"
+      th "Código"
+      th "Resultado"
   
     messages.each do |m|
       tr do
-        if m[:collaboration].is_a? Collaboration
-          td link_to m[:collaboration].id, admin_collaboration_path(m[:collaboration]) 
+          if m[:order].is_a? Order
+              td link_to m[:order].id, admin_collaboration_path(m[:order])
         else
-          td m[:collaboration]
+              td m[:order]
         end
         td m[:fullname]
         if m[:result] == :error
@@ -23,7 +23,7 @@
           end
         else
           td m[:date]
-          td m[:orders] ? m[:orders].map {|o| show_order o} .join.html_safe : ""
+          #td m[:orders] ? m[:orders].map {|o| show_order o} .join.html_safe : ""
           td m[:ret_code]
           case m[:result]
           when :ok
