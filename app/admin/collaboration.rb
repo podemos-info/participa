@@ -360,7 +360,7 @@ ActiveAdmin.register Collaboration do
           result = :no_collaboration
         end
 
-        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}", fullname: fullname }
+          messages << { result: result, collaboration: (order_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}", fullname: fullname }
       rescue
         messages << { result: :error, info: item, message: $!.message }
       end
