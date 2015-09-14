@@ -12,13 +12,23 @@ ActiveAdmin.register ImpulsaProject do
 
   index do
     selectable_column
-    id_column
-    column :name
-    column :status_name do |impulsa_project|
-      t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
+    column :name do |impulsa_project|
+      link_to impulsa_project.name, admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project)
     end
     column :user
     column :total_budget
+    column :impulsa_edition_category
+    column :status_name do |impulsa_project|
+      div t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
+      if impulsa_project.editable?
+        impulsa_project.mark_for_review
+        if impulsa_project.valid?
+          status_tag("OK", :ok)
+        else
+          status_tag("#{impulsa_project.errors.keys.length} errores", :error)
+        end
+      end
+    end
     actions
   end
 
