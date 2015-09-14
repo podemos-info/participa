@@ -40,7 +40,7 @@ ActiveAdmin.register Collaboration do
   menu :parent => "Colaboraciones"
 
   permit_params  :user_id, :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
-                :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc
+    :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc, :for_island_cc
 
   actions :all, :except => [:new]
 
@@ -58,6 +58,7 @@ ActiveAdmin.register Collaboration do
   scope :deleted
   scope :autonomy_cc
   scope :town_cc
+  scope :island_cc
 
   index do
     selectable_column
@@ -84,6 +85,7 @@ ActiveAdmin.register Collaboration do
     column :territorial do |collaboration|
       status_tag("Cca") if collaboration.for_autonomy_cc
       status_tag("Ccm") if collaboration.for_autonomy_cc and collaboration.for_town_cc
+      status_tag("Cci") if collaboration.for_island_cc
     end
     column :info do |collaboration|
       status_tag("BIC", :error) if collaboration.is_bank? and collaboration.calculate_bic.nil?
@@ -178,6 +180,7 @@ ActiveAdmin.register Collaboration do
   filter :created_at
   filter :for_autonomy_cc
   filter :for_town_cc
+  filter :for_island_cc
 
   show do |collaboration|
     attributes_table do
@@ -214,10 +217,12 @@ ActiveAdmin.register Collaboration do
       row :territorial do
         status_tag("Cc autonómico") if collaboration.for_autonomy_cc
         status_tag("Cc municipal") if collaboration.for_autonomy_cc and collaboration.for_town_cc
+        status_tag("Cc insular") if collaboration.for_island_cc
       end
       row :info do
         status_tag("Cca", :ok) if collaboration.for_autonomy_cc
         status_tag("Ccm", :ok) if collaboration.for_autonomy_cc and collaboration.for_town_cc
+        status_tag("Cci", :ok) if collaboration.for_island_cc
         status_tag("Activo", :ok) if collaboration.is_active?
         status_tag("Alertas", :warn) if collaboration.has_warnings?
         status_tag("Errores", :error) if collaboration.has_errors?
@@ -282,6 +287,7 @@ ActiveAdmin.register Collaboration do
       f.input :redsys_expiration
       f.input :for_autonomy_cc
       f.input :for_town_cc
+      f.input :for_island_cc
     end
     f.actions
   end
@@ -497,5 +503,30 @@ ActiveAdmin.register Collaboration do
     send_data csv.encode('utf-8'),
       type: 'text/tsv; charset=utf-8; header=present',
       disposition: "attachment; filename=podemos.for_town_cc.#{Date.today.to_s}.csv"
+  end
+
+collection_action :download_for_island, :method => :get do
+    date = Date.parse params[:date]
+    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+
+    provinces = Carmen::Country.coded("ES").subregions
+    islands_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+    Order.paid.where.not(island_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+        islands_data[k[0]][k[1].to_i] = v
+    end
+
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["Comunidad Autónoma", "Provincia", "Isla"] + months.values
+      provinces.each_with_index do |province,i|
+        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+        province.subregions.each do |town|
+            csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, island.name ] + months.keys.map{|k| islands_data[island.code][k]/100}
+        end
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+      type: 'text/tsv; charset=utf-8; header=present',
+disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
   end
 end

@@ -64,7 +64,8 @@ class Collaboration < ActiveRecord::Base
 
   scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
   scope :town_cc, -> { created.where(for_town_cc: true, for_autonomy_cc: true)}
-  
+  scope :island_cc, -> { created.where(for_island_cc: true)}
+
   after_create :set_initial_status
   before_save :check_spanish_bic
 
@@ -225,6 +226,7 @@ class Collaboration < ActiveRecord::Base
       if self.for_autonomy_cc and self.user and !self.user.vote_autonomy_code.empty?
         o.autonomy_code = self.user.vote_autonomy_code
         o.town_code = self.user.vote_town if self.for_town_cc
+        o.island_code = self.user.vote_island if self.for_island_cc
       end
     end
     order
