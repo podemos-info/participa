@@ -40,7 +40,9 @@ ActiveAdmin.register Collaboration do
   menu :parent => "Colaboraciones"
 
   permit_params  :user_id, :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
-    :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc, :for_island_cc
+    :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc
+# joker Deshabilitado temporalmente
+#, :for_island_cc
 
   actions :all, :except => [:new]
 
