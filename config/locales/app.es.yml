@@ -765,7 +765,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         foreign: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto"
       labor_obligations_certificate: 
         local: "Certificado de la Seguridad Social de obligaciones laborales al corriente en el momento de la presentación del proyecto"
-        foreign: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto"
+        foreign: "Certificado de la Seguridad Social española de obligaciones laborales al corriente en el momento de la presentación del proyecto"
       career:
         internal: "Trayectoria del colectivo"
         territorial: "Trayectoria formativa y profesional de las personas solicitantes del proyecto"
