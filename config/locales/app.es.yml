@@ -425,6 +425,8 @@ mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
 <p> Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.  </p>
 <p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>
 <p><a href='/es/preguntas-frecuentes'>¿Problemas con la inscripción?</a></p>
+<p><strong>Si no recibes el correo electrónico para completar la inscripción, recuerda comprobar 
+si ha llegado a la carpeta de <em>correo electrónico no deseado</em>, <em>promociones</em> o <em>spam</em>.</strong></p>
 "
       terms_of_service:
         title: 'Condiciones generales'
