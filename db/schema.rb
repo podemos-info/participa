@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(version: 20150914162750) do
     t.integer  "ccc_entity"
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
-    t.integer  "ccc_account",             limit: 8
+    t.integer  "ccc_account"
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",                            default: 0
+    t.integer  "status",                  default: 0
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(version: 20150914162750) do
 
   create_table "impulsa_edition_categories", force: :cascade do |t|
     t.integer  "impulsa_edition_id"
-    t.string   "name",                                              null: false
-    t.integer  "category_type",                                     null: false
+    t.string   "name"
+    t.integer  "category_type"
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(version: 20150914162750) do
     t.string   "organization_nif"
     t.integer  "organization_year"
     t.string   "organization_legal_name"
-    t.string   "organization_legal_email"
+    t.string   "organization_legal_nif"
     t.text     "organization_mission"
     t.text     "career"
     t.string   "counterpart"
@@ -472,7 +472,7 @@ ActiveRecord::Schema.define(version: 20150914162750) do
 
   create_table "reports", force: :cascade do |t|
     t.string   "title"
-    t.text     "query"
+    t.text     "query",      limit: 255
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"
