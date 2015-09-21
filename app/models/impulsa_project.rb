@@ -26,8 +26,8 @@ class ImpulsaProject < ActiveRecord::Base
   validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
   validates :name, :impulsa_edition_category_id, :status, presence: true
 
-  attr_accessor :force_validation
-  validate if: -> { self.force_validation || self.marked_for_review? } do |project|
+  attr_accessor :check_validation
+  validate if: -> { self.check_validation || self.marked_for_review? } do |project|
     project.user_editable_fields.each do |field|
       if [ :terms_of_service, :data_truthfulness, :content_rights ].member?(field)
         next
@@ -43,7 +43,7 @@ class ImpulsaProject < ActiveRecord::Base
   validates :organization_web, :video_link, allow_blank: true, url: true
   validates :organization_year, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: Date.today.year }
 
-  validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true, unless: :force_validation
+  validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true, unless: :check_validation
 
   validate do |project|
     project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
