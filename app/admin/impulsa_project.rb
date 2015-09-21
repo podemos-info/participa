@@ -7,6 +7,8 @@ ActiveAdmin.register ImpulsaProject do
 
   filter :impulsa_edition_topics, as: :select, collection: -> { parent.impulsa_edition_topics}
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
+  filter :name
+  filter :user_id
   filter :authority
   filter :authority_name
 
@@ -19,6 +21,7 @@ ActiveAdmin.register ImpulsaProject do
     column :user
     column :total_budget
     column :impulsa_edition_category
+    column :updated_at
     column :status_name do |impulsa_project|
       div t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
       if impulsa_project.editable?
