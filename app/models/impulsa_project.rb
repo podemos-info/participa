@@ -120,7 +120,7 @@ class ImpulsaProject < ActiveRecord::Base
     translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link, :coofficial_territorial_context, :coofficial_long_description, :coofficial_aim, :coofficial_metodology, :coofficial_population_segment, :coofficial_career, :coofficial_organization_mission ],
     update: [ :terms_of_service, :data_truthfulness, :content_rights ],
 
-    optional: [ :counterpart_information, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
+    optional: [ :counterpart, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
   }
 
 
