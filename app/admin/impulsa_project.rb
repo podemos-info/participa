@@ -12,6 +12,7 @@ ActiveAdmin.register ImpulsaProject do
 
   index do
     selectable_column
+    column :id
     column :name do |impulsa_project|
       link_to impulsa_project.name, admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project)
     end
