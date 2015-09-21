@@ -26,7 +26,8 @@ class ImpulsaProject < ActiveRecord::Base
   validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
   validates :name, :impulsa_edition_category_id, :status, presence: true
 
-  validate :if => :marked_for_review? do |project|
+  attr_accessor :force_validation
+  validate if: -> { self.force_validation || self.marked_for_review? } do |project|
     project.user_editable_fields.each do |field|
       if FIELDS[:translation].member?(field)
         project.validates_presence_of field if project.translated? && project.user_view_field?(field.to_s.sub("coofficial_", "").to_sym)
@@ -96,11 +97,14 @@ class ImpulsaProject < ActiveRecord::Base
     validated: 6,
     discarded: 7,
     resigned: 8,
-    winner: 9
+    winner: 9,
+    spam: 10,
+    dissent: 11
   }
 
   FIELDS = {
     admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact ],
+    impulsa_admin: [ :user_id, :review_fields, :counterpart_information, :additional_contact ],
     always: [ :impulsa_edition_category_id, :name ],
     with_category: [ :short_description, :logo, :video_link ],
     authority: [ :authority, :authority_name, :authority_phone, :authority_email ],
@@ -118,9 +122,8 @@ class ImpulsaProject < ActiveRecord::Base
   }
 
 
-  ADMIN_REVIEWABLE_FIELDS = FIELDS[:always] + FIELDS[:with_category] + FIELDS[:authority] + FIELDS[:organization_types] + FIELDS[:full_organization] + FIELDS[:non_organization] + FIELDS[:not_in_spain] + FIELDS[:non_project_details] + FIELDS[:project_details] + FIELDS[:additional_details] + FIELDS[:translation]
-
   ALL_FIELDS = FIELDS.map {|k,v| v} .flatten.uniq
+  ADMIN_REVIEWABLE_FIELDS = FIELDS[:always] + FIELDS[:with_category] + FIELDS[:authority] + FIELDS[:organization_types] + FIELDS[:full_organization] + FIELDS[:non_organization] + FIELDS[:not_in_spain] + FIELDS[:non_project_details] + FIELDS[:project_details] + FIELDS[:additional_details] + FIELDS[:translation]
 
   ORGANIZATION_TYPES = {
     organization: 0,
@@ -176,6 +179,16 @@ class ImpulsaProject < ActiveRecord::Base
 
   def user_view_field? field
     user_viewable_fields.member? field
+  end
+
+  def field_class field
+    if self.errors.include? field
+      "with_errors"
+    elsif !user_viewable_fields.member?(field)
+      "no_viewable"
+    else
+      ""
+    end
   end
 
   def user_viewable_fields

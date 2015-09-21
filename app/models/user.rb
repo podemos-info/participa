@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
             2 => :superadmin,
             3 => :verified,
             4 => :microcredits_admin,
-            5 => :impulsa_author
+            5 => :impulsa_author,
+            6 => :impulsa_admin
 
   # Include default devise modules. Others available are:
   # :omniauthable
