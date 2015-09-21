@@ -22,7 +22,7 @@ ActiveAdmin.register ImpulsaProject do
     column :status_name do |impulsa_project|
       div t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
       if impulsa_project.editable?
-        impulsa_project.force_validation = true
+        impulsa_project.check_validation = true
         if impulsa_project.valid?
           status_tag("OK", :ok)
         else
@@ -40,7 +40,7 @@ ActiveAdmin.register ImpulsaProject do
   end
 
   show do
-    impulsa_project.force_validation = true
+    impulsa_project.check_validation = true
     impulsa_project.valid?
     panel t("podemos.impulsa.admin_section") do
       attributes_table_for impulsa_project do
@@ -211,7 +211,7 @@ ActiveAdmin.register ImpulsaProject do
   end
 
   form do |f|
-    impulsa_project.force_validation = true
+    impulsa_project.check_validation = true
     impulsa_project.valid?
     f.inputs t("podemos.impulsa.admin_section") do
       li do
