@@ -29,7 +29,9 @@ class ImpulsaProject < ActiveRecord::Base
   attr_accessor :force_validation
   validate if: -> { self.force_validation || self.marked_for_review? } do |project|
     project.user_editable_fields.each do |field|
-      if FIELDS[:translation].member?(field)
+      if [ :terms_of_service, :data_truthfulness, :content_rights ].member?(field)
+        next
+      elsif FIELDS[:translation].member?(field)
         project.validates_presence_of field if project.translated? && project.user_view_field?(field.to_s.sub("coofficial_", "").to_sym)
       else
         project.validates_presence_of field if !FIELDS[:optional].member?(field)
@@ -41,7 +43,7 @@ class ImpulsaProject < ActiveRecord::Base
   validates :organization_web, :video_link, allow_blank: true, url: true
   validates :organization_year, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: Date.today.year }
 
-  validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true
+  validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true, unless: :force_validation
 
   validate do |project|
     project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
