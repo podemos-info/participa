@@ -127,6 +127,14 @@ div.impulsa_project {
     width: 20%;
     padding: 5px;
   }
+
+  .with_errors {
+    background: #F5BFC9;
+  }
+  .no_viewable {
+    background: #ddd;
+    color: white;
+  }
 }
 form.impulsa_project fieldset.reviewable > ol > li {
   min-height: 70px;
@@ -151,5 +159,18 @@ form.impulsa_project fieldset.reviewable > ol > li {
     vertical-align: top;
     position: absolute;
     right: 0;
+  }
+
+  &.with_errors {
+    background: #F5BFC9;
+  }
+  &.no_viewable {
+    background: #ddd;
+    label {
+      color: white;
+    }
+    textarea, input {
+      background: #ddd;
+    }
   }
 }
