@@ -334,8 +334,6 @@ ActiveRecord::Schema.define(version: 20150922080614) do
     t.datetime "evaluator2_analysis_updated_at"
   end
 
-  add_index "impulsa_projects", ["evaluator1_id"], name: "index_impulsa_projects_on_evaluator1_id"
-  add_index "impulsa_projects", ["evaluator2_id"], name: "index_impulsa_projects_on_evaluator2_id"
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"
   add_index "impulsa_projects", ["user_id"], name: "index_impulsa_projects_on_user_id"
 
