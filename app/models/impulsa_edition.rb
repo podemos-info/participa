@@ -51,6 +51,18 @@ class ImpulsaEdition < ActiveRecord::Base
     end
   end
 
+  def allow_edition?
+    self.current_phase < EDITION_PHASES[:review_projects]
+  end
+
+  def allow_fixes?
+    self.current_phase < EDITION_PHASES[:validation_projects]
+  end
+
+  def allow_validation?
+    self.current_phase == EDITION_PHASES[:validation_projects]
+  end
+
   def legal_link
     self[:legal]["legal_#{I18n.locale}"] || self[:legal]["legal_#{I18n.default_locale}"]
   end

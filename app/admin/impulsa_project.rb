@@ -24,7 +24,7 @@ ActiveAdmin.register ImpulsaProject do
     column :updated_at
     column :status_name do |impulsa_project|
       div t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
-      if impulsa_project.editable?
+      if impulsa_project.saveable?
         impulsa_project.check_validation = true
         if impulsa_project.valid?
           status_tag("OK", :ok)
@@ -40,6 +40,18 @@ ActiveAdmin.register ImpulsaProject do
     content_tag :script do
       "window.review_fields = #{impulsa_project.review_fields.to_json};".html_safe
     end
+  end
+
+  action_item(:spam, only: :show ) do
+    link_to('Marcar como Spam', spam_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como Spam?" }) 
+  end
+
+  member_action :spam, :method => :post do
+    p = ImpulsaProject.find( params[:id] )
+    p.mark_as_spam
+    p.save
+    flash[:notice] = "El proyecto ha sido marcado como spam."
+    redirect_to action: :index
   end
 
   show do
@@ -211,6 +223,21 @@ ActiveAdmin.register ImpulsaProject do
         end
       end
     end
+
+    panel "Evaluación" do
+      attributes_table_for impulsa_project do
+        row :evaluator1
+        row :evaluator1_invalid_reasons
+        row :evaluator1_analysis do |impulsa_project|
+          link_to(impulsa_project.evaluator1_analysis_file_name, impulsa_project.evaluator1_analysis.url) if impulsa_project.evaluator1_analysis.exists?
+        end
+        row :evaluator2
+        row :evaluator2_invalid_reasons
+        row :evaluator2_analysis do |impulsa_project|
+          link_to(impulsa_project.evaluator2_analysis_file_name, impulsa_project.evaluator2_analysis.url) if impulsa_project.evaluator2_analysis.exists?
+        end
+      end
+    end
   end
 
   form do |f|
@@ -231,7 +258,9 @@ ActiveAdmin.register ImpulsaProject do
       else
         f.input :user_id, as: :number
       end
-      f.input :status, as: :select, collection: ImpulsaProject::PROJECT_STATUS.map { |k,v| [ t("podemos.impulsa.project_status.#{k}"), v ]}
+      if can? :admin, ImpulsaProject
+        f.input :status, as: :select, collection: ImpulsaProject::PROJECT_STATUS.map { |k,v| [ t("podemos.impulsa.project_status.#{k}"), v ]}
+      end
       f.input :additional_contact
       f.input :counterpart_information
     end
@@ -299,6 +328,46 @@ ActiveAdmin.register ImpulsaProject do
         f.input :coofficial_career, wrapper_html: { class: f.object.field_class(:coofficial_career) }
       end
     end
+
+    if !can?(:admin, ImpulsaProject) 
+      if impulsa_project.marked_for_review?
+        f.inputs "Revisión del proyecto" do
+          li do
+            "Al utilizar esta casilla el proyecto cambiará de estado: si hay comentarios asociados a algún campo pasar al estado 'Correcciones' 
+            para que sea revisado por el usuario; en caso contrario pasará al estado 'Validar'. En cualquier caso, se enviará un correo al usuario
+            para informarle del progreso de su proyecto, por lo que es recomendable revisar el formulario antes de enviarlo." 
+          end
+          f.input :mark_as_viewed, label: "Marcar como revisado", as: :boolean
+        end
+      else
+        f.inputs "Validación del proyecto" do
+          if impulsa_project.evaluator1
+            li do "Validación por #{impulsa_project.evaluator1.full_name}" end
+            li do impulsa_project.evaluator1_invalid_reasons end
+            li do link_to(impulsa_project.evaluator1_analysis, impulsa_project.evaluator1.url) end if impulsa_project.evaluator1.exists?
+          end
+
+          if impulsa_project.evaluator1 != current_active_admin_user
+            li do
+              if impulsa_project.evaluator1.nil?
+                "Al rellenar estos campos se almacenará su análisis del proyecto para que sea complementado con el de otro evaluador.
+                Para marcar el proyecto como validado basta con dejar el campo 'Razones de invalidación' vacío."
+              else
+                "Al rellenar estos campos se almacenará su análisis del proyecto. Para marcar el proyecto como validado basta con 
+                dejar el campo 'Razones de invalidación' vacío. Dado que otro evaluador ya ha analizado el proyecto, este cambiará de
+                estado según el resultado de ambas evaluaciones: pasará a 'Validado' si ambos han aprobado el proyecto, a 'Invalidado'
+                si ambos han rechazado el proyecto y a 'Disenso' si no hay acuerdo entre ambas opiniones. Salvo en el último caso, se
+                enviará un correo al usuario para indicar el resultado del proceso y las razones de invalidación, si hubieran, 
+                por lo que es importante revisar el formulario antes de enviarlo y asegurarse que las razones de invalidación de ambos
+                evaluadores no son contradictorias para no confundir al usuario." 
+              end
+            end
+            f.input :invalid_reasons, as: :text, label: "Razones de invalidación"
+            f.input :evaluator_analysis, as: :file
+          end
+        end
+      end
+    end
     f.actions
   end
 
@@ -314,6 +383,22 @@ ActiveAdmin.register ImpulsaProject do
           resource.scopes << ActiveAdmin::Scope.new( status_name ) do |projects| projects.by_status(id) end
         end
       end
+    end
+
+    def update
+      if resource.validable? && !params[:evaluator_analysis].blank?
+        if resource.evaluator1.nil?
+          resource.evaluator1 = current_active_admin_user
+          resource.evaluator1_invalid_reasons = params[:invalid_reasons]
+          resource.evaluator1_analysis = params[:evaluator_analysis]
+        elsif resource.evaluator1!=current_active_admin_user
+          resource.evaluator2 = current_active_admin_user
+          resource.evaluator2_invalid_reasons = params[:invalid_reasons]
+          resource.evaluator2_analysis = params[:evaluator_analysis]
+          resource.validate
+        end
+      end
+      super
     end
   end
 end
