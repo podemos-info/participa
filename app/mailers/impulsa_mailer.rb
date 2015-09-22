@@ -3,6 +3,7 @@ class ImpulsaMailer < ActionMailer::Base
 
   def on_spam(project)
     mail(
+      from: Rails.application.secrets.impulsa[:from_email],
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Proyecto desestimado'
     )
@@ -13,6 +14,7 @@ class ImpulsaMailer < ActionMailer::Base
     @project_url = edit_impulsa_url(project)
 
     mail(
+      from: Rails.application.secrets.impulsa[:from_email],
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Necesaria subsanación'
     )
@@ -23,6 +25,7 @@ class ImpulsaMailer < ActionMailer::Base
     @project_url = edit_impulsa_url(project)
 
     mail(
+      from: Rails.application.secrets.impulsa[:from_email],
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Tu proyecto ha sido revisado y está completo'
     )
@@ -30,6 +33,7 @@ class ImpulsaMailer < ActionMailer::Base
 
   def on_invalidated(project)
     mail(
+      from: Rails.application.secrets.impulsa[:from_email],
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Proyecto invalidado'
     )
@@ -41,6 +45,7 @@ class ImpulsaMailer < ActionMailer::Base
     @prewinners = project.prewinners
 
     mail(
+      from: Rails.application.secrets.impulsa[:from_email],
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Proyecto validado en la categoría "Impulsa tu país"'
     )
@@ -49,6 +54,7 @@ class ImpulsaMailer < ActionMailer::Base
   def on_validated2(project)
     @voting_dates = "#{project.impulsa_edition.validation_projects_until.to_s(:short)} al #{project.impulsa_edition.ends_at.to_s(:short)}"
     mail(
+      from: Rails.application.secrets.impulsa[:from_email],
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Proyecto validado en la categoría "Impulsa tu entorno"'
     )
