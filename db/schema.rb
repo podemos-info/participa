@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914162750) do
+ActiveRecord::Schema.define(version: 20150922080614) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -320,8 +320,22 @@ ActiveRecord::Schema.define(version: 20150914162750) do
     t.text     "coofficial_population_segment"
     t.text     "coofficial_organization_mission"
     t.text     "coofficial_career"
+    t.integer  "evaluator1_id"
+    t.integer  "evaluator2_id"
+    t.text     "evaluator1_invalid_reasons"
+    t.text     "evaluator2_invalid_reasons"
+    t.string   "evaluator1_analysis_file_name"
+    t.string   "evaluator1_analysis_content_type"
+    t.integer  "evaluator1_analysis_file_size"
+    t.datetime "evaluator1_analysis_updated_at"
+    t.string   "evaluator2_analysis_file_name"
+    t.string   "evaluator2_analysis_content_type"
+    t.integer  "evaluator2_analysis_file_size"
+    t.datetime "evaluator2_analysis_updated_at"
   end
 
+  add_index "impulsa_projects", ["evaluator1_id"], name: "index_impulsa_projects_on_evaluator1_id"
+  add_index "impulsa_projects", ["evaluator2_id"], name: "index_impulsa_projects_on_evaluator2_id"
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"
   add_index "impulsa_projects", ["user_id"], name: "index_impulsa_projects_on_user_id"
 
