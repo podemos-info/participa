@@ -54,25 +54,25 @@ class ImpulsaProject < ActiveRecord::Base
     project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
   end
 
-  validates_attachment :logo, content_type: { content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]}, size: { less_than: 1.megabyte }
-  validates_attachment :scanned_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :endorsement, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :register_entry, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :statutes, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :responsible_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :fiscal_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :labor_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :home_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :bank_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :last_fiscal_year_report_of_activities, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :last_fiscal_year_annual_accounts, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 1.megabyte }
-  validates_attachment :schedule, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
-  validates_attachment :activities_resources, content_type: { content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]}, size: { less_than: 1.megabyte }
-  validates_attachment :requested_budget, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
-  validates_attachment :evaluator1_analysis, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
-  validates_attachment :evaluator2_analysis, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :logo, content_type: { content_type: ["image/jpeg", "image/jpg", "image/gif", "image/png"]}, size: { less_than: 2.megabyte }
+  validates_attachment :scanned_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :endorsement, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :register_entry, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :statutes, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :responsible_nif, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :fiscal_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :labor_obligations_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :home_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :bank_certificate, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :last_fiscal_year_report_of_activities, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :last_fiscal_year_annual_accounts, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  validates_attachment :schedule, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 2.megabyte }
+  validates_attachment :activities_resources, content_type: { content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]}, size: { less_than: 2.megabyte }
+  validates_attachment :requested_budget, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 2.megabyte }
+  validates_attachment :evaluator1_analysis, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 2.megabyte }
+  validates_attachment :evaluator2_analysis, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 2.megabyte }
   
-  attr_accessor :invalid_reasons, :evaluator_analysis
+  attr_accessor :mark_as_viewed, :invalid_reasons, :evaluator_analysis
 
   attr_accessor :logo_cache, :scanned_nif_cache, :endorsement_cache, :register_entry_cache, :statutes_cache, :responsible_nif_cache, :fiscal_obligations_certificate_cache, :labor_obligations_certificate_cache, :home_certificate_cache, :bank_certificate_cache, :last_fiscal_year_report_of_activities_cache, :last_fiscal_year_annual_accounts_cache, :schedule_cache, :activities_resources_cache, :requested_budget_cache, :monitoring_evaluation_cache
 
@@ -185,12 +185,20 @@ class ImpulsaProject < ActiveRecord::Base
     end
   end
 
+  def mark_as_fixable
+    self.status=PROJECT_STATUS[:fixes]
+  end
+
+  def mark_as_validable
+    self.status=PROJECT_STATUS[:validate]
+  end    
+
   def editable?
     !persisted? || (self.impulsa_edition.allow_edition? && (self.status < PROJECT_STATUS[:fixes] || self.spam?))
   end
 
   def reviewable?
-    self.impulsa_edition.allow_fixes? && marked_for_review?
+    self.impulsa_edition.allow_fixes? && (marked_for_review? || fixes?)
   end
 
   def saveable?
@@ -213,6 +221,7 @@ class ImpulsaProject < ActiveRecord::Base
       self.status = PROJECT_STATUS[:dissent]
     end 
   end
+
   def preload params
     if params
       self.impulsa_edition_category_id = params[:impulsa_edition_category_id] if params[:impulsa_edition_category_id]
