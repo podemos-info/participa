@@ -97,6 +97,10 @@ class ImpulsaProject < ActiveRecord::Base
   
   scope :by_status, ->(status) { where( status: status ) }
 
+  scope :first_phase, -> { where( status: [ 0, 1, 2, 3 ] ) }
+  scope :second_phase, -> { where( status: [ 4, 6 ]) }
+  scope :no_phase, -> { where status: [ 5, 7, 10 ] } 
+
   PROJECT_STATUS = {
     new: 0,
     review: 1,
@@ -182,7 +186,7 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def editable?
-    self.impulsa_edition.allow_edition? && (self.status < PROJECT_STATUS[:fixes] || self.spam?)
+    !persisted? || (self.impulsa_edition.allow_edition? && (self.status < PROJECT_STATUS[:fixes] || self.spam?))
   end
 
   def reviewable?

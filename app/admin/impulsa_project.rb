@@ -43,7 +43,7 @@ ActiveAdmin.register ImpulsaProject do
   end
 
   action_item(:spam, only: :show ) do
-    link_to('Marcar como Spam', spam_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como Spam?" }) 
+    link_to('Marcar como Spam', spam_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como Spam?" }) if !impulsa_project.spam?
   end
 
   member_action :spam, :method => :post do
@@ -329,42 +329,40 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    if !can?(:admin, ImpulsaProject) 
-      if impulsa_project.marked_for_review?
-        f.inputs "Revisión del proyecto" do
-          li do
-            "Al utilizar esta casilla el proyecto cambiará de estado: si hay comentarios asociados a algún campo pasar al estado 'Correcciones' 
-            para que sea revisado por el usuario; en caso contrario pasará al estado 'Validar'. En cualquier caso, se enviará un correo al usuario
-            para informarle del progreso de su proyecto, por lo que es recomendable revisar el formulario antes de enviarlo." 
-          end
-          f.input :mark_as_viewed, label: "Marcar como revisado", as: :boolean
+    if impulsa_project.saveable?
+      f.inputs "Revisión del proyecto" do
+        li do
+          "Al utilizar esta casilla el proyecto cambiará de estado: si hay comentarios asociados a algún campo pasar al estado 'Correcciones' 
+          para que sea revisado por el usuario; en caso contrario pasará al estado 'Validar'. En cualquier caso, se enviará un correo al usuario
+          para informarle del progreso de su proyecto, por lo que es recomendable revisar el formulario antes de enviarlo." 
         end
-      else
-        f.inputs "Validación del proyecto" do
-          if impulsa_project.evaluator1
-            li do "Validación por #{impulsa_project.evaluator1.full_name}" end
-            li do impulsa_project.evaluator1_invalid_reasons end
-            li do link_to(impulsa_project.evaluator1_analysis, impulsa_project.evaluator1.url) end if impulsa_project.evaluator1.exists?
-          end
+        f.input :mark_as_viewed, label: "Marcar como revisado", as: :boolean
+      end
+    elsif impulsa_project.validable?
+      f.inputs "Validación del proyecto" do
+        if impulsa_project.evaluator1
+          li do "Validación por #{impulsa_project.evaluator1.full_name}" end
+          li do impulsa_project.evaluator1_invalid_reasons end
+          li do link_to(impulsa_project.evaluator1_analysis, impulsa_project.evaluator1.url) end if impulsa_project.evaluator1.exists?
+        end
 
-          if impulsa_project.evaluator1 != current_active_admin_user
-            li do
-              if impulsa_project.evaluator1.nil?
-                "Al rellenar estos campos se almacenará su análisis del proyecto para que sea complementado con el de otro evaluador.
-                Para marcar el proyecto como validado basta con dejar el campo 'Razones de invalidación' vacío."
-              else
-                "Al rellenar estos campos se almacenará su análisis del proyecto. Para marcar el proyecto como validado basta con 
-                dejar el campo 'Razones de invalidación' vacío. Dado que otro evaluador ya ha analizado el proyecto, este cambiará de
-                estado según el resultado de ambas evaluaciones: pasará a 'Validado' si ambos han aprobado el proyecto, a 'Invalidado'
-                si ambos han rechazado el proyecto y a 'Disenso' si no hay acuerdo entre ambas opiniones. Salvo en el último caso, se
-                enviará un correo al usuario para indicar el resultado del proceso y las razones de invalidación, si hubieran, 
-                por lo que es importante revisar el formulario antes de enviarlo y asegurarse que las razones de invalidación de ambos
-                evaluadores no son contradictorias para no confundir al usuario." 
-              end
+        if impulsa_project.evaluator1 != current_active_admin_user
+          li do
+            if impulsa_project.evaluator1.nil?
+              "Al rellenar estos campos se almacenará su análisis del proyecto para que sea complementado con el de otro evaluador.
+              Para marcar el proyecto como validado basta con dejar el campo 'Razones de invalidación' vacío."
+            else
+              "Al rellenar estos campos se almacenará su análisis del proyecto. Para marcar el proyecto como validado basta con 
+              dejar el campo 'Razones de invalidación' vacío. Dado que otro evaluador ya ha analizado el proyecto, este cambiará de
+              estado según el resultado de ambas evaluaciones: pasará a 'Validado' si ambos han aprobado el proyecto, a 'Invalidado'
+              si ambos han rechazado el proyecto y a 'Disenso' si no hay acuerdo entre ambas opiniones. Salvo en el último caso, se
+              enviará un correo al usuario para indicar el resultado del proceso y las razones de invalidación, si hubieran, 
+              por lo que es importante revisar el formulario antes de enviarlo y asegurarse que las razones de invalidación de ambos
+              evaluadores no son contradictorias para no confundir al usuario." 
             end
-            f.input :invalid_reasons, as: :text, label: "Razones de invalidación"
-            f.input :evaluator_analysis, as: :file
           end
+          f.input :invalid_reasons, as: :text, label: "Razones de invalidación"
+          f.input :evaluator_analysis, as: :file
         end
       end
     end
@@ -386,6 +384,9 @@ ActiveAdmin.register ImpulsaProject do
     end
 
     def update
+      if impulsa_project.saveable? && params[:mark_as_viewed]
+        
+      end
       if resource.validable? && !params[:evaluator_analysis].blank?
         if resource.evaluator1.nil?
           resource.evaluator1 = current_active_admin_user

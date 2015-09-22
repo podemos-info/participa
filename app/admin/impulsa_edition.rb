@@ -56,7 +56,7 @@ ActiveAdmin.register ImpulsaEdition do
         column :winners
         column :prize
         column :projects do |impulsa_edition_category|
-          impulsa_edition_category.impulsa_projects.count
+          "#{impulsa_edition_category.impulsa_projects.first_phase.count} -> &check;#{impulsa_edition_category.impulsa_projects.second_phase.count} (&#9785;#{impulsa_edition_category.impulsa_projects.no_phase.count})".html_safe
         end
         column :actions do |impulsa_edition_category|
           span link_to(t('active_admin.edit'), edit_admin_impulsa_edition_impulsa_edition_category_path(resource, impulsa_edition_category))
