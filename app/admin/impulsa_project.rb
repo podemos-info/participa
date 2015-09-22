@@ -264,20 +264,20 @@ ActiveAdmin.register ImpulsaProject do
       f.input :additional_contact
       f.input :counterpart_information
     end
-    f.inputs t("podemos.impulsa.project_data_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.project_data_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :name
       f.input :impulsa_edition_topics, as: :check_boxes, wrapper_html: { class: f.object.field_class(:impulsa_edition_topics) }
       f.input :short_description
       f.input :logo, as: :file, hint: proc{ f.template.image_tag(f.object.logo.url(:thumb)) if f.object_has_logo?}
       f.input :video_link
     end
-    f.inputs t("podemos.impulsa.authority_data_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.authority_data_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :authority, wrapper_html: { class: f.object.field_class(:authority) }
       f.input :authority_name, wrapper_html: { class: f.object.field_class(:authority_name) }
       f.input :authority_phone, wrapper_html: { class: f.object.field_class(:authority_phone) }
       f.input :authority_email, wrapper_html: { class: f.object.field_class(:authority_email) }
     end
-    f.inputs t("podemos.impulsa.organization_data_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.organization_data_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :organization_type, as: :select, collection: ImpulsaProject::ORGANIZATION_TYPES.map { |k,v| [ t("podemos.impulsa.organization_type.#{k}"), v ]}, wrapper_html: { class: f.object.field_class(:organization_type) }
       f.input :organization_name, wrapper_html: { class: f.object.field_class(:organization_name) }
       f.input :organization_address, wrapper_html: { class: f.object.field_class(:organization_address) }
@@ -290,7 +290,7 @@ ActiveAdmin.register ImpulsaProject do
       f.input :organization_mission, wrapper_html: { class: f.object.field_class(:organization_mission) }
       f.input :career, wrapper_html: { class: f.object.field_class(:career) }
     end
-    f.inputs t("podemos.impulsa.documents_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.documents_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :endorsement, as: :file, wrapper_html: { class: f.object.field_class(:endorsement) }
       f.input :register_entry, as: :file, wrapper_html: { class: f.object.field_class(:register_entry) }
       f.input :statutes, as: :file, wrapper_html: { class: f.object.field_class(:statutes) }
@@ -300,7 +300,7 @@ ActiveAdmin.register ImpulsaProject do
       f.input :last_fiscal_year_report_of_activities, as: :file, wrapper_html: { class: f.object.field_class(:last_fiscal_year_report_of_activities) }
       f.input :last_fiscal_year_annual_accounts, as: :file, wrapper_html: { class: f.object.field_class(:last_fiscal_year_annual_accounts) }
     end
-    f.inputs t("podemos.impulsa.project_progress_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+    f.inputs t("podemos.impulsa.project_progress_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :counterpart, wrapper_html: { class: f.object.field_class(:counterpart) }
       f.input :territorial_context, wrapper_html: { class: f.object.field_class(:territorial_context) }
       f.input :long_description, wrapper_html: { class: f.object.field_class(:long_description) }
@@ -314,7 +314,7 @@ ActiveAdmin.register ImpulsaProject do
       f.input :monitoring_evaluation, as: :file, wrapper_html: { class: f.object.field_class(:monitoring_evaluation) }
     end
     if impulsa_project.translatable?
-      f.inputs t("podemos.impulsa.translation_section"), class: f.object.reviewable? ? "inputs reviewable" : "inputs" do
+      f.inputs t("podemos.impulsa.translation_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
         f.input :coofficial_translation, wrapper_html: { class: f.object.field_class(:coofficial_translation) }
         f.input :coofficial_name, wrapper_html: { class: f.object.field_class(:coofficial_name) }
         f.input :coofficial_short_description, wrapper_html: { class: f.object.field_class(:coofficial_short_description) }
