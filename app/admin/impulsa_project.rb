@@ -386,6 +386,7 @@ ActiveAdmin.register ImpulsaProject do
     end
 
     def update
+    byebug
       super
       if resource.saveable? && params[:impulsa_project][:mark_as_viewed]
         if resource.review_fields.any?
