@@ -3,6 +3,9 @@ class ImpulsaProject < ActiveRecord::Base
   belongs_to :user
   has_one :impulsa_edition, through: :impulsa_edition_category
 
+  belongs_to :evaluator1, class_name: "User"
+  belongs_to :evaluator2, class_name: "User"
+
   has_many :impulsa_project_topics, dependent: :destroy
   has_many :impulsa_edition_topics, through: :impulsa_project_topics
 
@@ -22,13 +25,18 @@ class ImpulsaProject < ActiveRecord::Base
   has_attached_file :activities_resources, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
   has_attached_file :requested_budget, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
   has_attached_file :monitoring_evaluation, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :evaluator1_analysis, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
+  has_attached_file :evaluator2_analysis, url: '/impulsa/:id/attachment/:field/:style/:filename', path: ":rails_root/non-public/system/:class/:id/:field/:style/:basename.:extension"
 
   validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
   validates :name, :impulsa_edition_category_id, :status, presence: true
 
-  validate :if => :marked_for_review? do |project|
+  attr_accessor :check_validation, :mark_as_reviewed
+  validate if: -> { self.check_validation || self.marked_for_review? } do |project|
     project.user_editable_fields.each do |field|
-      if FIELDS[:translation].member?(field)
+      if [ :terms_of_service, :data_truthfulness, :content_rights ].member?(field)
+        next
+      elsif FIELDS[:translation].member?(field)
         project.validates_presence_of field if project.translated? && project.user_view_field?(field.to_s.sub("coofficial_", "").to_sym)
       else
         project.validates_presence_of field if !FIELDS[:optional].member?(field)
@@ -40,7 +48,7 @@ class ImpulsaProject < ActiveRecord::Base
   validates :organization_web, :video_link, allow_blank: true, url: true
   validates :organization_year, allow_blank: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: Date.today.year }
 
-  validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true
+  validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true, unless: :check_validation
 
   validate do |project|
     project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
@@ -61,8 +69,11 @@ class ImpulsaProject < ActiveRecord::Base
   validates_attachment :schedule, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
   validates_attachment :activities_resources, content_type: { content_type: [ "application/vnd.ms-word", "application/msword", "application/x-msword", "application/x-ms-word", "application/x-word", "application/x-dos_ms_word", "application/doc", "application/x-doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.oasis.opendocument.text" ]}, size: { less_than: 1.megabyte }
   validates_attachment :requested_budget, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
-  validates_attachment :monitoring_evaluation, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :evaluator1_analysis, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
+  validates_attachment :evaluator2_analysis, content_type: { content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]}, size: { less_than: 1.megabyte }
   
+  attr_accessor :invalid_reasons, :evaluator_analysis
+
   attr_accessor :logo_cache, :scanned_nif_cache, :endorsement_cache, :register_entry_cache, :statutes_cache, :responsible_nif_cache, :fiscal_obligations_certificate_cache, :labor_obligations_certificate_cache, :home_certificate_cache, :bank_certificate_cache, :last_fiscal_year_report_of_activities_cache, :last_fiscal_year_annual_accounts_cache, :schedule_cache, :activities_resources_cache, :requested_budget_cache, :monitoring_evaluation_cache
 
   def cache_project_files
@@ -86,6 +97,10 @@ class ImpulsaProject < ActiveRecord::Base
   
   scope :by_status, ->(status) { where( status: status ) }
 
+  scope :first_phase, -> { where( status: [ 0, 1, 2, 3 ] ) }
+  scope :second_phase, -> { where( status: [ 4, 6 ]) }
+  scope :no_phase, -> { where status: [ 5, 7, 10 ] } 
+
   PROJECT_STATUS = {
     new: 0,
     review: 1,
@@ -96,11 +111,14 @@ class ImpulsaProject < ActiveRecord::Base
     validated: 6,
     discarded: 7,
     resigned: 8,
-    winner: 9
+    winner: 9,
+    spam: 10,
+    dissent: 11
   }
 
   FIELDS = {
     admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact ],
+    impulsa_admin: [ :user_id, :review_fields, :counterpart_information, :additional_contact ],
     always: [ :impulsa_edition_category_id, :name ],
     with_category: [ :short_description, :logo, :video_link ],
     authority: [ :authority, :authority_name, :authority_phone, :authority_email ],
@@ -114,13 +132,12 @@ class ImpulsaProject < ActiveRecord::Base
     translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link, :coofficial_territorial_context, :coofficial_long_description, :coofficial_aim, :coofficial_metodology, :coofficial_population_segment, :coofficial_career, :coofficial_organization_mission ],
     update: [ :terms_of_service, :data_truthfulness, :content_rights ],
 
-    optional: [ :counterpart_information, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
+    optional: [ :counterpart, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
   }
 
 
-  ADMIN_REVIEWABLE_FIELDS = FIELDS[:always] + FIELDS[:with_category] + FIELDS[:authority] + FIELDS[:organization_types] + FIELDS[:full_organization] + FIELDS[:non_organization] + FIELDS[:not_in_spain] + FIELDS[:non_project_details] + FIELDS[:project_details] + FIELDS[:additional_details] + FIELDS[:translation]
-
   ALL_FIELDS = FIELDS.map {|k,v| v} .flatten.uniq
+  ADMIN_REVIEWABLE_FIELDS = FIELDS[:always] + FIELDS[:with_category] + FIELDS[:authority] + FIELDS[:organization_types] + FIELDS[:full_organization] + FIELDS[:non_organization] + FIELDS[:not_in_spain] + FIELDS[:non_project_details] + FIELDS[:project_details] + FIELDS[:additional_details] + FIELDS[:translation]
 
   ORGANIZATION_TYPES = {
     organization: 0,
@@ -132,12 +149,20 @@ class ImpulsaProject < ActiveRecord::Base
     self.status==PROJECT_STATUS[:new]
   end
 
+  def review?
+    self.status==PROJECT_STATUS[:review]
+  end
+
   def fixes?
     self.status==PROJECT_STATUS[:fixes]
   end
 
+  def spam?
+    self.status==PROJECT_STATUS[:spam]
+  end
+
   def allow_save_draft?
-    self.new? || (self.status==PROJECT_STATUS[:review] && self.errors.any?)
+    self.new? || self.spam? || (self.review? && self.errors.any?)
   end
 
   def marked_for_review?
@@ -145,11 +170,15 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def mark_as_new
-    self.status=PROJECT_STATUS[:new] if self.status==PROJECT_STATUS[:review]
+    self.status=PROJECT_STATUS[:new] if self.review? || self.spam?
+  end
+
+  def mark_as_spam
+    self.status=PROJECT_STATUS[:spam] if self.new?
   end
 
   def mark_for_review
-    if self.new?
+    if self.new? || self.spam?
       self.status=PROJECT_STATUS[:review]
     elsif self.fixes?
       self.status=PROJECT_STATUS[:review_fixes]
@@ -157,13 +186,33 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def editable?
-    self.status < PROJECT_STATUS[:validate] && self.impulsa_edition.current_phase < ImpulsaEdition::EDITION_PHASES[:validation_projects]
+    !persisted? || (self.impulsa_edition.allow_edition? && (self.status < PROJECT_STATUS[:fixes] || self.spam?))
   end
 
   def reviewable?
-    persisted? and editable?
+    self.impulsa_edition.allow_fixes? && marked_for_review?
   end
 
+  def saveable?
+    editable? || reviewable?
+  end
+
+  def validable?
+    self.status==PROJECT_STATUS[:validate] && self.impulsa_edition.allow_validation?
+  end
+
+  def validate
+    return if !self.evaluator1_analysis.exists? || !self.evaluator2_analysis.exists?
+    valid1 = evaluator1_invalid_reasons.blank?
+    valid2 = evaluator2_invalid_reasons.blank?
+    if valid1 && valid2
+      self.status = PROJECT_STATUS[:validated]
+    elsif !valid1 && !valid2
+      self.status = PROJECT_STATUS[:invalidated]
+    else
+      self.status = PROJECT_STATUS[:dissent]
+    end 
+  end
   def preload params
     if params
       self.impulsa_edition_category_id = params[:impulsa_edition_category_id] if params[:impulsa_edition_category_id]
@@ -176,6 +225,16 @@ class ImpulsaProject < ActiveRecord::Base
 
   def user_view_field? field
     user_viewable_fields.member? field
+  end
+
+  def field_class field
+    if self.errors.include? field
+      "with_errors"
+    elsif !user_viewable_fields.member?(field)
+      "no_viewable"
+    else
+      ""
+    end
   end
 
   def user_viewable_fields
@@ -201,7 +260,7 @@ class ImpulsaProject < ActiveRecord::Base
       else
         fields += FIELDS[:non_project_details] 
       end
-      fields += FIELDS[:update] if self.editable?
+      fields += FIELDS[:update] if self.saveable?
     end
     fields.uniq
   end
@@ -211,13 +270,12 @@ class ImpulsaProject < ActiveRecord::Base
   end
   
   def user_editable_fields
-    case self.status
-      when 0..1
-        self.user_viewable_fields
-      when 2
-        review_fields.symbolize_keys.keys
-      else
-        []
+    if self.editable?
+      self.user_viewable_fields
+    elsif self.reviewable?
+      review_fields.symbolize_keys.keys
+    else
+      []
     end
   end
 

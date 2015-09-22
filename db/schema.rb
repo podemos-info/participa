@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914162750) do
+ActiveRecord::Schema.define(version: 20150922080614) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(version: 20150914162750) do
     t.integer  "ccc_entity"
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
-    t.integer  "ccc_account",             limit: 8
+    t.integer  "ccc_account"
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",                            default: 0
+    t.integer  "status",                  default: 0
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(version: 20150914162750) do
 
   create_table "impulsa_edition_categories", force: :cascade do |t|
     t.integer  "impulsa_edition_id"
-    t.string   "name",                                              null: false
-    t.integer  "category_type",                                     null: false
+    t.string   "name"
+    t.integer  "category_type"
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(version: 20150914162750) do
     t.string   "organization_nif"
     t.integer  "organization_year"
     t.string   "organization_legal_name"
-    t.string   "organization_legal_email"
+    t.string   "organization_legal_nif"
     t.text     "organization_mission"
     t.text     "career"
     t.string   "counterpart"
@@ -320,6 +320,18 @@ ActiveRecord::Schema.define(version: 20150914162750) do
     t.text     "coofficial_population_segment"
     t.text     "coofficial_organization_mission"
     t.text     "coofficial_career"
+    t.integer  "evaluator1_id"
+    t.text     "evaluator1_invalid_reasons"
+    t.string   "evaluator1_analysis_file_name"
+    t.string   "evaluator1_analysis_content_type"
+    t.integer  "evaluator1_analysis_file_size"
+    t.datetime "evaluator1_analysis_updated_at"
+    t.integer  "evaluator2_id"
+    t.text     "evaluator2_invalid_reasons"
+    t.string   "evaluator2_analysis_file_name"
+    t.string   "evaluator2_analysis_content_type"
+    t.integer  "evaluator2_analysis_file_size"
+    t.datetime "evaluator2_analysis_updated_at"
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"
@@ -472,7 +484,7 @@ ActiveRecord::Schema.define(version: 20150914162750) do
 
   create_table "reports", force: :cascade do |t|
     t.string   "title"
-    t.text     "query"
+    t.text     "query",      limit: 255
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"

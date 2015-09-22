@@ -750,6 +750,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         discarded: "Descartado"
         resigned: "Renuncia"
         winner: "Premiado"
+        spam: "Spam"
+        dissent: "Disenso"
       category_type_name:
         internal: "Interna"
         state: "Estatal"

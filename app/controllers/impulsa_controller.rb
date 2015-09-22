@@ -62,7 +62,7 @@ class ImpulsaController < ApplicationController
 
   def attachment
     project = ImpulsaProject.find(params[:id]) # important to avoid users viewing other users attachments
-    path = "#{Rails.application.root}/non-public/system/impulsa_projects/#{project.id}/#{params[:field]}/#{params[:style]}/#{params[:filename]}.#{params[:extension]}"
+    path = "#{Rails.application.root}/non-public/system/impulsa_projects/#{project.id}/#{params[:field]}/#{params[:style]}/#{params[:filename]}"
 
     send_file path if project.has_attachment_field?(params[:field])
   end
@@ -92,7 +92,7 @@ class ImpulsaController < ApplicationController
 
   def project_params
     if @project.user_edit_field?(:impulsa_edition_topics)
-      params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields , impulsa_edition_topic_ids:[])
+      params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields, impulsa_edition_topic_ids:[])
     else
       params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields)
     end
