@@ -397,7 +397,6 @@ ActiveAdmin.register ImpulsaProject do
         end
         resource.save!
       end
-      byebug
       if resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
         if resource.evaluator1.nil?
           resource.evaluator1 = current_active_admin_user
