@@ -37,8 +37,6 @@ class ImpulsaController < ApplicationController
       @project.mark_for_review if params[:commit]==t("podemos.impulsa.mark_for_review")
       if @project.save
         flash[:notice] = "Los cambios han sido guardados"
-        # send mails
-        ImpulsaMailer.on_review(@project) if @project.mark_for_review
         redirect_to edit_impulsa_path
         return
       else

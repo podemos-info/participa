@@ -33,6 +33,10 @@ class ImpulsaEditionCategory < ActiveRecord::Base
     self.category_type != CATEGORY_TYPES[:internal]
   end
 
+  def needs_preselection?
+    self.category_type == CATEGORY_TYPES[:state]
+  end
+
   def needs_additional_details?
     self.category_type == CATEGORY_TYPES[:state]
   end
@@ -84,5 +88,9 @@ class ImpulsaEditionCategory < ActiveRecord::Base
   def territories_names
     names = Hash[Podemos::GeoExtra::AUTONOMIES.values]
     self.territories.map {|t| names[t]}
+  end
+
+  def prewinners
+    self.winners*2
   end
 end

@@ -1,43 +1,56 @@
 class ImpulsaMailer < ActionMailer::Base
-  default from: Rails.application.secrets[:default_from_email]
+  default from: Rails.application.secrets.impulsa[:from_email]
 
-  def on_review(id_project_impulsa)
+  def on_spam(project)
     mail(
-      from: Rails.application.secrets["default_from_email"],
-      to: current_user.email,
-      subject: '[PODEMOS IMPULSA] Inscripción realizada correctamente'
+      to: project.user.email,
+      subject: '[PODEMOS IMPULSA] Proyecto desestimado'
     )
   end
 
-  def on_fixes(id_project_impulsa)
+  def on_fixes(project)
+    @fixes_limit = project.impulsa_edition.review_projects_until.to_s(:short)
+    @project_url = edit_impulsa_url(project)
+
     mail(
-      from: Rails.application.secrets["default_from_email"],
-      to: current_user.email,
+      to: project.user.email,
       subject: '[PODEMOS IMPULSA] Necesaria subsanación'
     )
   end
 
-  def on_validate1(id_project_impulsa)
+  def on_validable(project)
+    @fixes_limit = project.impulsa_edition.review_projects_until.to_s(:short)
+    @project_url = edit_impulsa_url(project)
+
     mail(
-      from: Rails.application.secrets["default_from_email"],
-      to: current_user.email,
-      subject: '[PODEMOS IMPULSA] Proyecto Validado en la categoría 1 Impulsa tu país.'
+      to: project.user.email,
+      subject: '[PODEMOS IMPULSA] Tu proyecto ha sido revisado y está completo'
     )
   end
 
-  def on_validate2(id_project_impulsa)
+  def on_invalidated(project)
     mail(
-      from: Rails.application.secrets["default_from_email"],
-      to: current_user.email,
-      subject: '[PODEMOS IMPULSA] Proyecto Validado en la categoría 2 Impulsa tu entorno'
+      to: project.user.email,
+      subject: '[PODEMOS IMPULSA] Proyecto invalidado'
     )
   end
 
-  def on_invalidated(id_project_impulsa)
+  def on_validated1(project)
+    @voting_dates = "#{project.impulsa_edition.validation_projects_until.to_s(:short)} al #{project.impulsa_edition.ends_at.to_s(:short)}"
+    @winners = project.winners
+    @prewinners = project.prewinners
+
     mail(
-      from: Rails.application.secrets["default_from_email"],
-      to: current_user.email,
-      subject: '[PODEMOS IMPULSA] Proyecto Invalidado'
+      to: project.user.email,
+      subject: '[PODEMOS IMPULSA] Proyecto validado en la categoría "Impulsa tu país"'
+    )
+  end
+
+  def on_validated2(project)
+    @voting_dates = "#{project.impulsa_edition.validation_projects_until.to_s(:short)} al #{project.impulsa_edition.ends_at.to_s(:short)}"
+    mail(
+      to: project.user.email,
+      subject: '[PODEMOS IMPULSA] Proyecto validado en la categoría "Impulsa tu entorno"'
     )
   end
 end

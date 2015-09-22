@@ -10,6 +10,20 @@
           <%= content_tag(:p, t("podemos.impulsa.save_draft_text", save_draft:t("podemos.impulsa.save_draft"))) if @project.allow_save_draft? %>
           <%= content_tag(:p, t("podemos.impulsa.fixes_text")) if @project.fixes?%>
           <%= content_tag(:p, t("podemos.impulsa.mark_for_review_text", mark_for_review:t("podemos.impulsa.mark_for_review"))) %>
+        <% else %>
+          <%= if @project.spam?
+            content_tag(:p, t("podemos.impulsa.spam_text"))
+          elsif @project.validable?
+            content_tag(:p, t("podemos.impulsa.validable_text"))
+          elsif @project.invalidated?
+            content_tag(:p, t("podemos.impulsa.invalidated_text", invalid_reasons: @project.invalid_reasons))
+          elsif @project.validated?
+            if @project.impulsa_edition_category.needs_preselection?
+              content_tag(:p, t("podemos.impulsa.validated1_text", voting_dates: @project.voting_dates, winners: @project.impulsa_edition_category.winners, prewinners: @project.impulsa_edition_category.prewinners))
+            else
+              content_tag(:p, t("podemos.impulsa.validated2_text", voting_dates: @project.voting_dates))
+            end
+          end %>
         <% end %>
       <% end %>
       <%= errors_in_form @project %>

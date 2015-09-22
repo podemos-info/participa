@@ -104,6 +104,8 @@ ActiveAdmin.register ImpulsaProject do
         end
         row :additional_contact
         row :counterpart_information
+        row :created_at
+        row :updated_at
       end
     end
 
@@ -343,7 +345,7 @@ ActiveAdmin.register ImpulsaProject do
         if impulsa_project.evaluator1
           li do "Validación por #{impulsa_project.evaluator1.full_name}" end
           li do impulsa_project.evaluator1_invalid_reasons end
-          li do link_to(impulsa_project.evaluator1_analysis, impulsa_project.evaluator1.url) end if impulsa_project.evaluator1.exists?
+          li do link_to(impulsa_project.evaluator1_analysis, impulsa_project.evaluator1_analysis.url) end if impulsa_project.evaluator1_analysis.exists?
         end
 
         if impulsa_project.evaluator1 != current_active_admin_user
@@ -384,22 +386,40 @@ ActiveAdmin.register ImpulsaProject do
     end
 
     def update
-      if impulsa_project.saveable? && params[:mark_as_viewed]
-        
+      super
+      if resource.saveable? && params[:impulsa_project][:mark_as_viewed]
+        if resource.review_fields.any?
+          resource.mark_as_fixable
+          ImpulsaMailer.on_fixes(resource).deliver_now
+        else
+          resource.mark_as_validable
+          ImpulsaMailer.on_validable(resource).deliver_now
+        end
+        resource.save!
       end
-      if resource.validable? && !params[:evaluator_analysis].blank?
+      byebug
+      if resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
         if resource.evaluator1.nil?
           resource.evaluator1 = current_active_admin_user
-          resource.evaluator1_invalid_reasons = params[:invalid_reasons]
-          resource.evaluator1_analysis = params[:evaluator_analysis]
+          resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons]
+          resource.evaluator1_analysis = params[:impulsa_project][:evaluator_analysis]
         elsif resource.evaluator1!=current_active_admin_user
           resource.evaluator2 = current_active_admin_user
-          resource.evaluator2_invalid_reasons = params[:invalid_reasons]
-          resource.evaluator2_analysis = params[:evaluator_analysis]
+          resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons]
+          resource.evaluator2_analysis = params[:impulsa_project][:evaluator_analysis]
           resource.validate
+          if resource.invalidated?
+            ImpulsaMailer.on_invalidated(resource).deliver_now
+          else
+            if resource.impulsa_edition_category.needs_preselection?
+              ImpulsaMailer.on_validated1(resource).deliver_now
+            else
+              ImpulsaMailer.on_validated2(resource).deliver_now
+            end
+          end
         end
+        resource.save!
       end
-      super
     end
   end
 end
