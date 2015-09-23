@@ -198,7 +198,7 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def reviewable?
-    self.impulsa_edition.allow_fixes? && (marked_for_review? || fixes?)
+    self.impulsa_edition.allow_fixes? && (marked_for_review? || new? || fixes?)
   end
 
   def saveable?

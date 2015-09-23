@@ -15,4 +15,6 @@ $ ->
   $(".impulsa_project .row").each ->
     name = this.className.match(/row-([^\W]+)/)[1]
     if (window.review_fields[name]!=undefined)
-      $(this).prepend("<td class='review'>"+window.review_fields[name]+"</td>")
+      $(this).append("<td class='review'>"+window.review_fields[name]+"</td>")
+    else
+      $(this).append("<td></td>")
