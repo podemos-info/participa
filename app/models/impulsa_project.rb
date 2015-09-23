@@ -50,7 +50,7 @@ class ImpulsaProject < ActiveRecord::Base
 
   validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true, unless: :check_validation
 
-  validate do |project|
+  validate if: -> { self.check_validation || self.marked_for_review? } do |project|
     project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
   end
 
