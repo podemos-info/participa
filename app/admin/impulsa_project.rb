@@ -111,74 +111,74 @@ ActiveAdmin.register ImpulsaProject do
 
     panel t("podemos.impulsa.project_data_section") do
       attributes_table_for impulsa_project do
-        row :name
-        row :short_description
-        row :logo do
+        row :name, class: "row-name " + impulsa_project.field_class(:name)
+        row :short_description, class: "row-short_description " + impulsa_project.field_class(:short_description), class: "row-video_link " + impulsa_project.field_class(:video_link)
+        row :logo, class: "row-logo " + impulsa_project.field_class(:logo) do
           image_tag(impulsa_project.logo.url(:thumb)) if impulsa_project.logo.exists?
         end
-        row :video_link
+        row :video_link, class: "row-video_link " + impulsa_project.field_class(:video_link)
       end
     end
 
     panel "Temáticas" do
-      table_for impulsa_project.impulsa_edition_topics, class: impulsa_project.field_class(:impulsa_edition_topics) do
+      table_for impulsa_project.impulsa_edition_topics, class: "row-impulsa_edition_topics " + impulsa_project.field_class(:impulsa_edition_topics) do
         column :name
       end
     end
 
-    panel t("podemos.impulsa.project_data_section") do
+    panel t("podemos.impulsa.authority_data_section") do
       attributes_table_for impulsa_project do
-        row :authority, class: impulsa_project.field_class(:authority)
-        row :authority_name, class: impulsa_project.field_class(:authority_name)
-        row :authority_phone, class: impulsa_project.field_class(:authority_phone)
-        row :authority_email, class: impulsa_project.field_class(:authority_email)
+        row :authority, class: "row-authority " + impulsa_project.field_class(:authority)
+        row :authority_name, class: "row-authority_name " + impulsa_project.field_class(:authority_name)
+        row :authority_phone, class: "row-authority_phone " + impulsa_project.field_class(:authority_phone)
+        row :authority_email, class: "row-authority_email " + impulsa_project.field_class(:authority_email)
       end
     end
 
     panel t("podemos.impulsa.organization_data_section") do
       attributes_table_for impulsa_project do
-        row :organization_type, class: impulsa_project.field_class(:organization_type) do |impulsa_project|
+        row :organization_type, class: "row-organization_type " +  impulsa_project.field_class(:organization_type) do |impulsa_project|
           t("podemos.impulsa.organization_type.#{impulsa_project.organization_type_name}") if impulsa_project.organization_type
         end
-        row :organization_name, class: impulsa_project.field_class(:organization_name)
-        row :organization_address, class: impulsa_project.field_class(:organization_address)
-        row :organization_web, class: impulsa_project.field_class(:organization_web)
-        row :organization_nif, class: impulsa_project.field_class(:organization_nif)
-        row :scanned_nif, class: impulsa_project.field_class(:scanned_nif) do |impulsa_project|
+        row :organization_name, class: "row-organization_name " + impulsa_project.field_class(:organization_name)
+        row :organization_address, class: "row-organization_address " + impulsa_project.field_class(:organization_address)
+        row :organization_web, class: "row-organization_web " + impulsa_project.field_class(:organization_web)
+        row :organization_nif, class: "row-organization_nif " + impulsa_project.field_class(:organization_nif)
+        row :scanned_nif, class: "row-scanned_nif " + impulsa_project.field_class(:scanned_nif) do |impulsa_project|
           link_to(impulsa_project.scanned_nif_file_name, impulsa_project.scanned_nif.url) if impulsa_project.scanned_nif.exists?
         end
-        row :organization_year, class: impulsa_project.field_class(:organization_year)
-        row :organization_legal_name, class: impulsa_project.field_class(:organization_legal_name)
-        row :organization_legal_nif, class: impulsa_project.field_class(:organization_legal_nif)
-        row :organization_mission, class: impulsa_project.field_class(:organization_mission)
-        row :career, class: impulsa_project.field_class(:career)
+        row :organization_year, class: "row-organization_year " + impulsa_project.field_class(:organization_year)
+        row :organization_legal_name, class: "row-organization_legal_name " + impulsa_project.field_class(:organization_legal_name)
+        row :organization_legal_nif, class: "row-organization_legal_nif " + impulsa_project.field_class(:organization_legal_nif)
+        row :organization_mission, class: "row-organization_mission " + impulsa_project.field_class(:organization_mission)
+        row :career, class: "row-career " + impulsa_project.field_class(:career)
       end
     end
 
     panel t("podemos.impulsa.documents_section") do
       attributes_table_for impulsa_project do
-        row :endorsement, class: impulsa_project.field_class(:endorsement) do |impulsa_project|
+        row :endorsement, class: "row-endorsement " + impulsa_project.field_class(:endorsement) do |impulsa_project|
           link_to(impulsa_project.endorsement_file_name, impulsa_project.endorsement.url) if impulsa_project.endorsement.exists?
         end
-        row :register_entry, class: impulsa_project.field_class(:register_entry) do |impulsa_project|
+        row :register_entry, class: "row-register_entry " + impulsa_project.field_class(:register_entry) do |impulsa_project|
           link_to(impulsa_project.register_entry_file_name, impulsa_project.register_entry.url) if impulsa_project.register_entry.exists?
         end
-        row :statutes, class: impulsa_project.field_class(:statutes) do |impulsa_project|
+        row :statutes, class: "row-statutes " + impulsa_project.field_class(:statutes) do |impulsa_project|
           link_to(impulsa_project.statutes_file_name, impulsa_project.statutes.url) if impulsa_project.statutes.exists?
         end
-        row :responsible_nif, class: impulsa_project.field_class(:responsible_nif) do |impulsa_project|
+        row :responsible_nif, class: "row-responsible_nif " + impulsa_project.field_class(:responsible_nif) do |impulsa_project|
           link_to(impulsa_project.responsible_nif_file_name, impulsa_project.responsible_nif.url) if impulsa_project.responsible_nif.exists?
         end
-        row :fiscal_obligations_certificate, class: impulsa_project.field_class(:fiscal_obligations_certificate) do |impulsa_project|
+        row :fiscal_obligations_certificate, class: "row-fiscal_obligations_certificate " + impulsa_project.field_class(:fiscal_obligations_certificate) do |impulsa_project|
           link_to(impulsa_project.fiscal_obligations_certificate_file_name, impulsa_project.fiscal_obligations_certificate.url) if impulsa_project.fiscal_obligations_certificate.exists?
         end
-        row :labor_obligations_certificate, class: impulsa_project.field_class(:labor_obligations_certificate) do |impulsa_project|
+        row :labor_obligations_certificate, class: "row-labor_obligations_certificate " + impulsa_project.field_class(:labor_obligations_certificate) do |impulsa_project|
           link_to(impulsa_project.labor_obligations_certificate_file_name, impulsa_project.labor_obligations_certificate.url) if impulsa_project.labor_obligations_certificate.exists?
         end
-        row :last_fiscal_year_report_of_activities, class: impulsa_project.field_class(:last_fiscal_year_report_of_activities) do |impulsa_project|
+        row :last_fiscal_year_report_of_activities, class: "row-last_fiscal_year_report_of_activities " + impulsa_project.field_class(:last_fiscal_year_report_of_activities) do |impulsa_project|
           link_to(impulsa_project.last_fiscal_year_report_of_activities_file_name, impulsa_project.last_fiscal_year_report_of_activities.url) if impulsa_project.last_fiscal_year_report_of_activities.exists?
         end
-        row :last_fiscal_year_annual_accounts, class: impulsa_project.field_class(:last_fiscal_year_annual_accounts) do |impulsa_project|
+        row :last_fiscal_year_annual_accounts, class: "row-last_fiscal_year_annual_accounts " + impulsa_project.field_class(:last_fiscal_year_annual_accounts) do |impulsa_project|
           link_to(impulsa_project.last_fiscal_year_annual_accounts_file_name, impulsa_project.last_fiscal_year_annual_accounts.url) if impulsa_project.last_fiscal_year_annual_accounts.exists?
         end
       end
@@ -186,23 +186,23 @@ ActiveAdmin.register ImpulsaProject do
 
     panel t("podemos.impulsa.project_progress_section") do
       attributes_table_for impulsa_project do
-        row :long_description, class: impulsa_project.field_class(:long_description)
-        row :territorial_context, class: impulsa_project.field_class(:territorial_context)
-        row :aim, class: impulsa_project.field_class(:aim)
-        row :metodology, class: impulsa_project.field_class(:metodology)
-        row :population_segment, class: impulsa_project.field_class(:population_segment)
-        row :counterpart, class: impulsa_project.field_class(:counterpart)
-        row :schedule, class: impulsa_project.field_class(:schedule) do |impulsa_project|
+        row :long_description, class: "row-long_description " + impulsa_project.field_class(:long_description)
+        row :territorial_context, class: "row-territorial_context " + impulsa_project.field_class(:territorial_context)
+        row :aim, class: "row-aim " + impulsa_project.field_class(:aim)
+        row :metodology, class: "row-metodology " + impulsa_project.field_class(:metodology)
+        row :population_segment, class: "row-population_segment " + impulsa_project.field_class(:population_segment)
+        row :counterpart, class: "row-counterpart " + impulsa_project.field_class(:counterpart)
+        row :schedule, class: "row-schedule " + impulsa_project.field_class(:schedule) do |impulsa_project|
           link_to(impulsa_project.schedule_file_name, impulsa_project.schedule.url) if impulsa_project.schedule.exists?
         end
-        row :activities_resources, class: impulsa_project.field_class(:activities_resources) do |impulsa_project|
+        row :activities_resources, class: "row-activities_resources " + impulsa_project.field_class(:activities_resources) do |impulsa_project|
           link_to(impulsa_project.activities_resources_file_name, impulsa_project.activities_resources.url) if impulsa_project.activities_resources.exists?
         end
-        row :total_budget, class: impulsa_project.field_class(:total_budget)
-        row :requested_budget, class: impulsa_project.field_class(:requested_budget) do |impulsa_project|
+        row :total_budget, class: "row-total_budget " + impulsa_project.field_class(:total_budget)
+        row :requested_budget, class: "row-requested_budget " + impulsa_project.field_class(:requested_budget) do |impulsa_project|
           link_to(impulsa_project.requested_budget_file_name, impulsa_project.requested_budget.url) if impulsa_project.requested_budget.exists?
         end
-        row :monitoring_evaluation, class: impulsa_project.field_class(:monitoring_evaluation) do |impulsa_project|
+        row :monitoring_evaluation, class: "row-monitoring_evaluation " + impulsa_project.field_class(:monitoring_evaluation) do |impulsa_project|
           link_to(impulsa_project.monitoring_evaluation_file_name, impulsa_project.monitoring_evaluation.url) if impulsa_project.monitoring_evaluation.exists?
         end
       end
@@ -211,17 +211,17 @@ ActiveAdmin.register ImpulsaProject do
     if impulsa_project.translatable?
       panel t("podemos.impulsa.translation_section") do
         attributes_table_for impulsa_project do
-          row :coofficial_translation, class: impulsa_project.field_class(:coofficial_translation)
-          row :coofficial_name, class: impulsa_project.field_class(:coofficial_name)
-          row :coofficial_short_description, class: impulsa_project.field_class(:coofficial_short_description)
-          row :coofficial_video_link, class: impulsa_project.field_class(:coofficial_video_link)
-          row :coofficial_territorial_context, class: impulsa_project.field_class(:coofficial_territorial_context)
-          row :coofficial_long_description, class: impulsa_project.field_class(:coofficial_long_description)
-          row :coofficial_aim, class: impulsa_project.field_class(:coofficial_aim)
-          row :coofficial_metodology, class: impulsa_project.field_class(:coofficial_metodology)
-          row :coofficial_population_segment, class: impulsa_project.field_class(:coofficial_population_segment)
-          row :coofficial_organization_mission, class: impulsa_project.field_class(:coofficial_organization_mission)
-          row :coofficial_career, class: impulsa_project.field_class(:coofficial_career)
+          row :coofficial_translation, class: "row-coofficial_translation " + impulsa_project.field_class(:coofficial_translation)
+          row :coofficial_name, class: "row-coofficial_name " + impulsa_project.field_class(:coofficial_name)
+          row :coofficial_short_description, class: "row-coofficial_short_description " + impulsa_project.field_class(:coofficial_short_description)
+          row :coofficial_video_link, class: "row-coofficial_video_link " + impulsa_project.field_class(:coofficial_video_link)
+          row :coofficial_territorial_context, class: "row-coofficial_territorial_context " + impulsa_project.field_class(:coofficial_territorial_context)
+          row :coofficial_long_description, class: "row-coofficial_long_description " + impulsa_project.field_class(:coofficial_long_description)
+          row :coofficial_aim, class: "row-coofficial_aim " + impulsa_project.field_class(:coofficial_aim)
+          row :coofficial_metodology, class: "row-coofficial_metodology " + impulsa_project.field_class(:coofficial_metodology)
+          row :coofficial_population_segment, class: "row-coofficial_population_segment " + impulsa_project.field_class(:coofficial_population_segment)
+          row :coofficial_organization_mission, class: "row-coofficial_organization_mission " + impulsa_project.field_class(:coofficial_organization_mission)
+          row :coofficial_career, class: "row-coofficial_career " + impulsa_project.field_class(:coofficial_career)
         end
       end
     end
@@ -390,12 +390,11 @@ ActiveAdmin.register ImpulsaProject do
       if resource.saveable? && params[:impulsa_project][:mark_as_viewed]
         if resource.review_fields.any?
           resource.mark_as_fixable
-          ImpulsaMailer.on_fixes(resource).deliver_now
+          ImpulsaMailer.on_fixes(resource).deliver_now if resource.save
         else
           resource.mark_as_validable
-          ImpulsaMailer.on_validable(resource).deliver_now
+          ImpulsaMailer.on_validable(resource).deliver_now if resource.save
         end
-        resource.save!
       end
       if resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
         if resource.evaluator1.nil?
@@ -408,16 +407,15 @@ ActiveAdmin.register ImpulsaProject do
           resource.evaluator2_analysis = params[:impulsa_project][:evaluator_analysis]
           resource.validate
           if resource.invalidated?
-            ImpulsaMailer.on_invalidated(resource).deliver_now
+            ImpulsaMailer.on_invalidated(resource).deliver_now if resource.save
           else
             if resource.impulsa_edition_category.needs_preselection?
-              ImpulsaMailer.on_validated1(resource).deliver_now
+              ImpulsaMailer.on_validated1(resource).deliver_now if resource.save
             else
-              ImpulsaMailer.on_validated2(resource).deliver_now
+              ImpulsaMailer.on_validated2(resource).deliver_now if resource.save
             end
           end
         end
-        resource.save!
       end
     end
   end
