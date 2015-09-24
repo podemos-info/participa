@@ -32,15 +32,18 @@ class ImpulsaProject < ActiveRecord::Base
   validates :name, :impulsa_edition_category_id, :status, presence: true
 
   attr_accessor :check_validation, :mark_as_reviewed
-  validate if: -> { self.check_validation || self.marked_for_review? } do |project|
+  validate if: -> { self.check_validation || self.should_be_valid? } do |project|
     project.user_editable_fields.each do |field|
       if [ :terms_of_service, :data_truthfulness, :content_rights ].member?(field)
         next
       elsif FIELDS[:translation].member?(field)
-        project.validates_presence_of field if project.translated? && project.user_view_field?(field.to_s.sub("coofficial_", "").to_sym)
-      else
-        project.validates_presence_of field if !FIELDS[:optional].member?(field)
+        next if !project.translated? || !project.user_view_field?(field.to_s.sub("coofficial_", "").to_sym)
+      elsif FIELDS[:optional].member?(field)
+        next
+      elsif FIELDS[:optional_certificates].member?(field) && project.optional_certificates?
+        next
       end
+      project.validates_presence_of field
     end
   end
 
@@ -50,7 +53,7 @@ class ImpulsaProject < ActiveRecord::Base
 
   validates :terms_of_service, :data_truthfulness, :content_rights, acceptance: true, unless: :check_validation
 
-  validate if: -> { self.check_validation || self.marked_for_review? } do |project|
+  validate if: -> { self.check_validation || self.should_be_valid? } do |project|
     project.errors[:impulsa_edition_topics] << "hay demasiadas temáticas para el proyecto" if project.impulsa_edition_topics.size > 2
   end
 
@@ -132,7 +135,8 @@ class ImpulsaProject < ActiveRecord::Base
     translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link, :coofficial_territorial_context, :coofficial_long_description, :coofficial_aim, :coofficial_metodology, :coofficial_population_segment, :coofficial_career, :coofficial_organization_mission ],
     update: [ :terms_of_service, :data_truthfulness, :content_rights ],
 
-    optional: [ :counterpart, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ]
+    optional: [ :counterpart, :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :video_link ],
+    optional_certificates: [ :fiscal_obligations_certificate, :labor_obligations_certificate ]
   }
 
 
@@ -162,11 +166,19 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def allow_save_draft?
-    self.new? || self.spam? || (self.review? && self.errors.any?)
+    self.new? || self.spam? || self.fixes? || (self.marked_for_review? && self.errors.any?)
   end
 
   def marked_for_review?
     self.status==PROJECT_STATUS[:review] || self.status==PROJECT_STATUS[:review_fixes]
+  end
+
+  def marked_as_validable?
+    self.status==PROJECT_STATUS[:validate]
+  end
+
+  def should_be_valid?
+    self.marked_for_review? || self.marked_as_validable?
   end
 
   def mark_as_new
@@ -282,7 +294,8 @@ class ImpulsaProject < ActiveRecord::Base
     if self.editable?
       self.user_viewable_fields
     elsif self.reviewable?
-      review_fields.symbolize_keys.keys
+      fields = review_fields.symbolize_keys.keys
+      fields
     else
       []
     end
@@ -310,6 +323,10 @@ class ImpulsaProject < ActiveRecord::Base
 
   def allows_organization_types?
     self.impulsa_edition_category.allows_organization_types? if self.impulsa_edition_category
+  end
+
+  def optional_certificates?
+    (self.impulsa_edition_category.allows_organization_types? if self.impulsa_edition_category) && self.organization_type == 1
   end
 
   def needs_organization?

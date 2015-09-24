@@ -7,8 +7,8 @@
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
       <%= info_box do %>
         <% if @project.saveable? %>
-          <%= content_tag(:p, t("podemos.impulsa.save_draft_text", save_draft:t("podemos.impulsa.save_draft"))) if @project.allow_save_draft? %>
           <%= content_tag(:p, t("podemos.impulsa.fixes_text")) if @project.fixes?%>
+          <%= content_tag(:p, t("podemos.impulsa.save_draft_text", save_draft:t("podemos.impulsa.save_draft"))) if @project.allow_save_draft? %>
           <%= content_tag(:p, t("podemos.impulsa.mark_for_review_text", mark_for_review:t("podemos.impulsa.mark_for_review"))) %>
         <% else %>
           <%= if @project.spam?

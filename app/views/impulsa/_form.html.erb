@@ -28,10 +28,10 @@
   <% end %>
   <% if @project.user_view_field? :impulsa_edition_topics %>
     <div class="inputlabel-box">
-      <% if @project.errors.include?(:impulsa_edition_topics) %>
+      <% if @project.errors.include?(:impulsa_edition_topic_ids) %>
       <%= field_notice_box %>
       <% end %>
-      <%= f.input :impulsa_edition_topics, as: :check_boxes, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.impulsa_edition_topics_hint")), disabled: @project.user_edit_field?(:impulsa_edition_topics) ? [] : @edition.impulsa_edition_topics.all.map(&:id) %>
+      <%= f.input :impulsa_edition_topics, as: :check_boxes, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.impulsa_edition_topics_hint")), disabled: @project.user_edit_field?(:impulsa_edition_topic_ids) ? [] : @edition.impulsa_edition_topics.all.map(&:id) %>
     </div>
   <% end %>
   <% if @project.user_view_field? :logo %>

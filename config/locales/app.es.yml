@@ -136,6 +136,7 @@ es:
         impulsa_edition: "Edición de Impulsa"
         impulsa_edition_category: "Categoría de Impulsa"
         impulsa_edition_topics: "Temáticas"
+        impulsa_edition_topic_ids: "Temáticas"
         name: "Título"
         user: "Usuario"
         status: "Estado"

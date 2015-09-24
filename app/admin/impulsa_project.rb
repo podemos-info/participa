@@ -268,7 +268,7 @@ ActiveAdmin.register ImpulsaProject do
     end
     f.inputs t("podemos.impulsa.project_data_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :name
-      f.input :impulsa_edition_topics, as: :check_boxes, wrapper_html: { class: f.object.field_class(:impulsa_edition_topics) }
+      f.input :impulsa_edition_topics, as: :check_boxes, wrapper_html: { class: f.object.field_class(:impulsa_edition_topic_ids) }
       f.input :short_description
       f.input :logo, as: :file, hint: proc{ f.template.image_tag(f.object.logo.url(:thumb)) if f.object_has_logo?}
       f.input :video_link
@@ -399,11 +399,11 @@ ActiveAdmin.register ImpulsaProject do
       if resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
         if resource.evaluator1.nil?
           resource.evaluator1 = current_active_admin_user
-          resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons]
+          resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator1_analysis = params[:impulsa_project][:evaluator_analysis]
         elsif resource.evaluator1!=current_active_admin_user
           resource.evaluator2 = current_active_admin_user
-          resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons]
+          resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator2_analysis = params[:impulsa_project][:evaluator_analysis]
           resource.validate
           if resource.invalidated?
