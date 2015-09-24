@@ -166,7 +166,7 @@ fieldset .inputlabel-box input, fieldset .inputlabel-box textarea {
 }
 
 fieldset .inputlabel-box .error {
-  input, textarea, select {
+  input, textarea, select, label.choice {
     background: #F5BFC9;
   }
 }
