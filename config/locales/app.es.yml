@@ -783,6 +783,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         internal: "Incluir cuándo se formó, qué causas sociales defienden y qué hitos han logrado."
         territorial: "Indica brevemente la formación y experiencia profesional de las personas que desarrollarán el proyecto, incidiendo en las relacionadas con el ámbito del proyecto presentado."
       coofficial_translation: "Traducir al %{lang}"
+      total_price: "Importe del premio concedido"
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."

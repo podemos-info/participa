@@ -52,6 +52,14 @@
       <%= f.input :video_link, as: :url, input_html: {disabled: !@project.user_edit_field?(:video_link), class: 'input-xl', placeholder: 'http://youtube.com/'}, hint: fa_icon("exclamation-circle", text: t("podemos.impulsa.video_link_hint"))  %>
     </div>
   <% end %>
+  <% if !@project.needs_project_details? && @project.user_view_field?(:total_budget) %>
+    <div class="inputlabel-box">
+      <% if @project.errors.include?(:total_budget) %>
+      <%= field_notice_box %>
+      <% end %>
+      <%= f.input :total_budget, label: t("podemos.impulsa.total_price"), input_html: {disabled: !@project.user_edit_field?(:total_budget), class: 'input-s', max: @project.impulsa_edition_category.prize} %>
+    </div>
+  <% end %>
   </fieldset>
 <% if @project.impulsa_edition_category %> 
 <% if @project.needs_authority? %>
