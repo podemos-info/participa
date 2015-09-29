@@ -3,7 +3,8 @@
   <%= f.inputs "Identificación" do %>
     <%= f.input :election, as: :string, input_html: { disabled: true } %>
     
-    <% case @election_location.election.scope
+    <% spain = Carmen::Country.coded("ES") 
+      case @election_location.election.scope
           when 0 then %>
             <%= f.input :location, as: :select, collection: [[ "Estatal", "00"]] %>
         <% when 1 then %>
@@ -11,7 +12,7 @@
         <% when 2 then %>
             <%= f.input :location, as: :select, collection: spain.subregions.map {|r| [ r.name, r.index ]} %>
         <% when 3 then %>
-            <%= f.input :location, as: :select, collection: spain.subregions.map {|r| r.subregions.map {|sr| [ "#{sr.name} (#{r.name})", sr.code.scan(/\d/).join("") ] } } .flatten(1) %>
+            <%= f.input :location, as: :select, collection: spain.subregions.map {|r| r.subregions.map {|sr| [ "#{sr.name} (#{r.name})", sr.code.scan(/\d/).join("") ] } } .flatten(1).sort_by(&:first) %>
         <% when 4 then %>
             <%= f.input :location, as: :select, collection: Podemos::GeoExtra::ISLANDS.values.uniq.map {|u| [ u[1], u[0][2..-1] ]} %>
         <% when 5 then %>
