@@ -9,6 +9,7 @@ ActiveAdmin.register ImpulsaProject do
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
   filter :name
   filter :user_id
+  filter :user_email_contains
   filter :authority
   filter :authority_name
 
