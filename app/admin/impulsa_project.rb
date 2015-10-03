@@ -241,6 +241,7 @@ ActiveAdmin.register ImpulsaProject do
         end
       end
     end
+    active_admin_comments
   end
 
   form do |f|
@@ -421,4 +422,17 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
   end
+
+  csv do
+    column :id
+    column :name
+    column :user_id
+    column(:first_name) { |project| project.user.first_name }
+    column(:last_name) { |project| project.user.last_name }
+    column(:email) { |project| project.user.email }
+    column :total_budget
+    column(:impulsa_edition_category) { |project| project.impulsa_edition_category.name }
+    column(:impulsa_edition_topics) { |project| project.impulsa_edition_topics.map{|t| t.name }.join("|") }
+  end
+
 end
