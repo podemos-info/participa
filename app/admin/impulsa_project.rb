@@ -402,6 +402,7 @@ ActiveAdmin.register ImpulsaProject do
           resource.evaluator1 = current_active_admin_user
           resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator1_analysis = params[:impulsa_project][:evaluator_analysis]
+          resource.save
         elsif resource.evaluator1!=current_active_admin_user
           resource.evaluator2 = current_active_admin_user
           resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
