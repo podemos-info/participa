@@ -9,6 +9,7 @@ ActiveAdmin.register ImpulsaProject do
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
   filter :name
   filter :user_id
+  filter :user_email_contains
   filter :authority
   filter :authority_name
 
@@ -402,6 +403,7 @@ ActiveAdmin.register ImpulsaProject do
           resource.evaluator1 = current_active_admin_user
           resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator1_analysis = params[:impulsa_project][:evaluator_analysis]
+          resource.save
         elsif resource.evaluator1!=current_active_admin_user
           resource.evaluator2 = current_active_admin_user
           resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
