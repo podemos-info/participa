@@ -89,7 +89,7 @@ class ImpulsaController < ApplicationController
   end
 
   def project_params
-    if @project.user_edit_field?(:impulsa_edition_topics)
+    if @project.user_edit_field?(:impulsa_edition_topics) || @project.user_edit_field?(:impulsa_edition_topic_ids)
       params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields, impulsa_edition_topic_ids:[])
     else
       params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields)
