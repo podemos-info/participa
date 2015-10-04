@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(version: 20150922080614) do
     t.integer  "ccc_entity"
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
-    t.integer  "ccc_account"
+    t.integer  "ccc_account",             limit: 8
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",                  default: 0
+    t.integer  "status",                            default: 0
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(version: 20150922080614) do
 
   create_table "impulsa_edition_categories", force: :cascade do |t|
     t.integer  "impulsa_edition_id"
-    t.string   "name"
-    t.integer  "category_type"
+    t.string   "name",                                              null: false
+    t.integer  "category_type",                                     null: false
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
@@ -166,10 +166,8 @@ ActiveRecord::Schema.define(version: 20150922080614) do
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
 
   create_table "impulsa_edition_topics", force: :cascade do |t|
-    t.integer  "impulsa_edition_id"
-    t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer "impulsa_edition_id"
+    t.string  "name"
   end
 
   add_index "impulsa_edition_topics", ["impulsa_edition_id"], name: "index_impulsa_edition_topics_on_impulsa_edition_id"
@@ -203,10 +201,8 @@ ActiveRecord::Schema.define(version: 20150922080614) do
   end
 
   create_table "impulsa_project_topics", force: :cascade do |t|
-    t.integer  "impulsa_project_id"
-    t.integer  "impulsa_edition_topic_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer "impulsa_project_id"
+    t.integer "impulsa_edition_topic_id"
   end
 
   add_index "impulsa_project_topics", ["impulsa_edition_topic_id"], name: "index_impulsa_project_topics_on_impulsa_edition_topic_id"
@@ -484,7 +480,7 @@ ActiveRecord::Schema.define(version: 20150922080614) do
 
   create_table "reports", force: :cascade do |t|
     t.string   "title"
-    t.text     "query",      limit: 255
+    t.text     "query"
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"
