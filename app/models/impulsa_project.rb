@@ -406,4 +406,8 @@ class ImpulsaProject < ActiveRecord::Base
   def has_attachment_field? field_name
     ImpulsaProject.attachment_definitions.keys.member? field_name.to_sym
   end
+
+  def user
+    User.unscoped { super }
+  end
 end

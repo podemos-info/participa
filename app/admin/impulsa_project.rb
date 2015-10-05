@@ -68,6 +68,9 @@ ActiveAdmin.register ImpulsaProject do
         end
         row :user do
           attributes_table_for impulsa_project.user do
+            row :status do
+                impulsa_project.user.deleted? ? status_tag("BORRADO", :error) : ""
+            end
             row :full_name do
               if can?(:read, impulsa_project.user)
                 link_to(impulsa_project.user.full_name,admin_user_path(impulsa_project.user))
