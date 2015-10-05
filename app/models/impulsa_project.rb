@@ -1,6 +1,6 @@
 class ImpulsaProject < ActiveRecord::Base
   belongs_to :impulsa_edition_category
-  belongs_to :user
+  belongs_to :user, -> { with_deleted }
   has_one :impulsa_edition, through: :impulsa_edition_category
 
   belongs_to :evaluator1, class_name: "User"
@@ -405,9 +405,5 @@ class ImpulsaProject < ActiveRecord::Base
 
   def has_attachment_field? field_name
     ImpulsaProject.attachment_definitions.keys.member? field_name.to_sym
-  end
-
-  def user
-    User.unscoped { super }
   end
 end
