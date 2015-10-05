@@ -2,7 +2,7 @@ class MicrocreditLoan < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :microcredit
-  belongs_to :user
+  belongs_to :user, -> { with_deleted }
 
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
