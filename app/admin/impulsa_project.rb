@@ -411,7 +411,7 @@ ActiveAdmin.register ImpulsaProject do
           resource.evaluator2 = current_active_admin_user
           resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator2_analysis = params[:impulsa_project][:evaluator_analysis]
-          resource.validate
+          resource.check_validation
           if resource.invalidated?
             ImpulsaMailer.on_invalidated(resource).deliver_now if resource.save
           elsif resource.validated?
@@ -420,6 +420,8 @@ ActiveAdmin.register ImpulsaProject do
             else
               ImpulsaMailer.on_validated2(resource).deliver_now if resource.save
             end
+          else
+            resource.save
           end
         end
       end

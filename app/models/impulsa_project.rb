@@ -222,14 +222,14 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def invalidated?
-    self.status==PROJECT_STATUS[:validated]
+    self.status==PROJECT_STATUS[:invalidated]
   end
 
   def validated?
     self.status==PROJECT_STATUS[:validated]
   end
 
-  def validate
+  def check_validation
     return if !self.evaluator1_analysis.exists? || !self.evaluator2_analysis.exists?
     valid1 = evaluator1_invalid_reasons.blank?
     valid2 = evaluator2_invalid_reasons.blank?
