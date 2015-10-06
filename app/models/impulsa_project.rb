@@ -230,7 +230,7 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def check_evaluators_validation
-    return if !self.evaluator1_analysis.exists? || !self.evaluator2_analysis.exists?
+    return if self.evaluator1.nil? || self.evaluator2.nil?
     valid1 = evaluator1_invalid_reasons.blank?
     valid2 = evaluator2_invalid_reasons.blank?
     if valid1 && valid2
