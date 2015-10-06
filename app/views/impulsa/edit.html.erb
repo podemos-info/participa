@@ -23,8 +23,10 @@
             else
               content_tag(:p, t("podemos.impulsa.validated2_text", voting_dates: @project.voting_dates))
             end
-          else
-            content_tag(:p, t("podemos.impulsa.non_fixes_text"))            
+          elsif @project.fixes?
+            content_tag(:p, t("podemos.impulsa.non_fixes_text"))
+          elsif @project.marked_for_review?
+            content_tag(:p, t("podemos.impulsa.reviewing_text"))
           end %>
         <% end %>
       <% end %>
