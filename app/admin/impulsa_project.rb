@@ -391,37 +391,45 @@ ActiveAdmin.register ImpulsaProject do
     end
 
     def update
+      send_email = false
+      was_dissent = resource.dissent?
       super
       if resource.saveable? && params[:impulsa_project][:mark_as_viewed]
         if resource.review_fields.any?
           resource.mark_as_fixable
-          ImpulsaMailer.on_fixes(resource).deliver_now if resource.save
         else
           resource.mark_as_validable
-          ImpulsaMailer.on_validable(resource).deliver_now if resource.save
         end
-      end
-      if resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
+        send_email = resource.save
+      elsif resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
         if resource.evaluator1.nil?
           resource.evaluator1 = current_active_admin_user
           resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator1_analysis = params[:impulsa_project][:evaluator_analysis]
-          resource.save
+          send_email = resource.save
         elsif resource.evaluator1!=current_active_admin_user
           resource.evaluator2 = current_active_admin_user
           resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator2_analysis = params[:impulsa_project][:evaluator_analysis]
           resource.check_evaluators_validation
-          if resource.invalidated?
-            ImpulsaMailer.on_invalidated(resource).deliver_now if resource.save
-          elsif resource.validated?
-            if resource.impulsa_edition_category.needs_preselection?
-              ImpulsaMailer.on_validated1(resource).deliver_now if resource.save
-            else
-              ImpulsaMailer.on_validated2(resource).deliver_now if resource.save
-            end
+          send_email = resource.save
+        end
+      elsif was_dissent
+        send_email = resource.validated? || resource.invalidated?
+      end
+      
+      if send_email
+        if resource.fixes?
+          ImpulsaMailer.on_fixes(resource).deliver_now
+        elsif resource.validable?
+          ImpulsaMailer.on_validable(resource).deliver_now
+        elsif resource.invalidated?
+          ImpulsaMailer.on_invalidated(resource).deliver_now
+        elsif resource.validated?
+          if resource.impulsa_edition_category.needs_preselection?
+            ImpulsaMailer.on_validated1(resource).deliver_now
           else
-            resource.save
+            ImpulsaMailer.on_validated2(resource).deliver_now
           end
         end
       end

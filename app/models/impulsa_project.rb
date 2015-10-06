@@ -229,6 +229,10 @@ class ImpulsaProject < ActiveRecord::Base
     self.status==PROJECT_STATUS[:validated]
   end
 
+  def dissent?
+    self.status==PROJECT_STATUS[:dissent]
+  end
+
   def check_evaluators_validation
     return if self.evaluator1.nil? || self.evaluator2.nil?
     valid1 = evaluator1_invalid_reasons.blank?
