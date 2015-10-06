@@ -25,7 +25,7 @@
             end
           elsif @project.fixes?
             content_tag(:p, t("podemos.impulsa.non_fixes_text"))
-          elsif @project.marked_for_review?
+          else
             content_tag(:p, t("podemos.impulsa.reviewing_text"))
           end %>
         <% end %>
