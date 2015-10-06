@@ -116,7 +116,7 @@ ActiveAdmin.register ImpulsaProject do
     panel t("podemos.impulsa.project_data_section") do
       attributes_table_for impulsa_project do
         row :name, class: "row-name " + impulsa_project.field_class(:name)
-        row :short_description, class: "row-short_description " + impulsa_project.field_class(:short_description), class: "row-video_link " + impulsa_project.field_class(:video_link)
+        row :short_description, class: "row-short_description " + impulsa_project.field_class(:short_description)
         row :logo, class: "row-logo " + impulsa_project.field_class(:logo) do
           image_tag(impulsa_project.logo.url(:thumb)) if impulsa_project.logo.exists?
         end
