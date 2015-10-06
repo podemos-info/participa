@@ -5,7 +5,7 @@ class Collaboration < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  belongs_to :user
+  belongs_to :user, -> { with_deleted }
 
   # FIXME: this should be orders for the inflextions
   # http://guides.rubyonrails.org/association_basics.html#the-has-many-association

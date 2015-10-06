@@ -1,6 +1,6 @@
 class ImpulsaProject < ActiveRecord::Base
   belongs_to :impulsa_edition_category
-  belongs_to :user
+  belongs_to :user, -> { with_deleted }
   has_one :impulsa_edition, through: :impulsa_edition_category
 
   belongs_to :evaluator1, class_name: "User"
@@ -129,7 +129,7 @@ class ImpulsaProject < ActiveRecord::Base
     full_organization: [ :organization_name, :organization_address, :organization_web, :organization_nif, :scanned_nif, :organization_year, :organization_legal_name, :organization_legal_nif, :organization_mission, :register_entry, :statutes ],
     non_organization: [ :career ],
     not_in_spain: [ :home_certificate, :bank_certificate ],
-    non_project_details: [ :additional_contact ],
+    non_project_details: [ :additional_contact, :total_budget ],
     project_details: [ :impulsa_edition_topics, :territorial_context, :long_description, :aim, :metodology, :population_segment, :schedule, :activities_resources, :requested_budget, :counterpart, :impulsa_edition_topic_ids, :endorsement, :responsible_nif, :fiscal_obligations_certificate, :labor_obligations_certificate, :total_budget],
     additional_details: [ :last_fiscal_year_report_of_activities, :last_fiscal_year_annual_accounts, :monitoring_evaluation ], 
     translation: [ :coofficial_translation, :coofficial_name, :coofficial_short_description, :coofficial_video_link, :coofficial_territorial_context, :coofficial_long_description, :coofficial_aim, :coofficial_metodology, :coofficial_population_segment, :coofficial_career, :coofficial_organization_mission ],
@@ -219,6 +219,14 @@ class ImpulsaProject < ActiveRecord::Base
 
   def validable?
     self.status==PROJECT_STATUS[:validate] && self.impulsa_edition.allow_validation?
+  end
+
+  def invalidated?
+    self.status==PROJECT_STATUS[:validated]
+  end
+
+  def validated?
+    self.status==PROJECT_STATUS[:validated]
   end
 
   def validate

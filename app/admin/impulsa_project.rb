@@ -9,6 +9,7 @@ ActiveAdmin.register ImpulsaProject do
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
   filter :name
   filter :user_id
+  filter :user_email_contains
   filter :authority
   filter :authority_name
 
@@ -67,6 +68,9 @@ ActiveAdmin.register ImpulsaProject do
         end
         row :user do
           attributes_table_for impulsa_project.user do
+            row :status do
+                impulsa_project.user.deleted? ? status_tag("BORRADO", :error) : ""
+            end
             row :full_name do
               if can?(:read, impulsa_project.user)
                 link_to(impulsa_project.user.full_name,admin_user_path(impulsa_project.user))
@@ -112,7 +116,7 @@ ActiveAdmin.register ImpulsaProject do
     panel t("podemos.impulsa.project_data_section") do
       attributes_table_for impulsa_project do
         row :name, class: "row-name " + impulsa_project.field_class(:name)
-        row :short_description, class: "row-short_description " + impulsa_project.field_class(:short_description), class: "row-video_link " + impulsa_project.field_class(:video_link)
+        row :short_description, class: "row-short_description " + impulsa_project.field_class(:short_description)
         row :logo, class: "row-logo " + impulsa_project.field_class(:logo) do
           image_tag(impulsa_project.logo.url(:thumb)) if impulsa_project.logo.exists?
         end
@@ -240,6 +244,7 @@ ActiveAdmin.register ImpulsaProject do
         end
       end
     end
+    active_admin_comments
   end
 
   form do |f|
@@ -401,6 +406,7 @@ ActiveAdmin.register ImpulsaProject do
           resource.evaluator1 = current_active_admin_user
           resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
           resource.evaluator1_analysis = params[:impulsa_project][:evaluator_analysis]
+          resource.save
         elsif resource.evaluator1!=current_active_admin_user
           resource.evaluator2 = current_active_admin_user
           resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
@@ -408,7 +414,7 @@ ActiveAdmin.register ImpulsaProject do
           resource.validate
           if resource.invalidated?
             ImpulsaMailer.on_invalidated(resource).deliver_now if resource.save
-          else
+          elsif resource.validated?
             if resource.impulsa_edition_category.needs_preselection?
               ImpulsaMailer.on_validated1(resource).deliver_now if resource.save
             else
@@ -419,4 +425,17 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
   end
+
+  csv do
+    column :id
+    column :name
+    column :user_id
+    column(:first_name) { |project| project.user.first_name }
+    column(:last_name) { |project| project.user.last_name }
+    column(:email) { |project| project.user.email }
+    column :total_budget
+    column(:impulsa_edition_category) { |project| project.impulsa_edition_category.name }
+    column(:impulsa_edition_topics) { |project| project.impulsa_edition_topics.map{|t| t.name }.join("|") }
+  end
+
 end

@@ -34,8 +34,8 @@ class ImpulsaMailer < ActionMailer::Base
 
   def on_validated1(project)
     @voting_dates = "#{I18n.l(project.impulsa_edition.validation_projects_until.to_date, format: :medium)} al #{I18n.l(project.impulsa_edition.ends_at.to_date, format: :medium)}"
-    @winners = project.winners
-    @prewinners = project.prewinners
+    @winners = project.impulsa_edition_category.winners
+    @prewinners = project.impulsa_edition_category.prewinners
 
     mail(
       to: project.user.email,

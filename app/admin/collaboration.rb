@@ -344,13 +344,13 @@ ActiveAdmin.register Collaboration do
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
         order_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text[4..-1].to_i
         #date = item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text.to_date
-        iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
-        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
+        iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text.upcase
+        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text.upcase
         fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
 
         order= Order.find(order_id)
         if order
-          if order.payment_identifier == "#{iban}/#{bic}"
+          if order.payment_identifier.upcase == "#{iban}/#{bic}"
             if order.is_paid?
               if order.mark_as_returned! code
                 result = :ok
