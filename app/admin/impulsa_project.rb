@@ -414,7 +414,7 @@ ActiveAdmin.register ImpulsaProject do
           resource.validate
           if resource.invalidated?
             ImpulsaMailer.on_invalidated(resource).deliver_now if resource.save
-          else
+          elsif resource.validated?
             if resource.impulsa_edition_category.needs_preselection?
               ImpulsaMailer.on_validated1(resource).deliver_now if resource.save
             else
