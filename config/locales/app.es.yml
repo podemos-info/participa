@@ -103,6 +103,7 @@ es:
         new_projects_until: "Cierre de inscripciones"
         review_projects_until: "Fecha de fin revisiones"
         validation_projects_until: "Fecha de fin validación"
+        votings_start_at: "Fecha de inicio de las votaciones"
         ends_at: "Fecha de final"
         legal: "Bases"
         schedule_model: "Modelo de cronograma"
