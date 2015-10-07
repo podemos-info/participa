@@ -34,7 +34,7 @@ class ImpulsaMailer < ActionMailer::Base
   end
 
   def on_validated1(project)
-    @voting_dates = "#{I18n.l(project.impulsa_edition.validation_projects_until.to_date, format: :medium)} al #{I18n.l(project.impulsa_edition.ends_at.to_date, format: :medium)}"
+    @voting_dates = "#{I18n.l(project.impulsa_edition.votings_start_at.to_date, format: :medium)} al #{I18n.l(project.impulsa_edition.ends_at.to_date, format: :medium)}"
     @winners = project.impulsa_edition_category.winners
     @prewinners = project.impulsa_edition_category.prewinners
 
@@ -45,7 +45,7 @@ class ImpulsaMailer < ActionMailer::Base
   end
 
   def on_validated2(project)
-    @voting_dates = "#{I18n.l(project.impulsa_edition.validation_projects_until.to_date, format: :medium)} al #{I18n.l(project.impulsa_edition.ends_at.to_date, format: :medium)}"
+    @voting_dates = "#{I18n.l(project.impulsa_edition.votings_start_at.to_date, format: :medium)} al #{I18n.l(project.impulsa_edition.ends_at.to_date, format: :medium)}"
     mail(
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Proyecto validado en la categoría "Impulsa tu entorno"'

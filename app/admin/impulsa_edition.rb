@@ -2,7 +2,7 @@ ActiveAdmin.register ImpulsaEdition do
   menu :parent => "Participación"
   config.filters = false
   permit_params do
-    fields = [:id, :name, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :ends_at, :schedule_model, :activities_resources_model, :requested_budget_model, :monitoring_evaluation_model]
+    fields = [:id, :name, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :votings_start_at, :ends_at, :schedule_model, :activities_resources_model, :requested_budget_model, :monitoring_evaluation_model]
     fields += I18n.available_locales.map do |locale|
       :"legal_#{locale}"
     end
@@ -16,6 +16,7 @@ ActiveAdmin.register ImpulsaEdition do
     column :new_projects_until
     column :review_projects_until
     column :validation_projects_until
+    column :votings_start_at
     column :ends_at
     actions
   end
@@ -27,6 +28,7 @@ ActiveAdmin.register ImpulsaEdition do
       row :new_projects_until
       row :review_projects_until
       row :validation_projects_until
+      row :votings_start_at
       row :ends_at
       row :legal do |impulsa_edition|
         I18n.available_locales.each do |locale|
@@ -85,6 +87,7 @@ ActiveAdmin.register ImpulsaEdition do
       f.input :new_projects_until
       f.input :review_projects_until
       f.input :validation_projects_until
+      f.input :votings_start_at
       f.input :ends_at
       I18n.available_locales.each do |locale|
         f.input "legal_#{locale}", label: "#{t("activerecord.attributes.impulsa_edition.legal")} #{I18n.name_for_locale(locale)}"

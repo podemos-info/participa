@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005203415) do
+ActiveRecord::Schema.define(version: 20151007131541) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20151005203415) do
     t.integer  "monitoring_evaluation_model_file_size"
     t.datetime "monitoring_evaluation_model_updated_at"
     t.text     "legal"
+    t.datetime "votings_start_at"
   end
 
   create_table "impulsa_project_topics", force: :cascade do |t|
