@@ -16,7 +16,7 @@
           elsif @project.validable?
             content_tag(:p, t("podemos.impulsa.validable_text"))
           elsif @project.invalidated?
-            content_tag(:p, t("podemos.impulsa.invalidated_text", invalid_reasons: @project.invalid_reasons))
+            content_tag(:p, t("podemos.impulsa.invalidated_text", invalid_reasons: @project.evaluator2_invalid_reasons))
           elsif @project.validated?
             if @project.impulsa_edition_category.needs_preselection?
               content_tag(:p, t("podemos.impulsa.validated1_text", voting_dates: @project.voting_dates, winners: @project.impulsa_edition_category.winners, prewinners: @project.impulsa_edition_category.prewinners))
