@@ -26,6 +26,7 @@ class ImpulsaMailer < ActionMailer::Base
   end
 
   def on_invalidated(project)
+    @invalid_reasons = project.evaluator2_invalid_reasons
     mail(
       to: project.user.email,
       subject: '[PODEMOS IMPULSA] Proyecto invalidado'
