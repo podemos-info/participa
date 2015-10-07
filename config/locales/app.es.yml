@@ -231,6 +231,10 @@ es:
         discarded_at: "Fecha de descarte"
         all: "Todos"
         id: "Identificador"
+      renewals:
+        loan_renewals: "Microcréditos suscritos"
+        renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
+        terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
       collaboration: 
         user: "Usuario"
         created_at: "Creada el"
@@ -858,7 +862,15 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       terms_of_service_message: "Acepto la suscripción de un contrato civil de préstamo por el importe indicado, según las condiciones generales que se indican en el siguiente enlace, que declaro haber leído y estar conforme con su contenido."
       terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad"
       will_receive_email: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito %{name}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!<br/>Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/home/?status=He%20suscrito%20un%20microcr%C3%A9dito%20%{twitter_account}%20para%20financiar%20la%20campa%C3%B1a.%20Puedes%20invertir%20en%20el%20cambio%20en%20%{main_url}'>compártelo en Twitter</a>."
-      subscribe: "Suscribir"      
+      subscribe: "Suscribir"
+    loans_renewal:
+      renew: "Renovar"
+      renewal_terms_message: "He leído y acepto las condiciones generales de extinción del microcrédito y renovación de la suscripción."
+      renewal_terms_link: "Condiciones generales sobre extinción de microcréditos y depósito para nueva suscripción"
+      terms_of_service_message: "He leído y acepto las condiciones generales de la suscripción del microcrédito %{name} %{campaign}."
+      terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad del microcrédito %{name} %{campaign}"
+      renewal_success: "Has renovado microcréditos por valor de %{amount} para la campaña %{campaign}. ¡Muchas gracias por colaborar con el cambio!"
+      none_selected: "Debes elegir al menos una suscripción para renovar"
     email:
       subject: "Confirmación microcréditos %{name}"
       intro: "Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:"
@@ -875,3 +887,6 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       email: "Correo electrónico"
       address: "Dirección"
       postal_code: "Código postal"
+      loan_renewals: "Microcréditos confirmados"
+      renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
+      terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
