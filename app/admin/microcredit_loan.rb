@@ -30,6 +30,7 @@ ActiveAdmin.register MicrocreditLoan do
     column :confirmed_at
     column :counted_at
     column :discarded_at
+    column :returned_at
     actions defaults: true do |loan|    
       if loan.confirmed_at.nil?
         link_to('Confirmar', confirm_admin_microcredit_loan_path(loan), method: :post, data: { confirm: "Por favor, no utilices este botón antes de aparezca el ingreso en la cuenta bancaria. ¿Estas segura de querer confirmar la recepción de este microcrédito?" })
@@ -84,6 +85,16 @@ ActiveAdmin.register MicrocreditLoan do
       row :confirmed_at
       row :counted_at
       row :discarded_at
+      row :returned_at
+      if !microcredit_loan.confirmed_at.nil? && microcredit_loan.returned_at.nil?
+        next_campaign = Microcredit.non_finished.first
+        if next_campaign
+          row :renewal_link do
+            link_to("Enlace a renovar microcrédito para campaña #{next_campaign.title}", loans_renewal_microcredit_loan_path(next_campaign.id, microcredit_loan.id, microcredit_loan.unique_hash))
+          end
+        end
+      end 
+      row :updated_at
     end
     active_admin_comments
   end
@@ -95,10 +106,10 @@ ActiveAdmin.register MicrocreditLoan do
       f.input :amount
       f.input :document_vatid
       f.input :user_data
-      f.input :created_at
       f.input :confirmed_at
       f.input :counted_at
       f.input :discarded_at
+      f.input :returned_at
     end
     f.actions
   end
@@ -110,6 +121,8 @@ ActiveAdmin.register MicrocreditLoan do
   scope :not_counted
   scope :discarded
   scope :not_discarded
+  scope :returned
+  scope :not_returned
   
   filter :id
   filter :user_last_name_or_user_data_cont, label: "Apellido"

@@ -5,12 +5,19 @@ class Microcredit < ActiveRecord::Base
   acts_as_paranoid
   has_many :loans, class_name: "MicrocreditLoan"
 
+  has_attached_file :renewal_terms
+
+  validates_attachment :renewal_terms, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
+  
+ 
   # example: "100€: 100\r500€: 22\r1000€: 10"
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
   validate :check_limits_with_phase
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
+  scope :non_finished, -> { where("ends_at > ?", DateTime.now) }
+  scope :renewables, -> { where.not( renewal_terms_file_name: nil ) }
 
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
@@ -18,6 +25,10 @@ class Microcredit < ActiveRecord::Base
 
   def is_upcoming?
     self.starts_at > DateTime.now and self.starts_at < 1.day.from_now
+  end
+
+  def has_finished?
+    self.ends_at < DateTime.now
   end
 
   def recently_finished?

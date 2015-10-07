@@ -1,0 +1,49 @@
+<% content_for :title, t('microcredit.common.title', name: @brand_config["name"]) %>
+<div class="content-content microcredits-wrapper">
+
+<h2><%= t 'microcredit.common.title', name: @brand_config["name"]%> - <%=@microcredit.title%></h2>
+<% if @renewal.nil? %>
+  <p>No hemos encontrado microcréditos para renovar.</p>
+<% else %>
+  <%= errors_in_form @renewal %>
+  <%= semantic_form_for @renewal, as: :renewals, url: loans_renew_microcredit_loan_path(brand: @brand), html: {method: :post, autocomplete: 'off'} do |f| %>
+    <fieldset>
+      
+      <div class="inputlabel-box">
+        <% if @renewal.errors.include?(:loan_renewals) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :loan_renewals, as: :check_boxes, collection: @renewal.loans.map{|l| [number_to_euro(l.amount*100,0), l.id]}, hint: "Selecciona los que deseas renovar." %>
+      </div>
+      <div class="inputlabel-box">
+        <% if @renewal.errors.include?(:renewal_terms) %>
+            <%= field_notice_box %>
+        <% end %>
+        <div class="input-box">
+          <%= f.check_box :renewal_terms, class: 'checkbox' %>
+          <%= f.label :renewal_terms, class: 'text-xl' do %>
+            <%= t '.renewal_terms_message', name: @brand_config["name"]%>
+            <%= link_to t('.renewal_terms_link', name: @brand_config["name"]), "@microcredit.renewal_link", target: "_blank"%>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="inputlabel-box">
+        <% if @renewal.errors.include?(:terms_of_service) %>
+            <%= field_notice_box %>
+        <% end %>
+        <div class="input-box">
+          <%= f.check_box :terms_of_service, class: 'checkbox' %>
+          <%= f.label :terms_of_service, class: 'text-xl' do %>
+            <%= t '.terms_of_service_message', name: @brand_config["name"], campaign: @microcredit.title %>
+            <%= link_to t('.terms_of_service_link', name: @brand_config["name"], campaign: @microcredit.title ), @microcredit.agreement_link, target: "_blank"%>
+          <% end %>
+        </div>
+      </div>
+    </fieldset>
+    <%= f.actions class: 'enter' do %>
+      <%= f.action :submit, label: t(".renew"), as: :input, button_html: {class: 'button'} %>
+    <% end %>
+  <% end %>
+<% end %>
+</div>

@@ -4,6 +4,9 @@ class MicrocreditLoan < ActiveRecord::Base
   belongs_to :microcredit
   belongs_to :user, -> { with_deleted }
 
+  belongs_to :transferred_to, inverse_of: :original_loan, class_name: "MicrocreditLoan"
+  has_many :original_loan, inverse_of: :transferred_to, class_name: "MicrocreditLoan"
+
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
   validates :document_vatid, valid_spanish_id: true, if: :has_not_user?
@@ -27,6 +30,11 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :not_discarded, -> { where(discarded_at:nil) }
   scope :discarded, -> { where.not(discarded_at:nil) }
+  scope :not_returned, -> { where(returned_at:nil) }
+  scope :returned, -> { where.not(returned_at:nil) }
+  
+  scope :renewables, -> { confirmed.not_returned.joins(:microcredit).merge(Microcredit.renewables) }
+  scope :recently_renewed, -> { confirmed.where.not(transferred_to:nil).where("returned_at>?",30.days.ago) }
   scope :ignore_discarded, -> { where("discarded_at is null or counted_at is not null") }
 
   scope :phase, -> { joins(:microcredit).where("microcredits.reset_at is null or (microcredit_loans.counted_at IS NULL and microcredit_loans.created_at>microcredits.reset_at) or microcredit_loans.counted_at>microcredits.reset_at") }
@@ -138,7 +146,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def check_amount
-    if self.amount and not self.microcredit.has_amount_available? amount
+    if self.confirmed_at.nil? && self.amount && !self.microcredit.has_amount_available?(amount)
       self.errors.add(:amount, "Lamentablemente, ya no quedan préstamos por esa cantidad.")
     end
   end
@@ -154,7 +162,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def check_microcredit_active
-    if not self.microcredit.is_active?
+    if self.confirmed_at.nil? && !self.microcredit.is_active?
       self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
     end
   end
@@ -208,6 +216,19 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def possible_user
-    @possible_user ||= self.user.nil? && User.where(document_vatid: self.document_vatid).first
+    @possible_user ||= self.user.nil? && User.find_by_document_vatid(self.document_vatid)
+  end
+
+  def unique_hash
+     Digest::SHA1.hexdigest "#{id}-#{created_at}-#{document_vatid.upcase}"
+  end
+
+  def renew! new_campaign
+    new_loan = self.dup
+    new_loan.microcredit = new_campaign
+    new_loan.save!
+    self.transferred_to = new_loan
+    self.returned_at = DateTime.now
+    save!
   end
 end

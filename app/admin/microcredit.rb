@@ -53,6 +53,7 @@ ActiveAdmin.register Microcredit do
         f.input :subgoals
         f.input :account_number
         f.input :agreement_link
+        f.input :renewal_terms, as: :file
         f.input :total_goal, step: 100
       else
         f.inputs "Importes de los microcréditos" do
@@ -76,6 +77,9 @@ ActiveAdmin.register Microcredit do
       row :ends_at
       row :account_number
       row :agreement_link
+      row :renewal_terms do |microcredit|
+        link_to(microcredit.renewal_terms_file_name, microcredit.renewal_terms.url) if microcredit.renewal_terms.exists?
+      end
       row :total_goal
       row :limits do
         ([ "<strong>Total&nbsp;fase:&nbsp;#{number_to_euro(microcredit.phase_limit_amount*100, 0)}</strong>" ] + microcredit.limits.map do |amount, limit|
@@ -181,7 +185,7 @@ ActiveAdmin.register Microcredit do
 
   permit_params do
     if can? :admin, Microcredit
-      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link]
+      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link, :renewal_terms]
     else
       [:contact_phone]
     end
