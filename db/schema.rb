@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922080614) do
+ActiveRecord::Schema.define(version: 20151007131541) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20150922080614) do
     t.integer  "monitoring_evaluation_model_file_size"
     t.datetime "monitoring_evaluation_model_updated_at"
     t.text     "legal"
+    t.datetime "votings_start_at"
   end
 
   create_table "impulsa_project_topics", force: :cascade do |t|
@@ -350,6 +351,8 @@ ActiveRecord::Schema.define(version: 20150922080614) do
     t.string   "ip"
     t.string   "document_vatid"
     t.datetime "discarded_at"
+    t.datetime "returned_at"
+    t.integer  "transferred_to_id"
   end
 
   add_index "microcredit_loans", ["document_vatid"], name: "index_microcredit_loans_on_document_vatid"
@@ -371,6 +374,10 @@ ActiveRecord::Schema.define(version: 20150922080614) do
     t.integer  "total_goal"
     t.string   "slug"
     t.text     "subgoals"
+    t.string   "renewal_terms_file_name"
+    t.string   "renewal_terms_content_type"
+    t.integer  "renewal_terms_file_size"
+    t.datetime "renewal_terms_updated_at"
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
