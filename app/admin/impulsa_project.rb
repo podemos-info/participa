@@ -372,6 +372,11 @@ ActiveAdmin.register ImpulsaProject do
           f.input :evaluator_analysis, as: :file
         end
       end
+    elsif impulsa_project.dissent?
+      f.inputs "Validación del proyecto" do
+        f.input :evaluator1_invalid_reasons, as: :text, label: "Razones de invalidación del evaluador 1"
+        f.input :evaluator2_invalid_reasons, as: :text, label: "Razones de invalidación del evaluador 2"
+      end
     end
     f.actions
   end
