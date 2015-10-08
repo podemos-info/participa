@@ -86,7 +86,7 @@ ActiveAdmin.register MicrocreditLoan do
       row :counted_at
       row :discarded_at
       row :returned_at
-      if !microcredit_loan.confirmed_at.nil? && microcredit_loan.returned_at.nil?
+      if microcredit_loan.renewable?
         next_campaign = Microcredit.non_finished.first
         if next_campaign
           row :renewal_link do
