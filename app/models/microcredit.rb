@@ -79,11 +79,16 @@ class Microcredit < ActiveRecord::Base
     progress*time
   end
 
-  def current_percent amount, add
-    remaining = self.remaining_percent
-    current = campaign_status.collect {|x| x[4]*(x[1] ? remaining*remaining : 1.0) if x[0]==amount and (not x[3] or x[2])} .compact.sum + add
-    current_counted = campaign_status.collect {|x| x[4]*(x[1] ? remaining*remaining : 1.0) if x[0]==amount and x[2]} .compact.sum
-    current == 0 ? 0 : (current_counted+add)/current
+  def current_percent amount
+    current = campaign_status.collect {|x| x[4] if x[0]==amount and (not x[3] or x[2])} .compact.sum
+    current_counted = campaign_status.collect {|x| x[4] if x[0]==amount and x[2]} .compact.sum
+    current==0 ? 0 : current_counted/current
+  end
+
+  def next_percent amount
+    current = campaign_status.collect {|x| x[4] if x[0]==amount and (not x[3] or x[2])} .compact.sum
+    current_counted = campaign_status.collect {|x| x[4] if x[0]==amount and x[2]} .compact.sum
+    (current_counted+1.0)/(current+1.0)
   end
 
   def has_amount_available? amount
@@ -100,7 +105,7 @@ class Microcredit < ActiveRecord::Base
       return true
     else
       percent = self.remaining_percent
-      (current_percent(amount, 1)-percent).abs<(current_percent(amount, 0)-percent).abs
+      next_percent(amount)<percent
     end
   end
 
@@ -204,5 +209,9 @@ class Microcredit < ActiveRecord::Base
 
   def subgoals
     @subgoals ||= YAML.load(self[:subgoals]) if self[:subgoals]
+  end
+
+  def renewable?
+    self.has_finished? && self.renewal_terms.exists?
   end
 end

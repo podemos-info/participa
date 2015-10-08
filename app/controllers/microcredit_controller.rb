@@ -92,8 +92,6 @@ class MicrocreditController < ApplicationController
           total_amount += l.amount
         end
       end
-      redirect_to microcredit_path(brand:@brand), notice: t('microcredit.loans_renewal.renewal_success', amount: number_to_euro(total_amount*100,0), campaign: @microcredit.title)
-      return
     end
     render :loans_renewal
   end
@@ -109,24 +107,28 @@ class MicrocreditController < ApplicationController
   end
 
   def get_renewal validate = false
-
     if params[:loan_id]
       loan = MicrocreditLoan.find_by(id: params[:loan_id])
     else
       loan = MicrocreditLoan.where(document_vatid: current_user.document_vatid).first
     end
-    return nil unless @microcredit && !@microcredit.has_finished? && loan && loan.microcredit.has_finished? && (current_user || microcredit_loan.unique_hash==params[:hash])
+    return nil unless @microcredit && !@microcredit.has_finished? && loan && loan.microcredit.renewable? && (current_user || loan.unique_hash==params[:hash])
 
-    loans = MicrocreditLoan.renewables.where(document_vatid: loan.document_vatid)
-    
+    loans = MicrocreditLoan.renewables.not_renewed.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
+    other_loans = MicrocreditLoan.renewables.where.not(microcredit_id:loan.microcredit_id).where(document_vatid: loan.document_vatid).to_a.uniq(&:microcredit_id)
+    recently_renewed_loans = MicrocreditLoan.recently_renewed.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
+
     require 'ostruct'
     if validate
       renewal = OpenStruct.new( params.require(:renewals).permit(:renewal_terms, :terms_of_service, loan_renewals: []))
     else
       renewal = OpenStruct.new( renewal_terms: false, terms_of_service: false, loan_renewals: [])
     end
-    renewal.loans = loans.select {|l| l.microcredit.has_finished? }
+    renewal.loans = loans
     renewal.loan_renewals = renewal.loans.select {|l| renewal.loan_renewals.member? l.id.to_s }
+    renewal.other_loans = other_loans
+    renewal.recently_renewed_loans = recently_renewed_loans
+    renewal.loan = loans.first || recently_renewed_loans.first
     renewal.errors = {}
     if validate
       renewal.errors[:renewal_terms] = t("errors.messages.accepted") if renewal.renewal_terms=="0"

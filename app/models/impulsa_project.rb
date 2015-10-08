@@ -120,7 +120,7 @@ class ImpulsaProject < ActiveRecord::Base
   }
 
   FIELDS = {
-    admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact ],
+    admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact, :evaluator1_invalid_reasons, :evaluator2_invalid_reasons ],
     impulsa_admin: [ :user_id, :review_fields, :counterpart_information, :additional_contact ],
     always: [ :impulsa_edition_category_id, :name ],
     with_category: [ :short_description, :logo, :video_link ],
