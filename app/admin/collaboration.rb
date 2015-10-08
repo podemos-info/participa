@@ -152,6 +152,12 @@ ActiveAdmin.register Collaboration do
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today-1.month) }
         """.html_safe
       end
+      li do
+        """Insular:
+#{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today-1.month) }
+        """.html_safe
+      end
     end
   end
   
