@@ -42,7 +42,7 @@ def export_raw_data(filename, data, options = {})
   end
 end
 
-def fill_data(filename, data, options = {})
+def fill_data(filename, query, options = {})
   col_sep = options.fetch(:col_sep, "\t")
   folder = options.fetch(:folder, "tmp/export")
   force_quotes = options.fetch(:force_quotes, false)
@@ -50,14 +50,14 @@ def fill_data(filename, data, options = {})
   headers = nil
   CSV.foreach(filename, headers: true, col_sep: col_sep, encoding: 'utf-8') do |row|
     headers = row.headers if headers.nil?
-    data[row[0]] = Hash[headers[1..-1].map{|h| [h,row[h]] }] if !row[0].nil?
+    data[row[0].upcase] = Hash[headers[1..-1].map{|h| [h,row[h]] }] if !row[0].nil?
   end
-  data.where(headers[0]=>data.map{|k,h| [k.upcase, k.downcase]} .flatten.uniq).find_each do |item|
-    row = data[item.send(headers[0])]
-    headers[1..-1].map do |h| 
+  query.where(headers[0]=>data.map{|k,h| [k.upcase, k.downcase]} .flatten.uniq).find_each do |item|
+    row = data[item.send(headers[0]).upcase]
+    headers[1..-1].map do |h|
       if item.respond_to? h
         value = item.send(h)
-        data[item.send(headers[0])][h] = value if !value.nil?
+        data[item.send(headers[0]).upcase][h] = value if !value.nil?
       end
     end if row && row.length>1
   end
@@ -68,3 +68,4 @@ def fill_data(filename, data, options = {})
     end
   end
 end
+
