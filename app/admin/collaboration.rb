@@ -517,7 +517,7 @@ collection_action :download_for_island, :method => :get do
 
     provinces = Carmen::Country.coded("ES").subregions
     islands_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.where.not(island_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+  Order.paid.where.not(autonomy_code:nil).where.not(island_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
         islands_data[k[0]][k[1].to_i] = v
     end
 
