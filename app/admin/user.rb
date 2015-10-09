@@ -233,6 +233,7 @@ ActiveAdmin.register User do
     column :email
     column :document_vatid
     column :country_name
+    column("vote_autonomy") { |u| u.vote_autonomy_name }
     column :province_name
     column :town_name
     column :address
