@@ -196,6 +196,7 @@ ActiveAdmin.register User do
 
   filter :email
   filter :document_vatid
+  filter :document_vatid_cont_any, as: :string, label: "Lista de DNI o NIE"
   filter :admin
   filter :first_name
   filter :last_name
@@ -352,6 +353,13 @@ ActiveAdmin.register User do
       @versions = @user.versions
       @user = @user.versions[params[:version].to_i].reify if params[:version]
       show! #it seems to need this
+    end
+
+    before_filter :dni_list_filter, :only => :index
+    private
+
+    def dni_list_filter
+      params[:q][:document_vatid_cont_any] = params[:q][:document_vatid_cont_any].split unless params[:q].nil? or params[:q][:document_vatid_cont_any].nil?
     end
   end
 
