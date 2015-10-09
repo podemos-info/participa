@@ -226,7 +226,7 @@ class Collaboration < ActiveRecord::Base
       if self.for_autonomy_cc and self.user and !self.user.vote_autonomy_code.empty?
         o.autonomy_code = self.user.vote_autonomy_code
         o.town_code = self.user.vote_town if self.for_town_cc
-        o.island_code = self.user.vote_island if self.for_island_cc
+        o.island_code = self.user.vote_island_code if self.for_island_cc
       end
     end
     order
