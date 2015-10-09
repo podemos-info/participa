@@ -41,3 +41,30 @@ def export_raw_data(filename, data, options = {})
     end
   end
 end
+
+def fill_data(filename, data, options = {})
+  col_sep = options.fetch(:col_sep, "\t")
+  folder = options.fetch(:folder, "tmp/export")
+  force_quotes = options.fetch(:force_quotes, false)
+  data = {}
+  headers = nil
+  CSV.foreach(filename, headers: true, col_sep: col_sep, encoding: 'utf-8') do |row|
+    headers = row.headers if headers.nil?
+    data[row[0]] = Hash[headers[1..-1].map{|h| [h,row[h]] }] if !row[0].nil?
+  end
+  data.where(headers[0]=>data.map{|k,h| [k.upcase, k.downcase]} .flatten.uniq).find_each do |item|
+    row = data[item.send(headers[0])]
+    headers[1..-1].map do |h| 
+      if item.respond_to? h
+        value = item.send(h)
+        data[item.send(headers[0])][h] = value if !value.nil?
+      end
+    end if row && row.length>1
+  end
+  CSV.open( "#{filename}.filled.csv", 'w', { col_sep: col_sep, encoding: 'utf-8', force_quotes: force_quotes} ) do |writer|
+    writer << headers
+    data.each do |key, item|
+      writer << [ key ] + headers[1..-1].map{|h|item[h]}
+    end
+  end
+end
