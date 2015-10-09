@@ -154,7 +154,7 @@ ActiveAdmin.register Collaboration do
       end
       li do
         """Insular:
-#{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today-1.month) }
         """.html_safe
       end
@@ -511,28 +511,25 @@ ActiveAdmin.register Collaboration do
       disposition: "attachment; filename=podemos.for_town_cc.#{Date.today.to_s}.csv"
   end
 
-collection_action :download_for_island, :method => :get do
+  collection_action :download_for_island, :method => :get do
     date = Date.parse params[:date]
     months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
-    provinces = Carmen::Country.coded("ES").subregions
+    islands = Hash[Podemos::GeoExtra::ISLANDS.values]
     islands_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-  Order.paid.where.not(autonomy_code:nil).where.not(island_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
-        islands_data[k[0]][k[1].to_i] = v
+    Order.paid.where.not(autonomy_code:nil).where.not(island_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+      islands_data[k[0]][k[1].to_i] = v
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      csv << ["Comunidad Autónoma", "Provincia", "Isla"] + months.values
-      provinces.each_with_index do |province,i|
-        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
-        province.subregions.each do |town|
-            csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, island.name ] + months.keys.map{|k| islands_data[island.code][k]/100}
-        end
+      csv << ["Isla"] + months.values
+      islands_data.sort_by(&:first).each do |k,v|
+        csv << [islands[k] ] + months.keys.map{|k| v[k]/100}
       end
     end
 
     send_data csv.encode('utf-8'),
       type: 'text/tsv; charset=utf-8; header=present',
-disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
+      disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
   end
 end
