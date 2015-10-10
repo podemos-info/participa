@@ -1,0 +1,11 @@
+<%= semantic_form_for :fill_csv, :url => { :action => "fill_csv" } do |f| %> 
+    <div class="filter_form_field">
+    <%= f.input :file, :as => :file, :label => "Archivo a cargar" %>
+    <%= f.input :separador, :as => :string, :label => "Separador" %>
+    </div>
+    <div class="buttons">
+    <%= f.actions do %>
+        <%= f.action :submit, value: "Enviar" %>
+    <% end %>
+    </div>
+<% end %>  

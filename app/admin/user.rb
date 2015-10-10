@@ -196,7 +196,7 @@ ActiveAdmin.register User do
 
   filter :email
   filter :document_vatid
-  filter :document_vatid_cont_any, as: :string, label: "Lista de DNI o NIE"
+  filter :document_vatid_cont_any, as: :text, label: "Lista de DNI o NIE"
   filter :admin
   filter :first_name
   filter :last_name
@@ -346,6 +346,13 @@ ActiveAdmin.register User do
         span b u.created_at.strftime "%Y-%m-%d %H:%M"
       end
     end
+  end
+
+  sidebar "Completar CSV", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
+    render("admin/fill_csv_form")
+  end
+
+  collection_action :fill_csv, :method => :post do
   end
 
   controller do
