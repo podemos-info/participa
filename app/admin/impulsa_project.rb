@@ -12,7 +12,7 @@ ActiveAdmin.register ImpulsaProject do
   filter :user_email_contains
   filter :authority
   filter :authority_name
-  filter :id_in, as: :text, label: "Lista de IDs de proyectos"
+  filter :id_in, as: :text, label: "Lista de IDs de proyectos", required: false
 
   index download_links: -> { can?(:admin, ImpulsaProject) } do
     selectable_column
