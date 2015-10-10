@@ -12,6 +12,7 @@ ActiveAdmin.register ImpulsaProject do
   filter :user_email_contains
   filter :authority
   filter :authority_name
+  filter :id_in, as: :text, label: "Lista de IDs de proyectos"
 
   index download_links: -> { can?(:admin, ImpulsaProject) } do
     selectable_column
@@ -383,6 +384,11 @@ ActiveAdmin.register ImpulsaProject do
 
   controller do
     before_filter :update_scopes, :only => :index
+    before_filter :multiple_id_search, :only => :index
+
+    def multiple_id_search
+      params[:q][:id_in] = params[:q][:id_in].split unless params[:q].nil? or params[:q][:id_in].nil?
+    end
 
     def update_scopes
       resource = active_admin_config
@@ -451,6 +457,19 @@ ActiveAdmin.register ImpulsaProject do
     column :total_budget
     column(:impulsa_edition_category) { |project| project.impulsa_edition_category.name }
     column(:impulsa_edition_topics) { |project| project.impulsa_edition_topics.map{|t| t.name }.join("|") }
+    column :short_description
+    column(:logo) { |project| "#{request.protocol}#{request.host}#{project.logo.url}" }
+    column :video_link
+    column :organization_name
+    column :organization_web
+    column :organization_year
+    column :organization_mission
+    column :career
+    column :territorial_context
+    column :aim
+    column :metodology
+    column :population_segment
+    column :counterpart
   end
 
 end
