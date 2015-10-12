@@ -18,7 +18,8 @@ ActiveAdmin.register ImpulsaProject do
     selectable_column
     column :id
     column :logo do |impulsa_project|
-      image_tag(impulsa_project.logo.url(:thumb))
+      ( impulsa_project.video_link.blank? ? status_tag("SIN VIDEO", :error) : a( status_tag("VER VIDEO", :ok), href: url_for(impulsa_project.video_link), target: "_blank" ) ) + br +
+      ( impulsa_project.logo.nil? ? status_tag("SIN FOTO", :error) : a( image_tag(impulsa_project.logo.url(:thumb)), href: impulsa_project.logo.url ) )
     end
     column :name do |impulsa_project|
       link_to impulsa_project.name, admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project)
