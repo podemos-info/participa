@@ -9,7 +9,7 @@ ActiveAdmin.register ImpulsaProject do
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
   filter :name
   filter :user_id
-  filter :id_in, as: :text, label: "Lista de IDs de proyectos", required: false
+  filter :id_in, as: :string, label: "Lista de IDs de proyectos", required: false
   filter :user_email_contains
   filter :authority
   filter :authority_name
@@ -24,8 +24,12 @@ ActiveAdmin.register ImpulsaProject do
       link_to impulsa_project.name, admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project)
     end
     column :user
-    column :total_budget
     column :impulsa_edition_category
+    column :total_budget do |impulsa_project|
+      div :class => "moneda" do
+        number_to_currency impulsa_project.total_budget, :unit => "€"
+      end
+    end
     #column :updated_at
     column :status_name do |impulsa_project|
       div t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
