@@ -18,7 +18,13 @@ ActiveAdmin.register ImpulsaEdition do
     column :validation_projects_until
     column :votings_start_at
     column :ends_at
+    column "Proyectos" do |impulsa_edition|
+      link_to("Mostrar #{impulsa_edition.impulsa_projects.count} proyectos", admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
+    end
     actions
+    #actions defaults: true do |impulsa_edition|
+    #  link_to('Ver proyectos', admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
+    #end
   end
 
   show do
