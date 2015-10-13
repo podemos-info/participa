@@ -33,7 +33,7 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :not_returned, -> { where(returned_at:nil) }
   scope :returned, -> { where.not(returned_at:nil) }
   
-  scope :renewables, -> { confirmed.joins(:microcredit).merge(Microcredit.renewables) }
+  scope :renewables, -> { confirmed.joins(:microcredit).merge(Microcredit.renewables).distinct }
   scope :not_renewed, -> { renewables.not_returned }
 
   scope :recently_renewed, -> { confirmed.where.not(transferred_to:nil).where("returned_at>?",30.days.ago) }
