@@ -1,8 +1,12 @@
 class ImpulsaController < ApplicationController
-  before_action :authenticate_user!, except: [ :categories, :category, :project ]
+  before_action :authenticate_user!, except: [ :index, :categories, :category, :project ]
   before_action :set_current_edition
-  before_action :set_user_project, except: [ :categories, :category, :project ]
+  before_action :set_user_project
  
+  def index
+    @upcoming = ImpulsaEdition.upcoming.first if @edition.nil?
+  end
+
   def new
     if @edition
       redirect_to edit_impulsa_path and return if @project
@@ -11,10 +15,6 @@ class ImpulsaController < ApplicationController
       @upcoming = ImpulsaEdition.upcoming.first
       render :index
     end
-  end
-
-  def index
-    @upcoming = ImpulsaEdition.upcoming.first
   end
 
   def edit
@@ -92,7 +92,7 @@ class ImpulsaController < ApplicationController
   end
 
   def set_user_project
-    return if @edition.nil?
+    return if @edition.nil? || !current_user
     @project = @edition.impulsa_projects.where(user:current_user).first
 
     @available_categories = @edition.impulsa_edition_categories
