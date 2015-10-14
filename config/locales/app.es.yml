@@ -694,7 +694,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
 <p> <b> PODEMOS Partido Político<br> CIF G86976941<br> Versión 7 de octubre de 2014 12:55<br> </b> </p>
 '
     impulsa:
-      title: "Presenta tu proyecto a IMPULSA"
+      title: "IMPULSA"
       upcoming: "La próxima edición de IMPULSA comenzará el %{start_at}."
       noupcoming: "La convocatoria de una nueva edición de IMPULSA se realizará próximamente, mantente informado."
       text_limit: "máximo %{limit} caracteres"

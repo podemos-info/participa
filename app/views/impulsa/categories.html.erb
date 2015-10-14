@@ -1,0 +1,13 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <h3>Categorías</h3>
+      <% @categories.each do |category| %>
+        <%= link_to(category.name, impulsa_category_path(id: category.id)) %>
+      <% end %>
+    </div>
+  </div>
+</div>

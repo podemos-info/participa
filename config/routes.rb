@@ -135,6 +135,9 @@ Rails.application.routes.draw do
         post 'crear', to: 'impulsa#create', as: 'create_impulsa'
         post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
         get ':id/attachment/:field/:style/:filename', to: 'impulsa#attachment', as: 'attachments_impulsa', constraints: { filename: /[^\/]*/ }
+        get 'categorias', to: 'impulsa#categories', as: 'impulsa_categories'
+        get 'categoria/:id', to: 'impulsa#category', as: 'impulsa_category'
+        get 'proyecto/:id', to: 'impulsa#project', as: 'impulsa_project'
       end
     end
 

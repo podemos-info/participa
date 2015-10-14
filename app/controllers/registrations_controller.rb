@@ -25,6 +25,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    byebug
     if verify_recaptcha
       super do
 

@@ -102,7 +102,8 @@ class ImpulsaProject < ActiveRecord::Base
 
   scope :first_phase, -> { where( status: [ 0, 1, 2, 3 ] ) }
   scope :second_phase, -> { where( status: [ 4, 6 ]) }
-  scope :no_phase, -> { where status: [ 5, 7, 10 ] } 
+  scope :no_phase, -> { where status: [ 5, 7, 10 ] }
+  scope :public_visible, -> { where status: [ 6, 7, 9 ]}
 
   PROJECT_STATUS = {
     new: 0,
@@ -409,5 +410,11 @@ class ImpulsaProject < ActiveRecord::Base
 
   def has_attachment_field? field_name
     ImpulsaProject.attachment_definitions.keys.member? field_name.to_sym
+  end
+
+  def video_id
+    @video_id ||= begin
+      /[0-9a-zA-Z\-_]{10}/.match(self.video_link).to_s if self.video_link && /youtu\.?be/=~self.video_link
+    end
   end
 end

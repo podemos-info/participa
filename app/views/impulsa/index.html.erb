@@ -5,7 +5,6 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
 
-
 <h3 style="margin-top:30px;">¿Qué es IMPULSA?</h3>
 
 <div style="width:50%;margin:0 2% 1% 0;float:left;">
@@ -20,6 +19,10 @@
 
 <p style="text-align:right;"><%= link_to "Ver más información", "http://podemos.info/impulsa" %></p> 
 
+<% if @edition && @edition.show_projects? %>
+  <p>&nbsp;</p>
+  <%= link_to "Ver los proyectos", impulsa_categories_path, :class => "button", :title => "Ver los proyectos" %>
+<% end %>
 
       <% if @upcoming %>
         <% i18n_start_at = I18n.localize @upcoming.start_at, :format => "%e de %B a las %k:%M" %>

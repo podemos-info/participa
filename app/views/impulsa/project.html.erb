@@ -1,0 +1,54 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+
+    <span id="id_proyecto"><strong>Proyecto:</strong>&nbsp;<%= @project.id %></span>
+    <h2 class="impulsa_title"><%= @project.name %></h2><hr />
+
+    <%= image_tag @project.logo.url(:thumb), title: @project.name %>
+    <%= content_tag :h6, @project.short_description %>
+    <% if !@project.video_id.blank? %>
+        <iframe width="400" height="250" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>
+    <% end %>
+
+    <h4>Contexto territorial</h4>
+    <%= content_tag :p, @project.territorial_context %>
+
+<% if @project.impulsa_edition_topics.any? %>
+    <h4>Temáticas</h4>
+    <ul>
+        <% @project.impulsa_edition_topics.each do |topic| %>
+            <li><strong><%= topic.name %></strong></li>
+        <% end %>
+    </ul>
+<% end %>
+
+    <h4>Descripci&oacute;n del proyecto</h4>
+    <%= content_tag :p, @project.long_description %>
+
+    <h4>Objetivos del proyecto</h4>
+    <%= content_tag :p, @project.aim %>
+
+    <h4>Metodología del proyecto y fomento de la participación</h4>
+    <%= content_tag :p, @project.metodology %>
+
+    <h4>Segmento poblacional objetivo del proyecto</h4>
+    <%= content_tag :p, @project.population_segment %>
+
+<% if @project.schedule.exists? %>
+    <h4>Cronograma y fases del proyecto</h4>
+    <%= link_to(impulsa_project.schedule_file_name, impulsa_project.schedule.url, target: "_blank") %>
+<% end %>
+
+<% if @project.requested_budget.exists? %>
+  <h4>Presupuesto solicitado</h4>
+  <strong><%= @project.total_budget %></strong>
+  <%= link_to(impulsa_project.requested_budget_file_name, impulsa_project.requested_budget.url, target: "_blank") %>
+<% end %>
+
+    </div>
+  </div>
+</div>
