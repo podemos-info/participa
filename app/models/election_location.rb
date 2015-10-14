@@ -18,16 +18,15 @@ class ElectionLocation < ActiveRecord::Base
   end
 
   after_initialize do
-    self.agora_version = 0 if self.agora_version.nil?
-    self.new_agora_version = self.agora_version if self.new_agora_version.nil?
-    self.location = "00" if self.location.blank?
-    if self.title.blank?
+    if !self.persisted?
+      self.agora_version = 0 if self.agora_version.nil?
+      self.new_agora_version = self.agora_version if self.new_agora_version.nil?
+      self.location = "00" if self.location.blank?
       self.has_voting_info = false
       self.layout = LAYOUTS.keys.first
       self.theme = ElectionLocation.themes.first
-    else
-      self.has_voting_info = true
     end
+    self.has_voting_info = !self.title.blank?
   end
 
   def has_voting_info
@@ -50,25 +49,29 @@ class ElectionLocation < ActiveRecord::Base
   end
 
   def territory
-    spain = Carmen::Country.coded("ES")
-    case election.scope
-      when 0 then 
-        "Estatal"
-      when 1 then 
-        autonomy = Podemos::GeoExtra::AUTONOMIES.values.uniq.select {|a| a[0][2..-1]==location } .first
-        autonomy[1]
-      when 2 then 
-        province = spain.subregions[location.to_i-1]
-        province.name
-      when 3 then
-        town = spain.subregions[location[0..1].to_i-1].subregions.coded("m_%s_%s_%s" % [location[0..1], location[2..4], location[5]]) 
-        town.name
-      when 4 then
-        island = Podemos::GeoExtra::ISLANDS.values.uniq.select {|i| i[0][2..-1]==location } .first
-        island[1]
-      when 5 then 
-        "Exterior"
-    end + " (#{location})"
+    begin
+      spain = Carmen::Country.coded("ES")
+      case election.scope
+        when 0 then 
+          "Estatal"
+        when 1 then 
+          autonomy = Podemos::GeoExtra::AUTONOMIES.values.uniq.select {|a| a[0][2..-1]==location } .first
+          autonomy[1]
+        when 2 then 
+          province = spain.subregions[location.to_i-1]
+          province.name
+        when 3 then
+          town = spain.subregions[location[0..1].to_i-1].subregions.coded("m_%s_%s_%s" % [location[0..1], location[2..4], location[5]]) 
+          town.name
+        when 4 then
+          island = Podemos::GeoExtra::ISLANDS.values.uniq.select {|i| i[0][2..-1]==location } .first
+          island[1]
+        when 5 then 
+          "Exterior"
+      end + " (#{location})"
+    rescue
+      location
+    end
   end
 
   def new_version_pending
