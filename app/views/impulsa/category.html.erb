@@ -1,0 +1,30 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <h3><%= @category.name %></h3>
+      <div id="proyectos">
+      <% @category.impulsa_projects.each do |project| %>
+        <div class="proyecto <%= project.impulsa_edition_topics.map {|topic| topic.slug } .join(" ")%>">
+          <hr class="inicio"/>
+          <% if project.video_id.blank? %>
+            <%= image_tag project.logo.url(:thumb), title: project.name %>
+          <% else %>
+            <iframe width="400" height="250" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>
+          <% end %>
+          <ul class="temas">
+            <% project.impulsa_edition_topics.each do |topic|%>
+              <li><a class="<%=topic.slug%>" href="<%=topic.slug%>"><%=topic.name%></a></li>
+            <% end %>
+          </ul>
+          <hr class="medio"/>
+          <h2><%= link_to project.name, impulsa_project_path(project)%></h2>
+          <hr class="fin"/>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

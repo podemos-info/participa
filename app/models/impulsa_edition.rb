@@ -31,8 +31,9 @@ class ImpulsaEdition < ActiveRecord::Base
     new_projects: 1,
     review_projects: 2,
     validation_projects: 3,
-    votings: 4,
-    ended: 5
+    prevotings: 4,
+    votings: 5,
+    ended: 6
   }
   def current_phase
     now = DateTime.now
@@ -44,6 +45,8 @@ class ImpulsaEdition < ActiveRecord::Base
       EDITION_PHASES[:review_projects]
     elsif now < self.validation_projects_until
       EDITION_PHASES[:validation_projects]
+    elsif now < self.votings_start_at
+      EDITION_PHASES[:prevotings]
     elsif now < self.ends_at
       EDITION_PHASES[:votings]
     else
@@ -61,6 +64,10 @@ class ImpulsaEdition < ActiveRecord::Base
 
   def allow_validation?
     self.current_phase == EDITION_PHASES[:validation_projects]
+  end
+
+  def show_projects?
+    self.current_phase > EDITION_PHASES[:validation_projects]
   end
 
   def legal_link
