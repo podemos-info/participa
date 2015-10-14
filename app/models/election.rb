@@ -105,7 +105,6 @@ class Election < ActiveRecord::Base
 
   def locations= value
     ElectionLocation.transaction do
-      self.election_locations.destroy_all
       value.split("\n").each do |line|
         if not line.strip.empty?
           line_raw = line.strip.split(',')
