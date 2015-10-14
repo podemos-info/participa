@@ -85,7 +85,7 @@ class ImpulsaEdition < ActiveRecord::Base
         next if category.impulsa_projects.votable.count==0
 
         territories = category.territories.map { |t| t[-2..-1] }
-        first_territory = territories.pop
+        first_territory = territories.shift
 
         next if first_territory.nil?
 
