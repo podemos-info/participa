@@ -99,7 +99,7 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   def options base_url
     self.impulsa_projects.votable.map do |project|
-      [ project.name, URI.join(base_url, project.logo.url(:thumb)).to_s, URI.join(base_url, Rails.application.routes.url_helpers.impulsa_project_path(id: project.id)).to_s, project.short_description.gsub("\n","<br/>").gsub("\t"," ") ].join("\t")
+      [ project.name, URI.join(base_url, project.logo.url(:thumb)).to_s, URI.join(base_url, Rails.application.routes.url_helpers.impulsa_project_path(id: project.id)).to_s, project.short_description.gsub("\r\n"," ").gsub("\n"," ").gsub("\t"," ") ].join("\t")
     end .join "\n"
   end
 end
