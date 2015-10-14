@@ -15,6 +15,9 @@ class ImpulsaEditionCategory < ActiveRecord::Base
   validates_attachment_content_type :monitoring_evaluation_model_override, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
 
   scope :non_authors, -> { where.not only_authors:true }
+  scope :state, -> { where category_type: CATEGORY_TYPES[:state] }
+  scope :territorial, -> { where category_type: CATEGORY_TYPES[:territorial] }
+  
   CATEGORY_TYPES = {
     internal: 0, 
     state: 1, 
@@ -92,5 +95,11 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   def prewinners
     self.winners*2
+  end
+
+  def options base_url
+    self.impulsa_projects.votable.map do |project|
+      [ project.name, URI.join(base_url, project.logo.url(:thumb)).to_s, URI.join(base_url, Rails.application.routes.url_helpers.impulsa_project_path(id: project.id)).to_s, project.short_description.gsub("\n","<br/>").gsub("\t"," ") ].join("\t")
+    end .join "\n"
   end
 end

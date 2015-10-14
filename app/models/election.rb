@@ -7,7 +7,7 @@ class Election < ActiveRecord::Base
 
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
-  has_many :election_locations
+  has_many :election_locations, dependent: :destroy
  
   scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}

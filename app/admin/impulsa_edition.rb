@@ -109,6 +109,21 @@ ActiveAdmin.register ImpulsaEdition do
   action_item(:view_projects, only: :show) do
     link_to('Ver proyectos', admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
   end
+
+  action_item(:create_election, only: :show) do
+    link_to('Crear votaciones', create_election_admin_impulsa_edition_path(impulsa_edition), data: { confirm: "¿Estas segura de querer crear las votaciones para esta edición de IMPULSA?" })
+  end
+
+  member_action :create_election do
+    p = ImpulsaEdition.find( params[:id] )  
+    if p.create_election request.base_url
+      flash[:notice] = "Se han creado las votaciones para la edición de IMPULSA."
+    else
+      flash[:error] = "Las votaciones para la edición de IMPULSA no se han creado."
+    end
+    redirect_to action: :index
+  end
+
 end
 
 ActiveAdmin.register ImpulsaEditionTopic do

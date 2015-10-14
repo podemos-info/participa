@@ -103,6 +103,7 @@ class ImpulsaProject < ActiveRecord::Base
   scope :first_phase, -> { where( status: [ 0, 1, 2, 3 ] ) }
   scope :second_phase, -> { where( status: [ 4, 6 ]) }
   scope :no_phase, -> { where status: [ 5, 7, 10 ] }
+  scope :votable, -> { where status: 6 }
   scope :public_visible, -> { where status: [ 6, 7, 9 ]}
 
   PROJECT_STATUS = {
