@@ -6,7 +6,7 @@
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
       <h3><%= @category.name %></h3>
       <div id="proyectos">
-      <% @category.impulsa_projects.each do |project| %>
+      <% @projects.each do |project| %>
         <div class="proyecto <%= project.impulsa_edition_topics.map {|topic| topic.slug } .join(" ")%>">
           <hr class="inicio"/>
           <% if project.video_id.blank? %>
