@@ -99,7 +99,14 @@ class ImpulsaEditionCategory < ActiveRecord::Base
 
   def options base_url
     self.impulsa_projects.votable.map do |project|
-      [ project.name, URI.join(base_url, project.logo.url(:thumb)).to_s, URI.join(base_url, Rails.application.routes.url_helpers.impulsa_project_path(id: project.id)).to_s, project.short_description.gsub("\r\n"," ").gsub("\n"," ").gsub("\t"," ") ].join("\t")
+      image_url = if project.video_id
+                    "https://www.youtube.com/watch?v=#{project.video_id}"
+                  elsif project.logo.exists?
+                    URI.join(base_url, project.logo.url(:thumb)).to_s
+                  else
+                    ""
+                  end
+      [ project.name, image_url, URI.join(base_url, Rails.application.routes.url_helpers.impulsa_project_path(id: project.id)).to_s, project.short_description.gsub("\r\n"," ").gsub("\n"," ").gsub("\t"," ") ].join("\t")
     end .join "\n"
   end
 end
