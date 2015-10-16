@@ -90,7 +90,7 @@ class ImpulsaEdition < ActiveRecord::Base
         next if first_territory.nil?
 
         # create election for the first territory
-        el = e.election_locations.create!  title: "IMPULSA", layout: "simple", description: "Elige los mejores proyectos para construir el cambio", location: first_territory, 
+        el = e.election_locations.create!  title: self.name, layout: "simple", description: "Elige los mejores proyectos para construir el cambio", location: first_territory, 
                                           agora_version: 0, "share_text": "Ya he votado en la votación de proyectos IMPULSA en participa.podemos.info #ImpulsaTusIdeas"
 
         states.each do |state|
