@@ -18,7 +18,9 @@
       <% @projects.each do |project| %>
         <div class="proyecto activo <%= project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ")%>">
           <hr class="inicio"/>
-          <% if project.logo.blank? %>
+          <% if project.video_id.blank? %>
+            <iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>
+          <% elsif project.logo.blank? %>
             <%= image_tag "sinfoto-impulsa.png", title: project.name, alt: project.name %>
           <% else %>
             <%= image_tag project.logo.url(:medium), title: project.name, alt: project.name %>
