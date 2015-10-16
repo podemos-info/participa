@@ -60,10 +60,9 @@ class ImpulsaController < ApplicationController
   end
 
   def attachment
-    project = ImpulsaProject.find(params[:id]) # important to avoid users viewing other users attachments
+    project = ImpulsaProject.find(params[:id]) if !["logo", "requested_budget", "schedule"].member? params[:fields] # important to avoid users viewing other users attachments
     path = "#{Rails.application.root}/non-public/system/impulsa_projects/#{project.id}/#{params[:field]}/#{params[:style]}/#{params[:filename]}"
-
-    send_file path if project.has_attachment_field?(params[:field])
+    send_file path
   end
 
   def categories
