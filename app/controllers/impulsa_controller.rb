@@ -1,5 +1,5 @@
 class ImpulsaController < ApplicationController
-  before_action :authenticate_user!, except: [ :index, :categories, :category, :project ]
+  before_action :authenticate_user!, except: [ :index, :categories, :category, :project, :attachment ]
   before_action :set_current_edition
   before_action :set_user_project
  
