@@ -5,9 +5,18 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
       <h3>Categorías</h3>
-      <% @categories.each do |category| %>
+      <div class="categorias">
+      <div class="titulo"><%= t("podemos.impulsa.category_type_name.state")  %></div>
+      <% @categories_state.each do |category| %>
         <%= link_to(category.name, impulsa_category_path(id: category.id)) %>
       <% end %>
+      </div>
+      <div class="categorias">
+      <div class="titulo"><%= t("podemos.impulsa.category_type_name.territorial")  %></div>
+      <% @categories_territorial.each do |category| %>
+        <%= link_to(category.name, impulsa_category_path(id: category.id)) %>
+      <% end %>
+      </div>
     </div>
   </div>
 </div>

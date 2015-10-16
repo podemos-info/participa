@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.sidr.min
-// = require iframeSizer.min
+//= require iframeSizer.min
 //= require select2
 //= require cookie_policy
 //= require registrations_submenu
 //= require ccc
 //= require misc
 //= require Chart
+//= require isotope.pkgd.min
 //= require_tree .

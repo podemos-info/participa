@@ -1,34 +1,52 @@
 <% content_for :title, t("podemos.impulsa.title") %>
 
-<div class="content-content cols">
+<div id="impulsa-project" class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
 
     <span id="id_proyecto"><strong>Proyecto:</strong>&nbsp;<%= @project.id %></span>
-    <h2 class="impulsa_title"><%= @project.name %></h2><hr />
+    <h3 class="impulsa_title"><%= @project.name %></h3>
+    </div>
+  </div>
+  <div class="row">
 
-    <%= image_tag @project.logo.url(:thumb), title: @project.name %>
-    <%= content_tag :h6, @project.short_description %>
-    <% if !@project.video_id.blank? %>
-        <iframe width="400" height="250" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>
-    <% end %>
+    <!-- derecha -->
+    <div class="col-bhome-9a12">
+      <% if @project.logo.present? %>
+        <%= image_tag @project.logo.url(:medium), title: @project.name, alt: @project.name %>
+      <% end %>
+      <%= content_tag :h4, @project.short_description, style: "text-align:center;" %>
+      <% if @project.video_link.present? %>
+          <h4><%= link_to("Vídeo de presentación", @project.video_link, target: "_blank") %></h4>
+          <!--<iframe width="400" height="250" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>-->
+      <% end %>
+      <h4>Documentos del proyecto</h4>
+      <ul>
+        <% if @project.schedule.exists? %>
+          <li><%= link_to("Cronograma y fases del proyecto", @project.schedule.url, target: "_blank") %></li>
+        <% end %> 
+        <% if @project.requested_budget.exists? %>
+          <li><%= link_to("Presupuesto: "+@project.total_budget.to_s, @project.requested_budget.url, target: "_blank") %></li>
+        <% end %>     
+      </ul>
+    </div>
+
+    <!-- izquierda -->
+    <div class="col-bhome-1a6">
 
     <h4>Contexto territorial</h4>
     <%= content_tag :p, @project.territorial_context %>
 
-<% if @project.impulsa_edition_topics.any? %>
-    <h4>Temáticas</h4>
-    <ul>
-        <% @project.impulsa_edition_topics.each do |topic| %>
-            <li><strong><%= topic.name %></strong></li>
-        <% end %>
-    </ul>
-<% end %>
+    <% if @project.impulsa_edition_topics.any? %>
+    <h4>Temáticas:
+        <%= @project.impulsa_edition_topics.map { |t| t.name }.join(', ') %>
+    </h4>
+	<p></p>
+    <% end %>
 
     <h4>Descripci&oacute;n del proyecto</h4>
     <%= content_tag :p, @project.long_description %>
-
     <h4>Objetivos del proyecto</h4>
     <%= content_tag :p, @project.aim %>
 
@@ -38,16 +56,6 @@
     <h4>Segmento poblacional objetivo del proyecto</h4>
     <%= content_tag :p, @project.population_segment %>
 
-<% if @project.schedule.exists? %>
-    <h4>Cronograma y fases del proyecto</h4>
-    <%= link_to(impulsa_project.schedule_file_name, impulsa_project.schedule.url, target: "_blank") %>
-<% end %>
-
-<% if @project.requested_budget.exists? %>
-  <h4>Presupuesto solicitado</h4>
-  <strong><%= @project.total_budget %></strong>
-  <%= link_to(impulsa_project.requested_budget_file_name, impulsa_project.requested_budget.url, target: "_blank") %>
-<% end %>
 
     </div>
   </div>

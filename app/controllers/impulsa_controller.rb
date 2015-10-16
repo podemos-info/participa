@@ -67,7 +67,8 @@ class ImpulsaController < ApplicationController
   end
 
   def categories
-    @categories = @edition.impulsa_edition_categories
+    @categories_state = @edition.impulsa_edition_categories.state
+    @categories_territorial = @edition.impulsa_edition_categories.territorial
   end
 
   def category
