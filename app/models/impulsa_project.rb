@@ -415,7 +415,7 @@ class ImpulsaProject < ActiveRecord::Base
 
   def video_id
     @video_id ||= begin
-      /[0-9a-zA-Z\-_]{10}/.match(self.video_link).to_s if self.video_link && /youtu\.?be/=~self.video_link
+      /[0-9a-zA-Z\-_]{11}/.match(self.video_link).to_s if self.video_link && /youtu\.?be/=~self.video_link
     end
   end
 end
