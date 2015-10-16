@@ -96,7 +96,7 @@ class ImpulsaEdition < ActiveRecord::Base
         states.each do |state|
           next if state.impulsa_projects.votable.count==0
           el.election_location_questions.create! winners: state.winners, minimum: 1, maximum: state.winners, 
-                                              voting_system: "simple", totals: "over-total-valid-votes", random_order: true,
+                                              voting_system: "plurality-at-large", totals: "over-total-valid-votes", random_order: true,
                                               title: state.name, description: "Elige los mejores proyectos para construir el cambio en el país",
                                               options_headers: ["Text","Image URL","URL","Description"], options: state.options(base_url)
         end
