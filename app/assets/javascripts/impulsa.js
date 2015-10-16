@@ -26,7 +26,7 @@
 		$("#botonera a").removeClass("active");
 	});
 	imagesLoaded($proyectos, function(){
-		$proyectos.isotope(itemSelector: '.proyecto', masonry: { gutter: 30 })
+		$proyectos.isotope({itemSelector: '.proyecto', masonry: { gutter: 30 }})
 	});
 })(jQuery);
 
