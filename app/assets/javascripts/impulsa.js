@@ -13,20 +13,23 @@
 		sortBy: 'votos'
 	});*/
 
-	$("#proyectos .proyecto .temas a, #botonera a").on('click', function(e) {
-		e.preventDefault();
-		var filter="."+$(this).attr('class');
-		$proyectos.isotope({filter: filter});
-		$("#botonera a").removeClass("active");
-		$("#botonera a"+filter).addClass("active");
-	});
-	$(".vertodos").on('click', function(e) {
-		e.preventDefault();
-		$proyectos.isotope({filter:""});
-		$("#botonera a").removeClass("active");
-	});
 	imagesLoaded($proyectos, function(){
-		$proyectos.isotope({itemSelector: '.proyecto', masonry: { gutter: 30 }})
+		$proyectos.isotope({
+			itemSelector: '.proyecto', 
+			masonry: { gutter: 30 }
+		});
+		$("#proyectos .proyecto .temas a, #botonera a").on('click', function(e) {
+			e.preventDefault();
+			var filter="."+$(this).attr('class');
+			$proyectos.isotope({filter: filter});
+			$("#botonera a").removeClass("active");
+			$("#botonera a"+filter).addClass("active");
+		});
+		$(".vertodos").on('click', function(e) {
+			e.preventDefault();
+			$proyectos.isotope({filter:""});
+			$("#botonera a").removeClass("active");
+		});
 	});
 })(jQuery);
 
