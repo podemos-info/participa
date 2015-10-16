@@ -18,8 +18,8 @@
       <% end %>
       <%= content_tag :h4, @project.short_description, style: "text-align:center;" %>
       <% if @project.video_link.present? %>
-          <h4><%= link_to("Vídeo de presentación", @project.video_link, target: "_blank") %></h4>
-          <!--<iframe width="400" height="250" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>-->
+          <!--<h4><%= link_to("Vídeo de presentación", @project.video_link, target: "_blank") %></h4>-->
+          <iframe width="100%" height="300" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>
       <% end %>
       <h4>Documentos del proyecto</h4>
       <ul>
