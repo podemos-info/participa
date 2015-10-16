@@ -5,7 +5,6 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
 
-
 <h3 style="margin-top:30px;">¿Qué es IMPULSA?</h3>
 
 <div style="width:50%;margin:0 2% 1% 0;float:left;">
@@ -20,16 +19,16 @@
 
 <p style="text-align:right;"><%= link_to "Ver más información", "http://podemos.info/impulsa" %></p> 
 
+<% if @edition && @edition.show_projects? %>
+  <p>&nbsp;</p>
+  <%= link_to "Ver los proyectos", impulsa_categories_path, :class => "button", :title => "Ver los proyectos" %>
+<% end %>
+<p>&nbsp;</p>
 
-      <% if @upcoming %>
-        <% i18n_start_at = I18n.localize @upcoming.start_at, :format => "%e de %B a las %k:%M" %>
-        <p style="text-align:center; margin:80px 0 80px 0;">
-          <%= link_to( t("podemos.impulsa.upcoming", start_at: i18n_start_at ), "http://podemos.info/wp-content/uploads/2015/08/calendario-impulsa2-cas.jpg", :class => "button button-danger", :title => "Ver calendario IMPULSA", :target => "_blank") %>
-        </p>
-      <% elsif @edition %>
-        <p>&nbsp;</p>
+      <% if @edition %>
+        <% if current_user %> 
         <h3>Presentación de proyectos</h3>
-          <% if  @project.nil? && @edition.allow_edition? %>
+          <% if @project.nil? && @edition.allow_edition? %>
             <p>El plazo de presentación de proyectos finaliza el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
             <p>&nbsp;</p>
             <%= link_to "Presenta tu proyecto", new_impulsa_path, :class => "button", :title => "Presenta tu proyecto" %>
@@ -45,7 +44,13 @@
             <p>Lo sentimos la fase de presentación de proyectos ha concluido el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
             <%= content_tag(:p, t("podemos.impulsa.noupcoming")) %>
           <% end %>
-        </p>
+        <% end %>
+        <p>&nbsp;</p>
+      <% elsif @upcoming %>
+        <% i18n_start_at = I18n.localize @upcoming.start_at, :format => "%e de %B a las %k:%M" %>
+        <p style="text-align:center; margin:80px 0 80px 0;">
+          <%= link_to( t("podemos.impulsa.upcoming", start_at: i18n_start_at ), "http://podemos.info/wp-content/uploads/2015/08/calendario-impulsa2-cas.jpg", :class => "button button-danger", :title => "Ver calendario IMPULSA", :target => "_blank") %>
+        </p><p>&nbsp;</p>
       <% end %>
 
     </div>

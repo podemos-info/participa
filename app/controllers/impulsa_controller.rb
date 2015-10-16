@@ -1,7 +1,12 @@
 class ImpulsaController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [ :index, :categories, :category, :project ]
+  before_action :set_current_edition
   before_action :set_user_project
  
+  def index
+    @upcoming = ImpulsaEdition.upcoming.first if @edition.nil?
+  end
+
   def new
     if @edition
       redirect_to edit_impulsa_path and return if @project
@@ -10,10 +15,6 @@ class ImpulsaController < ApplicationController
       @upcoming = ImpulsaEdition.upcoming.first
       render :index
     end
-  end
-
-  def index
-    @upcoming = ImpulsaEdition.upcoming.first
   end
 
   def edit
@@ -65,16 +66,34 @@ class ImpulsaController < ApplicationController
     send_file path if project.has_attachment_field?(params[:field])
   end
 
+  def categories
+    @categories_state = @edition.impulsa_edition_categories.state
+    @categories_territorial = @edition.impulsa_edition_categories.territorial
+  end
+
+  def category
+    @category = ImpulsaEditionCategory.find(params[:id])
+    @projects = @category.impulsa_projects.public_visible
+    redirect_to impulsa_categories_path and return if @category.nil?
+  end
+
+  def project
+    @project = ImpulsaProject.public_visible.where(id:params[:id]).first
+    redirect_to impulsa_categories_path and return if @project.nil?
+  end
+
   private
 
   def cache_files
     @project.cache_project_files
   end
 
-  def set_user_project
+  def set_current_edition
     @edition = ImpulsaEdition.current
-    return if @edition.nil?
+  end
 
+  def set_user_project
+    return if @edition.nil? || !current_user
     @project = @edition.impulsa_projects.where(user:current_user).first
 
     @available_categories = @edition.impulsa_edition_categories
