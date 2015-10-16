@@ -1,6 +1,6 @@
 class ElectionLocation < ActiveRecord::Base
   belongs_to :election
-  has_many :election_location_questions, dependent: :destroy
+  has_many :election_location_questions, -> { order(:id) }, dependent: :destroy
 
   accepts_nested_attributes_for :election_location_questions, :reject_if => :all_blank, :allow_destroy => true
 
