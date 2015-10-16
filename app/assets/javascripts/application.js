@@ -20,5 +20,6 @@
 //= require ccc
 //= require misc
 //= require Chart
+//= require imagesloaded.pkgd.min
 //= require isotope.pkgd.min
 //= require_tree .
