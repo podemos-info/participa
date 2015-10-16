@@ -1,5 +1,5 @@
 class ImpulsaController < ApplicationController
-  before_action :authenticate_user!, except: [ :index, :categories, :category, :project ]
+  before_action :authenticate_user!, except: [ :index, :categories, :category, :project, :attachment ]
   before_action :set_current_edition
   before_action :set_user_project
  
@@ -66,8 +66,8 @@ class ImpulsaController < ApplicationController
   end
 
   def categories
-    @categories_state = @edition.impulsa_edition_categories.state
-    @categories_territorial = @edition.impulsa_edition_categories.territorial
+    @categories_state = @edition.impulsa_edition_categories.state.select {|c| c.impulsa_projects.public_visible.count>0}
+    @categories_territorial = @edition.impulsa_edition_categories.territorial.select {|c| c.impulsa_projects.public_visible.count>0}
   end
 
   def category
