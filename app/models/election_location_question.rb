@@ -1,4 +1,4 @@
-class ElectionLocationQuestion < ActiveRecord::Base
+  class ElectionLocationQuestion < ActiveRecord::Base
   belongs_to :election_location
 
   VOTING_SYSTEMS = { "plurality-at-large" => "Elección entre todas las respuestas", "pairwise-beta" => "Comparaciones uno a uno (requiere layout simple)" }
@@ -18,7 +18,9 @@ class ElectionLocationQuestion < ActiveRecord::Base
   end
 
   def layout
-    if ElectionLocation::ELECTION_LAYOUTS.member? election_location.layout
+    if self.voting_system=="pairwise-beta"
+      "simple"
+    elsif ElectionLocation::ELECTION_LAYOUTS.member? election_location.layout
       ""
     else
       election_location.layout
@@ -40,7 +42,7 @@ class ElectionLocationQuestion < ActiveRecord::Base
   def options_headers= value
     if value
       vs = value.select(&:present?) 
-      self[:options_headers] = vs.join("\t") if vs.length>1
+      self[:options_headers] = vs.join("\t") if vs.length>0
     end
   end
 

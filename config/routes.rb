@@ -127,15 +127,18 @@ Rails.application.routes.draw do
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
-
-      scope :impulsa do
-        get '', to: 'impulsa#index', as: 'index_impulsa'
-        get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
-        get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
-        post 'crear', to: 'impulsa#create', as: 'create_impulsa'
-        post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
-        get ':id/attachment/:field/:style/:filename', to: 'impulsa#attachment', as: 'attachments_impulsa', constraints: { filename: /[^\/]*/ }
-      end
+    end
+    
+    scope :impulsa do
+      get '', to: 'impulsa#index', as: 'index_impulsa'
+      get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
+      get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
+      post 'crear', to: 'impulsa#create', as: 'create_impulsa'
+      post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
+      get ':id/attachment/:field/:style/:filename', to: 'impulsa#attachment', as: 'attachments_impulsa', constraints: { filename: /[^\/]*/ }
+      get 'categorias', to: 'impulsa#categories', as: 'impulsa_categories'
+      get 'categoria/:id', to: 'impulsa#category', as: 'impulsa_category'
+      get 'proyecto/:id', to: 'impulsa#project', as: 'impulsa_project'
     end
 
     scope :brujula do

@@ -22,9 +22,6 @@ ActiveAdmin.register ImpulsaEdition do
       link_to("Mostrar #{impulsa_edition.impulsa_projects.count} proyectos", admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
     end
     actions
-    #actions defaults: true do |impulsa_edition|
-    #  link_to('Ver proyectos', admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
-    #end
   end
 
   show do
@@ -56,7 +53,7 @@ ActiveAdmin.register ImpulsaEdition do
     end
 
     panel t "activerecord.models.impulsa_edition_categories" do
-      table_for resource.impulsa_edition_categories do
+      table_for resource.impulsa_edition_categories.order(:name) do
         column :name
         column :category_type_name do |impulsa_edition_category|
           t("podemos.impulsa.category_type_name.#{impulsa_edition_category.category_type_name}") if impulsa_edition_category.category_type_name
@@ -109,6 +106,21 @@ ActiveAdmin.register ImpulsaEdition do
   action_item(:view_projects, only: :show) do
     link_to('Ver proyectos', admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
   end
+
+  action_item(:create_election, only: :show) do
+    link_to('Crear votaciones', create_election_admin_impulsa_edition_path(impulsa_edition), data: { confirm: "¿Estas segura de querer crear las votaciones para esta edición de IMPULSA?" })
+  end
+
+  member_action :create_election do
+    p = ImpulsaEdition.find( params[:id] )  
+    if p.create_election request.base_url
+      flash[:notice] = "Se han creado las votaciones para la edición de IMPULSA."
+    else
+      flash[:error] = "Las votaciones para la edición de IMPULSA no se han creado."
+    end
+    redirect_to action: :index
+  end
+
 end
 
 ActiveAdmin.register ImpulsaEditionTopic do
