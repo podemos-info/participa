@@ -102,7 +102,7 @@ class ImpulsaEditionCategory < ActiveRecord::Base
       image_url = if project.video_id
                     "https://www.youtube.com/watch?v=#{project.video_id}"
                   elsif project.logo.exists?
-                    URI.join(base_url, project.logo.url(:thumb)).to_s
+                    URI.join(base_url, project.logo.url(:medium)).to_s
                   else
                     ""
                   end

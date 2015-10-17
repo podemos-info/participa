@@ -22,9 +22,6 @@ ActiveAdmin.register ImpulsaEdition do
       link_to("Mostrar #{impulsa_edition.impulsa_projects.count} proyectos", admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
     end
     actions
-    #actions defaults: true do |impulsa_edition|
-    #  link_to('Ver proyectos', admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
-    #end
   end
 
   show do
@@ -56,7 +53,7 @@ ActiveAdmin.register ImpulsaEdition do
     end
 
     panel t "activerecord.models.impulsa_edition_categories" do
-      table_for resource.impulsa_edition_categories do
+      table_for resource.impulsa_edition_categories.order(:name) do
         column :name
         column :category_type_name do |impulsa_edition_category|
           t("podemos.impulsa.category_type_name.#{impulsa_edition_category.category_type_name}") if impulsa_edition_category.category_type_name
