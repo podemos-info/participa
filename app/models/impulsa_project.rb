@@ -418,4 +418,8 @@ class ImpulsaProject < ActiveRecord::Base
       /[0-9a-zA-Z\-_]{11}/.match(self.video_link).to_s if self.video_link && /youtu\.?be/=~self.video_link
     end
   end
+
+  def voting_dates
+    "#{I18n.l(self.impulsa_edition.votings_start_at.to_date, format: :medium)} al #{I18n.l(self.impulsa_edition.ends_at.to_date, format: :medium)}"
+  end
 end
