@@ -20,9 +20,11 @@
 		});
 		$("#proyectos .proyecto .temas a, #botonera a").on('click', function(e) {
 			e.preventDefault();
-			var filter="."+$(this).attr('class');
-			$proyectos.isotope({filter: filter});
 			$("#botonera a").removeClass("active");
+			var filter="."+$(this).attr('class');
+// Debug
+console.log(filter);
+			$proyectos.isotope({filter: filter});
 			$("#botonera a"+filter).addClass("active");
 		});
 		$(".vertodos").on('click', function(e) {
