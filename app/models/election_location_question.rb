@@ -18,7 +18,9 @@
   end
 
   def layout
-    if ElectionLocation::ELECTION_LAYOUTS.member? election_location.layout
+    if self.voting_system=="pairwise-beta"
+      "simple"
+    elsif ElectionLocation::ELECTION_LAYOUTS.member? election_location.layout
       ""
     else
       election_location.layout
