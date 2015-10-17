@@ -12,6 +12,11 @@
 		},
 		sortBy: 'votos'
 	});*/
+	// Ocultamos los temas que no tengan proyectos
+	$('#botonera a').each(function() {
+		var clase = $(this).attr('class');
+		if (($("#proyectos .proyecto .temas a."+clase).length == 0) && (clase != "vertodos")) $(this).hide();
+	});
 
 	imagesLoaded($proyectos, function(){
 		$proyectos.isotope({
