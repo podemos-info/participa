@@ -43,7 +43,7 @@ ActiveAdmin.register Election do
     end
 
     panel "Lugares donde se vota" do
-      table_for election.election_locations do
+      table_for election.election_locations.order(:location) do
         column :territory
         column :link do |el|
           span link_to el.link, el.link
