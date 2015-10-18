@@ -55,19 +55,11 @@ ActiveRecord::Schema.define(version: 20151009124640) do
     t.integer  "ccc_entity"
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
-<<<<<<< HEAD
     t.integer  "ccc_account",             limit: 8
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
     t.integer  "status",                            default: 0
-=======
-    t.integer  "ccc_account"
-    t.string   "iban_account"
-    t.string   "iban_bic"
-    t.datetime "deleted_at"
-    t.integer  "status",                  default: 0
->>>>>>> master
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
@@ -500,11 +492,7 @@ ActiveRecord::Schema.define(version: 20151009124640) do
 
   create_table "reports", force: :cascade do |t|
     t.string   "title"
-<<<<<<< HEAD
     t.text     "query"
-=======
-    t.text     "query",      limit: 255
->>>>>>> master
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"
