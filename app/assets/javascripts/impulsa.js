@@ -12,6 +12,11 @@
 		},
 		sortBy: 'votos'
 	});*/
+	// Ocultamos los temas que no tengan proyectos
+	$('#botonera a').each(function() {
+		var clase = $(this).attr('class');
+		if (($("#proyectos .proyecto .temas a."+clase).length == 0) && (clase != "vertodos")) $(this).hide();
+	});
 
 	imagesLoaded($proyectos, function(){
 		$proyectos.isotope({
@@ -22,8 +27,6 @@
 			e.preventDefault();
 			$("#botonera a").removeClass("active");
 			var filter="."+$(this).attr('class');
-// Debug
-console.log(filter);
 			$proyectos.isotope({filter: filter});
 			$("#botonera a"+filter).addClass("active");
 		});

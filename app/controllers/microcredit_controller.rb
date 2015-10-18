@@ -66,7 +66,7 @@ class MicrocreditController < ApplicationController
     end 
 
     @loan.transaction do
-      if (current_user or verify_recaptcha) and @loan.save
+      if (current_user or @loan.valid_with_captcha?) and @loan.save
         @loan.update_counted_at
         UsersMailer.microcredit_email(@microcredit, @loan, @brand_config).deliver_now
         redirect_to microcredit_path(brand:@brand), notice: t('microcredit.new_loan.will_receive_email', name: @brand_config["name"], main_url: @brand_config["main_url"], twitter_account: @brand_config["twitter_account"])
@@ -102,7 +102,7 @@ class MicrocreditController < ApplicationController
     if current_user
       params.require(:microcredit_loan).permit(:amount, :terms_of_service, :minimal_year_old)
     else
-      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old)
+      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old, :captcha, :captcha_key)
     end
   end
 

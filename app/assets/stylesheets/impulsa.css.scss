@@ -5,7 +5,8 @@
 #proyectos .proyecto {
 	width: 287px;
 	float: left;
-	margin: 5px 0 100px 0;
+	margin: 5px 0 25px 0;
+	/*margin: 0;*/
 	padding: 0;
 	background-color:#fff;
 	position: relative;
@@ -34,7 +35,7 @@
 }
 #proyectos .proyecto iframe {
 	width: 100% !important;
-	height: 180px;
+	height: 161px;
 }
 #proyectos .proyecto img:hover {
 	-webkit-filter: none;

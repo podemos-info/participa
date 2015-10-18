@@ -1,4 +1,6 @@
 class SmsValidatorController < ApplicationController
+  include SimpleCaptcha::ControllerHelpers
+  
   before_action :authenticate_user! 
   before_action :can_change_phone
 
@@ -54,7 +56,7 @@ class SmsValidatorController < ApplicationController
 
   # POST /validator/captcha
   def captcha 
-    if verify_recaptcha
+    if simple_captcha_valid?
       current_user.send_sms_token!
       render action: "step3"
     else

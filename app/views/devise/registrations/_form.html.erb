@@ -155,17 +155,6 @@
       <%= f.input :password_confirmation, required: true, input_html: {required: true, class: 'input-m', autocomplete: :off} %>
     </div>
     <% end %>
-    <!-- div class="inputlabel-box">
-      <% if resource.errors.include?(:wants_newsletter) %>
-          <%= field_notice_box %>
-      <% end %>
-      <div class="input-box">
-        <%= f.label :wants_newsletter %>
-        <%= f.check_box :wants_newsletter, checked: true, class: 'checkbox' %>
-        <p class="text-xl">Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante</p>
-      </div>
-    </div -->
-
     <% if action == "new" %>
 
       </fieldset>
@@ -207,9 +196,12 @@
         </div>
 
         <div class="inputlabel-box">
+          <% if resource.errors.include?(:captcha) %>
+              <%= field_notice_box %>
+          <% end %>
           <%= f.label :captcha %>
           <div class="input-box">
-            <%= recaptcha_tags %>
+            <%= f.input :captcha, as: :simple_captcha, input_html: {class: "input-m"} %>
           </div>
         </div>
 

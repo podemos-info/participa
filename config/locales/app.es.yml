@@ -891,3 +891,9 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       loan_renewals: "Microcréditos confirmados"
       renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
       terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
+  simple_captcha:
+    placeholder: "texto"
+    label: "Introduce el texto que se ve en la imagen"
+    refresh_button_text: "Regenerar"
+    message:
+      default: "El texto introducido no corresponde con el de la imagen"
