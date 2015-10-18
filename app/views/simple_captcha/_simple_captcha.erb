@@ -1,0 +1,6 @@
+<span class="form-wrapper">
+  <%= content_tag(:div, simple_captcha_options[:image]) %>
+  <%= simple_captcha_options[:field] %>
+  <%= content_tag(:span, simple_captcha_options[:label], class: "help-block") %>
+  <%= content_tag(:span, simple_captcha_options[:refresh_button].html_safe, class: "help-block") %>
+</span>
