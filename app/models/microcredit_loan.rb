@@ -1,4 +1,5 @@
 class MicrocreditLoan < ActiveRecord::Base
+  apply_simple_captcha
   acts_as_paranoid
 
   belongs_to :microcredit

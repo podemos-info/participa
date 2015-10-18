@@ -135,7 +135,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
       <div class="inputlabel-box">
         <%= f.label :captcha %>
         <div class="input-box">
-          <%= recaptcha_tags %>
+          <%= f.input :captcha, as: :simple_captcha, input_html: {class: "input-m"} %>
         </div>
       </div>
     <% end %>
