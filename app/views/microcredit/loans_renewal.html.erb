@@ -5,7 +5,9 @@
 <% if @renewal.nil? %>
   <p>No hemos encontrado microcréditos para renovar.</p>
 <% else %>
-
+  <p>Muchas gracias por haber contribuido a financiar la campaña electoral. Mantenerse lejos de los bancos, no es tarea fácil y SOLO con el apoyo de gente como vosotros ha sido posible financiar las campañas electorales autonómicas que han llevado el viento del cambio a los parlamentos de cada comunidad.</p>
+<p>Ya estamos en disposición de comenzar a devolver vuestro préstamo. No obstante, con motivo de la proximidad de las Elecciones Generales y ante las peticiones que hemos recibido por parte de muchos microprestamistas, ponemos en marcha la posibilidad para aquellos que lo deseen de prorrogar el crédito para apoyar la campaña de las elecciones generales del 20 de diciembre.</p>
+<p>Por eso, antes de hacer efectiva la devolución, y si deseáis prorrogar vuestro microcrédito, por favor, indicar a través de este formulario la formalización de un nuevo contrato, a través de un Préstamo Civil, sin intereses, similar al anterior. Es decir, si decides apoyar con tu mismo microcrédito la campaña a las generales, solo tienes que enviar el siguiente formulario:</p>
   <% if @renewal.other_loans.any? %>
   <p>Tienes microcréditos suscritos en otras campañas: <ul><% @renewal.other_loans.each do |loan| %>
         <%= content_tag(:li, link_to( loan.microcredit.title, loans_renewal_microcredit_loan_path(@microcredit.id, loan.id, loan.unique_hash)))%>
