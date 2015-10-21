@@ -48,7 +48,12 @@
           </ul>
           <hr class="inicio"/>
           <% if project.video_id.present? %>
-            <iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>
+			<a href="//www.youtube.com/embed/<%=project.video_id%>" title="Reproducir vídeo" target="_blank">
+              <figure style="display:block;width:287px;height:160px;margin:0;overflow:hidden;">
+                <img src="http://img.youtube.com/vi/<%= project.video_id %>/0.jpg" style="width:100%;margin:-30px 0 -30px 0;">
+              </figure>
+            </a>
+            <!--<iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>-->
           <% elsif project.logo.present? %>
             <%= image_tag project.logo.url(:medium), title: project.name, alt: project.name %>
           <% else %>
