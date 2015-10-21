@@ -396,7 +396,7 @@ class Collaboration < ActiveRecord::Base
 
   def get_bank_data date
     order = self.last_order_for date
-    if order and order.payable_at.unique_month == date.unique_month and order.is_chargable?
+    if order and order.payable_at.unique_month == date.unique_month and order.is_chargeable?
       col_user = self.get_user
       [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
           col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
