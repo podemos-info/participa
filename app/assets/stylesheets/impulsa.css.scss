@@ -38,6 +38,32 @@
     /*filter: gray;*/ /* IE6-9 */
     /*-webkit-filter: grayscale(100%);*/ /* Chrome 19+ & Safari 6+ */
 }
+
+#proyectos .proyecto .youtube {
+	postition:relative;
+}
+
+#proyectos .proyecto .youtube figure {
+	display:block;
+	width:287px;
+	height:160px;
+	margin:-90px 0 0 0;
+	overflow:hidden;
+	
+}
+
+#proyectos .proyecto .youtube i {
+	display:block;
+	text-align:center;
+	font-size:30px;
+	padding:60px 5px 0 5px;
+}
+
+#proyectos .proyecto .youtube img {
+	width:100%;
+	margin:-30px 0 -30px 0;
+}
+
 #proyectos .proyecto iframe {
 	width: 100% !important;
 	height: 161px;
