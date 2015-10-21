@@ -97,7 +97,7 @@
 }
 #proyectos .proyecto .temas {
 	background-color:#82368c;
-	height:65px;
+	height:66px;
 	list-style: none;
 }
 #proyectos .proyecto .temas li{
@@ -106,7 +106,6 @@
 	background-color: #000;
 	opacity:0.7;
 	padding:5px 5px 5px 5px;
-	/*font-size:0.8em;*/
 	line-height:23px;
 }
 #proyectos .proyecto .temas a {
@@ -129,8 +128,10 @@
 #proyectos .proyecto .temas li.discarded, #proyectos .proyecto .temas a.discarded {
 	text-align:center;
 	opacity:1;
-	line-height: 19px;
+	line-height: 12px;
 	float: left;
+	margin: 1px 2px 0;
+	background: none;
 }
 
 #proyectos .proyecto .temas a.winner i,
