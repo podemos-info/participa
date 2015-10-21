@@ -10,7 +10,7 @@
 <p>Por eso, antes de hacer efectiva la devolución, y si deseáis prorrogar vuestro microcrédito, por favor, indicar a través de este formulario la formalización de un nuevo contrato, a través de un Préstamo Civil, sin intereses, similar al anterior. Es decir, si decides apoyar con tu mismo microcrédito la campaña a las generales, solo tienes que enviar el siguiente formulario.</p>
   <% if @renewal.other_loans.any? %>
   <p>Además, tienes microcréditos suscritos en otras campañas que también puedes renovar: <% @renewal.other_loans.each do |loan| %>
-        <%= content_tag(:li, link_to( loan.microcredit.title, loans_renewal_microcredit_loan_path(@microcredit.id, loan.id, loan.unique_hash)))%>
+        <%= link_to( loan.microcredit.title, loans_renewal_microcredit_loan_path(@microcredit.id, loan.id, loan.unique_hash))%>
       <%end %>.</p>
   <% end %>
   <%= errors_in_form @renewal %>
