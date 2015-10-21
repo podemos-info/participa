@@ -17,8 +17,9 @@
 }
 
 #proyectos .proyecto:hover {
-	opacity:0.8;
+	opacity:0.9;
 }
+
 #proyectos .proyecto a {
 	text-decoration: none;
 	color: #00a19a;
@@ -165,8 +166,11 @@
 	padding:10px;
 	background-color:#82368c;
 	color: #fff;
-display:none;
 	/*font-family: 'Roboto', sans-serif;*/
+}
+
+#botonera a {
+	display:none;
 }
 
 /*
