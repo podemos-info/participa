@@ -104,7 +104,7 @@ class ImpulsaProject < ActiveRecord::Base
   scope :second_phase, -> { where( status: [ 4, 6 ]) }
   scope :no_phase, -> { where status: [ 5, 7, 10 ] }
   scope :votable, -> { where status: 6 }
-  scope :public_visible, -> { where status: [ 6, 9 ]}
+  scope :public_visible, -> { where status: [ 9, 6, 7 ]}
 
   PROJECT_STATUS = {
     new: 0,
@@ -122,7 +122,7 @@ class ImpulsaProject < ActiveRecord::Base
   }
 
   FIELDS = {
-    admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact, :evaluator1_invalid_reasons, :evaluator2_invalid_reasons ],
+    admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact, :evaluator1_invalid_reasons, :evaluator2_invalid_reasons , :votes],
     impulsa_admin: [ :user_id, :review_fields, :counterpart_information, :additional_contact ],
     always: [ :impulsa_edition_category_id, :name ],
     with_category: [ :short_description, :logo, :video_link ],
@@ -229,6 +229,14 @@ class ImpulsaProject < ActiveRecord::Base
 
   def validated?
     self.status==PROJECT_STATUS[:validated]
+  end
+
+  def discarded?
+    self.status==PROJECT_STATUS[:discarded]
+  end
+
+  def winner?
+    self.status==PROJECT_STATUS[:winner]
   end
 
   def dissent?
