@@ -26,9 +26,9 @@
 			masonry: { gutter: 30 },
 			getSortData: {
 				estado: function(proyecto) {
-					var orden = 0;
-					if ($(proyecto).hasClass("validated")) orden=1;
-					if ($(proyecto).hasClass("winner")) orden=2;
+					var orden = 3;
+					if ($(proyecto).hasClass("validated")) orden=2;
+					if ($(proyecto).hasClass("winner")) orden=1;
 					return orden;
 				},
 		    	votos: function(item){
