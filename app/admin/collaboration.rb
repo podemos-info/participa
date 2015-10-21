@@ -7,7 +7,7 @@ def show_order o, html_output = true
               "o"
             elsif o.was_returned?
               "d"
-            elsif o.is_chargable? or not o.persisted?
+            elsif o.is_chargeable? or not o.persisted?
               "_"
             else
               "~"

@@ -11,7 +11,7 @@
         Filtrar por estado:
           <a class="winner" href="#winner">Ganadores</a>
           <a class="validated" href="#validated">Preseleccionados</a>
-          <a class="discarded" href="#discarted">Descartados</a>
+          <a class="discarded" href="#discarted">No preseleccionados</a>
           <a class="vertodos" href="">&times;</a> 
 		</div>
 		<div class="filtro">
@@ -40,7 +40,7 @@
             <% elsif project.validated? %>
               <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Preseleccionado</a></li>
             <% elsif project.discarded? %>
-              <li class="discarded"><a class="discarded"><i class="fa fa-ban fa-2x"></i> Descartado</a></li>
+              <li class="discarded"><a class="discarded"><i class="fa fa-ban fa-2x"></i> No preseleccionado</a></li>
             <% end %>
             <% project.impulsa_edition_topics.each do |topic|%>
               <li><a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a></li>
@@ -48,9 +48,10 @@
           </ul>
           <hr class="inicio"/>
           <% if project.video_id.present? %>
-			<a href="//www.youtube.com/embed/<%=project.video_id%>" title="Reproducir vídeo" target="_blank">
-              <figure style="display:block;width:287px;height:160px;margin:0;overflow:hidden;">
-                <img src="http://img.youtube.com/vi/<%= project.video_id %>/0.jpg" style="width:100%;margin:-30px 0 -30px 0;">
+			<a class="youtube" href="//www.youtube.com/embed/<%=project.video_id%>?&autoplay=1" title="Reproducir vídeo" target="_blank">
+              <i class="fa fa-play"></i>
+              <figure>
+                <img src="http://img.youtube.com/vi/<%= project.video_id %>/0.jpg">
               </figure>
             </a>
             <!--<iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>-->
