@@ -48,7 +48,7 @@ class Order < ActiveRecord::Base
     self.status<2
   end
 
-  def is_chargable?
+  def is_chargeable?
     self.status == 0
   end
 

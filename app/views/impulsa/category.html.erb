@@ -34,28 +34,31 @@
         <% tags += " discarded" if project.discarded? %>
         <% tags += " activo winner" if project.winner? %>
         <div class="proyecto <%= tags %>" data-votes="<%= project.votes %>">
-          <hr class="inicio"/>
-          <% if project.video_id.present? %>
-            <iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>
-          <% elsif project.logo.present? %>
-            <%= image_tag project.logo.url(:medium), title: project.name, alt: project.name %>
-          <% else %>
-            <%= image_tag "sinfoto-impulsa.png", title: project.name, alt: project.name %>
-          <% end %>
           <ul class="temas">
             <% if project.winner? %>
               <li class="winner"><a class="winner"><i class="fa fa-trophy"></i> Ganador</a></li>
-            <% end %>
-            <% if project.validated? %>
+            <% elsif project.validated? %>
               <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Preseleccionado</a></li>
-            <% end %>
-            <% if project.discarded? %>
+            <% elsif project.discarded? %>
               <li class="discarded"><a class="discarded"><i class="fa fa-ban fa-2x"></i> Descartado</a></li>
             <% end %>
             <% project.impulsa_edition_topics.each do |topic|%>
               <li><a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a></li>
             <% end %>
           </ul>
+          <hr class="inicio"/>
+          <% if project.video_id.present? %>
+			<a href="//www.youtube.com/embed/<%=project.video_id%>" title="Reproducir vídeo" target="_blank">
+              <figure style="display:block;width:287px;height:160px;margin:0;overflow:hidden;">
+                <img src="http://img.youtube.com/vi/<%= project.video_id %>/0.jpg" style="width:100%;margin:-30px 0 -30px 0;">
+              </figure>
+            </a>
+            <!--<iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>-->
+          <% elsif project.logo.present? %>
+            <%= image_tag project.logo.url(:medium), title: project.name, alt: project.name %>
+          <% else %>
+            <%= image_tag "sinfoto-impulsa.png", title: project.name, alt: project.name %>
+          <% end %>
           <a href="<%= impulsa_project_path(project) %>"><hr class="medio"/>
           <h2><%= project.name %><!--<%= link_to project.name, impulsa_project_path(project)%>--></h2>
           <hr class="fin"/></a>
