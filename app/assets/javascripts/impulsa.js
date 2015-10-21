@@ -15,7 +15,7 @@
 	// Ocultamos los temas que no tengan proyectos
 	$('#botonera a').each(function() {
 		var clase = $(this).attr('class');
-		if ($("#proyectos .proyecto").hasClass(clase)) $(this).show();//$(this).attr('display', 'inline-block').show();
+		if ($("#proyectos .proyecto").hasClass(clase)) $(this).show().css('display', 'inline-block').css('margin-top', '5px');//$(this).attr('display', 'inline-block').show();
 		//if (!($("#proyectos .proyecto").hasClass(clase)) && (clase != "vertodos")) $(this).hide();
 		/*if (($("#proyectos .proyecto .temas a."+clase).length == 0) && (clase != "vertodos")) $(this).hide();*/
 	});
