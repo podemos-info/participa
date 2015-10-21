@@ -96,20 +96,18 @@
 	margin:0;
 }
 #proyectos .proyecto .temas {
-	position: absolute;
-	top:0;
-	/*margin:25px 5px 5px 5px;*/
-	margin:15px -5px;
-	padding:5px;
+	background-color:#82368c;
+	height:
 	list-style: none;
 }
 #proyectos .proyecto .temas li{
-	float:left;
+	float:right;
+	clear: right;
 	background-color: #000;
 	opacity:0.7;
 	padding:5px 5px 5px 5px;
 	/*font-size:0.8em;*/
-	line-height:30px;
+	line-height:23px;
 }
 #proyectos .proyecto .temas a {
 	background-repeat:no-repeat;
@@ -130,8 +128,9 @@
 #proyectos .proyecto .temas li.validated, #proyectos .proyecto .temas a.validated,
 #proyectos .proyecto .temas li.discarded, #proyectos .proyecto .temas a.discarded {
 	text-align:center;
-	background-color:#82368c;
 	opacity:1;
+	line-height: 19px;
+	float: left;
 }
 
 #proyectos .proyecto .temas a.winner i,
