@@ -7,16 +7,33 @@
       <h3><%= @category.name %></h3>
 
       <div id="botonera">
+		<div class="filtro">
+        Filtrar por estado:
+          <a class="winner" href="#winner">Ganadores</a>
+          <a class="validated" href="#validated">Preseleccionados</a>
+          <a class="discarded" href="#discarted">Descartados</a>
+          <a class="vertodos" href="">&times;</a> 
+		</div>
+		<div class="filtro">
         Filtrar por temáticas: 
         <% @category.impulsa_edition.impulsa_edition_topics.each do |topic|%>
           <a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a>
         <% end %>
-        <a class="vertodos" href="">&times;</a> 
+          <a class="vertodos" href="">&times;</a> 
+		</div>
+      </div>
+
+      <div id="cargando">
+        <i class="fa fa-spinner fa-spin"></i>
       </div>
 
       <div id="proyectos">
       <% @projects.each do |project| %>
-        <div class="proyecto activo <%= project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ")%>">
+        <% tags = project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ") %>
+        <% tags += " activo validated" if project.validated? %>
+        <% tags += " discarded" if project.discarded? %>
+        <% tags += " activo winner" if project.winner? %>
+        <div class="proyecto <%= tags %>" data-votes="<%= project.votes %>">
           <hr class="inicio"/>
           <% if project.video_id.present? %>
             <iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>
@@ -26,13 +43,22 @@
             <%= image_tag "sinfoto-impulsa.png", title: project.name, alt: project.name %>
           <% end %>
           <ul class="temas">
+            <% if project.winner? %>
+              <li class="winner"><a class="winner"><i class="fa fa-trophy"></i> Ganador</a></li>
+            <% end %>
+            <% if project.validated? %>
+              <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Preseleccionado</a></li>
+            <% end %>
+            <% if project.discarded? %>
+              <li class="discarded"><a class="discarded"><i class="fa fa-ban fa-2x"></i> Descartado</a></li>
+            <% end %>
             <% project.impulsa_edition_topics.each do |topic|%>
               <li><a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a></li>
             <% end %>
           </ul>
-          <hr class="medio"/>
-          <h2><%= link_to project.name, impulsa_project_path(project)%></h2>
-          <hr class="fin"/>
+          <a href="<%= impulsa_project_path(project) %>"><hr class="medio"/>
+          <h2><%= project.name %><!--<%= link_to project.name, impulsa_project_path(project)%>--></h2>
+          <hr class="fin"/></a>
         </div>
       <% end %>
       </div>

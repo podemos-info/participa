@@ -19,7 +19,8 @@ class ImpulsaEdition < ActiveRecord::Base
   validates_attachment_content_type :requested_budget_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
   validates_attachment_content_type :monitoring_evaluation_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
 
-  scope :active, -> { where("? BETWEEN start_at AND ends_at", DateTime.now) }
+  #scope :active, -> { where("? BETWEEN start_at AND ends_at", DateTime.now) }
+  scope :active, -> { where("start_at < ?", DateTime.now) }
   scope :upcoming, -> { where("start_at > ?", DateTime.now) }
 
   def self.current
@@ -33,7 +34,8 @@ class ImpulsaEdition < ActiveRecord::Base
     validation_projects: 3,
     prevotings: 4,
     votings: 5,
-    ended: 6
+    ended: 6,
+    publish_results: 7
   }
   def current_phase
     now = DateTime.now
@@ -49,9 +51,15 @@ class ImpulsaEdition < ActiveRecord::Base
       EDITION_PHASES[:prevotings]
     elsif now < self.ends_at
       EDITION_PHASES[:votings]
+    elsif now < self.publish_results_at
+      EDITION_PHASES[:publish_results]
     else
       EDITION_PHASES[:ended]
     end
+  end
+
+  def publish_results?
+    self.current_phase < EDITION_PHASES[:publish_results]
   end
 
   def allow_edition?
