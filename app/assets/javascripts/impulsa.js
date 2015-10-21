@@ -12,18 +12,35 @@
 		},
 		sortBy: 'votos'
 	});*/
+	// Ocultamos los temas que no tengan proyectos
+	$('#botonera a').each(function() {
+		var clase = $(this).attr('class');
+		if ($("#proyectos .proyecto").hasClass(clase)) $(this).show();//$(this).attr('display', 'inline-block').show();
+		//if (!($("#proyectos .proyecto").hasClass(clase)) && (clase != "vertodos")) $(this).hide();
+		/*if (($("#proyectos .proyecto .temas a."+clase).length == 0) && (clase != "vertodos")) $(this).hide();*/
+	});
 
 	imagesLoaded($proyectos, function(){
 		$proyectos.isotope({
 			itemSelector: '.proyecto', 
-			masonry: { gutter: 30 }
+			masonry: { gutter: 30 },
+			getSortData: {
+				estado: function(proyecto) {
+					var orden = 0;
+					if ($(proyecto).hasClass("validated")) orden=1;
+					if ($(proyecto).hasClass("winner")) orden=2;
+					return orden;
+				},
+		    	votos: function(item){
+		        	return parseInt($(item).attr("data-votes"));
+		    	}
+			},
+			sortBy: ['estado', 'votos']
 		});
 		$("#proyectos .proyecto .temas a, #botonera a").on('click', function(e) {
 			e.preventDefault();
 			$("#botonera a").removeClass("active");
 			var filter="."+$(this).attr('class');
-// Debug
-console.log(filter);
 			$proyectos.isotope({filter: filter});
 			$("#botonera a"+filter).addClass("active");
 		});
@@ -32,6 +49,7 @@ console.log(filter);
 			$proyectos.isotope({filter:""});
 			$("#botonera a").removeClass("active");
 		});
+		$('#cargando').fadeOut('slow', function() { $('#proyectos').fadeIn(); });
 	});
 })(jQuery);
 

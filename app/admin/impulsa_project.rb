@@ -43,6 +43,7 @@ ActiveAdmin.register ImpulsaProject do
         end
       end
     end
+    column :votes
     actions
   end
 
@@ -279,6 +280,7 @@ ActiveAdmin.register ImpulsaProject do
       end
       f.input :additional_contact
       f.input :counterpart_information
+      f.input :votes
     end
     f.inputs t("podemos.impulsa.project_data_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :name

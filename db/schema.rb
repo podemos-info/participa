@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009124640) do
+ActiveRecord::Schema.define(version: 20151020163516) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20151009124640) do
     t.datetime "monitoring_evaluation_model_updated_at"
     t.text     "legal"
     t.datetime "votings_start_at"
+    t.datetime "publish_results_at"
   end
 
   create_table "impulsa_project_topics", force: :cascade do |t|
@@ -329,6 +330,7 @@ ActiveRecord::Schema.define(version: 20151009124640) do
     t.string   "evaluator2_analysis_content_type"
     t.integer  "evaluator2_analysis_file_size"
     t.datetime "evaluator2_analysis_updated_at"
+    t.integer  "votes",                                              default: 0
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"

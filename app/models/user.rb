@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  apply_simple_captcha
+  
   include FlagShihTzu
 
   include Rails.application.routes.url_helpers

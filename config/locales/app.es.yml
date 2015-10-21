@@ -104,7 +104,8 @@ es:
         review_projects_until: "Fecha de fin revisiones"
         validation_projects_until: "Fecha de fin validación"
         votings_start_at: "Fecha de inicio de las votaciones"
-        ends_at: "Fecha de final"
+        ends_at: "Fecha de final de las votaciones"
+        publish_results_at: "Fecha de publicación de los resultados"
         legal: "Bases"
         schedule_model: "Modelo de cronograma"
         activities_resources_model: "Modelo de actividades y recursos"
@@ -200,6 +201,7 @@ es:
         terms_of_service: "Términos legales"
         data_truthfulness: "Veracidad de los datos"
         content_rights: "Propiedad intelectual"
+        votes: "Votos"
       microcredit:
         id: "Identificador"
         starts_at: "Fecha de inicio"
@@ -891,3 +893,9 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       loan_renewals: "Microcréditos confirmados"
       renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
       terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
+  simple_captcha:
+    placeholder: "texto"
+    label: "Introduce el texto que se ve en la imagen"
+    refresh_button_text: "Regenerar"
+    message:
+      default: "El texto introducido no corresponde con el de la imagen"
