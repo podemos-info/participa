@@ -218,6 +218,12 @@ ActiveAdmin.register MicrocreditLoan do
     column :created_at
     column :counted_at
     column :confirmed_at
+    column :renewal_link do |loan|
+      if loan.renewable?
+        next_campaign = Microcredit.non_finished.first
+        loans_renewal_microcredit_loan_url(next_campaign.id, loan.id, loan.unique_hash) if next_campaign
+      end
+    end
   end
 
   member_action :download_pdf do
