@@ -868,8 +868,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       subscribe: "Suscribir"
     loans_renewal:
       renew: "Renovar"
-      renewal_terms_message: "He leído y acepto las condiciones generales de extinción del anterior microcrédito y renovación de la suscripción."
-      renewal_terms_link: "Condiciones particulares sobre extinción de microcréditos y depósito para nueva suscripción"
+      renewal_terms_message: "He leído y acepto las condiciones particulares de extinción del anterior microcrédito y la renovación de la suscripción."
+      renewal_terms_link: "Condiciones particulares sobre extinción de microcréditos y depósito para nueva suscripción."
       terms_of_service_message: "He leído y acepto las condiciones generales de la suscripción del microcrédito %{name} %{campaign}."
       terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad del microcrédito %{name} %{campaign}"
       renewal_success: "Has renovado microcréditos por valor de %{amount} para la campaña %{campaign}. ¡Muchas gracias por colaborar con el cambio!"
