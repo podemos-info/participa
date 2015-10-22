@@ -32,7 +32,7 @@
 					return orden;
 				},
 		    	votos: function(item){
-		        	return parseInt($(item).attr("data-votes"));
+		        	return -parseInt($(item).attr("data-votes"));
 		    	}
 			},
 			sortBy: ['estado', 'votos']
@@ -49,7 +49,7 @@
 			$proyectos.isotope({filter:""});
 			$("#botonera a").removeClass("active");
 		});
-		$('#cargando').fadeOut('slow', function() { $('#proyectos').fadeIn(); });
+		$('#cargando').fadeOut('slow', function() {  });
 	});
 })(jQuery);
 
