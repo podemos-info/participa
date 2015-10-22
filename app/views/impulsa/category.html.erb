@@ -9,7 +9,9 @@
       <div id="botonera">
 		<div class="filtro">
         Filtrar por estado:
-          <a class="winner" href="#winner">Ganadores</a>
+          <% if @edition.publish_results? %>
+            <a class="winner" href="#winner">Ganadores</a>
+          <% end %>
           <a class="validated" href="#validated">Preseleccionados</a>
           <a class="discarded" href="#discarted">No preseleccionados</a>
           <a class="vertodos" href="">&times;</a> 
@@ -30,9 +32,9 @@
       <div id="proyectos">
       <% @projects.each do |project| %>
         <% tags = project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ") %>
-        <% tags += " activo validated" if project.validated? %>
         <% tags += " discarded" if project.discarded? %>
-        <% tags += " activo winner" if project.winner? %>
+        <% tags += " activo validated" if project.validated? && !edition.publish_results? %>
+        <% tags += " activo winner" if project.winner? && @edition.publish_results? %>
         <div class="proyecto <%= tags %>" data-votes="<%= @edition.publish_results? ? project.votes : 0 %>">
           <ul class="temas">
             <% if project.winner? %>
