@@ -205,7 +205,11 @@ class ImpulsaProject < ActiveRecord::Base
 
   def mark_as_validable
     self.status=PROJECT_STATUS[:validate]
-  end    
+  end   
+
+  def mark_as_winner
+    self.status=PROJECT_STATUS[:winner]
+  end 
 
   def editable?
     !persisted? || (self.impulsa_edition.allow_edition? && (self.status < PROJECT_STATUS[:fixes] || self.spam?))
