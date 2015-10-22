@@ -33,7 +33,7 @@
         <% tags += " activo validated" if project.validated? %>
         <% tags += " discarded" if project.discarded? %>
         <% tags += " activo winner" if project.winner? %>
-        <div class="proyecto <%= tags %>" data-votes="<%= project.votes %>">
+        <div class="proyecto <%= tags %>" data-votes="<%= @edition.publish_results? ? project.votes : 0 %>">
           <ul class="temas">
             <% if project.winner? %>
               <li class="winner"><a class="winner"><i class="fa fa-trophy"></i> Ganador</a></li>
@@ -41,6 +41,9 @@
               <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Preseleccionado</a></li>
             <% elsif project.discarded? %>
               <li class="discarded"><a class="discarded"><i class="fa fa-ban fa-2x"></i> No preseleccionado</a></li>
+            <% end %>
+            <% if @edition.publish_results? %>
+              <li class="votes"><%= project.votes %>%</li>
             <% end %>
             <% project.impulsa_edition_topics.each do |topic|%>
               <li><a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a></li>
