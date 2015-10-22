@@ -33,7 +33,7 @@
       <% @projects.each do |project| %>
         <% tags = project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ") %>
         <% tags += " discarded" if project.discarded? %>
-        <% tags += " activo validated" if project.validated? && |edition.publish_results? %>
+        <% tags += " activo validated" if project.validated? && !edition.publish_results? %>
         <% tags += " activo winner" if project.winner? && @edition.publish_results? %>
         <div class="proyecto <%= tags %>" data-votes="<%= @edition.publish_results? ? project.votes : 0 %>">
           <ul class="temas">
