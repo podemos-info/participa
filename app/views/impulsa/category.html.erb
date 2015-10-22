@@ -33,19 +33,19 @@
       <% @projects.each do |project| %>
         <% tags = project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ") %>
         <% tags += " discarded" if project.discarded? %>
-        <% tags += " activo validated" if project.validated? && !edition.publish_results? %>
+        <% tags += " activo validated" if project.validated? && !@edition.publish_results? %>
         <% tags += " activo winner" if project.winner? && @edition.publish_results? %>
         <div class="proyecto <%= tags %>" data-votes="<%= @edition.publish_results? ? project.votes : 0 %>">
           <ul class="temas">
-            <% if project.winner? %>
+            <% if project.winner? && @edition.publish_results? %>
               <li class="winner"><a class="winner"><i class="fa fa-trophy"></i> Ganador</a></li>
-            <% elsif project.validated? %>
+            <% elsif project.validated? && !@edition.publish_results? %>
               <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Preseleccionado</a></li>
             <% elsif project.discarded? %>
               <li class="discarded"><a class="discarded"><i class="fa fa-ban fa-2x"></i> No preseleccionado</a></li>
             <% end %>
             <% if @edition.publish_results? %>
-              <li class="votes"><%= project.votes %>%</li>
+              <li class="votes"><%= @edition.publish_results? ? project.votes : 0 %>%</li>
             <% end %>
             <% project.impulsa_edition_topics.each do |topic|%>
               <li><a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a></li>
