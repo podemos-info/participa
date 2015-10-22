@@ -236,7 +236,7 @@ es:
         id: "Identificador"
       renewals:
         loan_renewals: "Microcréditos suscritos"
-        renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
+        renewal_terms: "Condiciones generales de extinción del anterior microcrédito y renovación de la suscripción"
         terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
       collaboration: 
         user: "Usuario"
