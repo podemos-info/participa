@@ -111,8 +111,8 @@ ActiveAdmin.register ImpulsaProject do
     end
 
     flash[:notice] = "Projectos procesados: #{procesados.join(',')}. Total: #{procesados.count}"
-    flash[:error] = "Projectos no encontrados: #{no_id_projects.join(',')}. Total: #{no_id_projects.count}"
-    redirect_to action: :index, "[q][id_in]": "#{procesados.join(' ')}"
+    flash[:error] = "Projectos no encontrados: #{no_id_projects.join(',')}. Total: #{no_id_projects.count}" if no_id_projects.count > 0
+    redirect_to action: :index, "[q][id_in]": "#{procesados.join(' ')}", "order":"votes_desc"
   end
 
   show do
