@@ -22,7 +22,7 @@ namespace :deploy do
   end
   task :restart do
     on roles(:app) do
-      execute "passenger-config restart-app /var/www/microcreditos.lamorada.org/current"
+      execute "passenger-config restart-app /var/www/microcreditos.lamorada.org/current/public"
       execute "sudo /etc/init.d/god restart"
     end
   end
