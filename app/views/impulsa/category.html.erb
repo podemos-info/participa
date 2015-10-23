@@ -34,6 +34,10 @@
         <% tags = project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ") %>
         <% if project.winner? && @edition.publish_results? %>
           <% tags += " activo winner" %>
+        <% elsif project.winner? && !@edition.publish_results? && !project.impulsa_edition_category.has_territory? %>
+          <% tags += " activo validated" %>
+        <% elsif project.winner? && !@edition.publish_results? %>
+          <% tags += " activo validated" %>
         <% elsif project.validated? && !project.impulsa_edition_category.has_territory? %>
           <% tags += " activo validated" %>
         <% else %>
@@ -43,6 +47,8 @@
           <ul class="temas">
             <% if project.winner? && @edition.publish_results? %>
               <li class="winner"><a class="winner"><i class="fa fa-trophy"></i> Ganador</a></li>
+            <% elsif project.winner? && !@edition.publish_results? && !project.impulsa_edition_category.has_territory? %>
+              <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Finalista</a></li>
             <% elsif project.validated? && !project.impulsa_edition_category.has_territory? %>
               <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Finalista</a></li>
             <% else %>
