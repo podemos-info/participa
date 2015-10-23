@@ -9,21 +9,4 @@ set :rails_env, :production
 set :deploy_to, '/var/www/microcreditos.lamorada.org'
 
 after 'deploy:publishing', 'passenger:restart'
-after 'deploy:publishing', 'deploy:restart'
-namespace :deploy do
-  task :start do
-    on roles(:app) do
-      execute "sudo /etc/init.d/god start"
-    end
-  end
-  task :stop do
-    on roles(:app) do
-      execute "sudo /etc/init.d/god stop"
-    end
-  end
-  task :restart do
-    on roles(:app) do
-      execute "sudo /etc/init.d/god restart"
-    end
-  end
-end
+
