@@ -36,8 +36,6 @@
           <% tags += " activo winner" %>
         <% elsif project.winner? && !@edition.publish_results? && !project.impulsa_edition_category.has_territory? %>
           <% tags += " activo validated" %>
-        <% elsif project.winner? && !@edition.publish_results? %>
-          <% tags += " activo validated" %>
         <% elsif project.validated? && !project.impulsa_edition_category.has_territory? %>
           <% tags += " activo validated" %>
         <% else %>
