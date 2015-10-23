@@ -128,11 +128,16 @@
 }
 #proyectos .proyecto .temas li{
 	float:right;
-	clear: right;
+	/*clear: right;*/
 	background-color: #000;
 	opacity:0.7;
 	padding:5px 5px 5px 5px;
 	line-height:23px;
+}
+#proyectos .proyecto .temas li.votes {
+	font-size:2em;
+	font-weight:bold;
+	color:#82368c;
 }
 #proyectos .proyecto .temas a {
 	background-repeat:no-repeat;
@@ -173,7 +178,7 @@
 #botonera .filtro {
 	display:block;
 	clear:both;
-	margin-bottom:2em;
+	/* margin-bottom:2em;*/
 }
 
 .categorias .titulo {
