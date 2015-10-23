@@ -1,8 +1,8 @@
 #Election
-Title	<%= election_location.title %>
+Title	<%= election_location.title.html_safe  %>
 Id	<%= election_location.new_vote_id %>
 Layout	<%= election_location.election_layout %>
-Description	<%= election_location.description %>
+Description	<%= election_location.description.html_safe  %>
 Start date time	<%= election_location.election.starts_at.strftime("%d/%m/%Y %H:%M:%S") %>
 Duration in hours	<%= election_location.election.duration %> 
 Share Text	<%= election_location.share_text %>
@@ -11,8 +11,8 @@ Theme	<%= election_location.theme %>
 		
 		
 #Question
-Title	<%= elq.title %>
-Description	<%= elq.description %>
+Title	<%= elq.title.html_safe %>
+Description	<%= elq.description.html_safe %>
 Voting system	<%= elq.voting_system %>
 Layout	<%= elq.layout %>
 Number of winners	<%= elq.winners %>
@@ -24,6 +24,6 @@ Totals	<%= elq.totals %>
 @Options
 Id	<%= elq.options_headers.join("\t") %>
 <% elq.options.split("\n").each_with_index do |option, i| %>
-<%= i%>	<%= option%>
+<%= i%>	<%= option.html_safe %>
 <% end %>
 <% end %>

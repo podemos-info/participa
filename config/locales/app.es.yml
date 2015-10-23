@@ -104,7 +104,8 @@ es:
         review_projects_until: "Fecha de fin revisiones"
         validation_projects_until: "Fecha de fin validación"
         votings_start_at: "Fecha de inicio de las votaciones"
-        ends_at: "Fecha de final"
+        ends_at: "Fecha de final de las votaciones"
+        publish_results_at: "Fecha de publicación de los resultados"
         legal: "Bases"
         schedule_model: "Modelo de cronograma"
         activities_resources_model: "Modelo de actividades y recursos"
@@ -200,6 +201,7 @@ es:
         terms_of_service: "Términos legales"
         data_truthfulness: "Veracidad de los datos"
         content_rights: "Propiedad intelectual"
+        votes: "Votos"
       microcredit:
         id: "Identificador"
         starts_at: "Fecha de inicio"
@@ -234,7 +236,7 @@ es:
         id: "Identificador"
       renewals:
         loan_renewals: "Microcréditos suscritos"
-        renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
+        renewal_terms: "Condiciones generales de extinción del anterior microcrédito y renovación de la suscripción"
         terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
       collaboration: 
         user: "Usuario"
@@ -694,7 +696,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
 <p> <b> PODEMOS Partido Político<br> CIF G86976941<br> Versión 7 de octubre de 2014 12:55<br> </b> </p>
 '
     impulsa:
-      title: "Presenta tu proyecto a IMPULSA"
+      title: "IMPULSA"
       upcoming: "La próxima edición de IMPULSA comenzará el %{start_at}."
       noupcoming: "La convocatoria de una nueva edición de IMPULSA se realizará próximamente, mantente informado."
       text_limit: "máximo %{limit} caracteres"
@@ -866,8 +868,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       subscribe: "Suscribir"
     loans_renewal:
       renew: "Renovar"
-      renewal_terms_message: "He leído y acepto las condiciones generales de extinción del microcrédito y renovación de la suscripción."
-      renewal_terms_link: "Condiciones generales sobre extinción de microcréditos y depósito para nueva suscripción"
+      renewal_terms_message: "He leído y acepto las condiciones particulares de extinción del anterior microcrédito y la renovación de la suscripción."
+      renewal_terms_link: "Condiciones particulares sobre extinción de microcréditos y depósito para nueva suscripción."
       terms_of_service_message: "He leído y acepto las condiciones generales de la suscripción del microcrédito %{name} %{campaign}."
       terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad del microcrédito %{name} %{campaign}"
       renewal_success: "Has renovado microcréditos por valor de %{amount} para la campaña %{campaign}. ¡Muchas gracias por colaborar con el cambio!"
@@ -891,3 +893,9 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       loan_renewals: "Microcréditos confirmados"
       renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
       terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
+  simple_captcha:
+    placeholder: "texto"
+    label: "Introduce el texto que se ve en la imagen"
+    refresh_button_text: "Regenerar"
+    message:
+      default: "El texto introducido no corresponde con el de la imagen"

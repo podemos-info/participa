@@ -333,7 +333,6 @@ GEM
       polyamorous (~> 1.2)
     rb-readline (0.5.3)
     rdoc (4.2.0)
-    recaptcha (0.4.0)
     redcarpet (3.3.2)
     redis (3.2.1)
     redis-namespace (1.5.2)
@@ -358,6 +357,8 @@ GEM
       rdoc (~> 4.0)
     secure_headers (2.2.1)
       user_agent_parser
+    simple_captcha2 (0.3.4)
+      rails (>= 4.1)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -478,13 +479,13 @@ DEPENDENCIES
   rails_autolink
   rake-progressbar
   rb-readline
-  recaptcha
   resque!
   ruby-openid
   ruby-prof
   sass-rails
   sdoc (~> 0.4.0)
   secure_headers
+  simple_captcha2
   simplecov
   spanish_vat_validators
   spring

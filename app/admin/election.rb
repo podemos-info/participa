@@ -43,7 +43,7 @@ ActiveAdmin.register Election do
     end
 
     panel "Lugares donde se vota" do
-      table_for election.election_locations do
+      table_for election.election_locations.order(:location) do
         column :territory
         column :link do |el|
           span link_to el.link, el.link
@@ -79,7 +79,7 @@ ActiveAdmin.register Election do
       f.input :server, as: :select, collection: Election.available_servers
       f.input :agora_election_id
       f.input :scope, as: :select, collection: Election::SCOPE
-      f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  }
+      f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  } if !resource.persisted?
       f.input :starts_at
       f.input :ends_at
       f.input :close_message

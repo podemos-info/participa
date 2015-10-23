@@ -1,7 +1,12 @@
 class ImpulsaController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [ :index, :categories, :category, :project, :attachment ]
+  before_action :set_current_edition
   before_action :set_user_project
  
+  def index
+    @upcoming = ImpulsaEdition.upcoming.first if @edition.nil?
+  end
+
   def new
     if @edition
       redirect_to edit_impulsa_path and return if @project
@@ -10,10 +15,6 @@ class ImpulsaController < ApplicationController
       @upcoming = ImpulsaEdition.upcoming.first
       render :index
     end
-  end
-
-  def index
-    @upcoming = ImpulsaEdition.upcoming.first
   end
 
   def edit
@@ -59,10 +60,25 @@ class ImpulsaController < ApplicationController
   end
 
   def attachment
-    project = ImpulsaProject.find(params[:id]) # important to avoid users viewing other users attachments
+    project = ImpulsaProject.find(params[:id]) if !["logo", "requested_budget", "schedule"].member? params[:fields] # important to avoid users viewing other users attachments
     path = "#{Rails.application.root}/non-public/system/impulsa_projects/#{project.id}/#{params[:field]}/#{params[:style]}/#{params[:filename]}"
+    send_file path
+  end
 
-    send_file path if project.has_attachment_field?(params[:field])
+  def categories
+    @categories_state = @edition.impulsa_edition_categories.state.select {|c| c.impulsa_projects.public_visible.count>0}
+    @categories_territorial = @edition.impulsa_edition_categories.territorial.select {|c| c.impulsa_projects.public_visible.count>0}
+  end
+
+  def category
+    @category = ImpulsaEditionCategory.find(params[:id])
+    @projects = @category.impulsa_projects.public_visible
+    redirect_to impulsa_categories_path and return if @category.nil?
+  end
+
+  def project
+    @project = ImpulsaProject.public_visible.where(id:params[:id]).first
+    redirect_to impulsa_categories_path and return if @project.nil?
   end
 
   private
@@ -71,10 +87,12 @@ class ImpulsaController < ApplicationController
     @project.cache_project_files
   end
 
-  def set_user_project
+  def set_current_edition
     @edition = ImpulsaEdition.current
-    return if @edition.nil?
+  end
 
+  def set_user_project
+    return if @edition.nil? || !current_user
     @project = @edition.impulsa_projects.where(user:current_user).first
 
     @available_categories = @edition.impulsa_edition_categories

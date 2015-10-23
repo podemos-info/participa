@@ -2,7 +2,7 @@ ActiveAdmin.register ImpulsaEdition do
   menu :parent => "Participación"
   config.filters = false
   permit_params do
-    fields = [:id, :name, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :votings_start_at, :ends_at, :schedule_model, :activities_resources_model, :requested_budget_model, :monitoring_evaluation_model]
+    fields = [:id, :name, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :votings_start_at, :ends_at, :publish_results_at, :schedule_model, :activities_resources_model, :requested_budget_model, :monitoring_evaluation_model]
     fields += I18n.available_locales.map do |locale|
       :"legal_#{locale}"
     end
@@ -18,6 +18,10 @@ ActiveAdmin.register ImpulsaEdition do
     column :validation_projects_until
     column :votings_start_at
     column :ends_at
+    column :publish_results_at
+    column "Proyectos" do |impulsa_edition|
+      link_to("Mostrar #{impulsa_edition.impulsa_projects.count} proyectos", admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
+    end
     actions
   end
 
@@ -30,6 +34,7 @@ ActiveAdmin.register ImpulsaEdition do
       row :validation_projects_until
       row :votings_start_at
       row :ends_at
+      row :publish_results_at
       row :legal do |impulsa_edition|
         I18n.available_locales.each do |locale|
           span link_to(I18n.name_for_locale(locale), impulsa_edition[:legal]["legal_#{locale}"]) if !impulsa_edition[:legal]["legal_#{locale}"].blank?
@@ -50,7 +55,7 @@ ActiveAdmin.register ImpulsaEdition do
     end
 
     panel t "activerecord.models.impulsa_edition_categories" do
-      table_for resource.impulsa_edition_categories do
+      table_for resource.impulsa_edition_categories.order(:name) do
         column :name
         column :category_type_name do |impulsa_edition_category|
           t("podemos.impulsa.category_type_name.#{impulsa_edition_category.category_type_name}") if impulsa_edition_category.category_type_name
@@ -89,6 +94,7 @@ ActiveAdmin.register ImpulsaEdition do
       f.input :validation_projects_until
       f.input :votings_start_at
       f.input :ends_at
+      f.input :publish_results_at
       I18n.available_locales.each do |locale|
         f.input "legal_#{locale}", label: "#{t("activerecord.attributes.impulsa_edition.legal")} #{I18n.name_for_locale(locale)}"
       end
@@ -103,6 +109,21 @@ ActiveAdmin.register ImpulsaEdition do
   action_item(:view_projects, only: :show) do
     link_to('Ver proyectos', admin_impulsa_edition_impulsa_projects_path(impulsa_edition))
   end
+
+  action_item(:create_election, only: :show) do
+    link_to('Crear votaciones', create_election_admin_impulsa_edition_path(impulsa_edition), data: { confirm: "¿Estas segura de querer crear las votaciones para esta edición de IMPULSA?" })
+  end
+
+  member_action :create_election do
+    p = ImpulsaEdition.find( params[:id] )  
+    if p.create_election request.base_url
+      flash[:notice] = "Se han creado las votaciones para la edición de IMPULSA."
+    else
+      flash[:error] = "Las votaciones para la edición de IMPULSA no se han creado."
+    end
+    redirect_to action: :index
+  end
+
 end
 
 ActiveAdmin.register ImpulsaEditionTopic do

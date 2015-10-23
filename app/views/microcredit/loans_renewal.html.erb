@@ -5,11 +5,12 @@
 <% if @renewal.nil? %>
   <p>No hemos encontrado microcréditos para renovar.</p>
 <% else %>
-
+  <p>Gracias a tu confianza y por ayudarnos a financiar nuestras campañas lejos de bancos y entidades financiera, sino de gente como tú.</p>
+  <p>Para renovar tus suscripciones:<ol><li>Elige el microcrédito que deseas renovar</li><li>Acepta la extinción y renovación de la suscripción así como las condiciones del nuevo contrato para apoyar la campaña a las elecciones generales, marcando las dos casillas que aparecen a continuación.</li></ol>
   <% if @renewal.other_loans.any? %>
-  <p>Tienes microcréditos suscritos en otras campañas: <ul><% @renewal.other_loans.each do |loan| %>
-        <%= content_tag(:li, link_to( loan.microcredit.title, loans_renewal_microcredit_loan_path(@microcredit.id, loan.id, loan.unique_hash)))%>
-      <%end %></ul></p>
+  <p>Además, tienes microcréditos suscritos en otras campañas que también puedes renovar: <% @renewal.other_loans.each do |loan| %>
+        <%= link_to( loan.microcredit.title, loans_renewal_microcredit_loan_path(@microcredit.id, loan.id, loan.unique_hash))%>
+      <%end %>.</p>
   <% end %>
   <%= errors_in_form @renewal %>
   <%= semantic_form_for @renewal, as: :renewals, url: loans_renew_microcredit_loan_path(@microcredit.id, @renewal.loan.id, @renewal.loan.unique_hash, brand: @brand), html: {method: :post, autocomplete: 'off'} do |f| %>

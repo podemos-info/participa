@@ -9,7 +9,7 @@ ActiveAdmin.register ImpulsaProject do
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
   filter :name
   filter :user_id
-  filter :id_in, as: :text, label: "Lista de IDs de proyectos", required: false
+  filter :id_in, as: :string, label: "Lista de IDs de proyectos", required: false
   filter :user_email_contains
   filter :authority
   filter :authority_name
@@ -18,14 +18,19 @@ ActiveAdmin.register ImpulsaProject do
     selectable_column
     column :id
     column :logo do |impulsa_project|
-      image_tag(impulsa_project.logo.url(:thumb))
+      ( impulsa_project.video_link.blank? ? status_tag("SIN VIDEO", :error) : a( status_tag("VER VIDEO", :ok), href: url_for(impulsa_project.video_link), target: "_blank" ) ) + br +
+      ( impulsa_project.logo.blank? ? status_tag("SIN FOTO", :error) : a( image_tag(impulsa_project.logo.url(:thumb)), href: impulsa_project.logo.url ) )
     end
     column :name do |impulsa_project|
       link_to impulsa_project.name, admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project)
     end
     column :user
-    column :total_budget
     column :impulsa_edition_category
+    column :total_budget do |impulsa_project|
+      div :class => "moneda" do
+        number_to_currency impulsa_project.total_budget, :unit => "€"
+      end
+    end
     #column :updated_at
     column :status_name do |impulsa_project|
       div t("podemos.impulsa.project_status.#{ImpulsaProject::PROJECT_STATUS.invert[impulsa_project.status]}")
@@ -38,6 +43,7 @@ ActiveAdmin.register ImpulsaProject do
         end
       end
     end
+    column :votes
     actions
   end
 
@@ -57,6 +63,56 @@ ActiveAdmin.register ImpulsaProject do
     p.save
     flash[:notice] = "El proyecto ha sido marcado como spam."
     redirect_to action: :index
+  end
+
+  sidebar "Subir resultados de votación", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
+    render("admin/upload_vote_results_form")
+  end 
+
+
+  def extraer_id ( json )
+    id_proyecto = 0
+    json.each do |url|
+      id_proyecto_aux = url["url"].gsub('https://participa.podemos.info/impulsa/proyecto/','').to_i
+      id_proyecto = id_proyecto_aux if id_proyecto_aux > 0
+    end
+    id_proyecto
+  end
+
+  collection_action :upload_vote_results, :method => :post do
+    require "json"
+    procesados = []
+	no_id_projects = []
+    winners = []
+    file = params["upload_vote_results"]["file"]
+    question_id = params["upload_vote_results"]["question_id"].to_i
+    json = JSON.parse(file.read.force_encoding('utf-8'))
+    json = json["questions"][question_id]["answers"]
+    json.each do |answer|
+      id_proyecto = 0
+      answer["urls"].each do |url|
+        id_proyecto_aux = url["url"].gsub('https://participa.podemos.info/impulsa/proyecto/','').to_i
+        id_proyecto = id_proyecto_aux if id_proyecto_aux > 0
+      end
+      votes = answer["total_count"]
+      votes = (votes * 10000 + 90000000).round if votes.is_a? Float
+      proyecto = ImpulsaProject.find_by_id(id_proyecto)
+      if proyecto.nil?
+        no_id_projects << id_proyecto
+      else
+        proyecto.votes = votes
+        if !answer["winner_position"].nil?
+          proyecto.mark_as_winner
+          winners << id_proyecto
+        end
+        proyecto.save
+      end
+      procesados << id_proyecto
+    end
+
+    flash[:notice] = "Projectos procesados: #{procesados.join(',')}. Total: #{procesados.count}"
+    flash[:error] = "Projectos no encontrados: #{no_id_projects.join(',')}. Total: #{no_id_projects.count}" if no_id_projects.count > 0
+    redirect_to action: :index, "[q][id_in]": "#{procesados.join(' ')}", "order":"votes_desc"
   end
 
   show do
@@ -274,6 +330,7 @@ ActiveAdmin.register ImpulsaProject do
       end
       f.input :additional_contact
       f.input :counterpart_information
+      f.input :votes
     end
     f.inputs t("podemos.impulsa.project_data_section"), class: f.object.saveable? ? "inputs reviewable" : "inputs" do
       f.input :name
@@ -473,6 +530,7 @@ ActiveAdmin.register ImpulsaProject do
     column :metodology
     column :population_segment
     column :counterpart
+    column :votes
   end
 
 end

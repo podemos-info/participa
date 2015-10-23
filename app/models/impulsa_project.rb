@@ -102,7 +102,9 @@ class ImpulsaProject < ActiveRecord::Base
 
   scope :first_phase, -> { where( status: [ 0, 1, 2, 3 ] ) }
   scope :second_phase, -> { where( status: [ 4, 6 ]) }
-  scope :no_phase, -> { where status: [ 5, 7, 10 ] } 
+  scope :no_phase, -> { where status: [ 5, 7, 10 ] }
+  scope :votable, -> { where status: 6 }
+  scope :public_visible, -> { where status: [ 9, 6, 7 ]}
 
   PROJECT_STATUS = {
     new: 0,
@@ -120,7 +122,7 @@ class ImpulsaProject < ActiveRecord::Base
   }
 
   FIELDS = {
-    admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact, :evaluator1_invalid_reasons, :evaluator2_invalid_reasons ],
+    admin: [ :user_id, :status, :review_fields, :counterpart_information, :additional_contact, :evaluator1_invalid_reasons, :evaluator2_invalid_reasons , :votes],
     impulsa_admin: [ :user_id, :review_fields, :counterpart_information, :additional_contact ],
     always: [ :impulsa_edition_category_id, :name ],
     with_category: [ :short_description, :logo, :video_link ],
@@ -203,7 +205,11 @@ class ImpulsaProject < ActiveRecord::Base
 
   def mark_as_validable
     self.status=PROJECT_STATUS[:validate]
-  end    
+  end   
+
+  def mark_as_winner
+    self.status=PROJECT_STATUS[:winner]
+  end 
 
   def editable?
     !persisted? || (self.impulsa_edition.allow_edition? && (self.status < PROJECT_STATUS[:fixes] || self.spam?))
@@ -227,6 +233,14 @@ class ImpulsaProject < ActiveRecord::Base
 
   def validated?
     self.status==PROJECT_STATUS[:validated]
+  end
+
+  def discarded?
+    self.status==PROJECT_STATUS[:discarded]
+  end
+
+  def winner?
+    self.status==PROJECT_STATUS[:winner]
   end
 
   def dissent?
@@ -409,5 +423,15 @@ class ImpulsaProject < ActiveRecord::Base
 
   def has_attachment_field? field_name
     ImpulsaProject.attachment_definitions.keys.member? field_name.to_sym
+  end
+
+  def video_id
+    @video_id ||= begin
+      /[0-9a-zA-Z\-_]{11}/.match(self.video_link).to_s if self.video_link && /youtu\.?be/=~self.video_link
+    end
+  end
+
+  def voting_dates
+    "#{I18n.l(self.impulsa_edition.votings_start_at.to_date, format: :medium)} al #{I18n.l(self.impulsa_edition.ends_at.to_date, format: :medium)}"
   end
 end
