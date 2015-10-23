@@ -92,6 +92,10 @@ class MicrocreditController < ApplicationController
           total_amount += l.amount
         end
       end
+      if total_amount>0
+        redirect_to loans_renewal_microcredit_loan_path(@microcredit.id, @renewal.loan.id, @renewal.loan.unique_hash), notice: t('microcredit.loans_renewal.renewal_success', name: @brand_config["name"], amount: number_to_euro(total_amount*100), campaign: @microcredit.title)
+        return
+      end
     end
     render :loans_renewal
   end
