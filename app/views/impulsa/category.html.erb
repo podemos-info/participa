@@ -36,8 +36,6 @@
           <% tags += " activo winner" %>
         <% elsif project.winner? && !@edition.publish_results? && !project.impulsa_edition_category.has_territory? %>
           <% tags += " activo validated" %>
-        <% elsif project.winner? && !@edition.publish_results? %>
-          <% tags += " activo validated" %>
         <% elsif project.validated? && !project.impulsa_edition_category.has_territory? %>
           <% tags += " activo validated" %>
         <% else %>
@@ -71,14 +69,13 @@
                 <img src="http://img.youtube.com/vi/<%= project.video_id %>/0.jpg">
               </figure>
             </a>
-            <!--<iframe width="287" height="190" src="//www.youtube.com/embed/<%=project.video_id%>" frameborder="0" allowfullscreen></iframe>-->
           <% elsif project.logo.present? %>
             <%= image_tag project.logo.url(:medium), title: project.name, alt: project.name %>
           <% else %>
             <%= image_tag "sinfoto-impulsa.png", title: project.name, alt: project.name %>
           <% end %>
           <a href="<%= impulsa_project_path(project) %>"><hr class="medio"/>
-          <h2><%= project.name %><!--<%= link_to project.name, impulsa_project_path(project)%>--></h2>
+          <h2><%= project.name %></h2>
           <hr class="fin"/></a>
         </div>
       <% end %>

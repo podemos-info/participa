@@ -196,7 +196,7 @@ ActiveAdmin.register User do
 
   filter :email
   filter :document_vatid
-  filter :document_vatid_cont_any, as: :string, label: "Lista de DNI o NIE"
+  filter :document_vatid_cont_any, as: :text, label: "Lista de DNI o NIE"
   filter :admin
   filter :first_name
   filter :last_name
@@ -347,6 +347,19 @@ ActiveAdmin.register User do
         span b u.created_at.strftime "%Y-%m-%d %H:%M"
       end
     end
+  end
+
+  sidebar "CRUZAR DATOS", 'data-panel' => :collapsed, :only => :index, priority: 100 do  
+    render("admin/fill_csv_form")
+  end
+
+  collection_action :fill_csv, :method => :post do
+    require 'podemos_export'
+    file = params["fill_csv"]["file"]
+    csv = fill_data file.read, User.confirmed
+    send_data csv.encode('utf-8'),
+      type: 'text/csv; charset=utf-8; header=present',
+      disposition: "attachment; filename=participa.podemos.#{Date.today.to_s}.csv"
   end
 
   controller do
