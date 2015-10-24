@@ -73,10 +73,12 @@ def fill_data(csvdata, query, options = {})
   col_sep = options.fetch(:col_sep, "\t")
   data = {}
   headers = nil
+  processed = []
   CSV.parse(csvdata, { col_sep: col_sep, encoding: 'utf-8', headers: true }).each do |row|
     headers = row.headers if headers.nil?
     data[row[0].upcase] = Hash[headers[1..-1].map{|h| [h,row[h]] }] if !row[0].nil?
   end
+  search_field = headers[0];
   query.where(headers[0]=>data.map{|k,h| [k.to_s.upcase, k.to_s.downcase]} .flatten.uniq).find_each do |item|
     row = data[item.send(headers[0]).to_s.upcase]
     headers[1..-1].map do |h|
@@ -85,12 +87,19 @@ def fill_data(csvdata, query, options = {})
         data[item.send(headers[0]).to_s.upcase][h] = value if !value.nil?
       end
     end if row && row.length>1
+    #processed << item.document_vatid
+    processed << item.id
   end
-  csv = CSV.generate do |user|
+  csv_text = CSV.generate do |user|
     user << headers
     data.each do |key, item|
       user << [ key ] + headers[1..-1].map{|h|item[h]}
     end
   end
+  csv={}
+  csv["results"] = csv_text
+  csv["search_field"] = headers[0]
+  csv["processed"] = processed
+  csv
 end
 
