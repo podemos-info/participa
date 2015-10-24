@@ -42,7 +42,7 @@ def export_raw_data(filename, data, options = {})
   end
 end
 
-def fill_data(filename, query, options = {})
+def fill_data_file(filename, query, options = {})
   col_sep = options.fetch(:col_sep, "\t")
   folder = options.fetch(:folder, "tmp/export")
   force_quotes = options.fetch(:force_quotes, false)
@@ -65,6 +65,31 @@ def fill_data(filename, query, options = {})
     writer << headers
     data.each do |key, item|
       writer << [ key ] + headers[1..-1].map{|h|item[h]}
+    end
+  end
+end
+
+def fill_data(csvdata, query, options = {})
+  col_sep = options.fetch(:col_sep, "\t")
+  data = {}
+  headers = nil
+  CSV.parse(csvdata, { col_sep: col_sep, encoding: 'utf-8', headers: true }).each do |row|
+    headers = row.headers if headers.nil?
+    data[row[0].upcase] = Hash[headers[1..-1].map{|h| [h,row[h]] }] if !row[0].nil?
+  end
+  query.where(headers[0]=>data.map{|k,h| [k.to_s.upcase, k.to_s.downcase]} .flatten.uniq).find_each do |item|
+    row = data[item.send(headers[0]).to_s.upcase]
+    headers[1..-1].map do |h|
+      if item.respond_to? h
+        value = item.send(h)
+        data[item.send(headers[0]).to_s.upcase][h] = value if !value.nil?
+      end
+    end if row && row.length>1
+  end
+  csv = CSV.generate do |user|
+    user << headers
+    data.each do |key, item|
+      user << [ key ] + headers[1..-1].map{|h|item[h]}
     end
   end
 end
