@@ -196,7 +196,9 @@ ActiveAdmin.register User do
 
   filter :email
   filter :document_vatid
-  filter :document_vatid_cont_any, as: :string, label: "Lista de DNI o NIE"
+  filter :document_vatid_in, as: :string, label: "Lista de DNI o NIE"
+  filter :id_in, as: :string, label: "Lista de IDs"
+  filter :email_in, as: :string, label: "Lista de emails"
   filter :admin
   filter :first_name
   filter :last_name
@@ -349,6 +351,26 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar "CRUZAR DATOS", 'data-panel' => :collapsed, :only => :index, priority: 100 do  
+    render("admin/fill_csv_form")
+  end
+
+  collection_action :fill_csv, :method => :post do
+    require 'podemos_export'
+    file = params["fill_csv"]["file"]
+    subaction = params["commit"]
+#    csv = fill_data file.read, User.confirmed
+    csv = fill_data file.read, User
+    if subaction == "Descargar CSV"
+      send_data csv["results"].encode('utf-8'),
+        type: 'text/csv; charset=utf-8; header=present',
+        disposition: "attachment; filename=participa.podemos.#{Date.today.to_s}.csv"
+    else
+      flash[:notice] = "Usuarios procesados: #{csv['processed'].join(',')}. Total: #{csv['processed'].count}"
+      redirect_to action: :index, "[q][id_in]": "#{csv['processed'].join(' ')}"
+    end
+  end
+
   controller do
     def show
       @user = User.with_deleted.find(params[:id])
@@ -357,11 +379,14 @@ ActiveAdmin.register User do
       show! #it seems to need this
     end
 
-    before_filter :dni_list_filter, :only => :index
+    before_filter :multi_values_filter, :only => :index
     private
 
-    def dni_list_filter
-      params[:q][:document_vatid_cont_any] = params[:q][:document_vatid_cont_any].split unless params[:q].nil? or params[:q][:document_vatid_cont_any].nil?
+    def multi_values_filter
+      #params[:q][:document_vatid_cont_any] = params[:q][:document_vatid_cont_any].split unless params[:q].nil? or params[:q][:document_vatid_cont_any].nil?
+      params[:q][:id_in] = params[:q][:id_in].split unless params[:q].nil? or params[:q][:id_in].nil?
+      params[:q][:document_vatid_in] = params[:q][:document_vatid_in].split unless params[:q].nil? or params[:q][:document_vatid_in].nil?
+      params[:q][:email_in] = params[:q][:email_in].split unless params[:q].nil? or params[:q][:email_in].nil?
     end
   end
 
