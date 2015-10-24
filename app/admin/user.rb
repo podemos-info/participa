@@ -196,7 +196,7 @@ ActiveAdmin.register User do
 
   filter :email
   filter :document_vatid
-  filter :document_vatid_cont_any, as: :text, label: "Lista de DNI o NIE"
+  filter :document_vatid_cont_any, as: :string, label: "Lista de DNI o NIE"
   filter :admin
   filter :first_name
   filter :last_name
