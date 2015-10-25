@@ -1,0 +1,17 @@
+<%= semantic_form_for :fill_csv, :url => { :action => "fill_csv" } do |f| %>
+    <div class="filter_form_field">
+      <%= f.input :file, :as => :file, :label => "Archivo a cargar" %>
+      <p style="margin-top:10px;">Debe:</p>
+      <ul style="list-style-type: disc; margin-left: 15px;">
+        <li>estar separado por tabuladores</li>
+        <li>tener en la primera línea los nombres de los campos</li>
+        <li>existir el primer campo para que coincida con el criterio de búsqueda, habitualmente <em>document_vatid</em>, <em>email</em> o <em>id</em></li>
+      </ul>        
+    </div>
+    <div class="buttons">
+      <%= f.actions do %>
+          <%= f.action :submit, label: "Descargar CSV" %>
+          <%= f.action :submit, label: "Buscar" %>
+      <% end %>
+    </div>
+<% end %>
