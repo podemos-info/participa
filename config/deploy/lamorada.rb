@@ -9,4 +9,4 @@ set :rails_env, :production
 set :deploy_to, '/var/www/microcreditos.lamorada.org'
 
 after 'deploy:publishing', 'passenger:restart'
-
+  
