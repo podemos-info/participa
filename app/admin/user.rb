@@ -366,7 +366,7 @@ ActiveAdmin.register User do
         type: 'text/csv; charset=utf-8; header=present',
         disposition: "attachment; filename=participa.podemos.#{Date.today.to_s}.csv"
     else
-      flash[:notice] = "Projectos procesados: #{csv['processed'].join(',')}. Total: #{csv['processed'].count}"
+      flash[:notice] = "Usuarios procesados: #{csv['processed'].join(',')}. Total: #{csv['processed'].count}"
       redirect_to action: :index, "[q][id_in]": "#{csv['processed'].join(' ')}"
     end
   end
