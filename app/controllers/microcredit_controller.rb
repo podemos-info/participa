@@ -1,6 +1,6 @@
 class MicrocreditController < ApplicationController
   include CollaborationsHelper
-  before_action :check_brand
+  before_action :init_env
   layout :external_layout
 
   def provinces
@@ -11,7 +11,7 @@ class MicrocreditController < ApplicationController
     render partial: 'municipies_select', locals:{ country: (params[:microcredit_loan_country] or "ES"), province: params[:microcredit_loan_province], town: params[:microcredit_loan_town], disabled: false, required: true, title:"Municipio"}
   end
 
-  def check_brand
+  def init_env
     default_brand = Rails.application.secrets.microcredits["default_brand"]
     @brand = params[:brand]
     @brand_config = Rails.application.secrets.microcredits["brands"][@brand]
@@ -20,6 +20,7 @@ class MicrocreditController < ApplicationController
       @brand_config = Rails.application.secrets.microcredits["brands"][default_brand]
     end
     @external = Rails.application.secrets.microcredits["brands"][@brand]["external"]
+    @url_params = @brand == default_brand ? {} : { brand: @brand }
   end
 
   def external_layout
@@ -69,11 +70,15 @@ class MicrocreditController < ApplicationController
       if (current_user or @loan.valid_with_captcha?) and @loan.save
         @loan.update_counted_at
         UsersMailer.microcredit_email(@microcredit, @loan, @brand_config).deliver_now
-        redirect_to microcredit_path(brand:@brand), notice: t('microcredit.new_loan.will_receive_email', name: @brand_config["name"], main_url: @brand_config["main_url"], twitter_account: @brand_config["twitter_account"])
-      else
-        render :new_loan
+         
+        notice = t('microcredit.new_loan.will_receive_email', name: @brand_config["name"], main_url: @brand_config["main_url"])
+        notice += "<br/>" + t('microcredit.new_loan.tweet_campaign', twitter_account: @brand_config["twitter_account"]) if @brand_config["twitter_account"]
+        flash[:notice] = notice
+
+        redirect_to microcredit_path(brand:@brand) and return if !params[:reload]
       end
     end
+    render :new_loan
   end
 
   def loans_renewal
