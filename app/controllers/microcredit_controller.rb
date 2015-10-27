@@ -20,7 +20,6 @@ class MicrocreditController < ApplicationController
       @brand_config = Rails.application.secrets.microcredits["brands"][default_brand]
     end
     @external = Rails.application.secrets.microcredits["brands"][@brand]["external"]
-    @hide_captcha = false
     @url_params = @brand == default_brand ? {} : { brand: @brand }
   end
 
@@ -77,7 +76,6 @@ class MicrocreditController < ApplicationController
         flash[:notice] = notice
 
         redirect_to microcredit_path(brand:@brand) and return if !params[:reload]
-        @hide_captcha = true
       end
     end
     render :new_loan
