@@ -864,7 +864,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       over_age_message: "Declaro ser mayor de 18 años."
       terms_of_service_message: "Acepto la suscripción de un contrato civil de préstamo por el importe indicado, según las condiciones generales que se indican en el siguiente enlace, que declaro haber leído y estar conforme con su contenido."
       terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad"
-      will_receive_email: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito %{name}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!<br/>Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/home/?status=He%20suscrito%20un%20microcr%C3%A9dito%20%{twitter_account}%20para%20financiar%20la%20campa%C3%B1a.%20Puedes%20invertir%20en%20el%20cambio%20en%20%{main_url}'>compártelo en Twitter</a>."
+      will_receive_email: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito %{name}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!"
+      tweet_campaign: "Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/home/?status=He%20suscrito%20un%20microcr%C3%A9dito%20%{twitter_account}%20para%20financiar%20la%20campa%C3%B1a.%20Puedes%20invertir%20en%20el%20cambio%20en%20%{main_url}'>compártelo en Twitter</a>."
       subscribe: "Suscribir"
     loans_renewal:
       renew: "Renovar"
