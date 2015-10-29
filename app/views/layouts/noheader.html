@@ -7,13 +7,15 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class user_signed_in?, controller_name, action_name %> noheader">
   <div class="wrap">
-    <%= render partial: 'flash_boxes' %>
-    <%= yield %>
+    <div class="content">
+      <%= render partial: 'flash_boxes' %>
+      <%= yield %>
+    </div>
     <%= render partial: 'analytics' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   </div>

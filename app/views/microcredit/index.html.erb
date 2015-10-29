@@ -56,4 +56,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
     <% end %>
   </div>
 <% end %>
+<% if !@external %>
+  <p>¿Deseas realizar una colaboración periódica o modificar la que ya tienes? <%= link_to "Accede a la sección de colaboraciones", new_collaboration_path %></p>
+<% end %>
 </div>
