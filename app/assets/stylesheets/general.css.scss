@@ -755,7 +755,11 @@ tools
 microcredits
 ----------------------------------- */
 .microcredits-wrapper {
-
+  img {
+    text-align:center;
+    display: block;
+    margin: 40px auto 0;
+  }
   &.completed {
     >div {
       margin: 3em 1em;
@@ -782,9 +786,13 @@ microcredits
     font-size: 1.4em;
   }
 
-  li {
+  ul li {
     margin: 0em 0em 1em 1em;
     list-style-type: circle;
+  }
+  ol li {
+    margin: 0em 0em 1em 2em;
+    list-style-type: number;
   }
 
   .control-label {
