@@ -71,8 +71,8 @@ class MicrocreditController < ApplicationController
         @loan.update_counted_at
         UsersMailer.microcredit_email(@microcredit, @loan, @brand_config).deliver_now
          
-        notice = t('microcredit.new_loan.will_receive_email', name: @brand_config["name"], main_url: @brand_config["main_url"])
-        notice += "<br/>" + t('microcredit.new_loan.tweet_campaign', twitter_account: @brand_config["twitter_account"]) if @brand_config["twitter_account"]
+        notice = t('microcredit.new_loan.will_receive_email', name: @brand_config["name"])
+        notice += "<br/>" + t('microcredit.new_loan.tweet_campaign', main_url: @brand_config["main_url"], twitter_account: @brand_config["twitter_account"]) if @brand_config["twitter_account"]
         flash[:notice] = notice
 
         redirect_to microcredit_path(brand:@brand) and return if !params[:reload]

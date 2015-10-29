@@ -126,7 +126,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <% end %>
         <div class="radio_options">
           <% @microcredit.phase_remaining.each do |amount,remaining| %> 
-          <input id="microcredit_loan_amount_<%=amount%>" name="microcredit_loan[amount]" value="<%=amount%>" type="radio"<%=" checked" if amount==@loan.amount%><%=' disabled class=disabled' if remaining==0%> />
+          <input id="microcredit_loan_amount_<%=amount%>" name="microcredit_loan[amount]" value="<%=amount%>" type="radio"<%=" checked" if amount==@loan.amount%><%=' disabled class=disabled' if remaining==0%> onclick="" />
           <div><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span><%=t '.remaining_count', total: remaining%></span></div>
           <% end %>
         </div>
