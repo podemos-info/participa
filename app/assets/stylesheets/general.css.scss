@@ -811,7 +811,8 @@ microcredits
       position:absolute;
       z-index:1;
       cursor:pointer;
-      opacity:0;
+      margin-left: -75px;
+      margin-top: 2px;
 
       &:checked + div, &:checked:hover + div {
         border: 1px solid #269283;
