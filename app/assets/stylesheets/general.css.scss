@@ -801,32 +801,32 @@ microcredits
   }
   .radio_options {
     float: left;
-    input, div {
+    input, label {
       width:200px;
       height:40px;
       line-height:40px;
+      display: block;
     }
 
     input {
       position:absolute;
       z-index:1;
       cursor:pointer;
-      margin-left: -75px;
-      margin-top: 2px;
+      opacity:0;
 
-      &:checked + div, &:checked:hover + div {
+      &:checked + label, &:checked:hover + label {
         border: 1px solid #269283;
         i {
           visibility: visible;
           color: #269283;
         }
       }
-      &:hover + div {
+      &:hover + label {
         border: 1px solid #97c2b8;
         i { visibility: visible; color: #97c2b8; }
       }
 
-      & + div {
+      & + label {
         position: relative;
         font-size: 2em;
         border: 1px solid white;
@@ -845,10 +845,10 @@ microcredits
           bottom: 0px;
         }
       }
-      &.disabled + div {
+      &.disabled + label {
         color: #e96161;
       }
-      &.disabled:hover + div {
+      &.disabled:hover + label {
         border: 1px solid #e96161;
         i { visibility: visible; color: #e96161; }
       }
