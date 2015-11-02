@@ -66,6 +66,8 @@ class OpenIdController < ApplicationController
         add_sreg(oidreq, oidresp)
         # ditto pape
         add_pape(oidreq, oidresp)
+        # add the attribute exchange request if requested
+        add_ax(oidreq, oidresp)
 
       else
         oidresp = oidreq.answer(false, open_id_create_url)
@@ -121,6 +123,8 @@ class OpenIdController < ApplicationController
         add_sreg(oidreq, oidresp)
         # ditto pape
         add_pape(oidreq, oidresp)
+        # add the attribute exchange request if requested
+        add_ax(oidreq, oidresp)
 
       else
         oidresp = oidreq.answer(false, open_id_create_url)
@@ -213,6 +217,31 @@ EOS
 EOS
 
     render :text => yadis, :content_type => 'application/xrds+xml'
+  end
+
+  def add_ax(oidreq, oidresp)
+    # check for Attribute Exchange arguments and respond
+    axreq = OpenID::AX::FetchRequest.from_openid_request(oidreq)
+
+    return if axreq.nil?
+
+    axresp = OpenID::AX::FetchResponse.new
+    axresp.add_value "http://openid.net/schema/person/guid", current_user.id.to_s
+    axresp.add_value "http://openid.net/schema/namePerson/first", current_user.first_name
+    axresp.add_value "http://openid.net/schema/namePerson/last", current_user.last_name
+    axresp.add_value "http://openid.net/schema/contact/internet/email", current_user.last_name
+
+    if current_user.phone
+      axresp.add_value "http://openid.net/schema/contact/phone/default", current_user.phone
+    end
+
+    if current_user.vote_town
+      axresp.add_value "http://openid.net/schema/contact/city/home", current_user.vote_town.scan(/\d/).join
+      if current_user.vote_district
+        axresp.add_value "http://openid.net/schema/contact/district/home", current_user.vote_town.scan(/\d/).join
+      end
+    end
+    oidresp.add_extension(axresp)
   end
 
   def add_sreg(oidreq, oidresp)
