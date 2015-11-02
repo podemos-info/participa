@@ -229,7 +229,7 @@ EOS
     axresp.add_value "http://openid.net/schema/person/guid", current_user.id.to_s
     axresp.add_value "http://openid.net/schema/namePerson/first", current_user.first_name
     axresp.add_value "http://openid.net/schema/namePerson/last", current_user.last_name
-    axresp.add_value "http://openid.net/schema/contact/internet/email", current_user.last_name
+    axresp.add_value "http://openid.net/schema/contact/internet/email", current_user.email
 
     if current_user.phone
       axresp.add_value "http://openid.net/schema/contact/phone/default", current_user.phone
@@ -250,7 +250,7 @@ EOS
 
     return if sregreq.nil?
 
-    sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name }
+    sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name } 
     sregresp = OpenID::SReg::Response.extract_response(sregreq, sreg_data)
     oidresp.add_extension(sregresp)
   end
