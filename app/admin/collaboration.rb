@@ -177,6 +177,9 @@ ActiveAdmin.register Collaboration do
     end
   end
 
+  filter :user_first_name, as: :string
+  filter :user_last_name, as: :string
+  filter :iban_account, as: :string
   filter :user_document_vatid_or_non_user_document_vatid, as: :string
   filter :user_email_or_non_user_email, as: :string
   filter :status, :as => :select, :collection => Collaboration::STATUS.to_a
