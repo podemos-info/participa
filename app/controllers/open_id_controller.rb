@@ -226,10 +226,16 @@ EOS
     return if axreq.nil?
 
     axresp = OpenID::AX::FetchResponse.new
+    axresp.add_value "http://openid.net/schema/person/document_vatid", current_user.document_vatid
     axresp.add_value "http://openid.net/schema/person/guid", current_user.id.to_s
     axresp.add_value "http://openid.net/schema/namePerson/first", current_user.first_name
     axresp.add_value "http://openid.net/schema/namePerson/last", current_user.last_name
     axresp.add_value "http://openid.net/schema/contact/internet/email", current_user.email
+    axresp.add_value "http://openid.net/schema/birthDate/birthYear", current_user.born_at.year
+    axresp.add_value "http://openid.net/schema/birthDate/birthMonth", current_user.born_at.month
+    axresp.add_value "http://openid.net/schema/birthDate/birthday", current_user.born_at.day
+    axresp.add_value "http://openid.net/schema/contact/postaladdress/home", current_user.address
+    axresp.add_value "http://openid.net/schema/contact/postalcode/home", current_user.postal_code
 
     if current_user.phone
       axresp.add_value "http://openid.net/schema/contact/phone/default", current_user.phone
