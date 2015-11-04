@@ -384,7 +384,7 @@ class Collaboration < ActiveRecord::Base
     if self.is_payable?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
-      if order and order.is_chargable?
+      if order and order.is_chargeable?
         if self.is_credit_card?
           order.redsys_send_request if self.is_active?
         else
