@@ -101,6 +101,7 @@ class MicrocreditLoan < ActiveRecord::Base
     else
       self.user_data = {first_name: first_name, last_name: last_name, email: email, address: address, postal_code: postal_code, town: town, province: province, country: country}.to_yaml
     end
+    self.document_vatid.upcase!.strip!
   end
 
   def update_counted_at
