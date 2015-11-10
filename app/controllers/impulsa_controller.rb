@@ -68,6 +68,7 @@ class ImpulsaController < ApplicationController
   def categories
     @categories_state = @edition.impulsa_edition_categories.state.select {|c| c.impulsa_projects.public_visible.count>0}
     @categories_territorial = @edition.impulsa_edition_categories.territorial.select {|c| c.impulsa_projects.public_visible.count>0}
+    @categories_internal = @edition.impulsa_edition_categories.internal.select {|c| c.impulsa_projects.public_visible.count>0}
   end
 
   def category
