@@ -66,6 +66,8 @@ class OpenIdController < ApplicationController
         add_sreg(oidreq, oidresp)
         # ditto pape
         add_pape(oidreq, oidresp)
+        # add the attribute exchange request if requested
+        #add_ax(oidreq, oidresp)
 
       else
         oidresp = oidreq.answer(false, open_id_create_url)
@@ -121,6 +123,8 @@ class OpenIdController < ApplicationController
         add_sreg(oidreq, oidresp)
         # ditto pape
         add_pape(oidreq, oidresp)
+        # add the attribute exchange request if requested
+        #add_ax(oidreq, oidresp)
 
       else
         oidresp = oidreq.answer(false, open_id_create_url)
@@ -221,7 +225,17 @@ EOS
 
     return if sregreq.nil?
 
-    sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name }
+    sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name, 'remote_id' => current_user.id.to_s,
+                  'first_name' => current_user.first_name, 'last_name' => current_user.last_name, 'dob'=> current_user.born_at.to_s,
+                  'guid' => current_user.document_vatid, 'address' => current_user.address, 'postcode' => current_user.postal_code }
+
+    sreg_data["phone"] = current_user.phone if current_user.phone
+
+    if current_user.vote_town
+      sreg_data["town"] = current_user.vote_town.scan(/\d/).join
+      sreg_data["district"] = current_user.vote_town.scan(/\d/).join if current_user.vote_district
+    end
+
     sregresp = OpenID::SReg::Response.extract_response(sregreq, sreg_data)
     oidresp.add_extension(sregresp)
   end
