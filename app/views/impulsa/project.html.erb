@@ -35,8 +35,10 @@
     <!-- izquierda -->
     <div class="col-bhome-1a6">
 
+    <% if @project.territorial_context.present? %>
     <h4>Contexto territorial</h4>
     <%= content_tag :p, @project.territorial_context %>
+    <% end %>
 
     <% if @project.impulsa_edition_topics.any? %>
     <h4>Temáticas:
@@ -45,16 +47,25 @@
 	<p></p>
     <% end %>
 
-    <h4>Descripci&oacute;n del proyecto</h4>
+    <% if @project.long_description.present? %>
+    <h4>Descripción del proyecto</h4>
     <%= content_tag :p, @project.long_description %>
+    <% end %>
+
+    <% if @project.aim.present? %>
     <h4>Objetivos del proyecto</h4>
     <%= content_tag :p, @project.aim %>
+    <% end %>
 
+    <% if @project.metodology.present? %>
     <h4>Metodología del proyecto y fomento de la participación</h4>
     <%= content_tag :p, @project.metodology %>
+    <% end %>
 
+    <% if @project.population_segment.present? %>
     <h4>Segmento poblacional objetivo del proyecto</h4>
     <%= content_tag :p, @project.population_segment %>
+    <% end %>
 
 
     </div>
