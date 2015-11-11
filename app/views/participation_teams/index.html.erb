@@ -33,7 +33,7 @@
         <% @participation_teams.each do |participation_team| %>
           <div class="team">
             <h3><%= participation_team.name %></h3>
-            <p><%- participation_team.description %></p>
+            <%- participation_team.description %>
             <% if current_user.in_participation_team? participation_team.id %>
               <%= link_to "Dejar", participation_teams_leave_path(team_id: participation_team.id), class: "button button-danger", method: :put %>
             <% else %>
