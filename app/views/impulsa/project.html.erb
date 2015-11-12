@@ -35,9 +35,9 @@
     <!-- izquierda -->
     <div class="col-bhome-1a6">
 
-    <% if @project.authority_name.present? %>
+    <% if @project.authority.present? %>
     <h4>Órgano que presenta la iniciativa</h4>
-    <%= content_tag :p, @project.authority_name %>
+    <%= content_tag :p, @project.authority %>
     <% end %>
 
     <% if @project.territorial_context.present? %>
