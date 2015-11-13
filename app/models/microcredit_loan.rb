@@ -235,6 +235,7 @@ class MicrocreditLoan < ActiveRecord::Base
   def renew! new_campaign
     new_loan = self.dup
     new_loan.microcredit = new_campaign
+    new_loan.counted_at = DateTime.now
     new_loan.save!
     self.transferred_to = new_loan
     self.returned_at = DateTime.now
