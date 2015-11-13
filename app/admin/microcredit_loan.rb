@@ -1,6 +1,6 @@
 ActiveAdmin.register MicrocreditLoan do
 
-  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at
+  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :transferred_to_id
 
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
@@ -31,6 +31,14 @@ ActiveAdmin.register MicrocreditLoan do
     column :counted_at
     column :discarded_at
     column :returned_at
+    column :transferred_to do |loan|
+      link_to(loan.transferred_to.microcredit.title, admin_microcredit_loan_path(loan.transferred_to)) if loan.transferred_to
+    end
+    column :original_loans do |loan|
+      loan.original_loans.map do |l|
+        link_to(l.microcredit.title, admin_microcredit_loan_path(l))
+      end.join(" ").html_safe
+    end
     actions defaults: true do |loan|    
       if loan.confirmed_at.nil?
         link_to('Confirmar', confirm_admin_microcredit_loan_path(loan), method: :post, data: { confirm: "Por favor, no utilices este botón antes de aparezca el ingreso en la cuenta bancaria. ¿Estas segura de querer confirmar la recepción de este microcrédito?" })
@@ -93,7 +101,19 @@ ActiveAdmin.register MicrocreditLoan do
             link_to("Enlace a renovar microcrédito para campaña #{next_campaign.title}", loans_renewal_microcredit_loan_path(next_campaign.id, microcredit_loan.id, microcredit_loan.unique_hash))
           end
         end
-      end 
+      end
+      if microcredit_loan.transferred_to
+        row :transferred_to do |loan|
+          link_to(loan.transferred_to.microcredit.title, admin_microcredit_loan_path(loan.transferred_to))
+        end
+      end
+      if microcredit_loan.original_loans.any?
+        row :original_loans do |loan|
+          loan.original_loans.map do |l|
+            link_to(l.microcredit.title, admin_microcredit_loan_path(l))
+          end.join(" ").html_safe
+        end
+      end
       row :updated_at
     end
     active_admin_comments
@@ -110,6 +130,7 @@ ActiveAdmin.register MicrocreditLoan do
       f.input :counted_at
       f.input :discarded_at
       f.input :returned_at
+      f.input :transferred_to_id
     end
     f.actions
   end
@@ -123,6 +144,8 @@ ActiveAdmin.register MicrocreditLoan do
   scope :not_discarded
   scope :returned
   scope :not_returned
+  scope :transferred
+  scope :renewal
   
   filter :id
   filter :user_last_name_or_user_data_cont, label: "Apellido"
@@ -131,6 +154,8 @@ ActiveAdmin.register MicrocreditLoan do
   filter :created_at
   filter :counted_at
   filter :amount
+  filter :transferred_to_microcredit_id_eq, as: :select, collection: Microcredit.all
+  filter :original_loans_microcredit_id_eq, as: :select, collection: Microcredit.all
 
   action_item(:confirm_loan, only: :show) do
     if microcredit_loan.confirmed_at.nil?

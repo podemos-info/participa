@@ -232,6 +232,10 @@ es:
         confirmed_at: "Fecha de confirmación"
         counted_at: "Fecha de aparición en la web"
         discarded_at: "Fecha de descarte"
+        returned_at: "Fecha de devolución"
+        original_loans: "Suscripción original"
+        transferred_to: "Transferido a"
+        transferred_to_id: "Transferido a"
         all: "Todos"
         id: "Identificador"
       renewals:
