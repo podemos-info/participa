@@ -148,6 +148,7 @@ ActiveAdmin.register MicrocreditLoan do
   scope :renewal
   
   filter :id
+  filter :id_in, as: :string, label: "Lista de IDs"
   filter :user_last_name_or_user_data_cont, label: "Apellido"
   filter :microcredit
   filter :document_vatid
@@ -181,6 +182,28 @@ ActiveAdmin.register MicrocreditLoan do
     link_to('Descargar PDF', download_pdf_admin_microcredit_loan_path(resource))
   end
 
+  batch_action :return_batch, if: proc{ params[:scope]=="confirmed" } do |ids|
+    ok = true
+    MicrocreditLoan.transaction do
+      MicrocreditLoan.where(id:ids).each do |ml|
+        ok ||= ml.return!
+      end
+      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como devueltas.") and return if ok
+    end
+    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como devueltas.")
+  end
+
+  batch_action :confirm_batch, if: proc{ params[:scope]=="not_confirmed" } do |ids|
+    ok = true
+    MicrocreditLoan.transaction do
+      MicrocreditLoan.where(id:ids).each do |ml|
+        ok ||= m.confirm!
+      end
+      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como confirmadas.") and return if ok
+    end
+    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.")
+  end
+
   member_action :count, :method => [:post] do
     m = MicrocreditLoan.find(params[:id])
     if request.post? and m.counted_at.nil?
@@ -197,15 +220,14 @@ ActiveAdmin.register MicrocreditLoan do
 
   member_action :confirm, :method => [:post, :delete] do
     m = MicrocreditLoan.find(params[:id])
-    if request.post? and m.confirmed_at.nil?
-      m.discarded_at = nil
-      m.confirmed_at = DateTime.now
-    elsif request.delete? and not m.confirmed_at.nil?
-      m.confirmed_at = nil
+    res = false
+    if request.post? 
+      res = m.confirm!
+    elsif request.delete?
+      res = m.unconfirm!
     end
     
-    if m.save
-      m.update_counted_at
+    if res
       flash[:notice] = "La recepción del microcrédito ha sido confirmada."
     else
       flash[:notice] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
@@ -257,5 +279,13 @@ ActiveAdmin.register MicrocreditLoan do
     @brand_config = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]
 
     render pdf: 'IngresoMicrocreditosPodemos.pdf', template: 'microcredit/email_guide.pdf.erb', encoding: "UTF-8"
+  end
+
+  controller do
+    before_filter :multiple_id_search, :only => :index
+
+    def multiple_id_search
+      params[:q][:id_in] = params[:q][:id_in].split unless params[:q].nil? or params[:q][:id_in].nil?
+    end
   end
 end
