@@ -245,4 +245,27 @@ class MicrocreditLoan < ActiveRecord::Base
   def renewable?
     !self.confirmed_at.nil? && self.returned_at.nil? && self.microcredit.renewable?
   end
+
+  def return!
+    return false if self.confirmed_at.nil? || !self.returned_at.nil?
+    self.returned_at = DateTime.now
+    save!
+    return true
+  end
+
+  def confirm!
+    return false if !self.confirmed_at.nil?
+    self.discarded_at = nil
+    self.confirmed_at = DateTime.now
+    m.save!
+    m.update_counted_at
+    return true
+  end
+
+  def unconfirm!
+    return false if self.confirmed_at.nil?
+    self.confirmed_at = nil
+    save!
+    return true
+  end
 end
