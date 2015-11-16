@@ -67,7 +67,7 @@ class OpenIdController < ApplicationController
         # ditto pape
         add_pape(oidreq, oidresp)
         # add the attribute exchange request if requested
-        add_ax(oidreq, oidresp)
+        #add_ax(oidreq, oidresp)
 
       else
         oidresp = oidreq.answer(false, open_id_create_url)
@@ -124,7 +124,7 @@ class OpenIdController < ApplicationController
         # ditto pape
         add_pape(oidreq, oidresp)
         # add the attribute exchange request if requested
-        add_ax(oidreq, oidresp)
+        #add_ax(oidreq, oidresp)
 
       else
         oidresp = oidreq.answer(false, open_id_create_url)
@@ -219,44 +219,23 @@ EOS
     render :text => yadis, :content_type => 'application/xrds+xml'
   end
 
-  def add_ax(oidreq, oidresp)
-    # check for Attribute Exchange arguments and respond
-    axreq = OpenID::AX::FetchRequest.from_openid_request(oidreq)
-
-    return if axreq.nil?
-
-    axresp = OpenID::AX::FetchResponse.new
-    axresp.add_value "http://openid.net/schema/person/document_vatid", current_user.document_vatid
-    axresp.add_value "http://openid.net/schema/person/guid", current_user.id.to_s
-    axresp.add_value "http://openid.net/schema/namePerson/first", current_user.first_name
-    axresp.add_value "http://openid.net/schema/namePerson/last", current_user.last_name
-    axresp.add_value "http://openid.net/schema/contact/internet/email", current_user.email
-    axresp.add_value "http://openid.net/schema/birthDate/birthYear", current_user.born_at.year
-    axresp.add_value "http://openid.net/schema/birthDate/birthMonth", current_user.born_at.month
-    axresp.add_value "http://openid.net/schema/birthDate/birthday", current_user.born_at.day
-    axresp.add_value "http://openid.net/schema/contact/postaladdress/home", current_user.address
-    axresp.add_value "http://openid.net/schema/contact/postalcode/home", current_user.postal_code
-
-    if current_user.phone
-      axresp.add_value "http://openid.net/schema/contact/phone/default", current_user.phone
-    end
-
-    if current_user.vote_town
-      axresp.add_value "http://openid.net/schema/contact/city/home", current_user.vote_town.scan(/\d/).join
-      if current_user.vote_district
-        axresp.add_value "http://openid.net/schema/contact/district/home", current_user.vote_town.scan(/\d/).join
-      end
-    end
-    oidresp.add_extension(axresp)
-  end
-
   def add_sreg(oidreq, oidresp)
     # check for Simple Registration arguments and respond
     sregreq = OpenID::SReg::Request.from_openid_request(oidreq)
 
     return if sregreq.nil?
 
-    sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name } 
+    sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name, 'remote_id' => current_user.id.to_s,
+                  'first_name' => current_user.first_name, 'last_name' => current_user.last_name, 'dob'=> current_user.born_at.to_s,
+                  'guid' => current_user.document_vatid, 'address' => current_user.address, 'postcode' => current_user.postal_code }
+
+    sreg_data["phone"] = current_user.phone if current_user.phone
+
+    if current_user.vote_town
+      sreg_data["town"] = current_user.vote_town.scan(/\d/).join
+      sreg_data["district"] = current_user.vote_town.scan(/\d/).join if current_user.vote_district
+    end
+
     sregresp = OpenID::SReg::Response.extract_response(sregreq, sreg_data)
     oidresp.add_extension(sregresp)
   end

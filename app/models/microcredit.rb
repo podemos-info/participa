@@ -80,14 +80,14 @@ class Microcredit < ActiveRecord::Base
   end
 
   def current_percent amount
-    current = campaign_status.collect {|x| x[4] if x[0]==amount and (not x[3] or x[2])} .compact.sum
-    current_counted = campaign_status.collect {|x| x[4] if x[0]==amount and x[2]} .compact.sum
+    current = campaign_status.collect {|x| x[4] if x[0]==amount and not x[1] and (not x[3] or x[2])} .compact.sum
+    current_counted = campaign_status.collect {|x| x[4] if x[0]==amount and not x[1] and x[2]} .compact.sum
     current==0 ? 0.0 : 1.0*current_counted/current
   end
 
   def next_percent amount
-    current = campaign_status.collect {|x| x[4] if x[0]==amount and (not x[3] or x[2])} .compact.sum
-    current_counted = campaign_status.collect {|x| x[4] if x[0]==amount and x[2]} .compact.sum
+    current = campaign_status.collect {|x| x[4] if x[0]==amount and not x[1] and (not x[3] or x[2])} .compact.sum
+    current_counted = campaign_status.collect {|x| x[4] if x[0]==amount and not x[1] and x[2]} .compact.sum
     current==0 ? 1.0 : (current_counted+1.0)/(current)
   end
 
