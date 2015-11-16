@@ -188,9 +188,10 @@ ActiveAdmin.register MicrocreditLoan do
       MicrocreditLoan.where(id:ids).each do |ml|
         ok ||= ml.return!
       end
-      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como devueltas.") and return if ok
+      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como devueltas.") if ok
     end
-    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como devueltas.")
+
+    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como devueltas.") if !ok
   end
 
   batch_action :confirm_batch, if: proc{ params[:scope]=="not_confirmed" } do |ids|
@@ -199,9 +200,9 @@ ActiveAdmin.register MicrocreditLoan do
       MicrocreditLoan.where(id:ids).each do |ml|
         ok ||= m.confirm!
       end
-      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como confirmadas.") and return if ok
+      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como confirmadas.") if ok
     end
-    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.")
+    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.") if !ok
   end
 
   member_action :count, :method => [:post] do
