@@ -263,7 +263,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def unconfirm!
-    return false !self.confirmed_at.nil?
+    return false if self.confirmed_at.nil?
     self.confirmed_at = nil
     save!
     return true
