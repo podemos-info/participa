@@ -149,6 +149,7 @@ ActiveAdmin.register MicrocreditLoan do
   
   filter :id
   filter :id_in, as: :string, label: "Lista de IDs"
+  filter :id_not_in, as: :string, label: "Lista de IDs (excluídos)"
   filter :user_last_name_or_user_data_cont, label: "Apellido"
   filter :microcredit
   filter :document_vatid
@@ -287,6 +288,7 @@ ActiveAdmin.register MicrocreditLoan do
 
     def multiple_id_search
       params[:q][:id_in] = params[:q][:id_in].split unless params[:q].nil? or params[:q][:id_in].nil?
+      params[:q][:id_not_in] = params[:q][:id_not_in].split unless params[:q].nil? or params[:q][:id_not_in].nil?
     end
   end
 end
