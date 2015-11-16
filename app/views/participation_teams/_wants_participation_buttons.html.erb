@@ -1,5 +1,1 @@
-<% if current_user.participation_team_at.nil? %>
-  <%= link_to "¡Únete!", participation_teams_join_path, class: "button", method: :put %>
-<% else %>
-  <%= link_to "Darme de baja", participation_teams_leave_path, class: "button button-danger", method: :put %>
-<% end %>
+<%= link_to "¡Únete!", "https://equipos.podemos.info/auth/participa?locale=es", class: "button", method: :put %>
