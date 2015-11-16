@@ -31,7 +31,7 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :not_discarded, -> { where(discarded_at:nil) }
   scope :discarded, -> { where.not(discarded_at:nil) }
-  scope :not_returned, -> { where(returned_at:nil) }
+  scope :not_returned, -> { confirmed.where(returned_at:nil) }
   scope :returned, -> { where.not(returned_at:nil) }
   scope :transferred, -> { where.not(transferred_to_id:nil)}
   scope :renewal, -> { joins(:original_loans).distinct(:microcredit_id)}
