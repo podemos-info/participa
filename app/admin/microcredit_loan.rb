@@ -1,4 +1,5 @@
 ActiveAdmin.register MicrocreditLoan do
+  config.per_page = 100
 
   permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :transferred_to_id
 
@@ -187,7 +188,7 @@ ActiveAdmin.register MicrocreditLoan do
     ok = true
     MicrocreditLoan.transaction do
       MicrocreditLoan.where(id:ids).each do |ml|
-        ok ||= ml.return!
+        ok &&= ml.return!
       end
       redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como devueltas.") if ok
     end
@@ -199,7 +200,7 @@ ActiveAdmin.register MicrocreditLoan do
     ok = true
     MicrocreditLoan.transaction do
       MicrocreditLoan.where(id:ids).each do |ml|
-        ok ||= m.confirm!
+        ok &&= m.confirm!
       end
       redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como confirmadas.") if ok
     end
