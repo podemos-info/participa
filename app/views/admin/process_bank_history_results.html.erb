@@ -2,30 +2,26 @@
   form method: :post do
     table do
       tr do
-        th "Referencia Banco<br/>&nbsp;".html_safe
-        th "Total Banco<br/>&nbsp;".html_safe
-        th "Concepto<br/>Id Suscripción".html_safe
-        th "&nbsp;<br/>Nombre Suscripción".html_safe
-        th "&nbsp;<br/>Total Suscripción".html_safe
-        th "&nbsp;<br/>¿Confirmar?".html_safe
+        th "Concepto<br/>Nombre Suscripción".html_safe
+        th "&nbsp;<br/>Id Suscripción".html_safe
+        th "Total".html_safe
+        th "Referencia Banco<br/>¿Confirmar?".html_safe
       end
 
       loans.each do |block, info|
         info.each do |line|
           tr do
-            td line[:movement][:reference_1]
-            td line[:movement][:amount]
-            td colspan: 4 do
-              line[:movement][:concept].encode
+            td colspan: 2 do
+              line[:movement][:concept]
             end
+            td line[:movement][:amount]
+            td line[:movement][:reference_1]
           end
           if line[:loans]
             line[:loans].each do |loan|
               tr do
-                td ""
-                td ""
-                td link_to(loan.id, admin_microcredit_loan_path(loan.id))
                 td "#{loan.first_name} #{loan.last_name}"
+                td link_to(loan.id, admin_microcredit_loan_path(loan.id))
                 td loan.amount
                 td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]")
               end
