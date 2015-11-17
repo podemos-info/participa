@@ -202,15 +202,15 @@ ActiveAdmin.register Microcredit do
     norma43[:movements].each do |movement|
       temp = []
       sure = false
-      muser = movement[:concept][0..42]
-      mconcept = movement[:concept][42..-1]
+      muser = movement[:concept][0..37].strip.downcase
+      mconcept = movement[:concept][38..-1]
       id, mname = mconcept.split("-") if mconcept
       if mconcept && mname && mname.downcase==resource.title.downcase && id.to_i>0
         sure = true
         temp = resource.loans.where(id: id.to_i)
       end
 
-      if sure and temp.length==1 && temp.amount == m.amount && "#{temp.last_name} #{temp.first_name}".downcase[0..42].strip==muser.downcase.strip
+      if sure and temp.length==1 && temp.amount == m.amount && "#{temp.last_name} #{temp.first_name}".downcase[0..37].strip==muser
         loans[:sure] << { loan: temp, movement: movement }
         next
       end
