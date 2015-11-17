@@ -1,5 +1,5 @@
 <%= Arbre::Context.new({}, self) do
-  form method: :post do
+  form method: :post, action: batch_action_admin_microcredit_loans_path do
     table do
       loans.each do |block, info|
         info.each do |line|
@@ -17,12 +17,17 @@
                 td "#{loan.first_name} #{loan.last_name}"
                 td link_to(loan.id, admin_microcredit_loan_path(loan.id))
                 td number_to_euro(loan.amount*100)
-                td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]")
+                if loan.confirmed_at.nil?
+                  td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]")
+                else
+                  td loan.confirmed_at.to_s(:short)
+                end
               end
             end
           end
         end
       end
     end
+    a href: "#", class: "batch_action", "data-action"=>"confirm_batch" do "Enviar" end
   end
 end %>
