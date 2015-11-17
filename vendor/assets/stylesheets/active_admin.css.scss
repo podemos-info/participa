@@ -23,5 +23,8 @@ table.index_table td {
 .sidebar_section.panel .filter_form_field label {
     color: #000;
 }
-// ... add this in app/assets/stylesheets/active_admin.css.scss
+
+table.index_table th a {
+  white-space: normal !important;
+}
 

@@ -5,8 +5,8 @@ class MicrocreditLoan < ActiveRecord::Base
   belongs_to :microcredit
   belongs_to :user, -> { with_deleted }
 
-  belongs_to :transferred_to, inverse_of: :original_loan, class_name: "MicrocreditLoan"
-  has_many :original_loan, inverse_of: :transferred_to, class_name: "MicrocreditLoan"
+  belongs_to :transferred_to, inverse_of: :original_loans, class_name: "MicrocreditLoan"
+  has_many :original_loans, inverse_of: :transferred_to, class_name: "MicrocreditLoan", foreign_key: :transferred_to_id
 
   attr_accessor :first_name, :last_name, :email, :address, :postal_code, :town, :province, :country
 
@@ -31,9 +31,11 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :confirmed, -> { where.not(confirmed_at:nil) }
   scope :not_discarded, -> { where(discarded_at:nil) }
   scope :discarded, -> { where.not(discarded_at:nil) }
-  scope :not_returned, -> { where(returned_at:nil) }
+  scope :not_returned, -> { confirmed.where(returned_at:nil) }
   scope :returned, -> { where.not(returned_at:nil) }
-  
+  scope :transferred, -> { where.not(transferred_to_id:nil)}
+  scope :renewal, -> { joins(:original_loans).distinct(:microcredit_id)}
+
   scope :renewables, -> { confirmed.joins(:microcredit).merge(Microcredit.renewables).distinct }
   scope :not_renewed, -> { renewables.not_returned }
 
@@ -100,6 +102,10 @@ class MicrocreditLoan < ActiveRecord::Base
       self.user_data = nil
     else
       self.user_data = {first_name: first_name, last_name: last_name, email: email, address: address, postal_code: postal_code, town: town, province: province, country: country}.to_yaml
+    end
+    if self.document_vatid
+      self.document_vatid.upcase!
+      self.document_vatid.strip!
     end
   end
 
@@ -229,6 +235,7 @@ class MicrocreditLoan < ActiveRecord::Base
   def renew! new_campaign
     new_loan = self.dup
     new_loan.microcredit = new_campaign
+    new_loan.counted_at = DateTime.now
     new_loan.save!
     self.transferred_to = new_loan
     self.returned_at = DateTime.now
@@ -237,5 +244,28 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def renewable?
     !self.confirmed_at.nil? && self.returned_at.nil? && self.microcredit.renewable?
+  end
+
+  def return!
+    return false if self.confirmed_at.nil? || !self.returned_at.nil?
+    self.returned_at = DateTime.now
+    save!
+    return true
+  end
+
+  def confirm!
+    return false if !self.confirmed_at.nil?
+    self.discarded_at = nil
+    self.confirmed_at = DateTime.now
+    m.save!
+    m.update_counted_at
+    return true
+  end
+
+  def unconfirm!
+    return false if self.confirmed_at.nil?
+    self.confirmed_at = nil
+    save!
+    return true
   end
 end

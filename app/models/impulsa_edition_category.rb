@@ -17,6 +17,7 @@ class ImpulsaEditionCategory < ActiveRecord::Base
   scope :non_authors, -> { where.not only_authors:true }
   scope :state, -> { where category_type: CATEGORY_TYPES[:state] }
   scope :territorial, -> { where category_type: CATEGORY_TYPES[:territorial] }
+  scope :internal, -> { where category_type: CATEGORY_TYPES[:internal] }
   
   CATEGORY_TYPES = {
     internal: 0, 
