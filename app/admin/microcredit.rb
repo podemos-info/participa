@@ -196,7 +196,6 @@ ActiveAdmin.register Microcredit do
   end
 
   member_action :process_bank_history, :method => :post do
-    require 'norma43'
     norma43 = Norma43.read(params["process_bank_history"]["file"].tempfile)
 
     loans = { sure: [], doubts: [], empty: [] }
