@@ -202,7 +202,7 @@ ActiveAdmin.register MicrocreditLoan do
     ok = true
     MicrocreditLoan.transaction do
       MicrocreditLoan.where(id:ids).each do |ml|
-        ok &&= m.confirm!
+        ok &&= ml.confirm!
       end
       redirect_to(collection_path, notice: "Las suscripciones han sido marcadas como confirmadas.") if ok
     end
