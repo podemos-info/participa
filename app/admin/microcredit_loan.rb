@@ -6,8 +6,10 @@ ActiveAdmin.register MicrocreditLoan do
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
 
+  batch_action :destroy, if: proc{can? :admin, MicrocreditLoan}
+
   index do
-    selectable_column if can? :admin, MicrocreditLoan
+    selectable_column
     id_column
     column :microcredit do |loan|
       if can? :show, loan.microcredit
