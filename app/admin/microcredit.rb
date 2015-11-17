@@ -154,6 +154,10 @@ ActiveAdmin.register Microcredit do
     end
   end
 
+  sidebar "Procesar movimientos del banco", 'data-panel' => :collapsed, :only => :show, priority: 1 do  
+    render("admin/process_bank_history")
+  end 
+
   action_item(:change_phase, only: :show) do
     if resource.phase_remaining.sum(&:last)<=0
       link_to('Cambiar de fase', change_phase_admin_microcredit_path(resource), method: :post, data: { confirm: "¿Estas segura de que deseas cambiar de fase en esta campaña?" })
@@ -190,5 +194,35 @@ ActiveAdmin.register Microcredit do
       [:contact_phone]
     end
   end
+
+  member_action :process_bank_history, :method => :post do
+    require 'norma43'
+    norma43 = Norma43.read(params["process_bank_history"]["file"].tempfile)
+
+    loans = { sure: [], doubts: [], empty: [] }
+    norma43[:movements].each do |movement|
+      temp = []
+      sure = false
+      muser = movement[:concept][0..42]
+      mconcept = movement[:concept][42..-1]
+      id, mname = mconcept.split("-") if mconcept
+      if mconcept && mname && mname.downcase==resource.title.downcase && id.to_i>0
+        sure = true
+        temp = resource.loans.where(id: id.to_i)
+      end
+
+      if sure and temp.length==1 && temp.amount == m.amount && "#{temp.first_name} #{temp.last_name}".downcase[0..42].strip==muser.downcase.strip
+        loans[:sure] << { loan: temp, movement: movement }
+      elsif mconcept
+        ids = mconcept.scan(/(\d{1,7})/).flatten
+        temp = resource.loans.where(id: ids.map(&:to_i))
+        loans[:doubts] << { loans: temp, movement: movement }
+      else
+        loans[:empty] << { movement: movement }
+      end
+    end
+
+    render "admin/process_bank_history_results", locals: { loans: loans }
+  end  
 
 end
