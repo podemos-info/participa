@@ -10,7 +10,7 @@
         th "&nbsp;<br/>¿Confirmar?".html_safe
       end
 
-      loans.each do |type, info|
+      loans.each do |block, info|
         info.each do |line|
           tr do
             td line[:movement][:reference_1]
@@ -24,10 +24,10 @@
               tr do
                 td ""
                 td ""
-                td link_to loan.id, admin_microcredit_loan_path(loan.id)
+                td link_to(loan.id, admin_microcredit_loan_path(loan.id))
                 td "#{loan.first_name} #{loan.last_name}"
                 td loan.amount
-                td input(type: :checkbox, value: loan.id, checked: (type==:sure), name: "collection_selection[]")
+                td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]")
               end
             end
           end

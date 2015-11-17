@@ -221,7 +221,7 @@ ActiveAdmin.register Microcredit do
         if temp.length>0
           loans[:doubts] << { loans: temp, movement: movement }
           next
-        end      
+        end
       end
 
       loans[:empty] << { movement: movement }
