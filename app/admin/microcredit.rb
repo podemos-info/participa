@@ -210,7 +210,7 @@ ActiveAdmin.register Microcredit do
         temp = resource.loans.where(id: id.to_i)
       end
 
-      if sure and temp.length==1 && temp.amount == m.amount && "#{temp.last_name} #{temp.first_name}".downcase[0..37].strip==muser
+      if sure and temp.length==1 && temp.amount == movement[:amount] && "#{temp.last_name} #{temp.first_name}".downcase[0..37].strip==muser
         loans[:sure] << { loan: temp, movement: movement }
         next
       end
