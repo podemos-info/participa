@@ -16,7 +16,7 @@
             td line[:movement][:reference_1]
             td line[:movement][:amount]
             td colspan: 4 do
-              line[:movement][:concept]
+              line[:movement][:concept].encode
             end
           end
           if line[:loans]
