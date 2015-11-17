@@ -17,6 +17,12 @@ GIT
       sass-rails
 
 GIT
+  remote: git://github.com/podemos-info/norma43.git
+  revision: 2780f8206b3b73e56062604e285bfc30a91a7998
+  specs:
+    norma43 (0.3)
+
+GIT
   remote: git://github.com/radar/paranoia.git
   revision: 3b6ff6ec3125c57025c07838ad85fcd8e93c211a
   branch: rails4
@@ -470,6 +476,7 @@ DEPENDENCIES
   minitest-rails-capybara
   minitest-reporters
   newrelic_rpm
+  norma43!
   paper_trail
   paperclip
   paranoia!
