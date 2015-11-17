@@ -1,0 +1,38 @@
+<%= Arbre::Context.new({}, self) do
+  form method: :post do
+    table do
+      tr do
+        th "Referencia Banco<br/>&nbsp;".html_safe
+        th "Total Banco<br/>&nbsp;".html_safe
+        th "Concepto<br/>Id Suscripción".html_safe
+        th "&nbsp;<br/>Nombre Suscripción".html_safe
+        th "&nbsp;<br/>Total Suscripción".html_safe
+        th "&nbsp;<br/>¿Confirmar?".html_safe
+      end
+
+      loans.each do |type, info|
+        info.each do |line|
+          tr do
+            td line[:movement][:reference_1]
+            td line[:movement][:amount]
+            td colspan: 4 do
+              line[:movement][:concept]
+            end
+          end
+          if line[:loans]
+            line[:loans].each do |loan|
+              tr do
+                td ""
+                td ""
+                td link_to loan.id, admin_microcredit_loan_path(loan.id)
+                td "#{loan.first_name} #{loan.last_name}"
+                td loan.amount
+                td input(type: :checkbox, value: loan.id, checked: (type==:sure), name: "collection_selection[]")
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end %>
