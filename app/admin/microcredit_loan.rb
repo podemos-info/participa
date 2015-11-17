@@ -6,8 +6,10 @@ ActiveAdmin.register MicrocreditLoan do
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
 
+  batch_action :destroy, if: proc{can? :admin, MicrocreditLoan}
+
   index do
-    selectable_column if can? :admin, MicrocreditLoan
+    selectable_column
     id_column
     column :microcredit do |loan|
       if can? :show, loan.microcredit
@@ -190,10 +192,10 @@ ActiveAdmin.register MicrocreditLoan do
       MicrocreditLoan.where(id:ids).each do |ml|
         ok &&= ml.return!
       end
-      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como devueltas.") if ok
+      redirect_to(collection_path, notice: "Las suscripciones han sido marcadas como devueltas.") if ok
     end
 
-    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como devueltas.") if !ok
+    redirect_to(collection_path, warning: "Ha ocurrido un error y las suscripciones no han sido marcadas como devueltas.") if !ok
   end
 
   batch_action :confirm_batch, if: proc{ params[:scope]=="not_confirmed" } do |ids|
@@ -202,9 +204,9 @@ ActiveAdmin.register MicrocreditLoan do
       MicrocreditLoan.where(id:ids).each do |ml|
         ok &&= m.confirm!
       end
-      redirect_to(collection_path, alert: "Las suscripciones han sido marcadas como confirmadas.") if ok
+      redirect_to(collection_path, notice: "Las suscripciones han sido marcadas como confirmadas.") if ok
     end
-    redirect_to(collection_path, alert: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.") if !ok
+    redirect_to(collection_path, warning: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.") if !ok
   end
 
   member_action :count, :method => [:post] do
@@ -215,7 +217,7 @@ ActiveAdmin.register MicrocreditLoan do
       if m.save
         flash[:notice] = "El microcrédito ha sido modificado y ahora se cuenta en la web."
       else
-        flash[:notice] = "El microcrédito no no ha sido modificado: #{m.errors.messages.to_s}"
+        flash[:warning] = "El microcrédito no no ha sido modificado: #{m.errors.messages.to_s}"
       end
     end
     redirect_to :back
@@ -233,7 +235,7 @@ ActiveAdmin.register MicrocreditLoan do
     if res
       flash[:notice] = "La recepción del microcrédito ha sido confirmada."
     else
-      flash[:notice] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
+      flash[:warning] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
     end
     redirect_to :back
   end
@@ -245,7 +247,7 @@ ActiveAdmin.register MicrocreditLoan do
     if m.save
       flash[:notice] = "El microcrédito ha sido descartado."
     else
-      flash[:notice] = "El microcrédito no ha sido descartado: #{m.errors.messages.to_s}"
+      flash[:warning] = "El microcrédito no ha sido descartado: #{m.errors.messages.to_s}"
     end
     redirect_to :back
   end
