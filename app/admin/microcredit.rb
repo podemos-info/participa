@@ -210,15 +210,21 @@ ActiveAdmin.register Microcredit do
         temp = resource.loans.where(id: id.to_i)
       end
 
-      if sure and temp.length==1 && temp.amount == m.amount && "#{temp.first_name} #{temp.last_name}".downcase[0..42].strip==muser.downcase.strip
+      if sure and temp.length==1 && temp.amount == m.amount && "#{temp.last_name} #{temp.first_name}".downcase[0..42].strip==muser.downcase.strip
         loans[:sure] << { loan: temp, movement: movement }
-      elsif mconcept
+        next
+      end
+
+      if mconcept
         ids = mconcept.scan(/(\d{1,7})/).flatten
         temp = resource.loans.where(id: ids.map(&:to_i))
-        loans[:doubts] << { loans: temp, movement: movement }
-      else
-        loans[:empty] << { movement: movement }
+        if temp.length>0
+          loans[:doubts] << { loans: temp, movement: movement }
+          next
+        end      
       end
+
+      loans[:empty] << { movement: movement }
     end
 
     render "admin/process_bank_history_results", locals: { loans: loans }
