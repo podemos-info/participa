@@ -1,34 +1,35 @@
 <%= Arbre::Context.new({}, self) do
-  form method: :post do
+  form method: :post, action: batch_action_admin_microcredit_loans_path do
     table do
-      tr do
-        th "Concepto<br/>Nombre Suscripción".html_safe
-        th "&nbsp;<br/>Id Suscripción".html_safe
-        th "Total".html_safe
-        th "Referencia Banco<br/>¿Confirmar?".html_safe
-      end
-
       loans.each do |block, info|
         info.each do |line|
           tr do
-            td colspan: 2 do
-              line[:movement][:concept]
-            end
-            td line[:movement][:amount]
-            td line[:movement][:reference_1]
+            th "Banco"
+            th line[:movement][:concept][0..37]
+            th line[:movement][:concept][38..-1]
+            th number_to_euro(line[:movement][:amount]*100)
+            th line[:movement][:reference_1]
           end
           if line[:loans]
             line[:loans].each do |loan|
               tr do
+                th "Suscripción"
                 td "#{loan.first_name} #{loan.last_name}"
                 td link_to(loan.id, admin_microcredit_loan_path(loan.id))
-                td loan.amount
-                td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]")
+                td number_to_euro(loan.amount*100)
+                if loan.confirmed_at.nil?
+                  td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]")
+                else
+                  td loan.confirmed_at.to_s(:short)
+                end
               end
             end
           end
         end
       end
     end
+
+    input type: "hidden", name: "batch_action", value: "confirm_batch"
+    input type: "submit", value: "confirmar", "data-confirm" => "¿Estas segura?"
   end
 end %>
