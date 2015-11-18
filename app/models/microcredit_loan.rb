@@ -257,8 +257,8 @@ class MicrocreditLoan < ActiveRecord::Base
     return false if !self.confirmed_at.nil?
     self.discarded_at = nil
     self.confirmed_at = DateTime.now
-    m.save!
-    m.update_counted_at
+    self.save!
+    self.update_counted_at
     return true
   end
 
