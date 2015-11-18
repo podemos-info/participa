@@ -270,6 +270,11 @@ ActiveAdmin.register MicrocreditLoan do
     column :created_at
     column :counted_at
     column :confirmed_at
+
+    column :phone do |loan|
+      loan.user.phone if loan.user
+    end
+
     column :renewal_link do |loan|
       if loan.renewable?
         next_campaign = Microcredit.non_finished.first
