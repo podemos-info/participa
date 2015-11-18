@@ -5,8 +5,8 @@
         info.each do |line|
           tr do
             th "Banco"
-            th line[:movement][:concept][0..37]
-            th line[:movement][:concept][38..-1]
+            th line[:movement][:concept].encode[0..37]
+            th line[:movement][:concept].encode[38..-1]
             th number_to_euro(line[:movement][:amount]*100)
             th line[:movement][:reference_1]
           end
