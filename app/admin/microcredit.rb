@@ -212,7 +212,11 @@ ActiveAdmin.register Microcredit do
       end
 
       if sure and temp.length==1 && temp.first.amount == movement[:amount] && ("#{temp.first.last_name} #{temp.first.first_name}".downcase[0..37].strip==muser || "#{temp.first.first_name} #{temp.first.last_name}".downcase[0..37].strip==muser)
-        loans[:sure] << { loans: temp, movement: movement }
+        if temp.first.confirmed_at.nil?
+          loans[:sure] << { loans: temp, movement: movement }
+        else
+          loans[:confirmed] << { loans: temp, movement: movement }
+        end
         next
       end
 
