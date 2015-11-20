@@ -198,7 +198,7 @@ ActiveAdmin.register Microcredit do
   member_action :process_bank_history, :method => :post do
     norma43 = Norma43.read(params["process_bank_history"]["file"].tempfile)
 
-    loans = { sure: [], doubts: [], empty: [] }
+    loans = { sure: [], doubts: [], empty: [], confirmed: [] }
     norma43[:movements].each do |movement|
       temp = []
       sure = false
