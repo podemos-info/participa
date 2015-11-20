@@ -1,34 +1,39 @@
 <%= Arbre::Context.new({}, self) do
   form method: :post, action: batch_action_admin_microcredit_loans_path do
-    table class: "index_table" do
-      tr do
-        th "Tipo"
-        th "Nombre"
-        th "Identificador"
-        th "Monto"
-        th "Confirmar"
-      end
-      loans.each do |block, info|
-        info.each do |line|
-          row_cycle = cycle('odd', 'even')
-          tr class: row_cycle do
-            td "Banco", class: "col"
-            td line[:movement][:concept].encode[0..37], class: "col"
-            td line[:movement][:concept].encode[38..-1], class: "col"
-            td number_to_euro(line[:movement][:amount]*100), class: "col"
-            td line[:movement][:reference_1], class: "col"
-          end
-          if line[:loans]
-            line[:loans].each do |loan|
+    loans.each do |block, info|
+      div class: "panel", "data-panel" => (block==:sure) ? "" : "collapsed", "data-panel-id"=>:block do
+        h3 t("microcredit.common.#{block}") + " (#{info.count})"
+        div class: "panel_contents" do
+          table class: "index_table" do
+            tr do
+              th "Tipo"
+              th "Nombre"
+              th "Identificador"
+              th "Monto"
+              th "Confirmar"
+            end
+            info.each do |line|
+              row_cycle = cycle('odd', 'even')
               tr class: row_cycle do
-                td "Suscripción", class: "col"
-                td "#{loan.first_name} #{loan.last_name}", class: "col"
-                td link_to(loan.id, admin_microcredit_loan_path(loan.id)), class: "col"
-                td number_to_euro(loan.amount*100), class: "col"
-                if loan.confirmed_at.nil?
-                  td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]"), class: "col"
-                else
-                  td loan.confirmed_at.to_s(:short), class: "col"
+                td "Banco", class: "col"
+                td line[:movement][:concept].encode[0..37], class: "col"
+                td line[:movement][:concept].encode[38..-1], class: "col"
+                td number_to_euro(line[:movement][:amount]*100), class: "col"
+                td line[:movement][:reference_1], class: "col"
+              end
+              if line[:loans]
+                line[:loans].each do |loan|
+                  tr class: row_cycle do
+                    td "Suscripción", class: "col"
+                    td "#{loan.first_name} #{loan.last_name}", class: "col"
+                    td link_to(loan.id, admin_microcredit_loan_path(loan.id)), class: "col"
+                    td number_to_euro(loan.amount*100), class: "col"
+                    if loan.confirmed_at.nil?
+                      td input(type: :checkbox, value: loan.id, checked: (block==:sure), name: "collection_selection[]"), class: "col"
+                    else
+                      td loan.confirmed_at.to_s(:short), class: "col"
+                    end
+                  end
                 end
               end
             end
