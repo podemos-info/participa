@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_admin_user
-    current_user if signed_in? && (current_user.is_admin? || current_user.microcredits_admin?)
+    current_user if user_signed_in? && (current_user.is_admin? || current_user.microcredits_admin?)
   end
 
   def current_user
