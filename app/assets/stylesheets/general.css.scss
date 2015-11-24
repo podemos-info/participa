@@ -367,7 +367,7 @@ header & menu
 .menu ul li{
   font-size: 10px;
   margin-top: 8px;
-  width:14.22%;
+  width:12.22%;
   float:left;
   text-align: center;
   position: relative;
@@ -755,7 +755,11 @@ tools
 microcredits
 ----------------------------------- */
 .microcredits-wrapper {
-
+  img {
+    text-align:center;
+    display: block;
+    margin: 40px auto 0;
+  }
   &.completed {
     >div {
       margin: 3em 1em;
@@ -782,9 +786,13 @@ microcredits
     font-size: 1.4em;
   }
 
-  li {
+  ul li {
     margin: 0em 0em 1em 1em;
     list-style-type: circle;
+  }
+  ol li {
+    margin: 0em 0em 1em 2em;
+    list-style-type: number;
   }
 
   .control-label {
@@ -793,10 +801,11 @@ microcredits
   }
   .radio_options {
     float: left;
-    input, div {
+    input, label {
       width:200px;
       height:40px;
       line-height:40px;
+      display: block;
     }
 
     input {
@@ -805,19 +814,19 @@ microcredits
       cursor:pointer;
       opacity:0;
 
-      &:checked + div, &:checked:hover + div {
+      &:checked + label, &:checked:hover + label {
         border: 1px solid #269283;
         i {
           visibility: visible;
           color: #269283;
         }
       }
-      &:hover + div {
+      &:hover + label {
         border: 1px solid #97c2b8;
         i { visibility: visible; color: #97c2b8; }
       }
 
-      & + div {
+      & + label {
         position: relative;
         font-size: 2em;
         border: 1px solid white;
@@ -836,10 +845,10 @@ microcredits
           bottom: 0px;
         }
       }
-      &.disabled + div {
+      &.disabled + label {
         color: #e96161;
       }
-      &.disabled:hover + div {
+      &.disabled:hover + label {
         border: 1px solid #e96161;
         i { visibility: visible; color: #e96161; }
       }

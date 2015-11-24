@@ -24,6 +24,7 @@
     <%= render partial: 'subregion_select', locals:{country: "ES", province: user_location[:vote_province], required: false, field: :vote_province, title:"Provincia de participación"} %>
     <%= render partial: 'municipies_select', locals:{country: "ES", province: user_location[:vote_province], town: user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de participación"}%>
 
+    <%= f.input :vote_district %>
     <%= f.input :postal_code %>
     <%= f.input :circle %>
     <%= f.input :wants_newsletter %>

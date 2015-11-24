@@ -21,7 +21,7 @@ ActiveAdmin.register User do
   scope :banned
   scope :verified
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district
 
   index do
     selectable_column
@@ -123,9 +123,9 @@ ActiveAdmin.register User do
           status_tag("NO", :error)
         end
       end
-
       row :vote_place do
-        user.vote_autonomy_name + " / " + user.vote_province_name + " / " + user.vote_town_name
+        district = user.vote_district ? " / distrito #{user.vote_district}" : ""
+        "#{user.vote_autonomy_name} / #{user.vote_province_name} / #{user.vote_town_name}#{district}"
       end
       row :vote_in_spanish_island? do
         if user.vote_in_spanish_island?
@@ -134,7 +134,6 @@ ActiveAdmin.register User do
           status_tag("NO", :error)
         end
       end
-
       row :admin
       row :circle
       row :created_at
@@ -197,6 +196,9 @@ ActiveAdmin.register User do
 
   filter :email
   filter :document_vatid
+  filter :document_vatid_in, as: :string, label: "Lista de DNI o NIE"
+  filter :id_in, as: :string, label: "Lista de IDs"
+  filter :email_in, as: :string, label: "Lista de emails"
   filter :admin
   filter :first_name
   filter :last_name
@@ -233,6 +235,7 @@ ActiveAdmin.register User do
     column :email
     column :document_vatid
     column :country_name
+    column("vote_autonomy") { |u| u.vote_autonomy_name }
     column :province_name
     column :town_name
     column :address
@@ -246,6 +249,7 @@ ActiveAdmin.register User do
     column :current_sign_in_ip
     column :last_sign_in_ip
     column :circle
+    column :deleted_at
   end
 
   action_item(:restore, only: :show) do
@@ -285,6 +289,22 @@ ActiveAdmin.register User do
     u.banned = false
     u.save
     flash[:notice] = "El usuario ha sido modificado"
+    redirect_to action: :show
+  end
+
+  action_item(:impulsa_author, only: :show) do
+    if user.impulsa_author?
+      link_to('Quitar autor Impulsa', impulsa_author_admin_user_path(user), method: :delete, data: { confirm: "¿Estas segura de que este usuario ya no puede crear proyectos especiales en Impulsa?" })
+    else
+      link_to('Autor Impulsa', impulsa_author_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de que este usuario puede crear proyectos especiales en Impulsa?" })
+    end
+  end
+
+  member_action :impulsa_author, :method => [:post, :delete] do
+    u = User.find( params[:id] )
+    u.impulsa_author = request.post?
+    u.save
+    flash[:notice] = "El usuario ya #{"no" if request.delete?} puede crear proyectos especiales en Impulsa"
     redirect_to action: :show
   end
 
@@ -331,12 +351,42 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar "CRUZAR DATOS", 'data-panel' => :collapsed, :only => :index, priority: 100 do  
+    render("admin/fill_csv_form")
+  end
+
+  collection_action :fill_csv, :method => :post do
+    require 'podemos_export'
+    file = params["fill_csv"]["file"]
+    subaction = params["commit"]
+#    csv = fill_data file.read, User.confirmed
+    csv = fill_data file.read, User
+    if subaction == "Descargar CSV"
+      send_data csv["results"].encode('utf-8'),
+        type: 'text/csv; charset=utf-8; header=present',
+        disposition: "attachment; filename=participa.podemos.#{Date.today.to_s}.csv"
+    else
+      flash[:notice] = "Usuarios procesados: #{csv['processed'].join(',')}. Total: #{csv['processed'].count}"
+      redirect_to action: :index, "[q][id_in]": "#{csv['processed'].join(' ')}"
+    end
+  end
+
   controller do
     def show
       @user = User.with_deleted.find(params[:id])
       @versions = @user.versions
       @user = @user.versions[params[:version].to_i].reify if params[:version]
       show! #it seems to need this
+    end
+
+    before_filter :multi_values_filter, :only => :index
+    private
+
+    def multi_values_filter
+      #params[:q][:document_vatid_cont_any] = params[:q][:document_vatid_cont_any].split unless params[:q].nil? or params[:q][:document_vatid_cont_any].nil?
+      params[:q][:id_in] = params[:q][:id_in].split unless params[:q].nil? or params[:q][:id_in].nil?
+      params[:q][:document_vatid_in] = params[:q][:document_vatid_in].split unless params[:q].nil? or params[:q][:document_vatid_in].nil?
+      params[:q][:email_in] = params[:q][:email_in].split unless params[:q].nil? or params[:q][:email_in].nil?
     end
   end
 
@@ -398,6 +448,10 @@ ActiveAdmin.register User do
           end
         end
       end
+      div class: :filter_form_field do
+        label "Fecha de versión (lento)"
+        input name: :version_at
+      end
       div class: :buttons do
         input :type => :submit, value: "Crear informe"
       end
@@ -408,6 +462,7 @@ ActiveAdmin.register User do
     Report.create do |r|
       r.title = params[:title]
       r.query = params[:query]
+      r.version_at = params[:version_at]
       r.main_group = ReportGroup.find(params[:main_group].to_i) if params[:main_group].to_i>0
       r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_a
     end

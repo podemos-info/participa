@@ -5,7 +5,7 @@ class Collaboration < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  belongs_to :user
+  belongs_to :user, -> { with_deleted }
 
   # FIXME: this should be orders for the inflextions
   # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
@@ -64,7 +64,8 @@ class Collaboration < ActiveRecord::Base
 
   scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
   scope :town_cc, -> { created.where(for_town_cc: true, for_autonomy_cc: true)}
-  
+  scope :island_cc, -> { created.where(for_island_cc: true)}
+
   after_create :set_initial_status
   before_save :check_spanish_bic
 
@@ -225,6 +226,7 @@ class Collaboration < ActiveRecord::Base
       if self.for_autonomy_cc and self.user and !self.user.vote_autonomy_code.empty?
         o.autonomy_code = self.user.vote_autonomy_code
         o.town_code = self.user.vote_town if self.for_town_cc
+        o.island_code = self.user.vote_island_code if self.for_island_cc
       end
     end
     order
@@ -382,7 +384,7 @@ class Collaboration < ActiveRecord::Base
     if self.is_payable?
       order = self.get_orders[0] # get orders for current month
       order = order[-1] if order # get last order for current month
-      if order and order.is_chargable?
+      if order and order.is_chargeable?
         if self.is_credit_card?
           order.redsys_send_request if self.is_active?
         else
@@ -394,7 +396,7 @@ class Collaboration < ActiveRecord::Base
 
   def get_bank_data date
     order = self.last_order_for date
-    if order and order.payable_at.unique_month == date.unique_month and order.is_chargable?
+    if order and order.payable_at.unique_month == date.unique_month and order.is_chargeable?
       col_user = self.get_user
       [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
           col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 

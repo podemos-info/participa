@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  
   ensure_security_headers
 
   # Prevent CSRF attacks by raising an exception.

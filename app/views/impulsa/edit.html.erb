@@ -1,0 +1,89 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <%= info_box do %>
+        <% if @project.saveable? %>
+          <%= content_tag(:p, t("podemos.impulsa.fixes_text")) if @project.fixes?%>
+          <%= content_tag(:p, t("podemos.impulsa.save_draft_text", save_draft:t("podemos.impulsa.save_draft"))) if @project.allow_save_draft? %>
+          <%= content_tag(:p, t("podemos.impulsa.mark_for_review_text", mark_for_review:t("podemos.impulsa.mark_for_review"))) %>
+        <% else %>
+          <%= if @project.spam?
+            content_tag(:p, t("podemos.impulsa.spam_text"))
+          elsif @project.validable?
+            content_tag(:p, t("podemos.impulsa.validable_text"))
+          elsif @project.invalidated?
+            content_tag(:p, t("podemos.impulsa.invalidated_text", invalid_reasons: @project.evaluator2_invalid_reasons))
+          elsif @project.validated?
+            if @project.impulsa_edition_category.needs_preselection?
+              content_tag(:p, t("podemos.impulsa.validated1_text", voting_dates: @project.voting_dates, winners: @project.impulsa_edition_category.winners, prewinners: @project.impulsa_edition_category.prewinners))
+            else
+              content_tag(:p, t("podemos.impulsa.validated2_text", voting_dates: @project.voting_dates))
+            end
+          elsif @project.fixes?
+            content_tag(:p, t("podemos.impulsa.non_fixes_text"))
+          else
+            content_tag(:p, t("podemos.impulsa.reviewing_text"))
+          end %>
+        <% end %>
+      <% end %>
+      <%= errors_in_form @project %>
+      <%= semantic_form_for @project, url: modify_impulsa_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+
+        <%= render partial: "form", locals: { f: f } %>
+        <fieldset>
+          <% if @project.user_view_field? :terms_of_service %>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:terms_of_service) %>
+                <%= field_notice_box %>
+            <% end %>
+
+            <%= f.label :terms_of_service %>
+            <div class="input-box">
+              <%= f.check_box :terms_of_service, required: true, class: 'checkbox' %>
+              <p class="text-xl"><%= t("podemos.impulsa.terms_of_service", link: @edition.legal_link).html_safe %></p>
+            </div>
+          </div>
+          <% end %>
+
+          <% if @project.user_view_field? :data_truthfulness %>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:data_truthfulness) %>
+                <%= field_notice_box %>
+            <% end %>
+
+            <%= f.label :data_truthfulness %>
+            <div class="input-box">
+              <%= f.check_box :data_truthfulness, required: true, class: 'checkbox' %>
+              <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
+            </div>
+          </div>
+          <% end %>
+
+          <% if @project.user_view_field? :content_rights %>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:content_rights) %>
+                <%= field_notice_box %>
+            <% end %>
+
+            <%= f.label :content_rights %>
+            <div class="input-box">
+              <%= f.check_box :content_rights, required: true, class: 'checkbox' %>
+              <p class="text-xl"><%= t("podemos.impulsa.content_rights") %></p>
+            </div>
+          </div>
+          <% end %>        
+        </fieldset>
+        <% if @project.saveable? %>
+          <%= f.actions class: 'enter' do %>
+            <%= f.action :submit, :label=>t("podemos.impulsa.save_draft"), :as => :input, button_html: {class: 'button'} if @project.allow_save_draft? %>
+            <%= f.action :submit, :label=>t("podemos.impulsa.mark_for_review"), :as => :input, button_html: {class: 'button button-danger'} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

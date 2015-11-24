@@ -14,6 +14,9 @@ class Ability
       can :admin, User
       can :admin, Microcredit
       can :admin, MicrocreditLoan
+      can :admin, ImpulsaProject
+      can :admin, ImpulsaEdition
+
       can :manage, Post
 
       if !user.superadmin?
@@ -31,6 +34,11 @@ class Ability
 
       can [:read], MicrocreditLoan if user.microcredits_admin?
       can [:read, :update], Microcredit if user.microcredits_admin?
+
+      can [:show, :read], ImpulsaEdition if user.impulsa_admin?
+      can [:show, :read, :update], ImpulsaProject if user.impulsa_admin?
+      
+      can [:read, :create], ActiveAdmin::Comment if user.microcredits_admin? || user.impulsa_admin?
 
       can [:show, :update], User, id: user.id
       can :show, Notice

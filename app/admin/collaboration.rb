@@ -7,7 +7,7 @@ def show_order o, html_output = true
               "o"
             elsif o.was_returned?
               "d"
-            elsif o.is_chargable? or not o.persisted?
+            elsif o.is_chargeable? or not o.persisted?
               "_"
             else
               "~"
@@ -40,7 +40,7 @@ ActiveAdmin.register Collaboration do
   menu :parent => "Colaboraciones"
 
   permit_params  :user_id, :status, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, 
-                :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc
+    :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc, :for_island_cc
 
   actions :all, :except => [:new]
 
@@ -58,6 +58,7 @@ ActiveAdmin.register Collaboration do
   scope :deleted
   scope :autonomy_cc
   scope :town_cc
+  scope :island_cc
 
   index do
     selectable_column
@@ -84,6 +85,7 @@ ActiveAdmin.register Collaboration do
     column :territorial do |collaboration|
       status_tag("Cca") if collaboration.for_autonomy_cc
       status_tag("Ccm") if collaboration.for_autonomy_cc and collaboration.for_town_cc
+      status_tag("Cci") if collaboration.for_island_cc
     end
     column :info do |collaboration|
       status_tag("BIC", :error) if collaboration.is_bank? and collaboration.calculate_bic.nil?
@@ -150,6 +152,12 @@ ActiveAdmin.register Collaboration do
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today-1.month) }
         """.html_safe
       end
+      li do
+        """Insular:
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today-1.month) }
+        """.html_safe
+      end
     end
   end
   
@@ -169,6 +177,9 @@ ActiveAdmin.register Collaboration do
     end
   end
 
+  filter :user_first_name, as: :string
+  filter :user_last_name, as: :string
+  filter :iban_account, as: :string
   filter :user_document_vatid_or_non_user_document_vatid, as: :string
   filter :user_email_or_non_user_email, as: :string
   filter :status, :as => :select, :collection => Collaboration::STATUS.to_a
@@ -178,6 +189,7 @@ ActiveAdmin.register Collaboration do
   filter :created_at
   filter :for_autonomy_cc
   filter :for_town_cc
+  filter :for_island_cc
 
   show do |collaboration|
     attributes_table do
@@ -214,10 +226,12 @@ ActiveAdmin.register Collaboration do
       row :territorial do
         status_tag("Cc autonómico") if collaboration.for_autonomy_cc
         status_tag("Cc municipal") if collaboration.for_autonomy_cc and collaboration.for_town_cc
+        status_tag("Cc insular") if collaboration.for_island_cc
       end
       row :info do
         status_tag("Cca", :ok) if collaboration.for_autonomy_cc
         status_tag("Ccm", :ok) if collaboration.for_autonomy_cc and collaboration.for_town_cc
+        status_tag("Cci", :ok) if collaboration.for_island_cc
         status_tag("Activo", :ok) if collaboration.is_active?
         status_tag("Alertas", :warn) if collaboration.has_warnings?
         status_tag("Errores", :error) if collaboration.has_errors?
@@ -282,6 +296,7 @@ ActiveAdmin.register Collaboration do
       f.input :redsys_expiration
       f.input :for_autonomy_cc
       f.input :for_town_cc
+      f.input :for_island_cc
     end
     f.actions
   end
@@ -336,25 +351,17 @@ ActiveAdmin.register Collaboration do
     items.each do |item|
       begin
         code = item.at_xpath("StsRsnInf/Rsn/Cd").text
-        col_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text.to_i
-        date = Date.parse item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text
-        iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text
-        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text
+        order_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text[4..-1].to_i
+        #date = item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text.to_date
+        iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text.upcase
+        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text.upcase
         fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
-        orders = nil
-        if date > Date.civil(2015,1,31)
-          col = Collaboration.with_deleted.joins(:order).find_by_id(col_id)
-        else
-          cols = Collaboration.with_deleted.joins(:user).eager_load(:order).where(iban_account: iban).select do |c|
-            I18n.transliterate(c.get_non_user.full_name).upcase == fullname
-          end
-          col = cols.first if cols.length == 1
-        end
-        if col
-          orders = col.get_orders(date, date)[0]
-          if orders[-1].payment_identifier == "#{iban}/#{bic}"
-            if orders[-1].is_paid?
-              if orders[-1].mark_as_returned! code
+
+        order= Order.find(order_id)
+        if order
+          if order.payment_identifier.upcase == "#{iban}/#{bic}"
+            if order.is_paid?
+              if order.mark_as_returned! code
                 result = :ok
               else
                 result = :no_mark
@@ -368,7 +375,8 @@ ActiveAdmin.register Collaboration do
         else
           result = :no_collaboration
         end
-        messages << { result: result, collaboration: (col or col_id), date: date, ret_code: code, orders: orders, account: "#{iban}/#{bic}", fullname: fullname }
+
+          messages << { result: result, order: (order), ret_code: code, account: "#{iban}/#{bic}", fullname:                   fullname }
       rescue
         messages << { result: :error, info: item, message: $!.message }
       end
@@ -504,5 +512,27 @@ ActiveAdmin.register Collaboration do
     send_data csv.encode('utf-8'),
       type: 'text/tsv; charset=utf-8; header=present',
       disposition: "attachment; filename=podemos.for_town_cc.#{Date.today.to_s}.csv"
+  end
+
+  collection_action :download_for_island, :method => :get do
+    date = Date.parse params[:date]
+    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+
+    islands = Hash[Podemos::GeoExtra::ISLANDS.values]
+    islands_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+    Order.paid.where.not(autonomy_code:nil).where.not(island_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+      islands_data[k[0]][k[1].to_i] = v
+    end
+
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      csv << ["Isla"] + months.values
+      islands_data.sort_by(&:first).each do |k,v|
+        csv << [islands[k] ] + months.keys.map{|k| v[k]/100}
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+      type: 'text/tsv; charset=utf-8; header=present',
+      disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
   end
 end

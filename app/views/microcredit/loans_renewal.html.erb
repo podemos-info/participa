@@ -1,0 +1,60 @@
+<% content_for :title, t('microcredit.common.title', name: @brand_config["name"]) %>
+<div class="content-content microcredits-wrapper">
+
+<h2><%= t 'microcredit.common.title', name: @brand_config["name"]%> - <%=@microcredit.title%></h2>
+<% if @renewal.nil? %>
+  <p>No hemos encontrado microcréditos para renovar.</p>
+<% else %>
+  <p>Gracias a tu confianza y por ayudarnos a financiar nuestras campañas lejos de bancos y entidades financiera, sino de gente como tú.</p>
+  <p>Para renovar tus suscripciones:<ol><li>Elige el microcrédito que deseas renovar</li><li>Acepta la extinción y renovación de la suscripción así como las condiciones del nuevo contrato para apoyar la campaña a las elecciones generales, marcando las dos casillas que aparecen a continuación.</li></ol>
+  <% if @renewal.other_loans.any? %>
+  <p>Además, tienes microcréditos suscritos en otras campañas que también puedes renovar: <% @renewal.other_loans.each do |loan| %>
+        <%= link_to( loan.microcredit.title, loans_renewal_microcredit_loan_path(@microcredit.id, loan.id, loan.unique_hash))%>
+      <%end %>.</p>
+  <% end %>
+  <%= errors_in_form @renewal %>
+  <%= semantic_form_for @renewal, as: :renewals, url: loans_renew_microcredit_loan_path(@microcredit.id, @renewal.loan.id, @renewal.loan.unique_hash, brand: @brand), html: {method: :post, autocomplete: 'off'} do |f| %>
+    <fieldset>
+      <div class="inputlabel-box">
+        <% if @renewal.errors.include?(:loan_renewals) %>
+        <%= field_notice_box %>
+        <% end %>
+        <%= f.input :loan_renewals, as: :check_boxes, collection: (@renewal.recently_renewed_loans+@renewal.loans).map{|l| [ "#{l.microcredit.title} - #{number_to_euro(l.amount*100,0)}#{" (ya renovado)" if !l.renewable?}", l.id]}, disabled: @renewal.recently_renewed_loans.map(&:id), hint: "Selecciona los que deseas renovar." %>
+      </div>
+      <% if @renewal.loans.any? %>
+        <div class="inputlabel-box">
+          <% if @renewal.errors.include?(:renewal_terms) %>
+              <%= field_notice_box %>
+          <% end %>
+          <div class="input-box">
+            <%= f.check_box :renewal_terms, class: 'checkbox' %>
+            <%= f.label :renewal_terms, class: 'text-xl' do %>
+              <%= t '.renewal_terms_message', name: @brand_config["name"]%>
+              <%= link_to t('.renewal_terms_link', name: @brand_config["name"]), @renewal.loan.microcredit.renewal_terms.url, target: "_blank"%>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="inputlabel-box">
+          <% if @renewal.errors.include?(:terms_of_service) %>
+              <%= field_notice_box %>
+          <% end %>
+          <div class="input-box">
+            <%= f.check_box :terms_of_service, class: 'checkbox' %>
+            <%= f.label :terms_of_service, class: 'text-xl' do %>
+              <%= t '.terms_of_service_message', name: @brand_config["name"], campaign: @microcredit.title %>
+              <%= link_to t('.terms_of_service_link', name: @brand_config["name"], campaign: @microcredit.title ), @microcredit.agreement_link, target: "_blank"%>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+    <% if @renewal.loans.any? %>
+      <%= f.actions class: 'enter' do %>
+        <%= f.action :submit, label: t(".renew"), as: :input, button_html: {class: 'button'} %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+<% end %>
+</div>

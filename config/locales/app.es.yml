@@ -1,4 +1,11 @@
-es: 
+es:
+  meta:
+    language_name: "Español"
+    languages:
+      ca: "catalán"
+      es: "español"
+      eu: "vasco"
+      ga: "gallego"
   errors:
     show:
       "404":
@@ -12,6 +19,7 @@ es:
       not_valid_nif: El DNI no es válido
       not_valid_cif: El CIF no es válido
       not_valid_nie: El NIE no es válido
+      url: "no es una dirección web válida (debe comenzar con http:// o https://)"
   activerecord:
     models:
       user: Usuario
@@ -42,6 +50,14 @@ es:
       pages: Formularios
       category: Categoría
       categories: Categorías
+      impulsa_edition: Edición de Impulsa
+      impulsa_editions: Ediciones de Impulsa
+      impulsa_edition_topic: Temática de Impulsa
+      impulsa_edition_topics: Temáticas de Impulsa
+      impulsa_edition_category: Categoría de Impulsa
+      impulsa_edition_categories: Categorías de Impulsa
+      impulsa_project: Proyecto de Impulsa
+      impulsa_projects: Proyectos de Impulsa
     errors:
       models: 
         user:
@@ -77,8 +93,115 @@ es:
               blank: "Debes indicar tu contraseña para validar los cambios."
             password_confirmation: "Contraseña (repetir)"
             wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
+        impulsa_edition:
+          attributes:
             terms_of_service: "Acepto las condiciones generales"
     attributes:
+      impulsa_edition:
+        name: "Nombre"
+        start_at: "Fecha de inicio"
+        new_projects_until: "Cierre de inscripciones"
+        review_projects_until: "Fecha de fin revisiones"
+        validation_projects_until: "Fecha de fin validación"
+        votings_start_at: "Fecha de inicio de las votaciones"
+        ends_at: "Fecha de final de las votaciones"
+        publish_results_at: "Fecha de publicación de los resultados"
+        legal: "Bases"
+        schedule_model: "Modelo de cronograma"
+        activities_resources_model: "Modelo de actividades y recursos"
+        requested_budget_model: "Modelo de solicitud de presupuesto"
+        monitoring_evaluation_model: "Modelo de seguimiento y evaluación"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_edition_topic:
+        impulsa_edition: "Edición de Impulsa"
+        name: "Nombre"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_edition_category:
+        impulsa_edition: "Edición de Impulsa"
+        name: "Nombre"
+        category_type: "Tipo de categoría"
+        category_type_name: "Tipo de categoría"
+        winners: "Ganadores"
+        prize: "Premio"
+        only_authors: "Sólo autores"
+        coofficial_language: "Idioma cooficial"
+        coofficial_language_name: "Idioma cooficial"
+        territories: "Territorios"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_project:
+        impulsa_edition: "Edición de Impulsa"
+        impulsa_edition_category: "Categoría de Impulsa"
+        impulsa_edition_topics: "Temáticas"
+        impulsa_edition_topic_ids: "Temáticas"
+        name: "Título"
+        user: "Usuario"
+        status: "Estado"
+        status_name: "Estado"
+        additional_contact: "Información de contacto (nombre y apellidos, telefono, email)"
+        counterpart_information: "Información adicional sobre la contraparte"
+        authority: "Órgano que presenta la iniciativa"
+        authority_name: "Nombre y apellidos del representante del órgano"
+        authority_phone: "Teléfono del representante del órgano"
+        authority_email: "Email del representante del órgano"
+        organization_type: "Tipo de solicitante"
+        organization_name: "Nombre"
+        organization_address: "Dirección postal completa (vía, número, ciudad y código postal)"
+        organization_web: "Página web o blog"
+        organization_nif: "NIF"
+        scanned_nif: "Tarjeta del NIF"
+        organization_year: "Año de creación"
+        organization_legal_name: "Nombre y apellidos del representante legal"
+        organization_legal_nif: "DNI/NIE de la persona representante legal"
+        organization_mission: "Misión de la organización"
+        career: "Trayectoria"
+        counterpart: "Contrapartes"
+        short_description: "Descripción breve"
+        territorial_context: "Contexto territorial"
+        long_description: "Descripción"
+        aim: "Objetivos"
+        metodology: "Metodología y fomento de la participación"
+        population_segment: "Segmento poblacional objetivo"
+        video_link: "Enlace al vídeo"
+        coofficial_translation: "Traducir"
+        coofficial_name: "Título traducido"
+        coofficial_short_description: "Descripción breve traducida"
+        coofficial_video_link: "Enlace al vídeo traducido"
+        coofficial_territorial_context: "Contexto territorial traducido"
+        coofficial_long_description: "Descripción traducida"
+        coofficial_aim: "Objetivos traducidos"
+        coofficial_metodology: "Metodología y fomento de la participación traducidas"
+        coofficial_population_segment: "Segmento poblacional objetivo traducido"
+        coofficial_organization_mission: "Misión de la organización traducida"
+        coofficial_career: "Trayectoria traducida"
+        logo: "Foto o logo"
+        endorsement: "Aval de un Círculo, de un Consejo Ciudadano o de una Secretaría General de Podemos"
+        register_entry: "Inscripción de la entidad solicitante en el registro correspondiente"
+        statutes: "Copia de los Estatutos de la entidad solicitante debidamente registrados"
+        responsible_nif: "NIF del responsable (gestor de proyectos o solicitante)"
+        fiscal_obligations_certificate: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente"
+        labor_obligations_certificate: "Certificado de la Seguridad Social de obligaciones laborales al corriente"
+        last_fiscal_year_report_of_activities: "Memoria de actividades del último ejercicio"
+        last_fiscal_year_annual_accounts: "Cuentas anuales del último ejercicio"
+        home_certificate: "Certificado de inscripción en el Consulado español del país de su residencia actual"
+        bank_certificate: "Certificado bancario de titularidad de una cuenta en una entidad financiera resi­dente en España en la que se abonará la ayuda"
+        schedule: "Cronograma y fases" 
+        activities_resources: "Actividades y Recursos"
+        total_budget: "Presupuesto total"
+        requested_budget: "Presupuesto solicitado"
+        monitoring_evaluation: "Seguimiento y evaluación"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+        terms_of_service: "Términos legales"
+        data_truthfulness: "Veracidad de los datos"
+        content_rights: "Propiedad intelectual"
+        votes: "Votos"
       microcredit:
         id: "Identificador"
         starts_at: "Fecha de inicio"
@@ -109,8 +232,16 @@ es:
         confirmed_at: "Fecha de confirmación"
         counted_at: "Fecha de aparición en la web"
         discarded_at: "Fecha de descarte"
+        returned_at: "Fecha de devolución"
+        original_loans: "Suscripción original"
+        transferred_to: "Transferido a"
+        transferred_to_id: "Transferido a"
         all: "Todos"
         id: "Identificador"
+      renewals:
+        loan_renewals: "Microcréditos suscritos"
+        renewal_terms: "Condiciones generales de extinción del anterior microcrédito y renovación de la suscripción"
+        terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
       collaboration: 
         user: "Usuario"
         created_at: "Creada el"
@@ -306,6 +437,8 @@ mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
 <p> Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.  </p>
 <p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>
 <p><a href='/es/preguntas-frecuentes'>¿Problemas con la inscripción?</a></p>
+<p><strong>Si no recibes el correo electrónico para completar la inscripción, recuerda comprobar 
+si ha llegado a la carpeta de <em>correo electrónico no deseado</em>, <em>promociones</em> o <em>spam</em>.</strong></p>
 "
       terms_of_service:
         title: 'Condiciones generales'
@@ -566,6 +699,104 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
 </p>
 <p> <b> PODEMOS Partido Político<br> CIF G86976941<br> Versión 7 de octubre de 2014 12:55<br> </b> </p>
 '
+    impulsa:
+      title: "IMPULSA"
+      upcoming: "La próxima edición de IMPULSA comenzará el %{start_at}."
+      noupcoming: "La convocatoria de una nueva edición de IMPULSA se realizará próximamente, mantente informado."
+      text_limit: "máximo %{limit} caracteres"
+      model_link: "Utiliza este fichero como modelo."
+      file_validation: "el fichero subido debe ser %{file_type} y su tamaño no puede superar %{file_size}"
+      file_type_image: "una imagen (ficheros .jpeg, .jpg, .png o .gif)"
+      file_type_spreadsheet: "una hoja de cálculo Excel (ficheros .xls, .xlsx o .ods)"
+      file_type_document: "un documento Word (ficheros .doc, .docx o .odt)"
+      file_type_pdf: "un documento PDF (ficheros .pdf)"
+      admin_section: "Datos para administración"
+      project_data_section: "Datos del proyecto"
+      organization_data_section: "Datos de la organización que desarrollará el proyecto"
+      organization_data_internal_section: "Datos de la organización premiada"
+      documents_section: "Documentos solicitados"
+      project_progress_section: "Desarrollo del proyecto"
+      impulsa_edition_category_extra: "En esta edición de IMPULSA puedes presentar tu proyecto a diferentes categorías, comprueba los requisitos y condiciones en las %{legal} para saber en cual hacerlo."
+      legal: "bases de la convocatoria"
+      organization_mission_extra: "Describe cuál es la misión de la organización y las actividades principales a las que se dedica."
+      short_description_extra: "En este apartado deberá aparecer la descripción que se desee exponer en la página web de Impulsa para dar a conocer el proyecto."
+      short_description_internal_extra: "En este apartado deberá aparecer la descripción que se desee exponer en la página web de Impulsa para dar a conocer la iniciativa premiada."
+      last_year_extra: "Sólo en el caso de que la entidad tenga una antigüedad de más de un año."
+      counterpart_extra: "Si el proyecto se realiza junto a otras entidades, se solicitará también información sobre dichas entidades para confirmar el cumplimiento del código ético."
+      territorial_context_extra: "Indicar nombre del municipio, provincia y/ o comunidad autónoma en que se desarrolla (en caso de desarrollarse en un barrio o distrito específico, indicar también), número de habitantes de la zona en que se realizará el proyecto y contexto general en la zona de realización del proyecto (prestando atención a elementos de desigualdad social, exclusión,...)"
+      long_description_extra: "Describe las necesidades que atiende el proyecto, las razones por las que es importante atender estas necesidades y cómo va a responder el proyecto a estas necesidades."
+      aim_extra: "Describe el objetivo general, que es la situación deseable a cuya realización contribuirá el proyecto a largo plazo, y los objetivos específicos, que se derivan del objetivo general y lo concretan, señalando el camino que hay que seguir para conseguirlos y expresando los cambios o efectos más concretos que se pretenden alcanzar."
+      metodology_extra: "Describe cómo se va a desarrollar el proyecto y qué estrategias se pondrían en marcha para fomentar la participación dentro del mismo."
+      population_segment_extra: "Especifica si el proyecto se dirige a un grupo concreto de población, cuáles son las razones de dicha elección y qué tipo de estrategias se utilizarán para asegurar la comunicación con ese grupo (o grupos)."
+      schedule_extra: "Indica las fechas de inicio y finalización del proyecto, sus fases y duración, y los principales hitos a cumplir, mediante un cuadro o cronograma. Recuerda que el periodo de ejecución del proyecto es de %{limit} meses, aunque en casos excepcionales y justificados se podrá alargar el periodo de duración de un proyecto."
+      activities_resources_extra: "Según la planificación presentada en el cronograma, detalla las actividades que prevéis desarrollar durante el periodo de ejecución del proyecto. Para cada actividad, indica los recursos materiales y humanos que serán necesarios para llevarla a cabo."      
+      requested_budget_extra: "Basándote en el cuadro de actividades y recursos, establece el presupuesto de gastos e ingresos utilizando la plantilla adjunta. Asegúrate de rellenar las dos pestañas de la hoja de cálculo: Gastos e Ingresos. Recuerda que el presupuesto máximo son %{limit}."
+      monitoring_evaluation_extra: "Detalla los indicadores que se utilizarán para la evaluación, especificando el objetivo al que responden, el tiempo estimado para alcanzarlo, el valor esperado al final del proyecto para cada indicador y la fuente de verificación que se utilizará para su medición."
+      coofficial_translation_extra: "Si quieres que, para la fase de votaciones, tu proyecto se pueda ver en %{lang} marca esta casilla y rellena los siguientes campos en ese idioma."
+      authority_section: "Órgano que presenta la iniciativa"
+      translation_section: "Traducciones a idioma cooficial"
+      next_step: "Continuar"
+      next_step_text: "Introduce los datos básicos del proyecto y presiona '%{next_step}' para cargar el resto de información."
+      choose_user_text: "Al dar de alta el proyecto con tu usuario serás la persona de contacto para hacer correcciones en el proyecto. Si crees que hay otra persona más adecuada para esto, por favor comunícalo para que sea quien cargue el proyecto utilizando su usuario del portal de participación."
+      save_draft_text: "Puedes utilizar el botón '%{save_draft}' en cualquier momento para guardar la información que has cargado hasta el momento. Esto te permitirá buscar la información que no tengas a mano o revisar con algún compañero los datos ingresados antes de enviárnoslos."
+      fixes_text: "Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación."
+      non_fixes_text: "No hemos recibido, en plazo, la subsanación de los errores indicados en el proyecto que has presentado a esta edición de IMPULSA. El plazo de subsanación ha finalizado, por lo que lamentamos comunicarte que tu proyecto no pasa a la fase de validación."
+      mark_for_review_text: "Cuando hayas completado todos los datos del proyecto y consideres que son correctos utiliza el botón '%{mark_for_review}' para indicarnos que podemos revisarlo (aunque podrás seguir haciendo correcciones hasta que lo hagamos)."
+      spam_text: "Después de realizar la revisión de los proyectos presentados, hemos detectado que tu proyecto está prácticamente vacío. Por esta razón, lo hemos marcado como desestimado. Si tienes alguna consulta al respecto, por favor ponte en contacto con nosotros en el correo proyectoimpulsa2@podemos.info."
+      reviewing_text: "Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos."
+      validable_text: "Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de revisión."
+      invalidated_text: "Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones: %{invalid_reasons}"
+      validated1_text: "Una vez realizada la revisión de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado. Esto implica que participarás en la fase de pre-selección en la que un Jurado compuesto por el Equipo técnico de IMPULSA, miembros de la Comisión de Garantías Democráticas, miembros del Consejo Ciudadano Estatal, y las Senadoras de Podemos, valorarán los proyectos validados en función de los criterios establecidos en las bases de la convocatoria y preseleccionarán un máximo de %{prewinners} proyectos. Los resultados de la preselección se harán públicos en la página web: <a href='http://podemos.info/impulsa'>http://podemos.info/impulsa</a>. En el caso de que tu proyecto sea preseleccionado, te informaremos por correo electrónico. Del %{voting_dates}, se abrirá un proceso de votaciones en el que las personas inscritas en Podemos podrán elegir %{winners} proyectos ganadores entre los %{prewinners} preseleccionados."
+      validated2_text: "Una vez realizada la valoración de los proyectos presentados a esta edición de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado. Esto implica que participarás, del %{voting_dates}, en la fase de votaciones con los demás proyectos validados de tu territorio, dependiendo de la categoría donde te hayas presentado."
+      terms_of_service: "He leído y acepto <a href='%{link}'>las condiciones generales del proyecto IMPULSA y la política de privacidad</a>."
+      data_truthfulness: "Declaro la veracidad de los datos facilitados y de los documentos aportados en la solicitud de la presente convocatoria."
+      content_rights: "Declaro ser titular de todos los derechos de propiedad intelectual, industrial y derechos de imagen, de las obras, textos, imágenes, vídeos, música, logotipos e ideas incluidos en este formulario y que forman parte del proyecto, eximiendo a Podemos de cualquier responsabilidad que pudiera derivarse de las infracciones de estos derechos."
+      translated: "en %{lang}"
+      save_draft: "Guardar borrador"
+      mark_for_review: "Marcar para revisión"
+      choose_impulsa_category: "Debes elegir una categoría para que aparezca el resto de campos."
+      authority_hint: "nombre del Grupo parlamentario, Consejo Ciudadano Autonómico, Grupo juntero (País Vasco) o Grupo Europarlamentario"
+      impulsa_edition_topics_hint: "señalar un máximo de dos entre las diferentes temáticas propuestas"
+      video_link_hint: "debe ser un enlace a un video subido en YouTube"
+      project_status:
+        new: "Nuevo"
+        review: "Revisar"
+        fixes: "Correcciones"
+        review_fixes: "Revisar correcciones"
+        validate: "Validar"
+        invalidated: "Invalidado"
+        validated: "Validado"
+        discarded: "Descartado"
+        resigned: "Renuncia"
+        winner: "Premiado"
+        spam: "Spam"
+        dissent: "Disenso"
+      category_type_name:
+        internal: "Interna"
+        state: "Estatal"
+        territorial: "Territorial"
+      organization_type:
+        organization: "Entidad constituida"
+        people: "Grupo de personas que no tienen una entidad constituida legalmente"
+        foreign_people: "Residentes en el extranjero"
+      responsible_nif:
+        organization: "NIF de la persona que representa a la entidad en la gestión de proyectos o, en el caso de que no exista, del representante legal de la entidad"
+        people: "DNI/NIE de la persona solicitante del proyecto"
+        foreign_people: "DNI o pasaporte español en vigor de la persona solicitante"
+      fiscal_obligations_certificate: 
+        local: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente en el momento de la presentación del proyecto"
+        foreign: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto"
+      labor_obligations_certificate: 
+        local: "Certificado de la Seguridad Social de obligaciones laborales al corriente en el momento de la presentación del proyecto"
+        foreign: "Certificado de la Seguridad Social española de obligaciones laborales al corriente en el momento de la presentación del proyecto"
+      career:
+        internal: "Trayectoria del colectivo"
+        territorial: "Trayectoria formativa y profesional de las personas solicitantes del proyecto"
+      career_extra:
+        internal: "Incluir cuándo se formó, qué causas sociales defienden y qué hitos han logrado."
+        territorial: "Indica brevemente la formación y experiencia profesional de las personas que desarrollarán el proyecto, incidiendo en las relacionadas con el ámbito del proyecto presentado."
+      coofficial_translation: "Traducir al %{lang}"
+      total_price: "Importe del premio concedido"
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."
@@ -609,6 +840,10 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       no_province: "Ninguna"
       choose_town: "Elige un municipio"
       amount: "Importe"
+      sure: "Seguros"
+      doubts: "Dudas"
+      confirmed: "Confirmados"
+      empty: "No detectados"
     index:
       will_start: "La próxima campaña de microcréditos comenzará en unos momentos"
       will_start_at: "Podrás suscribir un microcrédito %{name} a partir de las %{hour} del día %{date}."
@@ -637,8 +872,17 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       over_age_message: "Declaro ser mayor de 18 años."
       terms_of_service_message: "Acepto la suscripción de un contrato civil de préstamo por el importe indicado, según las condiciones generales que se indican en el siguiente enlace, que declaro haber leído y estar conforme con su contenido."
       terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad"
-      will_receive_email: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito %{name}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!<br/>Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/home/?status=He%20suscrito%20un%20microcr%C3%A9dito%20%{twitter_account}%20para%20financiar%20la%20campa%C3%B1a.%20Puedes%20invertir%20en%20el%20cambio%20en%20%{main_url}'>compártelo en Twitter</a>."
-      subscribe: "Suscribir"      
+      will_receive_email: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito %{name}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!"
+      tweet_campaign: "Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/intent/tweet?text=He%20suscrito%20un%20microcr%C3%A9dito%20%{twitter_account}%20para%20financiar%20la%20campa%C3%B1a.%20Apoya%20el%20cambio%20en%20%{main_url}%20%23YoInviertoEnUnFuturoMejor'>compártelo en Twitter</a>."
+      subscribe: "Suscribir"
+    loans_renewal:
+      renew: "Renovar"
+      renewal_terms_message: "He leído y acepto las condiciones particulares de extinción del anterior microcrédito y la renovación de la suscripción."
+      renewal_terms_link: "Condiciones particulares sobre extinción de microcréditos y depósito para nueva suscripción."
+      terms_of_service_message: "He leído y acepto las condiciones generales de la suscripción del microcrédito %{name} %{campaign}."
+      terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad del microcrédito %{name} %{campaign}"
+      renewal_success: "Has renovado microcréditos por valor de %{amount} para la campaña %{campaign}. ¡Muchas gracias por colaborar con el cambio!"
+      none_selected: "Debes elegir al menos una suscripción para renovar"
     email:
       subject: "Confirmación microcréditos %{name}"
       intro: "Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:"
@@ -655,6 +899,12 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       email: "Correo electrónico"
       address: "Dirección"
       postal_code: "Código postal"
-    hints:
-      user:
-        wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante."
+      loan_renewals: "Microcréditos confirmados"
+      renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
+      terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
+  simple_captcha:
+    placeholder: "texto"
+    label: "Introduce el texto que se ve en la imagen"
+    refresh_button_text: "Regenerar"
+    message:
+      default: "El texto introducido no corresponde con el de la imagen"

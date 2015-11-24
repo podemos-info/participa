@@ -16,7 +16,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
     <p><%= t '.will_start_at', name: @brand_config["name"], hour: @upcoming_microcredits.first.starts_at.strftime("%H:%M"), date: @upcoming_microcredits.first.starts_at.strftime("%d/%m") %></p>
   <% elsif @finished_microcredits.count > 0 %>
     <h3><%= t 'microcredit.common.has_finished' %></h3>
-    <p><%= t 'microcredit.common.campaign_results', total: number_to_euro(@finished_microcredits.map {|m| m.campaign_confirmed_amount*100 } .sum, 0) %></p>
+    <p><%= t('microcredit.common.campaign_results', total: number_to_euro(@finished_microcredits.map {|m| m.campaign_confirmed_amount*100 } .sum, 0)).html_safe %></p>
   <% else %>
     <h3><%= t '.no_campaigns' %></h3>
     <p><%= t '.no_campaigns_message' %></p>
@@ -31,7 +31,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
       <%= fa_icon "check-circle" %>
       <div class="info">
         <p><strong><%= t '.success' %></strong></p>
-        <p><%= t 'microcredit.common.campaign_results', total: number_to_euro(m.campaign_confirmed_amount*100, 0)%></p>
+        <p><%= t('microcredit.common.campaign_results', total: number_to_euro(m.campaign_confirmed_amount*100, 0)).html_safe%></p>
       </div>
       <% else %>
       <div class="js-mc-graph" data-color1="<%=@brand_config['color1']%>" data-color2="<%=@brand_config['color2']%>">
@@ -55,5 +55,8 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
     </section>
     <% end %>
   </div>
+<% end %>
+<% if !@external %>
+  <p>¿Deseas realizar una colaboración periódica o modificar la que ya tienes? <%= link_to "Accede a la sección de colaboraciones", new_collaboration_path %></p>
 <% end %>
 </div>

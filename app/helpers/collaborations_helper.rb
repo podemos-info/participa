@@ -1,4 +1,5 @@
 module CollaborationsHelper
+  include ActionView::Helpers::NumberHelper
 
   def new_or_edit_collaboration_path(collaboration)
     collaboration ? edit_collaboration_path : new_collaboration_path

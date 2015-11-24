@@ -1,0 +1,90 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div id="impulsa-project" class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+
+    <span id="id_proyecto"><strong>Proyecto:</strong>&nbsp;<%= @project.id %></span>
+    <h3 class="impulsa_title"><%= @project.name %></h3>
+    </div>
+  </div>
+  <div class="row">
+
+    <!-- derecha -->
+    <div class="col-bhome-9a12">
+      <% if @project.logo.present? %>
+        <%= image_tag @project.logo.url(:medium), title: @project.name, alt: @project.name %>
+      <% end %>
+      <%= content_tag :h4, @project.short_description, style: "text-align:center;" %>
+      <% if @project.video_link.present? %>
+          <!--<h4><%= link_to("Vídeo de presentación", @project.video_link, target: "_blank") %></h4>-->
+          <iframe width="100%" height="200" style="margin: 20px 0 20px 0;" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>
+      <% end %>
+      <% if @project.schedule.exists? || project.requested_budget.exists? %>
+        <h4>Documentos del proyecto</h4>
+        <ul>
+         <% if @project.schedule.exists? %>
+            <li><%= link_to("Cronograma y fases del proyecto", @project.schedule.url, target: "_blank") %></li>
+          <% end %> 
+          <% if @project.requested_budget.exists? %>
+            <li><%= link_to("Presupuesto: "+@project.total_budget.to_s, @project.requested_budget.url, target: "_blank") %></li>
+          <% end %>     
+        </ul>
+      <% end %>
+    </div>
+
+    <!-- izquierda -->
+    <div class="col-bhome-1a6">
+
+    <% if @project.authority.present? %>
+      <h4>Órgano que presenta la iniciativa</h4>
+      <%= content_tag :p, @project.authority %>
+    <% end %>
+
+    <% if @project.total_budget.present? %>
+      <h4>Presupuesto: <%= project.total_budget.to_s %></h4>
+      <p></p>
+    <% end %>
+
+    <% if @project.territorial_context.present? %>
+      <h4>Contexto territorial</h4>
+      <%= content_tag :p, @project.territorial_context %>
+    <% end %>
+
+    <% if @project.impulsa_edition_topics.any? %>
+      <h4>Temáticas:
+          <%= @project.impulsa_edition_topics.map { |t| t.name }.join(', ') %>
+      </h4>
+      <p></p>
+    <% end %>
+
+    <% if @project.long_description.present? %>
+      <h4>Descripción del proyecto</h4>
+      <%= content_tag :p, @project.long_description %>
+    <% end %>
+
+    <% if @project.aim.present? %>
+      <h4>Objetivos del proyecto</h4>
+      <%= content_tag :p, @project.aim %>
+    <% end %>
+
+    <% if @project.metodology.present? %>
+      <h4>Metodología del proyecto y fomento de la participación</h4>
+      <%= content_tag :p, @project.metodology %>
+    <% end %>
+
+    <% if @project.population_segment.present? %>
+      <h4>Segmento poblacional objetivo del proyecto</h4>
+      <%= content_tag :p, @project.population_segment %>
+    <% end %>
+
+    <% if @project.career.present? %>
+      <h4>Trayectoria</h4>
+      <%= content_tag :p, @project.career %>
+    <% end %>
+
+
+    </div>
+  </div>
+</div>

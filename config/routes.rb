@@ -56,7 +56,6 @@ Rails.application.routes.draw do
     get '/boletin-correo-electronico', to: 'page#boletin_correo_electronico', as:"boletin_correo_electronico"
     get '/responsable-web-autonomico', to: 'page#responsable_web_autonomico', as: 'responsable_web_autonomico'
     
-    get '/comparte-el-cambio', to: 'page#demo', as: 'demo'
     get '/comparte-el-cambio/compartir-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
     get '/comparte-el-cambio/compartir-coche-sevilla', to: 'page#share_car_sevilla', as: 'share_car_sevilla'
@@ -102,7 +101,9 @@ Rails.application.routes.draw do
     get '/microcreditos/:id', to: 'microcredit#new_loan', as: :new_microcredit_loan
     get '/microcreditos/:id/login', to: 'microcredit#login', as: :microcredit_login
     post '/microcreditos/:id', to: 'microcredit#create_loan', as: :create_microcredit_loan
-    
+    get '/microcreditos/:id/renovar(/:loan_id/:hash)', to: 'microcredit#loans_renewal', as: :loans_renewal_microcredit_loan
+    post '/microcreditos/:id/renovar/:loan_id/:hash', to: 'microcredit#loans_renew', as: :loans_renew_microcredit_loan
+
     authenticate :user do
       scope :validator do
         scope :sms do 
@@ -125,6 +126,18 @@ Rails.application.routes.draw do
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
+    end
+    
+    scope :impulsa do
+      get '', to: 'impulsa#index', as: 'index_impulsa'
+      get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
+      get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
+      post 'crear', to: 'impulsa#create', as: 'create_impulsa'
+      post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
+      get ':id/attachment/:field/:style/:filename', to: 'impulsa#attachment', as: 'attachments_impulsa', constraints: { filename: /[^\/]*/ }
+      get 'categorias', to: 'impulsa#categories', as: 'impulsa_categories'
+      get 'categoria/:id', to: 'impulsa#category', as: 'impulsa_category'
+      get 'proyecto/:id', to: 'impulsa#project', as: 'impulsa_project'
     end
 
     scope :brujula do

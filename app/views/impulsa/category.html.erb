@@ -1,0 +1,85 @@
+<% content_for :title, t("podemos.impulsa.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <h3><%= @category.name %></h3>
+
+      <div id="botonera">
+		<div class="filtro">
+        Filtrar por estado:
+          <% if @edition.publish_results? %>
+            <a class="winner" href="#winner">Ganadores</a>
+          <% end %>
+          <a class="validated" href="#validated">Finalistas</a>
+          <a class="discarded" href="#discarted">Validados</a>
+          <a class="vertodos" href="">&times;</a> 
+		</div>
+		<div class="filtro">
+        Filtrar por temáticas: 
+        <% @category.impulsa_edition.impulsa_edition_topics.each do |topic|%>
+          <a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a>
+        <% end %>
+          <a class="vertodos" href="">&times;</a> 
+		</div>
+      </div>
+
+      <div id="cargando">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+
+      <div id="proyectos">
+      <% @projects.each do |project| %>
+        <% tags = project.impulsa_edition_topics.map {|topic| topic.name.parameterize } .join(" ") %>
+        <% if project.winner? && @edition.publish_results? %>
+          <% tags += " activo winner" %>
+        <% elsif project.winner? && !@edition.publish_results? && !project.impulsa_edition_category.has_territory? %>
+          <% tags += " activo validated" %>
+        <% elsif project.validated? && !project.impulsa_edition_category.has_territory? %>
+          <% tags += " activo validated" %>
+        <% else %>
+          <% tags += " activo discarded" %>
+        <% end %>
+        <div class="proyecto <%= tags %>" data-votes="<%= @edition.publish_results? ? project.votes : 0 %>">
+          <ul class="temas">
+            <% if project.winner? && @edition.publish_results? %>
+              <li class="winner"><a class="winner"><i class="fa fa-trophy"></i> Ganador</a></li>
+            <% elsif project.winner? && !@edition.publish_results? && !project.impulsa_edition_category.has_territory? %>
+              <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Finalista</a></li>
+            <% elsif project.validated? && !project.impulsa_edition_category.has_territory? %>
+              <li class="validated"><a class="validated"><i class="fa fa-rocket"></i> Finalista</a></li>
+            <% else %>
+              <li class="discarded"><a class="discarded"><i class="fa fa-circle-o"></i> Validado</a></li>
+            <% end %>
+            <% if @edition.publish_results? %>
+              <li class="votes"><i class="fa fa-thumbs-up"></i> 
+                <%= (project.votes.to_i > 90000000)? ((project.votes-90000000.00)/100.00).to_s+"%" : project.votes %>
+              </li>
+            <% end %>
+            <% project.impulsa_edition_topics.each do |topic|%>
+              <li><a class="<%= topic.name.parameterize %>" href="#<%= topic.name.parameterize %>"><%= topic.name %></a></li>
+            <% end %>
+          </ul>
+          <hr class="inicio"/>
+          <% if project.video_id.present? %>
+			<a class="youtube" href="//www.youtube.com/embed/<%=project.video_id%>?&autoplay=1" title="Reproducir vídeo" target="_blank">
+              <i class="fa fa-play"></i>
+              <figure>
+                <img src="http://img.youtube.com/vi/<%= project.video_id %>/0.jpg">
+              </figure>
+            </a>
+          <% elsif project.logo.present? %>
+            <%= image_tag project.logo.url(:medium), title: project.name, alt: project.name %>
+          <% else %>
+            <%= image_tag "sinfoto-impulsa.png", title: project.name, alt: project.name %>
+          <% end %>
+          <a href="<%= impulsa_project_path(project) %>"><hr class="medio"/>
+          <h2><%= project.name %></h2>
+          <hr class="fin"/></a>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

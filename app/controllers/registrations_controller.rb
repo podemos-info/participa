@@ -25,9 +25,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    if verify_recaptcha
+    build_resource(sign_up_params)
+    if resource.valid_with_captcha?
       super do
-
         result, status = user_already_exists? resource, :document_vatid
         if status and result.errors.empty?
           UsersMailer.remember_email(:document_vatid, result.document_vatid).deliver_now
@@ -48,12 +48,9 @@ class RegistrationsController < Devise::RegistrationsController
         if resource.apply_previous_user_vote_location
           flash[:alert] = t("podemos.registration.message.existing_user_location")
         end
-
       end
     else
-      build_resource(sign_up_params)
       clean_up_passwords(resource)
-
       render :new
     end
   end
@@ -101,7 +98,7 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     # NEVER allow setting admin, flags, sms or verification fields here
     #
-    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country)
+    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country, :captcha, :captcha_key)
   end
 
   def account_update_params
