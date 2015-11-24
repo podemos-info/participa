@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter CASClient::Frameworks::Rails::Filter, if: proc{ 
     Rails.application.config.cas_auth and self.is_a? ActiveAdmin::BaseController
   }
+  alias_method :devise_current_user, :current_user
 
   def allow_iframe_requests
     response.headers.delete('X-Frame-Options')
@@ -123,10 +124,14 @@ class ApplicationController < ActionController::Base
   end
 
   def current_admin_user
+    current_user if user_signed_in? && (current_user.is_admin? || current_user.microcredits_admin?)
+  end
+
+  def current_user
     if Rails.application.config.cas_auth
       User.find_by_email(session[:cas_extra_attributes]["mail"]) unless session[:cas_user].blank?
     else
-      current_user if signed_in? && (current_user.is_admin? || current_user.microcredits_admin? || current_user.impulsa_admin?)
+      devise_current_user
     end
   end
 
