@@ -198,21 +198,25 @@ ActiveAdmin.register Microcredit do
   member_action :process_bank_history, :method => :post do
     norma43 = Norma43.read(params["process_bank_history"]["file"].tempfile)
 
-    loans = { sure: [], doubts: [], empty: [] }
+    loans = { sure: [], doubts: [], empty: [], confirmed: [] }
     norma43[:movements].each do |movement|
       temp = []
       sure = false
-      muser = movement[:concept][0..37].strip.downcase
+      muser = I18n.transliterate(movement[:concept][0..37].strip.downcase)
       mconcept = movement[:concept][38..-1]
-      id, mname = mconcept.split("-") if mconcept
+      id, mname = mconcept.split(/[ -]/, 2) if mconcept
 
       if mconcept && mname && mname.downcase==resource.title.downcase && id.to_i>0
         sure = true
         temp = resource.loans.where(id: id.to_i)
       end
 
-      if sure and temp.length==1 && temp.first.amount == movement[:amount] && ("#{temp.first.last_name} #{temp.first.first_name}".downcase[0..37].strip==muser || "#{temp.first.first_name} #{temp.first.last_name}".downcase[0..37].strip==muser)
-        loans[:sure] << { loans: temp, movement: movement }
+      if sure and temp.length==1 && temp.first.amount == movement[:amount] && (I18n.transliterate("#{temp.first.last_name} #{temp.first.first_name}".downcase[0..37].strip)==muser || I18n.transliterate("#{temp.first.first_name} #{temp.first.last_name}".downcase[0..37].strip)==muser)
+        if temp.first.confirmed_at.nil?
+          loans[:sure] << { loans: temp, movement: movement }
+        else
+          loans[:confirmed] << { loans: temp, movement: movement }
+        end
         next
       end
 
