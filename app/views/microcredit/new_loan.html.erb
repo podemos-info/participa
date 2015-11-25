@@ -117,6 +117,10 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
       </fieldset>
     <% end %>
     <fieldset class="with-tos">
+
+
+
+      
       <div>
         <% if @loan.errors.include?(:amount) %>
             <%= field_notice_box %>
@@ -129,13 +133,12 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <input id="microcredit_loan_amount_<%=amount%>" name="microcredit_loan[amount]" value="<%=amount%>" type="radio"<%=" checked" if amount==@loan.amount%><%=' disabled class=disabled' if remaining==0%> />
           <label onclick="" for="microcredit_loan_amount_<%=amount%>"><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span><%=t '.remaining_count', total: remaining%></span></label>
           <% end %>
-        </div>
-      </div>
-
-      <div class="inputlabel-box">
-        <div class="input-box">
+          <span>Marca además la siguiente opción si deseas suscribir una cantidad superior a la elegida (300€, 700€, ...)<br/>Te permitirá suscribir varios microcréditos seguidos hasta alcanzar dicha cantidad.</span>
           <%= check_box_tag :reload, "1", !params[:reload].blank?, class: 'checkbox' %>
-          <%= label_tag :reload, class: 'text-xl' do %>Deseo suscribir más microcréditos<% end %>
+          <%= label_tag :reload, class: 'text-xl' do %><%=fa_icon "check-circle", text: "Suscribir otro"%><% end %>
+        </div>
+        <div>
+          
         </div>
       </div>
 

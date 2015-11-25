@@ -268,4 +268,12 @@ class MicrocreditLoan < ActiveRecord::Base
     save!
     return true
   end
+
+  def discard!
+    return false if !self.discarded_at.nil?
+    self.discarded_at = DateTime.now
+    self.confirmed_at = nil
+    self.save!
+    return true
+  end
 end
