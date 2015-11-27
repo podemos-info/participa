@@ -209,7 +209,7 @@ ActiveAdmin.register MicrocreditLoan do
     redirect_to(collection_path, warning: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.") if !ok
   end
 
-  batch_action :discard_batch, if: proc{ params[:scope]=="not_confirmed" } do |ids|
+  batch_action :discard_batch, if: proc{ params[:scope]=="not_discarded" } do |ids|
     ok = true
     MicrocreditLoan.transaction do
       MicrocreditLoan.where(id:ids).each do |ml|
