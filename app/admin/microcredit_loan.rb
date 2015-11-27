@@ -209,6 +209,17 @@ ActiveAdmin.register MicrocreditLoan do
     redirect_to(collection_path, warning: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.") if !ok
   end
 
+  batch_action :discard_batch, if: proc{ params[:scope]=="not_confirmed" } do |ids|
+    ok = true
+    MicrocreditLoan.transaction do
+      MicrocreditLoan.where(id:ids).each do |ml|
+        ok &&= ml.discard!
+      end
+      redirect_to(collection_path, notice: "Las suscripciones han sido marcadas como descartadas.") if ok
+    end
+    redirect_to(collection_path, warning: "Ha ocurrido un error y las suscripciones no han sido marcadas como descartadas.") if !ok
+  end
+
   member_action :count, :method => [:post] do
     m = MicrocreditLoan.find(params[:id])
     if request.post? and m.counted_at.nil?
@@ -242,9 +253,7 @@ ActiveAdmin.register MicrocreditLoan do
 
   member_action :discard, :method => :post do
     m = MicrocreditLoan.find(params[:id])
-    m.discarded_at = DateTime.now
-    m.confirmed_at = nil
-    if m.save
+    if m.discard!
       flash[:notice] = "El microcrédito ha sido descartado."
     else
       flash[:warning] = "El microcrédito no ha sido descartado: #{m.errors.messages.to_s}"
