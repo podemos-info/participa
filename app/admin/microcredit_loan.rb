@@ -1,7 +1,7 @@
 ActiveAdmin.register MicrocreditLoan do
   config.per_page = 100
 
-  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :transferred_to_id
+  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :returned_at, :transferred_to_id
 
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
@@ -209,7 +209,7 @@ ActiveAdmin.register MicrocreditLoan do
     redirect_to(collection_path, warning: "Ha ocurrido un error y las suscripciones no han sido marcadas como confirmadas.") if !ok
   end
 
-  batch_action :discard_batch, if: proc{ params[:scope]=="not_confirmed" } do |ids|
+  batch_action :discard_batch, if: proc{ params[:scope]=="not_discarded" } do |ids|
     ok = true
     MicrocreditLoan.transaction do
       MicrocreditLoan.where(id:ids).each do |ml|
