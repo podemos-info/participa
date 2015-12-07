@@ -18,9 +18,9 @@ GIT
 
 GIT
   remote: git://github.com/podemos-info/norma43.git
-  revision: d3c30e5ef3b49f7b2bfdae8b2ee68c88714f662c
+  revision: 98e537e2e5a60394e53b7447221187d0e497cf2c
   specs:
-    norma43 (0.3.1)
+    norma43 (0.3.2)
 
 GIT
   remote: git://github.com/radar/paranoia.git
