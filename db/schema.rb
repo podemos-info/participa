@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020163516) do
+ActiveRecord::Schema.define(version: 20151208143441) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -56,11 +56,11 @@ ActiveRecord::Schema.define(version: 20151020163516) do
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
     t.integer  "ccc_account"
-    t.string   "iban_account",            limit: 255
-    t.string   "iban_bic",                limit: 255
+    t.string   "iban_account"
+    t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",                              default: 0
-    t.string   "redsys_identifier",       limit: 255
+    t.integer  "status",                  default: 0
+    t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
     t.string   "non_user_email"
@@ -380,6 +380,7 @@ ActiveRecord::Schema.define(version: 20151020163516) do
     t.string   "renewal_terms_content_type"
     t.integer  "renewal_terms_file_size"
     t.datetime "renewal_terms_updated_at"
+    t.string   "budget_link"
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
@@ -493,7 +494,7 @@ ActiveRecord::Schema.define(version: 20151020163516) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.string   "title",      limit: 255
+    t.string   "title"
     t.text     "query",      limit: 255
     t.text     "main_group"
     t.text     "groups"
