@@ -56,9 +56,11 @@ class Collaboration < ActiveRecord::Base
   scope :active, -> { created.where(status: 3)}
   scope :warnings, -> { created.where(status: 4)}
   scope :errors, -> { created.where(status: 1)}
+  scope :suspects, -> { banks.active.joins(:order).where("payable_at>?",Date.today-8.months).group("collaborations.id, orders.status").having("sum(case when orders.status = 5 then 1 else 0 end)>3").pluck("collaborations.id") }
   scope :legacy, -> { created.where.not(non_user_data: nil)}
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
+
 
   scope :full_view, -> { with_deleted.eager_load(:user).eager_load(:order) }
 

@@ -41,14 +41,15 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
         <div alt="<%= t '.remaining' %>" class="hide js-mc-pending"><%= m.phase_limit_amount-m.phase_counted_amount %>€</div>
       </div>
       <div class="info">
-        <p><strong><%= t '.current_phase' %></strong><br/><%=number_to_euro m.phase_counted_amount*100, 0%> / <%= number_to_euro m.phase_limit_amount*100, 0%><br/><strong><%= t '.accumulated' %></strong> <%= number_to_euro m.campaign_counted_amount*100, 0%></p><% 
+        <p><strong><%= t '.current_phase' %></strong><br/><%=number_to_euro m.phase_counted_amount*100, 0%> / <%= number_to_euro m.phase_limit_amount*100, 0%><br/><strong><%= t '.accumulated' %></strong> <%= number_to_euro m.campaign_counted_amount*100, 0%><%if m.budget_link%><br/><a href="<%=m.budget_link%>">PRESUPUESTO</a><%end%>
+</p><% 
             if m.subgoals
               remaining = m.campaign_counted_amount || 0 %><ul class='subgoals'><% 
               m.subgoals.each do |concept,subgoal| %><li><%=concept%>:&nbsp;<%=number_to_euro (remaining>subgoal ? subgoal : remaining)*100, 0%></li><%                 
                 remaining -= subgoal
                 if remaining <= 0 then break end
               end %></ul><% 
-            end %><div class="buttonbox"><%= link_to t('.want_to_collaborate'), @external ? new_microcredit_loan_path(m, brand: @brand) : new_microcredit_loan_path(m), class: 'button' %></div>
+            end%><div class="buttonbox"><%= link_to t('.want_to_collaborate'), @external ? new_microcredit_loan_path(m, brand: @brand) : new_microcredit_loan_path(m), class: 'button' %></div>
       </div>
       <% end %>
     </div>

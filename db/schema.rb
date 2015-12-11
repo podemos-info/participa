@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020163516) do
+ActiveRecord::Schema.define(version: 20151208143441) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -380,6 +380,7 @@ ActiveRecord::Schema.define(version: 20151020163516) do
     t.string   "renewal_terms_content_type"
     t.integer  "renewal_terms_file_size"
     t.datetime "renewal_terms_updated_at"
+    t.string   "budget_link"
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true
@@ -494,7 +495,7 @@ ActiveRecord::Schema.define(version: 20151020163516) do
 
   create_table "reports", force: :cascade do |t|
     t.string   "title"
-    t.text     "query"
+    t.text     "query",      limit: 255
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"
