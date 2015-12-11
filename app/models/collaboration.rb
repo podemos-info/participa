@@ -57,7 +57,6 @@ class Collaboration < ActiveRecord::Base
   scope :warnings, -> { created.where(status: 4)}
   scope :errors, -> { created.where(status: 1)}
   scope :suspects, -> { banks.active.where("(select count(*) from orders o where o.parent_id=collaborations.id and o.payable_at>? and o.status=5)>2",Date.today-8.months) }
-
   scope :legacy, -> { created.where.not(non_user_data: nil)}
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
