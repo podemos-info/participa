@@ -137,7 +137,7 @@ class OpenIdController < ApplicationController
     self.render_response(oidresp)
   end
 
-  
+
   def xrds
     types = [
              OpenID::OPENID_2_0_TYPE,

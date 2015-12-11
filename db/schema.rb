@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208143441) do
+ActiveRecord::Schema.define(version: 20151211121008) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -422,6 +422,8 @@ ActiveRecord::Schema.define(version: 20151208143441) do
     t.string   "autonomy_code"
     t.string   "island_code"
   end
+
+  add_index "orders", ["parent_id"], name: "index_orders_on_parent_id"
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
