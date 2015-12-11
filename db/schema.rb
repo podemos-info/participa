@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208143441) do
+ActiveRecord::Schema.define(version: 20151211121008) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(version: 20151208143441) do
     t.integer  "ccc_entity"
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
-    t.integer  "ccc_account",             limit: 8
+    t.integer  "ccc_account"
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",                            default: 0
+    t.integer  "status",                  default: 0
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
@@ -422,6 +422,8 @@ ActiveRecord::Schema.define(version: 20151208143441) do
     t.string   "autonomy_code"
     t.string   "island_code"
   end
+
+  add_index "orders", ["parent_id"], name: "index_orders_on_parent_id"
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
