@@ -536,4 +536,15 @@ ActiveAdmin.register Collaboration do
       type: 'text/tsv; charset=utf-8; header=present',
       disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
   end
+
+  batch_action :error_batch, if: proc{ params[:scope]=="suspects" } do |ids|
+    ok = true
+    Collaboration.transaction do
+      Collaboration.where(id:ids).each do |c|
+        ok &&= c.set_error! "Colaboración sospechosa marcada como errónea en masa"
+      end
+      redirect_to(collection_path, notice: "Las colaboraciones han sido marcadas como erróneas.") if ok
+    end
+    redirect_to(collection_path, warning: "Ha ocurrido un error y las colaboraciones no han sido marcadas como erróneas.") if !ok
+  end
 end
