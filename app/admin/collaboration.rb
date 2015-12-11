@@ -53,6 +53,7 @@ ActiveAdmin.register Collaboration do
   scope :active
   scope :warnings
   scope :errors
+  scope :suspects
   scope :legacy
   scope :non_user
   scope :deleted
