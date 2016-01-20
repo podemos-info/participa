@@ -832,7 +832,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
   microcredit:
     common:
       title: "Microcréditos %{name}"
-      help_us: "Ayúdanos a financiar las sedes abiertas a la ciudadanía suscribiendo un microcrédito %{name}. Nos comprometemos a devolverte la cantidad aportada en el plazo de un año."
+      help_us: "Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito %{name}. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
       more_info: "Más información"
       has_finished: "La campaña de microcréditos ha acabado"
       campaign_results: "Hemos recaudado %{total}.<br/>¡Muchas gracias por colaborar con el cambio!"

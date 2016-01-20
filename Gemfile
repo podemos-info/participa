@@ -57,7 +57,6 @@ gem "paranoia", :github => "radar/paranoia", :branch => "rails4"
 gem 'cocoon'
 gem 'paperclip'
 gem 'validate_url'
-gem 'rubycas-client', :git => 'git://github.com/rubycas/rubycas-client.git'
 gem 'norma43', github: 'podemos-info/norma43'
 
 group :development, :test do
