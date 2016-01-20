@@ -362,7 +362,7 @@ ActiveAdmin.register User do
 #    csv = fill_data file.read, User.confirmed
     csv = fill_data file.read.force_encoding('utf-8'), User
     if subaction == "Descargar CSV"
-      send_data csv["results"].encode('utf-8'),
+      send_data csv["results"],
         type: 'text/csv; charset=utf-8; header=present',
         disposition: "attachment; filename=participa.podemos.#{Date.today.to_s}.csv"
     else
