@@ -90,7 +90,7 @@ def fill_data(csvdata, query, options = {})
     #processed << item.document_vatid
     processed << item.id
   end
-  csv_text = CSV.generate do |user|
+  csv_text = CSV.generate(col_sep: col_sep, encoding: 'utf-8') do |user|
     user << headers
     data.each do |key, item|
       user << [ key ] + headers[1..-1].map{|h|item[h]}
