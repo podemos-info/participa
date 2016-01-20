@@ -360,7 +360,7 @@ ActiveAdmin.register User do
     file = params["fill_csv"]["file"]
     subaction = params["commit"]
 #    csv = fill_data file.read, User.confirmed
-    csv = fill_data file.read, User
+    csv = fill_data file.read.force_encoding('utf-8'), User
     if subaction == "Descargar CSV"
       send_data csv["results"].encode('utf-8'),
         type: 'text/csv; charset=utf-8; header=present',
