@@ -514,6 +514,8 @@ ActiveAdmin.register ImpulsaProject do
     column(:first_name) { |project| project.user.first_name }
     column(:last_name) { |project| project.user.last_name }
     column(:email) { |project| project.user.email }
+    column(:phone) { |project| project.user.phone }
+    column(:town_name) { |project| project.user.town_name }
     column :total_budget
     column(:impulsa_edition_category) { |project| project.impulsa_edition_category.name }
     column(:impulsa_edition_topics) { |project| project.impulsa_edition_topics.map{|t| t.name }.join("|") }
