@@ -21,17 +21,6 @@
           <!--<h4><%= link_to("Vídeo de presentación", @project.video_link, target: "_blank") %></h4>-->
           <iframe width="100%" height="200" style="margin: 20px 0 20px 0;" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>
       <% end %>
-      <% if @project.schedule.exists? || project.requested_budget.exists? %>
-        <h4>Documentos del proyecto</h4>
-        <ul>
-         <% if @project.schedule.exists? %>
-            <li><%= link_to("Cronograma y fases del proyecto", @project.schedule.url, target: "_blank") %></li>
-          <% end %> 
-          <% if @project.requested_budget.exists? %>
-            <li><%= link_to("Presupuesto: "+@project.total_budget.to_s, @project.requested_budget.url, target: "_blank") %></li>
-          <% end %>     
-        </ul>
-      <% end %>
     </div>
 
     <!-- izquierda -->
