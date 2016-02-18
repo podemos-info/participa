@@ -473,10 +473,10 @@ ActiveAdmin.register Collaboration do
     months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
-    autonomies[nil] = "Sin asignación"
+    autonomies["~"] = "Sin asignación"
     autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
     Order.paid.where(town_code:nil, island_code:nil).group(:autonomy_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
-      autonomies_data[k[0]][k[1].to_i] = v
+      autonomies_data[k[0]||"~"][k[1].to_i] = v
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
