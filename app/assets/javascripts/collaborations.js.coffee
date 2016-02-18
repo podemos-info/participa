@@ -84,7 +84,13 @@ init_collaborations = () ->
   $('.js-collaboration-assignment-autonomy input').on 'click', () ->
     if (!$(this).prop('checked'))
       $('.js-collaboration-assignment-town input').prop('checked', false)
+      $('.js-collaboration-assignment-island input').prop('checked', false)
 
+  $('.js-collaboration-assignment-island input').on 'click', () ->
+    if ($(this).prop('checked'))
+      $('.js-collaboration-assignment-town input').prop('checked', true)
+      $('.js-collaboration-assignment-autonomy input').prop('checked', true)
+      
 $(window).bind 'page:change', ->
   init_collaborations()
 
