@@ -532,7 +532,7 @@ ActiveAdmin.register Collaboration do
         prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
         province.subregions.each do |town|
           if Podemos::GeoExtra::ISLANDS.member? town.code
-            csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name, Podemos::GeoExtra::ISLANDS[prov_code][1] ] + months.keys.map{|k| towns_data[town.code][k]/100}
+            csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name, Podemos::GeoExtra::ISLANDS[town.code][1] ] + months.keys.map{|k| towns_data[town.code][k]/100}
           end
         end
       end
