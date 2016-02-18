@@ -85,11 +85,11 @@ ActiveAdmin.register Collaboration do
     end
     column :territorial do |collaboration|
       status_tag("Cca") if collaboration.for_autonomy_cc
-      status_tag("Ccm") if collaboration.for_autonomy_cc and collaboration.for_town_cc
+      status_tag("Ccm") if collaboration.for_town_cc
       status_tag("Cci") if collaboration.for_island_cc
     end
     column :info do |collaboration|
-      status_tag("BIC", :error) if collaboration.is_bank? and collaboration.calculate_bic.nil?
+      status_tag("BIC", :error) if collaboration.is_bank? && collaboration.calculate_bic.nil?
       status_tag("Activo", :ok) if collaboration.is_active?
       status_tag("Alertas", :warn) if collaboration.has_warnings?
       status_tag("Errores", :error) if collaboration.has_errors?
@@ -226,12 +226,12 @@ ActiveAdmin.register Collaboration do
       end
       row :territorial do
         status_tag("Cc autonómico") if collaboration.for_autonomy_cc
-        status_tag("Cc municipal") if collaboration.for_autonomy_cc and collaboration.for_town_cc
-        status_tag("Cc insular") if collaboration.for_island_cc
+        status_tag("Cc municipal") if collaboration.for_town_cc
+        status_tag("Cc insular") if collaboration.for_town_cc
       end
       row :info do
         status_tag("Cca", :ok) if collaboration.for_autonomy_cc
-        status_tag("Ccm", :ok) if collaboration.for_autonomy_cc and collaboration.for_town_cc
+        status_tag("Ccm", :ok) if collaboration.for_town_cc
         status_tag("Cci", :ok) if collaboration.for_island_cc
         status_tag("Activo", :ok) if collaboration.is_active?
         status_tag("Alertas", :warn) if collaboration.has_warnings?
@@ -473,8 +473,9 @@ ActiveAdmin.register Collaboration do
     months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
+    autonomies[nil] = "Sin asignación"
     autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.where.not(autonomy_code:nil).group(:autonomy_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+    Order.paid.where(town_code:nil, island_code:nil).group(:autonomy_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
       autonomies_data[k[0]][k[1].to_i] = v
     end
 
@@ -496,7 +497,7 @@ ActiveAdmin.register Collaboration do
 
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.where.not(autonomy_code:nil).where.not(town_code:nil).group(:town_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+    Order.paid.where(island_code:nil).group(:town_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
       towns_data[k[0]][k[1].to_i] = v
     end
 
@@ -519,16 +520,21 @@ ActiveAdmin.register Collaboration do
     date = Date.parse params[:date]
     months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
-    islands = Hash[Podemos::GeoExtra::ISLANDS.values]
-    islands_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.where.not(autonomy_code:nil).where.not(island_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
-      islands_data[k[0]][k[1].to_i] = v
+    provinces = Carmen::Country.coded("ES").subregions
+    towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+    Order.paid.where.not(island_code:nil).group(:town_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
+      towns_data[k[0]][k[1].to_i] = v
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      csv << ["Isla"] + months.values
-      islands_data.sort_by(&:first).each do |k,v|
-        csv << [islands[k] ] + months.keys.map{|k| v[k]/100}
+      csv << ["Comunidad Autónoma", "Provincia", "Municipio", "Isla"] + months.values
+      provinces.each_with_index do |province,i|
+        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+        province.subregions.each do |town|
+          if Podemos::GeoExtra::ISLANDS.member? town.code
+            csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name, Podemos::GeoExtra::ISLANDS[town.code][1] ] + months.keys.map{|k| towns_data[town.code][k]/100}
+          end
+        end
       end
     end
 
