@@ -1,8 +1,8 @@
 <form id="redsys_payment_form" method="post" action="<%= @order.redsys_post_url %>" class="js-collaboration-form">
   <input type="hidden" name="must_reload" value="0" id="js-must-reload" />
-<% @order.redsys_params.each do |name, value| %>
-  <input type="hidden" name="<%=name%>" value="<%= value %>" class="js-<%=name%>" />
-<% end %>
+  <input type="hidden" name="Ds_SignatureVersion" value="HMAC_SHA256_V1"/>
+  <input type="hidden" name="Ds_MerchantParameters" value="<%= @order.resys_merchant_parameters %>"/>
+  <input type="hidden" name="Ds_Signature" value="<%= @order.redsys_merchant_request_signature %>"/>
   <div class="js-collaboration-confirm-buttons buttonbox">
     <%= link_to "Cancelar", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
     <input type="submit" value="Confirmar" class="button" id="js-confirm-button">
