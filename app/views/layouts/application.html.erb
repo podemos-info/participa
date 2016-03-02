@@ -9,6 +9,13 @@
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
+  <meta property="og:title" content="Podemos | Portal de participación" />
+  <meta property="og:image" content="http://podemos.info/wp-content/uploads/2015/08/banner_euskadi_rioja.png" />
+  <meta property="og:description" content="Accede a nuestro portal de participación y participa en la votación de procesos internos en Euskadi y La Rioja. Desde el 3 hasta el 6 de marzo." />
+  <meta name="twitter:title" content="Podemos | Portal de participación" />
+  <meta name="twitter:description" content="Accede a nuestro portal de participación y participa en la votación de procesos internos en Euskadi y La Rioja. Desde el 3 hasta el 6 de marzo." />
+  <meta name="twitter:image" content="http://podemos.info/wp-content/uploads/2015/08/banner_euskadi_rioja.png" />
+
 </head>
 <body class="<%= body_class user_signed_in?, controller_name, action_name %>">
   <div class="wrap">
