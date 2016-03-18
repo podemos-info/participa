@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_flags 1 => :banned,
             2 => :superadmin,
             3 => :verified,
-            4 => :microcredits_admin,
+            4 => :finances_admin,
             5 => :impulsa_author,
             6 => :impulsa_admin
 

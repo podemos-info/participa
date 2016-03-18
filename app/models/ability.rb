@@ -26,19 +26,18 @@ class Ability
         cannot :manage, SpamFilter
         can :read, Election
       end
-
     else
       cannot :manage, :all
       cannot :manage, Resque
       cannot :manage, ActiveAdmin
 
-      can [:read], MicrocreditLoan if user.microcredits_admin?
-      can [:read, :update], Microcredit if user.microcredits_admin?
+      can [:read], MicrocreditLoan if user.finances_admin?
+      can [:read, :update], Microcredit if user.finances_admin?
 
       can [:show, :read], ImpulsaEdition if user.impulsa_admin?
       can [:show, :read, :update], ImpulsaProject if user.impulsa_admin?
       
-      can [:read, :create], ActiveAdmin::Comment if user.microcredits_admin? || user.impulsa_admin?
+      can [:read, :create], ActiveAdmin::Comment if user.finances_admin? || user.impulsa_admin?
 
       can [:show, :update], User, id: user.id
       can :show, Notice

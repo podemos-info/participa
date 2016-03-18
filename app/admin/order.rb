@@ -38,7 +38,7 @@ ActiveAdmin.register Order do
   scope :returned
   scope :deleted
 
-  index do
+  index download_links: -> { current_user.is_admin? && current_user.finances_admin? } do
     selectable_column
     id_column
     column :status_name
