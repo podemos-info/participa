@@ -1,0 +1,11 @@
+# .travis.yml
+language: ruby
+rvm:
+  - 2.2.2
+cache: bundler
+before_script:
+  - sudo cp bin/wkhtmltopdf-proxy /usr/bin/wkhtmltopdf-proxy
+  - cp config/secrets.yml.example config/secrets.yml
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rake db:setup
+script: xvfb-run bundle exec rake test

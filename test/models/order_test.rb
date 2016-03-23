@@ -47,8 +47,8 @@ class OrderTest < ActiveSupport::TestCase
     order1.save
     order2 = @collaboration.create_order Date.today+1.years
     order2.save
-    orders = Order.by_date(DateTime.civil(2014,1,1), DateTime.civil(2017,1,1))
-    assert_equal( orders.count, 2)
+    orders = Order.by_date(Date.today, Date.today+5.years)
+    assert_equal(2, orders.count)
   end
 
   test "should REDSYS_SERVER_TIME_ZONE.parse work" do
@@ -141,12 +141,6 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal("Orden devuelta", @order.error_message)
   end
 
-  test "should .parent_from_order_id work" do
-    @order.save
-    collaboration = Order.parent_from_order_id("000000#{@order.id}Caaaa")
-    assert_equal(collaboration, @collaboration)
-  end
-
   test "should .payment_day work" do
     Rails.application.secrets.orders["payment_day"] = 10
     assert_equal(Order.payment_day, 10)
@@ -168,7 +162,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .admin_permalink work" do
     @order.save
-    assert_equal( "/admin/orders/1", @order.admin_permalink )
+    assert_equal( "/admin/orders/#{@order.id}", @order.admin_permalink )
   end
 
   test "should .due_code work" do
@@ -275,7 +269,8 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_merchant_url work" do
     @order.save
-    assert_equal "https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=00000000000#{@order.id}&user_id=#{@collaboration.user.id}", @order.redsys_merchant_url
+    url = "https://localhost/orders/callback/redsys?parent_id=#{@order.collaboration.id}&redsys_order_id=#{@order.redsys_order_id}&user_id=#{@collaboration.user.id}"
+    assert_equal url, @order.redsys_merchant_url
 
     @order.first = false
     @order.save
@@ -325,38 +320,6 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal( 1, file_contents.grep(/Status: OK, but with warnings/).count )
     FileUtils.rm(filename)
 
-    # TODO: migrate from collaboration to order
-    #
-    ## response KO
-    #params = {"Ds_Date"=>"27/09/2014", "Ds_Hour"=>"23:46", "Ds_SecurePayment"=>"0", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0913", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_ErrorCode"=>"SIS0051", "Ds_AuthorisationCode"=>"      "}
-    #collaboration.redsys_parse_response! params
-    #assert_equal(collaboration.redsys_response_code, "0913")
-    #assert_equal(collaboration.response_status, "KO")
-
-    ## response OK
-    #params = { "user_id"=>collaboration.user.id, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
-    #collaboration.redsys_parse_response! params
-    #assert_equal(collaboration.redsys_response_code, "0000")
-    #assert_equal(collaboration.response_status, "OK")
-
-    ## invalid user_id
-    #params = { "user_id"=>1, "collaboration_id"=>collaboration.id, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
-    #collaboration.redsys_parse_response! params
-    #assert_equal(collaboration.redsys_response_code, "0000")
-    #assert_equal(collaboration.response_status, "KO")
-
-    ## invalid collaboration_id
-    #params = { "user_id"=>collaboration.user.id, "collaboration_id"=>333, "Ds_Date"=>"11/12/2014", "Ds_Hour"=>"13:19", "Ds_SecurePayment"=>"1", "Ds_Card_Country"=>"724", "Ds_Amount"=>"2000", "Ds_Currency"=>"978", "Ds_Order"=>collaboration.redsys_order, "Ds_MerchantCode"=>@collaboration.redsys_secret("code"), "Ds_Terminal"=>"001", "Ds_Signature"=>collaboration.redsys_merchant_signature, "Ds_Response"=>"0000", "Ds_MerchantData"=>"", "Ds_TransactionType"=>"0", "Ds_ConsumerLanguage"=>"1", "Ds_AuthorisationCode"=>"914395" }
-    #collaboration.redsys_parse_response! params
-    #assert_equal(collaboration.redsys_response_code, "0000")
-    #assert_equal(collaboration.response_status, "KO")
-
-  end
-
-  test "should .redsys_params work" do
-    @order.save
-    response = {"Ds_Merchant_Currency"=>"978", "Ds_Merchant_MerchantCode"=>"changeme", "Ds_Merchant_MerchantName"=>"Organization", "Ds_Merchant_Terminal"=>"001", "Ds_Merchant_TransactionType"=>"0", "Ds_Merchant_PayMethods"=>"T", "Ds_Merchant_MerchantData"=>1, "Ds_Merchant_MerchantURL"=>"https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=000000000001&user_id=1", "Ds_Merchant_Order"=>"000000000001", "Ds_Merchant_Amount"=>1000, "Ds_Merchant_MerchantSignature"=>"0EB24BD887357BCAE13B01B2AD976810D84C7F36", "Ds_Merchant_Identifier"=>"REQUIRED", "Ds_Merchant_UrlOK"=>"http://localhost/colabora/OK", "Ds_Merchant_UrlKO"=>"http://localhost/colabora/KO"}
-    assert_equal response, @order.redsys_params
   end
 
   test "should .redsys_send_request work" do

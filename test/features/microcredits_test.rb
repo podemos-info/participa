@@ -11,9 +11,9 @@ feature "Microcredits" do
     page.must_have_content microcredit.title
 
     click_link "Quiero colaborar"
-    page.must_have_content "Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos"
+    page.must_have_content "Acepto la suscripción de un contrato civil de préstamo por el importe indicado"
 
-    click_button "Guardar Suscripción"
+    click_button "Suscribir"
     page.must_have_content "no puede estar en blanco"
 
     fill_in('Nombre', :with => 'John')
@@ -23,13 +23,13 @@ feature "Microcredits" do
     #select('Madrid', :from=>'Municipio')
     fill_in('Código postal', :with => '28021')
     fill_in('Dirección', :with => 'C/El Muro, S/N')
-    fill_in('DNI o NIE', :with => user.document_vatid)
-    fill_in('Email', :with => 'john@snow.com')
+    fill_in('DNI', :with => user.document_vatid)
+    fill_in('Correo electrónico', :with => 'john@snow.com')
     choose('microcredit_loan_amount_100')
     check('microcredit_loan_minimal_year_old')
     check('microcredit_loan_terms_of_service')
 
-    click_button "Guardar Suscripción"
+    click_button "Suscribir"
     page.must_have_content "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos"
   end
 
@@ -43,16 +43,16 @@ feature "Microcredits" do
     page.must_have_content microcredit.title
 
     click_link "Quiero colaborar"
-    page.must_have_content "Acepto las condiciones generales del Contrato civil de suscripción de microcréditos de Podemos"
+    page.must_have_content "Acepto la suscripción de un contrato civil de préstamo por el importe indicado"
 
-    click_button "Guardar Suscripción"
+    click_button "Suscribir"
     page.must_have_content "no puede estar en blanco"
 
     choose('microcredit_loan_amount_100')
     check('microcredit_loan_minimal_year_old')
     check('microcredit_loan_terms_of_service')
 
-    click_button "Guardar Suscripción"
+    click_button "Suscribir"
     page.must_have_content "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito Podemos"
   end
 
