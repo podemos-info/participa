@@ -90,7 +90,8 @@ Rails.application.routes.draw do
     devise_for :users, controllers: { 
       registrations: 'registrations', 
       passwords:     'passwords', 
-      confirmations: 'confirmations'
+      confirmations: 'confirmations',
+      sessions:      'sessions'
     } 
 
     get '/microcreditos', to: 'microcredit#index', as: 'microcredit'
@@ -159,7 +160,7 @@ Rails.application.routes.draw do
         delete 'password/recover', to: 'registrations#recover_and_logout'
       end
       unauthenticated do
-        root 'devise/sessions#new', as: :root
+        root 'sessions#new', as: :root
       end
     end
 
