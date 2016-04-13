@@ -55,9 +55,12 @@
             <% else %>
               <p class="total">El censo válido para la votación es de <%= number_with_delimiter @upcoming_election.current_active_census%> personas inscritas activas.</p>
             <% end %>
+          <p>Personas inscritas activas: aquellas que han accedido al portal de participación en el último año.</p>
           <p>Personas inscritas totales: <%= number_with_delimiter User.confirmed.count %></p>
           <% end %>
         <% else %>
+          <p>Vota en la consulta para el Gobierno de España desde el 14 y el 16 de abril.</p>
+          <p>El censo válido para la consulta está cerrado desde el día 2 de abril de 2016 a las 10h00.</p>
           <p class="total">Ya somos
           <span>
             <% cache("total_users", expires_in: 30.minutes) do %>

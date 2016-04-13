@@ -26,7 +26,7 @@ ActiveAdmin.register Election do
       end if election.requires_sms_check
       row :show_on_index do
         status_tag("SHOW ON INDEX", :ok)
-      end if election.requires_sms_check
+      end if election.show_on_index
       row :title
       row :info_url
       row :info_text
