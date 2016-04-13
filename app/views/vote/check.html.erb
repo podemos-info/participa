@@ -5,5 +5,5 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:1419506191,byc:1,owlid
 </script>
 <div style="width: 100%; height:300px; display: block; padding: 0; margin: 0">
 <a class="agoravoting-ballot-locator" href="<%= @election.server_url %>booth/<%=@scoped_agora_election_id%>/ballot-locator" >Localizar papeleta con Agora Voting</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="<%= @election.server_url %>avWidgets.min.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","agoravoting-widgets-js");</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="<%= @election.server_url %>admin/avWidgets.min.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","agoravoting-widgets-js");</script>
 </div>
