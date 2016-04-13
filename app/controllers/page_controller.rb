@@ -15,7 +15,7 @@ class PageController < ApplicationController
 	raise("not found") unless @page
     authenticate_user! if @page.require_login
 
-	if /https:\/\/forms.podemos.info[\S]+/.match(@page.link)
+	if /https:\/\/[a-z]*\.podemos.info\/.*/.match(@page.link)
 		render :formview_iframe, locals: { title: @page.title, url: @page.link }
 	else
     	render :form_iframe, locals: { title: @page.title, form_id: @page.id_form, extra_qs:"" }
