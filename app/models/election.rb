@@ -84,7 +84,7 @@ class Election < ActiveRecord::Base
       base = User.confirmed.not_banned
       base_date = DateTime.now
     else
-      base = User.with_deleted.not_banned.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where("created_at < ?", self.user_created_at_max)
+      base = User.with_deleted.not_banned.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where.not(sms_confirmed_at:nil).where("created_at < ?", self.user_created_at_max)
       base_date = self.user_created_at_max
     end
     base = base.where("current_sign_in_at > ?", base_date - eval(Rails.application.secrets.users["active_census_range"]) )
