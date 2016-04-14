@@ -32,12 +32,11 @@
               </div>
             </fieldset>
             <p>
-              <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
+              <a style="font-size:1.3em;" href="/soporte-votaciones">Ayuda para acceder a votar</a>
             </p>
             <p>
-              <%= link_to "No he recibido el correo de confirmación", new_confirmation_path(resource_name) %>
+              <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
             </p>
-            <p><%= link_to "¿Problemas con la inscripción?", faq_path %></p>
           <% end %>
         </div><!--.login-box-->
       </div><!--.col-b-9a12-->
@@ -45,16 +44,30 @@
       <div class="col-bhome-1a6">
         <article class="intro">
         <p>Bienvenido/a al Portal de Participación de Podemos.</p>
-        <p><em class="podemos">Podemos</em> nace con la voluntad de construir una forma nueva de hacer política, y para ello estamos construyendo una estructura transparente, ciudadana, abierta, democrática y eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos y todas. </p>
-        <p>Vota en la consulta para el Gobierno de España desde el 14 y el 16 de abril.</p>
-        <p>El censo válido para la consulta está cerrado desde el día 2 de abril de 2016 a las 10h00.</p>
-        <p class="total">Ya somos
-        <span>
-          <% cache("total_users", expires_in: 30.minutes) do %>
-            <%= number_with_delimiter User.confirmed.count %>
+        <p><em class="podemos">Podemos</em> nace con la voluntad de construir una forma nueva de hacer política, y para ello estamos construyendo una estructura transparente, ciudadana, abierta, democrática y eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos y todas.</p>
+
+        <% if @upcoming_election %>
+          <% cache("current_active_census", expires_in: 5.minutes) do %>
+            <p>Vota en la <%=@upcoming_election.title%> entre el <%=l(@upcoming_election.starts_at, format: if @upcoming_election.starts_at.month==@upcoming_election.ends_at.month then "%-d" else "%-d de %B" end )%> y el <%=l(@upcoming_election.ends_at, format: "%-d de %B")%>.</p>
+            <% if @upcoming_election.user_created_at_max %>
+              <p class="total">El censo válido para la votación está cerrado desde el día <%=l(@upcoming_election.user_created_at_max, format: "%-d de %B de %Y a las %H:%M horas")%> y es de <span><%=number_with_delimiter @upcoming_election.current_active_census%></span> personas inscritas activas.</p>
+            <% else %>
+              <p class="total">El censo válido para la votación es de <%= number_with_delimiter @upcoming_election.current_active_census%> personas inscritas activas.</p>
+            <% end %>
+          <p>Personas inscritas activas: aquellas que han accedido al portal de participación en el último año.</p>
+          <p>Personas inscritas totales: <%= number_with_delimiter User.confirmed.count %></p>
           <% end %>
-        </span>
-        personas inscritas.</p>
+        <% else %>
+          <p>Vota en la consulta para el Gobierno de España desde el 14 y el 16 de abril.</p>
+          <p>El censo válido para la consulta está cerrado desde el día 2 de abril de 2016 a las 10h00.</p>
+          <p class="total">Ya somos
+          <span>
+            <% cache("total_users", expires_in: 30.minutes) do %>
+              <%= number_with_delimiter User.confirmed.count %>
+            <% end %>
+          </span>
+          personas inscritas.</p>
+        <% end %>
           <p>Inscríbete y participa.</p>
           <div class="buttonbox">
             <%= link_to "Inscripción", new_user_registration_path, class: 'button intro-indent clear' %>

@@ -3,7 +3,8 @@ class Election < ActiveRecord::Base
 
   SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
   
-  has_flags 1 => :requires_sms_check
+  has_flags 1 => :requires_sms_check,
+            2 => :show_on_index
 
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
@@ -64,7 +65,7 @@ class Election < ActiveRecord::Base
   end
 
   def has_valid_user_created_at? user
-    self.user_created_at_max.nil? or self.user_created_at_max > user.created_at
+    self.user_created_at_max.nil? or self.user_created_at_max > user.sms_confirmed_at
   end
 
   def current_total_census
@@ -75,6 +76,25 @@ class Election < ActiveRecord::Base
       when 3 then User.confirmed.not_banned.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
       when 4 then User.confirmed.not_banned.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
       when 5 then User.confirmed.not_banned.where.not(country:"ES").count
+    end
+  end
+
+  def current_active_census
+    if self.user_created_at_max.nil?
+      base = User.confirmed.not_banned
+      base_date = DateTime.now
+    else
+      base = User.with_deleted.not_banned.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where("sms_confirmed_at < ?", self.user_created_at_max)
+      base_date = self.user_created_at_max
+    end
+    base = base.where("current_sign_in_at > ?", base_date - eval(Rails.application.secrets.users["active_census_range"]) )
+    case self.scope
+      when 0 then base.count
+      when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" }}).result.count
+      when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" }}).result.count
+      when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
+      when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
+      when 5 then base.where.not(country:"ES").count
     end
   end
 
