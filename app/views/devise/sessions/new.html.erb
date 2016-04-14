@@ -52,7 +52,8 @@
             <% if @upcoming_election.user_created_at_max %>
               <p>El censo válido para la votación está cerrado desde el día <%=l(@upcoming_election.user_created_at_max, format: "%-d de %B de %Y a las %H:%M horas")%>.</p>
             <% end %>
-            <p class="total">Personas inscritas activas: <span><%=number_with_delimiter @upcoming_election.current_active_census%></span><br/>Censo total llamado al voto: <%= number_with_delimiter @upcoming_election.current_total_census %></p>
+            <p class="total">Personas inscritas activas: <span><%=number_with_delimiter @upcoming_election.current_active_census%></span></p>
+            <p>Censo total llamado al voto: <%= number_with_delimiter @upcoming_election.current_total_census %></p>
           <% end %>
         <% else %>
           <p class="total">Ya somos
