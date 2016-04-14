@@ -32,12 +32,11 @@
               </div>
             </fieldset>
             <p>
-              <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
+              <a style="font-size:1.3em;" href="/soporte-votaciones">Ayuda para acceder a votar</a>
             </p>
             <p>
-              <%= link_to "No he recibido el correo de confirmación", new_confirmation_path(resource_name) %>
+              <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
             </p>
-            <p><%= link_to "¿Problemas con la inscripción?", faq_path %></p>
           <% end %>
         </div><!--.login-box-->
       </div><!--.col-b-9a12-->
