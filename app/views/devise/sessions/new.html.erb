@@ -51,11 +51,13 @@
             <p>Vota en la <%=@upcoming_election.title%> entre el <%=l(@upcoming_election.starts_at, format: if @upcoming_election.starts_at.month==@upcoming_election.ends_at.month then "%-d" else "%-d de %B" end )%> y el <%=l(@upcoming_election.ends_at, format: "%-d de %B")%>.</p>
             <% if @upcoming_election.user_created_at_max %>
               <p class="total">El censo válido para la votación está cerrado desde el día <%=l(@upcoming_election.user_created_at_max, format: "%-d de %B de %Y a las %H:%M horas")%> y es de <span><%=number_with_delimiter @upcoming_election.current_active_census%></span> personas inscritas activas.</p>
+              <p>Personas inscritas activas: aquellas que han accedido al portal de participación en el último año.</p>
+              <p>Censo total para la votación: <%= number_with_delimiter @upcoming_election.current_total_census %></p>
             <% else %>
               <p class="total">El censo válido para la votación es de <%= number_with_delimiter @upcoming_election.current_active_census%> personas inscritas activas.</p>
+              <p>Personas inscritas activas: aquellas que han accedido al portal de participación en el último año.</p>
+              <p>Censo total para la votación: <%= number_with_delimiter @upcoming_election.current_total_census %></p>
             <% end %>
-          <p>Personas inscritas activas: aquellas que han accedido al portal de participación en el último año.</p>
-          <p>Personas inscritas totales: <%= number_with_delimiter User.confirmed.count %></p>
           <% end %>
         <% else %>
           <p>Vota en la consulta para el Gobierno de España desde el 14 y el 16 de abril.</p>
