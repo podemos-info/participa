@@ -431,7 +431,9 @@ class CollaborationTest < ActiveSupport::TestCase
     order = @collaboration.create_order Date.civil(2015,03,20)
     user = @collaboration.user
     order.save
-      response = ["1503000001", "PEREZ PEPITO", user.document_vatid, user.email, "C/ INVENTADA, 123", "MADRID", "28021", "ES", "ES0690000001210123456789", "90000001210123456789", "ESPBESMMXXX", 10, "RCUR", "http://localhost/colabora", 1, order.created_at.strftime("%d-%m-%Y"), "Colaboración marzo 2015", "10-03-2015", "Mensual", "PEREZ PEPITO"]
+      date = Date.civil(2015,03,20)
+      id = "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ]
+      response = [id, "PEREZ PEPITO", user.document_vatid, user.email, "C/ INVENTADA, 123", "MADRID", "28021", "ES", "ES0690000001210123456789", "90000001210123456789", "ESPBESMMXXX", 10, "RCUR", "http://localhost/colabora", @collaboration.id, order.created_at.strftime("%d-%m-%Y"), "Colaboración marzo 2015", "10-03-2015", "Mensual", "PEREZ PEPITO"]
     assert_equal( response, @collaboration.get_bank_data(Date.civil(2015,03,20)) )
   end
 

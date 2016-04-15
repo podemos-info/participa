@@ -1,5 +1,7 @@
 # Participa
 
+[![Build Status](https://travis-ci.org/GuanyemBarcelona/participa.svg?branch=master)](https://travis-ci.org/GuanyemBarcelona/participa)
+
 El objetivo de esta aplicación es ofrecer el siguiente conjunto de herramientas:
 Votaciones (integración con Agora Voting), Colaboraciones económicas (donaciones periódicas), Microcréditos (sistema de prestamos distribuidos), Notificaciones móviles (para dispositivos Android), entre otras funcionalidades.
 

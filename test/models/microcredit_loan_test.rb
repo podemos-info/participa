@@ -32,15 +32,15 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
   test "should counted scope work" do
     create_loans(@microcredit, 5, {user: @user1, amount: 1000})
     @microcredit = Microcredit.find @microcredit.id
-    assert_equal 5, @microcredit.loans.counted.count
+    assert_equal 0, @microcredit.loans.counted.count
 
     create_loans(@microcredit, 5, {user: @user1, amount: 1000, counted_at: DateTime.now})
     @microcredit = Microcredit.find @microcredit.id
-    assert_equal 10, @microcredit.loans.counted.count
+    assert_equal 5, @microcredit.loans.counted.count
 
     create_loans(@microcredit, 5, {user: @user1, amount: 100, counted_at: DateTime.now})
     @microcredit = Microcredit.find @microcredit.id
-    assert_equal 10, @microcredit.loans.counted.count
+    assert_equal 5, @microcredit.loans.counted.count
   end
 
   test "should confirmed scope work" do
@@ -116,9 +116,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
     create_loans(@microcredit, 5, {user: @user1, amount: 100, counted_at: DateTime.now, confirmed_at: DateTime.now})
     @microcredit = Microcredit.find @microcredit.id
     loan = MicrocreditLoan.create(microcredit: @microcredit, user: @user1, amount: 100, counted_at: DateTime.now, confirmed_at: DateTime.now)
-    assert_not loan.valid?
-    error = "Lamentablemente, ya no quedan préstamos por esa cantidad."
-    assert_equal error, loan.errors.messages[:amount].first
+    assert loan.valid?
   end
 
   test "should validates check user limits on microcredits loans work" do
