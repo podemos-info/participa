@@ -1,0 +1,287 @@
+---
+es:
+  world:
+    es:
+      a:
+        m_03_001_5:
+          name: "Adsubia"
+        m_03_002_0:
+          name: "Agost"
+        m_03_003_6:
+          name: "Agres"
+        m_03_004_1:
+          name: "Aigües"
+        m_03_005_4:
+          name: "Albatera"
+        m_03_006_7:
+          name: "Alcalalí"
+        m_03_007_3:
+          name: "Alcocer de Planes"
+        m_03_008_9:
+          name: "Alcoleja"
+        m_03_009_2:
+          name: "Alcoy/Alcoi"
+        m_03_010_6:
+          name: "Alfafara"
+        m_03_011_3:
+          name: "Alfàs del Pi, l'"
+        m_03_012_8:
+          name: "Algorfa"
+        m_03_013_4:
+          name: "Algueña"
+        m_03_014_9:
+          name: "Alicante/Alacant"
+        m_03_015_2:
+          name: "Almoradí"
+        m_03_016_5:
+          name: "Almudaina"
+        m_03_017_1:
+          name: "Alqueria d'Asnar, l'"
+        m_03_018_7:
+          name: "Altea"
+        m_03_019_0:
+          name: "Aspe"
+        m_03_020_4:
+          name: "Balones"
+        m_03_021_1:
+          name: "Banyeres de Mariola"
+        m_03_022_6:
+          name: "Benasau"
+        m_03_023_2:
+          name: "Beneixama"
+        m_03_024_7:
+          name: "Benejúzar"
+        m_03_025_0:
+          name: "Benferri"
+        m_03_026_3:
+          name: "Beniarbeig"
+        m_03_027_9:
+          name: "Beniardá"
+        m_03_028_5:
+          name: "Beniarrés"
+        m_03_030_2:
+          name: "Benidoleig"
+        m_03_031_9:
+          name: "Benidorm"
+        m_03_032_4:
+          name: "Benifallim"
+        m_03_033_0:
+          name: "Benifato"
+        m_03_029_8:
+          name: "Benigembla"
+        m_03_034_5:
+          name: "Benijófar"
+        m_03_035_8:
+          name: "Benilloba"
+        m_03_036_1:
+          name: "Benillup"
+        m_03_037_7:
+          name: "Benimantell"
+        m_03_038_3:
+          name: "Benimarfull"
+        m_03_039_6:
+          name: "Benimassot"
+        m_03_040_0:
+          name: "Benimeli"
+        m_03_041_7:
+          name: "Benissa"
+        m_03_042_2:
+          name: "Benitachell/Poble Nou de Benitatxell, el"
+        m_03_043_8:
+          name: "Biar"
+        m_03_044_3:
+          name: "Bigastro"
+        m_03_045_6:
+          name: "Bolulla"
+        m_03_046_9:
+          name: "Busot"
+        m_03_049_4:
+          name: "Callosa de Segura"
+        m_03_048_1:
+          name: "Callosa d'en Sarrià"
+        m_03_047_5:
+          name: "Calp"
+        m_03_050_7:
+          name: "Campello, el"
+        m_03_051_4:
+          name: "Campo de Mirra/Camp de Mirra, el"
+        m_03_052_9:
+          name: "Cañada"
+        m_03_053_5:
+          name: "Castalla"
+        m_03_054_0:
+          name: "Castell de Castells"
+        m_03_075_9:
+          name: "Castell de Guadalest, el"
+        m_03_055_3:
+          name: "Catral"
+        m_03_056_6:
+          name: "Cocentaina"
+        m_03_057_2:
+          name: "Confrides"
+        m_03_058_8:
+          name: "Cox"
+        m_03_059_1:
+          name: "Crevillent"
+        m_03_061_2:
+          name: "Daya Nueva"
+        m_03_062_7:
+          name: "Daya Vieja"
+        m_03_063_3:
+          name: "Dénia"
+        m_03_064_8:
+          name: "Dolores"
+        m_03_065_1:
+          name: "Elche/Elx"
+        m_03_066_4:
+          name: "Elda"
+        m_03_067_0:
+          name: "Facheca"
+        m_03_068_6:
+          name: "Famorca"
+        m_03_069_9:
+          name: "Finestrat"
+        m_03_077_8:
+          name: "Fondó de les Neus, el/Hondón de las Nieves"
+        m_03_070_3:
+          name: "Formentera del Segura"
+        m_03_072_5:
+          name: "Gaianes"
+        m_03_071_0:
+          name: "Gata de Gorgos"
+        m_03_073_1:
+          name: "Gorga"
+        m_03_074_6:
+          name: "Granja de Rocamora"
+        m_03_076_2:
+          name: "Guardamar del Segura"
+        m_03_078_4:
+          name: "Hondón de los Frailes"
+        m_03_079_7:
+          name: "Ibi"
+        m_03_080_1:
+          name: "Jacarilla"
+        m_03_082_3:
+          name: "Jávea/Xàbia"
+        m_03_083_9:
+          name: "Jijona/Xixona"
+        m_03_085_7:
+          name: "Llíber"
+        m_03_084_4:
+          name: "Lorcha/Orxa, l'"
+        m_03_086_0:
+          name: "Millena"
+        m_03_088_2:
+          name: "Monforte del Cid"
+        m_03_089_5:
+          name: "Monóvar/Monòver"
+        m_03_903_7:
+          name: "Montesinos, Los"
+        m_03_091_6:
+          name: "Murla"
+        m_03_092_1:
+          name: "Muro de Alcoy"
+        m_03_090_9:
+          name: "Mutxamel"
+        m_03_093_7:
+          name: "Novelda"
+        m_03_094_2:
+          name: "Nucia, la"
+        m_03_095_5:
+          name: "Ondara"
+        m_03_096_8:
+          name: "Onil"
+        m_03_097_4:
+          name: "Orba"
+        m_03_099_3:
+          name: "Orihuela"
+        m_03_098_0:
+          name: "Orxeta"
+        m_03_100_7:
+          name: "Parcent"
+        m_03_101_4:
+          name: "Pedreguer"
+        m_03_102_9:
+          name: "Pego"
+        m_03_103_5:
+          name: "Penàguila"
+        m_03_104_0:
+          name: "Petrer"
+        m_03_902_1:
+          name: "Pilar de la Horadada"
+        m_03_105_3:
+          name: "Pinós, el/Pinoso"
+        m_03_106_6:
+          name: "Planes"
+        m_03_901_6:
+          name: "Poblets, els"
+        m_03_107_2:
+          name: "Polop"
+        m_03_060_5:
+          name: "Quatretondeta"
+        m_03_109_1:
+          name: "Rafal"
+        m_03_110_5:
+          name: "Ràfol d'Almúnia, el"
+        m_03_111_2:
+          name: "Redován"
+        m_03_112_7:
+          name: "Relleu"
+        m_03_113_3:
+          name: "Rojales"
+        m_03_114_8:
+          name: "Romana, la"
+        m_03_115_1:
+          name: "Sagra"
+        m_03_116_4:
+          name: "Salinas"
+        m_03_118_6:
+          name: "San Fulgencio"
+        m_03_904_2:
+          name: "San Isidro"
+        m_03_120_3:
+          name: "San Miguel de Salinas"
+        m_03_122_5:
+          name: "San Vicente del Raspeig/Sant Vicent del Raspeig"
+        m_03_117_0:
+          name: "Sanet y Negrals"
+        m_03_119_9:
+          name: "Sant Joan d'Alacant"
+        m_03_121_0:
+          name: "Santa Pola"
+        m_03_123_1:
+          name: "Sax"
+        m_03_124_6:
+          name: "Sella"
+        m_03_125_9:
+          name: "Senija"
+        m_03_127_8:
+          name: "Tàrbena"
+        m_03_128_4:
+          name: "Teulada"
+        m_03_129_7:
+          name: "Tibi"
+        m_03_130_1:
+          name: "Tollos"
+        m_03_131_8:
+          name: "Tormos"
+        m_03_132_3:
+          name: "Torremanzanas/Torre de les Maçanes, la"
+        m_03_133_9:
+          name: "Torrevieja"
+        m_03_134_4:
+          name: "Vall d'Alcalà, la"
+        m_03_136_0:
+          name: "Vall de Gallinera"
+        m_03_137_6:
+          name: "Vall de Laguar, la"
+        m_03_135_7:
+          name: "Vall d'Ebo, la"
+        m_03_138_2:
+          name: "Verger, el"
+        m_03_139_5:
+          name: "Villajoyosa/Vila Joiosa, la"
+        m_03_140_9:
+          name: "Villena"
+        m_03_081_8:
+          name: "Xaló"

@@ -1,0 +1,209 @@
+---
+es:
+  world:
+    es:
+      cr:
+        m_13_001_3:
+          name: "Abenójar"
+        m_13_002_8:
+          name: "Agudo"
+        m_13_003_4:
+          name: "Alamillo"
+        m_13_004_9:
+          name: "Albaladejo"
+        m_13_005_2:
+          name: "Alcázar de San Juan"
+        m_13_006_5:
+          name: "Alcoba"
+        m_13_007_1:
+          name: "Alcolea de Calatrava"
+        m_13_008_7:
+          name: "Alcubillas"
+        m_13_009_0:
+          name: "Aldea del Rey"
+        m_13_010_4:
+          name: "Alhambra"
+        m_13_011_1:
+          name: "Almadén"
+        m_13_012_6:
+          name: "Almadenejos"
+        m_13_013_2:
+          name: "Almagro"
+        m_13_014_7:
+          name: "Almedina"
+        m_13_015_0:
+          name: "Almodóvar del Campo"
+        m_13_016_3:
+          name: "Almuradiel"
+        m_13_017_9:
+          name: "Anchuras"
+        m_13_903_5:
+          name: "Arenales de San Gregorio"
+        m_13_018_5:
+          name: "Arenas de San Juan"
+        m_13_019_8:
+          name: "Argamasilla de Alba"
+        m_13_020_2:
+          name: "Argamasilla de Calatrava"
+        m_13_021_9:
+          name: "Arroba de los Montes"
+        m_13_022_4:
+          name: "Ballesteros de Calatrava"
+        m_13_023_0:
+          name: "Bolaños de Calatrava"
+        m_13_024_5:
+          name: "Brazatortas"
+        m_13_025_8:
+          name: "Cabezarados"
+        m_13_026_1:
+          name: "Cabezarrubias del Puerto"
+        m_13_027_7:
+          name: "Calzada de Calatrava"
+        m_13_028_3:
+          name: "Campo de Criptana"
+        m_13_029_6:
+          name: "Cañada de Calatrava"
+        m_13_030_0:
+          name: "Caracuel de Calatrava"
+        m_13_031_7:
+          name: "Carrión de Calatrava"
+        m_13_032_2:
+          name: "Carrizosa"
+        m_13_033_8:
+          name: "Castellar de Santiago"
+        m_13_038_1:
+          name: "Chillón"
+        m_13_034_3:
+          name: "Ciudad Real"
+        m_13_035_6:
+          name: "Corral de Calatrava"
+        m_13_036_9:
+          name: "Cortijos, Los"
+        m_13_037_5:
+          name: "Cózar"
+        m_13_039_4:
+          name: "Daimiel"
+        m_13_040_8:
+          name: "Fernán Caballero"
+        m_13_041_5:
+          name: "Fontanarejo"
+        m_13_042_0:
+          name: "Fuencaliente"
+        m_13_043_6:
+          name: "Fuenllana"
+        m_13_044_1:
+          name: "Fuente el Fresno"
+        m_13_045_4:
+          name: "Granátula de Calatrava"
+        m_13_046_7:
+          name: "Guadalmez"
+        m_13_047_3:
+          name: "Herencia"
+        m_13_048_9:
+          name: "Hinojosas de Calatrava"
+        m_13_049_2:
+          name: "Horcajo de los Montes"
+        m_13_050_5:
+          name: "Labores, Las"
+        m_13_904_0:
+          name: "Llanos del Caudillo"
+        m_13_051_2:
+          name: "Luciana"
+        m_13_052_7:
+          name: "Malagón"
+        m_13_053_3:
+          name: "Manzanares"
+        m_13_054_8:
+          name: "Membrilla"
+        m_13_055_1:
+          name: "Mestanza"
+        m_13_056_4:
+          name: "Miguelturra"
+        m_13_057_0:
+          name: "Montiel"
+        m_13_058_6:
+          name: "Moral de Calatrava"
+        m_13_059_9:
+          name: "Navalpino"
+        m_13_060_3:
+          name: "Navas de Estena"
+        m_13_061_0:
+          name: "Pedro Muñoz"
+        m_13_062_5:
+          name: "Picón"
+        m_13_063_1:
+          name: "Piedrabuena"
+        m_13_064_6:
+          name: "Poblete"
+        m_13_065_9:
+          name: "Porzuna"
+        m_13_066_2:
+          name: "Pozuelo de Calatrava"
+        m_13_067_8:
+          name: "Pozuelos de Calatrava, Los"
+        m_13_068_4:
+          name: "Puebla de Don Rodrigo"
+        m_13_069_7:
+          name: "Puebla del Príncipe"
+        m_13_070_1:
+          name: "Puerto Lápice"
+        m_13_071_8:
+          name: "Puertollano"
+        m_13_072_3:
+          name: "Retuerta del Bullaque"
+        m_13_901_4:
+          name: "Robledo, El"
+        m_13_902_9:
+          name: "Ruidera"
+        m_13_073_9:
+          name: "Saceruela"
+        m_13_074_4:
+          name: "San Carlos del Valle"
+        m_13_075_7:
+          name: "San Lorenzo de Calatrava"
+        m_13_076_0:
+          name: "Santa Cruz de los Cáñamos"
+        m_13_077_6:
+          name: "Santa Cruz de Mudela"
+        m_13_078_2:
+          name: "Socuéllamos"
+        m_13_080_9:
+          name: "Solana del Pino"
+        m_13_079_5:
+          name: "Solana, La"
+        m_13_081_6:
+          name: "Terrinches"
+        m_13_082_1:
+          name: "Tomelloso"
+        m_13_083_7:
+          name: "Torralba de Calatrava"
+        m_13_084_2:
+          name: "Torre de Juan Abad"
+        m_13_085_5:
+          name: "Torrenueva"
+        m_13_086_8:
+          name: "Valdemanco del Esteras"
+        m_13_087_4:
+          name: "Valdepeñas"
+        m_13_088_0:
+          name: "Valenzuela de Calatrava"
+        m_13_089_3:
+          name: "Villahermosa"
+        m_13_090_7:
+          name: "Villamanrique"
+        m_13_091_4:
+          name: "Villamayor de Calatrava"
+        m_13_092_9:
+          name: "Villanueva de la Fuente"
+        m_13_093_5:
+          name: "Villanueva de los Infantes"
+        m_13_094_0:
+          name: "Villanueva de San Carlos"
+        m_13_095_3:
+          name: "Villar del Pozo"
+        m_13_096_6:
+          name: "Villarrubia de los Ojos"
+        m_13_097_2:
+          name: "Villarta de San Juan"
+        m_13_098_8:
+          name: "Viso del Marqués"

@@ -26,7 +26,8 @@ feature "Collaborations" do
     # logged in user, fill collaboration
     login_as(user)
     visit new_collaboration_path
-    page.must_have_content "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes"
+    #page.must_have_content "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes"
+    page.must_have_content "Apúntate a las donaciones periódiques de BComú"
     select('500', :from=>'Importe mensual') 
     select('Trimestral', :from=>'Frecuencia de pago') 
     select('Domiciliación en cuenta bancaria (formato IBAN)', :from=>'Método de pago') 
@@ -59,7 +60,8 @@ feature "Collaborations" do
 
     login_as(user)
     visit new_collaboration_path
-    page.must_have_content "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes"
+    #page.must_have_content "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes"
+    page.must_have_content "Apúntate a las donaciones periódiques de BComú"
 
     select('500', :from=>'Importe mensual') 
     select('Trimestral', :from=>'Frecuencia de pago') 

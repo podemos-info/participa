@@ -1,0 +1,423 @@
+---
+es:
+  world:
+    es:
+      sg:
+        m_40_001_9:
+          name: "Abades"
+        m_40_002_4:
+          name: "Adrada de Pirón"
+        m_40_003_0:
+          name: "Adrados"
+        m_40_004_5:
+          name: "Aguilafuente"
+        m_40_005_8:
+          name: "Alconada de Maderuelo"
+        m_40_012_2:
+          name: "Aldea Real"
+        m_40_006_1:
+          name: "Aldealcorvo"
+        m_40_007_7:
+          name: "Aldealengua de Pedraza"
+        m_40_008_3:
+          name: "Aldealengua de Santa María"
+        m_40_009_6:
+          name: "Aldeanueva de la Serrezuela"
+        m_40_010_0:
+          name: "Aldeanueva del Codonal"
+        m_40_013_8:
+          name: "Aldeasoña"
+        m_40_014_3:
+          name: "Aldehorno"
+        m_40_015_6:
+          name: "Aldehuela del Codonal"
+        m_40_016_9:
+          name: "Aldeonte"
+        m_40_017_5:
+          name: "Anaya"
+        m_40_018_1:
+          name: "Añe"
+        m_40_019_4:
+          name: "Arahuetes"
+        m_40_020_8:
+          name: "Arcones"
+        m_40_021_5:
+          name: "Arevalillo de Cega"
+        m_40_022_0:
+          name: "Armuña"
+        m_40_024_1:
+          name: "Ayllón"
+        m_40_025_4:
+          name: "Barbolla"
+        m_40_026_7:
+          name: "Basardilla"
+        m_40_028_9:
+          name: "Bercial"
+        m_40_029_2:
+          name: "Bercimuel"
+        m_40_030_6:
+          name: "Bernardos"
+        m_40_031_3:
+          name: "Bernuy de Porreros"
+        m_40_032_8:
+          name: "Boceguillas"
+        m_40_033_4:
+          name: "Brieva"
+        m_40_034_9:
+          name: "Caballar"
+        m_40_035_2:
+          name: "Cabañas de Polendos"
+        m_40_036_5:
+          name: "Cabezuela"
+        m_40_037_1:
+          name: "Calabazas de Fuentidueña"
+        m_40_039_0:
+          name: "Campo de San Pedro"
+        m_40_040_4:
+          name: "Cantalejo"
+        m_40_041_1:
+          name: "Cantimpalos"
+        m_40_043_2:
+          name: "Carbonero el Mayor"
+        m_40_044_7:
+          name: "Carrascal del Río"
+        m_40_045_0:
+          name: "Casla"
+        m_40_046_3:
+          name: "Castillejo de Mesleón"
+        m_40_047_9:
+          name: "Castro de Fuentidueña"
+        m_40_048_5:
+          name: "Castrojimeno"
+        m_40_049_8:
+          name: "Castroserna de Abajo"
+        m_40_051_8:
+          name: "Castroserracín"
+        m_40_052_3:
+          name: "Cedillo de la Torre"
+        m_40_053_9:
+          name: "Cerezo de Abajo"
+        m_40_054_4:
+          name: "Cerezo de Arriba"
+        m_40_065_5:
+          name: "Chañe"
+        m_40_055_7:
+          name: "Cilleruelo de San Mamés"
+        m_40_056_0:
+          name: "Cobos de Fuentidueña"
+        m_40_057_6:
+          name: "Coca"
+        m_40_058_2:
+          name: "Codorniz"
+        m_40_059_5:
+          name: "Collado Hermoso"
+        m_40_060_9:
+          name: "Condado de Castilnovo"
+        m_40_061_6:
+          name: "Corral de Ayllón"
+        m_40_902_5:
+          name: "Cozuelos de Fuentidueña"
+        m_40_062_1:
+          name: "Cubillo"
+        m_40_063_7:
+          name: "Cuéllar"
+        m_40_905_9:
+          name: "Cuevas de Provanco"
+        m_40_068_0:
+          name: "Domingo García"
+        m_40_069_3:
+          name: "Donhierro"
+        m_40_070_7:
+          name: "Duruelo"
+        m_40_071_4:
+          name: "Encinas"
+        m_40_072_9:
+          name: "Encinillas"
+        m_40_073_5:
+          name: "Escalona del Prado"
+        m_40_074_0:
+          name: "Escarabajosa de Cabezas"
+        m_40_075_3:
+          name: "Escobar de Polendos"
+        m_40_076_6:
+          name: "Espinar, El"
+        m_40_077_2:
+          name: "Espirdo"
+        m_40_078_8:
+          name: "Fresneda de Cuéllar"
+        m_40_079_1:
+          name: "Fresno de Cantespino"
+        m_40_080_5:
+          name: "Fresno de la Fuente"
+        m_40_081_2:
+          name: "Frumales"
+        m_40_082_7:
+          name: "Fuente de Santa Cruz"
+        m_40_083_3:
+          name: "Fuente el Olmo de Fuentidueña"
+        m_40_084_8:
+          name: "Fuente el Olmo de Íscar"
+        m_40_086_4:
+          name: "Fuentepelayo"
+        m_40_087_0:
+          name: "Fuentepiñel"
+        m_40_088_6:
+          name: "Fuenterrebollo"
+        m_40_089_9:
+          name: "Fuentesaúco de Fuentidueña"
+        m_40_091_0:
+          name: "Fuentesoto"
+        m_40_092_5:
+          name: "Fuentidueña"
+        m_40_093_1:
+          name: "Gallegos"
+        m_40_094_6:
+          name: "Garcillán"
+        m_40_095_9:
+          name: "Gomezserracín"
+        m_40_097_8:
+          name: "Grajera"
+        m_40_099_7:
+          name: "Honrubia de la Cuesta"
+        m_40_100_1:
+          name: "Hontalbilla"
+        m_40_101_8:
+          name: "Hontanares de Eresma"
+        m_40_103_9:
+          name: "Huertos, Los"
+        m_40_104_4:
+          name: "Ituero y Lama"
+        m_40_105_7:
+          name: "Juarros de Riomoros"
+        m_40_106_0:
+          name: "Juarros de Voltoya"
+        m_40_107_6:
+          name: "Labajos"
+        m_40_108_2:
+          name: "Laguna de Contreras"
+        m_40_109_5:
+          name: "Languilla"
+        m_40_110_9:
+          name: "Lastras de Cuéllar"
+        m_40_111_6:
+          name: "Lastras del Pozo"
+        m_40_112_1:
+          name: "Lastrilla, La"
+        m_40_113_7:
+          name: "Losa, La"
+        m_40_115_5:
+          name: "Maderuelo"
+        m_40_903_1:
+          name: "Marazoleja"
+        m_40_118_0:
+          name: "Marazuela"
+        m_40_119_3:
+          name: "Martín Miguel"
+        m_40_120_7:
+          name: "Martín Muñoz de la Dehesa"
+        m_40_121_4:
+          name: "Martín Muñoz de las Posadas"
+        m_40_122_9:
+          name: "Marugán"
+        m_40_124_0:
+          name: "Mata de Cuéllar"
+        m_40_123_5:
+          name: "Matabuena"
+        m_40_125_3:
+          name: "Matilla, La"
+        m_40_126_6:
+          name: "Melque de Cercos"
+        m_40_127_2:
+          name: "Membibre de la Hoz"
+        m_40_128_8:
+          name: "Migueláñez"
+        m_40_129_1:
+          name: "Montejo de Arévalo"
+        m_40_130_5:
+          name: "Montejo de la Vega de la Serrezuela"
+        m_40_131_2:
+          name: "Monterrubio"
+        m_40_132_7:
+          name: "Moral de Hornuez"
+        m_40_134_8:
+          name: "Mozoncillo"
+        m_40_135_1:
+          name: "Muñopedro"
+        m_40_136_4:
+          name: "Muñoveros"
+        m_40_138_6:
+          name: "Nava de la Asunción"
+        m_40_139_9:
+          name: "Navafría"
+        m_40_140_3:
+          name: "Navalilla"
+        m_40_141_0:
+          name: "Navalmanzano"
+        m_40_142_5:
+          name: "Navares de Ayuso"
+        m_40_143_1:
+          name: "Navares de Enmedio"
+        m_40_144_6:
+          name: "Navares de las Cuevas"
+        m_40_145_9:
+          name: "Navas de Oro"
+        m_40_904_6:
+          name: "Navas de Riofrío"
+        m_40_146_2:
+          name: "Navas de San Antonio"
+        m_40_148_4:
+          name: "Nieva"
+        m_40_149_7:
+          name: "Olombrada"
+        m_40_150_0:
+          name: "Orejana"
+        m_40_151_7:
+          name: "Ortigosa de Pestaño"
+        m_40_901_0:
+          name: "Ortigosa del Monte"
+        m_40_152_2:
+          name: "Otero de Herreros"
+        m_40_154_3:
+          name: "Pajarejos"
+        m_40_155_6:
+          name: "Palazuelos de Eresma"
+        m_40_156_9:
+          name: "Pedraza"
+        m_40_157_5:
+          name: "Pelayos del Arroyo"
+        m_40_158_1:
+          name: "Perosillo"
+        m_40_159_4:
+          name: "Pinarejos"
+        m_40_160_8:
+          name: "Pinarnegrillo"
+        m_40_161_5:
+          name: "Pradales"
+        m_40_162_0:
+          name: "Prádena"
+        m_40_163_6:
+          name: "Puebla de Pedraza"
+        m_40_164_1:
+          name: "Rapariegos"
+        m_40_181_1:
+          name: "Real Sitio de San Ildefonso"
+        m_40_165_4:
+          name: "Rebollo"
+        m_40_166_7:
+          name: "Remondo"
+        m_40_168_9:
+          name: "Riaguas de San Bartolomé"
+        m_40_170_6:
+          name: "Riaza"
+        m_40_171_3:
+          name: "Ribota"
+        m_40_172_8:
+          name: "Riofrío de Riaza"
+        m_40_173_4:
+          name: "Roda de Eresma"
+        m_40_174_9:
+          name: "Sacramenia"
+        m_40_176_5:
+          name: "Samboal"
+        m_40_177_1:
+          name: "San Cristóbal de Cuéllar"
+        m_40_178_7:
+          name: "San Cristóbal de la Vega"
+        m_40_906_2:
+          name: "San Cristóbal de Segovia"
+        m_40_182_6:
+          name: "San Martín y Mudrián"
+        m_40_183_2:
+          name: "San Miguel de Bernuy"
+        m_40_184_7:
+          name: "San Pedro de Gaíllos"
+        m_40_179_0:
+          name: "Sanchonuño"
+        m_40_180_4:
+          name: "Sangarcía"
+        m_40_185_0:
+          name: "Santa María la Real de Nieva"
+        m_40_186_3:
+          name: "Santa Marta del Cerro"
+        m_40_188_5:
+          name: "Santiuste de Pedraza"
+        m_40_189_8:
+          name: "Santiuste de San Juan Bautista"
+        m_40_190_2:
+          name: "Santo Domingo de Pirón"
+        m_40_191_9:
+          name: "Santo Tomé del Puerto"
+        m_40_192_4:
+          name: "Sauquillo de Cabezas"
+        m_40_193_0:
+          name: "Sebúlcor"
+        m_40_194_5:
+          name: "Segovia"
+        m_40_195_8:
+          name: "Sepúlveda"
+        m_40_196_1:
+          name: "Sequera de Fresno"
+        m_40_198_3:
+          name: "Sotillo"
+        m_40_199_6:
+          name: "Sotosalbos"
+        m_40_200_0:
+          name: "Tabanera la Luenga"
+        m_40_201_7:
+          name: "Tolocirio"
+        m_40_206_9:
+          name: "Torre Val de San Pedro"
+        m_40_202_2:
+          name: "Torreadrada"
+        m_40_203_8:
+          name: "Torrecaballeros"
+        m_40_204_3:
+          name: "Torrecilla del Pinar"
+        m_40_205_6:
+          name: "Torreiglesias"
+        m_40_207_5:
+          name: "Trescasas"
+        m_40_208_1:
+          name: "Turégano"
+        m_40_210_8:
+          name: "Urueñas"
+        m_40_211_5:
+          name: "Valdeprados"
+        m_40_212_0:
+          name: "Valdevacas de Montejo"
+        m_40_213_6:
+          name: "Valdevacas y Guijar"
+        m_40_218_9:
+          name: "Valle de Tabladillo"
+        m_40_219_2:
+          name: "Vallelado"
+        m_40_220_6:
+          name: "Valleruela de Pedraza"
+        m_40_221_3:
+          name: "Valleruela de Sepúlveda"
+        m_40_214_1:
+          name: "Valseca"
+        m_40_215_4:
+          name: "Valtiendas"
+        m_40_216_7:
+          name: "Valverde del Majano"
+        m_40_222_8:
+          name: "Veganzones"
+        m_40_223_4:
+          name: "Vegas de Matute"
+        m_40_224_9:
+          name: "Ventosilla y Tejadilla"
+        m_40_225_2:
+          name: "Villacastín"
+        m_40_228_7:
+          name: "Villaverde de Íscar"
+        m_40_229_0:
+          name: "Villaverde de Montejo"
+        m_40_230_4:
+          name: "Villeguillo"
+        m_40_231_1:
+          name: "Yanguas de Eresma"
+        m_40_233_2:
+          name: "Zarzuela del Monte"
+        m_40_234_7:
+          name: "Zarzuela del Pinar"

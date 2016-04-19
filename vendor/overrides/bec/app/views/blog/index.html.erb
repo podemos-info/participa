@@ -1,0 +1,32 @@
+<% content_for :title, "Brújula" %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <section class="generic-wrapper blog">
+          <h1>Brújula</h1>
+
+          <div class="container">
+              <div>
+                  <% @posts.each do |post| %>
+                      <%= render "post", post: post %>
+                  <% end %>
+              </div>
+              <p class="links">
+                  <%= link_to_previous_page @posts, fa_icon("chevron-circle-right", text:'Posteriores') , class: 'right'%>
+                  <%= link_to_next_page @posts, fa_icon("chevron-circle-left", text:'Anteriores') %>
+              </p>
+          </div>
+
+          <div class="sidebar">
+              <h2>Categorias</h2>
+              <ul>
+              <% @categories.each do |category| %>
+                <li><%= link_to(category.name, category ) %></li>
+              <% end %>
+              </ul>
+          </div> 
+      </section>
+    </div>
+  </div>
+</div>

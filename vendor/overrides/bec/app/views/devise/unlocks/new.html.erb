@@ -1,0 +1,31 @@
+<% @title ||= t("devise.titles.unlock_instructions") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <h2>
+        <%= t('devise.titles.unlock_instructions') %>
+      </h2>
+
+
+      <%= semantic_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: {method: :post}) do |f| %>
+
+          <fieldset>
+            <legend class="invisible">
+              <span>Desbloquear cuenta</span>
+            </legend>
+            <div class="inputlabel-box">
+              <% if resource.errors.include?(:email) %>
+                  <%= field_notice_box %>
+              <% end %>
+              <%= f.input :email, input_html: {autofocus: true, class: 'input-m'} %>
+            </div>
+
+            <%= f.actions class: 'enter' do %>
+                <%= f.action :submit, label: t("devise.buttons.unlock_instructions"), button_html: {class: 'button'} %>
+            <% end %>
+          </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

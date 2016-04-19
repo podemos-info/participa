@@ -1,0 +1,32 @@
+<% content_for :title, "Rellena el código de la imagen" %>
+
+<div class="content-content cols">
+  <div class="row">
+
+    <div class="col-b-4a12">
+
+      <%= render partial: "steps", locals: {step: 2} %>
+
+      <%= semantic_form_for(:captcha, url: sms_validator_captcha_path, html: {method: :post}) do |f| %>
+
+          <fieldset>
+            <legend class="invisible">Captcha</legend>
+
+            <p><%= t('bec.valid.phone.p4') %></p>
+
+            <div class="inputlabel-box">
+              <%= f.label :captcha %>
+              <div class="input-box">
+                <%= show_simple_captcha %>
+              </div>
+            </div>
+
+            <%= f.actions class: 'enter' do %>
+                <%= f.action :submit, label: t('bec.valid.phone.captcha'), button_html: {class: 'button'} %>
+            <% end %>
+
+          </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

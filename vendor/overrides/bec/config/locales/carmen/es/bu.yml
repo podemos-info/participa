@@ -1,0 +1,747 @@
+---
+es:
+  world:
+    es:
+      bu:
+        m_09_001_1:
+          name: "Abajas"
+        m_09_003_2:
+          name: "Adrada de Haza"
+        m_09_006_3:
+          name: "Aguas Cándidas"
+        m_09_007_9:
+          name: "Aguilar de Bureba"
+        m_09_009_8:
+          name: "Albillos"
+        m_09_010_2:
+          name: "Alcocero de Mola"
+        m_09_011_9:
+          name: "Alfoz de Bricia"
+        m_09_907_0:
+          name: "Alfoz de Quintanadueñas"
+        m_09_012_4:
+          name: "Alfoz de Santa Gadea"
+        m_09_013_0:
+          name: "Altable"
+        m_09_014_5:
+          name: "Altos, Los"
+        m_09_016_1:
+          name: "Ameyugo"
+        m_09_017_7:
+          name: "Anguix"
+        m_09_018_3:
+          name: "Aranda de Duero"
+        m_09_019_6:
+          name: "Arandilla"
+        m_09_020_0:
+          name: "Arauzo de Miel"
+        m_09_021_7:
+          name: "Arauzo de Salce"
+        m_09_022_2:
+          name: "Arauzo de Torre"
+        m_09_023_8:
+          name: "Arcos"
+        m_09_024_3:
+          name: "Arenillas de Riopisuerga"
+        m_09_025_6:
+          name: "Arija"
+        m_09_026_9:
+          name: "Arlanzón"
+        m_09_027_5:
+          name: "Arraya de Oca"
+        m_09_029_4:
+          name: "Atapuerca"
+        m_09_030_8:
+          name: "Ausines, Los"
+        m_09_032_0:
+          name: "Avellanosa de Muñó"
+        m_09_033_6:
+          name: "Bahabón de Esgueva"
+        m_09_034_1:
+          name: "Balbases, Los"
+        m_09_035_4:
+          name: "Baños de Valdearados"
+        m_09_036_7:
+          name: "Bañuelos de Bureba"
+        m_09_037_3:
+          name: "Barbadillo de Herreros"
+        m_09_038_9:
+          name: "Barbadillo del Mercado"
+        m_09_039_2:
+          name: "Barbadillo del Pez"
+        m_09_041_3:
+          name: "Barrio de Muñó"
+        m_09_043_4:
+          name: "Barrios de Bureba, Los"
+        m_09_044_9:
+          name: "Barrios de Colina"
+        m_09_045_2:
+          name: "Basconcillos del Tozo"
+        m_09_046_5:
+          name: "Bascuñana"
+        m_09_047_1:
+          name: "Belbimbre"
+        m_09_048_7:
+          name: "Belorado"
+        m_09_050_3:
+          name: "Berberana"
+        m_09_051_0:
+          name: "Berlangas de Roa"
+        m_09_052_5:
+          name: "Berzosa de Bureba"
+        m_09_054_6:
+          name: "Bozoó"
+        m_09_055_9:
+          name: "Brazacorta"
+        m_09_056_2:
+          name: "Briviesca"
+        m_09_057_8:
+          name: "Bugedo"
+        m_09_058_4:
+          name: "Buniel"
+        m_09_059_7:
+          name: "Burgos"
+        m_09_060_1:
+          name: "Busto de Bureba"
+        m_09_061_8:
+          name: "Cabañes de Esgueva"
+        m_09_062_3:
+          name: "Cabezón de la Sierra"
+        m_09_064_4:
+          name: "Caleruega"
+        m_09_065_7:
+          name: "Campillo de Aranda"
+        m_09_066_0:
+          name: "Campolara"
+        m_09_067_6:
+          name: "Canicosa de la Sierra"
+        m_09_068_2:
+          name: "Cantabrana"
+        m_09_070_9:
+          name: "Carazo"
+        m_09_071_6:
+          name: "Carcedo de Bureba"
+        m_09_072_1:
+          name: "Carcedo de Burgos"
+        m_09_073_7:
+          name: "Cardeñadijo"
+        m_09_074_2:
+          name: "Cardeñajimeno"
+        m_09_075_5:
+          name: "Cardeñuela Riopico"
+        m_09_076_8:
+          name: "Carrias"
+        m_09_077_4:
+          name: "Cascajares de Bureba"
+        m_09_078_0:
+          name: "Cascajares de la Sierra"
+        m_09_079_3:
+          name: "Castellanos de Castro"
+        m_09_083_5:
+          name: "Castil de Peones"
+        m_09_082_9:
+          name: "Castildelgado"
+        m_09_084_0:
+          name: "Castrillo de la Reina"
+        m_09_085_3:
+          name: "Castrillo de la Vega"
+        m_09_088_8:
+          name: "Castrillo de Riopisuerga"
+        m_09_086_6:
+          name: "Castrillo del Val"
+        m_09_090_5:
+          name: "Castrillo Matajudíos"
+        m_09_091_2:
+          name: "Castrojeriz"
+        m_09_063_9:
+          name: "Cavia"
+        m_09_093_3:
+          name: "Cayuela"
+        m_09_094_8:
+          name: "Cebrecos"
+        m_09_095_1:
+          name: "Celada del Camino"
+        m_09_098_6:
+          name: "Cerezo de Río Tirón"
+        m_09_100_3:
+          name: "Cerratón de Juarros"
+        m_09_101_0:
+          name: "Ciadoncha"
+        m_09_102_5:
+          name: "Cillaperlata"
+        m_09_103_1:
+          name: "Cilleruelo de Abajo"
+        m_09_104_6:
+          name: "Cilleruelo de Arriba"
+        m_09_105_9:
+          name: "Ciruelos de Cervera"
+        m_09_108_4:
+          name: "Cogollos"
+        m_09_109_7:
+          name: "Condado de Treviño"
+        m_09_110_1:
+          name: "Contreras"
+        m_09_112_3:
+          name: "Coruña del Conde"
+        m_09_113_9:
+          name: "Covarrubias"
+        m_09_114_4:
+          name: "Cubillo del Campo"
+        m_09_115_7:
+          name: "Cubo de Bureba"
+        m_09_117_6:
+          name: "Cueva de Roa, La"
+        m_09_119_5:
+          name: "Cuevas de San Clemente"
+        m_09_120_9:
+          name: "Encío"
+        m_09_122_1:
+          name: "Espinosa de Cervera"
+        m_09_124_2:
+          name: "Espinosa de los Monteros"
+        m_09_123_7:
+          name: "Espinosa del Camino"
+        m_09_125_5:
+          name: "Estépar"
+        m_09_127_4:
+          name: "Fontioso"
+        m_09_128_0:
+          name: "Frandovínez"
+        m_09_129_3:
+          name: "Fresneda de la Sierra Tirón"
+        m_09_130_7:
+          name: "Fresneña"
+        m_09_131_4:
+          name: "Fresnillo de las Dueñas"
+        m_09_132_9:
+          name: "Fresno de Río Tirón"
+        m_09_133_5:
+          name: "Fresno de Rodilla"
+        m_09_134_0:
+          name: "Frías"
+        m_09_135_3:
+          name: "Fuentebureba"
+        m_09_136_6:
+          name: "Fuentecén"
+        m_09_137_2:
+          name: "Fuentelcésped"
+        m_09_138_8:
+          name: "Fuentelisendo"
+        m_09_139_1:
+          name: "Fuentemolinos"
+        m_09_140_5:
+          name: "Fuentenebro"
+        m_09_141_2:
+          name: "Fuentespina"
+        m_09_143_3:
+          name: "Galbarros"
+        m_09_144_8:
+          name: "Gallega, La"
+        m_09_148_6:
+          name: "Grijalba"
+        m_09_149_9:
+          name: "Grisaleña"
+        m_09_151_9:
+          name: "Gumiel de Izán"
+        m_09_152_4:
+          name: "Gumiel de Mercado"
+        m_09_154_5:
+          name: "Hacinas"
+        m_09_155_8:
+          name: "Haza"
+        m_09_159_6:
+          name: "Hontanas"
+        m_09_160_0:
+          name: "Hontangas"
+        m_09_162_2:
+          name: "Hontoria de la Cantera"
+        m_09_164_3:
+          name: "Hontoria de Valdearados"
+        m_09_163_8:
+          name: "Hontoria del Pinar"
+        m_09_166_9:
+          name: "Hormazas, Las"
+        m_09_167_5:
+          name: "Hornillos del Camino"
+        m_09_168_1:
+          name: "Horra, La"
+        m_09_169_4:
+          name: "Hortigüela"
+        m_09_170_8:
+          name: "Hoyales de Roa"
+        m_09_172_0:
+          name: "Huérmeces"
+        m_09_173_6:
+          name: "Huerta de Arriba"
+        m_09_174_1:
+          name: "Huerta de Rey"
+        m_09_175_4:
+          name: "Humada"
+        m_09_176_7:
+          name: "Hurones"
+        m_09_177_3:
+          name: "Ibeas de Juarros"
+        m_09_178_9:
+          name: "Ibrillos"
+        m_09_179_2:
+          name: "Iglesiarrubia"
+        m_09_180_6:
+          name: "Iglesias"
+        m_09_181_3:
+          name: "Isar"
+        m_09_182_8:
+          name: "Itero del Castillo"
+        m_09_183_4:
+          name: "Jaramillo de la Fuente"
+        m_09_184_9:
+          name: "Jaramillo Quemado"
+        m_09_189_0:
+          name: "Junta de Traslaloma"
+        m_09_190_4:
+          name: "Junta de Villalba de Losa"
+        m_09_191_1:
+          name: "Jurisdicción de Lara"
+        m_09_192_6:
+          name: "Jurisdicción de San Zadornil"
+        m_09_194_7:
+          name: "Lerma"
+        m_09_195_0:
+          name: "Llano de Bureba"
+        m_09_196_3:
+          name: "Madrigal del Monte"
+        m_09_197_9:
+          name: "Madrigalejo del Monte"
+        m_09_198_5:
+          name: "Mahamud"
+        m_09_199_8:
+          name: "Mambrilla de Castrejón"
+        m_09_200_2:
+          name: "Mambrillas de Lara"
+        m_09_201_9:
+          name: "Mamolar"
+        m_09_202_4:
+          name: "Manciles"
+        m_09_206_1:
+          name: "Mazuela"
+        m_09_208_3:
+          name: "Mecerreyes"
+        m_09_209_6:
+          name: "Medina de Pomar"
+        m_09_211_7:
+          name: "Melgar de Fernamental"
+        m_09_213_8:
+          name: "Merindad de Cuesta-Urria"
+        m_09_214_3:
+          name: "Merindad de Montija"
+        m_09_906_4:
+          name: "Merindad de Río Ubierna"
+        m_09_215_6:
+          name: "Merindad de Sotoscueva"
+        m_09_216_9:
+          name: "Merindad de Valdeporres"
+        m_09_217_5:
+          name: "Merindad de Valdivielso"
+        m_09_218_1:
+          name: "Milagros"
+        m_09_219_4:
+          name: "Miranda de Ebro"
+        m_09_220_8:
+          name: "Miraveche"
+        m_09_221_5:
+          name: "Modúbar de la Emparedada"
+        m_09_223_6:
+          name: "Monasterio de la Sierra"
+        m_09_224_1:
+          name: "Monasterio de Rodilla"
+        m_09_225_4:
+          name: "Moncalvillo"
+        m_09_226_7:
+          name: "Monterrubio de la Demanda"
+        m_09_227_3:
+          name: "Montorio"
+        m_09_228_9:
+          name: "Moradillo de Roa"
+        m_09_229_2:
+          name: "Nava de Roa"
+        m_09_230_6:
+          name: "Navas de Bureba"
+        m_09_231_3:
+          name: "Nebreda"
+        m_09_232_8:
+          name: "Neila"
+        m_09_235_2:
+          name: "Olmedillo de Roa"
+        m_09_236_5:
+          name: "Olmillos de Muñó"
+        m_09_238_7:
+          name: "Oña"
+        m_09_239_0:
+          name: "Oquillas"
+        m_09_241_1:
+          name: "Orbaneja Riopico"
+        m_09_242_6:
+          name: "Padilla de Abajo"
+        m_09_243_2:
+          name: "Padilla de Arriba"
+        m_09_244_7:
+          name: "Padrones de Bureba"
+        m_09_246_3:
+          name: "Palacios de la Sierra"
+        m_09_247_9:
+          name: "Palacios de Riopisuerga"
+        m_09_248_5:
+          name: "Palazuelos de la Sierra"
+        m_09_249_8:
+          name: "Palazuelos de Muñó"
+        m_09_250_1:
+          name: "Pampliega"
+        m_09_251_8:
+          name: "Pancorbo"
+        m_09_253_9:
+          name: "Pardilla"
+        m_09_255_7:
+          name: "Partido de la Sierra en Tobalina"
+        m_09_256_0:
+          name: "Pedrosa de Duero"
+        m_09_259_5:
+          name: "Pedrosa de Río Úrbel"
+        m_09_257_6:
+          name: "Pedrosa del Páramo"
+        m_09_258_2:
+          name: "Pedrosa del Príncipe"
+        m_09_261_6:
+          name: "Peñaranda de Duero"
+        m_09_262_1:
+          name: "Peral de Arlanza"
+        m_09_265_5:
+          name: "Piérnigas"
+        m_09_266_8:
+          name: "Pineda de la Sierra"
+        m_09_267_4:
+          name: "Pineda Trasmonte"
+        m_09_268_0:
+          name: "Pinilla de los Barruecos"
+        m_09_269_3:
+          name: "Pinilla de los Moros"
+        m_09_270_7:
+          name: "Pinilla Trasmonte"
+        m_09_272_9:
+          name: "Poza de la Sal"
+        m_09_273_5:
+          name: "Prádanos de Bureba"
+        m_09_274_0:
+          name: "Pradoluengo"
+        m_09_275_3:
+          name: "Presencio"
+        m_09_276_6:
+          name: "Puebla de Arganzón, La"
+        m_09_277_2:
+          name: "Puentedura"
+        m_09_279_1:
+          name: "Quemada"
+        m_09_281_2:
+          name: "Quintana del Pidio"
+        m_09_280_5:
+          name: "Quintanabureba"
+        m_09_283_3:
+          name: "Quintanaélez"
+        m_09_287_0:
+          name: "Quintanaortuño"
+        m_09_288_6:
+          name: "Quintanapalla"
+        m_09_289_9:
+          name: "Quintanar de la Sierra"
+        m_09_292_5:
+          name: "Quintanavides"
+        m_09_294_6:
+          name: "Quintanilla de la Mata"
+        m_09_901_2:
+          name: "Quintanilla del Agua y Tordueles"
+        m_09_295_9:
+          name: "Quintanilla del Coco"
+        m_09_298_4:
+          name: "Quintanilla San García"
+        m_09_301_8:
+          name: "Quintanilla Vivar"
+        m_09_297_8:
+          name: "Quintanillas, Las"
+        m_09_302_3:
+          name: "Rabanera del Pinar"
+        m_09_303_9:
+          name: "Rábanos"
+        m_09_304_4:
+          name: "Rabé de las Calzadas"
+        m_09_306_0:
+          name: "Rebolledo de la Torre"
+        m_09_307_6:
+          name: "Redecilla del Camino"
+        m_09_308_2:
+          name: "Redecilla del Campo"
+        m_09_309_5:
+          name: "Regumiel de la Sierra"
+        m_09_310_9:
+          name: "Reinoso"
+        m_09_311_6:
+          name: "Retuerta"
+        m_09_314_2:
+          name: "Revilla del Campo"
+        m_09_316_8:
+          name: "Revilla Vallejera"
+        m_09_312_1:
+          name: "Revilla y Ahedo, La"
+        m_09_315_5:
+          name: "Revillarruz"
+        m_09_317_4:
+          name: "Rezmondo"
+        m_09_318_0:
+          name: "Riocavado de la Sierra"
+        m_09_321_4:
+          name: "Roa"
+        m_09_323_5:
+          name: "Rojas"
+        m_09_325_3:
+          name: "Royuela de Río Franco"
+        m_09_326_6:
+          name: "Rubena"
+        m_09_327_2:
+          name: "Rublacedo de Abajo"
+        m_09_328_8:
+          name: "Rucandio"
+        m_09_329_1:
+          name: "Salas de Bureba"
+        m_09_330_5:
+          name: "Salas de los Infantes"
+        m_09_332_7:
+          name: "Saldaña de Burgos"
+        m_09_334_8:
+          name: "Salinillas de Bureba"
+        m_09_335_1:
+          name: "San Adrián de Juarros"
+        m_09_337_0:
+          name: "San Juan del Monte"
+        m_09_338_6:
+          name: "San Mamés de Burgos"
+        m_09_339_9:
+          name: "San Martín de Rubiales"
+        m_09_340_3:
+          name: "San Millán de Lara"
+        m_09_360_8:
+          name: "San Vicente del Valle"
+        m_09_343_1:
+          name: "Santa Cecilia"
+        m_09_345_9:
+          name: "Santa Cruz de la Salceda"
+        m_09_346_2:
+          name: "Santa Cruz del Valle Urbión"
+        m_09_347_8:
+          name: "Santa Gadea del Cid"
+        m_09_348_4:
+          name: "Santa Inés"
+        m_09_350_0:
+          name: "Santa María del Campo"
+        m_09_351_7:
+          name: "Santa María del Invierno"
+        m_09_352_2:
+          name: "Santa María del Mercadillo"
+        m_09_353_8:
+          name: "Santa María Rivarredonda"
+        m_09_354_3:
+          name: "Santa Olalla de Bureba"
+        m_09_355_6:
+          name: "Santibáñez de Esgueva"
+        m_09_356_9:
+          name: "Santibáñez del Val"
+        m_09_358_1:
+          name: "Santo Domingo de Silos"
+        m_09_361_5:
+          name: "Sargentes de la Lora"
+        m_09_362_0:
+          name: "Sarracín"
+        m_09_363_6:
+          name: "Sasamón"
+        m_09_365_4:
+          name: "Sequera de Haza, La"
+        m_09_366_7:
+          name: "Solarana"
+        m_09_368_9:
+          name: "Sordillos"
+        m_09_369_2:
+          name: "Sotillo de la Ribera"
+        m_09_372_8:
+          name: "Sotragero"
+        m_09_373_4:
+          name: "Sotresgudo"
+        m_09_374_9:
+          name: "Susinos del Páramo"
+        m_09_375_2:
+          name: "Tamarón"
+        m_09_377_1:
+          name: "Tardajos"
+        m_09_378_7:
+          name: "Tejada"
+        m_09_380_4:
+          name: "Terradillos de Esgueva"
+        m_09_381_1:
+          name: "Tinieblas de la Sierra"
+        m_09_382_6:
+          name: "Tobar"
+        m_09_384_7:
+          name: "Tordómar"
+        m_09_386_3:
+          name: "Torrecilla del Monte"
+        m_09_387_9:
+          name: "Torregalindo"
+        m_09_388_5:
+          name: "Torrelara"
+        m_09_389_8:
+          name: "Torrepadre"
+        m_09_390_2:
+          name: "Torresandino"
+        m_09_391_9:
+          name: "Tórtoles de Esgueva"
+        m_09_392_4:
+          name: "Tosantos"
+        m_09_394_5:
+          name: "Trespaderne"
+        m_09_395_8:
+          name: "Tubilla del Agua"
+        m_09_396_1:
+          name: "Tubilla del Lago"
+        m_09_398_3:
+          name: "Úrbel del Castillo"
+        m_09_400_0:
+          name: "Vadocondes"
+        m_09_403_8:
+          name: "Valdeande"
+        m_09_405_6:
+          name: "Valdezate"
+        m_09_406_9:
+          name: "Valdorros"
+        m_09_408_1:
+          name: "Vallarta de Bureba"
+        m_09_904_8:
+          name: "Valle de las Navas"
+        m_09_908_6:
+          name: "Valle de Losa"
+        m_09_409_4:
+          name: "Valle de Manzanedo"
+        m_09_410_8:
+          name: "Valle de Mena"
+        m_09_411_5:
+          name: "Valle de Oca"
+        m_09_902_7:
+          name: "Valle de Santibáñez"
+        m_09_905_1:
+          name: "Valle de Sedano"
+        m_09_412_0:
+          name: "Valle de Tobalina"
+        m_09_413_6:
+          name: "Valle de Valdebezana"
+        m_09_414_1:
+          name: "Valle de Valdelaguna"
+        m_09_415_4:
+          name: "Valle de Valdelucio"
+        m_09_416_7:
+          name: "Valle de Zamanzas"
+        m_09_417_3:
+          name: "Vallejera"
+        m_09_418_9:
+          name: "Valles de Palenzuela"
+        m_09_419_2:
+          name: "Valluércanes"
+        m_09_407_5:
+          name: "Valmala"
+        m_09_422_8:
+          name: "Vid de Bureba, La"
+        m_09_421_3:
+          name: "Vid y Barrios, La"
+        m_09_423_4:
+          name: "Vileña"
+        m_09_427_1:
+          name: "Villadiego"
+        m_09_428_7:
+          name: "Villaescusa de Roa"
+        m_09_429_0:
+          name: "Villaescusa la Sombría"
+        m_09_430_4:
+          name: "Villaespasa"
+        m_09_431_1:
+          name: "Villafranca Montes de Oca"
+        m_09_432_6:
+          name: "Villafruela"
+        m_09_433_2:
+          name: "Villagalijo"
+        m_09_434_7:
+          name: "Villagonzalo Pedernales"
+        m_09_437_9:
+          name: "Villahoz"
+        m_09_438_5:
+          name: "Villalba de Duero"
+        m_09_439_8:
+          name: "Villalbilla de Burgos"
+        m_09_440_2:
+          name: "Villalbilla de Gumiel"
+        m_09_441_9:
+          name: "Villaldemiro"
+        m_09_442_4:
+          name: "Villalmanzo"
+        m_09_443_0:
+          name: "Villamayor de los Montes"
+        m_09_444_5:
+          name: "Villamayor de Treviño"
+        m_09_445_8:
+          name: "Villambistia"
+        m_09_446_1:
+          name: "Villamedianilla"
+        m_09_447_7:
+          name: "Villamiel de la Sierra"
+        m_09_448_3:
+          name: "Villangómez"
+        m_09_449_6:
+          name: "Villanueva de Argaño"
+        m_09_450_9:
+          name: "Villanueva de Carazo"
+        m_09_451_6:
+          name: "Villanueva de Gumiel"
+        m_09_454_2:
+          name: "Villanueva de Teba"
+        m_09_455_5:
+          name: "Villaquirán de la Puebla"
+        m_09_456_8:
+          name: "Villaquirán de los Infantes"
+        m_09_903_3:
+          name: "Villarcayo de Merindad de Castilla la Vieja"
+        m_09_458_0:
+          name: "Villariezo"
+        m_09_460_7:
+          name: "Villasandino"
+        m_09_463_5:
+          name: "Villasur de Herreros"
+        m_09_464_0:
+          name: "Villatuelda"
+        m_09_466_6:
+          name: "Villaverde del Monte"
+        m_09_467_2:
+          name: "Villaverde-Mogina"
+        m_09_471_2:
+          name: "Villayerno Morquillas"
+        m_09_472_7:
+          name: "Villazopeque"
+        m_09_473_3:
+          name: "Villegas"
+        m_09_476_4:
+          name: "Villoruebo"
+        m_09_424_9:
+          name: "Viloria de Rioja"
+        m_09_425_2:
+          name: "Vilviestre del Pinar"
+        m_09_478_6:
+          name: "Vizcaínos"
+        m_09_480_3:
+          name: "Zael"
+        m_09_482_5:
+          name: "Zarzosa de Río Pisuerga"
+        m_09_483_1:
+          name: "Zazuar"
+        m_09_485_9:
+          name: "Zuñeda"

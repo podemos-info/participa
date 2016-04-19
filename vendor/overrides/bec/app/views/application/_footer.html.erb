@@ -1,0 +1,121 @@
+<div class="footer">
+  <div class="footer-content">
+    <div class="row">
+
+      <div class="col-f-1a3">
+        <div class="footer-contact">
+          <h2 class="footer-logo">Barcelona en Comú</h2>
+          <p>C/ Zurita, 21</p>
+          <p>28012 Madrid</p>
+          <p><%= link_to "¿Problemas con la inscripción?", faq_path %></p>
+
+          <!-- nav class="languages">
+            <ul>
+              <li class="lang-castellano">
+                <%= link_to "Castellano", url_for(locale: :es), class: current_lang_class(:es) %>
+              </li>
+              <li class="lang-catala">
+                <%= link_to "Català", url_for(locale: :ca), class: current_lang_class(:ca) %>
+              </li>
+              <li class="lang-euskara">
+                <%= link_to "Euskera", url_for(locale: :eu), class: current_lang_class(:eu) %>
+              </li>
+              <li class="lang-galician">
+                <%= link_to "Galego", url_for(locale: :gl), class: current_lang_class(:gl) %>
+              </li>
+            </ul>
+          </nav -->
+        </div><%#!--.footer-contact--%>
+      </div><%#!--.col-f-1a3--%>
+
+      <div class="col-f-4a5">
+        <div class="footer-conoce">
+          <h2>Conoce</h2>
+          <ul>
+            <li>
+              <a href="http://asambleaciudadana.bec.info/">Asamblea Ciudadana</a>
+            </li>
+            <li>
+              <a href="http://bec.info/wordpress/programa/">Programa</a>
+            </li>
+            <li>
+              <a href="http://bec.info/wordpress/cuentas-claras/">Cuentas Claras</a> 
+            </li>
+            <li>
+              <a href="http://bec.info/circulos/">Círculos</a>
+            </li>
+          </ul>
+        </div><%#!--.footer-conoce--%>
+      </div><%#!--.col-f-4a5--%>
+
+      <div class="col-f-6a7">
+        <div class="footer-participa">
+          <h2>Infórmate</h2>
+          <ul>
+            <li>
+              <a href="http://bec.info/prensa/">Prensa</a>
+            </li>
+            <li>
+              <a href="http://bec.info/demoblog/">DemoBlog</a>
+            </li>
+            <li>
+              <a href="http://bec.info/blog">Blog Europa</a>
+            </li>
+          </ul>
+        </div><%#!--.footer-participa--%>
+      </div><%#!--.col-f-6a7--%>
+
+      <div class="col-f-8a9">
+        <div class="footer-informate">
+          <h2>Colabora</h2>
+          <ul>
+            <li>
+              <a href="http://crowdfunding.bec.info/">Crowdfunding</a>
+            </li>
+            <li>
+              <a href="http://tienda.bec.info/">Tienda</a>
+            </li>
+          </ul>
+        </div><%#!--.footer-participa--%>
+      </div><%#!--.col-f-8a9--%>
+
+      <div class="col-f-10a12">
+        <div class="footer-siguenos">
+          <h2>Síguenos</h2>
+          <ul>
+            <li>
+              <%= link_to "https://www.youtube.com/user/Circulosbec/" do %>
+                <%= image_tag "ico.social45-youtube-on.png", alt: "YouTube" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "https://www.facebook.com/pages/bec/269212336568846" do %>
+                <%= image_tag "ico.social45-facebook-on.png", alt: "Facebook" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "https://twitter.com/ahorabec" do %>
+                <%= image_tag "ico.social45-twitter-on.png", alt: "Twitter" %>
+              <% end %>
+            </li>
+          </ul>
+        </div><%#!--.footer-participa--%>
+      </div><%#!--.col-f-10a12--%>
+
+    </div><!--.row-->
+
+    <div class="row">
+      <div class="col-f-1a12">
+        <ul class="disclaimer-links">
+          <li>
+            <%= link_to "2014 bec.info", '#' %>
+          </li>
+          <li>
+            <%= link_to "Condiciones de uso, empleo de cookies y política de privacidad", page_privacy_policy_path %>
+          </li>
+        </ul>
+      </div><%#!--.col-f-1a12--%>
+    </div><%#!--.row--%>
+
+  </div><%#!--.footer-content--%>
+</div><%#!--#pie--%>

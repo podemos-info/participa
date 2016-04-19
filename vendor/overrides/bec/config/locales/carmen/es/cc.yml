@@ -1,0 +1,449 @@
+---
+es:
+  world:
+    es:
+      cc:
+        m_10_001_5:
+          name: "Abadía"
+        m_10_002_0:
+          name: "Abertura"
+        m_10_003_6:
+          name: "Acebo"
+        m_10_004_1:
+          name: "Acehúche"
+        m_10_005_4:
+          name: "Aceituna"
+        m_10_006_7:
+          name: "Ahigal"
+        m_10_903_7:
+          name: "Alagón del Río"
+        m_10_007_3:
+          name: "Albalá"
+        m_10_008_9:
+          name: "Alcántara"
+        m_10_009_2:
+          name: "Alcollarín"
+        m_10_010_6:
+          name: "Alcuéscar"
+        m_10_012_8:
+          name: "Aldea del Cano"
+        m_10_013_4:
+          name: "Aldea del Obispo, La"
+        m_10_011_3:
+          name: "Aldeacentenera"
+        m_10_014_9:
+          name: "Aldeanueva de la Vera"
+        m_10_015_2:
+          name: "Aldeanueva del Camino"
+        m_10_016_5:
+          name: "Aldehuela de Jerte"
+        m_10_017_1:
+          name: "Alía"
+        m_10_018_7:
+          name: "Aliseda"
+        m_10_019_0:
+          name: "Almaraz"
+        m_10_020_4:
+          name: "Almoharín"
+        m_10_021_1:
+          name: "Arroyo de la Luz"
+        m_10_023_2:
+          name: "Arroyomolinos"
+        m_10_022_6:
+          name: "Arroyomolinos de la Vera"
+        m_10_024_7:
+          name: "Baños de Montemayor"
+        m_10_025_0:
+          name: "Barrado"
+        m_10_026_3:
+          name: "Belvís de Monroy"
+        m_10_027_9:
+          name: "Benquerencia"
+        m_10_028_5:
+          name: "Berrocalejo"
+        m_10_029_8:
+          name: "Berzocana"
+        m_10_030_2:
+          name: "Bohonal de Ibor"
+        m_10_031_9:
+          name: "Botija"
+        m_10_032_4:
+          name: "Brozas"
+        m_10_033_0:
+          name: "Cabañas del Castillo"
+        m_10_034_5:
+          name: "Cabezabellosa"
+        m_10_035_8:
+          name: "Cabezuela del Valle"
+        m_10_036_1:
+          name: "Cabrero"
+        m_10_037_7:
+          name: "Cáceres"
+        m_10_038_3:
+          name: "Cachorrilla"
+        m_10_039_6:
+          name: "Cadalso"
+        m_10_040_0:
+          name: "Calzadilla"
+        m_10_041_7:
+          name: "Caminomorisco"
+        m_10_042_2:
+          name: "Campillo de Deleitosa"
+        m_10_043_8:
+          name: "Campo Lugar"
+        m_10_044_3:
+          name: "Cañamero"
+        m_10_045_6:
+          name: "Cañaveral"
+        m_10_046_9:
+          name: "Carbajo"
+        m_10_047_5:
+          name: "Carcaboso"
+        m_10_048_1:
+          name: "Carrascalejo"
+        m_10_049_4:
+          name: "Casar de Cáceres"
+        m_10_050_7:
+          name: "Casar de Palomero"
+        m_10_051_4:
+          name: "Casares de las Hurdes"
+        m_10_052_9:
+          name: "Casas de Don Antonio"
+        m_10_053_5:
+          name: "Casas de Don Gómez"
+        m_10_056_6:
+          name: "Casas de Millán"
+        m_10_057_2:
+          name: "Casas de Miravete"
+        m_10_054_0:
+          name: "Casas del Castañar"
+        m_10_055_3:
+          name: "Casas del Monte"
+        m_10_058_8:
+          name: "Casatejada"
+        m_10_059_1:
+          name: "Casillas de Coria"
+        m_10_060_5:
+          name: "Castañar de Ibor"
+        m_10_061_2:
+          name: "Ceclavín"
+        m_10_062_7:
+          name: "Cedillo"
+        m_10_063_3:
+          name: "Cerezo"
+        m_10_064_8:
+          name: "Cilleros"
+        m_10_065_1:
+          name: "Collado de la Vera"
+        m_10_066_4:
+          name: "Conquista de la Sierra"
+        m_10_067_0:
+          name: "Coria"
+        m_10_068_6:
+          name: "Cuacos de Yuste"
+        m_10_069_9:
+          name: "Cumbre, La"
+        m_10_070_3:
+          name: "Deleitosa"
+        m_10_071_0:
+          name: "Descargamaría"
+        m_10_072_5:
+          name: "Eljas"
+        m_10_073_1:
+          name: "Escurial"
+        m_10_075_9:
+          name: "Fresnedoso de Ibor"
+        m_10_076_2:
+          name: "Galisteo"
+        m_10_077_8:
+          name: "Garciaz"
+        m_10_079_7:
+          name: "Garganta la Olla"
+        m_10_078_4:
+          name: "Garganta, La"
+        m_10_080_1:
+          name: "Gargantilla"
+        m_10_081_8:
+          name: "Gargüera"
+        m_10_082_3:
+          name: "Garrovillas de Alconétar"
+        m_10_083_9:
+          name: "Garvín"
+        m_10_084_4:
+          name: "Gata"
+        m_10_085_7:
+          name: "Gordo, El"
+        m_10_086_0:
+          name: "Granja, La"
+        m_10_087_6:
+          name: "Guadalupe"
+        m_10_088_2:
+          name: "Guijo de Coria"
+        m_10_089_5:
+          name: "Guijo de Galisteo"
+        m_10_090_9:
+          name: "Guijo de Granadilla"
+        m_10_091_6:
+          name: "Guijo de Santa Bárbara"
+        m_10_092_1:
+          name: "Herguijuela"
+        m_10_093_7:
+          name: "Hernán-Pérez"
+        m_10_094_2:
+          name: "Herrera de Alcántara"
+        m_10_095_5:
+          name: "Herreruela"
+        m_10_096_8:
+          name: "Hervás"
+        m_10_097_4:
+          name: "Higuera"
+        m_10_098_0:
+          name: "Hinojal"
+        m_10_099_3:
+          name: "Holguera"
+        m_10_100_7:
+          name: "Hoyos"
+        m_10_101_4:
+          name: "Huélaga"
+        m_10_102_9:
+          name: "Ibahernando"
+        m_10_103_5:
+          name: "Jaraicejo"
+        m_10_104_0:
+          name: "Jaraíz de la Vera"
+        m_10_105_3:
+          name: "Jarandilla de la Vera"
+        m_10_106_6:
+          name: "Jarilla"
+        m_10_107_2:
+          name: "Jerte"
+        m_10_108_8:
+          name: "Ladrillar"
+        m_10_109_1:
+          name: "Logrosán"
+        m_10_110_5:
+          name: "Losar de la Vera"
+        m_10_111_2:
+          name: "Madrigal de la Vera"
+        m_10_112_7:
+          name: "Madrigalejo"
+        m_10_113_3:
+          name: "Madroñera"
+        m_10_114_8:
+          name: "Majadas"
+        m_10_115_1:
+          name: "Malpartida de Cáceres"
+        m_10_116_4:
+          name: "Malpartida de Plasencia"
+        m_10_117_0:
+          name: "Marchagaz"
+        m_10_118_6:
+          name: "Mata de Alcántara"
+        m_10_119_9:
+          name: "Membrío"
+        m_10_120_3:
+          name: "Mesas de Ibor"
+        m_10_121_0:
+          name: "Miajadas"
+        m_10_122_5:
+          name: "Millanes"
+        m_10_123_1:
+          name: "Mirabel"
+        m_10_124_6:
+          name: "Mohedas de Granadilla"
+        m_10_125_9:
+          name: "Monroy"
+        m_10_126_2:
+          name: "Montánchez"
+        m_10_127_8:
+          name: "Montehermoso"
+        m_10_128_4:
+          name: "Moraleja"
+        m_10_129_7:
+          name: "Morcillo"
+        m_10_130_1:
+          name: "Navaconcejo"
+        m_10_131_8:
+          name: "Navalmoral de la Mata"
+        m_10_132_3:
+          name: "Navalvillar de Ibor"
+        m_10_133_9:
+          name: "Navas del Madroño"
+        m_10_134_4:
+          name: "Navezuelas"
+        m_10_135_7:
+          name: "Nuñomoral"
+        m_10_136_0:
+          name: "Oliva de Plasencia"
+        m_10_137_6:
+          name: "Palomero"
+        m_10_138_2:
+          name: "Pasarón de la Vera"
+        m_10_139_5:
+          name: "Pedroso de Acim"
+        m_10_140_9:
+          name: "Peraleda de la Mata"
+        m_10_141_6:
+          name: "Peraleda de San Román"
+        m_10_142_1:
+          name: "Perales del Puerto"
+        m_10_143_7:
+          name: "Pescueza"
+        m_10_144_2:
+          name: "Pesga, La"
+        m_10_145_5:
+          name: "Piedras Albas"
+        m_10_146_8:
+          name: "Pinofranqueado"
+        m_10_147_4:
+          name: "Piornal"
+        m_10_148_0:
+          name: "Plasencia"
+        m_10_149_3:
+          name: "Plasenzuela"
+        m_10_150_6:
+          name: "Portaje"
+        m_10_151_3:
+          name: "Portezuelo"
+        m_10_152_8:
+          name: "Pozuelo de Zarzón"
+        m_10_153_4:
+          name: "Puerto de Santa Cruz"
+        m_10_154_9:
+          name: "Rebollar"
+        m_10_155_2:
+          name: "Riolobos"
+        m_10_156_5:
+          name: "Robledillo de Gata"
+        m_10_157_1:
+          name: "Robledillo de la Vera"
+        m_10_158_7:
+          name: "Robledillo de Trujillo"
+        m_10_159_0:
+          name: "Robledollano"
+        m_10_160_4:
+          name: "Romangordo"
+        m_10_901_6:
+          name: "Rosalejo"
+        m_10_161_1:
+          name: "Ruanes"
+        m_10_162_6:
+          name: "Salorino"
+        m_10_163_2:
+          name: "Salvatierra de Santiago"
+        m_10_164_7:
+          name: "San Martín de Trevejo"
+        m_10_165_0:
+          name: "Santa Ana"
+        m_10_166_3:
+          name: "Santa Cruz de la Sierra"
+        m_10_167_9:
+          name: "Santa Cruz de Paniagua"
+        m_10_168_5:
+          name: "Santa Marta de Magasca"
+        m_10_169_8:
+          name: "Santiago de Alcántara"
+        m_10_170_2:
+          name: "Santiago del Campo"
+        m_10_171_9:
+          name: "Santibáñez el Alto"
+        m_10_172_4:
+          name: "Santibáñez el Bajo"
+        m_10_173_0:
+          name: "Saucedilla"
+        m_10_174_5:
+          name: "Segura de Toro"
+        m_10_175_8:
+          name: "Serradilla"
+        m_10_176_1:
+          name: "Serrejón"
+        m_10_177_7:
+          name: "Sierra de Fuentes"
+        m_10_178_3:
+          name: "Talaván"
+        m_10_179_6:
+          name: "Talaveruela de la Vera"
+        m_10_180_0:
+          name: "Talayuela"
+        m_10_181_7:
+          name: "Tejeda de Tiétar"
+        m_10_904_2:
+          name: "Tiétar"
+        m_10_182_2:
+          name: "Toril"
+        m_10_183_8:
+          name: "Tornavacas"
+        m_10_184_3:
+          name: "Torno, El"
+        m_10_187_5:
+          name: "Torre de Don Miguel"
+        m_10_188_1:
+          name: "Torre de Santa María"
+        m_10_185_6:
+          name: "Torrecilla de los Ángeles"
+        m_10_186_9:
+          name: "Torrecillas de la Tiesa"
+        m_10_190_8:
+          name: "Torrejón el Rubio"
+        m_10_189_4:
+          name: "Torrejoncillo"
+        m_10_191_5:
+          name: "Torremenga"
+        m_10_192_0:
+          name: "Torremocha"
+        m_10_193_6:
+          name: "Torreorgaz"
+        m_10_194_1:
+          name: "Torrequemada"
+        m_10_195_4:
+          name: "Trujillo"
+        m_10_196_7:
+          name: "Valdastillas"
+        m_10_197_3:
+          name: "Valdecañas de Tajo"
+        m_10_198_9:
+          name: "Valdefuentes"
+        m_10_199_2:
+          name: "Valdehúncar"
+        m_10_200_6:
+          name: "Valdelacasa de Tajo"
+        m_10_201_3:
+          name: "Valdemorales"
+        m_10_202_8:
+          name: "Valdeobispo"
+        m_10_203_4:
+          name: "Valencia de Alcántara"
+        m_10_204_9:
+          name: "Valverde de la Vera"
+        m_10_205_2:
+          name: "Valverde del Fresno"
+        m_10_902_1:
+          name: "Vegaviana"
+        m_10_206_5:
+          name: "Viandar de la Vera"
+        m_10_207_1:
+          name: "Villa del Campo"
+        m_10_208_7:
+          name: "Villa del Rey"
+        m_10_209_0:
+          name: "Villamesías"
+        m_10_210_4:
+          name: "Villamiel"
+        m_10_211_1:
+          name: "Villanueva de la Sierra"
+        m_10_212_6:
+          name: "Villanueva de la Vera"
+        m_10_214_7:
+          name: "Villar de Plasencia"
+        m_10_213_2:
+          name: "Villar del Pedroso"
+        m_10_215_0:
+          name: "Villasbuenas de Gata"
+        m_10_216_3:
+          name: "Zarza de Granadilla"
+        m_10_217_9:
+          name: "Zarza de Montánchez"
+        m_10_218_5:
+          name: "Zarza la Mayor"
+        m_10_219_8:
+          name: "Zorita"

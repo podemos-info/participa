@@ -1,0 +1,409 @@
+---
+es:
+  world:
+    es:
+      hu:
+        m_22_001_5:
+          name: "Abiego"
+        m_22_002_0:
+          name: "Abizanda"
+        m_22_003_6:
+          name: "Adahuesca"
+        m_22_004_1:
+          name: "Agüero"
+        m_22_907_4:
+          name: "Aínsa-Sobrarbe"
+        m_22_006_7:
+          name: "Aisa"
+        m_22_007_3:
+          name: "Albalate de Cinca"
+        m_22_008_9:
+          name: "Albalatillo"
+        m_22_009_2:
+          name: "Albelda"
+        m_22_011_3:
+          name: "Albero Alto"
+        m_22_012_8:
+          name: "Albero Bajo"
+        m_22_013_4:
+          name: "Alberuela de Tubo"
+        m_22_014_9:
+          name: "Alcalá de Gurrea"
+        m_22_015_2:
+          name: "Alcalá del Obispo"
+        m_22_016_5:
+          name: "Alcampell"
+        m_22_017_1:
+          name: "Alcolea de Cinca"
+        m_22_018_7:
+          name: "Alcubierre"
+        m_22_019_0:
+          name: "Alerre"
+        m_22_020_4:
+          name: "Alfántega"
+        m_22_021_1:
+          name: "Almudévar"
+        m_22_022_6:
+          name: "Almunia de San Juan"
+        m_22_023_2:
+          name: "Almuniente"
+        m_22_024_7:
+          name: "Alquézar"
+        m_22_025_0:
+          name: "Altorricón"
+        m_22_027_9:
+          name: "Angüés"
+        m_22_028_5:
+          name: "Ansó"
+        m_22_029_8:
+          name: "Antillón"
+        m_22_032_4:
+          name: "Aragüés del Puerto"
+        m_22_035_8:
+          name: "Arén"
+        m_22_036_1:
+          name: "Argavieso"
+        m_22_037_7:
+          name: "Arguis"
+        m_22_039_6:
+          name: "Ayerbe"
+        m_22_040_0:
+          name: "Azanuy-Alins"
+        m_22_041_7:
+          name: "Azara"
+        m_22_042_2:
+          name: "Azlor"
+        m_22_043_8:
+          name: "Baélls"
+        m_22_044_3:
+          name: "Bailo"
+        m_22_045_6:
+          name: "Baldellou"
+        m_22_046_9:
+          name: "Ballobar"
+        m_22_047_5:
+          name: "Banastás"
+        m_22_048_1:
+          name: "Barbastro"
+        m_22_049_4:
+          name: "Barbués"
+        m_22_050_7:
+          name: "Barbuñales"
+        m_22_051_4:
+          name: "Bárcabo"
+        m_22_052_9:
+          name: "Belver de Cinca"
+        m_22_053_5:
+          name: "Benabarre"
+        m_22_054_0:
+          name: "Benasque"
+        m_22_246_7:
+          name: "Beranuy"
+        m_22_055_3:
+          name: "Berbegal"
+        m_22_057_2:
+          name: "Bielsa"
+        m_22_058_8:
+          name: "Bierge"
+        m_22_059_1:
+          name: "Biescas"
+        m_22_060_5:
+          name: "Binaced"
+        m_22_061_2:
+          name: "Binéfar"
+        m_22_062_7:
+          name: "Bisaurri"
+        m_22_063_3:
+          name: "Biscarrués"
+        m_22_064_8:
+          name: "Blecua y Torres"
+        m_22_066_4:
+          name: "Boltaña"
+        m_22_067_0:
+          name: "Bonansa"
+        m_22_068_6:
+          name: "Borau"
+        m_22_069_9:
+          name: "Broto"
+        m_22_072_5:
+          name: "Caldearenas"
+        m_22_074_6:
+          name: "Campo"
+        m_22_075_9:
+          name: "Camporrélls"
+        m_22_076_2:
+          name: "Canal de Berdún"
+        m_22_077_8:
+          name: "Candasnos"
+        m_22_078_4:
+          name: "Canfranc"
+        m_22_079_7:
+          name: "Capdesaso"
+        m_22_080_1:
+          name: "Capella"
+        m_22_081_8:
+          name: "Casbas de Huesca"
+        m_22_083_9:
+          name: "Castejón de Monegros"
+        m_22_084_4:
+          name: "Castejón de Sos"
+        m_22_082_3:
+          name: "Castejón del Puente"
+        m_22_085_7:
+          name: "Castelflorite"
+        m_22_086_0:
+          name: "Castiello de Jaca"
+        m_22_087_6:
+          name: "Castigaleu"
+        m_22_088_2:
+          name: "Castillazuelo"
+        m_22_089_5:
+          name: "Castillonroy"
+        m_22_094_2:
+          name: "Chalamera"
+        m_22_095_5:
+          name: "Chía"
+        m_22_096_8:
+          name: "Chimillas"
+        m_22_090_9:
+          name: "Colungo"
+        m_22_099_3:
+          name: "Esplús"
+        m_22_102_9:
+          name: "Estada"
+        m_22_103_5:
+          name: "Estadilla"
+        m_22_105_3:
+          name: "Estopiñán del Castillo"
+        m_22_106_6:
+          name: "Fago"
+        m_22_107_2:
+          name: "Fanlo"
+        m_22_109_1:
+          name: "Fiscal"
+        m_22_110_5:
+          name: "Fonz"
+        m_22_111_2:
+          name: "Foradada del Toscar"
+        m_22_112_7:
+          name: "Fraga"
+        m_22_113_3:
+          name: "Fueva, La"
+        m_22_114_8:
+          name: "Gistaín"
+        m_22_115_1:
+          name: "Grado, El"
+        m_22_116_4:
+          name: "Grañén"
+        m_22_117_0:
+          name: "Graus"
+        m_22_119_9:
+          name: "Gurrea de Gállego"
+        m_22_122_5:
+          name: "Hoz de Jaca"
+        m_22_908_0:
+          name: "Hoz y Costean"
+        m_22_124_6:
+          name: "Huerto"
+        m_22_125_9:
+          name: "Huesca"
+        m_22_126_2:
+          name: "Ibieca"
+        m_22_127_8:
+          name: "Igriés"
+        m_22_128_4:
+          name: "Ilche"
+        m_22_129_7:
+          name: "Isábena"
+        m_22_130_1:
+          name: "Jaca"
+        m_22_131_8:
+          name: "Jasa"
+        m_22_133_9:
+          name: "Labuerda"
+        m_22_135_7:
+          name: "Laluenga"
+        m_22_136_0:
+          name: "Lalueza"
+        m_22_137_6:
+          name: "Lanaja"
+        m_22_139_5:
+          name: "Laperdiguera"
+        m_22_141_6:
+          name: "Lascellas-Ponzano"
+        m_22_142_1:
+          name: "Lascuarre"
+        m_22_143_7:
+          name: "Laspaúles"
+        m_22_144_2:
+          name: "Laspuña"
+        m_22_149_3:
+          name: "Loarre"
+        m_22_150_6:
+          name: "Loporzano"
+        m_22_151_3:
+          name: "Loscorrales"
+        m_22_905_5:
+          name: "Lupiñén-Ortilla"
+        m_22_155_2:
+          name: "Monesma y Cajigar"
+        m_22_156_5:
+          name: "Monflorite-Lascasas"
+        m_22_157_1:
+          name: "Montanuy"
+        m_22_158_7:
+          name: "Monzón"
+        m_22_160_4:
+          name: "Naval"
+        m_22_162_6:
+          name: "Novales"
+        m_22_163_2:
+          name: "Nueno"
+        m_22_164_7:
+          name: "Olvena"
+        m_22_165_0:
+          name: "Ontiñena"
+        m_22_167_9:
+          name: "Osso de Cinca"
+        m_22_168_5:
+          name: "Palo"
+        m_22_170_2:
+          name: "Panticosa"
+        m_22_172_4:
+          name: "Peñalba"
+        m_22_173_0:
+          name: "Peñas de Riglos, Las"
+        m_22_174_5:
+          name: "Peralta de Alcofea"
+        m_22_175_8:
+          name: "Peralta de Calasanz"
+        m_22_176_1:
+          name: "Peraltilla"
+        m_22_177_7:
+          name: "Perarrúa"
+        m_22_178_3:
+          name: "Pertusa"
+        m_22_181_7:
+          name: "Piracés"
+        m_22_182_2:
+          name: "Plan"
+        m_22_184_3:
+          name: "Poleñino"
+        m_22_186_9:
+          name: "Pozán de Vero"
+        m_22_187_5:
+          name: "Puebla de Castro, La"
+        m_22_188_1:
+          name: "Puente de Montañana"
+        m_22_902_1:
+          name: "Puente la Reina de Jaca"
+        m_22_189_4:
+          name: "Puértolas"
+        m_22_190_8:
+          name: "Pueyo de Araguás, El"
+        m_22_193_6:
+          name: "Pueyo de Santa Cruz"
+        m_22_195_4:
+          name: "Quicena"
+        m_22_197_3:
+          name: "Robres"
+        m_22_199_2:
+          name: "Sabiñánigo"
+        m_22_200_6:
+          name: "Sahún"
+        m_22_201_3:
+          name: "Salas Altas"
+        m_22_202_8:
+          name: "Salas Bajas"
+        m_22_203_4:
+          name: "Salillas"
+        m_22_204_9:
+          name: "Sallent de Gállego"
+        m_22_205_2:
+          name: "San Esteban de Litera"
+        m_22_207_1:
+          name: "San Juan de Plan"
+        m_22_903_7:
+          name: "San Miguel del Cinca"
+        m_22_206_5:
+          name: "Sangarrén"
+        m_22_208_7:
+          name: "Santa Cilia"
+        m_22_209_0:
+          name: "Santa Cruz de la Serós"
+        m_22_906_8:
+          name: "Santa María de Dulcis"
+        m_22_212_6:
+          name: "Santaliestra y San Quílez"
+        m_22_213_2:
+          name: "Sariñena"
+        m_22_214_7:
+          name: "Secastilla"
+        m_22_215_0:
+          name: "Seira"
+        m_22_217_9:
+          name: "Sena"
+        m_22_218_5:
+          name: "Senés de Alcubierre"
+        m_22_220_2:
+          name: "Sesa"
+        m_22_221_9:
+          name: "Sesué"
+        m_22_222_4:
+          name: "Siétamo"
+        m_22_223_0:
+          name: "Sopeira"
+        m_22_904_2:
+          name: "Sotonera, La"
+        m_22_225_8:
+          name: "Tamarite de Litera"
+        m_22_226_1:
+          name: "Tardienta"
+        m_22_227_7:
+          name: "Tella-Sin"
+        m_22_228_3:
+          name: "Tierz"
+        m_22_229_6:
+          name: "Tolva"
+        m_22_230_0:
+          name: "Torla"
+        m_22_232_2:
+          name: "Torralba de Aragón"
+        m_22_233_8:
+          name: "Torre la Ribera"
+        m_22_234_3:
+          name: "Torrente de Cinca"
+        m_22_235_6:
+          name: "Torres de Alcanadre"
+        m_22_236_9:
+          name: "Torres de Barbués"
+        m_22_239_4:
+          name: "Tramaced"
+        m_22_242_0:
+          name: "Valfarta"
+        m_22_243_6:
+          name: "Valle de Bardají"
+        m_22_901_6:
+          name: "Valle de Hecho"
+        m_22_244_1:
+          name: "Valle de Lierp"
+        m_22_245_4:
+          name: "Velilla de Cinca"
+        m_22_909_3:
+          name: "Vencillón"
+        m_22_247_3:
+          name: "Viacamp y Litera"
+        m_22_248_9:
+          name: "Vicién"
+        m_22_249_2:
+          name: "Villanova"
+        m_22_250_5:
+          name: "Villanúa"
+        m_22_251_2:
+          name: "Villanueva de Sigena"
+        m_22_252_7:
+          name: "Yebra de Basa"
+        m_22_253_3:
+          name: "Yésero"
+        m_22_254_8:
+          name: "Zaidín"

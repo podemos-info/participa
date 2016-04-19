@@ -1,0 +1,179 @@
+---
+es:
+  world:
+    es:
+      ab:
+        m_02_001_9:
+          name: "Abengibre"
+        m_02_002_4:
+          name: "Alatoz"
+        m_02_003_0:
+          name: "Albacete"
+        m_02_004_5:
+          name: "Albatana"
+        m_02_005_8:
+          name: "Alborea"
+        m_02_006_1:
+          name: "Alcadozo"
+        m_02_007_7:
+          name: "Alcalá del Júcar"
+        m_02_008_3:
+          name: "Alcaraz"
+        m_02_009_6:
+          name: "Almansa"
+        m_02_010_0:
+          name: "Alpera"
+        m_02_011_7:
+          name: "Ayna"
+        m_02_012_2:
+          name: "Balazote"
+        m_02_014_3:
+          name: "Ballestero, El"
+        m_02_013_8:
+          name: "Balsa de Ves"
+        m_02_015_6:
+          name: "Barrax"
+        m_02_016_9:
+          name: "Bienservida"
+        m_02_017_5:
+          name: "Bogarra"
+        m_02_018_1:
+          name: "Bonete"
+        m_02_019_4:
+          name: "Bonillo, El"
+        m_02_020_8:
+          name: "Carcelén"
+        m_02_021_5:
+          name: "Casas de Juan Núñez"
+        m_02_022_0:
+          name: "Casas de Lázaro"
+        m_02_023_6:
+          name: "Casas de Ves"
+        m_02_024_1:
+          name: "Casas-Ibáñez"
+        m_02_025_4:
+          name: "Caudete"
+        m_02_026_7:
+          name: "Cenizate"
+        m_02_029_2:
+          name: "Chinchilla de Monte-Aragón"
+        m_02_027_3:
+          name: "Corral-Rubio"
+        m_02_028_9:
+          name: "Cotillas"
+        m_02_030_6:
+          name: "Elche de la Sierra"
+        m_02_031_3:
+          name: "Férez"
+        m_02_032_8:
+          name: "Fuensanta"
+        m_02_033_4:
+          name: "Fuente-Álamo"
+        m_02_034_9:
+          name: "Fuentealbilla"
+        m_02_035_2:
+          name: "Gineta, La"
+        m_02_036_5:
+          name: "Golosalvo"
+        m_02_037_1:
+          name: "Hellín"
+        m_02_038_7:
+          name: "Herrera, La"
+        m_02_039_0:
+          name: "Higueruela"
+        m_02_040_4:
+          name: "Hoya-Gonzalo"
+        m_02_041_1:
+          name: "Jorquera"
+        m_02_042_6:
+          name: "Letur"
+        m_02_043_2:
+          name: "Lezuza"
+        m_02_044_7:
+          name: "Liétor"
+        m_02_045_0:
+          name: "Madrigueras"
+        m_02_046_3:
+          name: "Mahora"
+        m_02_047_9:
+          name: "Masegoso"
+        m_02_048_5:
+          name: "Minaya"
+        m_02_049_8:
+          name: "Molinicos"
+        m_02_050_1:
+          name: "Montalvos"
+        m_02_051_8:
+          name: "Montealegre del Castillo"
+        m_02_052_3:
+          name: "Motilleja"
+        m_02_053_9:
+          name: "Munera"
+        m_02_054_4:
+          name: "Navas de Jorquera"
+        m_02_055_7:
+          name: "Nerpio"
+        m_02_056_0:
+          name: "Ontur"
+        m_02_057_6:
+          name: "Ossa de Montiel"
+        m_02_058_2:
+          name: "Paterna del Madera"
+        m_02_060_9:
+          name: "Peñas de San Pedro"
+        m_02_059_5:
+          name: "Peñascosa"
+        m_02_061_6:
+          name: "Pétrola"
+        m_02_062_1:
+          name: "Povedilla"
+        m_02_901_0:
+          name: "Pozo Cañada"
+        m_02_063_7:
+          name: "Pozohondo"
+        m_02_064_2:
+          name: "Pozo-Lorente"
+        m_02_065_5:
+          name: "Pozuelo"
+        m_02_066_8:
+          name: "Recueja, La"
+        m_02_067_4:
+          name: "Riópar"
+        m_02_068_0:
+          name: "Robledo"
+        m_02_069_3:
+          name: "Roda, La"
+        m_02_070_7:
+          name: "Salobre"
+        m_02_071_4:
+          name: "San Pedro"
+        m_02_072_9:
+          name: "Socovos"
+        m_02_073_5:
+          name: "Tarazona de la Mancha"
+        m_02_074_0:
+          name: "Tobarra"
+        m_02_075_3:
+          name: "Valdeganga"
+        m_02_076_6:
+          name: "Vianos"
+        m_02_077_2:
+          name: "Villa de Ves"
+        m_02_078_8:
+          name: "Villalgordo del Júcar"
+        m_02_079_1:
+          name: "Villamalea"
+        m_02_080_5:
+          name: "Villapalacios"
+        m_02_081_2:
+          name: "Villarrobledo"
+        m_02_082_7:
+          name: "Villatoya"
+        m_02_083_3:
+          name: "Villavaliente"
+        m_02_084_8:
+          name: "Villaverde de Guadalimar"
+        m_02_085_1:
+          name: "Viveros"
+        m_02_086_4:
+          name: "Yeste"

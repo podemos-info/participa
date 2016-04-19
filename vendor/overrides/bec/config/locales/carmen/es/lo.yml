@@ -1,0 +1,353 @@
+---
+es:
+  world:
+    es:
+      lo:
+        m_26_001_2:
+          name: "Ábalos"
+        m_26_002_7:
+          name: "Agoncillo"
+        m_26_003_3:
+          name: "Aguilar del Río Alhama"
+        m_26_004_8:
+          name: "Ajamil de Cameros"
+        m_26_005_1:
+          name: "Albelda de Iregua"
+        m_26_006_4:
+          name: "Alberite"
+        m_26_007_0:
+          name: "Alcanadre"
+        m_26_008_6:
+          name: "Aldeanueva de Ebro"
+        m_26_009_9:
+          name: "Alesanco"
+        m_26_010_3:
+          name: "Alesón"
+        m_26_011_0:
+          name: "Alfaro"
+        m_26_012_5:
+          name: "Almarza de Cameros"
+        m_26_013_1:
+          name: "Anguciana"
+        m_26_014_6:
+          name: "Anguiano"
+        m_26_015_9:
+          name: "Arenzana de Abajo"
+        m_26_016_2:
+          name: "Arenzana de Arriba"
+        m_26_017_8:
+          name: "Arnedillo"
+        m_26_018_4:
+          name: "Arnedo"
+        m_26_019_7:
+          name: "Arrúbal"
+        m_26_020_1:
+          name: "Ausejo"
+        m_26_021_8:
+          name: "Autol"
+        m_26_022_3:
+          name: "Azofra"
+        m_26_023_9:
+          name: "Badarán"
+        m_26_024_4:
+          name: "Bañares"
+        m_26_026_0:
+          name: "Baños de Río Tobía"
+        m_26_025_7:
+          name: "Baños de Rioja"
+        m_26_027_6:
+          name: "Berceo"
+        m_26_028_2:
+          name: "Bergasa"
+        m_26_029_5:
+          name: "Bergasillas Bajera"
+        m_26_030_9:
+          name: "Bezares"
+        m_26_031_6:
+          name: "Bobadilla"
+        m_26_032_1:
+          name: "Brieva de Cameros"
+        m_26_033_7:
+          name: "Briñas"
+        m_26_034_2:
+          name: "Briones"
+        m_26_035_5:
+          name: "Cabezón de Cameros"
+        m_26_036_8:
+          name: "Calahorra"
+        m_26_037_4:
+          name: "Camprovín"
+        m_26_038_0:
+          name: "Canales de la Sierra"
+        m_26_039_3:
+          name: "Canillas de Río Tuerto"
+        m_26_040_7:
+          name: "Cañas"
+        m_26_041_4:
+          name: "Cárdenas"
+        m_26_042_9:
+          name: "Casalarreina"
+        m_26_043_5:
+          name: "Castañares de Rioja"
+        m_26_044_0:
+          name: "Castroviejo"
+        m_26_045_3:
+          name: "Cellorigo"
+        m_26_046_6:
+          name: "Cenicero"
+        m_26_047_2:
+          name: "Cervera del Río Alhama"
+        m_26_048_8:
+          name: "Cidamón"
+        m_26_049_1:
+          name: "Cihuri"
+        m_26_050_4:
+          name: "Cirueña"
+        m_26_051_1:
+          name: "Clavijo"
+        m_26_052_6:
+          name: "Cordovín"
+        m_26_053_2:
+          name: "Corera"
+        m_26_054_7:
+          name: "Cornago"
+        m_26_055_0:
+          name: "Corporales"
+        m_26_056_3:
+          name: "Cuzcurrita de Río Tirón"
+        m_26_057_9:
+          name: "Daroca de Rioja"
+        m_26_058_5:
+          name: "Enciso"
+        m_26_059_8:
+          name: "Entrena"
+        m_26_060_2:
+          name: "Estollo"
+        m_26_061_9:
+          name: "Ezcaray"
+        m_26_062_4:
+          name: "Foncea"
+        m_26_063_0:
+          name: "Fonzaleche"
+        m_26_064_5:
+          name: "Fuenmayor"
+        m_26_065_8:
+          name: "Galbárruli"
+        m_26_066_1:
+          name: "Galilea"
+        m_26_067_7:
+          name: "Gallinero de Cameros"
+        m_26_068_3:
+          name: "Gimileo"
+        m_26_069_6:
+          name: "Grañón"
+        m_26_070_0:
+          name: "Grávalos"
+        m_26_071_7:
+          name: "Haro"
+        m_26_072_2:
+          name: "Herce"
+        m_26_073_8:
+          name: "Herramélluri"
+        m_26_074_3:
+          name: "Hervías"
+        m_26_075_6:
+          name: "Hormilla"
+        m_26_076_9:
+          name: "Hormilleja"
+        m_26_077_5:
+          name: "Hornillos de Cameros"
+        m_26_078_1:
+          name: "Hornos de Moncalvillo"
+        m_26_079_4:
+          name: "Huércanos"
+        m_26_080_8:
+          name: "Igea"
+        m_26_081_5:
+          name: "Jalón de Cameros"
+        m_26_082_0:
+          name: "Laguna de Cameros"
+        m_26_083_6:
+          name: "Lagunilla del Jubera"
+        m_26_084_1:
+          name: "Lardero"
+        m_26_086_7:
+          name: "Ledesma de la Cogolla"
+        m_26_087_3:
+          name: "Leiva"
+        m_26_088_9:
+          name: "Leza de Río Leza"
+        m_26_089_2:
+          name: "Logroño"
+        m_26_091_3:
+          name: "Lumbreras"
+        m_26_092_8:
+          name: "Manjarrés"
+        m_26_093_4:
+          name: "Mansilla de la Sierra"
+        m_26_094_9:
+          name: "Manzanares de Rioja"
+        m_26_095_2:
+          name: "Matute"
+        m_26_096_5:
+          name: "Medrano"
+        m_26_098_7:
+          name: "Munilla"
+        m_26_099_0:
+          name: "Murillo de Río Leza"
+        m_26_100_4:
+          name: "Muro de Aguas"
+        m_26_101_1:
+          name: "Muro en Cameros"
+        m_26_102_6:
+          name: "Nájera"
+        m_26_103_2:
+          name: "Nalda"
+        m_26_104_7:
+          name: "Navajún"
+        m_26_105_0:
+          name: "Navarrete"
+        m_26_106_3:
+          name: "Nestares"
+        m_26_107_9:
+          name: "Nieva de Cameros"
+        m_26_109_8:
+          name: "Ochánduri"
+        m_26_108_5:
+          name: "Ocón"
+        m_26_110_2:
+          name: "Ojacastro"
+        m_26_111_9:
+          name: "Ollauri"
+        m_26_112_4:
+          name: "Ortigosa de Cameros"
+        m_26_113_0:
+          name: "Pazuengos"
+        m_26_114_5:
+          name: "Pedroso"
+        m_26_115_8:
+          name: "Pinillos"
+        m_26_117_7:
+          name: "Pradejón"
+        m_26_118_3:
+          name: "Pradillo"
+        m_26_119_6:
+          name: "Préjano"
+        m_26_120_0:
+          name: "Quel"
+        m_26_121_7:
+          name: "Rabanera"
+        m_26_122_2:
+          name: "Rasillo de Cameros, El"
+        m_26_123_8:
+          name: "Redal, El"
+        m_26_124_3:
+          name: "Ribafrecha"
+        m_26_125_6:
+          name: "Rincón de Soto"
+        m_26_126_9:
+          name: "Robres del Castillo"
+        m_26_127_5:
+          name: "Rodezno"
+        m_26_128_1:
+          name: "Sajazarra"
+        m_26_129_4:
+          name: "San Asensio"
+        m_26_130_8:
+          name: "San Millán de la Cogolla"
+        m_26_131_5:
+          name: "San Millán de Yécora"
+        m_26_132_0:
+          name: "San Román de Cameros"
+        m_26_139_2:
+          name: "San Torcuato"
+        m_26_142_8:
+          name: "San Vicente de la Sonsierra"
+        m_26_134_1:
+          name: "Santa Coloma"
+        m_26_135_4:
+          name: "Santa Engracia del Jubera"
+        m_26_136_7:
+          name: "Santa Eulalia Bajera"
+        m_26_138_9:
+          name: "Santo Domingo de la Calzada"
+        m_26_140_6:
+          name: "Santurde de Rioja"
+        m_26_141_3:
+          name: "Santurdejo"
+        m_26_143_4:
+          name: "Sojuela"
+        m_26_144_9:
+          name: "Sorzano"
+        m_26_145_2:
+          name: "Sotés"
+        m_26_146_5:
+          name: "Soto en Cameros"
+        m_26_147_1:
+          name: "Terroba"
+        m_26_148_7:
+          name: "Tirgo"
+        m_26_149_0:
+          name: "Tobía"
+        m_26_150_3:
+          name: "Tormantos"
+        m_26_153_1:
+          name: "Torre en Cameros"
+        m_26_151_0:
+          name: "Torrecilla en Cameros"
+        m_26_152_5:
+          name: "Torrecilla sobre Alesanco"
+        m_26_154_6:
+          name: "Torremontalbo"
+        m_26_155_9:
+          name: "Treviana"
+        m_26_157_8:
+          name: "Tricio"
+        m_26_158_4:
+          name: "Tudelilla"
+        m_26_160_1:
+          name: "Uruñuela"
+        m_26_161_8:
+          name: "Valdemadera"
+        m_26_162_3:
+          name: "Valgañón"
+        m_26_163_9:
+          name: "Ventosa"
+        m_26_164_4:
+          name: "Ventrosa"
+        m_26_165_7:
+          name: "Viguera"
+        m_26_166_0:
+          name: "Villalba de Rioja"
+        m_26_167_6:
+          name: "Villalobar de Rioja"
+        m_26_168_2:
+          name: "Villamediana de Iregua"
+        m_26_169_5:
+          name: "Villanueva de Cameros"
+        m_26_170_9:
+          name: "Villar de Arnedo, El"
+        m_26_171_6:
+          name: "Villar de Torre"
+        m_26_172_1:
+          name: "Villarejo"
+        m_26_173_7:
+          name: "Villarroya"
+        m_26_174_2:
+          name: "Villarta-Quintana"
+        m_26_175_5:
+          name: "Villavelayo"
+        m_26_176_8:
+          name: "Villaverde de Rioja"
+        m_26_177_4:
+          name: "Villoslada de Cameros"
+        m_26_178_0:
+          name: "Viniegra de Abajo"
+        m_26_179_3:
+          name: "Viniegra de Arriba"
+        m_26_180_7:
+          name: "Zarratón"
+        m_26_181_4:
+          name: "Zarzosa"
+        m_26_183_5:
+          name: "Zorraquín"

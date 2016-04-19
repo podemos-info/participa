@@ -2,11 +2,16 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+def require_override file
+  file = "./vendor/overrides/#{Rails.application.secrets.organization["folder"]}/#{file}"
+  require file if File.exists? file
+end
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module PodemosParticipa
+module Participa
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -21,6 +26,18 @@ module PodemosParticipa
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'carmen', 'es', '*.{rb,yml}').to_s]
     config.action_mailer.default_url_options = { host: Rails.application.secrets.host }
     
+     # participa overrides start
+    folder = Rails.application.secrets.organization["folder"]
+    config.autoload_paths += [ "#{Rails.root}/vendor/overrides/#{folder}/app/models" ]
+    config.autoload_paths += [ "#{Rails.root}/vendor/overrides/#{folder}/app/controllers" ]
+    #config.autoload_paths += [ "app/models" ]
+    #config.autoload_paths += [ "app/controllers" ]
+    %w( images javascripts stylesheets ).each do |type|
+      config.assets.paths << Rails.root.join("vendor", "overrides", folder, "app", "assets", type)
+    end
+    config.i18n.load_path += Dir[Rails.root.join('vendor', 'overrides', folder, 'config', 'locales', '*.{rb,yml}').to_s]
+    config.paths['app/views'].unshift(Rails.root.join('vendor', 'overrides', folder, 'app', 'views'))
+
     config.generators do |g|
       g.test_framework :test_unit, fixture: true
     end
@@ -31,3 +48,4 @@ Rails.application.routes.default_url_options[:host] = Rails.application.secrets.
 
 require 'add_unique_month_to_dates'
 
+require_override "config/application.rb"

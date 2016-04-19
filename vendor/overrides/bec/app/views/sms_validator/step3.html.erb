@@ -1,0 +1,34 @@
+<% content_for :title, t('bec.valid.phone.p5') %>
+
+<div class="content-content cols">
+  <div class="row">
+
+    <div class="col-b-4a12">
+
+      <%= render partial: "steps", locals: {step: 3} %>
+
+      <%= errors_in_form current_user %>
+
+      <%= semantic_form_for(current_user, url: sms_validator_valid_path, html: {method: :post}) do |f| %>
+
+          <fieldset>
+            <legend class="invisible">Codi SMS / Código SMS</legend>
+
+            <p><%= t('bec.valid.phone.p5') %></p>
+
+            <div class="inputlabel-box">
+                <% if current_user.errors.include?(:phone) %>
+                  <%= field_notice_box %>
+                <% end %>
+                <%= f.input :sms_user_token_given, label: t('bec.valid.phone.token') %>
+            </div>
+
+
+            <%= f.actions class: 'enter' do %>
+                <%= f.action :submit, label: t('bec.valid.phone.button'), button_html: {class: "button"} %>
+            <% end %>
+          </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

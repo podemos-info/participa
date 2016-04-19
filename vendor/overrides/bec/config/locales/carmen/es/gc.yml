@@ -1,0 +1,73 @@
+---
+es:
+  world:
+    es:
+      gc:
+        m_35_001_7:
+          name: "Agaete"
+        m_35_002_2:
+          name: "Agüimes"
+        m_35_020_6:
+          name: "Aldea de San Nicolás, La"
+        m_35_003_8:
+          name: "Antigua"
+        m_35_004_3:
+          name: "Arrecife"
+        m_35_005_6:
+          name: "Artenara"
+        m_35_006_9:
+          name: "Arucas"
+        m_35_007_5:
+          name: "Betancuria"
+        m_35_008_1:
+          name: "Firgas"
+        m_35_009_4:
+          name: "Gáldar"
+        m_35_010_8:
+          name: "Haría"
+        m_35_011_5:
+          name: "Ingenio"
+        m_35_012_0:
+          name: "Mogán"
+        m_35_013_6:
+          name: "Moya"
+        m_35_014_1:
+          name: "Oliva, La"
+        m_35_015_4:
+          name: "Pájara"
+        m_35_016_7:
+          name: "Palmas de Gran Canaria, Las"
+        m_35_017_3:
+          name: "Puerto del Rosario"
+        m_35_018_9:
+          name: "San Bartolomé"
+        m_35_019_2:
+          name: "San Bartolomé de Tirajana"
+        m_35_021_3:
+          name: "Santa Brígida"
+        m_35_022_8:
+          name: "Santa Lucía de Tirajana"
+        m_35_023_4:
+          name: "Santa María de Guía de Gran Canaria"
+        m_35_024_9:
+          name: "Teguise"
+        m_35_025_2:
+          name: "Tejeda"
+        m_35_026_5:
+          name: "Telde"
+        m_35_027_1:
+          name: "Teror"
+        m_35_028_7:
+          name: "Tías"
+        m_35_029_0:
+          name: "Tinajo"
+        m_35_030_4:
+          name: "Tuineje"
+        m_35_032_6:
+          name: "Valleseco"
+        m_35_031_1:
+          name: "Valsequillo de Gran Canaria"
+        m_35_033_2:
+          name: "Vega de San Mateo"
+        m_35_034_7:
+          name: "Yaiza"

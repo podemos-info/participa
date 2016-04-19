@@ -1,0 +1,12 @@
+<section class="tools">
+<ul>
+  <li class="box-tool">
+  <div class="box-tool">
+    <div class="tool-text">
+    <h3>
+    <%= t('voting.election_none') %>
+    </div><!--.tool-text-->
+  </div><!--.box-tool-->
+  </li>
+</ul>
+</section><!--.tools-->

@@ -1,0 +1,35 @@
+<% content_for :title, t('verification.step3') %>
+
+<div class="content-content cols verification">
+  <div class="row">
+
+    <h2><%= t('verification.admin') %></h2>
+
+    <div class="col-b-4a12">
+      <%= render partial: "steps", locals: { step: 3 } %>
+
+      <ul class="subtitle">
+        <p> <%= t('verification.result') %> </p>
+        <li>
+          <b><%= t('verification.full_name') %></b>: <%= @user.full_name %>
+        </li>
+        <li>
+          <b><%= t('verification.document_type') %></b>: <%= @user.document_type_name %> - <%= @user.document_vatid %>
+        </li>
+        <li>
+          <b><%= t('verification.born_at') %></b>: <%= @user.born_at %>
+        </li>
+      </ul>
+
+      <%= button_to t('verification.confirm'), verification_confirm_path(id: @user.id), class: "button-primary verif-left", method: :post, data: { confirm: t('verification.sure') } %>
+
+      <%= link_to t('verification.no_confirm'), verification_result_ko_path(id: @user.id), class: "button verif-right" %>
+      <br>
+      <br>
+      <br>
+
+    </div>
+  </div>
+</div>
+
+

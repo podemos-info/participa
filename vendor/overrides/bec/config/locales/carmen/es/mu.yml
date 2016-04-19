@@ -1,0 +1,95 @@
+---
+es:
+  world:
+    es:
+      mu:
+        m_30_001_1:
+          name: "Abanilla"
+        m_30_002_6:
+          name: "Abarán"
+        m_30_003_2:
+          name: "Águilas"
+        m_30_004_7:
+          name: "Albudeite"
+        m_30_005_0:
+          name: "Alcantarilla"
+        m_30_902_7:
+          name: "Alcázares, Los"
+        m_30_006_3:
+          name: "Aledo"
+        m_30_007_9:
+          name: "Alguazas"
+        m_30_008_5:
+          name: "Alhama de Murcia"
+        m_30_009_8:
+          name: "Archena"
+        m_30_010_2:
+          name: "Beniel"
+        m_30_011_9:
+          name: "Blanca"
+        m_30_012_4:
+          name: "Bullas"
+        m_30_013_0:
+          name: "Calasparra"
+        m_30_014_5:
+          name: "Campos del Río"
+        m_30_015_8:
+          name: "Caravaca de la Cruz"
+        m_30_016_1:
+          name: "Cartagena"
+        m_30_017_7:
+          name: "Cehegín"
+        m_30_018_3:
+          name: "Ceutí"
+        m_30_019_6:
+          name: "Cieza"
+        m_30_020_0:
+          name: "Fortuna"
+        m_30_021_7:
+          name: "Fuente Álamo de Murcia"
+        m_30_022_2:
+          name: "Jumilla"
+        m_30_023_8:
+          name: "Librilla"
+        m_30_024_3:
+          name: "Lorca"
+        m_30_025_6:
+          name: "Lorquí"
+        m_30_026_9:
+          name: "Mazarrón"
+        m_30_027_5:
+          name: "Molina de Segura"
+        m_30_028_1:
+          name: "Moratalla"
+        m_30_029_4:
+          name: "Mula"
+        m_30_030_8:
+          name: "Murcia"
+        m_30_031_5:
+          name: "Ojós"
+        m_30_032_0:
+          name: "Pliego"
+        m_30_033_6:
+          name: "Puerto Lumbreras"
+        m_30_034_1:
+          name: "Ricote"
+        m_30_035_4:
+          name: "San Javier"
+        m_30_036_7:
+          name: "San Pedro del Pinatar"
+        m_30_901_2:
+          name: "Santomera"
+        m_30_037_3:
+          name: "Torre-Pacheco"
+        m_30_038_9:
+          name: "Torres de Cotillas, Las"
+        m_30_039_2:
+          name: "Totana"
+        m_30_040_6:
+          name: "Ulea"
+        m_30_041_3:
+          name: "Unión, La"
+        m_30_042_8:
+          name: "Villanueva del Río Segura"
+        m_30_043_4:
+          name: "Yecla"

@@ -1,0 +1,335 @@
+---
+es:
+  world:
+    es:
+      ba:
+        m_06_001_6:
+          name: "Acedera"
+        m_06_002_1:
+          name: "Aceuchal"
+        m_06_003_7:
+          name: "Ahillones"
+        m_06_004_2:
+          name: "Alange"
+        m_06_005_5:
+          name: "Albuera, La"
+        m_06_006_8:
+          name: "Alburquerque"
+        m_06_007_4:
+          name: "Alconchel"
+        m_06_008_0:
+          name: "Alconera"
+        m_06_009_3:
+          name: "Aljucén"
+        m_06_010_7:
+          name: "Almendral"
+        m_06_011_4:
+          name: "Almendralejo"
+        m_06_012_9:
+          name: "Arroyo de San Serván"
+        m_06_013_5:
+          name: "Atalaya"
+        m_06_014_0:
+          name: "Azuaga"
+        m_06_015_3:
+          name: "Badajoz"
+        m_06_016_6:
+          name: "Barcarrota"
+        m_06_017_2:
+          name: "Baterno"
+        m_06_018_8:
+          name: "Benquerencia de la Serena"
+        m_06_019_1:
+          name: "Berlanga"
+        m_06_020_5:
+          name: "Bienvenida"
+        m_06_021_2:
+          name: "Bodonal de la Sierra"
+        m_06_022_7:
+          name: "Burguillos del Cerro"
+        m_06_023_3:
+          name: "Cabeza del Buey"
+        m_06_024_8:
+          name: "Cabeza la Vaca"
+        m_06_025_1:
+          name: "Calamonte"
+        m_06_026_4:
+          name: "Calera de León"
+        m_06_027_0:
+          name: "Calzadilla de los Barros"
+        m_06_028_6:
+          name: "Campanario"
+        m_06_029_9:
+          name: "Campillo de Llerena"
+        m_06_030_3:
+          name: "Capilla"
+        m_06_031_0:
+          name: "Carmonita"
+        m_06_032_5:
+          name: "Carrascalejo, El"
+        m_06_033_1:
+          name: "Casas de Don Pedro"
+        m_06_034_6:
+          name: "Casas de Reina"
+        m_06_035_9:
+          name: "Castilblanco"
+        m_06_036_2:
+          name: "Castuera"
+        m_06_042_3:
+          name: "Cheles"
+        m_06_037_8:
+          name: "Codosera, La"
+        m_06_038_4:
+          name: "Cordobilla de Lácara"
+        m_06_039_7:
+          name: "Coronada, La"
+        m_06_040_1:
+          name: "Corte de Peleas"
+        m_06_041_8:
+          name: "Cristina"
+        m_06_043_9:
+          name: "Don Álvaro"
+        m_06_044_4:
+          name: "Don Benito"
+        m_06_045_7:
+          name: "Entrín Bajo"
+        m_06_046_0:
+          name: "Esparragalejo"
+        m_06_047_6:
+          name: "Esparragosa de la Serena"
+        m_06_048_2:
+          name: "Esparragosa de Lares"
+        m_06_049_5:
+          name: "Feria"
+        m_06_050_8:
+          name: "Fregenal de la Sierra"
+        m_06_051_5:
+          name: "Fuenlabrada de los Montes"
+        m_06_052_0:
+          name: "Fuente de Cantos"
+        m_06_053_6:
+          name: "Fuente del Arco"
+        m_06_054_1:
+          name: "Fuente del Maestre"
+        m_06_055_4:
+          name: "Fuentes de León"
+        m_06_056_7:
+          name: "Garbayuela"
+        m_06_057_3:
+          name: "Garlitos"
+        m_06_058_9:
+          name: "Garrovilla, La"
+        m_06_059_2:
+          name: "Granja de Torrehermosa"
+        m_06_903_8:
+          name: "Guadiana del Caudillo"
+        m_06_060_6:
+          name: "Guareña"
+        m_06_061_3:
+          name: "Haba, La"
+        m_06_062_8:
+          name: "Helechosa de los Montes"
+        m_06_063_4:
+          name: "Herrera del Duque"
+        m_06_064_9:
+          name: "Higuera de la Serena"
+        m_06_065_2:
+          name: "Higuera de Llerena"
+        m_06_066_5:
+          name: "Higuera de Vargas"
+        m_06_067_1:
+          name: "Higuera la Real"
+        m_06_068_7:
+          name: "Hinojosa del Valle"
+        m_06_069_0:
+          name: "Hornachos"
+        m_06_070_4:
+          name: "Jerez de los Caballeros"
+        m_06_071_1:
+          name: "Lapa, La"
+        m_06_073_2:
+          name: "Llera"
+        m_06_074_7:
+          name: "Llerena"
+        m_06_072_6:
+          name: "Lobón"
+        m_06_075_0:
+          name: "Magacela"
+        m_06_076_3:
+          name: "Maguilla"
+        m_06_077_9:
+          name: "Malcocinado"
+        m_06_078_5:
+          name: "Malpartida de la Serena"
+        m_06_079_8:
+          name: "Manchita"
+        m_06_080_2:
+          name: "Medellín"
+        m_06_081_9:
+          name: "Medina de las Torres"
+        m_06_082_4:
+          name: "Mengabril"
+        m_06_083_0:
+          name: "Mérida"
+        m_06_084_5:
+          name: "Mirandilla"
+        m_06_085_8:
+          name: "Monesterio"
+        m_06_086_1:
+          name: "Montemolín"
+        m_06_087_7:
+          name: "Monterrubio de la Serena"
+        m_06_088_3:
+          name: "Montijo"
+        m_06_089_6:
+          name: "Morera, La"
+        m_06_090_0:
+          name: "Nava de Santiago, La"
+        m_06_091_7:
+          name: "Navalvillar de Pela"
+        m_06_092_2:
+          name: "Nogales"
+        m_06_093_8:
+          name: "Oliva de la Frontera"
+        m_06_094_3:
+          name: "Oliva de Mérida"
+        m_06_095_6:
+          name: "Olivenza"
+        m_06_096_9:
+          name: "Orellana de la Sierra"
+        m_06_097_5:
+          name: "Orellana la Vieja"
+        m_06_098_1:
+          name: "Palomas"
+        m_06_099_4:
+          name: "Parra, La"
+        m_06_100_8:
+          name: "Peñalsordo"
+        m_06_101_5:
+          name: "Peraleda del Zaucejo"
+        m_06_102_0:
+          name: "Puebla de Alcocer"
+        m_06_103_6:
+          name: "Puebla de la Calzada"
+        m_06_104_1:
+          name: "Puebla de la Reina"
+        m_06_107_3:
+          name: "Puebla de Obando"
+        m_06_108_9:
+          name: "Puebla de Sancho Pérez"
+        m_06_105_4:
+          name: "Puebla del Maestre"
+        m_06_106_7:
+          name: "Puebla del Prior"
+        m_06_902_2:
+          name: "Pueblonuevo del Guadiana"
+        m_06_109_2:
+          name: "Quintana de la Serena"
+        m_06_110_6:
+          name: "Reina"
+        m_06_111_3:
+          name: "Rena"
+        m_06_112_8:
+          name: "Retamal de Llerena"
+        m_06_113_4:
+          name: "Ribera del Fresno"
+        m_06_114_9:
+          name: "Risco"
+        m_06_115_2:
+          name: "Roca de la Sierra, La"
+        m_06_116_5:
+          name: "Salvaleón"
+        m_06_117_1:
+          name: "Salvatierra de los Barros"
+        m_06_119_0:
+          name: "San Pedro de Mérida"
+        m_06_123_2:
+          name: "San Vicente de Alcántara"
+        m_06_118_7:
+          name: "Sancti-Spíritus"
+        m_06_120_4:
+          name: "Santa Amalia"
+        m_06_121_1:
+          name: "Santa Marta"
+        m_06_122_6:
+          name: "Santos de Maimona, Los"
+        m_06_124_7:
+          name: "Segura de León"
+        m_06_125_0:
+          name: "Siruela"
+        m_06_126_3:
+          name: "Solana de los Barros"
+        m_06_127_9:
+          name: "Talarrubias"
+        m_06_128_5:
+          name: "Talavera la Real"
+        m_06_129_8:
+          name: "Táliga"
+        m_06_130_2:
+          name: "Tamurejo"
+        m_06_131_9:
+          name: "Torre de Miguel Sesmero"
+        m_06_132_4:
+          name: "Torremayor"
+        m_06_133_0:
+          name: "Torremejía"
+        m_06_134_5:
+          name: "Trasierra"
+        m_06_135_8:
+          name: "Trujillanos"
+        m_06_136_1:
+          name: "Usagre"
+        m_06_137_7:
+          name: "Valdecaballeros"
+        m_06_901_7:
+          name: "Valdelacalzada"
+        m_06_138_3:
+          name: "Valdetorres"
+        m_06_139_6:
+          name: "Valencia de las Torres"
+        m_06_140_0:
+          name: "Valencia del Mombuey"
+        m_06_141_7:
+          name: "Valencia del Ventoso"
+        m_06_146_9:
+          name: "Valle de la Serena"
+        m_06_147_5:
+          name: "Valle de Matamoros"
+        m_06_148_1:
+          name: "Valle de Santa Ana"
+        m_06_142_2:
+          name: "Valverde de Burguillos"
+        m_06_143_8:
+          name: "Valverde de Leganés"
+        m_06_144_3:
+          name: "Valverde de Llerena"
+        m_06_145_6:
+          name: "Valverde de Mérida"
+        m_06_149_4:
+          name: "Villafranca de los Barros"
+        m_06_150_7:
+          name: "Villagarcía de la Torre"
+        m_06_151_4:
+          name: "Villagonzalo"
+        m_06_152_9:
+          name: "Villalba de los Barros"
+        m_06_153_5:
+          name: "Villanueva de la Serena"
+        m_06_154_0:
+          name: "Villanueva del Fresno"
+        m_06_156_6:
+          name: "Villar de Rena"
+        m_06_155_3:
+          name: "Villar del Rey"
+        m_06_157_2:
+          name: "Villarta de los Montes"
+        m_06_158_8:
+          name: "Zafra"
+        m_06_159_1:
+          name: "Zahínos"
+        m_06_160_5:
+          name: "Zalamea de la Serena"
+        m_06_162_7:
+          name: "Zarza, La"
+        m_06_161_2:
+          name: "Zarza-Capilla"

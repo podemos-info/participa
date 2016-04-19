@@ -1,0 +1,139 @@
+---
+es:
+  world:
+    es:
+      lu:
+        m_27_001_8:
+          name: "Abadín"
+        m_27_002_3:
+          name: "Alfoz"
+        m_27_003_9:
+          name: "Antas de Ulla"
+        m_27_004_4:
+          name: "Baleira"
+        m_27_901_9:
+          name: "Baralla"
+        m_27_005_7:
+          name: "Barreiros"
+        m_27_006_0:
+          name: "Becerreá"
+        m_27_007_6:
+          name: "Begonte"
+        m_27_008_2:
+          name: "Bóveda"
+        m_27_902_4:
+          name: "Burela"
+        m_27_009_5:
+          name: "Carballedo"
+        m_27_010_9:
+          name: "Castro de Rei"
+        m_27_011_6:
+          name: "Castroverde"
+        m_27_012_1:
+          name: "Cervantes"
+        m_27_013_7:
+          name: "Cervo"
+        m_27_016_8:
+          name: "Chantada"
+        m_27_014_2:
+          name: "Corgo, O"
+        m_27_015_5:
+          name: "Cospeito"
+        m_27_017_4:
+          name: "Folgoso do Courel"
+        m_27_018_0:
+          name: "Fonsagrada, A"
+        m_27_019_3:
+          name: "Foz"
+        m_27_020_7:
+          name: "Friol"
+        m_27_022_9:
+          name: "Guitiriz"
+        m_27_023_5:
+          name: "Guntín"
+        m_27_024_0:
+          name: "Incio, O"
+        m_27_026_6:
+          name: "Láncara"
+        m_27_027_2:
+          name: "Lourenzá"
+        m_27_028_8:
+          name: "Lugo"
+        m_27_029_1:
+          name: "Meira"
+        m_27_030_5:
+          name: "Mondoñedo"
+        m_27_031_2:
+          name: "Monforte de Lemos"
+        m_27_032_7:
+          name: "Monterroso"
+        m_27_033_3:
+          name: "Muras"
+        m_27_034_8:
+          name: "Navia de Suarna"
+        m_27_035_1:
+          name: "Negueira de Muñiz"
+        m_27_037_0:
+          name: "Nogais, As"
+        m_27_038_6:
+          name: "Ourol"
+        m_27_039_9:
+          name: "Outeiro de Rei"
+        m_27_040_3:
+          name: "Palas de Rei"
+        m_27_041_0:
+          name: "Pantón"
+        m_27_042_5:
+          name: "Paradela"
+        m_27_043_1:
+          name: "Páramo, O"
+        m_27_044_6:
+          name: "Pastoriza, A"
+        m_27_045_9:
+          name: "Pedrafita do Cebreiro"
+        m_27_047_8:
+          name: "Pobra do Brollón, A"
+        m_27_046_2:
+          name: "Pol"
+        m_27_048_4:
+          name: "Pontenova, A"
+        m_27_049_7:
+          name: "Portomarín"
+        m_27_050_0:
+          name: "Quiroga"
+        m_27_056_9:
+          name: "Rábade"
+        m_27_051_7:
+          name: "Ribadeo"
+        m_27_052_2:
+          name: "Ribas de Sil"
+        m_27_053_8:
+          name: "Ribeira de Piquín"
+        m_27_054_3:
+          name: "Riotorto"
+        m_27_055_6:
+          name: "Samos"
+        m_27_057_5:
+          name: "Sarria"
+        m_27_058_1:
+          name: "Saviñao, O"
+        m_27_059_4:
+          name: "Sober"
+        m_27_060_8:
+          name: "Taboada"
+        m_27_061_5:
+          name: "Trabada"
+        m_27_062_0:
+          name: "Triacastela"
+        m_27_063_6:
+          name: "Valadouro, O"
+        m_27_064_1:
+          name: "Vicedo, O"
+        m_27_065_4:
+          name: "Vilalba"
+        m_27_066_7:
+          name: "Viveiro"
+        m_27_021_4:
+          name: "Xermade"
+        m_27_025_3:
+          name: "Xove"

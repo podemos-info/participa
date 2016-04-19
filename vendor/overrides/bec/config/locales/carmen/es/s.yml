@@ -1,0 +1,209 @@
+---
+es:
+  world:
+    es:
+      s:
+        m_39_001_5:
+          name: "Alfoz de Lloredo"
+        m_39_002_0:
+          name: "Ampuero"
+        m_39_003_6:
+          name: "Anievas"
+        m_39_004_1:
+          name: "Arenas de Iguña"
+        m_39_005_4:
+          name: "Argoños"
+        m_39_006_7:
+          name: "Arnuero"
+        m_39_007_3:
+          name: "Arredondo"
+        m_39_008_9:
+          name: "Astillero, El"
+        m_39_009_2:
+          name: "Bárcena de Cicero"
+        m_39_010_6:
+          name: "Bárcena de Pie de Concha"
+        m_39_011_3:
+          name: "Bareyo"
+        m_39_012_8:
+          name: "Cabezón de la Sal"
+        m_39_013_4:
+          name: "Cabezón de Liébana"
+        m_39_014_9:
+          name: "Cabuérniga"
+        m_39_015_2:
+          name: "Camaleño"
+        m_39_016_5:
+          name: "Camargo"
+        m_39_027_9:
+          name: "Campoo de Enmedio"
+        m_39_017_1:
+          name: "Campoo de Yuso"
+        m_39_018_7:
+          name: "Cartes"
+        m_39_019_0:
+          name: "Castañeda"
+        m_39_020_4:
+          name: "Castro-Urdiales"
+        m_39_021_1:
+          name: "Cieza"
+        m_39_022_6:
+          name: "Cillorigo de Liébana"
+        m_39_023_2:
+          name: "Colindres"
+        m_39_024_7:
+          name: "Comillas"
+        m_39_025_0:
+          name: "Corrales de Buelna, Los"
+        m_39_026_3:
+          name: "Corvera de Toranzo"
+        m_39_028_5:
+          name: "Entrambasaguas"
+        m_39_029_8:
+          name: "Escalante"
+        m_39_030_2:
+          name: "Guriezo"
+        m_39_031_9:
+          name: "Hazas de Cesto"
+        m_39_032_4:
+          name: "Hermandad de Campoo de Suso"
+        m_39_033_0:
+          name: "Herrerías"
+        m_39_034_5:
+          name: "Lamasón"
+        m_39_035_8:
+          name: "Laredo"
+        m_39_036_1:
+          name: "Liendo"
+        m_39_037_7:
+          name: "Liérganes"
+        m_39_038_3:
+          name: "Limpias"
+        m_39_039_6:
+          name: "Luena"
+        m_39_040_0:
+          name: "Marina de Cudeyo"
+        m_39_041_7:
+          name: "Mazcuerras"
+        m_39_042_2:
+          name: "Medio Cudeyo"
+        m_39_043_8:
+          name: "Meruelo"
+        m_39_044_3:
+          name: "Miengo"
+        m_39_045_6:
+          name: "Miera"
+        m_39_046_9:
+          name: "Molledo"
+        m_39_047_5:
+          name: "Noja"
+        m_39_048_1:
+          name: "Penagos"
+        m_39_049_4:
+          name: "Peñarrubia"
+        m_39_050_7:
+          name: "Pesaguero"
+        m_39_051_4:
+          name: "Pesquera"
+        m_39_052_9:
+          name: "Piélagos"
+        m_39_053_5:
+          name: "Polaciones"
+        m_39_054_0:
+          name: "Polanco"
+        m_39_055_3:
+          name: "Potes"
+        m_39_056_6:
+          name: "Puente Viesgo"
+        m_39_057_2:
+          name: "Ramales de la Victoria"
+        m_39_058_8:
+          name: "Rasines"
+        m_39_059_1:
+          name: "Reinosa"
+        m_39_060_5:
+          name: "Reocín"
+        m_39_061_2:
+          name: "Ribamontán al Mar"
+        m_39_062_7:
+          name: "Ribamontán al Monte"
+        m_39_063_3:
+          name: "Rionansa"
+        m_39_064_8:
+          name: "Riotuerto"
+        m_39_065_1:
+          name: "Rozas de Valdearroyo, Las"
+        m_39_066_4:
+          name: "Ruente"
+        m_39_067_0:
+          name: "Ruesga"
+        m_39_068_6:
+          name: "Ruiloba"
+        m_39_069_9:
+          name: "San Felices de Buelna"
+        m_39_070_3:
+          name: "San Miguel de Aguayo"
+        m_39_071_0:
+          name: "San Pedro del Romeral"
+        m_39_072_5:
+          name: "San Roque de Riomiera"
+        m_39_080_1:
+          name: "San Vicente de la Barquera"
+        m_39_073_1:
+          name: "Santa Cruz de Bezana"
+        m_39_074_6:
+          name: "Santa María de Cayón"
+        m_39_075_9:
+          name: "Santander"
+        m_39_076_2:
+          name: "Santillana del Mar"
+        m_39_077_8:
+          name: "Santiurde de Reinosa"
+        m_39_078_4:
+          name: "Santiurde de Toranzo"
+        m_39_079_7:
+          name: "Santoña"
+        m_39_081_8:
+          name: "Saro"
+        m_39_082_3:
+          name: "Selaya"
+        m_39_083_9:
+          name: "Soba"
+        m_39_084_4:
+          name: "Solórzano"
+        m_39_085_7:
+          name: "Suances"
+        m_39_086_0:
+          name: "Tojos, Los"
+        m_39_087_6:
+          name: "Torrelavega"
+        m_39_088_2:
+          name: "Tresviso"
+        m_39_089_5:
+          name: "Tudanca"
+        m_39_090_9:
+          name: "Udías"
+        m_39_095_5:
+          name: "Val de San Vicente"
+        m_39_091_6:
+          name: "Valdáliga"
+        m_39_092_1:
+          name: "Valdeolea"
+        m_39_093_7:
+          name: "Valdeprado del Río"
+        m_39_094_2:
+          name: "Valderredible"
+        m_39_101_4:
+          name: "Valle de Villaverde"
+        m_39_096_8:
+          name: "Vega de Liébana"
+        m_39_097_4:
+          name: "Vega de Pas"
+        m_39_098_0:
+          name: "Villacarriedo"
+        m_39_099_3:
+          name: "Villaescusa"
+        m_39_100_7:
+          name: "Villafufre"
+        m_39_102_9:
+          name: "Voto"

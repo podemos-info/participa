@@ -1,0 +1,42 @@
+<% content_for :title, t('verification.step2') %>
+
+<div class="content-content cols verification">
+  <div class="row">
+
+    <h2><%= t('verification.admin') %></h2>
+
+    <div class="col-b-4a12">
+      <%= render partial: "steps", locals: { step: 2 } %>
+
+      <p>
+      <%= t('verification.new') %>
+      </p>
+      <br>
+
+      <%= semantic_form_for(:user, url: verification_search_path, html: {method: :post}) do |f| %>
+
+          <fieldset class="verification-form">
+
+            <!-- div class="inputlabel-box">
+              <div class="input-box">
+                <%# f.input :document_vatid, required: false, label: t('verification.document') %>
+              </div>
+            </div -->
+
+            <div class="inputlabel-box">
+              <div class="input-box">
+                <%= f.input :email, required: true, as: :email, label: t('verification.email') %>
+              </div>
+            </div>
+
+            <div class="enter">
+              <%= f.action :submit, label: t('verification.next'), button_html: {class: 'button-primary'} %>
+            </div>
+
+          </fieldset>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+

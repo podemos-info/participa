@@ -1,0 +1,93 @@
+---
+es:
+  world:
+    es:
+      ca:
+        m_11_001_2:
+          name: "Alcalá de los Gazules"
+        m_11_002_7:
+          name: "Alcalá del Valle"
+        m_11_003_3:
+          name: "Algar"
+        m_11_004_8:
+          name: "Algeciras"
+        m_11_005_1:
+          name: "Algodonales"
+        m_11_006_4:
+          name: "Arcos de la Frontera"
+        m_11_007_0:
+          name: "Barbate"
+        m_11_008_6:
+          name: "Barrios, Los"
+        m_11_901_3:
+          name: "Benalup-Casas Viejas"
+        m_11_009_9:
+          name: "Benaocaz"
+        m_11_010_3:
+          name: "Bornos"
+        m_11_011_0:
+          name: "Bosque, El"
+        m_11_012_5:
+          name: "Cádiz"
+        m_11_013_1:
+          name: "Castellar de la Frontera"
+        m_11_015_9:
+          name: "Chiclana de la Frontera"
+        m_11_016_2:
+          name: "Chipiona"
+        m_11_014_6:
+          name: "Conil de la Frontera"
+        m_11_017_8:
+          name: "Espera"
+        m_11_018_4:
+          name: "Gastor, El"
+        m_11_019_7:
+          name: "Grazalema"
+        m_11_020_1:
+          name: "Jerez de la Frontera"
+        m_11_021_8:
+          name: "Jimena de la Frontera"
+        m_11_022_3:
+          name: "Línea de la Concepción, La"
+        m_11_023_9:
+          name: "Medina-Sidonia"
+        m_11_024_4:
+          name: "Olvera"
+        m_11_025_7:
+          name: "Paterna de Rivera"
+        m_11_026_0:
+          name: "Prado del Rey"
+        m_11_027_6:
+          name: "Puerto de Santa María, El"
+        m_11_028_2:
+          name: "Puerto Real"
+        m_11_029_5:
+          name: "Puerto Serrano"
+        m_11_030_9:
+          name: "Rota"
+        m_11_031_6:
+          name: "San Fernando"
+        m_11_902_8:
+          name: "San José del Valle"
+        m_11_033_7:
+          name: "San Roque"
+        m_11_032_1:
+          name: "Sanlúcar de Barrameda"
+        m_11_034_2:
+          name: "Setenil de las Bodegas"
+        m_11_035_5:
+          name: "Tarifa"
+        m_11_036_8:
+          name: "Torre Alháquime"
+        m_11_037_4:
+          name: "Trebujena"
+        m_11_038_0:
+          name: "Ubrique"
+        m_11_039_3:
+          name: "Vejer de la Frontera"
+        m_11_040_7:
+          name: "Villaluenga del Rosario"
+        m_11_041_4:
+          name: "Villamartín"
+        m_11_042_9:
+          name: "Zahara"

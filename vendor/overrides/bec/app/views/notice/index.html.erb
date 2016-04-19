@@ -1,0 +1,26 @@
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <% @notices.each do |notice| %>
+          <div class="box">
+            <div class="box-notif">
+              <p>
+                <strong><%= notice.title %></strong>
+              </p>
+
+              <p>
+                <%= notice.body %>
+              </p>
+
+              <p class="date">
+                <%= l notice.created_at %>
+              </p>
+            </div>
+          </div>
+      <% end %>
+
+      <%= paginate @notices %>
+    </div>
+  </div>
+</div>

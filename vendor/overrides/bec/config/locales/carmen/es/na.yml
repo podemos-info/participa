@@ -1,0 +1,549 @@
+---
+es:
+  world:
+    es:
+      na:
+        m_31_001_8:
+          name: "Abáigar"
+        m_31_002_3:
+          name: "Abárzuza/Abartzuza"
+        m_31_003_9:
+          name: "Abaurregaina/Abaurrea Alta"
+        m_31_004_4:
+          name: "Abaurrepea/Abaurrea Baja"
+        m_31_005_7:
+          name: "Aberin"
+        m_31_006_0:
+          name: "Ablitas"
+        m_31_007_6:
+          name: "Adiós"
+        m_31_008_2:
+          name: "Aguilar de Codés"
+        m_31_009_5:
+          name: "Aibar/Oibar"
+        m_31_011_6:
+          name: "Allín/Allin"
+        m_31_012_1:
+          name: "Allo"
+        m_31_010_9:
+          name: "Altsasu/Alsasua"
+        m_31_013_7:
+          name: "Améscoa Baja"
+        m_31_014_2:
+          name: "Ancín/Antzin"
+        m_31_015_5:
+          name: "Andosilla"
+        m_31_016_8:
+          name: "Ansoáin/Antsoain"
+        m_31_017_4:
+          name: "Anue"
+        m_31_018_0:
+          name: "Añorbe"
+        m_31_019_3:
+          name: "Aoiz/Agoitz"
+        m_31_020_7:
+          name: "Araitz"
+        m_31_025_3:
+          name: "Arakil"
+        m_31_021_4:
+          name: "Aranarache/Aranaratxe"
+        m_31_023_5:
+          name: "Aranguren"
+        m_31_024_0:
+          name: "Arano"
+        m_31_022_9:
+          name: "Arantza"
+        m_31_026_6:
+          name: "Aras"
+        m_31_027_2:
+          name: "Arbizu"
+        m_31_028_8:
+          name: "Arce/Artzi"
+        m_31_029_1:
+          name: "Arcos, Los"
+        m_31_030_5:
+          name: "Arellano"
+        m_31_031_2:
+          name: "Areso"
+        m_31_032_7:
+          name: "Arguedas"
+        m_31_033_3:
+          name: "Aria"
+        m_31_034_8:
+          name: "Aribe"
+        m_31_035_1:
+          name: "Armañanzas"
+        m_31_036_4:
+          name: "Arróniz"
+        m_31_037_0:
+          name: "Arruazu"
+        m_31_038_6:
+          name: "Artajona"
+        m_31_039_9:
+          name: "Artazu"
+        m_31_040_3:
+          name: "Atez/Atetz"
+        m_31_058_1:
+          name: "Auritz/Burguete"
+        m_31_041_0:
+          name: "Ayegui/Aiegi"
+        m_31_042_5:
+          name: "Azagra"
+        m_31_043_1:
+          name: "Azuelo"
+        m_31_044_6:
+          name: "Bakaiku"
+        m_31_901_9:
+          name: "Barañain"
+        m_31_045_9:
+          name: "Barásoain"
+        m_31_046_2:
+          name: "Barbarin"
+        m_31_047_8:
+          name: "Bargota"
+        m_31_048_4:
+          name: "Barillas"
+        m_31_049_7:
+          name: "Basaburua"
+        m_31_050_0:
+          name: "Baztan"
+        m_31_137_9:
+          name: "Beintza-Labaien"
+        m_31_051_7:
+          name: "Beire"
+        m_31_052_2:
+          name: "Belascoáin"
+        m_31_250_8:
+          name: "Bera"
+        m_31_053_8:
+          name: "Berbinzana"
+        m_31_905_8:
+          name: "Beriáin"
+        m_31_902_4:
+          name: "Berrioplano/Berriobeiti"
+        m_31_903_0:
+          name: "Berriozar"
+        m_31_054_3:
+          name: "Bertizarana"
+        m_31_055_6:
+          name: "Betelu"
+        m_31_253_6:
+          name: "Bidaurreta"
+        m_31_056_9:
+          name: "Biurrun-Olcoz"
+        m_31_057_5:
+          name: "Buñuel"
+        m_31_059_4:
+          name: "Burgui/Burgi"
+        m_31_060_8:
+          name: "Burlada/Burlata"
+        m_31_061_5:
+          name: "Busto, El"
+        m_31_062_0:
+          name: "Cabanillas"
+        m_31_063_6:
+          name: "Cabredo"
+        m_31_064_1:
+          name: "Cadreita"
+        m_31_065_4:
+          name: "Caparroso"
+        m_31_066_7:
+          name: "Cárcar"
+        m_31_067_3:
+          name: "Carcastillo"
+        m_31_068_9:
+          name: "Cascante"
+        m_31_069_2:
+          name: "Cáseda"
+        m_31_070_6:
+          name: "Castejón"
+        m_31_071_3:
+          name: "Castillonuevo"
+        m_31_193_9:
+          name: "Cendea de Olza/Oltza Zendea"
+        m_31_072_8:
+          name: "Cintruénigo"
+        m_31_074_9:
+          name: "Cirauqui/Zirauki"
+        m_31_075_2:
+          name: "Ciriza/Ziritza"
+        m_31_076_5:
+          name: "Cizur"
+        m_31_077_1:
+          name: "Corella"
+        m_31_078_7:
+          name: "Cortes"
+        m_31_079_0:
+          name: "Desojo"
+        m_31_080_4:
+          name: "Dicastillo"
+        m_31_081_1:
+          name: "Donamaria"
+        m_31_221_2:
+          name: "Doneztebe/Santesteban"
+        m_31_083_2:
+          name: "Echarri"
+        m_31_086_3:
+          name: "Egüés"
+        m_31_087_9:
+          name: "Elgorriaga"
+        m_31_089_8:
+          name: "Enériz/Eneritz"
+        m_31_090_2:
+          name: "Eratsun"
+        m_31_091_9:
+          name: "Ergoiena"
+        m_31_092_4:
+          name: "Erro"
+        m_31_094_5:
+          name: "Eslava"
+        m_31_095_8:
+          name: "Esparza de Salazar/Espartza Zaraitzu"
+        m_31_096_1:
+          name: "Espronceda"
+        m_31_097_7:
+          name: "Estella-Lizarra"
+        m_31_098_3:
+          name: "Esteribar"
+        m_31_099_6:
+          name: "Etayo"
+        m_31_082_6:
+          name: "Etxalar"
+        m_31_084_7:
+          name: "Etxarri-Aranatz"
+        m_31_085_0:
+          name: "Etxauri"
+        m_31_100_0:
+          name: "Eulate"
+        m_31_101_7:
+          name: "Ezcabarte"
+        m_31_093_0:
+          name: "Ezcároz/Ezkaroze"
+        m_31_102_2:
+          name: "Ezkurra"
+        m_31_103_8:
+          name: "Ezprogui"
+        m_31_104_3:
+          name: "Falces"
+        m_31_105_6:
+          name: "Fitero"
+        m_31_106_9:
+          name: "Fontellas"
+        m_31_107_5:
+          name: "Funes"
+        m_31_108_1:
+          name: "Fustiñana"
+        m_31_109_4:
+          name: "Galar"
+        m_31_110_8:
+          name: "Gallipienzo/Galipentzu"
+        m_31_111_5:
+          name: "Gallués/Galoze"
+        m_31_112_0:
+          name: "Garaioa"
+        m_31_113_6:
+          name: "Garde"
+        m_31_114_1:
+          name: "Garínoain"
+        m_31_115_4:
+          name: "Garralda"
+        m_31_116_7:
+          name: "Genevilla"
+        m_31_117_3:
+          name: "Goizueta"
+        m_31_118_9:
+          name: "Goñi"
+        m_31_119_2:
+          name: "Güesa/Gorza"
+        m_31_120_6:
+          name: "Guesálaz/Gesalatz"
+        m_31_121_3:
+          name: "Guirguillano"
+        m_31_256_7:
+          name: "Hiriberri/Villanueva de Aezkoa"
+        m_31_122_8:
+          name: "Huarte/Uharte"
+        m_31_124_9:
+          name: "Ibargoiti"
+        m_31_259_2:
+          name: "Igantzi"
+        m_31_125_2:
+          name: "Igúzquiza"
+        m_31_126_5:
+          name: "Imotz"
+        m_31_127_1:
+          name: "Irañeta"
+        m_31_904_5:
+          name: "Irurtzun"
+        m_31_128_7:
+          name: "Isaba/Izaba"
+        m_31_129_0:
+          name: "Ituren"
+        m_31_130_4:
+          name: "Iturmendi"
+        m_31_131_1:
+          name: "Iza/Itza"
+        m_31_132_6:
+          name: "Izagaondoa"
+        m_31_133_2:
+          name: "Izalzu/Itzaltzu"
+        m_31_134_7:
+          name: "Jaurrieta"
+        m_31_135_0:
+          name: "Javier"
+        m_31_136_3:
+          name: "Juslapeña"
+        m_31_138_5:
+          name: "Lakuntza"
+        m_31_139_8:
+          name: "Lana"
+        m_31_140_2:
+          name: "Lantz"
+        m_31_141_9:
+          name: "Lapoblación"
+        m_31_142_4:
+          name: "Larraga"
+        m_31_143_0:
+          name: "Larraona"
+        m_31_144_5:
+          name: "Larraun"
+        m_31_145_8:
+          name: "Lazagurría"
+        m_31_146_1:
+          name: "Leache/Leatxe"
+        m_31_147_7:
+          name: "Legarda"
+        m_31_148_3:
+          name: "Legaria"
+        m_31_149_6:
+          name: "Leitza"
+        m_31_908_3:
+          name: "Lekunberri"
+        m_31_150_9:
+          name: "Leoz/Leotz"
+        m_31_151_6:
+          name: "Lerga"
+        m_31_152_1:
+          name: "Lerín"
+        m_31_153_7:
+          name: "Lesaka"
+        m_31_154_2:
+          name: "Lezáun"
+        m_31_155_5:
+          name: "Liédena"
+        m_31_156_8:
+          name: "Lizoáin-Arriasgoiti"
+        m_31_157_4:
+          name: "Lodosa"
+        m_31_158_0:
+          name: "Lónguida/Longida"
+        m_31_159_3:
+          name: "Lumbier"
+        m_31_160_7:
+          name: "Luquin"
+        m_31_248_2:
+          name: "Luzaide/Valcarlos"
+        m_31_161_4:
+          name: "Mañeru"
+        m_31_162_9:
+          name: "Marañón"
+        m_31_163_5:
+          name: "Marcilla"
+        m_31_164_0:
+          name: "Mélida"
+        m_31_165_3:
+          name: "Mendavia"
+        m_31_166_6:
+          name: "Mendaza"
+        m_31_167_2:
+          name: "Mendigorría"
+        m_31_168_8:
+          name: "Metauten"
+        m_31_169_1:
+          name: "Milagro"
+        m_31_170_5:
+          name: "Mirafuentes"
+        m_31_171_2:
+          name: "Miranda de Arga"
+        m_31_172_7:
+          name: "Monreal/Elo"
+        m_31_173_3:
+          name: "Monteagudo"
+        m_31_174_8:
+          name: "Morentin"
+        m_31_175_1:
+          name: "Mues"
+        m_31_176_4:
+          name: "Murchante"
+        m_31_177_0:
+          name: "Murieta"
+        m_31_178_6:
+          name: "Murillo el Cuende"
+        m_31_179_9:
+          name: "Murillo el Fruto"
+        m_31_180_3:
+          name: "Muruzábal"
+        m_31_181_0:
+          name: "Navascués/Nabaskoze"
+        m_31_182_5:
+          name: "Nazar"
+        m_31_088_5:
+          name: "Noáin (Valle de Elorz)/Noain (Elortzibar)"
+        m_31_183_1:
+          name: "Obanos"
+        m_31_185_9:
+          name: "Ochagavía/Otsagabia"
+        m_31_184_6:
+          name: "Oco"
+        m_31_186_2:
+          name: "Odieta"
+        m_31_187_8:
+          name: "Oitz"
+        m_31_188_4:
+          name: "Olaibar"
+        m_31_189_7:
+          name: "Olazti/Olazagutía"
+        m_31_190_1:
+          name: "Olejua"
+        m_31_191_8:
+          name: "Olite/Erriberri"
+        m_31_194_4:
+          name: "Ollo"
+        m_31_192_3:
+          name: "Olóriz/Oloritz"
+        m_31_195_7:
+          name: "Orbaizeta"
+        m_31_196_0:
+          name: "Orbara"
+        m_31_197_6:
+          name: "Orísoain"
+        m_31_906_1:
+          name: "Orkoien"
+        m_31_198_2:
+          name: "Oronz/Orontze"
+        m_31_199_5:
+          name: "Oroz-Betelu/Orotz-Betelu"
+        m_31_211_4:
+          name: "Orreaga/Roncesvalles"
+        m_31_200_9:
+          name: "Oteiza"
+        m_31_201_6:
+          name: "Pamplona/Iruña"
+        m_31_202_1:
+          name: "Peralta/Azkoien"
+        m_31_203_7:
+          name: "Petilla de Aragón"
+        m_31_204_2:
+          name: "Piedramillera"
+        m_31_205_5:
+          name: "Pitillas"
+        m_31_206_8:
+          name: "Puente la Reina/Gares"
+        m_31_207_4:
+          name: "Pueyo"
+        m_31_208_0:
+          name: "Ribaforada"
+        m_31_209_3:
+          name: "Romanzado"
+        m_31_210_7:
+          name: "Roncal/Erronkari"
+        m_31_212_9:
+          name: "Sada"
+        m_31_213_5:
+          name: "Saldías"
+        m_31_214_0:
+          name: "Salinas de Oro/Jaitz"
+        m_31_215_3:
+          name: "San Adrián"
+        m_31_217_2:
+          name: "San Martín de Unx"
+        m_31_216_6:
+          name: "Sangüesa/Zangoza"
+        m_31_219_1:
+          name: "Sansol"
+        m_31_220_5:
+          name: "Santacara"
+        m_31_222_7:
+          name: "Sarriés/Sartze"
+        m_31_223_3:
+          name: "Sartaguda"
+        m_31_224_8:
+          name: "Sesma"
+        m_31_225_1:
+          name: "Sorlada"
+        m_31_226_4:
+          name: "Sunbilla"
+        m_31_227_0:
+          name: "Tafalla"
+        m_31_228_6:
+          name: "Tiebas-Muruarte de Reta"
+        m_31_229_9:
+          name: "Tirapu"
+        m_31_230_3:
+          name: "Torralba del Río"
+        m_31_231_0:
+          name: "Torres del Río"
+        m_31_232_5:
+          name: "Tudela"
+        m_31_233_1:
+          name: "Tulebras"
+        m_31_234_6:
+          name: "Ucar"
+        m_31_123_4:
+          name: "Uharte-Arakil"
+        m_31_235_9:
+          name: "Ujué"
+        m_31_236_2:
+          name: "Ultzama"
+        m_31_237_8:
+          name: "Unciti"
+        m_31_238_4:
+          name: "Unzué/Untzue"
+        m_31_239_7:
+          name: "Urdazubi/Urdax"
+        m_31_240_1:
+          name: "Urdiain"
+        m_31_241_8:
+          name: "Urraul Alto"
+        m_31_242_3:
+          name: "Urraul Bajo"
+        m_31_244_4:
+          name: "Urrotz"
+        m_31_243_9:
+          name: "Urroz-Villa"
+        m_31_245_7:
+          name: "Urzainqui/Urzainki"
+        m_31_246_0:
+          name: "Uterga"
+        m_31_247_6:
+          name: "Uztárroz/Uztarroze"
+        m_31_260_6:
+          name: "Valle de Yerri/Deierri"
+        m_31_249_5:
+          name: "Valtierra"
+        m_31_251_5:
+          name: "Viana"
+        m_31_252_0:
+          name: "Vidángoz/Bidankoze"
+        m_31_254_1:
+          name: "Villafranca"
+        m_31_255_4:
+          name: "Villamayor de Monjardín"
+        m_31_257_3:
+          name: "Villatuerta"
+        m_31_258_9:
+          name: "Villava/Atarrabia"
+        m_31_261_3:
+          name: "Yesa"
+        m_31_262_8:
+          name: "Zabalza/Zabaltza"
+        m_31_073_4:
+          name: "Ziordia"
+        m_31_907_7:
+          name: "Zizur Mayor/Zizur Nagusia"
+        m_31_263_4:
+          name: "Zubieta"
+        m_31_264_9:
+          name: "Zugarramurdi"
+        m_31_265_2:
+          name: "Zúñiga"

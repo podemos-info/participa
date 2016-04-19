@@ -1,0 +1,215 @@
+---
+es:
+  world:
+    es:
+      se:
+        m_41_001_6:
+          name: "Aguadulce"
+        m_41_002_1:
+          name: "Alanís"
+        m_41_003_7:
+          name: "Albaida del Aljarafe"
+        m_41_004_2:
+          name: "Alcalá de Guadaíra"
+        m_41_005_5:
+          name: "Alcalá del Río"
+        m_41_006_8:
+          name: "Alcolea del Río"
+        m_41_007_4:
+          name: "Algaba, La"
+        m_41_008_0:
+          name: "Algámitas"
+        m_41_009_3:
+          name: "Almadén de la Plata"
+        m_41_010_7:
+          name: "Almensilla"
+        m_41_011_4:
+          name: "Arahal"
+        m_41_012_9:
+          name: "Aznalcázar"
+        m_41_013_5:
+          name: "Aznalcóllar"
+        m_41_014_0:
+          name: "Badolatosa"
+        m_41_015_3:
+          name: "Benacazón"
+        m_41_016_6:
+          name: "Bollullos de la Mitación"
+        m_41_017_2:
+          name: "Bormujos"
+        m_41_018_8:
+          name: "Brenes"
+        m_41_019_1:
+          name: "Burguillos"
+        m_41_020_5:
+          name: "Cabezas de San Juan, Las"
+        m_41_021_2:
+          name: "Camas"
+        m_41_022_7:
+          name: "Campana, La"
+        m_41_023_3:
+          name: "Cantillana"
+        m_41_901_7:
+          name: "Cañada Rosal"
+        m_41_024_8:
+          name: "Carmona"
+        m_41_025_1:
+          name: "Carrión de los Céspedes"
+        m_41_026_4:
+          name: "Casariche"
+        m_41_027_0:
+          name: "Castilblanco de los Arroyos"
+        m_41_028_6:
+          name: "Castilleja de Guzmán"
+        m_41_029_9:
+          name: "Castilleja de la Cuesta"
+        m_41_030_3:
+          name: "Castilleja del Campo"
+        m_41_031_0:
+          name: "Castillo de las Guardas, El"
+        m_41_032_5:
+          name: "Cazalla de la Sierra"
+        m_41_033_1:
+          name: "Constantina"
+        m_41_034_6:
+          name: "Coria del Río"
+        m_41_035_9:
+          name: "Coripe"
+        m_41_036_2:
+          name: "Coronil, El"
+        m_41_037_8:
+          name: "Corrales, Los"
+        m_41_903_8:
+          name: "Cuervo de Sevilla, El"
+        m_41_038_4:
+          name: "Dos Hermanas"
+        m_41_039_7:
+          name: "Écija"
+        m_41_040_1:
+          name: "Espartinas"
+        m_41_041_8:
+          name: "Estepa"
+        m_41_042_3:
+          name: "Fuentes de Andalucía"
+        m_41_043_9:
+          name: "Garrobo, El"
+        m_41_044_4:
+          name: "Gelves"
+        m_41_045_7:
+          name: "Gerena"
+        m_41_046_0:
+          name: "Gilena"
+        m_41_047_6:
+          name: "Gines"
+        m_41_048_2:
+          name: "Guadalcanal"
+        m_41_049_5:
+          name: "Guillena"
+        m_41_050_8:
+          name: "Herrera"
+        m_41_051_5:
+          name: "Huévar del Aljarafe"
+        m_41_902_2:
+          name: "Isla Mayor"
+        m_41_052_0:
+          name: "Lantejuela, La"
+        m_41_053_6:
+          name: "Lebrija"
+        m_41_054_1:
+          name: "Lora de Estepa"
+        m_41_055_4:
+          name: "Lora del Río"
+        m_41_056_7:
+          name: "Luisiana, La"
+        m_41_057_3:
+          name: "Madroño, El"
+        m_41_058_9:
+          name: "Mairena del Alcor"
+        m_41_059_2:
+          name: "Mairena del Aljarafe"
+        m_41_060_6:
+          name: "Marchena"
+        m_41_061_3:
+          name: "Marinaleda"
+        m_41_062_8:
+          name: "Martín de la Jara"
+        m_41_063_4:
+          name: "Molares, Los"
+        m_41_064_9:
+          name: "Montellano"
+        m_41_065_2:
+          name: "Morón de la Frontera"
+        m_41_066_5:
+          name: "Navas de la Concepción, Las"
+        m_41_067_1:
+          name: "Olivares"
+        m_41_068_7:
+          name: "Osuna"
+        m_41_069_0:
+          name: "Palacios y Villafranca, Los"
+        m_41_070_4:
+          name: "Palomares del Río"
+        m_41_071_1:
+          name: "Paradas"
+        m_41_072_6:
+          name: "Pedrera"
+        m_41_073_2:
+          name: "Pedroso, El"
+        m_41_074_7:
+          name: "Peñaflor"
+        m_41_075_0:
+          name: "Pilas"
+        m_41_076_3:
+          name: "Pruna"
+        m_41_077_9:
+          name: "Puebla de Cazalla, La"
+        m_41_078_5:
+          name: "Puebla de los Infantes, La"
+        m_41_079_8:
+          name: "Puebla del Río, La"
+        m_41_080_2:
+          name: "Real de la Jara, El"
+        m_41_081_9:
+          name: "Rinconada, La"
+        m_41_082_4:
+          name: "Roda de Andalucía, La"
+        m_41_083_0:
+          name: "Ronquillo, El"
+        m_41_084_5:
+          name: "Rubio, El"
+        m_41_085_8:
+          name: "Salteras"
+        m_41_086_1:
+          name: "San Juan de Aznalfarache"
+        m_41_088_3:
+          name: "San Nicolás del Puerto"
+        m_41_087_7:
+          name: "Sanlúcar la Mayor"
+        m_41_089_6:
+          name: "Santiponce"
+        m_41_090_0:
+          name: "Saucejo, El"
+        m_41_091_7:
+          name: "Sevilla"
+        m_41_092_2:
+          name: "Tocina"
+        m_41_093_8:
+          name: "Tomares"
+        m_41_094_3:
+          name: "Umbrete"
+        m_41_095_6:
+          name: "Utrera"
+        m_41_096_9:
+          name: "Valencina de la Concepción"
+        m_41_097_5:
+          name: "Villamanrique de la Condesa"
+        m_41_100_8:
+          name: "Villanueva de San Juan"
+        m_41_098_1:
+          name: "Villanueva del Ariscal"
+        m_41_099_4:
+          name: "Villanueva del Río y Minas"
+        m_41_101_5:
+          name: "Villaverde del Río"
+        m_41_102_0:
+          name: "Viso del Alcor, El"

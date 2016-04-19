@@ -1,0 +1,189 @@
+---
+es:
+  world:
+    es:
+      or:
+        m_32_001_3:
+          name: "Allariz"
+        m_32_002_8:
+          name: "Amoeiro"
+        m_32_003_4:
+          name: "Arnoia, A"
+        m_32_004_9:
+          name: "Avión"
+        m_32_005_2:
+          name: "Baltar"
+        m_32_006_5:
+          name: "Bande"
+        m_32_007_1:
+          name: "Baños de Molgas"
+        m_32_008_7:
+          name: "Barbadás"
+        m_32_009_0:
+          name: "Barco de Valdeorras, O"
+        m_32_010_4:
+          name: "Beade"
+        m_32_011_1:
+          name: "Beariz"
+        m_32_012_6:
+          name: "Blancos, Os"
+        m_32_013_2:
+          name: "Boborás"
+        m_32_014_7:
+          name: "Bola, A"
+        m_32_015_0:
+          name: "Bolo, O"
+        m_32_016_3:
+          name: "Calvos de Randín"
+        m_32_018_5:
+          name: "Carballeda de Avia"
+        m_32_017_9:
+          name: "Carballeda de Valdeorras"
+        m_32_019_8:
+          name: "Carballiño, O"
+        m_32_020_2:
+          name: "Cartelle"
+        m_32_022_4:
+          name: "Castrelo de Miño"
+        m_32_021_9:
+          name: "Castrelo do Val"
+        m_32_023_0:
+          name: "Castro Caldelas"
+        m_32_024_5:
+          name: "Celanova"
+        m_32_025_8:
+          name: "Cenlle"
+        m_32_029_6:
+          name: "Chandrexa de Queixa"
+        m_32_026_1:
+          name: "Coles"
+        m_32_027_7:
+          name: "Cortegada"
+        m_32_028_3:
+          name: "Cualedro"
+        m_32_030_0:
+          name: "Entrimo"
+        m_32_031_7:
+          name: "Esgos"
+        m_32_033_8:
+          name: "Gomesende"
+        m_32_034_3:
+          name: "Gudiña, A"
+        m_32_035_6:
+          name: "Irixo, O"
+        m_32_038_1:
+          name: "Larouco"
+        m_32_039_4:
+          name: "Laza"
+        m_32_040_8:
+          name: "Leiro"
+        m_32_041_5:
+          name: "Lobeira"
+        m_32_042_0:
+          name: "Lobios"
+        m_32_043_6:
+          name: "Maceda"
+        m_32_044_1:
+          name: "Manzaneda"
+        m_32_045_4:
+          name: "Maside"
+        m_32_046_7:
+          name: "Melón"
+        m_32_047_3:
+          name: "Merca, A"
+        m_32_048_9:
+          name: "Mezquita, A"
+        m_32_049_2:
+          name: "Montederramo"
+        m_32_050_5:
+          name: "Monterrei"
+        m_32_051_2:
+          name: "Muíños"
+        m_32_052_7:
+          name: "Nogueira de Ramuín"
+        m_32_053_3:
+          name: "Oímbra"
+        m_32_054_8:
+          name: "Ourense"
+        m_32_055_1:
+          name: "Paderne de Allariz"
+        m_32_056_4:
+          name: "Padrenda"
+        m_32_057_0:
+          name: "Parada de Sil"
+        m_32_058_6:
+          name: "Pereiro de Aguiar, O"
+        m_32_059_9:
+          name: "Peroxa, A"
+        m_32_060_3:
+          name: "Petín"
+        m_32_061_0:
+          name: "Piñor"
+        m_32_063_1:
+          name: "Pobra de Trives, A"
+        m_32_064_6:
+          name: "Pontedeva"
+        m_32_062_5:
+          name: "Porqueira"
+        m_32_065_9:
+          name: "Punxín"
+        m_32_066_2:
+          name: "Quintela de Leirado"
+        m_32_067_8:
+          name: "Rairiz de Veiga"
+        m_32_068_4:
+          name: "Ramirás"
+        m_32_069_7:
+          name: "Ribadavia"
+        m_32_071_8:
+          name: "Riós"
+        m_32_072_3:
+          name: "Rúa, A"
+        m_32_073_9:
+          name: "Rubiá"
+        m_32_074_4:
+          name: "San Amaro"
+        m_32_075_7:
+          name: "San Cibrao das Viñas"
+        m_32_076_0:
+          name: "San Cristovo de Cea"
+        m_32_070_1:
+          name: "San Xoán de Río"
+        m_32_077_6:
+          name: "Sandiás"
+        m_32_078_2:
+          name: "Sarreaus"
+        m_32_079_5:
+          name: "Taboadela"
+        m_32_080_9:
+          name: "Teixeira, A"
+        m_32_081_6:
+          name: "Toén"
+        m_32_082_1:
+          name: "Trasmiras"
+        m_32_083_7:
+          name: "Veiga, A"
+        m_32_084_2:
+          name: "Verea"
+        m_32_085_5:
+          name: "Verín"
+        m_32_086_8:
+          name: "Viana do Bolo"
+        m_32_087_4:
+          name: "Vilamarín"
+        m_32_088_0:
+          name: "Vilamartín de Valdeorras"
+        m_32_089_3:
+          name: "Vilar de Barrio"
+        m_32_090_7:
+          name: "Vilar de Santos"
+        m_32_091_4:
+          name: "Vilardevós"
+        m_32_092_9:
+          name: "Vilariño de Conso"
+        m_32_032_2:
+          name: "Xinzo de Limia"
+        m_32_036_9:
+          name: "Xunqueira de Ambía"
+        m_32_037_5:
+          name: "Xunqueira de Espadanedo"

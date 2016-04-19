@@ -1,0 +1,107 @@
+---
+es:
+  world:
+    es:
+      vi:
+        m_01_001_4:
+          name: "Alegría-Dulantzi"
+        m_01_002_9:
+          name: "Amurrio"
+        m_01_049_3:
+          name: "Añana"
+        m_01_003_5:
+          name: "Aramaio"
+        m_01_006_6:
+          name: "Armiñón"
+        m_01_037_6:
+          name: "Arraia-Maeztu"
+        m_01_008_8:
+          name: "Arratzua-Ubarrundia"
+        m_01_004_0:
+          name: "Artziniega"
+        m_01_009_1:
+          name: "Asparrena"
+        m_01_010_5:
+          name: "Ayala/Aiara"
+        m_01_011_2:
+          name: "Baños de Ebro/Mañueta"
+        m_01_013_3:
+          name: "Barrundia"
+        m_01_014_8:
+          name: "Berantevilla"
+        m_01_016_4:
+          name: "Bernedo"
+        m_01_017_0:
+          name: "Campezo/Kanpezu"
+        m_01_021_0:
+          name: "Elburgo/Burgelu"
+        m_01_022_5:
+          name: "Elciego"
+        m_01_023_1:
+          name: "Elvillar/Bilar"
+        m_01_046_8:
+          name: "Erriberagoitia/Ribera Alta"
+        m_01_056_5:
+          name: "Harana/Valle de Arana"
+        m_01_901_5:
+          name: "Iruña Oka/Iruña de Oca"
+        m_01_027_8:
+          name: "Iruraiz-Gauna"
+        m_01_019_9:
+          name: "Kripan"
+        m_01_020_3:
+          name: "Kuartango"
+        m_01_028_4:
+          name: "Labastida/Bastida"
+        m_01_030_1:
+          name: "Lagrán"
+        m_01_031_8:
+          name: "Laguardia"
+        m_01_032_3:
+          name: "Lanciego/Lantziego"
+        m_01_902_0:
+          name: "Lantarón"
+        m_01_033_9:
+          name: "Lapuebla de Labarca"
+        m_01_036_0:
+          name: "Laudio/Llodio"
+        m_01_058_7:
+          name: "Legutio"
+        m_01_034_4:
+          name: "Leza"
+        m_01_039_5:
+          name: "Moreda de Álava/Moreda Araba"
+        m_01_041_6:
+          name: "Navaridas"
+        m_01_042_1:
+          name: "Okondo"
+        m_01_043_7:
+          name: "Oyón-Oion"
+        m_01_044_2:
+          name: "Peñacerrada-Urizaharra"
+        m_01_047_4:
+          name: "Ribera Baja/Erribera Beitia"
+        m_01_051_3:
+          name: "Salvatierra/Agurain"
+        m_01_052_8:
+          name: "Samaniego"
+        m_01_053_4:
+          name: "San Millán/Donemiliaga"
+        m_01_054_9:
+          name: "Urkabustaiz"
+        m_01_055_2:
+          name: "Valdegovía/Gaubea"
+        m_01_057_1:
+          name: "Villabuena de Álava/Eskuernaga"
+        m_01_059_0:
+          name: "Vitoria-Gasteiz"
+        m_01_060_4:
+          name: "Yécora/Iekora"
+        m_01_061_1:
+          name: "Zalduondo"
+        m_01_062_6:
+          name: "Zambrana"
+        m_01_018_6:
+          name: "Zigoitia"
+        m_01_063_2:
+          name: "Zuia"
