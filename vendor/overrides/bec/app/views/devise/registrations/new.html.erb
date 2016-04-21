@@ -1,0 +1,9 @@
+<% content_for :title, t("devise.titles.sign_up") %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t("devise.titles.sign_up")) %>
+      <%= render partial: "form", locals: {action: "new"} %>
+    </div>
+  </div>
+</div>

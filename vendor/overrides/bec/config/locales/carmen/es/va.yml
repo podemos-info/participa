@@ -1,0 +1,455 @@
+---
+es:
+  world:
+    es:
+      va:
+        m_47_001_4:
+          name: "Adalia"
+        m_47_002_9:
+          name: "Aguasal"
+        m_47_003_5:
+          name: "Aguilar de Campos"
+        m_47_004_0:
+          name: "Alaejos"
+        m_47_005_3:
+          name: "Alcazarén"
+        m_47_006_6:
+          name: "Aldea de San Miguel"
+        m_47_007_2:
+          name: "Aldeamayor de San Martín"
+        m_47_008_8:
+          name: "Almenara de Adaja"
+        m_47_009_1:
+          name: "Amusquillo"
+        m_47_010_5:
+          name: "Arroyo de la Encomienda"
+        m_47_011_2:
+          name: "Ataquines"
+        m_47_012_7:
+          name: "Bahabón"
+        m_47_013_3:
+          name: "Barcial de la Loma"
+        m_47_014_8:
+          name: "Barruelo del Valle"
+        m_47_015_1:
+          name: "Becilla de Valderaduey"
+        m_47_016_4:
+          name: "Benafarces"
+        m_47_017_0:
+          name: "Bercero"
+        m_47_018_6:
+          name: "Berceruelo"
+        m_47_019_9:
+          name: "Berrueces"
+        m_47_020_3:
+          name: "Bobadilla del Campo"
+        m_47_021_0:
+          name: "Bocigas"
+        m_47_022_5:
+          name: "Bocos de Duero"
+        m_47_023_1:
+          name: "Boecillo"
+        m_47_024_6:
+          name: "Bolaños de Campos"
+        m_47_025_9:
+          name: "Brahojos de Medina"
+        m_47_026_2:
+          name: "Bustillo de Chaves"
+        m_47_027_8:
+          name: "Cabezón de Pisuerga"
+        m_47_028_4:
+          name: "Cabezón de Valderaduey"
+        m_47_029_7:
+          name: "Cabreros del Monte"
+        m_47_030_1:
+          name: "Campaspero"
+        m_47_031_8:
+          name: "Campillo, El"
+        m_47_032_3:
+          name: "Camporredondo"
+        m_47_033_9:
+          name: "Canalejas de Peñafiel"
+        m_47_034_4:
+          name: "Canillas de Esgueva"
+        m_47_035_7:
+          name: "Carpio"
+        m_47_036_0:
+          name: "Casasola de Arión"
+        m_47_037_6:
+          name: "Castrejón de Trabancos"
+        m_47_038_2:
+          name: "Castrillo de Duero"
+        m_47_039_5:
+          name: "Castrillo-Tejeriego"
+        m_47_040_9:
+          name: "Castrobol"
+        m_47_041_6:
+          name: "Castrodeza"
+        m_47_042_1:
+          name: "Castromembibre"
+        m_47_043_7:
+          name: "Castromonte"
+        m_47_044_2:
+          name: "Castronuevo de Esgueva"
+        m_47_045_5:
+          name: "Castronuño"
+        m_47_046_8:
+          name: "Castroponce"
+        m_47_047_4:
+          name: "Castroverde de Cerrato"
+        m_47_048_0:
+          name: "Ceinos de Campos"
+        m_47_049_3:
+          name: "Cervillego de la Cruz"
+        m_47_050_6:
+          name: "Cigales"
+        m_47_051_3:
+          name: "Ciguñuela"
+        m_47_052_8:
+          name: "Cistérniga"
+        m_47_053_4:
+          name: "Cogeces de Íscar"
+        m_47_054_9:
+          name: "Cogeces del Monte"
+        m_47_055_2:
+          name: "Corcos"
+        m_47_056_5:
+          name: "Corrales de Duero"
+        m_47_057_1:
+          name: "Cubillas de Santa Marta"
+        m_47_058_7:
+          name: "Cuenca de Campos"
+        m_47_059_0:
+          name: "Curiel de Duero"
+        m_47_060_4:
+          name: "Encinas de Esgueva"
+        m_47_061_1:
+          name: "Esguevillas de Esgueva"
+        m_47_062_6:
+          name: "Fombellida"
+        m_47_063_2:
+          name: "Fompedraza"
+        m_47_064_7:
+          name: "Fontihoyuelo"
+        m_47_065_0:
+          name: "Fresno el Viejo"
+        m_47_066_3:
+          name: "Fuensaldaña"
+        m_47_067_9:
+          name: "Fuente el Sol"
+        m_47_068_5:
+          name: "Fuente-Olmedo"
+        m_47_069_8:
+          name: "Gallegos de Hornija"
+        m_47_070_2:
+          name: "Gatón de Campos"
+        m_47_071_9:
+          name: "Geria"
+        m_47_073_0:
+          name: "Herrín de Campos"
+        m_47_074_5:
+          name: "Hornillos de Eresma"
+        m_47_075_8:
+          name: "Íscar"
+        m_47_076_1:
+          name: "Laguna de Duero"
+        m_47_077_7:
+          name: "Langayo"
+        m_47_079_6:
+          name: "Llano de Olmedo"
+        m_47_078_3:
+          name: "Lomoviejo"
+        m_47_080_0:
+          name: "Manzanillo"
+        m_47_081_7:
+          name: "Marzales"
+        m_47_082_2:
+          name: "Matapozuelos"
+        m_47_083_8:
+          name: "Matilla de los Caños"
+        m_47_084_3:
+          name: "Mayorga"
+        m_47_086_9:
+          name: "Medina de Rioseco"
+        m_47_085_6:
+          name: "Medina del Campo"
+        m_47_087_5:
+          name: "Megeces"
+        m_47_088_1:
+          name: "Melgar de Abajo"
+        m_47_089_4:
+          name: "Melgar de Arriba"
+        m_47_090_8:
+          name: "Mojados"
+        m_47_091_5:
+          name: "Monasterio de Vega"
+        m_47_092_0:
+          name: "Montealegre de Campos"
+        m_47_093_6:
+          name: "Montemayor de Pililla"
+        m_47_094_1:
+          name: "Moral de la Reina"
+        m_47_095_4:
+          name: "Moraleja de las Panaderas"
+        m_47_096_7:
+          name: "Morales de Campos"
+        m_47_097_3:
+          name: "Mota del Marqués"
+        m_47_098_9:
+          name: "Mucientes"
+        m_47_099_2:
+          name: "Mudarra, La"
+        m_47_100_6:
+          name: "Muriel"
+        m_47_101_3:
+          name: "Nava del Rey"
+        m_47_102_8:
+          name: "Nueva Villa de las Torres"
+        m_47_103_4:
+          name: "Olivares de Duero"
+        m_47_104_9:
+          name: "Olmedo"
+        m_47_105_2:
+          name: "Olmos de Esgueva"
+        m_47_106_5:
+          name: "Olmos de Peñafiel"
+        m_47_109_0:
+          name: "Palazuelo de Vedija"
+        m_47_110_4:
+          name: "Parrilla, La"
+        m_47_111_1:
+          name: "Pedraja de Portillo, La"
+        m_47_112_6:
+          name: "Pedrajas de San Esteban"
+        m_47_113_2:
+          name: "Pedrosa del Rey"
+        m_47_114_7:
+          name: "Peñafiel"
+        m_47_115_0:
+          name: "Peñaflor de Hornija"
+        m_47_116_3:
+          name: "Pesquera de Duero"
+        m_47_117_9:
+          name: "Piña de Esgueva"
+        m_47_118_5:
+          name: "Piñel de Abajo"
+        m_47_119_8:
+          name: "Piñel de Arriba"
+        m_47_121_9:
+          name: "Pollos"
+        m_47_122_4:
+          name: "Portillo"
+        m_47_123_0:
+          name: "Pozal de Gallinas"
+        m_47_124_5:
+          name: "Pozaldez"
+        m_47_125_8:
+          name: "Pozuelo de la Orden"
+        m_47_126_1:
+          name: "Puras"
+        m_47_127_7:
+          name: "Quintanilla de Arriba"
+        m_47_129_6:
+          name: "Quintanilla de Onésimo"
+        m_47_130_0:
+          name: "Quintanilla de Trigueros"
+        m_47_128_3:
+          name: "Quintanilla del Molar"
+        m_47_131_7:
+          name: "Rábano"
+        m_47_132_2:
+          name: "Ramiro"
+        m_47_133_8:
+          name: "Renedo de Esgueva"
+        m_47_134_3:
+          name: "Roales de Campos"
+        m_47_135_6:
+          name: "Robladillo"
+        m_47_137_5:
+          name: "Roturas"
+        m_47_138_1:
+          name: "Rubí de Bracamonte"
+        m_47_139_4:
+          name: "Rueda"
+        m_47_140_8:
+          name: "Saelices de Mayorga"
+        m_47_141_5:
+          name: "Salvador de Zapardiel"
+        m_47_142_0:
+          name: "San Cebrián de Mazote"
+        m_47_143_6:
+          name: "San Llorente"
+        m_47_144_1:
+          name: "San Martín de Valvení"
+        m_47_145_4:
+          name: "San Miguel del Arroyo"
+        m_47_146_7:
+          name: "San Miguel del Pino"
+        m_47_147_3:
+          name: "San Pablo de la Moraleja"
+        m_47_148_9:
+          name: "San Pedro de Latarce"
+        m_47_149_2:
+          name: "San Pelayo"
+        m_47_150_5:
+          name: "San Román de Hornija"
+        m_47_151_2:
+          name: "San Salvador"
+        m_47_156_4:
+          name: "San Vicente del Palacio"
+        m_47_152_7:
+          name: "Santa Eufemia del Arroyo"
+        m_47_153_3:
+          name: "Santervás de Campos"
+        m_47_154_8:
+          name: "Santibáñez de Valcorba"
+        m_47_155_1:
+          name: "Santovenia de Pisuerga"
+        m_47_157_0:
+          name: "Sardón de Duero"
+        m_47_158_6:
+          name: "Seca, La"
+        m_47_159_9:
+          name: "Serrada"
+        m_47_160_3:
+          name: "Siete Iglesias de Trabancos"
+        m_47_161_0:
+          name: "Simancas"
+        m_47_162_5:
+          name: "Tamariz de Campos"
+        m_47_163_1:
+          name: "Tiedra"
+        m_47_164_6:
+          name: "Tordehumos"
+        m_47_165_9:
+          name: "Tordesillas"
+        m_47_169_7:
+          name: "Torre de Esgueva"
+        m_47_170_1:
+          name: "Torre de Peñafiel"
+        m_47_166_2:
+          name: "Torrecilla de la Abadesa"
+        m_47_167_8:
+          name: "Torrecilla de la Orden"
+        m_47_168_4:
+          name: "Torrecilla de la Torre"
+        m_47_171_8:
+          name: "Torrelobatón"
+        m_47_172_3:
+          name: "Torrescárcela"
+        m_47_173_9:
+          name: "Traspinedo"
+        m_47_174_4:
+          name: "Trigueros del Valle"
+        m_47_175_7:
+          name: "Tudela de Duero"
+        m_47_176_0:
+          name: "Unión de Campos, La"
+        m_47_177_6:
+          name: "Urones de Castroponce"
+        m_47_178_2:
+          name: "Urueña"
+        m_47_179_5:
+          name: "Valbuena de Duero"
+        m_47_180_9:
+          name: "Valdearcos de la Vega"
+        m_47_181_6:
+          name: "Valdenebro de los Valles"
+        m_47_182_1:
+          name: "Valdestillas"
+        m_47_183_7:
+          name: "Valdunquillo"
+        m_47_186_8:
+          name: "Valladolid"
+        m_47_184_2:
+          name: "Valoria la Buena"
+        m_47_185_5:
+          name: "Valverde de Campos"
+        m_47_187_4:
+          name: "Vega de Ruiponce"
+        m_47_188_0:
+          name: "Vega de Valdetronco"
+        m_47_189_3:
+          name: "Velascálvaro"
+        m_47_190_7:
+          name: "Velilla"
+        m_47_191_4:
+          name: "Velliza"
+        m_47_192_9:
+          name: "Ventosa de la Cuesta"
+        m_47_193_5:
+          name: "Viana de Cega"
+        m_47_195_3:
+          name: "Villabáñez"
+        m_47_196_6:
+          name: "Villabaruz de Campos"
+        m_47_197_2:
+          name: "Villabrágima"
+        m_47_198_8:
+          name: "Villacarralón"
+        m_47_199_1:
+          name: "Villacid de Campos"
+        m_47_200_5:
+          name: "Villaco"
+        m_47_203_3:
+          name: "Villafrades de Campos"
+        m_47_204_8:
+          name: "Villafranca de Duero"
+        m_47_205_1:
+          name: "Villafrechós"
+        m_47_206_4:
+          name: "Villafuerte"
+        m_47_207_0:
+          name: "Villagarcía de Campos"
+        m_47_208_6:
+          name: "Villagómez la Nueva"
+        m_47_209_9:
+          name: "Villalán de Campos"
+        m_47_210_3:
+          name: "Villalar de los Comuneros"
+        m_47_211_0:
+          name: "Villalba de la Loma"
+        m_47_212_5:
+          name: "Villalba de los Alcores"
+        m_47_213_1:
+          name: "Villalbarba"
+        m_47_214_6:
+          name: "Villalón de Campos"
+        m_47_215_9:
+          name: "Villamuriel de Campos"
+        m_47_216_2:
+          name: "Villán de Tordesillas"
+        m_47_217_8:
+          name: "Villanubla"
+        m_47_218_4:
+          name: "Villanueva de Duero"
+        m_47_219_7:
+          name: "Villanueva de la Condesa"
+        m_47_220_1:
+          name: "Villanueva de los Caballeros"
+        m_47_221_8:
+          name: "Villanueva de los Infantes"
+        m_47_222_3:
+          name: "Villanueva de San Mancio"
+        m_47_223_9:
+          name: "Villardefrades"
+        m_47_224_4:
+          name: "Villarmentero de Esgueva"
+        m_47_225_7:
+          name: "Villasexmir"
+        m_47_226_0:
+          name: "Villavaquerín"
+        m_47_227_6:
+          name: "Villavellid"
+        m_47_228_2:
+          name: "Villaverde de Medina"
+        m_47_229_5:
+          name: "Villavicencio de los Caballeros"
+        m_47_194_0:
+          name: "Viloria"
+        m_47_230_9:
+          name: "Wamba"
+        m_47_231_6:
+          name: "Zaratán"
+        m_47_232_1:
+          name: "Zarza, La"

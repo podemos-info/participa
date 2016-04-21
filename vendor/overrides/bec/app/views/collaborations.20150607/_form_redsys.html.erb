@@ -1,0 +1,24 @@
+<%= semantic_form_for "Ds_Merchant", url: "https://sis-t.sermepa.es:25443/sis/realizarPago", 
+  html: { method: :post, name: "collaboration-form", target: :tpv, class: 'js-collaboration-form', id: "collaboration-form" } do |f| %>
+  <%= f.input "Amount", as: :hidden, input_html: {name: "Ds_Merchant_Amount", id: "Ds_Merchant_Amount", value: @collaboration.amount} %>
+  <%= f.input "Currency", as: :hidden, input_html: {name: "Ds_Merchant_Currency", id: "Ds_Merchant_Currency", value: @collaboration.merchant_currency} %>
+  <%= f.input "Order", as: :hidden, input_html: {name: "Ds_Merchant_Order", id: "Ds_Merchant_Order", value: @collaboration.order, class: "js-collaboration-order" } %>
+  <%= f.input "MerchantCode", as: :hidden, input_html: {name: "Ds_Merchant_MerchantCode", id: "Ds_Merchant_MerchantCode", value: @collaboration.merchant_code } %>
+  <%= f.input "Terminal", as: :hidden, input_html: {name: "Ds_Merchant_Terminal", id: "Ds_Merchant_Terminal", value: @collaboration.merchant_terminal } %>
+  <%= f.input "MerchantURL", as: :hidden, input_html: {name: "Ds_Merchant_MerchantURL", id: "Ds_Merchant_MerchantURL", value: @collaboration.merchant_url } %>
+  <%= f.input "TransactionType", as: :hidden, input_html: {name: "Ds_Merchant_TransactionType", id: "Ds_Merchant_TransactionType", value: @collaboration.merchant_transaction_type } %>
+  <%= f.input "SumTotal", as: :hidden, input_html: {name: "Ds_Merchant_SumTotal", id: "Ds_Merchant_SumTotal", value: @collaboration.merchant_sumtotal } %>
+  <%= f.input "DateFrecuency", as: :hidden, input_html: {name: "Ds_Merchant_DateFrecuency", id: "Ds_Merchant_DateFrecuency", value: @collaboration.merchant_date_frequency } %>
+  <%= f.input "MerchantSignature", as: :hidden, input_html: {name: "Ds_Merchant_MerchantSignature", id: "Ds_Merchant_MerchantSignature", value: @collaboration.merchant_signature } %>
+
+  <fieldset class="enter">
+    <legend class="invisible">Acciones</legend>
+    <%= link_to "Confirmar", "#", class: "button js-collaboration-confirm" %>
+    <div class="js-collaboration-confirm-ajax hide">
+      <hr>
+      <%= image_tag "ajax-loader.gif" %>
+      <hr>
+      <div class="alert alert-info">Hemos abieto una ventana para que realices el pago con RedSYS. Por favor completa ese proceso y vuelve aquí cuando hayas terminado </div>
+    </div>
+  </fieldset>
+<% end %>

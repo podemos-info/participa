@@ -1,0 +1,413 @@
+---
+es:
+  world:
+    es:
+      to:
+        m_45_001_5:
+          name: "Ajofrín"
+        m_45_002_0:
+          name: "Alameda de la Sagra"
+        m_45_003_6:
+          name: "Albarreal de Tajo"
+        m_45_004_1:
+          name: "Alcabón"
+        m_45_005_4:
+          name: "Alcañizo"
+        m_45_006_7:
+          name: "Alcaudete de la Jara"
+        m_45_007_3:
+          name: "Alcolea de Tajo"
+        m_45_008_9:
+          name: "Aldea en Cabo"
+        m_45_009_2:
+          name: "Aldeanueva de Barbarroya"
+        m_45_010_6:
+          name: "Aldeanueva de San Bartolomé"
+        m_45_011_3:
+          name: "Almendral de la Cañada"
+        m_45_012_8:
+          name: "Almonacid de Toledo"
+        m_45_013_4:
+          name: "Almorox"
+        m_45_014_9:
+          name: "Añover de Tajo"
+        m_45_015_2:
+          name: "Arcicóllar"
+        m_45_016_5:
+          name: "Argés"
+        m_45_017_1:
+          name: "Azután"
+        m_45_018_7:
+          name: "Barcience"
+        m_45_019_0:
+          name: "Bargas"
+        m_45_020_4:
+          name: "Belvís de la Jara"
+        m_45_021_1:
+          name: "Borox"
+        m_45_022_6:
+          name: "Buenaventura"
+        m_45_023_2:
+          name: "Burguillos de Toledo"
+        m_45_024_7:
+          name: "Burujón"
+        m_45_025_0:
+          name: "Cabañas de la Sagra"
+        m_45_026_3:
+          name: "Cabañas de Yepes"
+        m_45_027_9:
+          name: "Cabezamesada"
+        m_45_028_5:
+          name: "Calera y Chozas"
+        m_45_029_8:
+          name: "Caleruela"
+        m_45_030_2:
+          name: "Calzada de Oropesa"
+        m_45_031_9:
+          name: "Camarena"
+        m_45_032_4:
+          name: "Camarenilla"
+        m_45_033_0:
+          name: "Campillo de la Jara, El"
+        m_45_034_5:
+          name: "Camuñas"
+        m_45_035_8:
+          name: "Cardiel de los Montes"
+        m_45_036_1:
+          name: "Carmena"
+        m_45_037_7:
+          name: "Carpio de Tajo, El"
+        m_45_038_3:
+          name: "Carranque"
+        m_45_039_6:
+          name: "Carriches"
+        m_45_040_0:
+          name: "Casar de Escalona, El"
+        m_45_041_7:
+          name: "Casarrubios del Monte"
+        m_45_042_2:
+          name: "Casasbuenas"
+        m_45_043_8:
+          name: "Castillo de Bayuela"
+        m_45_045_6:
+          name: "Cazalegas"
+        m_45_046_9:
+          name: "Cebolla"
+        m_45_047_5:
+          name: "Cedillo del Condado"
+        m_45_048_1:
+          name: "Cerralbos, Los"
+        m_45_049_4:
+          name: "Cervera de los Montes"
+        m_45_056_6:
+          name: "Chozas de Canales"
+        m_45_057_2:
+          name: "Chueca"
+        m_45_050_7:
+          name: "Ciruelos"
+        m_45_051_4:
+          name: "Cobeja"
+        m_45_052_9:
+          name: "Cobisa"
+        m_45_053_5:
+          name: "Consuegra"
+        m_45_054_0:
+          name: "Corral de Almaguer"
+        m_45_055_3:
+          name: "Cuerva"
+        m_45_058_8:
+          name: "Domingo Pérez"
+        m_45_059_1:
+          name: "Dosbarrios"
+        m_45_060_5:
+          name: "Erustes"
+        m_45_061_2:
+          name: "Escalona"
+        m_45_062_7:
+          name: "Escalonilla"
+        m_45_063_3:
+          name: "Espinoso del Rey"
+        m_45_064_8:
+          name: "Esquivias"
+        m_45_065_1:
+          name: "Estrella, La"
+        m_45_066_4:
+          name: "Fuensalida"
+        m_45_067_0:
+          name: "Gálvez"
+        m_45_068_6:
+          name: "Garciotum"
+        m_45_069_9:
+          name: "Gerindote"
+        m_45_070_3:
+          name: "Guadamur"
+        m_45_071_0:
+          name: "Guardia, La"
+        m_45_072_5:
+          name: "Herencias, Las"
+        m_45_073_1:
+          name: "Herreruela de Oropesa"
+        m_45_074_6:
+          name: "Hinojosa de San Vicente"
+        m_45_075_9:
+          name: "Hontanar"
+        m_45_076_2:
+          name: "Hormigos"
+        m_45_077_8:
+          name: "Huecas"
+        m_45_078_4:
+          name: "Huerta de Valdecarábanos"
+        m_45_079_7:
+          name: "Iglesuela, La"
+        m_45_080_1:
+          name: "Illán de Vacas"
+        m_45_081_8:
+          name: "Illescas"
+        m_45_082_3:
+          name: "Lagartera"
+        m_45_083_9:
+          name: "Layos"
+        m_45_084_4:
+          name: "Lillo"
+        m_45_085_7:
+          name: "Lominchar"
+        m_45_086_0:
+          name: "Lucillos"
+        m_45_087_6:
+          name: "Madridejos"
+        m_45_088_2:
+          name: "Magán"
+        m_45_089_5:
+          name: "Malpica de Tajo"
+        m_45_090_9:
+          name: "Manzaneque"
+        m_45_091_6:
+          name: "Maqueda"
+        m_45_092_1:
+          name: "Marjaliza"
+        m_45_093_7:
+          name: "Marrupe"
+        m_45_094_2:
+          name: "Mascaraque"
+        m_45_095_5:
+          name: "Mata, La"
+        m_45_096_8:
+          name: "Mazarambroz"
+        m_45_097_4:
+          name: "Mejorada"
+        m_45_098_0:
+          name: "Menasalbas"
+        m_45_099_3:
+          name: "Méntrida"
+        m_45_100_7:
+          name: "Mesegar de Tajo"
+        m_45_101_4:
+          name: "Miguel Esteban"
+        m_45_102_9:
+          name: "Mocejón"
+        m_45_103_5:
+          name: "Mohedas de la Jara"
+        m_45_104_0:
+          name: "Montearagón"
+        m_45_105_3:
+          name: "Montesclaros"
+        m_45_106_6:
+          name: "Mora"
+        m_45_107_2:
+          name: "Nambroca"
+        m_45_108_8:
+          name: "Nava de Ricomalillo, La"
+        m_45_109_1:
+          name: "Navahermosa"
+        m_45_110_5:
+          name: "Navalcán"
+        m_45_111_2:
+          name: "Navalmoralejo"
+        m_45_112_7:
+          name: "Navalmorales, Los"
+        m_45_113_3:
+          name: "Navalucillos, Los"
+        m_45_114_8:
+          name: "Navamorcuende"
+        m_45_115_1:
+          name: "Noblejas"
+        m_45_116_4:
+          name: "Noez"
+        m_45_117_0:
+          name: "Nombela"
+        m_45_118_6:
+          name: "Novés"
+        m_45_119_9:
+          name: "Numancia de la Sagra"
+        m_45_120_3:
+          name: "Nuño Gómez"
+        m_45_121_0:
+          name: "Ocaña"
+        m_45_122_5:
+          name: "Olías del Rey"
+        m_45_123_1:
+          name: "Ontígola"
+        m_45_124_6:
+          name: "Orgaz"
+        m_45_125_9:
+          name: "Oropesa"
+        m_45_126_2:
+          name: "Otero"
+        m_45_127_8:
+          name: "Palomeque"
+        m_45_128_4:
+          name: "Pantoja"
+        m_45_129_7:
+          name: "Paredes de Escalona"
+        m_45_130_1:
+          name: "Parrillas"
+        m_45_131_8:
+          name: "Pelahustán"
+        m_45_132_3:
+          name: "Pepino"
+        m_45_133_9:
+          name: "Polán"
+        m_45_134_4:
+          name: "Portillo de Toledo"
+        m_45_135_7:
+          name: "Puebla de Almoradiel, La"
+        m_45_136_0:
+          name: "Puebla de Montalbán, La"
+        m_45_137_6:
+          name: "Pueblanueva, La"
+        m_45_138_2:
+          name: "Puente del Arzobispo, El"
+        m_45_139_5:
+          name: "Puerto de San Vicente"
+        m_45_140_9:
+          name: "Pulgar"
+        m_45_141_6:
+          name: "Quero"
+        m_45_142_1:
+          name: "Quintanar de la Orden"
+        m_45_143_7:
+          name: "Quismondo"
+        m_45_144_2:
+          name: "Real de San Vicente, El"
+        m_45_145_5:
+          name: "Recas"
+        m_45_146_8:
+          name: "Retamoso de la Jara"
+        m_45_147_4:
+          name: "Rielves"
+        m_45_148_0:
+          name: "Robledo del Mazo"
+        m_45_149_3:
+          name: "Romeral, El"
+        m_45_150_6:
+          name: "San Bartolomé de las Abiertas"
+        m_45_151_3:
+          name: "San Martín de Montalbán"
+        m_45_152_8:
+          name: "San Martín de Pusa"
+        m_45_153_4:
+          name: "San Pablo de los Montes"
+        m_45_154_9:
+          name: "San Román de los Montes"
+        m_45_155_2:
+          name: "Santa Ana de Pusa"
+        m_45_156_5:
+          name: "Santa Cruz de la Zarza"
+        m_45_157_1:
+          name: "Santa Cruz del Retamar"
+        m_45_158_7:
+          name: "Santa Olalla"
+        m_45_901_6:
+          name: "Santo Domingo-Caudilla"
+        m_45_159_0:
+          name: "Sartajada"
+        m_45_160_4:
+          name: "Segurilla"
+        m_45_161_1:
+          name: "Seseña"
+        m_45_162_6:
+          name: "Sevilleja de la Jara"
+        m_45_163_2:
+          name: "Sonseca"
+        m_45_164_7:
+          name: "Sotillo de las Palomas"
+        m_45_165_0:
+          name: "Talavera de la Reina"
+        m_45_166_3:
+          name: "Tembleque"
+        m_45_167_9:
+          name: "Toboso, El"
+        m_45_168_5:
+          name: "Toledo"
+        m_45_169_8:
+          name: "Torralba de Oropesa"
+        m_45_171_9:
+          name: "Torre de Esteban Hambrán, La"
+        m_45_170_2:
+          name: "Torrecilla de la Jara"
+        m_45_172_4:
+          name: "Torrico"
+        m_45_173_0:
+          name: "Torrijos"
+        m_45_174_5:
+          name: "Totanés"
+        m_45_175_8:
+          name: "Turleque"
+        m_45_176_1:
+          name: "Ugena"
+        m_45_177_7:
+          name: "Urda"
+        m_45_179_6:
+          name: "Valdeverdeja"
+        m_45_180_0:
+          name: "Valmojado"
+        m_45_181_7:
+          name: "Velada"
+        m_45_182_2:
+          name: "Ventas con Peña Aguilera, Las"
+        m_45_183_8:
+          name: "Ventas de Retamosa, Las"
+        m_45_184_3:
+          name: "Ventas de San Julián, Las"
+        m_45_186_9:
+          name: "Villa de Don Fadrique, La"
+        m_45_185_6:
+          name: "Villacañas"
+        m_45_187_5:
+          name: "Villafranca de los Caballeros"
+        m_45_188_1:
+          name: "Villaluenga de la Sagra"
+        m_45_189_4:
+          name: "Villamiel de Toledo"
+        m_45_190_8:
+          name: "Villaminaya"
+        m_45_191_5:
+          name: "Villamuelas"
+        m_45_192_0:
+          name: "Villanueva de Alcardete"
+        m_45_193_6:
+          name: "Villanueva de Bogas"
+        m_45_194_1:
+          name: "Villarejo de Montalbán"
+        m_45_195_4:
+          name: "Villarrubia de Santiago"
+        m_45_196_7:
+          name: "Villaseca de la Sagra"
+        m_45_197_3:
+          name: "Villasequilla"
+        m_45_198_9:
+          name: "Villatobas"
+        m_45_199_2:
+          name: "Viso de San Juan, El"
+        m_45_200_6:
+          name: "Yébenes, Los"
+        m_45_201_3:
+          name: "Yeles"
+        m_45_202_8:
+          name: "Yepes"
+        m_45_203_4:
+          name: "Yuncler"
+        m_45_204_9:
+          name: "Yunclillos"
+        m_45_205_2:
+          name: "Yuncos"

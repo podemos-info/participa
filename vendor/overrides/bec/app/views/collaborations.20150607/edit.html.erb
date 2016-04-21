@@ -1,0 +1,29 @@
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <%= info_box do %>
+          <p><%= t("bec.collaboration.p1") %></p>
+      <% end %>
+
+
+
+      <p> Ya tienes una colaboración. Es la siguiente: </p>
+      <%= render partial: "frequency_table" %>
+      <% if @collaboration.is_valid? %>
+          <%= error_box "Dar de baja", false do %>
+            <p> Sólo puedes tener una colaboración a la vez. Si quieres cambiar o cancelar tu colaboración: </p>
+            <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?"} %>
+          <% end %>
+      <% else %>
+          <%= alert_box "Confirma tu colaboración", false do %>
+            <p>
+              Vemos que hubo un error con tu colaboración, puedes intentar de confirmarla de nuevo:
+            </p>
+            <%= link_to "Confirmar colaboración", confirm_collaboration_path, class: 'button' %>
+          <% end %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

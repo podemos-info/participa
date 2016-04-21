@@ -1,0 +1,38 @@
+<%= content_tag(:h2, t("bec.user.change_email"))%>
+
+<p> <%= t('bec.user.change_email_explain') %> </p>
+
+<% if resource.class.reconfirmable && resource.unconfirmed_email.present? %>
+    <%= alert_box "" do %>
+        <%= t("devise.messages.waiting_confirmation", email: resource.unconfirmed_email) %>
+    <% end %>
+<% end %>
+
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
+    <fieldset>
+      <legend class="invisible">
+        <span>Cambiar correo</span>
+      </legend>
+
+      <div class="inputlabel-box">
+        <% if resource.errors.include?(:email) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :email, label: "Nou correu electrònic / Correo electrónico nuevo", input_html: {class: 'input-m'} %>
+      </div>
+
+      <div class="inputlabel-box">
+        <% if resource.errors.include?(:current_password) %>
+            <%= field_notice_box %>
+        <% end %>
+        <%= f.input :current_password,
+                    required: true,
+                    hint: raw(t("devise.hints.current_password", :link => link_to(t("devise.links.here"), "#recover-password", class: "js-change-tab"))),
+                    input_html: { class: 'input-m' } %>
+      </div>
+
+      <%= f.actions class: 'enter' do %>
+          <%= f.action :submit, label: t("bec.user.change_email"), button_html: {class: "button"} %>
+      <% end %>
+    </fieldset>
+<% end %>

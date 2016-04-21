@@ -1,0 +1,22 @@
+<h2>
+  <%= t("bec.user.change_phone") %>
+</h2>
+
+<section class="content-text">
+
+  <% if resource.can_change_phone? %>
+    <p>Te has validado con el teléfono móvil <b><%= resource.phone_no_prefix %></b> de <b><%= resource.phone_country_name %></b> (prefijo internacional <%= resource.phone_prefix %>). </p>
+    <div class="buttonbox">
+      <%=
+          button_to(
+                  t("bec.user.change_phone"),
+                  sms_validator_step1_path,
+                  method: :get,
+                  class: "button"
+          )
+      %>
+    </div>
+  <% else %>
+    <p>L'has confirmat fa menys de tres mesos, així que encara no pots canviar-lo / Lo has confirmado en los últimos tres meses, así que todavía no puedes cambiarlo.</p>
+  <% end %>
+</section>

@@ -1,0 +1,163 @@
+---
+es:
+  world:
+    es:
+      h:
+        m_21_001_0:
+          name: "Alájar"
+        m_21_002_5:
+          name: "Aljaraque"
+        m_21_003_1:
+          name: "Almendro, El"
+        m_21_004_6:
+          name: "Almonaster la Real"
+        m_21_005_9:
+          name: "Almonte"
+        m_21_006_2:
+          name: "Alosno"
+        m_21_007_8:
+          name: "Aracena"
+        m_21_008_4:
+          name: "Aroche"
+        m_21_009_7:
+          name: "Arroyomolinos de León"
+        m_21_010_1:
+          name: "Ayamonte"
+        m_21_011_8:
+          name: "Beas"
+        m_21_012_3:
+          name: "Berrocal"
+        m_21_013_9:
+          name: "Bollullos Par del Condado"
+        m_21_014_4:
+          name: "Bonares"
+        m_21_015_7:
+          name: "Cabezas Rubias"
+        m_21_016_0:
+          name: "Cala"
+        m_21_017_6:
+          name: "Calañas"
+        m_21_018_2:
+          name: "Campillo, El"
+        m_21_019_5:
+          name: "Campofrío"
+        m_21_020_9:
+          name: "Cañaveral de León"
+        m_21_021_6:
+          name: "Cartaya"
+        m_21_022_1:
+          name: "Castaño del Robledo"
+        m_21_023_7:
+          name: "Cerro de Andévalo, El"
+        m_21_030_7:
+          name: "Chucena"
+        m_21_024_2:
+          name: "Corteconcepción"
+        m_21_025_5:
+          name: "Cortegana"
+        m_21_026_8:
+          name: "Cortelazor"
+        m_21_027_4:
+          name: "Cumbres de Enmedio"
+        m_21_028_0:
+          name: "Cumbres de San Bartolomé"
+        m_21_029_3:
+          name: "Cumbres Mayores"
+        m_21_031_4:
+          name: "Encinasola"
+        m_21_032_9:
+          name: "Escacena del Campo"
+        m_21_033_5:
+          name: "Fuenteheridos"
+        m_21_034_0:
+          name: "Galaroza"
+        m_21_035_3:
+          name: "Gibraleón"
+        m_21_036_6:
+          name: "Granada de Río-Tinto, La"
+        m_21_037_2:
+          name: "Granado, El"
+        m_21_038_8:
+          name: "Higuera de la Sierra"
+        m_21_039_1:
+          name: "Hinojales"
+        m_21_040_5:
+          name: "Hinojos"
+        m_21_041_2:
+          name: "Huelva"
+        m_21_042_7:
+          name: "Isla Cristina"
+        m_21_043_3:
+          name: "Jabugo"
+        m_21_044_8:
+          name: "Lepe"
+        m_21_045_1:
+          name: "Linares de la Sierra"
+        m_21_046_4:
+          name: "Lucena del Puerto"
+        m_21_047_0:
+          name: "Manzanilla"
+        m_21_048_6:
+          name: "Marines, Los"
+        m_21_049_9:
+          name: "Minas de Riotinto"
+        m_21_050_2:
+          name: "Moguer"
+        m_21_051_9:
+          name: "Nava, La"
+        m_21_052_4:
+          name: "Nerva"
+        m_21_053_0:
+          name: "Niebla"
+        m_21_054_5:
+          name: "Palma del Condado, La"
+        m_21_055_8:
+          name: "Palos de la Frontera"
+        m_21_056_1:
+          name: "Paterna del Campo"
+        m_21_057_7:
+          name: "Paymogo"
+        m_21_058_3:
+          name: "Puebla de Guzmán"
+        m_21_059_6:
+          name: "Puerto Moral"
+        m_21_060_0:
+          name: "Punta Umbría"
+        m_21_061_7:
+          name: "Rociana del Condado"
+        m_21_062_2:
+          name: "Rosal de la Frontera"
+        m_21_063_8:
+          name: "San Bartolomé de la Torre"
+        m_21_064_3:
+          name: "San Juan del Puerto"
+        m_21_066_9:
+          name: "San Silvestre de Guzmán"
+        m_21_065_6:
+          name: "Sanlúcar de Guadiana"
+        m_21_067_5:
+          name: "Santa Ana la Real"
+        m_21_068_1:
+          name: "Santa Bárbara de Casa"
+        m_21_069_4:
+          name: "Santa Olalla del Cala"
+        m_21_070_8:
+          name: "Trigueros"
+        m_21_071_5:
+          name: "Valdelarco"
+        m_21_072_0:
+          name: "Valverde del Camino"
+        m_21_073_6:
+          name: "Villablanca"
+        m_21_074_1:
+          name: "Villalba del Alcor"
+        m_21_075_4:
+          name: "Villanueva de las Cruces"
+        m_21_076_7:
+          name: "Villanueva de los Castillejos"
+        m_21_077_3:
+          name: "Villarrasa"
+        m_21_078_9:
+          name: "Zalamea la Real"
+        m_21_079_2:
+          name: "Zufre"

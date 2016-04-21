@@ -1,0 +1,44 @@
+# adicionales a devise
+
+ca:
+  devise:
+    registrations: 
+      ok: "T'has inscrit correctament. Rebràs un correu que hauràs de confirmar per continuar amb el procés. Revisa el teu correu."
+    buttons:
+      sign_in: "Inicia sessió"
+      sign_up: "Inscriu-te"
+      edit: "Actualitza dades" 
+      cancel_account: "Dóna'm de baixa"
+      reset_password: "Envia'm les instruccions per correu electrònic"
+      change_password: "Canvia contrasenya"
+      confirmation_instructions: "Reenvia instruccions de confirmació"
+      unlock_instructions: "Reenvia instruccions de desbloqueig"
+    hints:
+      password: ""
+      current_password: "Introdueix la teva contrasenya per validar els canvis "
+    labels:
+      new_password: "Contrasenya nova"
+      new_password_confirmation: "Confirma contrasenya nova"
+    links:
+      sign_in: "Inicia sessió"
+      sign_in_with: "Inicia sessió amb %{provider}"
+      sign_up: "Inscriure's"
+      sign_out: "Tanca sessió"
+      my_account: "El meu compte"
+      back: "Torna"
+      forgot_password: "No recordo la meva contrasenya"
+      confirmation_instructions: "No has rebut les instruccions de confirmació?"
+      unlock_instructions: "No has rebut les instruccions de desbloqueig?"
+      email: "Correu o Document (DNI / NIE / Passaport)"
+      passw: "Contrasenya"
+    messages:
+      cancel_account_confirmation: "N'estàs segur?"
+      waiting_confirmation: "Actualment esperant instruccions per %{email}"
+    titles:
+      sign_in: "Inicia sessió"
+      sign_up: "Inscripció a Barcelona En Comú"
+      cancel_account: "Cancel·la el meu compte"
+      forgot_password: "No recordes la teva contrasenya?"
+      change_password: "Canvia la teva contrasenya"
+      confirmation_instructions: "Reenvia instruccions de confirmació"
+      unlock_instructions: "Reenvia instruccions de desbloqueig"

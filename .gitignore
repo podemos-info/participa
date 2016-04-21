@@ -22,3 +22,6 @@ config/database.yml
 config/secrets.yml
 
 .vagrant/*
+
+# Ignore backup files
+*~

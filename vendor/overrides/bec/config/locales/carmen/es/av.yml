@@ -1,0 +1,501 @@
+---
+es:
+  world:
+    es:
+      av:
+        m_05_001_3:
+          name: "Adanero"
+        m_05_002_8:
+          name: "Adrada, La"
+        m_05_005_2:
+          name: "Albornos"
+        m_05_007_1:
+          name: "Aldeanueva de Santa Cruz"
+        m_05_008_7:
+          name: "Aldeaseca"
+        m_05_010_4:
+          name: "Aldehuela, La"
+        m_05_012_6:
+          name: "Amavida"
+        m_05_013_2:
+          name: "Arenal, El"
+        m_05_014_7:
+          name: "Arenas de San Pedro"
+        m_05_015_0:
+          name: "Arevalillo"
+        m_05_016_3:
+          name: "Arévalo"
+        m_05_017_9:
+          name: "Aveinte"
+        m_05_018_5:
+          name: "Avellaneda"
+        m_05_019_8:
+          name: "Ávila"
+        m_05_021_9:
+          name: "Barco de Ávila, El"
+        m_05_022_4:
+          name: "Barraco, El"
+        m_05_023_0:
+          name: "Barromán"
+        m_05_024_5:
+          name: "Becedas"
+        m_05_025_8:
+          name: "Becedillas"
+        m_05_026_1:
+          name: "Bercial de Zapardiel"
+        m_05_027_7:
+          name: "Berlanas, Las"
+        m_05_029_6:
+          name: "Bernuy-Zapardiel"
+        m_05_030_0:
+          name: "Berrocalejo de Aragona"
+        m_05_033_8:
+          name: "Blascomillán"
+        m_05_034_3:
+          name: "Blasconuño de Matacabras"
+        m_05_035_6:
+          name: "Blascosancho"
+        m_05_036_9:
+          name: "Bohodón, El"
+        m_05_037_5:
+          name: "Bohoyo"
+        m_05_038_1:
+          name: "Bonilla de la Sierra"
+        m_05_039_4:
+          name: "Brabos"
+        m_05_040_8:
+          name: "Bularros"
+        m_05_041_5:
+          name: "Burgohondo"
+        m_05_042_0:
+          name: "Cabezas de Alambre"
+        m_05_043_6:
+          name: "Cabezas del Pozo"
+        m_05_044_1:
+          name: "Cabezas del Villar"
+        m_05_045_4:
+          name: "Cabizuela"
+        m_05_046_7:
+          name: "Canales"
+        m_05_047_3:
+          name: "Candeleda"
+        m_05_048_9:
+          name: "Cantiveros"
+        m_05_049_2:
+          name: "Cardeñosa"
+        m_05_051_2:
+          name: "Carrera, La"
+        m_05_052_7:
+          name: "Casas del Puerto"
+        m_05_053_3:
+          name: "Casasola"
+        m_05_054_8:
+          name: "Casavieja"
+        m_05_055_1:
+          name: "Casillas"
+        m_05_056_4:
+          name: "Castellanos de Zapardiel"
+        m_05_057_0:
+          name: "Cebreros"
+        m_05_058_6:
+          name: "Cepeda la Mora"
+        m_05_067_8:
+          name: "Chamartín"
+        m_05_059_9:
+          name: "Cillán"
+        m_05_060_3:
+          name: "Cisla"
+        m_05_061_0:
+          name: "Colilla, La"
+        m_05_062_5:
+          name: "Collado de Contreras"
+        m_05_063_1:
+          name: "Collado del Mirón"
+        m_05_064_6:
+          name: "Constanzana"
+        m_05_065_9:
+          name: "Crespos"
+        m_05_066_2:
+          name: "Cuevas del Valle"
+        m_05_903_5:
+          name: "Diego del Carpio"
+        m_05_069_7:
+          name: "Donjimeno"
+        m_05_070_1:
+          name: "Donvidas"
+        m_05_072_3:
+          name: "Espinosa de los Caballeros"
+        m_05_073_9:
+          name: "Flores de Ávila"
+        m_05_074_4:
+          name: "Fontiveros"
+        m_05_075_7:
+          name: "Fresnedilla"
+        m_05_076_0:
+          name: "Fresno, El"
+        m_05_077_6:
+          name: "Fuente el Saúz"
+        m_05_078_2:
+          name: "Fuentes de Año"
+        m_05_079_5:
+          name: "Gallegos de Altamiros"
+        m_05_080_9:
+          name: "Gallegos de Sobrinos"
+        m_05_081_6:
+          name: "Garganta del Villar"
+        m_05_082_1:
+          name: "Gavilanes"
+        m_05_083_7:
+          name: "Gemuño"
+        m_05_085_5:
+          name: "Gil García"
+        m_05_084_2:
+          name: "Gilbuena"
+        m_05_086_8:
+          name: "Gimialcón"
+        m_05_087_4:
+          name: "Gotarrendura"
+        m_05_088_0:
+          name: "Grandes y San Martín"
+        m_05_089_3:
+          name: "Guisando"
+        m_05_090_7:
+          name: "Gutierre-Muñoz"
+        m_05_092_9:
+          name: "Hernansancho"
+        m_05_093_5:
+          name: "Herradón de Pinares"
+        m_05_094_0:
+          name: "Herreros de Suso"
+        m_05_095_3:
+          name: "Higuera de las Dueñas"
+        m_05_096_6:
+          name: "Hija de Dios, La"
+        m_05_097_2:
+          name: "Horcajada, La"
+        m_05_099_1:
+          name: "Horcajo de las Torres"
+        m_05_100_5:
+          name: "Hornillo, El"
+        m_05_102_7:
+          name: "Hoyo de Pinares, El"
+        m_05_101_2:
+          name: "Hoyocasero"
+        m_05_103_3:
+          name: "Hoyorredondo"
+        m_05_106_4:
+          name: "Hoyos de Miguel Muñoz"
+        m_05_104_8:
+          name: "Hoyos del Collado"
+        m_05_105_1:
+          name: "Hoyos del Espino"
+        m_05_107_0:
+          name: "Hurtumpascual"
+        m_05_108_6:
+          name: "Junciana"
+        m_05_109_9:
+          name: "Langa"
+        m_05_110_3:
+          name: "Lanzahíta"
+        m_05_113_1:
+          name: "Llanos de Tormes, Los"
+        m_05_112_5:
+          name: "Losar del Barco, El"
+        m_05_114_6:
+          name: "Madrigal de las Altas Torres"
+        m_05_115_9:
+          name: "Maello"
+        m_05_116_2:
+          name: "Malpartida de Corneja"
+        m_05_117_8:
+          name: "Mamblas"
+        m_05_118_4:
+          name: "Mancera de Arriba"
+        m_05_119_7:
+          name: "Manjabálago y Ortigosa de Rioalmar"
+        m_05_120_1:
+          name: "Marlín"
+        m_05_121_8:
+          name: "Martiherrero"
+        m_05_122_3:
+          name: "Martínez"
+        m_05_123_9:
+          name: "Mediana de Voltoya"
+        m_05_124_4:
+          name: "Medinilla"
+        m_05_125_7:
+          name: "Mengamuñoz"
+        m_05_126_0:
+          name: "Mesegar de Corneja"
+        m_05_127_6:
+          name: "Mijares"
+        m_05_128_2:
+          name: "Mingorría"
+        m_05_129_5:
+          name: "Mirón, El"
+        m_05_130_9:
+          name: "Mironcillo"
+        m_05_131_6:
+          name: "Mirueña de los Infanzones"
+        m_05_132_1:
+          name: "Mombeltrán"
+        m_05_133_7:
+          name: "Monsalupe"
+        m_05_134_2:
+          name: "Moraleja de Matacabras"
+        m_05_135_5:
+          name: "Muñana"
+        m_05_136_8:
+          name: "Muñico"
+        m_05_138_0:
+          name: "Muñogalindo"
+        m_05_139_3:
+          name: "Muñogrande"
+        m_05_140_7:
+          name: "Muñomer del Peco"
+        m_05_141_4:
+          name: "Muñopepe"
+        m_05_142_9:
+          name: "Muñosancho"
+        m_05_143_5:
+          name: "Muñotello"
+        m_05_144_0:
+          name: "Narrillos del Álamo"
+        m_05_145_3:
+          name: "Narrillos del Rebollar"
+        m_05_149_1:
+          name: "Narros de Saldueña"
+        m_05_147_2:
+          name: "Narros del Castillo"
+        m_05_148_8:
+          name: "Narros del Puerto"
+        m_05_152_6:
+          name: "Nava de Arévalo"
+        m_05_153_2:
+          name: "Nava del Barco"
+        m_05_151_1:
+          name: "Navacepedilla de Corneja"
+        m_05_154_7:
+          name: "Navadijos"
+        m_05_155_0:
+          name: "Navaescurial"
+        m_05_156_3:
+          name: "Navahondilla"
+        m_05_157_9:
+          name: "Navalacruz"
+        m_05_158_5:
+          name: "Navalmoral"
+        m_05_159_8:
+          name: "Navalonguilla"
+        m_05_160_2:
+          name: "Navalosa"
+        m_05_161_9:
+          name: "Navalperal de Pinares"
+        m_05_162_4:
+          name: "Navalperal de Tormes"
+        m_05_163_0:
+          name: "Navaluenga"
+        m_05_164_5:
+          name: "Navaquesera"
+        m_05_165_8:
+          name: "Navarredonda de Gredos"
+        m_05_166_1:
+          name: "Navarredondilla"
+        m_05_167_7:
+          name: "Navarrevisca"
+        m_05_168_3:
+          name: "Navas del Marqués, Las"
+        m_05_169_6:
+          name: "Navatalgordo"
+        m_05_170_0:
+          name: "Navatejares"
+        m_05_171_7:
+          name: "Neila de San Miguel"
+        m_05_172_2:
+          name: "Niharra"
+        m_05_173_8:
+          name: "Ojos-Albos"
+        m_05_174_3:
+          name: "Orbita"
+        m_05_175_6:
+          name: "Oso, El"
+        m_05_176_9:
+          name: "Padiernos"
+        m_05_177_5:
+          name: "Pajares de Adaja"
+        m_05_178_1:
+          name: "Palacios de Goda"
+        m_05_179_4:
+          name: "Papatrigo"
+        m_05_180_8:
+          name: "Parral, El"
+        m_05_181_5:
+          name: "Pascualcobo"
+        m_05_182_0:
+          name: "Pedro Bernardo"
+        m_05_183_6:
+          name: "Pedro-Rodríguez"
+        m_05_184_1:
+          name: "Peguerinos"
+        m_05_185_4:
+          name: "Peñalba de Ávila"
+        m_05_186_7:
+          name: "Piedrahíta"
+        m_05_187_3:
+          name: "Piedralaves"
+        m_05_188_9:
+          name: "Poveda"
+        m_05_189_2:
+          name: "Poyales del Hoyo"
+        m_05_190_6:
+          name: "Pozanco"
+        m_05_191_3:
+          name: "Pradosegar"
+        m_05_192_8:
+          name: "Puerto Castilla"
+        m_05_193_4:
+          name: "Rasueros"
+        m_05_194_9:
+          name: "Riocabado"
+        m_05_195_2:
+          name: "Riofrío"
+        m_05_196_5:
+          name: "Rivilla de Barajas"
+        m_05_197_1:
+          name: "Salobral"
+        m_05_198_7:
+          name: "Salvadiós"
+        m_05_199_0:
+          name: "San Bartolomé de Béjar"
+        m_05_200_4:
+          name: "San Bartolomé de Corneja"
+        m_05_201_1:
+          name: "San Bartolomé de Pinares"
+        m_05_206_3:
+          name: "San Esteban de los Patos"
+        m_05_208_5:
+          name: "San Esteban de Zapardiel"
+        m_05_207_9:
+          name: "San Esteban del Valle"
+        m_05_209_8:
+          name: "San García de Ingelmos"
+        m_05_901_4:
+          name: "San Juan de Gredos"
+        m_05_210_2:
+          name: "San Juan de la Encinilla"
+        m_05_211_9:
+          name: "San Juan de la Nava"
+        m_05_212_4:
+          name: "San Juan del Molinillo"
+        m_05_213_0:
+          name: "San Juan del Olmo"
+        m_05_214_5:
+          name: "San Lorenzo de Tormes"
+        m_05_215_8:
+          name: "San Martín de la Vega del Alberche"
+        m_05_216_1:
+          name: "San Martín del Pimpollar"
+        m_05_217_7:
+          name: "San Miguel de Corneja"
+        m_05_218_3:
+          name: "San Miguel de Serrezuela"
+        m_05_219_6:
+          name: "San Pascual"
+        m_05_220_0:
+          name: "San Pedro del Arroyo"
+        m_05_231_5:
+          name: "San Vicente de Arévalo"
+        m_05_204_7:
+          name: "Sanchidrián"
+        m_05_205_0:
+          name: "Sanchorreja"
+        m_05_222_2:
+          name: "Santa Cruz de Pinares"
+        m_05_221_7:
+          name: "Santa Cruz del Valle"
+        m_05_226_9:
+          name: "Santa María de los Caballeros"
+        m_05_224_3:
+          name: "Santa María del Arroyo"
+        m_05_225_6:
+          name: "Santa María del Berrocal"
+        m_05_902_9:
+          name: "Santa María del Cubillo"
+        m_05_227_5:
+          name: "Santa María del Tiétar"
+        m_05_228_1:
+          name: "Santiago del Collado"
+        m_05_904_0:
+          name: "Santiago del Tormes"
+        m_05_229_4:
+          name: "Santo Domingo de las Posadas"
+        m_05_230_8:
+          name: "Santo Tomé de Zabarcos"
+        m_05_232_0:
+          name: "Serrada, La"
+        m_05_233_6:
+          name: "Serranillos"
+        m_05_234_1:
+          name: "Sigeres"
+        m_05_235_4:
+          name: "Sinlabajos"
+        m_05_236_7:
+          name: "Solana de Ávila"
+        m_05_237_3:
+          name: "Solana de Rioalmar"
+        m_05_238_9:
+          name: "Solosancho"
+        m_05_239_2:
+          name: "Sotalbo"
+        m_05_240_6:
+          name: "Sotillo de la Adrada"
+        m_05_241_3:
+          name: "Tiemblo, El"
+        m_05_242_8:
+          name: "Tiñosillos"
+        m_05_243_4:
+          name: "Tolbaños"
+        m_05_244_9:
+          name: "Tormellas"
+        m_05_245_2:
+          name: "Tornadizos de Ávila"
+        m_05_247_1:
+          name: "Torre, La"
+        m_05_246_5:
+          name: "Tórtoles"
+        m_05_249_0:
+          name: "Umbrías"
+        m_05_251_0:
+          name: "Vadillo de la Sierra"
+        m_05_252_5:
+          name: "Valdecasa"
+        m_05_253_1:
+          name: "Vega de Santa María"
+        m_05_254_6:
+          name: "Velayos"
+        m_05_256_2:
+          name: "Villaflor"
+        m_05_257_8:
+          name: "Villafranca de la Sierra"
+        m_05_905_3:
+          name: "Villanueva de Ávila"
+        m_05_258_4:
+          name: "Villanueva de Gómez"
+        m_05_259_7:
+          name: "Villanueva del Aceral"
+        m_05_260_1:
+          name: "Villanueva del Campillo"
+        m_05_261_8:
+          name: "Villar de Corneja"
+        m_05_262_3:
+          name: "Villarejo del Valle"
+        m_05_263_9:
+          name: "Villatoro"
+        m_05_264_4:
+          name: "Viñegra de Moraña"
+        m_05_265_7:
+          name: "Vita"
+        m_05_266_0:
+          name: "Zapardiel de la Cañada"
+        m_05_267_6:
+          name: "Zapardiel de la Ribera"

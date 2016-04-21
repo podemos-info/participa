@@ -1,0 +1,26 @@
+<nav class="steps3">
+  <ul>
+    <li <%= if current_step == 1 then 'class=active' end %>>
+      <span class="block">
+        <span class="tab-number">1)</span>
+        <span class="tab-text"><%= first_step %></span>
+      </span>
+    </li>
+    <li <%= if current_step == 2 then 'class=active' end %>>
+      <span class="block">
+        <span class="tab-number">2)</span>
+        <span class="tab-text"><%= second_step %></span>
+      </span>
+    </li>
+    <li <%= if current_step == 3 then 'class=active' end %>>
+      <span class="block">
+        <span class="tab-number">3)</span>
+        <span class="tab-text"><%= third_step %></span>
+      </span>
+    </li>
+  </ul>
+</nav>
+
+<h3>
+  <span><%= steps_text[current_step-1] %></span>
+</h3>

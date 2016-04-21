@@ -1,0 +1,67 @@
+<% content_for :title, t("devise.titles.sign_in") %>
+
+<div class="people-bg">
+  <div class="content-content-home">
+
+    <div class="row">
+      <div class="col-bhome-9a12">
+        <div class="login-box">
+          <%= form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
+            <fieldset>
+              <legend>
+                <%= t('devise.links.sign_in') %>
+              </legend>
+              <div>
+                <%= f.label :login, class: 'invisible' %>
+                <%= f.text_field :login, autofocus: true, class: 'input-100', placeholder: t('devise.links.email') %>
+              </div>
+              <div>
+                <%= f.label :password, class: 'invisible' %>
+                <%= f.password_field :password, class: 'input-100', placeholder: t('devise.links.passw') %>
+              </div>
+
+              <% if devise_mapping.rememberable? %>
+                <div class="remember">
+                  <%= f.label :remember_me %>
+                  <%= f.check_box :remember_me, class: 'remember checkbox' %>
+                </div>
+              <% end %>
+
+              <div class="enter">
+                <%= f.submit t('devise.buttons.sign_in'), class: 'button' %>
+              </div>
+            </fieldset>
+            <p>
+              <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
+            </p>
+            <p>
+              <%= link_to t("devise.links.forgot_mail"), new_confirmation_path(resource_name) %>
+            </p>
+            <p><%= link_to t("devise.links.forgot_way"), faq_path %></p>
+            </p>
+            <!-- p><%= link_to t("devise.links.forgot_manual"), 'https://barcelonaencomu.cat/manuals/primaries/index.html' %></p>
+            </p>
+            <p><%= link_to t("devise.links.forgot_manual_vot"), 'https://barcelonaencomu.cat/manuals/votacio/index.html' %></p -->
+          <% end %>
+        </div><!--.login-box-->
+      </div><!--.col-b-9a12-->
+
+      <div class="col-bhome-1a6">
+        <article class="intro">
+          <%= t('welcome_html')%>
+
+          <% if Rails.application.secrets.features["allow_inscription"] %>
+            <p></p>
+            <div class="buttonbox">
+              <%= link_to t("devise.links.insc"), new_user_registration_path, class: 'button intro-indent clear' %>
+            </div>
+          <% end %>
+
+        </article><!--.intro-->
+
+      </div><!--.col-b-1a3-->
+
+    </div><!--.row-->
+
+  </div><!--.content-content-->
+</div><!--#content-->

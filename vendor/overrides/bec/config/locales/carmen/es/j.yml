@@ -1,0 +1,199 @@
+---
+es:
+  world:
+    es:
+      j:
+        m_23_001_1:
+          name: "Albanchez de Mágina"
+        m_23_002_6:
+          name: "Alcalá la Real"
+        m_23_003_2:
+          name: "Alcaudete"
+        m_23_004_7:
+          name: "Aldeaquemada"
+        m_23_005_0:
+          name: "Andújar"
+        m_23_006_3:
+          name: "Arjona"
+        m_23_007_9:
+          name: "Arjonilla"
+        m_23_008_5:
+          name: "Arquillos"
+        m_23_905_1:
+          name: "Arroyo del Ojanco"
+        m_23_009_8:
+          name: "Baeza"
+        m_23_010_2:
+          name: "Bailén"
+        m_23_011_9:
+          name: "Baños de la Encina"
+        m_23_012_4:
+          name: "Beas de Segura"
+        m_23_902_7:
+          name: "Bedmar y Garcíez"
+        m_23_014_5:
+          name: "Begíjar"
+        m_23_015_8:
+          name: "Bélmez de la Moraleda"
+        m_23_016_1:
+          name: "Benatae"
+        m_23_017_7:
+          name: "Cabra del Santo Cristo"
+        m_23_018_3:
+          name: "Cambil"
+        m_23_019_6:
+          name: "Campillo de Arenas"
+        m_23_020_0:
+          name: "Canena"
+        m_23_021_7:
+          name: "Carboneros"
+        m_23_901_2:
+          name: "Cárcheles"
+        m_23_024_3:
+          name: "Carolina, La"
+        m_23_025_6:
+          name: "Castellar"
+        m_23_026_9:
+          name: "Castillo de Locubín"
+        m_23_027_5:
+          name: "Cazalilla"
+        m_23_028_1:
+          name: "Cazorla"
+        m_23_029_4:
+          name: "Chiclana de Segura"
+        m_23_030_8:
+          name: "Chilluévar"
+        m_23_031_5:
+          name: "Escañuela"
+        m_23_032_0:
+          name: "Espelúy"
+        m_23_033_6:
+          name: "Frailes"
+        m_23_034_1:
+          name: "Fuensanta de Martos"
+        m_23_035_4:
+          name: "Fuerte del Rey"
+        m_23_037_3:
+          name: "Génave"
+        m_23_038_9:
+          name: "Guardia de Jaén, La"
+        m_23_039_2:
+          name: "Guarromán"
+        m_23_041_3:
+          name: "Higuera de Calatrava"
+        m_23_042_8:
+          name: "Hinojares"
+        m_23_043_4:
+          name: "Hornos"
+        m_23_044_9:
+          name: "Huelma"
+        m_23_045_2:
+          name: "Huesa"
+        m_23_046_5:
+          name: "Ibros"
+        m_23_047_1:
+          name: "Iruela, La"
+        m_23_048_7:
+          name: "Iznatoraf"
+        m_23_049_0:
+          name: "Jabalquinto"
+        m_23_050_3:
+          name: "Jaén"
+        m_23_051_0:
+          name: "Jamilena"
+        m_23_052_5:
+          name: "Jimena"
+        m_23_053_1:
+          name: "Jódar"
+        m_23_040_6:
+          name: "Lahiguera"
+        m_23_054_6:
+          name: "Larva"
+        m_23_055_9:
+          name: "Linares"
+        m_23_056_2:
+          name: "Lopera"
+        m_23_057_8:
+          name: "Lupión"
+        m_23_058_4:
+          name: "Mancha Real"
+        m_23_059_7:
+          name: "Marmolejo"
+        m_23_060_1:
+          name: "Martos"
+        m_23_061_8:
+          name: "Mengíbar"
+        m_23_062_3:
+          name: "Montizón"
+        m_23_063_9:
+          name: "Navas de San Juan"
+        m_23_064_4:
+          name: "Noalejo"
+        m_23_065_7:
+          name: "Orcera"
+        m_23_066_0:
+          name: "Peal de Becerro"
+        m_23_067_6:
+          name: "Pegalajar"
+        m_23_069_5:
+          name: "Porcuna"
+        m_23_070_9:
+          name: "Pozo Alcón"
+        m_23_071_6:
+          name: "Puente de Génave"
+        m_23_072_1:
+          name: "Puerta de Segura, La"
+        m_23_073_7:
+          name: "Quesada"
+        m_23_074_2:
+          name: "Rus"
+        m_23_075_5:
+          name: "Sabiote"
+        m_23_076_8:
+          name: "Santa Elena"
+        m_23_077_4:
+          name: "Santiago de Calatrava"
+        m_23_904_8:
+          name: "Santiago-Pontones"
+        m_23_079_3:
+          name: "Santisteban del Puerto"
+        m_23_080_7:
+          name: "Santo Tomé"
+        m_23_081_4:
+          name: "Segura de la Sierra"
+        m_23_082_9:
+          name: "Siles"
+        m_23_084_0:
+          name: "Sorihuela del Guadalimar"
+        m_23_086_6:
+          name: "Torre del Campo"
+        m_23_085_3:
+          name: "Torreblascopedro"
+        m_23_087_2:
+          name: "Torredonjimeno"
+        m_23_088_8:
+          name: "Torreperogil"
+        m_23_090_5:
+          name: "Torres"
+        m_23_091_2:
+          name: "Torres de Albánchez"
+        m_23_092_7:
+          name: "Úbeda"
+        m_23_093_3:
+          name: "Valdepeñas de Jaén"
+        m_23_094_8:
+          name: "Vilches"
+        m_23_095_1:
+          name: "Villacarrillo"
+        m_23_096_4:
+          name: "Villanueva de la Reina"
+        m_23_097_0:
+          name: "Villanueva del Arzobispo"
+        m_23_098_6:
+          name: "Villardompardo"
+        m_23_099_9:
+          name: "Villares, Los"
+        m_23_101_0:
+          name: "Villarrodrigo"
+        m_23_903_3:
+          name: "Villatorres"

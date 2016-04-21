@@ -1,0 +1,501 @@
+---
+es:
+  world:
+    es:
+      z:
+        m_49_002_8:
+          name: "Abezames"
+        m_49_003_4:
+          name: "Alcañices"
+        m_49_004_9:
+          name: "Alcubilla de Nogales"
+        m_49_005_2:
+          name: "Alfaraz de Sayago"
+        m_49_006_5:
+          name: "Algodre"
+        m_49_007_1:
+          name: "Almaraz de Duero"
+        m_49_008_7:
+          name: "Almeida de Sayago"
+        m_49_009_0:
+          name: "Andavías"
+        m_49_010_4:
+          name: "Arcenillas"
+        m_49_011_1:
+          name: "Arcos de la Polvorosa"
+        m_49_012_6:
+          name: "Argañín"
+        m_49_013_2:
+          name: "Argujillo"
+        m_49_014_7:
+          name: "Arquillinos"
+        m_49_015_0:
+          name: "Arrabalde"
+        m_49_016_3:
+          name: "Aspariegos"
+        m_49_017_9:
+          name: "Asturianos"
+        m_49_018_5:
+          name: "Ayoó de Vidriales"
+        m_49_019_8:
+          name: "Barcial del Barco"
+        m_49_020_2:
+          name: "Belver de los Montes"
+        m_49_021_9:
+          name: "Benavente"
+        m_49_022_4:
+          name: "Benegiles"
+        m_49_023_0:
+          name: "Bermillo de Sayago"
+        m_49_024_5:
+          name: "Bóveda de Toro, La"
+        m_49_025_8:
+          name: "Bretó"
+        m_49_026_1:
+          name: "Bretocino"
+        m_49_027_7:
+          name: "Brime de Sog"
+        m_49_028_3:
+          name: "Brime de Urz"
+        m_49_029_6:
+          name: "Burganes de Valverde"
+        m_49_030_0:
+          name: "Bustillo del Oro"
+        m_49_031_7:
+          name: "Cabañas de Sayago"
+        m_49_032_2:
+          name: "Calzadilla de Tera"
+        m_49_033_8:
+          name: "Camarzana de Tera"
+        m_49_034_3:
+          name: "Cañizal"
+        m_49_035_6:
+          name: "Cañizo"
+        m_49_036_9:
+          name: "Carbajales de Alba"
+        m_49_037_5:
+          name: "Carbellino"
+        m_49_038_1:
+          name: "Casaseca de Campeán"
+        m_49_039_4:
+          name: "Casaseca de las Chanas"
+        m_49_040_8:
+          name: "Castrillo de la Guareña"
+        m_49_041_5:
+          name: "Castrogonzalo"
+        m_49_042_0:
+          name: "Castronuevo"
+        m_49_043_6:
+          name: "Castroverde de Campos"
+        m_49_044_1:
+          name: "Cazurra"
+        m_49_046_7:
+          name: "Cerecinos de Campos"
+        m_49_047_3:
+          name: "Cerecinos del Carrizal"
+        m_49_048_9:
+          name: "Cernadilla"
+        m_49_050_5:
+          name: "Cobreros"
+        m_49_052_7:
+          name: "Coomonte"
+        m_49_053_3:
+          name: "Coreses"
+        m_49_054_8:
+          name: "Corrales del Vino"
+        m_49_055_1:
+          name: "Cotanes del Monte"
+        m_49_056_4:
+          name: "Cubillos"
+        m_49_057_0:
+          name: "Cubo de Benavente"
+        m_49_058_6:
+          name: "Cubo de Tierra del Vino, El"
+        m_49_059_9:
+          name: "Cuelgamures"
+        m_49_061_0:
+          name: "Entrala"
+        m_49_062_5:
+          name: "Espadañedo"
+        m_49_063_1:
+          name: "Faramontanos de Tábara"
+        m_49_064_6:
+          name: "Fariza"
+        m_49_065_9:
+          name: "Fermoselle"
+        m_49_066_2:
+          name: "Ferreras de Abajo"
+        m_49_067_8:
+          name: "Ferreras de Arriba"
+        m_49_068_4:
+          name: "Ferreruela"
+        m_49_069_7:
+          name: "Figueruela de Arriba"
+        m_49_071_8:
+          name: "Fonfría"
+        m_49_075_7:
+          name: "Fresno de la Polvorosa"
+        m_49_076_0:
+          name: "Fresno de la Ribera"
+        m_49_077_6:
+          name: "Fresno de Sayago"
+        m_49_078_2:
+          name: "Friera de Valverde"
+        m_49_079_5:
+          name: "Fuente Encalada"
+        m_49_080_9:
+          name: "Fuentelapeña"
+        m_49_082_1:
+          name: "Fuentes de Ropel"
+        m_49_081_6:
+          name: "Fuentesaúco"
+        m_49_083_7:
+          name: "Fuentesecas"
+        m_49_084_2:
+          name: "Fuentespreadas"
+        m_49_085_5:
+          name: "Galende"
+        m_49_086_8:
+          name: "Gallegos del Pan"
+        m_49_087_4:
+          name: "Gallegos del Río"
+        m_49_088_0:
+          name: "Gamones"
+        m_49_090_7:
+          name: "Gema"
+        m_49_091_4:
+          name: "Granja de Moreruela"
+        m_49_092_9:
+          name: "Granucillo"
+        m_49_093_5:
+          name: "Guarrate"
+        m_49_094_0:
+          name: "Hermisende"
+        m_49_095_3:
+          name: "Hiniesta, La"
+        m_49_096_6:
+          name: "Jambrina"
+        m_49_097_2:
+          name: "Justel"
+        m_49_098_8:
+          name: "Losacino"
+        m_49_099_1:
+          name: "Losacio"
+        m_49_100_5:
+          name: "Lubián"
+        m_49_101_2:
+          name: "Luelmo"
+        m_49_102_7:
+          name: "Maderal, El"
+        m_49_103_3:
+          name: "Madridanos"
+        m_49_104_8:
+          name: "Mahide"
+        m_49_105_1:
+          name: "Maire de Castroponce"
+        m_49_107_0:
+          name: "Malva"
+        m_49_108_6:
+          name: "Manganeses de la Lampreana"
+        m_49_109_9:
+          name: "Manganeses de la Polvorosa"
+        m_49_110_3:
+          name: "Manzanal de Arriba"
+        m_49_112_5:
+          name: "Manzanal de los Infantes"
+        m_49_111_0:
+          name: "Manzanal del Barco"
+        m_49_113_1:
+          name: "Matilla de Arzón"
+        m_49_114_6:
+          name: "Matilla la Seca"
+        m_49_115_9:
+          name: "Mayalde"
+        m_49_116_2:
+          name: "Melgar de Tera"
+        m_49_117_8:
+          name: "Micereces de Tera"
+        m_49_118_4:
+          name: "Milles de la Polvorosa"
+        m_49_119_7:
+          name: "Molacillos"
+        m_49_120_1:
+          name: "Molezuelas de la Carballeda"
+        m_49_121_8:
+          name: "Mombuey"
+        m_49_122_3:
+          name: "Monfarracinos"
+        m_49_123_9:
+          name: "Montamarta"
+        m_49_124_4:
+          name: "Moral de Sayago"
+        m_49_126_0:
+          name: "Moraleja de Sayago"
+        m_49_125_7:
+          name: "Moraleja del Vino"
+        m_49_128_2:
+          name: "Morales de Rey"
+        m_49_129_5:
+          name: "Morales de Toro"
+        m_49_130_9:
+          name: "Morales de Valverde"
+        m_49_127_6:
+          name: "Morales del Vino"
+        m_49_131_6:
+          name: "Moralina"
+        m_49_132_1:
+          name: "Moreruela de los Infanzones"
+        m_49_133_7:
+          name: "Moreruela de Tábara"
+        m_49_134_2:
+          name: "Muelas de los Caballeros"
+        m_49_135_5:
+          name: "Muelas del Pan"
+        m_49_136_8:
+          name: "Muga de Sayago"
+        m_49_137_4:
+          name: "Navianos de Valverde"
+        m_49_138_0:
+          name: "Olmillos de Castro"
+        m_49_139_3:
+          name: "Otero de Bodas"
+        m_49_141_4:
+          name: "Pajares de la Lampreana"
+        m_49_143_5:
+          name: "Palacios de Sanabria"
+        m_49_142_9:
+          name: "Palacios del Pan"
+        m_49_145_3:
+          name: "Pedralba de la Pradería"
+        m_49_146_6:
+          name: "Pego, El"
+        m_49_147_2:
+          name: "Peleagonzalo"
+        m_49_148_8:
+          name: "Peleas de Abajo"
+        m_49_149_1:
+          name: "Peñausende"
+        m_49_150_4:
+          name: "Peque"
+        m_49_151_1:
+          name: "Perdigón, El"
+        m_49_152_6:
+          name: "Pereruela"
+        m_49_153_2:
+          name: "Perilla de Castro"
+        m_49_154_7:
+          name: "Pías"
+        m_49_155_0:
+          name: "Piedrahita de Castro"
+        m_49_156_3:
+          name: "Pinilla de Toro"
+        m_49_157_9:
+          name: "Pino del Oro"
+        m_49_158_5:
+          name: "Piñero, El"
+        m_49_160_2:
+          name: "Pobladura de Valderaduey"
+        m_49_159_8:
+          name: "Pobladura del Valle"
+        m_49_162_4:
+          name: "Porto"
+        m_49_163_0:
+          name: "Pozoantiguo"
+        m_49_164_5:
+          name: "Pozuelo de Tábara"
+        m_49_165_8:
+          name: "Prado"
+        m_49_166_1:
+          name: "Puebla de Sanabria"
+        m_49_167_7:
+          name: "Pueblica de Valverde"
+        m_49_170_0:
+          name: "Quintanilla de Urz"
+        m_49_168_3:
+          name: "Quintanilla del Monte"
+        m_49_169_6:
+          name: "Quintanilla del Olmo"
+        m_49_171_7:
+          name: "Quiruelas de Vidriales"
+        m_49_172_2:
+          name: "Rabanales"
+        m_49_173_8:
+          name: "Rábano de Aliste"
+        m_49_174_3:
+          name: "Requejo"
+        m_49_175_6:
+          name: "Revellinos"
+        m_49_176_9:
+          name: "Riofrío de Aliste"
+        m_49_177_5:
+          name: "Rionegro del Puente"
+        m_49_178_1:
+          name: "Roales"
+        m_49_179_4:
+          name: "Robleda-Cervantes"
+        m_49_180_8:
+          name: "Roelos de Sayago"
+        m_49_181_5:
+          name: "Rosinos de la Requejada"
+        m_49_183_6:
+          name: "Salce"
+        m_49_184_1:
+          name: "Samir de los Caños"
+        m_49_185_4:
+          name: "San Agustín del Pozo"
+        m_49_186_7:
+          name: "San Cebrián de Castro"
+        m_49_187_3:
+          name: "San Cristóbal de Entreviñas"
+        m_49_188_9:
+          name: "San Esteban del Molar"
+        m_49_189_2:
+          name: "San Justo"
+        m_49_190_6:
+          name: "San Martín de Valderaduey"
+        m_49_191_3:
+          name: "San Miguel de la Ribera"
+        m_49_192_8:
+          name: "San Miguel del Valle"
+        m_49_193_4:
+          name: "San Pedro de Ceque"
+        m_49_194_9:
+          name: "San Pedro de la Nave-Almendra"
+        m_49_208_5:
+          name: "San Vicente de la Cabeza"
+        m_49_209_8:
+          name: "San Vitero"
+        m_49_197_1:
+          name: "Santa Clara de Avedillo"
+        m_49_199_0:
+          name: "Santa Colomba de las Monjas"
+        m_49_200_4:
+          name: "Santa Cristina de la Polvorosa"
+        m_49_201_1:
+          name: "Santa Croya de Tera"
+        m_49_202_6:
+          name: "Santa Eufemia del Barco"
+        m_49_203_2:
+          name: "Santa María de la Vega"
+        m_49_204_7:
+          name: "Santa María de Valverde"
+        m_49_205_0:
+          name: "Santibáñez de Tera"
+        m_49_206_3:
+          name: "Santibáñez de Vidriales"
+        m_49_207_9:
+          name: "Santovenia"
+        m_49_210_2:
+          name: "Sanzoles"
+        m_49_214_5:
+          name: "Tábara"
+        m_49_216_1:
+          name: "Tapioles"
+        m_49_219_6:
+          name: "Toro"
+        m_49_220_0:
+          name: "Torre del Valle, La"
+        m_49_221_7:
+          name: "Torregamones"
+        m_49_222_2:
+          name: "Torres del Carrizal"
+        m_49_223_8:
+          name: "Trabazos"
+        m_49_224_3:
+          name: "Trefacio"
+        m_49_225_6:
+          name: "Uña de Quintana"
+        m_49_226_9:
+          name: "Vadillo de la Guareña"
+        m_49_227_5:
+          name: "Valcabado"
+        m_49_228_1:
+          name: "Valdefinjas"
+        m_49_229_4:
+          name: "Valdescorriel"
+        m_49_230_8:
+          name: "Vallesa de la Guareña"
+        m_49_231_5:
+          name: "Vega de Tera"
+        m_49_232_0:
+          name: "Vega de Villalobos"
+        m_49_233_6:
+          name: "Vegalatrave"
+        m_49_234_1:
+          name: "Venialbo"
+        m_49_235_4:
+          name: "Vezdemarbán"
+        m_49_236_7:
+          name: "Vidayanes"
+        m_49_237_3:
+          name: "Videmala"
+        m_49_238_9:
+          name: "Villabrázaro"
+        m_49_239_2:
+          name: "Villabuena del Puente"
+        m_49_240_6:
+          name: "Villadepera"
+        m_49_241_3:
+          name: "Villaescusa"
+        m_49_242_8:
+          name: "Villafáfila"
+        m_49_243_4:
+          name: "Villaferrueña"
+        m_49_244_9:
+          name: "Villageriz"
+        m_49_245_2:
+          name: "Villalazán"
+        m_49_246_5:
+          name: "Villalba de la Lampreana"
+        m_49_247_1:
+          name: "Villalcampo"
+        m_49_248_7:
+          name: "Villalobos"
+        m_49_249_0:
+          name: "Villalonso"
+        m_49_250_3:
+          name: "Villalpando"
+        m_49_251_0:
+          name: "Villalube"
+        m_49_252_5:
+          name: "Villamayor de Campos"
+        m_49_255_9:
+          name: "Villamor de los Escuderos"
+        m_49_256_2:
+          name: "Villanázar"
+        m_49_257_8:
+          name: "Villanueva de Azoague"
+        m_49_258_4:
+          name: "Villanueva de Campeán"
+        m_49_259_7:
+          name: "Villanueva de las Peras"
+        m_49_260_1:
+          name: "Villanueva del Campo"
+        m_49_263_9:
+          name: "Villar de Fallaves"
+        m_49_264_4:
+          name: "Villar del Buey"
+        m_49_261_8:
+          name: "Villaralbo"
+        m_49_262_3:
+          name: "Villardeciervos"
+        m_49_265_7:
+          name: "Villardiegua de la Ribera"
+        m_49_266_0:
+          name: "Villárdiga"
+        m_49_267_6:
+          name: "Villardondiego"
+        m_49_268_2:
+          name: "Villarrín de Campos"
+        m_49_269_5:
+          name: "Villaseco del Pan"
+        m_49_270_9:
+          name: "Villavendimio"
+        m_49_272_1:
+          name: "Villaveza de Valverde"
+        m_49_271_6:
+          name: "Villaveza del Agua"
+        m_49_273_7:
+          name: "Viñas"
+        m_49_275_5:
+          name: "Zamora"

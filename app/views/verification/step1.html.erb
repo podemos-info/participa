@@ -1,0 +1,44 @@
+<% content_for :title, t('verification.step1') %>
+
+<div class="content-content cols verification">
+  <div class="row">
+
+    <h2><%= t('verification.admin') %></h2>
+
+    <div class="col-b-4a12">
+      <%= render partial: "steps", locals: { step: 1 } %>
+
+      <%= t('verification.welcome_html') %>
+
+      <%= semantic_form_for 'user', url: verification_step2_path, method: :get do |f| %>
+        <fieldset class="verification">
+
+          <div class="inputlabel-box">
+            <input class="checkbox" id="user_document" name="user[document]" value="1" required="true" type="checkbox">
+            <label for="user_document">
+              <%= t('verification.form.document') %>
+            </label>
+          </div>
+
+          <div class="inputlabel-box">
+            <input class="checkbox" id="user_town" name="user[town]" value="1" required="true" type="checkbox">
+            <label for="user_town">
+              <%= t('verification.form.town') %>
+            </label>
+          </div>
+
+          <div class="inputlabel-box">
+            <input class="checkbox" id="user_over_18" name="user[over_18]" value="1" required="true" type="checkbox">
+            <label for="user_over_18">
+              <%= t('verification.form.age', date: l( Date.today - 16.years ) ) %>
+            </label>
+          </div>
+
+        </fieldset>
+        <%= f.submit t('verification.next'), class: "button-primary" %>
+      <% end %>
+
+      </div>
+    </div>
+  </div>
+

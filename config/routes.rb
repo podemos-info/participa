@@ -162,6 +162,21 @@ Rails.application.routes.draw do
         root 'devise/sessions#new', as: :root
       end
     end
+    
+    if Rails.application.secrets.features["verification_presencial"]
+      scope '/verificadores' do 
+        get '/', to: 'verification#step1', as: :verification_step1
+        get '/nueva', to: 'verification#step2', as: :verification_step2
+        get '/confirmar', to: 'verification#step3', as: :verification_step3
+        post '/search', to: 'verification#search', as: :verification_search
+        post '/confirm', to: 'verification#confirm', as: :verification_confirm
+        get '/ok', to: 'verification#result_ok', as: :verification_result_ok
+        get '/ko', to: 'verification#result_ko', as: :verification_result_ko
+      end
+      scope '/verificaciones' do 
+        get '/', to: 'verification#show', as: :verification_show
+      end
+    end    
 
     %w(404 422 500).each do |code|
       get code, to: 'errors#show', code: code

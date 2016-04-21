@@ -1,0 +1,52 @@
+<% content_for :title, t('bec.legacy.password.title') %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <%= content_tag(:h2, t('bec.legacy.password.title')) %>
+
+      <%= info_box do %>
+          <p><%= t('bec.legacy.password.explain') %></p>
+      <% end %>
+
+      <% if current_user.errors.present? %>
+          <%= error_box "No se pudo salvar" do %>
+              <p>Ocurrieron los siguientes errores</p>
+              <% current_user.errors.each do |attr, msg| %>
+                  <p><%= attr %>: <%= msg %></p>
+              <% end %>
+          <% end %>
+      <% end %>
+
+      <%= semantic_form_for(current_user, url: update_legacy_password_path, html: {method: :post}) do |f| %>
+
+          <fieldset>
+            <legend class="invisible">Actualizar contraseña</legend>
+
+            <div class="inputlabel-box">
+              <% if current_user.errors.include?(:password) %>
+                  <%= field_notice_box %>
+              <% end %>
+              <%= f.input :password,
+                          label: t("devise.labels.new_password"),
+                          input_html: {autofocus: true, class: 'input-m'} %>
+            </div>
+
+            <div class="inputlabel-box">
+              <% if current_user.errors.include?(:password_confirmation) %>
+                  <%= field_notice_box %>
+              <% end %>
+              <%= f.input :password_confirmation,
+                          label: t("devise.labels.new_password_confirmation"),
+                          input_html: {class: 'input-m'},
+                          required: true %>
+            </div>
+
+            <%= f.actions class: 'enter' do %>
+                <%= f.action :submit, label: t("devise.buttons.change_password"), button_html: {class: 'button'} %>
+            <% end %>
+          </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+---
+es:
+  world:
+    es:
+      o:
+        m_33_001_9:
+          name: "Allande"
+        m_33_002_4:
+          name: "Aller"
+        m_33_003_0:
+          name: "Amieva"
+        m_33_004_5:
+          name: "Avilés"
+        m_33_005_8:
+          name: "Belmonte de Miranda"
+        m_33_006_1:
+          name: "Bimenes"
+        m_33_007_7:
+          name: "Boal"
+        m_33_008_3:
+          name: "Cabrales"
+        m_33_009_6:
+          name: "Cabranes"
+        m_33_010_0:
+          name: "Candamo"
+        m_33_012_2:
+          name: "Cangas de Onís"
+        m_33_011_7:
+          name: "Cangas del Narcea"
+        m_33_013_8:
+          name: "Caravia"
+        m_33_014_3:
+          name: "Carreño"
+        m_33_015_6:
+          name: "Caso"
+        m_33_016_9:
+          name: "Castrillón"
+        m_33_017_5:
+          name: "Castropol"
+        m_33_018_1:
+          name: "Coaña"
+        m_33_019_4:
+          name: "Colunga"
+        m_33_020_8:
+          name: "Corvera de Asturias"
+        m_33_021_5:
+          name: "Cudillero"
+        m_33_022_0:
+          name: "Degaña"
+        m_33_023_6:
+          name: "Franco, El"
+        m_33_024_1:
+          name: "Gijón"
+        m_33_025_4:
+          name: "Gozón"
+        m_33_026_7:
+          name: "Grado"
+        m_33_027_3:
+          name: "Grandas de Salime"
+        m_33_028_9:
+          name: "Ibias"
+        m_33_029_2:
+          name: "Illano"
+        m_33_030_6:
+          name: "Illas"
+        m_33_031_3:
+          name: "Langreo"
+        m_33_032_8:
+          name: "Laviana"
+        m_33_033_4:
+          name: "Lena"
+        m_33_035_2:
+          name: "Llanera"
+        m_33_036_5:
+          name: "Llanes"
+        m_33_037_1:
+          name: "Mieres"
+        m_33_038_7:
+          name: "Morcín"
+        m_33_039_0:
+          name: "Muros de Nalón"
+        m_33_040_4:
+          name: "Nava"
+        m_33_041_1:
+          name: "Navia"
+        m_33_042_6:
+          name: "Noreña"
+        m_33_043_2:
+          name: "Onís"
+        m_33_044_7:
+          name: "Oviedo"
+        m_33_045_0:
+          name: "Parres"
+        m_33_046_3:
+          name: "Peñamellera Alta"
+        m_33_047_9:
+          name: "Peñamellera Baja"
+        m_33_048_5:
+          name: "Pesoz"
+        m_33_049_8:
+          name: "Piloña"
+        m_33_050_1:
+          name: "Ponga"
+        m_33_051_8:
+          name: "Pravia"
+        m_33_052_3:
+          name: "Proaza"
+        m_33_053_9:
+          name: "Quirós"
+        m_33_054_4:
+          name: "Regueras, Las"
+        m_33_055_7:
+          name: "Ribadedeva"
+        m_33_056_0:
+          name: "Ribadesella"
+        m_33_057_6:
+          name: "Ribera de Arriba"
+        m_33_058_2:
+          name: "Riosa"
+        m_33_059_5:
+          name: "Salas"
+        m_33_061_6:
+          name: "San Martín de Oscos"
+        m_33_060_9:
+          name: "San Martín del Rey Aurelio"
+        m_33_063_7:
+          name: "San Tirso de Abres"
+        m_33_062_1:
+          name: "Santa Eulalia de Oscos"
+        m_33_064_2:
+          name: "Santo Adriano"
+        m_33_065_5:
+          name: "Sariego"
+        m_33_066_8:
+          name: "Siero"
+        m_33_067_4:
+          name: "Sobrescobio"
+        m_33_068_0:
+          name: "Somiedo"
+        m_33_069_3:
+          name: "Soto del Barco"
+        m_33_070_7:
+          name: "Tapia de Casariego"
+        m_33_071_4:
+          name: "Taramundi"
+        m_33_072_9:
+          name: "Teverga"
+        m_33_073_5:
+          name: "Tineo"
+        m_33_034_9:
+          name: "Valdés"
+        m_33_074_0:
+          name: "Vegadeo"
+        m_33_075_3:
+          name: "Villanueva de Oscos"
+        m_33_076_6:
+          name: "Villaviciosa"
+        m_33_077_2:
+          name: "Villayón"
+        m_33_078_8:
+          name: "Yernes y Tameza"

@@ -1,0 +1,42 @@
+<div class="col-b-4a12">
+  <div class="verif-new-first">
+    <p class="title"><%= t('verification.pending0_html') %></p>
+    <p><%= t('verification.pending1_html') %></p>
+
+    <div class="verif-new-docu">
+      <span><%= image_tag "ico.verif.dni.png" %></span>
+      <span class="verif-docu-txt"><%= t('verification.pending2_html') %></span>
+    </div>
+  </div>
+</div>
+
+<div class="col-b-4a12">
+  <div class="verif-new-second">
+    <p class="title"><%= t('verification.pending3_html') %></p>
+
+    <div class="verif-left">
+      <span class="verif-item verif-img-1"><%= image_tag "ico.verif.passport.png" %></span>
+      <ul class="verif-item">
+        <%= t('verification.pending4_html') %>
+      </ul>
+    </div>
+
+    <span class="verif-new-or">
+        <%= t('verification.pending5_html') %>
+    </span>
+
+    <div class="verif-right">
+      <ul class="verif-item">
+        <%= t('verification.pending6_html') %>
+      </ul>
+      <span class="verif-item verif-img-2"><%= image_tag "ico.verif.doc.png" %></span>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="verif-new-third">
+  <p class="title"> <%= t('verification.pending7_html') %> </p>
+  <%= render partial: "verification/map" %>
+</div>

@@ -400,13 +400,25 @@ class Collaboration < ActiveRecord::Base
     if order and order.payable_at.unique_month == date.unique_month and order.is_chargeable?
       col_user = self.get_user
       [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
-          col_user.full_name.mb_chars.upcase.to_s, col_user.document_vatid.upcase, col_user.email, 
-          col_user.address.mb_chars.upcase.to_s, col_user.town_name.mb_chars.upcase.to_s, 
-          col_user.postal_code, col_user.country.upcase, 
-          self.calculate_iban, self.ccc_full, self.calculate_bic, 
-          order.amount/100, order.due_code, order.url_source, self.id, 
-          self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-          self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
+          col_user.full_name.mb_chars.upcase.to_s, 
+          col_user.document_vatid.upcase, 
+          col_user.email, 
+          col_user.address.mb_chars.upcase.to_s, 
+          col_user.town_name.mb_chars.upcase.to_s, 
+          col_user.postal_code, 
+          col_user.country.upcase, 
+          self.calculate_iban, 
+          self.ccc_full, 
+          self.calculate_bic, 
+          order.amount/100, 
+          order.due_code, 
+          order.url_source,
+          self.id, 
+          self.created_at.strftime("%d-%m-%Y"), 
+          order.reference, 
+          order.payable_at.strftime("%d-%m-%Y"), 
+          self.frequency_name, 
+          col_user.full_name.mb_chars.upcase.to_s ]
     end
   end
 

@@ -1,0 +1,129 @@
+---
+es:
+  world:
+    es:
+      po:
+        m_36_020_9:
+          name: "Agolada"
+        m_36_001_0:
+          name: "Arbo"
+        m_36_003_1:
+          name: "Baiona"
+        m_36_002_5:
+          name: "Barro"
+        m_36_004_6:
+          name: "Bueu"
+        m_36_005_9:
+          name: "Caldas de Reis"
+        m_36_006_2:
+          name: "Cambados"
+        m_36_007_8:
+          name: "Campo Lameiro"
+        m_36_008_4:
+          name: "Cangas"
+        m_36_009_7:
+          name: "Cañiza, A"
+        m_36_010_1:
+          name: "Catoira"
+        m_36_011_8:
+          name: "Cerdedo"
+        m_36_012_3:
+          name: "Cotobade"
+        m_36_013_9:
+          name: "Covelo"
+        m_36_014_4:
+          name: "Crecente"
+        m_36_015_7:
+          name: "Cuntis"
+        m_36_016_0:
+          name: "Dozón"
+        m_36_017_6:
+          name: "Estrada, A"
+        m_36_018_2:
+          name: "Forcarei"
+        m_36_019_5:
+          name: "Fornelos de Montes"
+        m_36_021_6:
+          name: "Gondomar"
+        m_36_022_1:
+          name: "Grove, O"
+        m_36_023_7:
+          name: "Guarda, A"
+        m_36_901_1:
+          name: "Illa de Arousa, A"
+        m_36_024_2:
+          name: "Lalín"
+        m_36_025_5:
+          name: "Lama, A"
+        m_36_026_8:
+          name: "Marín"
+        m_36_027_4:
+          name: "Meaño"
+        m_36_028_0:
+          name: "Meis"
+        m_36_029_3:
+          name: "Moaña"
+        m_36_030_7:
+          name: "Mondariz"
+        m_36_031_4:
+          name: "Mondariz-Balneario"
+        m_36_032_9:
+          name: "Moraña"
+        m_36_033_5:
+          name: "Mos"
+        m_36_034_0:
+          name: "Neves, As"
+        m_36_035_3:
+          name: "Nigrán"
+        m_36_036_6:
+          name: "Oia"
+        m_36_037_2:
+          name: "Pazos de Borbén"
+        m_36_041_2:
+          name: "Poio"
+        m_36_043_3:
+          name: "Ponte Caldelas"
+        m_36_042_7:
+          name: "Ponteareas"
+        m_36_044_8:
+          name: "Pontecesures"
+        m_36_038_8:
+          name: "Pontevedra"
+        m_36_039_1:
+          name: "Porriño, O"
+        m_36_040_5:
+          name: "Portas"
+        m_36_045_1:
+          name: "Redondela"
+        m_36_046_4:
+          name: "Ribadumia"
+        m_36_047_0:
+          name: "Rodeiro"
+        m_36_048_6:
+          name: "Rosal, O"
+        m_36_049_9:
+          name: "Salceda de Caselas"
+        m_36_050_2:
+          name: "Salvaterra de Miño"
+        m_36_051_9:
+          name: "Sanxenxo"
+        m_36_052_4:
+          name: "Silleda"
+        m_36_053_0:
+          name: "Soutomaior"
+        m_36_054_5:
+          name: "Tomiño"
+        m_36_055_8:
+          name: "Tui"
+        m_36_056_1:
+          name: "Valga"
+        m_36_057_7:
+          name: "Vigo"
+        m_36_059_6:
+          name: "Vila de Cruces"
+        m_36_058_3:
+          name: "Vilaboa"
+        m_36_060_0:
+          name: "Vilagarcía de Arousa"
+        m_36_061_7:
+          name: "Vilanova de Arousa"

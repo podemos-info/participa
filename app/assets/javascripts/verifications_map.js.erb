@@ -1,0 +1,118 @@
+
+function get_coords(district) {
+  var district = district || 100; // no district, show barcelona
+  switch (district) {
+    case 0: // Sant Martí
+      return [ 41.408131, 2.205780 ];
+      break;
+    case 1: // Ciutat Vella
+      return [ 41.380256, 2.183807 ];
+      break;
+    case 2: // Eixample
+      return [ 41.393738, 2.166360 ];
+      break;
+    case 3: // Sants-Montjuïc
+      return [ 41.349833, 2.152386 ];
+      break; 
+    case 4: // Les Corts
+      return [ 41.385368, 2.120537 ];
+      break; 
+    case 5: // Sarrià-Sant Gervasi
+      return [ 41.401936, 2.136704 ];
+      break; 
+    case 6: // Gràcia
+      return [ 41.402203, 2.160836 ];
+      break; 
+    case 7: // Horta-Guinardó
+      return [ 41.426791, 2.155601 ];
+      break; 
+    case 8: // Nou Barris
+      return [ 41.445452, 2.179409 ];
+      break; 
+    case 9: // Sant Andreu
+      return [ 41.433091, 2.194042 ];
+      break; 
+    default:
+      return [ 41.380256, 2.183807 ];
+      break;
+  }
+}
+
+function verification_map_show(district) {
+
+  var map = L.map('js-verification-map').setView(get_coords(district), 13);
+
+  // marker icon with color red
+  var IconOn = L.icon({
+      iconUrl: "<%= asset_url("map_marker_on.png") %>",
+      iconSize:     [30, 30]
+  });
+
+  // marker icon with color grey
+  var IconOff = L.icon({
+      iconUrl: "<%= asset_url("map_marker_off.png") %>",
+      iconSize:     [30, 30]
+  });
+
+  // map type
+  L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+    maxZoom: 15,
+    minZoom: 11,
+    id: 'examples.map-i875mjb7'
+  }).addTo(map);
+
+  // legend
+  var legend = L.control({position: 'bottomright'});
+  legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'map-info map-legend');
+    div.innerHTML +=
+        '<i style="background:#eb5a59"></i>Activo<br><br> ' +
+        '<i style="background:#d3d3d3"></i>Inactivo<br><br> '
+    return div;
+  }
+  legend.addTo(map);
+
+  // all your markers belong to us
+  $('.js-verification-map-centers li:not(.strike)').each( function(){
+    var latlng = $(this).data('location');
+    if ( latlng ) {
+      var lat = parseFloat( latlng.split(',')[0] );
+      var lng = parseFloat( latlng.split(',')[1] );
+      var name = $(this).find('b').html();
+      var address = $(this).find('span').html();
+      if ( $(this).hasClass('today') ) {
+        var icon = IconOn;
+      } else {
+        var icon = IconOff;
+      }
+      L.marker([lat, lng], {icon: icon}).addTo(map).bindPopup("<b>" + name + "</b><br />" + address);
+    }
+  });
+
+}
+
+// show all the verifications centers for a given district
+function verification_list_show(district){
+  $('*[data-district="' + district + '"]').show()
+}
+
+function init_verification_map() {
+  var district = $('.js-verification-map-centers').data('user-district'); 
+  verification_map_show(district);
+  verification_list_show(district);
+}
+
+$(function(){
+
+  if ( $('#js-verification-map').length > 0 ){
+    init_verification_map();
+  }
+
+  // show all the centers hidden
+  $('.js-verification-map-centers-show').on('click', function(e){
+    e.preventDefault();
+    $(this).hide();
+    $('.js-verification-map-centers li, .js-verification-map-centers p').show('slow').removeClass('hide');
+  });
+
+});

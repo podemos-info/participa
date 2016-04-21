@@ -1,0 +1,110 @@
+<div class="header">
+
+  <div class="header-content">
+
+    <div id="logo">
+      <%= link_to root_path do %>
+        <%= image_tag "logo_participa.png" %>
+      <% end %>
+      <%= link_to "https://barcelonaencomu.cat/", class: "logo-bcomu" do %>
+        <%= image_tag "logo.bec-220-w.png" %>
+      <% end %>
+    </div>
+
+    <div id="block-locale-language" class="block block-locale">
+
+      <div class="col-h-12a3">
+
+        <% if user_signed_in? %>
+          <div class="profile-info" data-verified="true">
+            <%= link_to edit_user_registration_path, class: "username" do %>
+              <i class="icon"></i> 
+              <%= current_user.full_name %>
+            <% end %>
+            <% if current_user.is_verified? %>
+              <span class="verified"><%= t('verification.user_verified') %></span>
+            <% else %>
+              <span class="unverified"><%= t('verification.user_unverified') %></span>
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete, title: "Cerrar sesión" do %>
+              <i class="icon"></i><span>Cerrar sesión</span>
+            <% end %>
+          </div>
+        <% end %>
+
+        <ul class="language-switcher-locale-url">
+          <li class="lang-catala">
+            <%= link_to "Cat", url_for(locale: :ca), class: current_lang_class(:ca) %>
+          </li>
+          <li class="lang-castellano">
+            <%= link_to "Cast", url_for(locale: :es), class: current_lang_class(:es) %>
+          </li>
+        </ul>
+
+      </div><%#.col-h-2a4%>
+  </div>
+
+
+  <% if user_signed_in? %>
+
+    <div class="col-h-1a12">
+
+      <nav class="menu" id="top_menu">
+        <%= link_to t('voting.continue'), 'https://participa.barcelonaencomu.cat', class:"js-return-vote menu-return-vote", style:"display: none;" %>
+        <ul>
+          <li class="menu-hamb">
+            <a id="hamburger_menu" href="#">
+              <span>Menú</span>
+            </a>
+          </li>
+          <li class="menu-tools">
+            <%= nav_menu_link_to "Portada", "home", root_path, [root_path], title: "Portada" %>
+          </li>
+          <% unless Rails.env.production? %>
+          <li><%= link_to "BETA", "#", class: "js-header-others-show" %></li>
+          <% end %>
+          <% if can? :step1, :verification %>
+            <% if Rails.application.secrets.features["verification_presencial"] %>
+              <li class="menu-verif">
+                <%= nav_menu_link_to t("verification.admin"), "verifications", verification_step1_path, [verification_step1_path], title: t("verification.admin") %>
+              </li>
+            <% end %>
+          <% end %>
+          <% if Rails.application.secrets.features["collaborations"] %>
+            <li class="menu-econ">
+              <%= nav_menu_link_to t("podemos.collaboration.title"), "euro", new_collaboration_path, [new_collaboration_path], title: t("podemos.collaboration.title")  %>
+            </li>
+          <% end %>
+          <li class="menu-profile">
+            <%= nav_menu_link_to t("bec.user.personal_data"), "user", edit_user_registration_path, [edit_user_registration_path], title: t("bec.user.personal_data") %>
+          </li>
+        </ul>
+        <ul class="hide js-header-others-hidden">
+          <% if Rails.application.secrets.features["participation_teams"] %>
+            <li class="menu-people">
+              <%= nav_menu_link_to "Equipos de Participación", "users", participation_teams_path, [participation_teams_path], title: "Equipos de Participación" %>
+            </li>
+          <% end %>
+          <% if Rails.application.secrets.features["proposals"] %>
+            <li class="menu-thumbup">
+              <%= nav_menu_link_to "Iniciativas ciudadanas", "lightbulb-o", proposals_path, [proposals_path], title: "Iniciativas ciudadanas " %>
+            </li>
+          <% end %>
+          <% if Rails.application.secrets.features["microcredits"] %>
+            <li class="menu-credit">
+              <%= nav_menu_link_to "Microcréditos", "credit", microcredit_path, [microcredit_path], title: "Microcréditos"  %>
+            </li>
+          <% end %>
+          <% if Rails.application.secrets.features["blog"] %>
+            <li class="menu-world">
+              <%= nav_menu_link_to "Blog", "compass", blog_path, [blog_path], title: "Blog" %>
+            </li>
+          <% end %>
+        </ul>
+      </nav><%#.menu%>
+  </div><%#.col-h-2a4%>
+<%= render partial: 'sidr_menu' %>
+    <% end %>
+
+  </div><!--.header-content -->
+</div><!-- header -->

@@ -1,0 +1,47 @@
+<% content_for :title, t('.title') %>
+
+<div class="content-content cols">
+<h2><%= t('.title')%></h2>
+
+<section class="cd-faq">
+  <ul class="cd-faq-categories">
+    <li><a class="selected" href="#general"><%= t('.general')%></a></li>
+    <li><a href="#inscripcion"><%= t('.inscription')%></a></li>
+    <li><a href="#inscripcion-errores"><%= t('.inscription_errors')%></a></li>
+    <li><a href="#verificaciones"><%= t('.verification')%></a></li>
+    <li><a href="#votaciones"><%= t('.voting')%></a></li>
+  </ul> <!-- cd-faq-categories -->
+
+  <div class="cd-faq-items">
+
+    <ul id="general" class="cd-faq-group">
+      <li class="cd-faq-title"><h2><%= t('.general')%></h2></li>
+      <li>
+        <a class="cd-faq-trigger" href="#0"><%= t('.faq1_html')%></a>
+      </li>
+    </ul> <!-- cd-faq-group -->
+
+    <ul id="inscripcion" class="cd-faq-group">
+      <li class="cd-faq-title"><h2><%= t('.inscription')%></h2></li>
+      <%= t('.faq2_html')%>
+    </ul> <!-- cd-faq-group -->
+
+    <ul id="inscripcion-errores" class="cd-faq-group">
+      <li class="cd-faq-title"><h2><%= t('.inscription_errors')%></h2></li>
+      <li> <%= t('.faq3_html')%> </li>
+    </ul> <!-- cd-faq-group -->
+
+    <ul id="verificaciones" class="cd-faq-group">
+      <li class="cd-faq-title"><h2><%= t('.verification')%></h2></li>
+      <li> <%= t('.faq4_html', verifications_url: verification_show_path)%> </li>
+    </ul> <!-- cd-faq-group -->
+
+    <ul id="votaciones" class="cd-faq-group">
+      <li class="cd-faq-title"><h2><%= t('.voting')%></h2></li>
+      <li> <%= t('.faq5_html')%> </li>
+    </ul> <!-- cd-faq-group -->
+
+  </div> <!-- cd-faq-items -->
+  <a href="#0" class="cd-close-panel">Close</a>
+</section> <!-- cd-faq -->
+</div>

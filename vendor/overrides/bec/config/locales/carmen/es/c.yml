@@ -1,0 +1,191 @@
+---
+es:
+  world:
+    es:
+      c:
+        m_15_001_1:
+          name: "Abegondo"
+        m_15_002_6:
+          name: "Ames"
+        m_15_003_2:
+          name: "Aranga"
+        m_15_004_7:
+          name: "Ares"
+        m_15_005_0:
+          name: "Arteixo"
+        m_15_006_3:
+          name: "Arzúa"
+        m_15_007_9:
+          name: "Baña, A"
+        m_15_008_5:
+          name: "Bergondo"
+        m_15_009_8:
+          name: "Betanzos"
+        m_15_010_2:
+          name: "Boimorto"
+        m_15_011_9:
+          name: "Boiro"
+        m_15_012_4:
+          name: "Boqueixón"
+        m_15_013_0:
+          name: "Brión"
+        m_15_014_5:
+          name: "Cabana de Bergantiños"
+        m_15_015_8:
+          name: "Cabanas"
+        m_15_016_1:
+          name: "Camariñas"
+        m_15_017_7:
+          name: "Cambre"
+        m_15_018_3:
+          name: "Capela, A"
+        m_15_019_6:
+          name: "Carballo"
+        m_15_901_2:
+          name: "Cariño"
+        m_15_020_0:
+          name: "Carnota"
+        m_15_021_7:
+          name: "Carral"
+        m_15_022_2:
+          name: "Cedeira"
+        m_15_023_8:
+          name: "Cee"
+        m_15_024_3:
+          name: "Cerceda"
+        m_15_025_6:
+          name: "Cerdido"
+        m_15_027_5:
+          name: "Coirós"
+        m_15_028_1:
+          name: "Corcubión"
+        m_15_029_4:
+          name: "Coristanco"
+        m_15_030_8:
+          name: "Coruña, A"
+        m_15_031_5:
+          name: "Culleredo"
+        m_15_032_0:
+          name: "Curtis"
+        m_15_033_6:
+          name: "Dodro"
+        m_15_034_1:
+          name: "Dumbría"
+        m_15_035_4:
+          name: "Fene"
+        m_15_036_7:
+          name: "Ferrol"
+        m_15_037_3:
+          name: "Fisterra"
+        m_15_038_9:
+          name: "Frades"
+        m_15_039_2:
+          name: "Irixoa"
+        m_15_041_3:
+          name: "Laracha, A"
+        m_15_040_6:
+          name: "Laxe"
+        m_15_042_8:
+          name: "Lousame"
+        m_15_043_4:
+          name: "Malpica de Bergantiños"
+        m_15_044_9:
+          name: "Mañón"
+        m_15_045_2:
+          name: "Mazaricos"
+        m_15_046_5:
+          name: "Melide"
+        m_15_047_1:
+          name: "Mesía"
+        m_15_048_7:
+          name: "Miño"
+        m_15_049_0:
+          name: "Moeche"
+        m_15_050_3:
+          name: "Monfero"
+        m_15_051_0:
+          name: "Mugardos"
+        m_15_053_1:
+          name: "Muros"
+        m_15_052_5:
+          name: "Muxía"
+        m_15_054_6:
+          name: "Narón"
+        m_15_055_9:
+          name: "Neda"
+        m_15_056_2:
+          name: "Negreira"
+        m_15_057_8:
+          name: "Noia"
+        m_15_058_4:
+          name: "Oleiros"
+        m_15_059_7:
+          name: "Ordes"
+        m_15_060_1:
+          name: "Oroso"
+        m_15_061_8:
+          name: "Ortigueira"
+        m_15_062_3:
+          name: "Outes"
+        m_15_902_7:
+          name: "Oza-Cesuras"
+        m_15_064_4:
+          name: "Paderne"
+        m_15_065_7:
+          name: "Padrón"
+        m_15_066_0:
+          name: "Pino, O"
+        m_15_067_6:
+          name: "Pobra do Caramiñal, A"
+        m_15_068_2:
+          name: "Ponteceso"
+        m_15_069_5:
+          name: "Pontedeume"
+        m_15_070_9:
+          name: "Pontes de García Rodríguez, As"
+        m_15_071_6:
+          name: "Porto do Son"
+        m_15_072_1:
+          name: "Rianxo"
+        m_15_073_7:
+          name: "Ribeira"
+        m_15_074_2:
+          name: "Rois"
+        m_15_075_5:
+          name: "Sada"
+        m_15_076_8:
+          name: "San Sadurniño"
+        m_15_077_4:
+          name: "Santa Comba"
+        m_15_078_0:
+          name: "Santiago de Compostela"
+        m_15_079_3:
+          name: "Santiso"
+        m_15_080_7:
+          name: "Sobrado"
+        m_15_081_4:
+          name: "Somozas, As"
+        m_15_082_9:
+          name: "Teo"
+        m_15_083_5:
+          name: "Toques"
+        m_15_084_0:
+          name: "Tordoia"
+        m_15_085_3:
+          name: "Touro"
+        m_15_086_6:
+          name: "Trazo"
+        m_15_088_8:
+          name: "Val do Dubra"
+        m_15_087_2:
+          name: "Valdoviño"
+        m_15_089_1:
+          name: "Vedra"
+        m_15_091_2:
+          name: "Vilarmaior"
+        m_15_090_5:
+          name: "Vilasantar"
+        m_15_092_7:
+          name: "Vimianzo"
+        m_15_093_3:
+          name: "Zas"
