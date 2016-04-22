@@ -45,7 +45,7 @@ class Election < ActiveRecord::Base
       end
     end
     #"#{self.title}#{suffix}"
-	"#{self.title}"
+  "#{self.title}"
   end
 
   def has_location_for? user

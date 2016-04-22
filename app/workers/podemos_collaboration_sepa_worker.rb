@@ -11,27 +11,27 @@ class PodemosCollaborationSepaWorker
                      
     Rails.logger.info "=================================\n PodemosCollaborationSepaWorker\n#{collaborations.size} collaborations\n=================================\n"
 
-		# First: Create the main object
-		sdd = SEPA::DirectDebit.new(
-		  # Name of the initiating party and creditor, in German: "Auftraggeber"
-		  # String, max. 70 char
-		  name: Rails.application.secrets.sepa['name'], # Entiendo que es el nombre con el que figura
+    # First: Create the main object
+    sdd = SEPA::DirectDebit.new(
+      # Name of the initiating party and creditor, in German: "Auftraggeber"
+      # String, max. 70 char
+      name: Rails.application.secrets.sepa['name'], # Entiendo que es el nombre con el que figura
                                                     # BCN en Comú en el banco
 
-		  # OPTIONAL: Business Identifier Code (SWIFT-Code) of the creditor
-		  # String, 8 or 11 char
-		  bic: Rails.application.secrets.sepa['bic'], # Código BIC del banco de BCN en Comú
+      # OPTIONAL: Business Identifier Code (SWIFT-Code) of the creditor
+      # String, 8 or 11 char
+      bic: Rails.application.secrets.sepa['bic'], # Código BIC del banco de BCN en Comú
 
-		  # International Bank Account Number of the creditor
-		  # String, max. 34 chars
-		  iban: Rails.application.secrets.sepa['iban'], # Número de cuenta en formato IBAN
+      # International Bank Account Number of the creditor
+      # String, max. 34 chars
+      iban: Rails.application.secrets.sepa['iban'], # Número de cuenta en formato IBAN
                                                     # de BCN en Comú
 
-		  # Creditor Identifier, in German: Gläubiger-Identifikationsnummer
-		  # String, max. 35 chars
-		  creditor_identifier: Rails.application.secrets.sepa['creditor_identifier'] # FIXME esto no se lo qué es
+      # Creditor Identifier, in German: Gläubiger-Identifikationsnummer
+      # String, max. 35 chars
+      creditor_identifier: Rails.application.secrets.sepa['creditor_identifier'] # FIXME esto no se lo qué es
                                                                                  # Identificador de BCN en Comú en el banco
-		)
+    )
 
 
     collaborations.each do |collaboration|
