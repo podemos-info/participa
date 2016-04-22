@@ -1,7 +1,9 @@
-working_directory "/var/www/participa.podemos.info/current"
-pid "/var/www/participa.podemos.info/current/tmp/pids/unicorn.pid"
-stderr_path "/var/www/participa.podemos.info/shared/log/unicorn.log"
-stdout_path "/var/www/participa.podemos.info/shared/log/unicorn.log"
-listen "127.0.0.1:8080"
-worker_processes 16
-timeout 240
+directory = "/srv/rails/participa.barcelonaencomu.cat"
+
+working_directory "#{directory}/current"
+pid "#{directory}/current/tmp/pids/unicorn.pid"
+stderr_path "#{directory}/shared/log/unicorn.log"
+stdout_path "#{directory}/shared/log/unicorn.log"
+listen "/tmp/unicorn.participa.barcelonaencomu.cat.sock"
+worker_processes 4
+timeout 120
