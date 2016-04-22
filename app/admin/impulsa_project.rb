@@ -82,7 +82,7 @@ ActiveAdmin.register ImpulsaProject do
   collection_action :upload_vote_results, :method => :post do
     require "json"
     procesados = []
-	no_id_projects = []
+    no_id_projects = []
     winners = []
     file = params["upload_vote_results"]["file"]
     question_id = params["upload_vote_results"]["question_id"].to_i

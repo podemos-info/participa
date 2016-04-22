@@ -34,7 +34,7 @@ def show_collaboration_orders(collaboration, html_output = true)
 end
 
 ActiveAdmin.register Collaboration do
-	if Rails.application.secrets.features["collaborations"]
+if Rails.application.secrets.features["collaborations"]
     menu :parent => "Colaboraciones"
   else
     menu false
@@ -332,8 +332,8 @@ ActiveAdmin.register Collaboration do
   collection_action :generate_sepa, :method => :get do
     # FIXME No me queda claro el motivo de este lock
     #Collaboration.bank_file_lock true
-   	Rails.logger.info "=================================\n generate_sepa\n=================================\n"
-   	
+    Rails.logger.info "=================================\n generate_sepa\n=================================\n"
+     
     Resque.enqueue(PodemosCollaborationSepaWorker)
     #PodemosCollaborationSepaWorker.perform
     redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }

@@ -12,21 +12,21 @@ class PageController < ApplicationController
 
   def show_form
     @page = Page.find(params[:id])
-	raise("not found") unless @page
+    raise("not found") unless @page
     authenticate_user! if @page.require_login
 
-	if /https:\/\/forms.podemos.info[\S]+/.match(@page.link)
-		render :formview_iframe, locals: { title: @page.title, url: @page.link }
-	else
-    	render :form_iframe, locals: { title: @page.title, form_id: @page.id_form, extra_qs:"" }
-	end
+    if /https:\/\/forms.podemos.info[\S]+/.match(@page.link)
+      render :formview_iframe, locals: { title: @page.title, url: @page.link }
+    else
+      render :form_iframe, locals: { title: @page.title, form_id: @page.id_form, extra_qs:"" }
+    end
   end
 
   def count_votes
     @election = Election.find(params[:election_id])
     votes = 0
     votes = @election.votes.count if @election
-	render layout: 'minimal', locals: { votes: votes }
+  render layout: 'minimal', locals: { votes: votes }
     #render plain: "#{votes}"
   end
 
