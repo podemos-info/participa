@@ -34,6 +34,12 @@ def show_collaboration_orders(collaboration, html_output = true)
 end
 
 ActiveAdmin.register Collaboration do
+	if Rails.application.secrets.features["collaborations"]
+    menu :parent => "Colaboraciones"
+  else
+    menu false
+  end
+  
   scope_to Collaboration, association_method: :full_view
   config.sort_order = 'updated_at_desc'
 
@@ -121,6 +127,7 @@ ActiveAdmin.register Collaboration do
         active = status[0] ? " (en progreso)" : ""
         li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
       end
+      li link_to 'Generar fichero en formato SEPA', params.merge(:action => :generate_sepa)
       li do
         this_month = Order.banks.by_date(Date.today, Date.today).to_be_charged.count
         prev_month = Order.banks.by_date(Date.today-1.month, Date.today-1.month).to_be_charged.count
@@ -321,6 +328,17 @@ ActiveAdmin.register Collaboration do
     Resque.enqueue(PodemosCollaborationWorker, -1)
     redirect_to :admin_collaborations
   end
+  
+  collection_action :generate_sepa, :method => :get do
+    # FIXME No me queda claro el motivo de este lock
+    #Collaboration.bank_file_lock true
+   	Rails.logger.info "=================================\n generate_sepa\n=================================\n"
+   	
+    Resque.enqueue(PodemosCollaborationSepaWorker)
+    #PodemosCollaborationSepaWorker.perform
+    redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }
+  end
+
 
   collection_action :download_csv, :method => :get do
     status = Collaboration.has_bank_file? Date.today

@@ -365,6 +365,11 @@ GEM
       rdoc (~> 4.0)
     secure_headers (2.2.1)
       user_agent_parser
+    sepa_king (0.6.0)
+      activemodel (>= 3.0.0)
+      builder
+      i18n
+      iban-tools
     simple_captcha2 (0.3.4)
       rails (>= 4.1)
     simplecov (0.10.0)
@@ -495,6 +500,7 @@ DEPENDENCIES
   sass-rails
   sdoc (~> 0.4.0)
   secure_headers
+  sepa_king
   simple_captcha2
   simplecov
   spanish_vat_validators
