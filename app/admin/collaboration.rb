@@ -127,7 +127,8 @@ if Rails.application.secrets.features["collaborations"]
         active = status[0] ? " (en progreso)" : ""
         li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
       end
-      li link_to 'Generar fichero en formato SEPA', params.merge(:action => :generate_sepa)
+      li link_to 'Generar fichero en formato SEPA (xml)', params.merge(:action => :generate_sepa_xml) 
+      li link_to 'Generar fichero en formato SEPA (xls)', params.merge(:action => :generate_sepa_xls)
       li do
         this_month = Order.banks.by_date(Date.today, Date.today).to_be_charged.count
         prev_month = Order.banks.by_date(Date.today-1.month, Date.today-1.month).to_be_charged.count
@@ -333,12 +334,32 @@ if Rails.application.secrets.features["collaborations"]
     # FIXME No me queda claro el motivo de este lock
     #Collaboration.bank_file_lock true
     Rails.logger.info "=================================\n generate_sepa\n=================================\n"
+    filename = "triodos_orders"
+    
+    respond_to do |format|
+        format.xml {
+          response.headers['Content-Disposition'] = 'attachment; filename="' + filename + '.xml"'
+          s = PodemosCollaborationSepaWorker.perform
+          render text: s
+        }
+        format.xls {
+          response.headers['Content-Disposition'] = 'attachment; filename="' + filename + '.xls"'
+          render "collaborations/generate_sepa.xls.erb"
+        }
+    end
      
-    Resque.enqueue(PodemosCollaborationSepaWorker)
+    #Resque.enqueue(PodemosCollaborationSepaWorker)
     #PodemosCollaborationSepaWorker.perform
-    redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }
+    #redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }
   end
-
+  
+  collection_action :generate_sepa_xls, :method => :get do
+    redirect_to "/admin/collaborations/generate_sepa.xls"
+  end
+  
+  collection_action :generate_sepa_xml, :method => :get do
+    redirect_to "/admin/collaborations/generate_sepa.xml"
+  end
 
   collection_action :download_csv, :method => :get do
     status = Collaboration.has_bank_file? Date.today
