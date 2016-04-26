@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String">Nombre del Deudor</Data></Cell>
+        <Cell><Data ss:Type="String">Referencia Mandato</Data></Cell>
+        <Cell><Data ss:Type="String">Cuenta de cargo</Data></Cell>
+        <Cell><Data ss:Type="String">Concepto</Data></Cell>
+        <Cell><Data ss:Type="String">Importe</Data></Cell>
+      </Row>
+      <% year=Time.now.year %>
+      <% PodemosCollaborationSepaWorker.read_orders.each do |order| %>
+      <% id = order.id.to_s.rjust(7, '0') %>
+      <Row>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.collaboration.user.full_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= "#{year}#{id}" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.collaboration.calculate_iban%></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.reference %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.amount / 100 %></Data></Cell>
+      </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
+

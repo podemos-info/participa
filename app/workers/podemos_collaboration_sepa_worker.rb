@@ -1,15 +1,26 @@
 class PodemosCollaborationSepaWorker
 
-  @queue = :podemos_collaboration_sepa_queue
-
-  def self.perform
+  #@queue = :podemos_collaboration_sepa_queue
+  
+  def self.read_orders
+    orders = Order.to_be_paid.joins(:collaboration).where("collaborations.payment_type in (2,3)")
+    return orders
+  end
+  
+  # XXX se necesita esto?? 
+  def self.read_collaborations
     today = Date.today
     collaborations = Collaboration.joins(:order)
                      .includes(:user)
                      .where(payment_type: 2..3)
                      .merge(Order.by_date(today,today))
+    return collaborations
+  end
+
+  def self.perform
+    orders = read_orders
                      
-    Rails.logger.info "=================================\n PodemosCollaborationSepaWorker\n#{collaborations.size} collaborations\n=================================\n"
+    Rails.logger.info "=================================\n PodemosCollaborationSepaWorker\n#{orders.size} orders\n=================================\n"
 
     # First: Create the main object
     sdd = SEPA::DirectDebit.new(
@@ -34,13 +45,13 @@ class PodemosCollaborationSepaWorker
     )
 
 
-    collaborations.each do |collaboration|
+    orders.each do |order|
 
         # Second: Add transactions
         sdd.add_transaction(
           # Name of the debtor, in German: "Zahlungspflichtiger"
           # String, max. 70 char
-          name:                      collaboration.user.full_name,  # Nombre de la persona
+          name:                      order.collaboration.user.full_name,  # Nombre de la persona
                                                                     # o entidad colaboradora
 
           # OPTIONAL: Business Identifier Code (SWIFT-Code) of the debtor's account
@@ -49,12 +60,12 @@ class PodemosCollaborationSepaWorker
 
           # International Bank Account Number of the debtor's account
           # String, max. 34 chars
-          iban:                      collaboration.calculate_iban, # Número de cuenta en formato IBAN
+          iban:                      order.collaboration.calculate_iban, # Número de cuenta en formato IBAN
                                                                  # del colaborador
 
           # Amount in EUR
           # Number with two decimal digit
-          amount:                    collaboration.amount, # Cantidad con la que colabora
+          amount:                    order.collaboration.amount, # Cantidad con la que colabora
 
           # OPTIONAL: Instruction Identification, will not be submitted to the debtor
           # String, max. 35 char
@@ -77,7 +88,7 @@ class PodemosCollaborationSepaWorker
 
           # Mandate Date of signature, in German "Datum, zu dem das Mandat unterschrieben wurde"
           # Date
-          mandate_date_of_signature: collaboration.created_at.to_date, # FIXME Fecha en la que se ha firmado el mandato
+          mandate_date_of_signature: order.created_at.to_date, # FIXME Fecha en la que se ha firmado el mandato
 
           # Local instrument, in German "Lastschriftart"
           # One of these strings:
@@ -114,5 +125,7 @@ class PodemosCollaborationSepaWorker
       end
 
     File.open("/tmp/TRIODOS-SEPA.xml", 'w+') {|f| f.write(sdd.to_xml) } # Use latest schema pain.008.003.02
+    return sdd.to_xml
   end
+  
 end
