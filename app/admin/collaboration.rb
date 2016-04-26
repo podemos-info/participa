@@ -318,9 +318,15 @@ if Rails.application.secrets.features["collaborations"]
   end
 
   collection_action :generate_orders, :method => :get do
-    Collaboration.banks.pluck(:id).each do |cid|
-      Resque.enqueue(PodemosCollaborationWorker, cid)
+#    Collaboration.banks.pluck(:id).each do |cid|
+#      Resque.enqueue(PodemosCollaborationWorker, cid)
+#    end
+# XXX pasca - no se crean las orders al ejecutarlo con la cola de trabajo
+    Collaboration.banks.each do |c|
+      Rails.logger.info "collaboration #{c.id}"
+      c.charge!
     end
+
     redirect_to :admin_collaborations
   end
 
