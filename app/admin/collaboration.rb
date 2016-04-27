@@ -33,6 +33,11 @@ def show_collaboration_orders(collaboration, html_output = true)
   html_output ? output.html_safe : output
 end
 
+def use_resque
+  return Rails.application.secrets.features["use_resque"]
+end
+
+
 ActiveAdmin.register Collaboration do
 if Rails.application.secrets.features["collaborations"]
     menu :parent => "Colaboraciones"
@@ -310,22 +315,24 @@ if Rails.application.secrets.features["collaborations"]
     f.actions
   end
   
+  
   collection_action :charge, :method => :get do
     Collaboration.credit_cards.pluck(:id).each do |cid|
-      Resque.enqueue(PodemosCollaborationWorker, cid)
+      if use_resque
+        Resque.enqueue(PodemosCollaborationWorker, cid)
+      else
+        PodemosCollaborationWorker.perform cid
+      end
     end
     redirect_to :admin_collaborations
   end
 
-  collection_action :generate_orders, :method => :get do
-    if Rails.application.secrets.features["use_resque"] 
-      Collaboration.banks.pluck(:id).each do |cid|
+  collection_action :generate_orders, :method => :get do 
+    Collaboration.banks.pluck(:id).each do |cid|
+      if use_resque
         Resque.enqueue(PodemosCollaborationWorker, cid)
-      end
-    else
-      Collaboration.banks.each do |c|
-        Rails.logger.info "collaboration #{c.id}"
-        c.charge!
+      else
+        PodemosCollaborationWorker.perform cid
       end
     end
 
@@ -334,7 +341,11 @@ if Rails.application.secrets.features["collaborations"]
 
   collection_action :generate_csv, :method => :get do
     Collaboration.bank_file_lock true
-    Resque.enqueue(PodemosCollaborationWorker, -1)
+    if use_resque
+      Resque.enqueue(PodemosCollaborationWorker, -1)
+    else
+      PodemosCollaborationWorker.perform -1
+    end
     redirect_to :admin_collaborations
   end
   
@@ -355,9 +366,6 @@ if Rails.application.secrets.features["collaborations"]
           render "collaborations/generate_sepa.xls.erb"
         }
     end
-     
-    #Resque.enqueue(PodemosCollaborationSepaWorker)
-    #PodemosCollaborationSepaWorker.perform
     #redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }
   end
   
