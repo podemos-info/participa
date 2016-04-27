@@ -121,7 +121,9 @@ class User < ActiveRecord::Base
     end
 
     # User has confirmed SMS code
-    issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
+    if Rails.application.secrets.features["verification_sms"]
+      issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
+    end
 
     if issue || only_blocking  # End of blocking issues
       return issue
