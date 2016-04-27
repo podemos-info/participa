@@ -122,11 +122,11 @@ if Rails.application.secrets.features["collaborations"]
     h4 "Recibos"
     ul do
       li link_to 'Crear órdenes de este mes', params.merge(:action => :generate_orders), data: { confirm: "Este carga el sistema, por lo que debe ser lanzado lo menos posible, idealmente una vez al mes. ¿Deseas continuar?" }
-      li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
-      if status[1]
-        active = status[0] ? " (en progreso)" : ""
-        li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
-      end
+      #li link_to("Generar fichero para el banco", params.merge(:action => :generate_csv))
+      #if status[1]
+      #  active = status[0] ? " (en progreso)" : ""
+      #  li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
+      #end
       li link_to 'Generar fichero en formato SEPA (xml)', params.merge(:action => :generate_sepa_xml) 
       li link_to 'Generar fichero en formato SEPA (xls)', params.merge(:action => :generate_sepa_xls)
       li do
@@ -318,13 +318,15 @@ if Rails.application.secrets.features["collaborations"]
   end
 
   collection_action :generate_orders, :method => :get do
-#    Collaboration.banks.pluck(:id).each do |cid|
-#      Resque.enqueue(PodemosCollaborationWorker, cid)
-#    end
-# XXX pasca - no se crean las orders al ejecutarlo con la cola de trabajo
-    Collaboration.banks.each do |c|
-      Rails.logger.info "collaboration #{c.id}"
-      c.charge!
+    if Rails.application.secrets.features["use_resque"] 
+      Collaboration.banks.pluck(:id).each do |cid|
+        Resque.enqueue(PodemosCollaborationWorker, cid)
+      end
+    else
+      Collaboration.banks.each do |c|
+        Rails.logger.info "collaboration #{c.id}"
+        c.charge!
+      end
     end
 
     redirect_to :admin_collaborations
