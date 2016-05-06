@@ -79,12 +79,12 @@ class User < ActiveRecord::Base
   def validates_phone_format
     if self.phone.present?
       _phone = Phonelib.parse self.phone.sub(/^00+/, '+')
-      if _phone.impossible?
+      if _phone.invalid? || _phone.impossible?
         self.errors.add(:phone, "Revisa el formato de tu teléfono")
-      elsif _phone.invalid_for_country?("ES") && _phone.invalid_for_country?(self.country)
-        self.errors.add(:phone, "Debes utilizar un teléfono de España o del país donde vives")
       elsif (_phone.possible_types & [:mobile, :fixed_or_mobile]).none?
         self.errors.add(:phone, "Debes utilizar un teléfono móvil") 
+      else
+        self.phone = "00"+_phone.international(false)
       end
     end
   end
@@ -93,12 +93,14 @@ class User < ActiveRecord::Base
     if self.unconfirmed_phone.present? 
       _phone = Phonelib.parse self.unconfirmed_phone.sub(/^00+/, '+')
 
-      if _phone.impossible?
+      if _phone.invalid? || _phone.impossible?
         self.errors.add(:unconfirmed_phone, "Revisa el formato de tu teléfono")
       elsif _phone.invalid_for_country?("ES") && _phone.invalid_for_country?(self.country)
         self.errors.add(:unconfirmed_phone, "Debes utilizar un teléfono de España o del país donde vives")
       elsif (_phone.possible_types & [:mobile, :fixed_or_mobile]).none?
         self.errors.add(:unconfirmed_phone, "Debes utilizar un teléfono móvil")
+      else
+        self.unconfirmed_phone = "00"+_phone.international(false)
       end
     end
   end
@@ -313,9 +315,9 @@ class User < ActiveRecord::Base
 
   def unconfirmed_phone= value
     _phone = Phonelib.parse(value, self.country)
-    _phone = Phonelib.parse(value, "ES") if (_phone.possible_types & [:mobile, :fixed_or_mobile]).empty? && self.country!="ES"
-    if (_phone.possible_types & [:mobile, :fixed_or_mobile]).any?
-      self[:unconfirmed_phone] = "00"+_phone.country_code+_phone.national(false)
+    _phone = Phonelib.parse(value, "ES") if (_phone.invalid? || (_phone.possible_types & [:mobile, :fixed_or_mobile]).empty?) && self.country!="ES"
+    if _phone.valid? && (_phone.possible_types & [:mobile, :fixed_or_mobile]).any?
+      self[:unconfirmed_phone] = "00"+_phone.international(false)
     else
       self[:unconfirmed_phone] = value
       self.errors.add(:unconfirmed_phone, "Debes utilizar un teléfono móvil de España o del país donde vives")
