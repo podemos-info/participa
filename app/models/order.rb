@@ -13,11 +13,18 @@ class Order < ActiveRecord::Base
   validates :payment_type, :amount, :payable_at, presence: true
 
   STATUS = {"Nueva" => 0, "Sin confirmar" => 1, "OK" => 2, "Alerta" => 3, "Error" => 4, "Devuelta" => 5}
-  PAYMENT_TYPES = {
-    "Suscripción con Tarjeta de Crédito/Débito" => 1, 
-    "Domiciliación en cuenta bancaria (formato CCC)" => 2, 
-    "Domiciliación en cuenta bancaria (formato IBAN)" => 3 
-  }
+  if Rails.application.secrets.features["collaborations_redsys"]
+    PAYMENT_TYPES = {
+      I18n.t('podemos.collaboration.order.cc') => 1, 
+      I18n.t('podemos.collaboration.order.ccc') => 2, 
+      I18n.t('podemos.collaboration.order.iban') => 3 
+    }
+  else
+    PAYMENT_TYPES = {
+      I18n.t('podemos.collaboration.order.ccc') => 2, 
+      I18n.t('podemos.collaboration.order.iban') => 3 
+    }
+  end
 
   PARENT_CLASSES = {
     Collaboration => "C"

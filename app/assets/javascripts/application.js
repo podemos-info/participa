@@ -22,4 +22,7 @@
 //= require Chart
 //= require imagesloaded.pkgd.min
 //= require isotope.pkgd.min
+
+//= require organization
+
 //= require_tree .
