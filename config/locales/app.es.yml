@@ -895,7 +895,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     labels:
       first_name: "Nombre"
       last_name: "Apellidos"
-      document_vatid: "DNI"
+      document_vatid: "Nº de documento"
       email: "Correo electrónico"
       address: "Dirección"
       postal_code: "Código postal"

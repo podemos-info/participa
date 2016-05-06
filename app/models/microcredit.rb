@@ -186,7 +186,7 @@ class Microcredit < ActiveRecord::Base
 
   def change_phase!
     if self.update_attribute(:reset_at, DateTime.now)
-      @phase_status = nil # resets phase status
+      self.clear_cache
       self.loans.where.not(confirmed_at:nil).where(counted_at:nil).each do |loan|
         loan.update_counted_at
       end
@@ -212,5 +212,9 @@ class Microcredit < ActiveRecord::Base
 
   def renewable?
     self.has_finished? && self.renewal_terms.exists?
+  end
+
+  def clear_cache
+    @subgoals = @phase_status = @campaign_status = nil
   end
 end

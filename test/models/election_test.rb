@@ -165,10 +165,12 @@ class ElectionTest < ActiveSupport::TestCase
 
   test "should locations= work" do
     election = FactoryGirl.create(:election)
+    election.election_locations.clear
     election.locations = "280796,0\n280797,0\n280798,0"
     election.save
     assert_equal( "280796,0\n280797,0\n280798,0", election.locations )
 
+    election.election_locations.clear
     election.locations = "280796,0\n280797,1\n280799,0"
     election.save
     assert_equal( "280796,0\n280797,1\n280799,0", election.locations )

@@ -205,11 +205,11 @@ class UserTest < ActiveSupport::TestCase
   test "should validates_unconfirmed_phone_format only accept numbers starting with 6 or 7" do 
     @user.unconfirmed_phone = "0034661234567"
     assert @user.valid?
-    @user.unconfirmed_phone = "0034771234567"
+    @user.unconfirmed_phone = "0034721234567"
     assert @user.valid?
     @user.unconfirmed_phone = "0034881234567"
     assert_not @user.valid?
-    assert @user.errors[:unconfirmed_phone].include?("Debes poner un teléfono móvil válido de España empezando por 6 o 7.")
+    assert @user.errors[:unconfirmed_phone].include?("Debes utilizar un teléfono móvil")
   end
 
   test "should validates_unconfirmed_phone_phone_uniqueness work" do
@@ -237,15 +237,24 @@ class UserTest < ActiveSupport::TestCase
     assert @user.can_change_phone?
   end
 
-  test "should .phone_normalize work" do 
-    assert_equal( "0034661234567", @user.phone_normalize("661234567", "ES") ) 
-    assert_equal( "0034661234567", @user.phone_normalize("0034661234567", "ES") )
-    assert_equal( "0034661234567", @user.phone_normalize("+34661234567", "ES") )
-    assert_equal( "0034661234567", @user.phone_normalize("+34 661 23 45 67", "ES") )
-    assert_equal( "0034661234567", @user.phone_normalize("0034661234567") )
-    assert_equal( "0034661234567", @user.phone_normalize("+34661234567") )
-    assert_equal( "0034661234567", @user.phone_normalize("+34 661 23 45 67") )
-    assert_equal( "0054661234567", @user.phone_normalize("661234567", "AR") )
+  test "should .unconfirmed_phone= work" do
+    @user.unconfirmed_phone = "661234567"
+    assert_equal( "0034661234567", @user.unconfirmed_phone)
+    @user.unconfirmed_phone = "0034661234567"
+    assert_equal( "0034661234567", @user.unconfirmed_phone)
+    @user.unconfirmed_phone = "+34661234567"
+    assert_equal( "0034661234567", @user.unconfirmed_phone)
+    @user.unconfirmed_phone = "+34 661 23 45 67"
+    assert_equal( "0034661234567", @user.unconfirmed_phone)
+    @user.unconfirmed_phone = "0034661234567"
+    assert_equal( "0034661234567", @user.unconfirmed_phone)
+    @user.unconfirmed_phone = "+34661234567"
+    assert_equal( "0034661234567", @user.unconfirmed_phone)
+    @user.unconfirmed_phone = "+34 661 23 45 67"
+    assert_equal( "0034661234567", @user.unconfirmed_phone)
+    @user.country = "AR"
+    @user.unconfirmed_phone = "661234567"
+    assert_equal( "0054661234567", @user.unconfirmed_phone)
   end
 
   test "should .phone_prefix work" do 
@@ -260,11 +269,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "Argentina", @user.phone_country_name
   end
 
-  test "should .phone_no_prefix work" do 
-    @user.update_attribute(:phone, "00346611111222")
-    assert_equal "6611111222", @user.phone_no_prefix
-    @user.update_attribute(:phone, "005446311234")
-    assert_equal "46311234", @user.phone_no_prefix
+  test "should .phone_national work" do 
+    @user.update_attribute(:phone, "0034661111122")
+    assert_equal "661111122", @user.phone_national
+    @user.update_attributes(phone: "005446311234", country:  "AR")
+    assert_equal "46311234", @user.phone_national
   end
 
   test "should .generate_sms_token work" do

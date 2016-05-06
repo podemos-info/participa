@@ -11,6 +11,7 @@ class OrderTest < ActiveSupport::TestCase
   setup do
     @collaboration = FactoryGirl.create(:collaboration, :ccc)
     @order = @collaboration.create_order Date.today, true
+    @host = Rails.application.secrets.host
   end
 
   test "should .unique_month work for Date, Time and DateTime" do
@@ -47,7 +48,7 @@ class OrderTest < ActiveSupport::TestCase
     order1.save
     order2 = @collaboration.create_order Date.today+1.years
     order2.save
-    orders = Order.by_date(DateTime.civil(2014,1,1), DateTime.civil(2017,1,1))
+    orders = Order.by_date(Date.today-1.years, Date.today+2.years)
     assert_equal( orders.count, 2)
   end
 
@@ -181,7 +182,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "should .url_source work" do
-    assert_equal( "http://localhost/colabora", @order.url_source )
+    assert_equal( "http://#{@host}/colabora", @order.url_source )
   end
 
   test "should .mark_as_charging work" do
@@ -275,7 +276,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_merchant_url work" do
     @order.save
-    assert_equal "https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=00000000000#{@order.id}&user_id=#{@collaboration.user.id}", @order.redsys_merchant_url
+    assert_equal "https://#{@host}/orders/callback/redsys?parent_id=1&redsys_order_id=00000000000#{@order.id}&user_id=#{@collaboration.user.id}", @order.redsys_merchant_url
 
     @order.first = false
     @order.save
@@ -355,7 +356,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_params work" do
     @order.save
-    response = {"Ds_Merchant_Currency"=>"978", "Ds_Merchant_MerchantCode"=>"changeme", "Ds_Merchant_MerchantName"=>"Organization", "Ds_Merchant_Terminal"=>"001", "Ds_Merchant_TransactionType"=>"0", "Ds_Merchant_PayMethods"=>"T", "Ds_Merchant_MerchantData"=>1, "Ds_Merchant_MerchantURL"=>"https://localhost/orders/callback/redsys?parent_id=1&redsys_order_id=000000000001&user_id=1", "Ds_Merchant_Order"=>"000000000001", "Ds_Merchant_Amount"=>1000, "Ds_Merchant_MerchantSignature"=>"0EB24BD887357BCAE13B01B2AD976810D84C7F36", "Ds_Merchant_Identifier"=>"REQUIRED", "Ds_Merchant_UrlOK"=>"http://localhost/colabora/OK", "Ds_Merchant_UrlKO"=>"http://localhost/colabora/KO"}
+    response = {"Ds_Merchant_Currency"=>"978", "Ds_Merchant_MerchantCode"=>"changeme", "Ds_Merchant_MerchantName"=>"Organization", "Ds_Merchant_Terminal"=>"001", "Ds_Merchant_TransactionType"=>"0", "Ds_Merchant_PayMethods"=>"T", "Ds_Merchant_MerchantData"=>1, "Ds_Merchant_MerchantURL"=>"https://#{@host}/orders/callback/redsys?parent_id=1&redsys_order_id=000000000001&user_id=1", "Ds_Merchant_Order"=>"000000000001", "Ds_Merchant_Amount"=>1000, "Ds_Merchant_MerchantSignature"=>"854196EA75541F5BFFE53477E9D0D2650ABAF8AB", "Ds_Merchant_Identifier"=>"REQUIRED", "Ds_Merchant_UrlOK"=>"http://#{@host}/colabora/OK", "Ds_Merchant_UrlKO"=>"http://#{@host}/colabora/KO"}
     assert_equal response, @order.redsys_params
   end
 

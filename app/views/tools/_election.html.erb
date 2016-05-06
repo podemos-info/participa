@@ -1,13 +1,11 @@
 <p class="sub-h3">
-<!--
 <% if current_user.can_change_vote_location? and election.multiple_territories?%>
 Accederás a la votación de<% case election.scope
      when 1 %> la comunidad autónoma en la
   <% when 2 %> la provincia en la
   <% when 3 %>l municipio en el 
   <% when 4 %> la isla en la
-  <% end %> que estás inscrito/a. Puedes actualizarlo pero recuerda que solo tu último voto es válido.<% end %>
--->
+  <% end %> que estás inscrito/a. Puedes actualizarlo, pero recuerda que solo tu último voto es válido.<% end %>
 <div class="box-poll">
   <div>
     <p class="poll-q"><%= election.full_title_for current_user %></p>

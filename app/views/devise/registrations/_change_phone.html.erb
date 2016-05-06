@@ -5,7 +5,7 @@
 <section class="content-text">
 
   <% if resource.can_change_phone? %>
-    <p>Te has validado con el teléfono móvil <b><%= resource.phone_no_prefix %></b> de <b><%= resource.phone_country_name %></b> (prefijo internacional <%= resource.phone_prefix %>). </p>
+    <p>Te has validado con el teléfono móvil <b><%= resource.phone_national %></b> de <b><%= resource.phone_country_name %></b> (prefijo internacional <%= resource.phone_prefix %>). </p>
     <div class="buttonbox">
       <%=
           button_to(

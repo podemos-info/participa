@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
   include FlagShihTzu
 
   include Rails.application.routes.url_helpers
-  require 'phone'
-
+  
   has_flags 1 => :banned,
             2 => :superadmin,
             3 => :verified,
@@ -50,7 +49,7 @@ class User < ActiveRecord::Base
   validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   validates :unconfirmed_phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
-  
+
   validate :validates_postal_code
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
@@ -78,16 +77,28 @@ class User < ActiveRecord::Base
   end
 
   def validates_phone_format
-    if self.phone.present? 
-      self.errors.add(:phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.phone) 
+    if self.phone.present?
+      _phone = Phonelib.parse self.phone.sub(/^00+/, '+')
+      if _phone.impossible?
+        self.errors.add(:phone, "Revisa el formato de tu teléfono")
+      elsif _phone.invalid_for_country?("ES") && _phone.invalid_for_country?(self.country)
+        self.errors.add(:phone, "Debes utilizar un teléfono de España o del país donde vives")
+      elsif (_phone.possible_types & [:mobile, :fixed_or_mobile]).none?
+        self.errors.add(:phone, "Debes utilizar un teléfono móvil") 
+      end
     end
   end
 
   def validates_unconfirmed_phone_format
     if self.unconfirmed_phone.present? 
-      self.errors.add(:unconfirmed_phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.unconfirmed_phone) 
-      if self.country.downcase == "es" and not (self.unconfirmed_phone.starts_with?('00346') or self.unconfirmed_phone.starts_with?('00347'))
-        self.errors.add(:unconfirmed_phone, "Debes poner un teléfono móvil válido de España empezando por 6 o 7.") 
+      _phone = Phonelib.parse self.unconfirmed_phone.sub(/^00+/, '+')
+
+      if _phone.impossible?
+        self.errors.add(:unconfirmed_phone, "Revisa el formato de tu teléfono")
+      elsif _phone.invalid_for_country?("ES") && _phone.invalid_for_country?(self.country)
+        self.errors.add(:unconfirmed_phone, "Debes utilizar un teléfono de España o del país donde vives")
+      elsif (_phone.possible_types & [:mobile, :fixed_or_mobile]).none?
+        self.errors.add(:unconfirmed_phone, "Debes utilizar un teléfono móvil")
       end
     end
   end
@@ -300,51 +311,42 @@ class User < ActiveRecord::Base
     end
   end
 
-  def phone_normalize(phone_number, country_iso=nil)
-    Phoner::Country.load
-    cc = country_iso.nil? ? self.country : country_iso
-    country = Phoner::Country.find_by_country_isocode(cc.downcase)
-    phoner = Phoner::Phone.parse(phone_number, :country_code => country.country_code)
-    phoner.nil? ? nil : "00" + phoner.country_code + phoner.area_code + phoner.number
-  end
-
-  def unconfirmed_phone_number
-    Phoner::Country.load
-    country = Phoner::Country.find_by_country_isocode(self.country.downcase)
-    if Phoner::Phone.valid?(self.unconfirmed_phone)
-      phoner = Phoner::Phone.parse(self.unconfirmed_phone, :country_code => country.country_code)
-      phoner.area_code + phoner.number
+  def unconfirmed_phone= value
+    _phone = Phonelib.parse(value, self.country)
+    _phone = Phonelib.parse(value, "ES") if (_phone.possible_types & [:mobile, :fixed_or_mobile]).empty? && self.country!="ES"
+    if (_phone.possible_types & [:mobile, :fixed_or_mobile]).any?
+      self[:unconfirmed_phone] = "00"+_phone.country_code+_phone.national(false)
     else
-      nil
+      self[:unconfirmed_phone] = value
+      self.errors.add(:unconfirmed_phone, "Debes utilizar un teléfono móvil de España o del país donde vives")
     end
   end
 
-  def phone_prefix 
-    if self.country.length < 3 
-      Phoner::Country.load
-      begin
-        Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
-      rescue
-        "34"
-      end
-    else
+  def unconfirmed_phone_national
+    Phonelib.parse(self.unconfirmed_phone.sub(/^00+/, '+')).national(false) if self.unconfirmed_phone
+  end
+
+  def phone_national
+    Phonelib.parse(self.phone.sub(/^00+/, '+')).national(false) if self.phone
+  end
+
+  def phone_prefix
+    begin
+      Phonelib.phone_data[self.country][:country_code]
+    rescue
       "34"
     end
   end
 
   def phone_country_name
-    if Phoner::Phone.valid?(self.phone)
-      Phoner::Country.load
-      country_code = Phoner::Phone.parse(self.phone).country_code
-      Carmen::Country.coded(Phoner::Country.find_by_country_code(country_code).char_3_code).name
-    else
-      Carmen::Country.coded(self.country).name
-    end
-  end
+    _phone = Phonelib.parse(self.phone)
+    _country = Carmen::Country.coded(_phone.country) if _phone.country
 
-  def phone_no_prefix
-    phone = Phoner::Phone.parse(self.phone)
-    phone.area_code + phone.number
+    if _country
+      _country.name
+    else  
+      "País desconocido"    
+    end
   end
 
   def document_type_name

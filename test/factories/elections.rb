@@ -30,7 +30,7 @@ FactoryGirl.define do
 
   trait :town do
     scope 3
-    after(:build) do |election| 
+    after(:build) do |election|
       election.election_locations.clear
       election.election_locations << FactoryGirl.create(:election_location, :town_location, election: election)
     end
