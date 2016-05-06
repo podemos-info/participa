@@ -689,9 +689,11 @@ Barcelona en Comú cumple con todas las medidas de seguridad para la protección
     finished_1: Las votaciones ya han finalizado. Gracias por participar.
     continue: "seguir votando"
   verification:
+    to: a
     show:
       title: "Mapa de Puntos de Verificación"
       explain_html: "Aquí puedes ver todos los puntos y horarios habilitados para que vayas a verificarte. Recuerda que antes que nada necesitas crearte una cuenta de usuario."
+      no_points: "No hay ningun punto de verificación"
     pending0_html: No has finalizado la verificación
     pending1_html: Para acabar el proceso de verificación necesitas aportar documentación de forma presencial.
     pending2_html: <b>Trae un DNI o NIE</b> que tenga la dirección de Barcelona
