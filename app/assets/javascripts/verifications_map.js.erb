@@ -55,10 +55,15 @@ function verification_map_show(district) {
   });
 
   // map type
-  L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+  // should support HTTPS
+  // https://leaflet-extras.github.io/leaflet-providers/preview/
+  // the pretty ones aren't secure - they either don't support https or are private services :( 
+  var map_tile_provider = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var map_tile_attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'; 
+  L.tileLayer(map_tile_provider, {
     maxZoom: 15,
     minZoom: 11,
-    id: 'examples.map-i875mjb7'
+    attribution: map_tile_attribution
   }).addTo(map);
 
   // legend
@@ -72,10 +77,10 @@ function verification_map_show(district) {
   }
   legend.addTo(map);
 
-  // all your markers belong to us
+  // all your markers are belong to us
   $('.js-verification-map-centers li:not(.strike)').each( function(){
     var latlng = $(this).data('location');
-    if ( latlng ) {
+    if ( latlng && latlng != ", " ) {
       var lat = parseFloat( latlng.split(',')[0] );
       var lng = parseFloat( latlng.split(',')[1] );
       var name = $(this).find('b').html();

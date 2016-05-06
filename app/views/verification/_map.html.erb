@@ -1,7 +1,33 @@
-<br>
-<p>
-  No hay puntos de verificación activos actualmente. Te avisaremos cuando iniciemos otra campaña de verificaciones. 
-</p>
-<br>
+<% if centers %>
 
-<div id="js-verification-map" style="width: 100%; height: 400px"></div>
+  <% if user_signed_in? %>
+    <ul class="js-verification-map-centers" data-user-district="<%= current_user.district %>">
+  <% else %>
+    <ul class="js-verification-map-centers">
+  <% end %>
+
+    <% @centers.each do |center| %>
+      <li class="today" data-district="0" data-location="<%= center.latitude %>, <%= center.longitude %>">
+        <h5><%= center.name %></h5>
+        <div>
+          <%= center.address %>
+        </div>
+        <div>
+          <% center.verification_slots.each do |slot| %>
+            <%= l slot.starts_at, format: :short %> <%= t('verification.to') %> <%= l slot.ends_at, format: :time %>.
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+
+    </ul>
+
+  <br>
+
+  <div id="js-verification-map" style="width: 100%; height: 400px"></div>
+
+<% else %>
+  <p>
+    <%= t "verification.show.no_points" %>
+  </p>
+<% end %>

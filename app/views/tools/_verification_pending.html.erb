@@ -36,7 +36,9 @@
   </div>
 </div>
 
-<div class="verif-new-third">
-  <p class="title"> <%= t('verification.pending7_html') %> </p>
-  <%= render partial: "verification/map" %>
+<div class="col-b-4a12">
+  <div class="verif-new-third">
+    <p class="title"> <%= t('verification.pending7_html') %> </p>
+    <%= render partial: "verification/map", locals: {centers: @centers} %>
+  </div>
 </div>
