@@ -37,11 +37,11 @@ class PodemosImportTest < ActiveSupport::TestCase
   end
   
   test "should #convert_country work" do
-    assert_equal PodemosImport.convert_country("Germany"), "DE"
-    assert_equal PodemosImport.convert_country("France"), "FR"
-    assert_equal PodemosImport.convert_country("Ireland"), "IE"
-    assert_equal PodemosImport.convert_country("Brazil"), "BR"
-    assert_equal PodemosImport.convert_country("Norway"), "NO"
+    assert_equal PodemosImport.convert_country("Alemania"), "DE"
+    assert_equal PodemosImport.convert_country("Francia"), "FR"
+    assert_equal PodemosImport.convert_country("Irlanda"), "IE"
+    assert_equal PodemosImport.convert_country("Brasil"), "BR"
+    assert_equal PodemosImport.convert_country("Noruega"), "NO"
     assert_equal PodemosImport.convert_country("España"), "ES"
     assert_equal PodemosImport.convert_country("Bélgica"), "BE"
     assert_equal PodemosImport.convert_country("Invalid"), "Invalid"

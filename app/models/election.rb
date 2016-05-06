@@ -45,8 +45,7 @@ class Election < ActiveRecord::Base
         suffix = " (no hay votación#{suffix})"
       end
     end
-    #"#{self.title}#{suffix}"
-	"#{self.title}"
+    "#{self.title}#{suffix}"
   end
 
   def has_location_for? user

@@ -4,6 +4,7 @@ class CollaborationTest < ActiveSupport::TestCase
 
   setup do
     @collaboration = FactoryGirl.create(:collaboration, :ccc)
+    @host = Rails.application.secrets.host
   end
 
   test "should validations on collaborations work" do
@@ -404,11 +405,11 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .ok_url work" do
-    assert_equal @collaboration.ok_url, "http://localhost/colabora/OK"
+    assert_equal @collaboration.ok_url, "http://#{@host}/colabora/OK"
   end
 
   test "should .ko_url work" do
-    assert_equal @collaboration.ko_url, "http://localhost/colabora/KO"
+    assert_equal @collaboration.ko_url, "http://#{@host}/colabora/KO"
   end
 
   test "should .charge! work" do
@@ -431,7 +432,7 @@ class CollaborationTest < ActiveSupport::TestCase
     order = @collaboration.create_order Date.civil(2015,03,20)
     user = @collaboration.user
     order.save
-      response = ["1503000001", "PEREZ PEPITO", user.document_vatid, user.email, "C/ INVENTADA, 123", "MADRID", "28021", "ES", "ES0690000001210123456789", "90000001210123456789", "ESPBESMMXXX", 10, "RCUR", "http://localhost/colabora", 1, order.created_at.strftime("%d-%m-%Y"), "Colaboración marzo 2015", "10-03-2015", "Mensual", "PEREZ PEPITO"]
+      response = ["1503000001", "PEREZ PEPITO", user.document_vatid, user.email, "C/ INVENTADA, 123", "MADRID", "28021", "ES", "ES0690000001210123456789", "90000001210123456789", "ESPBESMMXXX", 10, "RCUR", "http://#{@host}/colabora", 1, order.created_at.strftime("%d-%m-%Y"), "Colaboración marzo 2015", "10-03-2015", "Mensual", "PEREZ PEPITO"]
     assert_equal( response, @collaboration.get_bank_data(Date.civil(2015,03,20)) )
   end
 

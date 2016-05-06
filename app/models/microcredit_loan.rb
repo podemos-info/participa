@@ -135,6 +135,7 @@ class MicrocreditLoan < ActiveRecord::Base
         self.counted_at = DateTime.now
         self.save
       end
+      self.microcredit.clear_cache
     end
   end
 

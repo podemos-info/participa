@@ -5,6 +5,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
 
   setup do
     @user1 = FactoryGirl.create(:user)
+    @user2 = FactoryGirl.create(:user)
     @loan = FactoryGirl.create(:microcredit_loan)
     @microcredit = FactoryGirl.create(:microcredit)
   end
@@ -12,8 +13,8 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
   def create_loans( microcredit, number, data, update_counted=true )
     (1..number.to_i).each do |n|
       loan = microcredit.loans.create(data)
-
       loan.update_counted_at if update_counted
+      microcredit.clear_cache
     end
   end
 
@@ -31,16 +32,13 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
 
   test "should counted scope work" do
     create_loans(@microcredit, 5, {user: @user1, amount: 1000})
-    @microcredit = Microcredit.find @microcredit.id
-    assert_equal 5, @microcredit.loans.counted.count
+    assert_equal 4, @microcredit.loans.counted.count
 
     create_loans(@microcredit, 5, {user: @user1, amount: 1000, counted_at: DateTime.now})
-    @microcredit = Microcredit.find @microcredit.id
-    assert_equal 10, @microcredit.loans.counted.count
+    assert_equal 9, @microcredit.loans.counted.count
 
-    create_loans(@microcredit, 5, {user: @user1, amount: 100, counted_at: DateTime.now})
-    @microcredit = Microcredit.find @microcredit.id
-    assert_equal 10, @microcredit.loans.counted.count
+    create_loans(@microcredit, 5, {user: @user2, amount: 100, counted_at: DateTime.now})
+    assert_equal 14, @microcredit.loans.counted.count
   end
 
   test "should confirmed scope work" do
@@ -114,8 +112,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
     @microcredit.limits = "100€: 5\r500€: 10"
     @microcredit.save
     create_loans(@microcredit, 5, {user: @user1, amount: 100, counted_at: DateTime.now, confirmed_at: DateTime.now})
-    @microcredit = Microcredit.find @microcredit.id
-    loan = MicrocreditLoan.create(microcredit: @microcredit, user: @user1, amount: 100, counted_at: DateTime.now, confirmed_at: DateTime.now)
+    loan = MicrocreditLoan.create(microcredit: @microcredit, user: @user1, amount: 100)
     assert_not loan.valid?
     error = "Lamentablemente, ya no quedan préstamos por esa cantidad."
     assert_equal error, loan.errors.messages[:amount].first
