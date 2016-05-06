@@ -289,7 +289,7 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pg (0.18.2)
-    phone (1.2.3)
+    phonelib (0.6.0)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     pushmeup (0.3.0)
@@ -481,7 +481,7 @@ DEPENDENCIES
   paperclip
   paranoia!
   pg
-  phone
+  phonelib
   pushmeup
   rack-openid
   rails (~> 4.2.2)
@@ -509,5 +509,8 @@ DEPENDENCIES
   webmock
   wicked_pdf
 
+RUBY VERSION
+   ruby 2.2.2p95
+
 BUNDLED WITH
-   1.10.5
+   1.12.1
