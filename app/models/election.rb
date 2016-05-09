@@ -33,7 +33,21 @@ class Election < ActiveRecord::Base
     SCOPE.select{|v| v[1] == self.scope }[0][0]
   end
 
-  def full_title_for user
+  def user_version _user
+    if self.user_created_at_max.nil?
+      _user
+    else
+      prev_user = _user.version_at(self.user_created_at_max) 
+      if prev_user && prev_user.has_vote_town?
+        prev_user
+      else
+        _user
+      end
+    end
+  end
+
+  def full_title_for _user
+    user = self.user_version(_user)
     if multiple_territories?
       suffix =  case self.scope
                   when 1 then " en #{user.vote_autonomy_name}"
@@ -48,11 +62,14 @@ class Election < ActiveRecord::Base
     "#{self.title}#{suffix}"
   end
 
-  def has_location_for? user
+  def has_location_for? _user
+    user = self.user_version(_user)
     not ((self.scope==5 and user.country=="ES") or (self.scope==4 and not user.vote_in_spanish_island?))
   end
 
-  def has_valid_location_for? user
+  def has_valid_location_for? _user
+    return false if !has_valid_user_created_at?(_user)
+    user = self.user_version(_user)
     case self.scope
       when 0 then self.election_locations.any?
       when 1 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_autonomy_numeric}
@@ -106,7 +123,8 @@ class Election < ActiveRecord::Base
     [1,2,3,4].member? self.scope
   end
 
-  def scoped_agora_election_id user
+  def scoped_agora_election_id _user
+    user = self.user_version(_user)
     user_location = case self.scope
       when 1
         user.vote_autonomy_numeric

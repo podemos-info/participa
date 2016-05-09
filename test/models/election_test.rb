@@ -63,6 +63,33 @@ class ElectionTest < ActiveSupport::TestCase
     assert_not election.has_valid_location_for? user
   end
 
+  test "should .user_created_at_max work" do
+    # crea usuarios y eleccion
+    with_versioning do
+      prev_user = FactoryGirl.create(:user, vote_town: "m_28_079_6")
+      sleep 1
+      election = FactoryGirl.create(:election, :town)
+      election.user_created_at_max = DateTime.now
+      sleep 1
+      post_user = FactoryGirl.create(:user, vote_town: "m_28_079_6")
+
+      # no permite participar a usuarios creados despues de la fecha limite
+      assert_not election.has_valid_user_created_at? post_user
+      assert_not election.has_valid_location_for? post_user
+      assert election.has_valid_user_created_at? prev_user
+      assert election.has_valid_location_for? prev_user
+
+      # permite cambiar ubicación a usuario pero sigue votando en el mismo sitio
+      prev_user.vote_town = prev_user.town = "m_01_021_0"
+      prev_user.save
+      assert election.has_valid_location_for? prev_user
+
+      # quitando fecha limite el usuario deja de poder participar en la elección
+      election.user_created_at_max = nil
+      assert_not election.has_valid_location_for?(prev_user)
+    end
+  end
+
   test "should .has_valid_location_for? work other scopes" do
     # estatal
     election = FactoryGirl.create(:election_location).election
