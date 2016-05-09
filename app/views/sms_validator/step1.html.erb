@@ -13,7 +13,7 @@
 
             <p><%= t('podemos.valid.phone.p2') %></p>
 
-            <p>Debes ingresar un teléfono móvil válido para el país en el que te encuentras, sin prefijo internacional, sólo con números (sin espacios ni guiones). Según el formulario que has rellenado te encuentras en <b><%= current_user.country_name %></b> (prefijo internacional +<%= current_user.phone_prefix %>). Si esto no es correcto, puedes cambiar tu ubicación en tu <a href="<%=edit_user_registration_path%>">página del perfil</a>.</p>
+            <p>Debes ingresar un teléfono móvil válido para el país en el que te encuentras, sin prefijo internacional, sólo con números (sin espacios ni guiones). Según el formulario que has rellenado te encuentras en <b><%= current_user.country_name %></b> (prefijo internacional +<%= current_user.country_phone_prefix %>). Si esto no es correcto, puedes cambiar tu ubicación en tu <a href="<%=edit_user_registration_path%>">página del perfil</a>.</p>
 
             <%= errors_in_form current_user %>
 
@@ -21,7 +21,7 @@
               <% if current_user.errors.include?(:unconfirmed_phone) %>
                   <%= field_notice_box %>
               <% end %>
-              <%= f.input :unconfirmed_phone, as: :number, prepend: "+#{current_user.phone_prefix}", input_html: {autofocus: true, required: true, value: current_user.unconfirmed_phone_national } %>
+              <%= f.input :unconfirmed_phone, as: :number, prepend: "+#{current_user.country_phone_prefix}", input_html: {autofocus: true, required: true, value: current_user.unconfirmed_phone_national } %>
             </div>
 
             <%= f.actions do %>
