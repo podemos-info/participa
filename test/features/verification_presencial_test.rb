@@ -5,6 +5,7 @@ feature "VerificationPresencial" do
   # FIXME: should initialize on bec
   # Rails.application.secrets.features["verification_presencial"] = true
   # Rails.application.secrets.organization["folder"] = "bec"
+  #
 
   scenario "user should verificate to access tools", js: true do
 
@@ -64,7 +65,7 @@ feature "VerificationPresencial" do
     # should see the OK verification message
     login_as(user2)
     visit root_path
-    page.must_have_content 'El lugar oficial de encuentro y debate de Podemos'
+    page.must_have_content I18n.t('voting.election_none')
     logout(user2)
 
   end
