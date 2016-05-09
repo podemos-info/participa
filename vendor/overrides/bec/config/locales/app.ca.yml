@@ -658,6 +658,7 @@ Amb tres passos molt senzills:
     finished_1: Les votacions ja s'han tancat.
     continue: "seguir votant"
   verification:
+    to: a
     show:
       title: "Mapa de punts de verificació"
       explain_html: "Aquí pots veure tots els punts i horaris habilitats per a que puguis anar a verificar-te"
