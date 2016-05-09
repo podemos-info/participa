@@ -4,7 +4,8 @@ class Election < ActiveRecord::Base
   SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
   
   has_flags 1 => :requires_sms_check,
-            2 => :show_on_index
+            2 => :show_on_index,
+            3 => :ignore_multiple_territories
 
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
@@ -120,7 +121,7 @@ class Election < ActiveRecord::Base
   end
 
   def multiple_territories?
-    [1,2,3,4].member? self.scope
+    !self.ignore_multiple_territories && self.scope.in?([1,2,3,4])
   end
 
   def scoped_agora_election_id _user

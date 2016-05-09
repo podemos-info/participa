@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_sms_check, :show_on_index
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_sms_check, :show_on_index, :ignore_multiple_territories
 
   index do
     selectable_column
@@ -27,6 +27,9 @@ ActiveAdmin.register Election do
       row :show_on_index do
         status_tag("SHOW ON INDEX", :ok)
       end if election.show_on_index
+      row :show_on_index do
+        status_tag("IGNORE MULTIPLE TERRITORIES", :ok)
+      end if election.ignore_multiple_territories
       row :title
       row :info_url
       row :info_text
@@ -89,6 +92,7 @@ ActiveAdmin.register Election do
       f.input :user_created_at_max
       f.input :requires_sms_check, as: :boolean
       f.input :show_on_index, as: :boolean
+      f.input :ignore_multiple_territories, as: :boolean
     end
     f.actions
   end
