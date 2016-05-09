@@ -331,11 +331,16 @@ class User < ActiveRecord::Base
   end
 
   def phone_prefix
-    begin
-      Phonelib.phone_data[self.country][:country_code]
-    rescue
-      "34"
+    ret = begin
+            Phonelib.phone_data[self.country][:country_code]
+          rescue
+            "34"
+          end
+    if self.phone.present?
+      _phone = Phonelib.parse(self.phone.sub(/^00+/, '+'))
+      ret = _phone.country_code.to_s if _phone && _phone.country_code
     end
+    ret
   end
 
   def phone_country_name
