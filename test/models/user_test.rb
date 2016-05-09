@@ -257,9 +257,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal( "00541145512345", @user.unconfirmed_phone)
   end
 
-  test "should .phone_prefix work" do 
+  test "should .phone_prefix and .country_phone_prefix work" do 
+    assert_equal "34", @user.country_phone_prefix
     assert_equal "34", @user.phone_prefix
     @user.update_attribute(:country, "AR")
+    assert_equal "54", @user.country_phone_prefix
+    assert_equal "34", @user.phone_prefix
+    @user.update_attribute(:phone, "00541145512345")
+    assert_equal "54", @user.country_phone_prefix
     assert_equal "54", @user.phone_prefix
   end
 
