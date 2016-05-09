@@ -8,10 +8,11 @@ class ElectionLocation < ActiveRecord::Base
 
   LAYOUTS = { "simple" => "Listado de respuestas simple", 
               "accordion" => "Listado de respuestas agrupadas por categoría",
-              "pcandidates-election" => "Listado respuestas agrupadas por categoría y pregunta", 
+              "pcandidates-election" => "Listado respuestas agrupadas por categoría y pregunta",
+              "simultaneous-questions" => "Listado de preguntas con 2 respuestas",
               "2questions-conditional" => "Pregunta con 2 respuestas, si se elige la segunda puede aparecer otra con hasta 4 respuestas"
             }
-  ELECTION_LAYOUTS = [ "pcandidates-election", "2questions-conditional" ]
+  ELECTION_LAYOUTS = [ "pcandidates-election", "2questions-conditional", "simultaneous-questions" ]
   
   def self.themes
     @@themes ||= Rails.application.secrets.agora["themes"]
