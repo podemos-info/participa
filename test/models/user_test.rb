@@ -191,13 +191,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should validates_phone_format work" do
-    @user.phone = "12345"
+    @user.phone = "11111"
     assert_not @user.valid?
     assert @user.errors[:phone].include?("Revisa el formato de tu teléfono")
   end
 
   test "should validates_unconfirmed_phone_format work" do 
-    @user.unconfirmed_phone = "12345"
+    @user.unconfirmed_phone = "11111"
     assert_not @user.valid?
     assert @user.errors[:unconfirmed_phone].include?("Revisa el formato de tu teléfono")
   end
@@ -253,8 +253,8 @@ class UserTest < ActiveSupport::TestCase
     @user.unconfirmed_phone = "+34 661 23 45 67"
     assert_equal( "0034661234567", @user.unconfirmed_phone)
     @user.country = "AR"
-    @user.unconfirmed_phone = "661234567"
-    assert_equal( "0054661234567", @user.unconfirmed_phone)
+    @user.unconfirmed_phone = "1145512345"
+    assert_equal( "00541145512345", @user.unconfirmed_phone)
   end
 
   test "should .phone_prefix work" do 

@@ -42,8 +42,6 @@ class User < ActiveRecord::Base
   validates :born_at, date: true, allow_blank: true # gem date_validator
   validates :born_at, inclusion: { in: Date.civil(1900, 1, 1)..Date.today-18.years,
     message: "debes ser mayor de 18 años" }, allow_blank: true
-  validates :phone, numericality: true, allow_blank: true
-  validates :unconfirmed_phone, numericality: true, allow_blank: true
 
   validates :email, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
@@ -81,7 +79,7 @@ class User < ActiveRecord::Base
       _phone = Phonelib.parse self.phone.sub(/^00+/, '+')
       if _phone.invalid? || _phone.impossible?
         self.errors.add(:phone, "Revisa el formato de tu teléfono")
-      elsif (_phone.possible_types & [:mobile, :fixed_or_mobile]).none?
+      elsif (_phone.possible_types & [:fixed, :mobile, :fixed_or_mobile]).none?
         self.errors.add(:phone, "Debes utilizar un teléfono móvil") 
       else
         self.phone = "00"+_phone.international(false)
