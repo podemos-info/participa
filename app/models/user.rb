@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
       _phone = Phonelib.parse self.phone.sub(/^00+/, '+')
       if _phone.invalid? || _phone.impossible?
         self.errors.add(:phone, "Revisa el formato de tu teléfono")
-      elsif (_phone.possible_types & [:fixed, :mobile, :fixed_or_mobile]).none?
+      elsif (_phone.possible_types & [:fixed_line, :mobile, :fixed_or_mobile]).none?
         self.errors.add(:phone, "Debes utilizar un teléfono móvil") 
       else
         self.phone = "00"+_phone.international(false)
