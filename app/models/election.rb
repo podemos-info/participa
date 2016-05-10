@@ -91,13 +91,17 @@ class Election < ActiveRecord::Base
     else
       base = User.with_deleted.not_banned.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where.not(sms_confirmed_at:nil).where("created_at < ?", self.user_created_at_max)
     end
-    case self.scope
-      when 0 then base.count
-      when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" }}).result.count
-      when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" }}).result.count
-      when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
-      when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
-      when 5 then base.where.not(country:"ES").count
+    if self.ignore_multiple_territories
+      base.count
+    else
+      case self.scope
+        when 0 then base.count
+        when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" }}).result.count
+        when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" }}).result.count
+        when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
+        when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
+        when 5 then base.where.not(country:"ES").count
+      end
     end
   end
 
@@ -110,13 +114,18 @@ class Election < ActiveRecord::Base
       base_date = self.user_created_at_max
     end
     base = base.where("current_sign_in_at > ?", base_date - eval(Rails.application.secrets.users["active_census_range"]) )
-    case self.scope
-      when 0 then base.count
-      when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" }}).result.count
-      when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" }}).result.count
-      when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
-      when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
-      when 5 then base.where.not(country:"ES").count
+
+    if self.ignore_multiple_territories
+      base.count
+    else
+      case self.scope
+        when 0 then base.count
+        when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" }}).result.count
+        when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" }}).result.count
+        when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
+        when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
+        when 5 then base.where.not(country:"ES").count
+      end
     end
   end
 
