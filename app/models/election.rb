@@ -96,10 +96,10 @@ class Election < ActiveRecord::Base
     else
       case self.scope
         when 0 then base.count
-        when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" }}).result.count
-        when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" }}).result.count
+        when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" } .join(",")}).result.count
+        when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" } .join(",")}).result.count
         when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
-        when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
+        when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
         when 5 then base.where.not(country:"ES").count
       end
     end
@@ -120,10 +120,10 @@ class Election < ActiveRecord::Base
     else
       case self.scope
         when 0 then base.count
-        when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" }}).result.count
-        when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" }}).result.count
+        when 1 then base.ransack( {vote_autonomy_in: self.election_locations.map {|l| "c_#{l.location}" } .join(",")}).result.count
+        when 2 then base.ransack( {vote_province_in: self.election_locations.map {|l| "p_#{l.location}" } .join(",")}).result.count
         when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
-        when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" }}).result.count
+        when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
         when 5 then base.where.not(country:"ES").count
       end
     end

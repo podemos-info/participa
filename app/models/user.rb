@@ -168,20 +168,23 @@ class User < ActiveRecord::Base
   scope :has_circle, -> { where("circle IS NOT NULL") }
 
   ransacker :vote_province, formatter: proc { |value|
-    Carmen::Country.coded("ES").subregions[(value[2..3].to_i-1)].subregions.map {|r| r.code }
+    values = value.split(",")
+    values.map {|val| Carmen::Country.coded("ES").subregions[(val[2..3].to_i-1)].subregions.map {|r| r.code } } .flatten.compact
   } do |parent|
     parent.table[:vote_town]
   end
 
   ransacker :vote_autonomy, formatter: proc { |value|
+    values = value.split(",")
     spain = Carmen::Country.coded("ES")
-    Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..3].to_i-1].subregions.map {|r| r.code } if v[0]==value } .compact.flatten
+    Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..3].to_i-1].subregions.map {|r| r.code } if v[0].in?(values) } .compact.flatten
   } do |parent|
     parent.table[:vote_town]
   end
 
   ransacker :vote_island, formatter: proc { |value|
-    Podemos::GeoExtra::ISLANDS.map {|k,v| k if v[0]==value} .compact
+    values = value.split(",")
+    Podemos::GeoExtra::ISLANDS.map {|k,v| k if v[0].in?(values)} .compact
   } do |parent|
     parent.table[:vote_town]
   end
