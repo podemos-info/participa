@@ -27,7 +27,7 @@ ActiveAdmin.register Election do
       row :show_on_index do
         status_tag("SHOW ON INDEX", :ok)
       end if election.show_on_index
-      row :show_on_index do
+      row :ignore_multiple_territories do
         status_tag("IGNORE MULTIPLE TERRITORIES", :ok)
       end if election.ignore_multiple_territories
       row :title
