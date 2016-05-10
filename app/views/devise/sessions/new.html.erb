@@ -48,7 +48,7 @@
 
         <% if @upcoming_election %>
           <% cache("current_active_census", expires_in: 5.minutes) do %>
-            <p>Vota en la <%=@upcoming_election.title%> entre el <%=l(@upcoming_election.starts_at, format: if @upcoming_election.starts_at.month==@upcoming_election.ends_at.month then "%-d" else "%-d de %B" end )%> y el <%=l(@upcoming_election.ends_at, format: "%-d de %B")%>.</p>
+            <p>Vota en la votación "<%=@upcoming_election.title%>" entre el <%=l(@upcoming_election.starts_at, format: if @upcoming_election.starts_at.month==@upcoming_election.ends_at.month then "%-d" else "%-d de %B" end )%> y el <%=l(@upcoming_election.ends_at, format: "%-d de %B")%>.</p>
             <% if @upcoming_election.user_created_at_max %>
               <p>El censo válido para la votación está cerrado desde el día <%=l(@upcoming_election.user_created_at_max, format: "%-d de %B de %Y a las %H:%M horas")%>.</p>
             <% end %>
