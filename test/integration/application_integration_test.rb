@@ -44,15 +44,17 @@ class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should set_phone if non sms confirmed user, but allow access to profile" do
-    @user.update_attribute(:sms_confirmed_at, nil)
-    login @user
-    assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
-    get '/es'
-    assert_response :redirect
-    assert_redirected_to sms_validator_step1_path, "User without confirmed phone should be redirected to verify it"
-    get '/es/users/edit'
-    assert_response :success, "User without confirmed phone should be allowed to access the profile page"
+  if Rails.application.secrets.features["verification_sms"]
+    test "should set_phone if non sms confirmed user, but allow access to profile" do
+      @user.update_attribute(:sms_confirmed_at, nil)
+      login @user
+      assert_equal("Por seguridad, debes confirmar tu teléfono.", flash[:alert])
+      get '/es'
+      assert_response :redirect
+      assert_redirected_to sms_validator_step1_path, "User without confirmed phone should be redirected to verify it"
+      get '/es/users/edit'
+      assert_response :success, "User without confirmed phone should be allowed to access the profile page"
+    end
   end
 
   test "should set_new_password, set_phone and check_born_at, but allow access to profile" do 

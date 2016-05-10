@@ -216,13 +216,15 @@ class UserTest < ActiveSupport::TestCase
     assert @user.errors[:unconfirmed_phone].include?("Debes poner un teléfono móvil válido de España empezando por 6 o 7.")
   end
 
-  test "should validates_unconfirmed_phone_phone_uniqueness work" do
-    phone = "0034612345678"
-    @user.update_attribute(:phone, phone)
-    user = FactoryGirl.create(:user)
-    user.unconfirmed_phone = phone
-    assert_not user.valid?
-    assert user.errors[:phone].include?("Ya hay alguien con ese número de teléfono")
+  if Rails.application.secrets.features["verification_sms"]
+    test "should validates_unconfirmed_phone_phone_uniqueness work" do
+      phone = "0034612345678"
+      @user.update_attribute(:phone, phone)
+      user = FactoryGirl.create(:user)
+      user.unconfirmed_phone = phone
+      assert_not user.valid?
+      assert user.errors[:phone].include?("Ya hay alguien con ese número de teléfono")
+    end
   end
 
   #test "should .is_valid_phone? work" do
