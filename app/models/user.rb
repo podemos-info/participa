@@ -10,8 +10,9 @@ class User < ActiveRecord::Base
             2 => :superadmin,
             3 => :verified,
             4 => :finances_admin,
-            5 => :impulsa_author,
-            6 => :impulsa_admin
+            5 => :verifications_admin,
+            6 => :impulsa_author,
+            7 => :impulsa_admin
 
   # Include default devise modules. Others available are:
   # :omniauthable
@@ -32,8 +33,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
-  validates :email, email: true
-  validates :email, confirmation: true, on: :create
+  validates :email, confirmation: true, on: :create, :email => true
   validates :email_confirmation, presence: true, on: :create
   validates :terms_of_service, acceptance: true
   validates :over_18, acceptance: true
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
   validates :unconfirmed_phone, uniqueness: {scope: :deleted_at}, allow_blank: true, allow_nil: true
-  
+
   validate :validates_postal_code
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
@@ -70,24 +70,24 @@ class User < ActiveRecord::Base
   end
 
   def validates_unconfirmed_phone_uniqueness
-    if self.unconfirmed_phone.present? 
-      if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
+    if self.unconfirmed_phone.present?
+      if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists?
         self.errors.add(:phone, "Ya hay alguien con ese número de teléfono")
       end
     end
   end
 
   def validates_phone_format
-    if self.phone.present? 
-      self.errors.add(:phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.phone) 
+    if self.phone.present?
+      self.errors.add(:phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.phone)
     end
   end
 
   def validates_unconfirmed_phone_format
-    if self.unconfirmed_phone.present? 
-      self.errors.add(:unconfirmed_phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.unconfirmed_phone) 
+    if self.unconfirmed_phone.present?
+      self.errors.add(:unconfirmed_phone, "Revisa el formato de tu teléfono") unless Phoner::Phone.valid?(self.unconfirmed_phone)
       if self.country.downcase == "es" and not (self.unconfirmed_phone.starts_with?('00346') or self.unconfirmed_phone.starts_with?('00347'))
-        self.errors.add(:unconfirmed_phone, "Debes poner un teléfono móvil válido de España empezando por 6 o 7.") 
+        self.errors.add(:unconfirmed_phone, "Debes poner un teléfono móvil válido de España empezando por 6 o 7.")
       end
     end
   end
@@ -116,12 +116,12 @@ class User < ActiveRecord::Base
     # User don't have a legacy password, verify if profile is valid before request to change it
     if self.has_legacy_password?
       issue ||= check_issue self.invalid?, :edit_user_registration, nil, "registrations"
-      
+
       issue ||= check_issue true, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
     end
 
-    # User has confirmed SMS code
     if Rails.application.secrets.features["verification_sms"]
+      # User has confirmed SMS code
       issue ||= check_issue self.sms_confirmed_at.nil?, :sms_validator_step1, { alert: "confirm_sms" }, "sms_validator"
     end
 
@@ -144,6 +144,7 @@ class User < ActiveRecord::Base
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
   scope :created, -> { where(deleted_at: nil)  }
   scope :deleted, -> { where.not(deleted_at: nil) }
+  scope :admins, -> { where(admin: true) }
   scope :unconfirmed_mail, -> { where(confirmed_at: nil)  }
   scope :unconfirmed_phone, -> { where(sms_confirmed_at: nil) }
   scope :confirmed_mail, -> { where.not(confirmed_at: nil) }
@@ -151,12 +152,17 @@ class User < ActiveRecord::Base
   scope :legacy_password, -> { where(has_legacy_password: true) }
   scope :confirmed, -> { where.not(confirmed_at: nil).where.not(sms_confirmed_at: nil) }
   scope :signed_in, -> { where.not(sign_in_count: nil) }
-  scope :has_collaboration, -> { joins(:collaboration).where("collaborations.user_id IS NOT NULL") }
-  scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) } 
-  scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
-  scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
+
+  scope :verified_presencial, -> { where.not(verified_by: nil) }
+  scope :unverified_presencial, -> { where(verified_by: nil).where(sms_confirmed_at: nil)}
+  scope :voting_right, -> { where("verified_by_id IS NOT NULL OR sms_confirmed_at IS NOT NULL") }
+
+  scope :has_collaboration, -> { joins(:collaboration).where("collaborations.user_id IS NOT NULL") }
+  scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) }
+  scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
+  scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
 
   ransacker :vote_province, formatter: proc { |value|
     Carmen::Country.coded("ES").subregions[(value[2..3].to_i-1)].subregions.map {|r| r.code }
@@ -179,7 +185,7 @@ class User < ActiveRecord::Base
 
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
-  # Based on 
+  # Based on
   # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
   # Check if login is email or document_vatid to use the DB indexes
   #
@@ -196,7 +202,7 @@ class User < ActiveRecord::Base
   def get_or_create_vote election_id
     v = Vote.new({election_id: election_id, user_id: self.id})
     if Vote.find_by_voter_id( v.generate_message )
-      return v 
+      return v
     else
       v.save
       return v
@@ -205,7 +211,7 @@ class User < ActiveRecord::Base
 
   def previous_user(force_refresh=false)
     remove_instance_variable :@previous_user if force_refresh and @previous_user
-    @previous_user ||= User.with_deleted.where("lower(email) = ?", self.email.downcase).where("deleted_at > ?", 3.months.ago).last || 
+    @previous_user ||= User.with_deleted.where("lower(email) = ?", self.email.downcase).where("deleted_at > ?", 3.months.ago).last ||
                       User.with_deleted.where("lower(document_vatid) = ?", self.document_vatid.downcase).where("deleted_at > ?", 3.months.ago).last
                       User.with_deleted.where("phone = ?", self.phone).where("deleted_at > ?", 3.months.ago).last
     @previous_user
@@ -263,7 +269,7 @@ class User < ActiveRecord::Base
 
   def can_change_vote_location?
     # use database version if vote_town has changed
-    !self.has_verified_vote_town? or !self.persisted? or 
+    !self.has_verified_vote_town? or !self.persisted? or
       (Rails.application.secrets.users["allows_location_change"] and !User.blocked_provinces.member?(vote_province_persisted))
   end
 
@@ -284,7 +290,7 @@ class User < ActiveRecord::Base
   def check_sms_token(token)
     if token == self.sms_confirmation_token
       self.update_attribute(:sms_confirmed_at, DateTime.now)
-      if self.unconfirmed_phone? 
+      if self.unconfirmed_phone?
         self.update_attribute(:phone, self.unconfirmed_phone)
         self.update_attribute(:unconfirmed_phone, nil)
 
@@ -297,7 +303,7 @@ class User < ActiveRecord::Base
         end
       end
       true
-    else 
+    else
       false
     end
   end
@@ -321,8 +327,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def phone_prefix 
-    if self.country.length < 3 
+  def phone_prefix
+    if self.country.length < 3
       Phoner::Country.load
       begin
         Phoner::Country.find_by_country_isocode(self.country.downcase).country_code
@@ -375,7 +381,7 @@ class User < ActiveRecord::Base
 
   def province_code
     if self.in_spain? and _province
-      "p_%02d" % + _province.index 
+      "p_%02d" % + _province.index
     else
       ""
     end
@@ -475,7 +481,7 @@ class User < ActiveRecord::Base
       prov.code
     else
       ""
-    end  
+    end
   end
 
   def vote_province
@@ -499,7 +505,7 @@ class User < ActiveRecord::Base
 
   def vote_province_code
     if _vote_province
-      "p_%02d" % + _vote_province.index 
+      "p_%02d" % + _vote_province.index
     else
       ""
     end
@@ -537,7 +543,7 @@ class User < ActiveRecord::Base
       "-"
     end
   end
-  
+
   def vote_province_numeric
     if _vote_province
       "%02d" % + _vote_province.index
@@ -545,7 +551,7 @@ class User < ActiveRecord::Base
       ""
     end
   end
-  
+
   def vote_town_numeric
     if _vote_town
       _vote_town.code.split("_")[1,3].join
@@ -567,7 +573,7 @@ class User < ActiveRecord::Base
     return "province" if not _country.subregions.empty? and not _country.subregions.coded(self.province)
     return "town" if self.in_spain? and not _town
   end
-  
+
   def vote_town_notice()
     self.vote_town == "NOTICE"
   end
@@ -679,7 +685,7 @@ class User < ActiveRecord::Base
     @vote_town_cache = begin
       town = nil
       if self.has_vote_town?
-        town = _vote_province.subregions.coded(self.vote_town) 
+        town = _vote_province.subregions.coded(self.vote_town)
       elsif self.country=="ES"
         town = _town
       else
@@ -724,4 +730,20 @@ class User < ActiveRecord::Base
   def sms_check_token
     Digest::SHA1.digest("#{sms_check_at}#{id}#{Rails.application.secrets.users['sms_secret_key'] }")[0..3].codepoints.map { |c| "%02X" % c }.join if sms_check_at
   end
+
+  def is_verified?
+    if Rails.application.secrets.features["verification_presencial"]
+      self.verified_by_id?
+    else
+      self.verified?
+    end
+  end
+
+  def verify! user
+    self.verified_at = DateTime.now
+    self.verified_by = user
+    self.save
+    VerificationMailer.verified(self).deliver
+  end
+
 end

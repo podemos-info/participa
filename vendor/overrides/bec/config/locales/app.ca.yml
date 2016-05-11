@@ -658,6 +658,12 @@ Amb tres passos molt senzills:
     finished_1: Les votacions ja s'han tancat.
     continue: "seguir votant"
   verification:
+    to: a
+    show:
+      title: "Mapa de punts de verificació"
+      explain_html: "Aquí pots veure tots els punts i horaris habilitats per a que puguis anar a verificar-te"
+      no_points: "No hi ha cap punt actiu actualment"
+      link_title: "inscriure't"
     user_verified: Usuari verificat
     user_unverified: No t'has verificat
     pending0_html: No has acabat la verificació

@@ -19,9 +19,17 @@ ActiveAdmin.register User do
   scope :participation_team
   scope :has_circle
   scope :banned
-  scope :verified
+  scope :admins
+  if Rails.application.secrets.features["verification_presencial"]
+    scope :verifications_admin
+    scope :verified_presencial
+    scope :unverified_presencial
+    scope :voting_right
+  else
+    scope :verified
+  end
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district
+  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :phone, :unconfirmed_phone
 
   index do
     selectable_column
@@ -52,9 +60,17 @@ ActiveAdmin.register User do
     attributes_table do
       row :id
       row :status do
-        status_tag("Verificado", :ok) if user.verified?
+        if Rails.application.secrets.features["verification_presencial"]
+          status_tag("Equipo de Verificación", :ok) if user.verifications_admin?
+        end
+        status_tag("Verificado", :ok) if user.is_verified?
         status_tag("Baneado", :error) if user.banned?
         user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
+        if user.verified_by_id?
+          status_tag("El usuario ha sido verificado de forma presencial", :ok)
+        else
+          status_tag("El usuario NO ha sido verificado de forma presencial", :error)
+        end
         if user.confirmed_at?
           status_tag("El usuario ha confirmado por email", :ok)
         else
@@ -164,6 +180,10 @@ ActiveAdmin.register User do
       row :remember_created_at
       row :deleted_at
       row :participation_team_at
+      if Rails.application.secrets.features["verification_presencial"]
+        row :verified_by
+        row :verified_at
+      end
     end
 
     panel "Votos" do
@@ -226,6 +246,10 @@ ActiveAdmin.register User do
   filter :wants_participation
   filter :participation_team_id, as: :select, collection: ParticipationTeam.all
   filter :votes_election_id, as: :select, collection: Election.all
+  filter :verified_at
+  if defined? User.verifications_admin
+    filter :verified_by_id, as: :select, collection: User.verifications_admin.all
+  end
 
   form partial: "form"
 
@@ -234,6 +258,7 @@ ActiveAdmin.register User do
     column("Nombre") { |u| u.full_name }
     column :email
     column :document_vatid
+    column :district_name
     column :country_name
     column("vote_autonomy") { |u| u.vote_autonomy_name }
     column :province_name
@@ -250,6 +275,26 @@ ActiveAdmin.register User do
     column :last_sign_in_ip
     column :circle
     column :deleted_at
+  end
+
+  action_item :only => :show do
+    unless user.is_verified?
+      msg = "¿Estas segura de querer verificar a este usuario?"
+      if Rails.application.secrets.features["verification_presencial"]
+        msg += " Recuerda revisar su documento y domicilio."
+      end
+      link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: msg })
+    end
+  end
+
+  if Rails.application.secrets.features["verification_presencial"]
+    action_item :only => :show do
+      if user.verifications_admin?
+        link_to('Quitar de Equipo de Verificación', verification_unteam_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer que este usuario ya no verifique a otros?" })
+      else
+        link_to('Agregar a Equipo de Verificación', verification_team_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer que este usuario verifique a otros? Recuerda que debe ser una persona de confianza y que debes haber comprobado que haya firmado el documento legal." })
+      end
+    end
   end
 
   action_item(:restore, only: :show) do
@@ -285,11 +330,36 @@ ActiveAdmin.register User do
 
   member_action :verify, :method => [:post] do
     u = User.find( params[:id] )
-    u.verified = true
-    u.banned = false
-    u.save
+    if Rails.application.secrets.features["verification_presencial"]
+      # use verified_at and verified_by fields
+      u.verify! current_user
+    else
+      # use flags
+      u.verified = true
+      u.banned = false
+      u.save
+    end
     flash[:notice] = "El usuario ha sido modificado"
     redirect_to action: :show
+  end
+
+  if Rails.application.secrets.features["verification_presencial"]
+    member_action :verification_team, :method => [:post] do
+      u = User.find( params[:id] )
+      u.verify! current_user
+      u.verifications_admin = true
+      u.save
+      flash[:notice] = "El usuario ha sido modificado"
+      redirect_to action: :show
+    end
+
+    member_action :verification_unteam, :method => [:post] do
+      u = User.find( params[:id] )
+      u.verifications_admin = false
+      u.save
+      flash[:notice] = "El usuario ha sido modificado"
+      redirect_to action: :show
+    end
   end
 
   action_item(:impulsa_author, only: :show) do
@@ -330,6 +400,17 @@ ActiveAdmin.register User do
       end
     else
       "No hay colaboraciones asociadas a este usuario."
+    end
+  end
+
+  sidebar "Usuario verificados", only: :show do
+    user = User.find( params[:id] )
+    table_for user.verificated_users.each do
+      column "Usuarios verificados: #{user.verificated_users.count}" do |u|
+        span link_to(u.full_name, admin_user_path(u))
+        br
+        span u.verified_at
+      end
     end
   end
 
@@ -462,9 +543,9 @@ ActiveAdmin.register User do
     Report.create do |r|
       r.title = params[:title]
       r.query = params[:query]
-      r.version_at = params[:version_at]
-      r.main_group = ReportGroup.find(params[:main_group].to_i) if params[:main_group].to_i>0
-      r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_a
+      #r.version_at = params[:version_at]
+      r.main_group = ReportGroup.find(params[:main_group].to_i).to_yaml if params[:main_group].to_i>0
+      r.groups = ReportGroup.where(id: params[:groups].map {|g| g.to_i} ).to_yaml
     end
     flash[:notice] = "El informe ha sido generado"
     redirect_to action: :index

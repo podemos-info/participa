@@ -154,8 +154,10 @@ class CollaborationTest < ActiveSupport::TestCase
   end
 
   test "should .payment_type_name work" do
-    @collaboration.update_attribute(:payment_type, 1)
-    assert_equal( "Suscripción con Tarjeta de Crédito/Débito", @collaboration.payment_type_name )
+    if Rails.application.secrets.features["collaborations_redsys"]
+      @collaboration.update_attribute(:payment_type, 1)
+      assert_equal( "Suscripción con Tarjeta de Crédito/Débito", @collaboration.payment_type_name )
+    end
     @collaboration.update_attribute(:payment_type, 2)
     assert_equal( "Domiciliación en cuenta bancaria (formato CCC)", @collaboration.payment_type_name )
     @collaboration.update_attribute(:payment_type, 3)
