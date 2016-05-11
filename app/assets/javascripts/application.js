@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.sidr.min
 //= require iframeSizer.min
+//= require leaflet
 //= require select2
 //= require cookie_policy
 //= require registrations_submenu
