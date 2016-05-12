@@ -4,7 +4,7 @@ require_dependency Rails.root.join('app', 'controllers', 'registrations_controll
 class RegistrationsController
 
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :inscription, :address, :district, :vote_town, :vote_province, :postal_code)
+    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :inscription, :address, :district, :vote_town, :vote_province, :postal_code, :captcha, :captcha_key)
   end
 
   def new
