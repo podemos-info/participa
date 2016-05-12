@@ -41,7 +41,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
         <div alt="<%= t '.remaining' %>" class="hide js-mc-pending"><%= m.phase_limit_amount-m.phase_counted_amount %>€</div>
       </div>
       <div class="info">
-        <p><strong><%= t '.current_phase' %></strong><br/><%=number_to_euro m.phase_counted_amount*100, 0%> / <%= number_to_euro m.phase_limit_amount*100, 0%><br/><strong><%= t '.accumulated' %></strong> <%= number_to_euro m.campaign_counted_amount*100, 0%><%if m.budget_link%><br/><a href="<%=m.budget_link%>">PRESUPUESTO</a><%end%>
+        <p><strong><%= t '.current_phase' %></strong><br/><%=number_to_euro m.phase_counted_amount*100, 0%> / <%= number_to_euro m.phase_limit_amount*100, 0%><br/><strong><%= t '.accumulated' %></strong> <%= number_to_euro m.campaign_counted_amount*100, 0%><%if !m.budget_link.empty? %><br/><a href="<%=m.budget_link%>">PRESUPUESTO</a><%end%>
 </p><% 
             if m.subgoals
               remaining = m.campaign_counted_amount || 0 %><ul class='subgoals'><% 
