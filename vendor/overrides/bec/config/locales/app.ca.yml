@@ -123,7 +123,7 @@ ca:
       user:
         wants_newsletter: "Desmarca aquesta casella si no vols rebre el nostre butlletí. Només enviem informació important."
   podemos:
-    error: 
+    error:
       title: "No s'han pogut actualitzar les dades"
       description: "Hi ha hagut els errors següents:"
     collaboration:
@@ -138,22 +138,22 @@ ca:
         valid: "Ccompte corrent invàlid. Dígit de control erroni. Sisplau revisa'l."
       title: "Col·labora econòmicament"
       p1: "BComú és una plataforma ciutadana que, per garantir la seva autonomia financera, necessita d’una petita aportació econòmica de cadascú de nosaltres ajudant així a garantir la independència i coherència del projecte. Fem-ho possible entre tots i totes! Apunta’t a les donacions periódiques de BComú!"
-      ok: 
+      ok:
         p1: "La teva donació s'ha donat d'alta correctament."
         p2: "Gràcies per col·laborar amb Barcelona En Comú."
       ko:
         title: Hi ha hagut un error amb la teva col·laboració.
-        contact: "Sisplau intenta realitzar el pagament un altre cop. Si tornes a tenir problemes contacta tresoreria@bcnencomu.cat "  
+        contact: "Sisplau intenta realitzar el pagament un altre cop. Si tornes a tenir problemes contacta tresoreria@bcnencomu.cat "
       passport_message_html: "<p>Segons la nostra base de dades estàs inscrit amb un nombre de passaport. Atès que la Llei Orgànica 8/2007, de 4 de juliol, sobre finançament dels  partits polítics, exigeix la identificació fiscal dels donants, per poder col·laborar econòmicament amb Barcelona En Comú i poder emplenar el formulari d'alta com a col·laborador és imprescindible disposar de DNI o NIE.</p><p>Si ets espanyol o estranger amb NIE envia'ns una còpia del teu DNI o document on consti el teu nombre d'identificació d'estranger a l'adreça xxxxx@xxxx.xxx perquè puguem actualitzar les dades de la teva inscripció.</p>"
       over: Declaro ser major de 18 anys.
-      total_amount: Aportació económica 
+      total_amount: Aportació económica
       next: "Ja tens una col·laboració. És la següent:"
       remove: Dóna de baixa la teva col·laboració
       save: Desa canvis
       are_you_sure: "Estàs segur que vols donar de baixa aquesta col·laboració?"
       change_title: "Canvis en la col·laboració"
-      change: Si vols canviar de mètode de pagament de la teva col·laboració has de cancel·lar la teva col·laboració actual i crear-ne una de nova. 
-      freq_table: 
+      change: Si vols canviar de mètode de pagament de la teva col·laboració has de cancel·lar la teva col·laboració actual i crear-ne una de nova.
+      freq_table:
         title: Colaboraciones
         date: Data estimada de pagament
         amount: Import
@@ -177,7 +177,7 @@ La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona 
         p2: "Barcelona En Comú, d’acord amb la Llei orgànica 15/1999, de protecció de dades de caràcter personal, us informa que les vostres dades seran incorporades al fitxer “donacions”, del qual és responsable Barcelona En Comú, que les emprarà per tramitar la vostra col·laboració, gestionar els càrrecs bancaris i complir amb la normativa de finançament de partits polítics, així com amb finalitats estadístiques i fer-vos arribar periòdicament informació de les seves activitats. Concediu el consentiment exprés perquè aquestes dades passin a formar part de Barcelona En Comú. Per exercir els vostres drets d’accés, rectificació, cancel·lació o oposició, com ara cancel·lar la subscripció, modificar les dades bancàries o l’import i freqüència de la vostra donació, podeu enviar un correu electrònic a tresoreria@bcnencomu.cat, indicant la referència “modificació de la donació” o per correu postal a la seu social sítia al carrer Castillejos, 233, baixos, de Barcelona, adjuntant còpia del vostre document nacional d’identitat."
         p3_title: "Consentiment de l'ordre de domiciliació"
         p3: "Autoritzeu a Barcelona En Comú i a la vostra entitat bancària a efectuar les operacions de cobrament mitjançant càrrecs al compte bancari que ens heu facilitat, per l’import i amb la freqüència que ens heu indicat al formulari. Els càrrecs domiciliats es realitzaran entre els dies 10 i 15 de cada mes."
-      freq: 
+      freq:
         first: "Mensual"
         second: "Trimestral"
         third: "Annual"
@@ -185,7 +185,7 @@ La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona 
         cc: "Suscripción con Tarjeta de Crédito/Débito"
         ccc: Domiciliació amb compte bancari (format CCC)
         iban: Domiciliació amb compte bancari (format IBAN)
-      steps: 
+      steps:
         first: Quant i com vols col·laborar
         second: Confirmació
         third: Resultat
@@ -205,8 +205,12 @@ La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona 
       cancel_account: "Dóna'm de baixa"
       cancel_account_explain_html: "<p>Si cliques ‘Dóna'm de baixa’ deixaràs de ser membre de Barcelona En Comú i cancel·larem les teves dades personals conforme a allò convingut a la Llei Orgànica 15/1999 de Protecció de Dades de Caràcter Personal.</p>
 <p> A partir d'aquest moment el teu compte d'accés al portal de participació de Barcelona En Comú quedarà eliminat.</p>
-<p>
-Conforme a allò convingut a l'article 16.3 de la Llei Orgànica de Protecció de Dades, la cancel·lació donarà lloc al bloqueig de les dades, es conservaran únicament a disposició de les Administracions públiques, Jutges i Tribunals, per a l'atenció de les possibles responsabilitats nascudes del tractament, durant el termini de prescripció d'aquestes possibles responsabilitats. Complert el citat termini es procedirà a la supressió de les dades.
+</p><p>
+En clicar el botó ‘Dóna'm de baixa’ deixaràs de pertànyer a Barcelona En Comú i cancel•larem les teves dades personals, conforme a allò convingut a la Llei Orgànica 15/1999 de Protecció de Dades de Caràcter Personal.
+</p><p>
+Des d'aquell moment, el teu compte d'accés al portal de participació de Barcelona En Comú serà eliminat.
+</p><p>
+Conforme a allò convingut a l'article 16.3 de la Llei Orgànica de Protecció de Dades, la cancel•lació donarà lloc al bloqueig de les dades, es conservaran únicament a disposició de les Administracions Públiques, Jutges i Tribunals, per a l'atenció de les possibles responsabilitats nascudes del tractament, durant el termini de prescripció d'aquestes possibles responsabilitats. Complert el citat termini es procedirà a la supressió de les dades.
 </p>
 "
     devise:
@@ -224,8 +228,8 @@ Conforme a allò convingut a l'article 16.3 de la Llei Orgànica de Protecció d
           p2: "Aquesta adreça electronica no permet respostes. Si tens qualsevol problema amb el registre, si us plau, contacta amb incidenciesregistre@bcnencomu.cat"
         password:
           p1: "Algú ha demanat que canviïs la teva contrasenya. Pots fer-ho a través de l'enllaç següent:"
-          p2: "Aquesta adreça electronica no permet respostes. Si tens qualsevol problema amb el registre, si us plau, contacta amb incidenciesregistre@bcnencomu.cat"
-          p3: "Si no has estat tu, sisplau, ignora aquest missatge. La teva contrasenya no canviarà fins que validis aquest enllaç i en creïs una de nova."
+          p2: "Aquest compte de correu electrònic no accepta respostes. Si tens qualsevol problema amb el registre, si et plau, contacta amb incidenciesregistre@bcnencomu.cat"
+          p3: "Si no has estat tu, si et plau, no facis cas d'aquest missatge. La teva contrasenya no canviarà fins que validis aquest enllaç i en creïs una de nova.."
           link: 'Canvia contrasenya'
     navbar:
       tools: "Pàgina Principal"
@@ -467,16 +471,16 @@ El web podrà disposar de versions en altres llengües, en especial en català, 
       voting: "VOTACIÓ"
       inscription_errors: "ERRORS D'INSCRIPCIÓ"
       verification: "VERIFICACIÓ"
-      faq1_html: '<a class="cd-faq-trigger" href="#0">1. Què necessites per entrar a participa.barcelonaencomu.cat?</a>
+      faq1_html: '<a class="cd-faq-trigger" href="#0">1. Què em cal per accedir a participa.barcelonaencomu.cat?</a>
             <div class="cd-faq-content">
-    <p> Es necesario residir en Barcelona ciudad.
+    <p> Es necessari residir a la ciutat de Barcelona.
     </p>
   <p>&nbsp;&nbsp;&nbsp;&nbsp; 1. <strong> DNI / NIF / Passaport </strong>. Per seguretat, ha de ser únic i no es podrà canviar. </p>
  <p>&nbsp;&nbsp;&nbsp;&nbsp; 2. <strong> Correu electrònic </strong>: Per seguretat, ha de ser únic. </p>
           </div> <!-- cd-faq-content -->
           </li>
           <li>
-          <a class="cd-faq-trigger" href="#0">2. Què faig si he perdut el codi?</a>
+          <a class="cd-faq-trigger" href="#0">2. Què faig si he perdut la contrassenya?</a>
           <div class="cd-faq-content">
            <p> Si no recordes la contrasenya, fes clic <a href="https://participa.barcelonaencomu.cat/ca/users/password/new" target="_blank" title="Has oblidat la teva contrasenya?"> Aquí </a> per sol·licitar-ne una de nova. </p>
           </div> <!-- cd-faq-content -->'
@@ -486,9 +490,9 @@ El web podrà disposar de versions en altres llengües, en especial en català, 
           </div> <!-- cd-faq-content -->
           </li>
           <li>
-          <a class='cd-faq-trigger' href='#0'>4. M'han bloquejat el compte d'accés a la plataforma què puc fer?</a>
+          <a class='cd-faq-trigger' href='#0'>4. M'han bloquejat el compte d'accés a la plataforma. Què puc fer?</a>
             <div class='cd-faq-content'>
-              <p> Per seguretat bloquegem el compte durant una hora després de 20 intents fallits d'accés. Un cop passat aquest temps l'usuari és desbloquejat automàticament. </ P>
+              <p> Per seguretat, bloquegem el compte durant una hora després de 20 temptatives fallides d'accés. Un cop passat aquest temps, la persona usuària és desbloquejada automàticament. </ P>
             </div> <!-- cd-faq-content -->
            <a class='cd-faq-trigger' href='#0'>5. Continuo sense poder accedir al portal de participació. Com puc comunicar-me amb l'equip de suport?</a>
           <div class='cd-faq-content'>
@@ -508,8 +512,8 @@ Descripció del problema: </ p>
           <li>
            <a class='cd-faq-trigger' href='#0'>7. No m'arriben correus a cap dels meus comptes. Em sembla que m'he equivocat a l'hora d'escriure el meu correu electrònic.  </a>
           <div class='cd-faq-content'>
-             <p><strong>Causa:</strong><br />Pot ser que escrivissis malament el teu correu en el procés de registre o que el registre fos  incomplet. </p>
-             <p> <strong> Solució:</strong><br />Escriu un correu a <a href='mailto:incidenciesregistre@bcnencomu.cat'>incidenciesregistre@bcnencomu.cat</a>indica-hi les teves dades personals i adjunta-hi una fotocòpia del teu DNI o passaport i et donarem de baixa perquè tornis a inscriure't.</p>
+             <p><strong>Causa:</strong><br />Potser vas escriure malament el teu correu durant el procés de registre o el registre ha estat incomplet.</p>
+             <p> <strong> Solució:</strong><br />Escriu un correu a <a href='mailto:incidenciesregistre@bcnencomu.cat'>incidenciesregistre@bcnencomu.cat</a>indica-hi les teves dades personals i adjunta-hi una fotocòpia del teu DNI o passaport per donar-te de baixa i així podràs tornar a inscriure-t'hi.</p>
      </div> <!-- cd-faq-content -->
           </li>"
       faq4_html: "<li> <a class='cd-faq-trigger' href='#0'>8. Quins mètodes de verificació s'han habilitat?</a> <div class='cd-faq-content'> <p>Hem habilitat <a href='%{verifications_url}'>punts presencials per a la verificació</a>.</p> </div> <!-- cd-faq-content --> </li>"
@@ -533,7 +537,7 @@ Amb tres passos molt senzills:
       <li>
       <a class='cd-faq-trigger' href='#0'>11. Què necessito per votar?</a>
       <div class='cd-faq-content'>
-        <p>Necessites un ordinador o qualsevol altre dispositiu (android / iphone) amb  accés a Internet per accedir a <a href='https://participa.barcelonaencomu.cat' target='_blank' >https://participa.barcelonaencomu.cat</a> i estar inscrit/a a <a href='https://participa.barcelonaencomu.cat' target='_blank'>https://participa.barcelonaencomu.cat</a>.</p>
+        <p>Necessites un ordinador o qualsevol altre dispositiu (android / iphone) amb  accés a la xarxa per accedir a <a href='https://participa.barcelonaencomu.cat' target='_blank' >https://participa.barcelonaencomu.cat</a> i estar inscrit/a a <a href='https://participa.barcelonaencomu.cat' target='_blank'>https://participa.barcelonaencomu.cat</a>.</p>
       </div> <!-- cd-faq-content -->
       </li>
       <li>
@@ -545,7 +549,7 @@ Amb tres passos molt senzills:
       </li>
       <li>
         <li>
-      <a class='cd-faq-trigger' href='#0'>13. Si no tinc un dispositiu mòbil (smartphone/tablet), puc votar?</a>
+      <a class='cd-faq-trigger' href='#0'>13. Si no tinc un dispositiu mòbil (telèfon intel•ligent/tàblet), puc votar?</a>
       <div class='cd-faq-content'>
         <p>Sí, pots votar també des d'un ordinador amb accés a Internet a participa.barcelonaencomu.cat. El mòbil només cal per registrar-se.</p>
       </div> <!-- cd-faq-content -->
@@ -557,14 +561,14 @@ Amb tres passos molt senzills:
       <li>
       <a class='cd-faq-trigger' href='#0'>14. Puc canviar el vot durant el període de votació?</a>
       <div class='cd-faq-content'>
-        <p>No, un cop hagis emès el teu vot ja no el podràs canviar.</p>
+        <p>No, un cop hagis emès el teu vot ja no podràs canviar-lo.</p>
       </div> <!-- cd-faq-content -->
       </li>
       <li>
         <li>
       <a class='cd-faq-trigger' href='#0'>15. Puc votar en blanc o abstenir-me?</a>
       <div class='cd-faq-content'>
-        <p>Sí, depenent del tipus de pregunta podràs votar en blanc o abstenir-te.</p>
+        <p>Sí. En funció del tipus de pregunta, podràs votar en blanc o abstenir-te'n.</p>
       </div> <!-- cd-faq-content -->
       </li>
       <li>
@@ -584,7 +588,7 @@ Amb tres passos molt senzills:
       <li>
       <a class='cd-faq-trigger' href='#0'>18. Com puc comprovar que el vot s’ha enregistrat correctament?</a>
       <div class='cd-faq-content'>
-        <p>Amb el localitzador del vot que el sistema mostra després de votar a la cabina de votació, que has d'anotar. Un cop emès el vot, es podrà comprovar si el procés s'ha completat amb èxit. Aquesta comprovació no només serveix per verificar que el vot s’ha registrat, sinó que també verifica que s’ha comptabilitzat en el còmput (es pot veure dues preguntes més avall).</p>
+        <p>Amb el localitzador del vot que el sistema mostra després de votar a la cabina de votació, que has d'anotar. Un cop emès el vot, es podrà comprovar si el procés s'ha completat amb èxit. Aquesta comprovació no només serveix per verificar que el vot s’ha enregistrat, sinó que també verifica que s’ha comptabilitzat en el còmput (es pot veure dues preguntes més avall).</p>
       </div> <!-- cd-faq-content -->
       </li>
       <li>
@@ -638,13 +642,13 @@ Amb tres passos molt senzills:
   <a target="_blank" href="https://barcelonaencomu.cat/ca/politica-de-privacitat">Mira la política de privacitat</a><br>
 <a target="_blank" href="https://barcelonaencomu.cat/ca/avis-legal">Mira avís legal</a><br>
 <a target="_blank" href="https://barcelonaencomu.cat/ca/politica-de-cookies">Mira la política de galetes</a></p>'
-  welcome_html: "<p><strong>Benvingut/uda al portal de participació de Barcelona En Comú </Strong> </ p>
-<p> Som una plataforma ciutadana amb un projecte col·lectiu per transformar Barcelona. Una comunitat àmplia i diversa que està treballant per convertir Barcelona en referent de democràcia, participació, transparència, drets socials, defensa del bé comú i de la lluita contra la desigualtat i la corrupció.</p>
-<p> Inscriu-te, participa, construïm en comú la ciutat on volem viure."
+  welcome_html: "<p><strong>Et donem la benvinguda al portal de participació de Barcelona En Comú ! </Strong> </ p>
+<p> Som una plataforma ciutadana amb un projecte col•lectiu per transformar Barcelona. Una comunitat àmplia i diversa que treballa per convertir Barcelona en un referent de la democràcia, la participació, la transparència, els drets socials, la defensa del bé comú i la lluita contra la desigualtat i la corrupció.</p>
+<p> Inscriu-t'hi i participa-hi! Construïm en comú la ciutat on volem viure."
   voting:
     title: "Benvingut a Participa!"
     election_one: Hi ha una votació en curs.
-    election_none: No hi ha cap votació en curs. Quan hi hagi una votació t'avisarem per correu electrònic. Gràcies per pertànyer a la comunitat de Barcelona en Comú.
+    election_none: No hi ha cap votació en curs. Quan hi hagi cap votació t'avisarem per correu electrònic. Gràcies per pertànyer a la comunitat de Barcelona En Comú.
     election_mul_html: "Hi ha 3 votacions. Cada votació és independent. No oblidis votar a totes 3.<br/><br/>
   Pots canviar el vot al llarg del procés (votant de nou en la mateixa opció). El nou vot reemplaçarà l'emès anteriorment de forma automàtica. Només l'últim és vàlid.<br/>"
     election_use_one: La votació utilitza
@@ -658,7 +662,6 @@ Amb tres passos molt senzills:
     finished_1: Les votacions ja s'han tancat.
     continue: "seguir votant"
   verification:
-    to: a
     show:
       title: "Mapa de punts de verificació"
       explain_html: "Aquí pots veure tots els punts i horaris habilitats per a que puguis anar a verificar-te"
@@ -713,4 +716,4 @@ Amb tres passos molt senzills:
       document: "He verificat el document original de l'inscrit/a"
       age: "L'inscrit/a és major de 16 anys - nascut abans de %{date}"
       town: "He verificat un document (DNI/NIE/Passaport, rebut d'un subministrament) que acredita que l'inscrit/a viu a Barcelona."
-  
+
