@@ -3,7 +3,7 @@ class PageController < ApplicationController
 
   before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_form, :show_form,
                                               :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
-                                              :responsables_organizacion_municipales, :count_votes,
+                                              :responsables_organizacion_municipales, :count_votes, :votacio_preacord,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
                                               :representantes_electorales_extranjeros, :responsables_areas_cc_autonomicos,
@@ -26,8 +26,12 @@ class PageController < ApplicationController
     @election = Election.find(params[:election_id])
     votes = 0
     votes = @election.votes.count if @election
-  render layout: 'minimal', locals: { votes: votes }
+    render layout: 'minimal', locals: { votes: votes }
     #render plain: "#{votes}"
+  end
+
+  def votacio_preacord
+    render layout: nil
   end
 
   def privacy_policy
