@@ -83,8 +83,8 @@ function verification_map_show(district) {
     if ( latlng && latlng != ", " ) {
       var lat = parseFloat( latlng.split(',')[0] );
       var lng = parseFloat( latlng.split(',')[1] );
-      var name = $(this).find('b').html();
-      var address = $(this).find('span').html();
+      var name = $(this).find('h5').html();
+      var address = $(this).find('div').html();
       if ( $(this).hasClass('today') ) {
         var icon = IconOn;
       } else {
