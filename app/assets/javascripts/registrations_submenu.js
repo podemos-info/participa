@@ -14,7 +14,7 @@ jQuery(function() {
         var showTab = function(submenu) {
             hideContent();
             removeActive();
-            var tab = $("a[href="+submenu+"]", $submenu);
+            var tab = $("a[href='"+submenu+"']", $submenu);
             tab.parent().addClass('active');
             $(submenu).show();
         };

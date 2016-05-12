@@ -13,6 +13,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
+gem 'sprockets-rails', '2.3.3' # http://stackoverflow.com/a/34344602 
 
 gem 'unicorn'
 gem 'pg'
@@ -28,7 +29,7 @@ gem 'spanish_vat_validators'
 gem 'simple_captcha2', require: 'simple_captcha'
 gem 'carmen-rails'
 gem 'esendex'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin'
 gem 'active_skin'
 gem 'mailcatcher' # for staging too
 gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/server'
