@@ -28,8 +28,8 @@ SimpleCaptcha.setup do |sc|
 
   sc.image_style = 'podemos'
   sc.add_image_style('podemos', [
-      "-background '#612d62'",
+      "-background '#716e6b'",
       "-fill '#FFFFFF'",
       "-border 2",
-      "-bordercolor '#269283'"])
+      "-bordercolor '#eb5a59'"])
 end
