@@ -30,10 +30,6 @@ class PageController < ApplicationController
     #render plain: "#{votes}"
   end
 
-  def votacio_preacord
-    render layout: nil
-  end
-
   def privacy_policy
   end
 
