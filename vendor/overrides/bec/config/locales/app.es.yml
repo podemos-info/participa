@@ -170,11 +170,11 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
           p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de eleccions@bcnencomu.cat."
           p2: "Haz click en el enlace de aquí abajo para desbloquear tu cuenta:"
           link: 'Desbloquear mi cuenta'
-          p3: "Esta dirección de correo no permite respuesta. Si tienes cualquier problema con el registro, por favor, contacta con incidenciesregistre@bncencomu.cat"
+          p3: "Esta dirección de correo no permite respuesta. Si tienes cualquier problema con el registro, por favor, contacta con eleccions@bcnencomu.cat"
         confirm:
           p1: "Te has dado de alta o has cambiado tu correo electrónico en el entorno Barcelona en Comú. Si no es ese el caso, ignora este correo. Puedes confirmar que esta es tu dirección de correo a través del siguiente enlace:"
           link: 'Confirmar mi cuenta'
-          p2: "Esta dirección de correo no permite respuesta. Si tienes cualquier problema con el registro, por favor, contacta con incidenciesregistre@bncencomu.cat"
+          p2: "Esta dirección de correo no permite respuesta. Si tienes cualquier problema con el registro, por favor, contacta con eleccions@bcnencomu.cat"
         password:
           p1: "Alguien ha pedido que cambies tu contraseña. Puedes hacerlo mediante el siguiente enlace:"
           p2: "Esta cuenta de correo electrónico no acepta respuestas. Si tienes cualquier problema con el registro, por favor, contacta con eleccions@bcnencomu.cat"

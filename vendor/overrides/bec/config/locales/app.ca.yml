@@ -699,7 +699,7 @@ Amb tres passos molt senzills:
       already: "L'usuari/ària amb document %{document} ja estava verificat. L'usuari/ària ja podrà votar."
       ok: "S'ha verificat l'usuari/ària correctament. Li hem enviat un  correu avisant-lo. Podrà votar en les pròximes votacions. Pots  continuar amb el següent usuari/ària."
       not_found: "No hem trobat un usuari/ària amb aquest document o correu electrònic. Búsqueda: %{query1} %{query2}"
-      problem: "Hi ha hagut un problema buscant aquest usuari/ària. Fes una foto al document, demana-li el seu correu electrònc i envia'l a  incidenciesregistre@barcelonaencomu.cat"
+      problem: "Hi ha hagut un problema buscant aquest usuari/ària. Fes una foto al document, demana-li el seu correu electrònc i envia'l a  eleccions@bcnencomu.cat"
     mailer:
       hello: "Hola %{user},"
       bye: Salutacions
