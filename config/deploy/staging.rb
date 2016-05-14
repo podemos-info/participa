@@ -3,7 +3,7 @@ role :web, %w{participa@participa.barcelonaencomu.cat}
 role :db,  %w{participa@participa.barcelonaencomu.cat}
 
 set :rvm_ruby_version, '2.2.2'
-set :branch, :master
+set :branch, ENV['BRANCH'] || :master
 set :deploy_to, '/srv/rails/betaparticipa.barcelonaencomu.cat'
 
 after 'deploy:publishing', 'deploy:restart'
