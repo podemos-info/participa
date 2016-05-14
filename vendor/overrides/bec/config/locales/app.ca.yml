@@ -7,7 +7,7 @@ ca:
         message_html: "No hem pogut trobar aquesta pàgina. Torna-ho a provar més tard o <a href='/'>prova-ho des de la pàgina principal</a>."
       "500":
         title: "Error en el servidor"
-        message_html: "Hi ha hagut un error en el servidor. Pots avisar-nos a <a href='mailto:incidenciesregistre@bcnencomu.cat'>incidenciesregistre@bcnencomu.cat</a>"
+        message_html: "Hi ha hagut un error en el servidor. Pots avisar-nos a <a href='mailto:eleccions@bcnencomu.cat'>eleccions@bcnencomu.cat</a>"
     messages:
       not_valid_spanish_vat: El número d'identificació fiscal no és vàlid
       not_valid_nif: El DNI no és vàlid
@@ -218,17 +218,17 @@ Conforme a allò convingut a l'article 16.3 de la Llei Orgànica de Protecció d
         hello: "Hola"
         welcome: "Benvingut/uda"
         lock:
-          p1: "El teu compte ha estat bloquejat per un nombre excessiu d'intents d'inici de sessió fallits. Si no has estat tu, avisa'ns a través de incidenciesregistre@bcnencomu.cat."
+          p1: "El teu compte ha estat bloquejat per un nombre excessiu d'intents d'inici de sessió fallits. Si no has estat tu, avisa'ns a través de eleccions@bcnencomu.cat."
           p2: "Clica a l'enllaç d'aquí sota per desbloquejar el teu compte:"
           link: 'Desbloqueja el meu compte'
-          p3: "Aquesta adreça electrònica no permet respostes. Si tens qualsevol problema amb el registre, si us plau, contacta amb incidenciesregistre@bcnencomu.cat"
+          p3: "Aquesta adreça electrònica no permet respostes. Si tens qualsevol problema amb el registre, si us plau, contacta amb eleccions@bcnencomu.cat"
         confirm:
           p1: "T'has donat d'alta o has canviat el teu correu electrònic a l'entorn Barcelona en Comú. Si no és així, no facis cas d'aquest missatge. Pots confirmar que aquesta és la teva adreça de correu a través de l'enllaç següent:"
           link: 'Confirma el meu compte'
-          p2: "Aquesta adreça electronica no permet respostes. Si tens qualsevol problema amb el registre, si us plau, contacta amb incidenciesregistre@bcnencomu.cat"
+          p2: "Aquesta adreça electronica no permet respostes. Si tens qualsevol problema amb el registre, si us plau, contacta amb eleccions@bcnencomu.cat"
         password:
           p1: "Algú ha demanat que canviïs la teva contrasenya. Pots fer-ho a través de l'enllaç següent:"
-          p2: "Aquest compte de correu electrònic no accepta respostes. Si tens qualsevol problema amb el registre, si et plau, contacta amb incidenciesregistre@bcnencomu.cat"
+          p2: "Aquest compte de correu electrònic no accepta respostes. Si tens qualsevol problema amb el registre, si et plau, contacta amb eleccions@bcnencomu.cat"
           p3: "Si no has estat tu, si et plau, no facis cas d'aquest missatge. La teva contrasenya no canviarà fins que validis aquest enllaç i en creïs una de nova.."
           link: 'Canvia contrasenya'
     navbar:
@@ -297,7 +297,7 @@ Barcelona En Comú compleix amb totes les mesures de seguretat per a la protecci
 <p>
 <p><b>3. Exercicis dels drets d'accés, rectificació, cancel·lació i oposició</b></p>
 <p>
-Per exercir els drets d'accés, rectificació, cancel·lació i oposició l'inscrit/a podrà utilitzar els formularis disponibles a la pàgina web del perfil d'usuari del web participa.Barcelona En Comú.info o dirigir-se per correu electrònic a incidenciesregistre@bcnencomu.cat indicant el seu nom i cognoms i adjuntant còpia del seu DNI o document legal d'identificació.
+Per exercir els drets d'accés, rectificació, cancel·lació i oposició l'inscrit/a podrà utilitzar els formularis disponibles a la pàgina web del perfil d'usuari del web participa.barcelonaencomu.cat o dirigir-se per correu electrònic a eleccions@bcnencomu.cat indicant el seu nom i cognoms i adjuntant còpia del seu DNI o document legal d'identificació.
 </p>
 <p><b>4. Acceptació de les presents condicions generals</b></p>
 <p>
@@ -321,9 +321,9 @@ Quan es marca la casella 'He llegit i accepto les condicions generals' l'USUARI/
           text_html: "Barcelona en Comú PARTIT POLÍTIC (endavant Barcelona en Comú) <br> CIF G66476136 <br> Carrer Castillejos, 233 <br> 08013 Barcelona"
         p2:
           subtitle: "Contacte"
-          text_html: "Informació general: incidenciesregistre@bcnencomu.cat <br> Incidències d'inscripcions: incidenciesregistre@bcnencomu.cat <br> Protecció de dades: incidenciesregistre@bcnencomu.cat <br>"
+          text_html: "Informació general: eleccions@bcnencomu.cat <br> Incidències d'inscripcions: eleccions@bcnencomu.cat <br> Protecció de dades: eleccions@bcnencomu.cat <br>"
       p2:
-        title: "Condicions generals d'accés i l'ús del web participa.Barcelona en Comú.info"
+        title: "Condicions generals d'accés i l'ús del web participa.barcelonaencomu.cat"
         p1:
           subtitle: "Usuaris i dret d'accés"
           text_html: "
@@ -424,7 +424,7 @@ El web podrà disposar de versions en altres llengües, en especial en català, 
           text_html: ""
         p2:
           subtitle: "Exercicis dels drets d'accés, rectificació, cancel·lació i oposició"
-          text_html: "Per exercir els drets d'accés, rectificació, cancel·lació i oposició l'USUARI/ÀRIA pot utilitzar els formularis disponibles a la pàgina web del perfil d'usuari o dirigir-se per correu electrònic a incidenciesregistre@bcnencomu.cat indicant el seu nom i cognoms i adjuntant una còpia del seu DNI o document legal d'identificació."
+          text_html: "Per exercir els drets d'accés, rectificació, cancel·lació i oposició l'USUARI/ÀRIA pot utilitzar els formularis disponibles a la pàgina web del perfil d'usuari o dirigir-se per correu electrònic a eleccions@bcnencomu.cat indicant el seu nom i cognoms i adjuntant una còpia del seu DNI o document legal d'identificació."
       p4:
         title: "Acceptació de les presents condicions generals"
         p1:
@@ -496,7 +496,7 @@ El web podrà disposar de versions en altres llengües, en especial en català, 
             </div> <!-- cd-faq-content -->
            <a class='cd-faq-trigger' href='#0'>5. Continuo sense poder accedir al portal de participació. Com puc comunicar-me amb l'equip de suport?</a>
           <div class='cd-faq-content'>
-<p> Si tens algun problema pots comunicar-te amb nosaltres a <a href='mailto:incidenciesregistre@bcnencomu.cat'> incidenciesregistre@bcnencomu.cat </a> indicant si escau les dades següents: </ p>
+<p> Si tens algun problema pots comunicar-te amb nosaltres a <a href='mailto:eleccions@bcnencomu.cat'> eleccions@bcnencomu.cat </a> indicant si escau les dades següents: </ p>
 <p> Nom i cognoms: <br />
 Correu electrònic: <br />
 DNI: <br />
@@ -513,7 +513,7 @@ Descripció del problema: </ p>
            <a class='cd-faq-trigger' href='#0'>7. No m'arriben correus a cap dels meus comptes. Em sembla que m'he equivocat a l'hora d'escriure el meu correu electrònic.  </a>
           <div class='cd-faq-content'>
              <p><strong>Causa:</strong><br />Potser vas escriure malament el teu correu durant el procés de registre o el registre ha estat incomplet.</p>
-             <p> <strong> Solució:</strong><br />Escriu un correu a <a href='mailto:incidenciesregistre@bcnencomu.cat'>incidenciesregistre@bcnencomu.cat</a>indica-hi les teves dades personals i adjunta-hi una fotocòpia del teu DNI o passaport per donar-te de baixa i així podràs tornar a inscriure-t'hi.</p>
+             <p> <strong> Solució:</strong><br />Escriu un correu a <a href='mailto:eleccions@bcnencomu.cat'>eleccions@bcnencomu.cat</a>indica-hi les teves dades personals i adjunta-hi una fotocòpia del teu DNI o passaport per donar-te de baixa i així podràs tornar a inscriure-t'hi.</p>
      </div> <!-- cd-faq-content -->
           </li>"
       faq4_html: "<li> <a class='cd-faq-trigger' href='#0'>8. Quins mètodes de verificació s'han habilitat?</a> <div class='cd-faq-content'> <p>Hem habilitat <a href='%{verifications_url}'>punts presencials per a la verificació</a>.</p> </div> <!-- cd-faq-content --> </li>"
@@ -634,7 +634,7 @@ Amb tres passos molt senzills:
        <li>
       <a class='cd-faq-trigger' href='#0'>25. Tinc més preguntes.</a>
       <div class='cd-faq-content'>
-        <p>En aquest cas, pots contactar amb nosaltres i intentarem resoldre els teus dubtes, preguntes o comentaris enviant un mail a incidenciesregistre@bcnencomu.cat.</p>
+        <p>En aquest cas, pots contactar amb nosaltres i intentarem resoldre els teus dubtes, preguntes o comentaris enviant un mail a eleccions@bcnencomu.cat.</p>
       </div> <!-- cd-faq-content -->"
   domicilio: "Domicili"
   consentimiento: "Consentiment"
@@ -699,7 +699,7 @@ Amb tres passos molt senzills:
       already: "L'usuari/ària amb document %{document} ja estava verificat. L'usuari/ària ja podrà votar."
       ok: "S'ha verificat l'usuari/ària correctament. Li hem enviat un  correu avisant-lo. Podrà votar en les pròximes votacions. Pots  continuar amb el següent usuari/ària."
       not_found: "No hem trobat un usuari/ària amb aquest document o correu electrònic. Búsqueda: %{query1} %{query2}"
-      problem: "Hi ha hagut un problema buscant aquest usuari/ària. Fes una foto al document, demana-li el seu correu electrònc i envia'l a  incidenciesregistre@barcelonaencomu.cat"
+      problem: "Hi ha hagut un problema buscant aquest usuari/ària. Fes una foto al document, demana-li el seu correu electrònc i envia'l a  eleccions@bcnencomu.cat"
     mailer:
       hello: "Hola %{user},"
       bye: Salutacions
