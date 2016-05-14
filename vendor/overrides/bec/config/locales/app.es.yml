@@ -6,7 +6,7 @@ es:
         message_html: "No pudimos encontrar esa página. Vuélvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a>."
       "500":
         title: "Error en el servidor"
-        message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='mailto:incidenciesregistre@bcnencomu.cat'>incidenciesregistre@bcnencomu.cat</a>"
+        message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='mailto:eleccions@bcnencomu.cat'>eleccions@bcnencomu.cat</a>"
     messages:
       not_valid_spanish_vat: El número de identificación fiscal no es válido
       not_valid_nif: El DNI no es válido
@@ -167,7 +167,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         hello: "Hola"
         welcome: "Bienvenido/a"
         lock:
-          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de incidenciesregistre@bcnencomu.cat."
+          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de eleccions@bcnencomu.cat."
           p2: "Haz click en el enlace de aquí abajo para desbloquear tu cuenta:"
           link: 'Desbloquear mi cuenta'
           p3: "Esta dirección de correo no permite respuesta. Si tienes cualquier problema con el registro, por favor, contacta con incidenciesregistre@bncencomu.cat"
@@ -177,7 +177,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
           p2: "Esta dirección de correo no permite respuesta. Si tienes cualquier problema con el registro, por favor, contacta con incidenciesregistre@bncencomu.cat"
         password:
           p1: "Alguien ha pedido que cambies tu contraseña. Puedes hacerlo mediante el siguiente enlace:"
-          p2: "Esta cuenta de correo electrónico no acepta respuestas. Si tienes cualquier problema con el registro, por favor, contacta con incidenciesregistre@bcnencomu.cat"
+          p2: "Esta cuenta de correo electrónico no acepta respuestas. Si tienes cualquier problema con el registro, por favor, contacta con eleccions@bcnencomu.cat"
           p3: "Si no has sido tú, por favor, no hagas caso de este mensaje. Tu contraseña no cambiará hasta que valides este enlace y crees una nueva."
           link: 'Cambiar contraseña'
     navbar:
@@ -228,7 +228,7 @@ Barcelona en Comú cumple con todas las medidas de seguridad para la protección
 <p>
 <p><b>3. Ejercicios de los derechos de acceso, rectificación, cancelación y oposición</b></p>
 <p>
-Para ejercer los derechos de acceso, rectificación, cancelación y posición el inscrito podrá utilizar los formularios disponibles en la página web del perfil de usuario/a de la web participa.Barcelona en Comú.info o dirigirse por correo electrónico a incidenciesregistre@bcnencomu.cat indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación.
+Para ejercer los derechos de acceso, rectificación, cancelación y posición el inscrito podrá utilizar los formularios disponibles en la página web del perfil de usuario/a de la web participa.barcelonaencomu.cat o dirigirse por correo electrónico a eleccions@bcnencomu.cat indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación.
 </p>
 <p><b>4. Aceptación de las presentes condiciones generales</b></p>
 <p>
@@ -256,7 +256,7 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO
       </ol>"
         dni: "El formato debe ser 8 números y una letra, sin guiones ni espacios."
         nie: "El formato debe ser una letra, 7 números y una letra, sin guiones ni espacios."
-        passport: "Envía una copia de tu pasaporte a incidenciesregistre@bcnencomu.cat para validar la inscripción."
+        passport: "Envía una copia de tu pasaporte a eleccions@bcnencomu.cat para validar la inscripción."
     legacy:
       password:
         title: "Cambiar contraseña antigua"
@@ -273,7 +273,7 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO
           text_html: "Barcelona en Comú PARTIDO POLÍTICO (en adelante Barcelona en Comú) <br> CIF G66476136 <br> Calle Castillejos, 233 <br> 08013 Barcelona"
         p2:
           subtitle: "Contacto"
-          text_html: "Información general: incidenciesregistre@bcnencomu.cat <br> Incidencias inscripciones: incidenciesregistre@bcnencomu.cat <br> Protección de datos: incidenciesregistre@bcnencomu.cat <br>"
+          text_html: "Información general: eleccions@bcnencomu.cat <br> Incidencias inscripciones: eleccions@bcnencomu.cat <br> Protección de datos: eleccions@bcnencomu.cat <br>"
       p2:
         title: "Condiciones generales de acceso y uso de la web "
         p1:
@@ -449,7 +449,7 @@ Barcelona en Comú cumple con todas las medidas de seguridad para la protección
 </p>"
         p2:
           subtitle: "Ejercicios de los derechos de acceso, rectificación, cancelación y oposición"
-          text_html: "Para ejercer los derechos de acceso, rectificación, cancelación y posición el USUARIO/A puede utilizar los formularios disponibles en la página web del perfil de usuario o dirigirse por correo electrónico a incidenciesregistre@bcnencomu.cat indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación."
+          text_html: "Para ejercer los derechos de acceso, rectificación, cancelación y posición el USUARIO/A puede utilizar los formularios disponibles en la página web del perfil de usuario o dirigirse por correo electrónico a eleccions@bcnencomu.cat indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación."
       p4:
         title: "Aceptación de las presentes condiciones generales"
         p1:
@@ -529,7 +529,7 @@ Barcelona en Comú cumple con todas las medidas de seguridad para la protección
           </div> <!-- cd-faq-content -->
           <a class="cd-faq-trigger" href="#0">5.  Sigo sin poder acceder al portal de participación. ¿Cómo puedo comunicarme con el equipo de soporte?</a>
           <div class="cd-faq-content">
-            <p>Si tienes algún problema puedes comunicarte con nosotros en <a href="mailto:incidenciesregistre@bcnencomu.cat">incidenciesregistre@bcnencomu.cat</a> indicando si procede los siguientes datos:</p>
+            <p>Si tienes algún problema puedes comunicarte con nosotros en <a href="mailto:eleccions@bcnencomu.cat">eleccions@bcnencomu.cat</a> indicando si procede los siguientes datos:</p>
             <p>Nombre y apellidos:<br />
             Correo electrónico:<br />
             DNI:<br />
@@ -546,7 +546,7 @@ Barcelona en Comú cumple con todas las medidas de seguridad para la protección
           <a class='cd-faq-trigger' href='#0'>7. No me llegan correos a ninguna de mis cuentas. Creo que me he equivocado de correo electrónico. </a>
           <div class='cd-faq-content'>
             <p><strong>Causa:</strong><br />Puede que escribieras mal el correo en el proceso de registro o el registro fue incompleto. </p>
-             <p> <strong> Solución:</strong><br />Escribe un correo a <a href='mailto:incidenciesregistre@bcnencomu.cat'>incidenciesregistre@bcnencomu.cat</a>indicando tus datos personales y adjuntando fotocopia de tu DNI o pasaporte y te daremos de baja para que vuelvas a inscribirte.</p>
+             <p> <strong> Solución:</strong><br />Escribe un correo a <a href='mailto:eleccions@bcnencomu.cat'>eleccions@bcnencomu.cat</a>indicando tus datos personales y adjuntando fotocopia de tu DNI o pasaporte y te daremos de baja para que vuelvas a inscribirte.</p>
      </div> <!-- cd-faq-content -->
           </li>"
 
@@ -663,7 +663,7 @@ Barcelona en Comú cumple con todas las medidas de seguridad para la protección
           <li>
           <a class="cd-faq-trigger" href="#0">25. Tengo más preguntas</a>
           <div class="cd-faq-content">
-            <p>En ese caso, puedes contactar con nosotros e intentaremos resolver tus dudas, preguntas, o comentarios enviando un mail a incidenciesregistre@bcnencomu.cat.</p>
+            <p>En ese caso, puedes contactar con nosotros e intentaremos resolver tus dudas, preguntas, o comentarios enviando un mail a eleccions@bcnencomu.cat.</p>
           </div> <!-- cd-faq-content -->'
   domicilio: "Domicilio"
   consentimiento: "Consentimiento"
