@@ -5,7 +5,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Participación Podemos"
+  config.site_title = Rails.application.secrets.organization["name"]
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -211,10 +211,10 @@ ActiveAdmin.setup do |config|
   #
   # To disable/customize for the :admin namespace:
   #
-     config.namespace :admin do |admin|
+  #   config.namespace :admin do |admin|
   #
   #     # Disable the links entirely
-       admin.download_links = false
+  #     admin.download_links = false
   #
   #     # Only show XML & PDF options
   #     admin.download_links = [:xml, :pdf]
@@ -223,7 +223,7 @@ ActiveAdmin.setup do |config|
   #     #   (for example, with cancan)
   #     admin.download_links = proc { can?(:view_download_links) }
   #
-     end
+  #   end
 
 
   # == Pagination
