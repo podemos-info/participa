@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
   has_one :collaboration, dependent: :destroy
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
+  belongs_to :verified_by, class_name: "User", foreign_key: "verified_by_id" #, counter_cache: :verified_by_id
+  has_many :verificated_users, class_name: "User", foreign_key: "verified_by_id"
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
