@@ -1,30 +1,26 @@
-role :app, %w{capistrano@newparticipa.podemos.info}
-role :web, %w{capistrano@newparticipa.podemos.info}
-role :db,  %w{capistrano@newparticipa.podemos.info}
+role :app, %w{participa@participa.barcelonaencomu.cat}
+role :web, %w{participa@participa.barcelonaencomu.cat}
+role :db,  %w{participa@participa.barcelonaencomu.cat}
 
 set :rvm_ruby_version, '2.2.2'
-set :repo_url, 'git@github.com:podemos-info/participa.git'
-set :branch, :production
-set :deploy_to, '/var/www/participa.podemos.info'
+set :branch, ENV['BRANCH'] || :master
+set :deploy_to, '/srv/rails/participa.barcelonaencomu.cat'
 
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   task :start do
     on roles(:app) do
       execute "/etc/init.d/unicorn_production start"
-      execute "sudo /etc/init.d/god start"
     end
   end
   task :stop do
     on roles(:app) do
       execute "/etc/init.d/unicorn_production stop"
-      execute "sudo /etc/init.d/god stop"
     end
   end
   task :restart do
     on roles(:app) do
       execute "/etc/init.d/unicorn_production restart"
-      execute "sudo /etc/init.d/god restart"
     end
   end
 end
