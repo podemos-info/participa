@@ -44,8 +44,12 @@ ActiveAdmin.register User do
       "#{user.current_sign_in_ip}<br/>#{user.last_sign_in_ip}".html_safe
     end
     column :created_at
+    column :verified_at
+    #column :verificated_users_count
+    column :verified_by
+
     column :validations do |user|
-      status_tag("Verificado", :ok) + br if user.verified?
+      status_tag("Verificado", :ok) + br if user.is_verified?
       status_tag("Baneado", :error) + br if user.banned?
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
@@ -90,10 +94,10 @@ ActiveAdmin.register User do
       end
       row :esendex_status do
         if user.phone?
-          span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}")
+          span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/#{Rails.application.secrets.esendex[:account_reference]}/Sent/Messages?FilterRecipientValue=#{user.phone.sub(/^00/,'')}")
         end
         if user.unconfirmed_phone? 
-          span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user.unconfirmed_phone.sub(/^00/,'')}")
+          span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/#{Rails.application.secrets.esendex[:account_reference]}/Sent/Messages?FilterRecipientValue=#{user.unconfirmed_phone.sub(/^00/,'')}")
         end
       end
       row :validations_status do
@@ -110,6 +114,7 @@ ActiveAdmin.register User do
       row :full_name
       row :first_name
       row :last_name
+      row :district_name
       row :document_type do
         user.document_type_name
       end
@@ -222,9 +227,10 @@ ActiveAdmin.register User do
   filter :admin
   filter :first_name
   filter :last_name
+  filter :district, as: :select, collection: User::DISTRICT
   filter :phone
-  filter :born_at
   filter :created_at
+  filter :born_at
   filter :address
   filter :town
   filter :postal_code
@@ -241,12 +247,12 @@ ActiveAdmin.register User do
   filter :has_legacy_password
   filter :created_at
   filter :confirmed_at
+  filter :verified_at
   filter :sms_confirmed_at
   filter :sign_in_count
   filter :wants_participation
   filter :participation_team_id, as: :select, collection: ParticipationTeam.all
   filter :votes_election_id, as: :select, collection: Election.all
-  filter :verified_at
   if defined? User.verifications_admin
     filter :verified_by_id, as: :select, collection: User.verifications_admin.all
   end
@@ -259,22 +265,11 @@ ActiveAdmin.register User do
     column :email
     column :document_vatid
     column :district_name
-    column :country_name
-    column("vote_autonomy") { |u| u.vote_autonomy_name }
-    column :province_name
-    column :town_name
     column :address
     column :postal_code
-    column :country
-    column :province
-    column :town
-    column :vote_town_name
-    column :vote_town
     column :phone
     column :current_sign_in_ip
     column :last_sign_in_ip
-    column :circle
-    column :deleted_at
   end
 
   action_item :only => :show do
