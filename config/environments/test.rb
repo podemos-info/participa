@@ -43,4 +43,6 @@ Rails.application.configure do
 
   config.active_support.test_order = :sorted # or `:random` if you prefer
 
+  config.i18n.default_locale = :es
+
 end
