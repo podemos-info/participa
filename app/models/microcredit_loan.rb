@@ -162,10 +162,10 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def check_user_limits
-    limit = self.microcredit.loans.where(ip:self.ip).count>50
+    limit = self.microcredit.loans.where(ip:self.ip).count>Rails.application.secrets.microcredit_loans["max_loans_per_ip"]
     if not limit
       loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount)
-      limit = ((loans.length>=15) or (loans.sum + self.amount>10000)) if not limit and self.amount
+      limit = ((loans.length>=Rails.application.secrets.microcredit_loans["max_loans_per_user"]) or (loans.sum + self.amount>Rails.application.secrets.microcredit_loans["max_loans_sum_amount"])) if not limit and self.amount
     end
 
     self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
