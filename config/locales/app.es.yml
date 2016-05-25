@@ -885,7 +885,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       none_selected: "Debes elegir al menos una suscripción para renovar"
     email:
       subject: "Confirmación microcréditos %{name}"
-      intro: "Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 24 horas con los siguientes datos:"
+      intro: "Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 48 horas con los siguientes datos:"
       recipient: "Beneficiario"
       bank: "Banco"
       account_number: "Número de cuenta"
