@@ -22,3 +22,5 @@ config/database.yml
 config/secrets.yml
 
 .vagrant/*
+
+Gemfile.lock
