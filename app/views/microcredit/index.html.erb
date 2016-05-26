@@ -70,9 +70,6 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
   <% elsif @finished_microcredits_mailing.count > 0 %>
     <h3><%= t 'microcredit.common.has_finished' %></h3>
     <p><%= t('microcredit.common.campaign_results', total: number_to_euro(@finished_microcredits_mailing.map {|m| m.campaign_confirmed_amount*100 } .sum, 0)).html_safe %></p>
-  <% else %>
-    <h3><%= t '.no_campaigns' %></h3>
-    <p><%= t '.no_campaigns_message' %></p>
   <% end %>
 <% else %>
   <div class="microcredit_boxes">
