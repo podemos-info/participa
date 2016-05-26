@@ -1,4 +1,9 @@
 class Microcredit < ActiveRecord::Base
+  include FlagShihTzu
+
+  has_flags 1 => :mailing
+
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
@@ -18,7 +23,14 @@ class Microcredit < ActiveRecord::Base
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
   scope :non_finished, -> { where("ends_at > ?", DateTime.now) }
   scope :renewables, -> { where.not( renewal_terms_file_name: nil ) }
-
+  scope :standard, ->{where("flags = 0")}
+  scope :mailing, ->{where("flags = 1")}
+  def is_standard?
+    (!self.mailing)
+  end
+  def is_mailing?
+    (self.mailing)
+  end
   def is_active?
     ( self.starts_at .. self.ends_at ).cover? DateTime.now
   end
