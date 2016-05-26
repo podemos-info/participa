@@ -62,6 +62,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
   <h2><%= t 'microcredit.mailing.title', name: @brand_config["name"]%></h2>
   <p><%= t 'microcredit.mailing.help_us', name: @brand_config["name"]%> <%= link_to t('microcredit.common.more_info'), (@brand_config["mailing_info_link"] || microcredits_info_path), target: "_top" %></p>
 <% end %>
+
 <% if @microcredits_mailing.length==0 %>
   <% if @upcoming_microcredits_mailing.count > 0 %>
     <h3><%= t '.will_start' %></h3>
