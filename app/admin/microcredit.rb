@@ -56,6 +56,7 @@ ActiveAdmin.register Microcredit do
         f.input :budget_link
         f.input :renewal_terms, as: :file
         f.input :total_goal, step: 100
+        f.input :mailing, as: :boolean
       else
         f.inputs "Importes de los microcréditos" do
           f.input :phase_limit_amount, label: "Total por fase", input_html: { disabled: true }
@@ -109,6 +110,9 @@ ActiveAdmin.register Microcredit do
           "#{microcredit.campaign_not_counted_count}&ominus;:&nbsp;#{number_to_euro(microcredit.campaign_not_counted_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*microcredit.campaign_not_counted_amount/microcredit.campaign_created_amount, precision:2)})",
           "#{microcredit.campaign_discarded_count}&#9785;:&nbsp;#{number_to_euro(microcredit.campaign_discarded_amount*100, 0)}&nbsp;(#{number_to_percentage(100.0*microcredit.campaign_discarded_amount/microcredit.campaign_created_amount, precision:2)})"
           ].join("<br/>").html_safe
+      end
+      row :mailing do
+        status_tag("es Mailing", :ok)
       end
       row :reset_at
       row :created_at
@@ -191,7 +195,7 @@ ActiveAdmin.register Microcredit do
 
   permit_params do
     if can? :admin, Microcredit
-      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link, :budget_link, :renewal_terms]
+      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link, :budget_link, :renewal_terms, :mailing]
     else
       [:contact_phone]
     end

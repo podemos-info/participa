@@ -30,11 +30,17 @@ class MicrocreditController < ApplicationController
   def index
     @all_microcredits = Microcredit.upcoming_finished
 
-    @microcredits = @all_microcredits.select { |m| m.is_active? }
+    #@microcredits = @all_microcredits.select { |m| m.is_active? }
+    @microcredits_standard = @all_microcredits.select { |m| m.is_standard? and m.is_active? }
+    @microcredits_mailing =@all_microcredits.select { |m| m.is_mailing? and m.is_active? }
+    if @microcredits_standard.length == 0
+      @upcoming_microcredits_standard = @all_microcredits.select { |m| m.is_standard? and m.is_upcoming? } .sort_by(&:starts_at)
+      @finished_microcredits_standard = @all_microcredits.select { |m| m.is_standard? and m.recently_finished? } .sort_by(&:ends_at).reverse
+    end
 
-    if @microcredits.length == 0
-      @upcoming_microcredits = @all_microcredits.select { |m| m.is_upcoming? } .sort_by(&:starts_at)
-      @finished_microcredits = @all_microcredits.select { |m| m.recently_finished? } .sort_by(&:ends_at).reverse
+    if @microcredits_mailing.length == 0
+      @upcoming_microcredits_mailing = @all_microcredits.select { |m| m.is_mailing? and m.is_upcoming? } .sort_by(&:starts_at)
+      @finished_microcredits_mailing = @all_microcredits.select { |m| m.is_mailing? and m.recently_finished? } .sort_by(&:ends_at).reverse
     end
   end
 
