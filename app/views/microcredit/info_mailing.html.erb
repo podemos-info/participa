@@ -1,27 +1,18 @@
 <% content_for :title, "Microcréditos" %>
-
+<%= image_tag "front_landing.jpg", alt: "Papeletas con futuro", align: "center", width: "100%" %>
 <div class="content-content cols microcredits-wrapper">
   <div class="row">
+
     <div class="col-b-4a12">
 <p align="center" style="margin-bottom: 0cm; line-height: 120%; page-break-before: auto; page-break-after: auto">
 <h2>Papeletas con futuro</h2></p>
-<p style="margin-bottom: 0cm; line-height: 115%; page-break-before: auto; page-break-after: auto">
-<br/>
-
-</p>
-<p style="margin-bottom: 0cm; line-height: 115%; page-break-before: auto; page-break-after: auto">
-<br/>
-
-</p>
-<p style="margin-bottom: 0cm; line-height: 115%; page-break-before: auto; page-break-after: auto">
-<br/>
-
-</p>
-<p align="justify" style="margin-bottom: 0cm; line-height: 120%; page-break-before: auto; page-break-after: auto">
+<p style="margin-bottom: 0cm; line-height: 120%; page-break-before: auto; page-break-after: auto; font-size: 2.5em;
+    text-align: left;
+    font-weight: 500;">
 Con tu ayuda financiamos las campañas electorales sin endeudarnos
 con los bancos y, gracias a eso, hemos conseguido ahorrar a las arcas
-públicas cerca de 12 millones de euros. No queremos el dinero de los
-bancos: por eso necesitamos tu apoyo.</p>
+públicas cerca de 12 millones de euros.<br/><br/> <strong>No queremos el dinero de los
+bancos: por eso necesitamos tu apoyo.</strong></p>
 <p style="margin-bottom: 0cm; line-height: 115%; page-break-before: auto; page-break-after: auto">
 <br/>
 
@@ -53,13 +44,8 @@ la papeleta con el voto de Podemos llegue a todos los hogares.</p>
 
 </p>
 <p align="center" style="margin-bottom: 0cm; line-height: 138%; page-break-before: auto; page-break-after: auto">
-¿Sabes cómo funcionan las subvenciones de envío electoral?</p>
+    <h3>¿Sabes cómo funcionan las subvenciones de envío electoral?</h3></p>
 <p style="margin-bottom: 0cm; line-height: 115%; page-break-before: auto; page-break-after: auto">
-<br/>
-
-</p>
-<p style="margin-bottom: 0cm; line-height: 115%; page-break-before: auto; page-break-after: auto">
-<br/>
 
 </p>
 <p align="justify" style="margin-bottom: 0cm; line-height: 138%; page-break-before: auto; page-break-after: auto">
@@ -96,7 +82,9 @@ conseguirlo.
 
 </p>
 <p align="center" style="margin-bottom: 0cm; line-height: 138%; page-break-before: auto; page-break-after: auto">
-¡Ayúdanos a hacerlo realidad!</p>
+  <h3>¡Ayúdanos a hacerlo realidad!</h3></p>
+  <div class="buttonbox"><%= link_to "Colabora", @external ? microcredit_path(brand: @brand) : microcredit_path, class: 'button' %></div>
+      </div>
     </div>
   </div>
 </div>
