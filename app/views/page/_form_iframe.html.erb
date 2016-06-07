@@ -1,2 +1,19 @@
-<iframe id="js-iframe" src="//<%= domain %>/gfembed/?f=<%= form_id %><% if user_signed_in? %>&participa_user_id=<%=u current_user.id%>&participa_user_first_name=<%=u current_user.first_name %>&participa_user_last_name=<%=u current_user.last_name %>&participa_user_address=<%=u  current_user.full_address %>&participa_user_phone=<%=u  current_user.phone %>&participa_user_email=<%=u  current_user.email %>&participa_user_document_vatid=<%=u current_user.document_vatid%>&participa_user_born_at=<%=u current_user.born_at.strftime('%d/%m/%Y')%>&participa_user_comunity=<%=u current_user.vote_autonomy_code%><% end %><%= extra_qs if local_assigns[:extra_qs]%>" width="100%" height="<%= height %>" frameBorder="0" class="gfiframe"></iframe>
+<iframe id="js-iframe" src="//<%= domain %>/gfembed/?f=<%= form_id %><% 
+	if user_signed_in? %>&participa_user_id=<%=u current_user.id
+	%>&participa_user_first_name=<%=u current_user.first_name 
+	%>&participa_user_last_name=<%=u current_user.last_name 
+	%>&participa_user_street=<%=u  current_user.address 
+	%>&participa_user_town=<%=u  current_user.town_name 
+	%>&participa_user_province=<%=u  current_user.province_name 
+	%>&participa_user_postal_code=<%=u  current_user.postal_code 
+	%>&participa_user_country=<%=u  current_user.country 
+	%>&participa_user_address=<%=u  current_user.full_address 
+	%>&participa_user_phone=<%=u  current_user.phone 
+	%>&participa_user_email=<%=u  current_user.email 
+	%>&participa_user_document_vatid=<%=u current_user.document_vatid
+	%>&participa_user_born_at=<%=u current_user.born_at.strftime('%d/%m/%Y')
+	%>&participa_user_comunity=<%=u current_user.vote_autonomy_code
+%><% end %><%= 
+extra_qs if local_assigns[:extra_qs]%>" width="100%" height="<%= height %>" frameBorder="0" class="gfiframe"></iframe>
+
 <script src="<%=script%>" type="text/javascript"></script>
