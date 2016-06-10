@@ -1,4 +1,5 @@
 ActiveAdmin.register MicrocreditLoan do
+  actions :all, :except => [:destroy]
   config.per_page = 100
 
   permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :returned_at, :transferred_to_id
@@ -42,12 +43,20 @@ ActiveAdmin.register MicrocreditLoan do
         link_to(l.microcredit.title, admin_microcredit_loan_path(l))
       end.join(" ").html_safe
     end
-    actions defaults: true do |loan|    
+    actions defaults: true do |loan|
+      extra_links=""
       if loan.confirmed_at.nil?
-        link_to('Confirmar', confirm_admin_microcredit_loan_path(loan), method: :post, data: { confirm: "Por favor, no utilices este botón antes de aparezca el ingreso en la cuenta bancaria. ¿Estas segura de querer confirmar la recepción de este microcrédito?" })
+        extra_links << link_to('Confirmar', confirm_admin_microcredit_loan_path(loan), method: :post, data: { confirm:
+                                                                                                               "Por favor, no utilices este botón antes de aparezca el ingreso en la cuenta bancaria. ¿Estas segura de querer confirmar la recepción de este microcrédito?" })
       else
-        link_to('Des-confirmar', confirm_admin_microcredit_loan_path(loan), method: :delete, data: { confirm: "¿Estas segura de querer cancelar la confirmación de la recepción de este microcrédito?" })
+        extra_links << link_to('Des-confirmar', confirm_admin_microcredit_loan_path(loan), method: :delete, data: { confirm: "¿Estas segura de querer cancelar la confirmación de la recepción de este microcrédito?" })
       end
+
+      if loan.discarded_at.nil?
+        extra_links << link_to('Descartar', discard_admin_microcredit_loan_path(loan), method: :post, data: { confirm:
+       "¿Estas segura de querer descartar este microcrédito?" })
+      end
+      extra_links.html_safe
     end
   end
 
