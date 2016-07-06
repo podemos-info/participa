@@ -1,0 +1,35 @@
+<% content_for :title, "Financiación" %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <h2>Financiación</h2>
+      <p>La financiación también es una forma de acción política y por eso, en Podemos, la transparencia, la participación y la independencia son los principios que rigen nuestras finanzas. Puedes consultar todos los movimientos económicos de Podemos, así como de sus Grupos Parlamentarios y del Instituto 25M para la Democracia en el <a href="http://transparencia.podemos.info" target="_blank">Portal de Transparencia</a>. Muchas gracias por hacerlo posible. Con tu colaboración y compromiso, ¡claro que se puede!</p>
+
+      <section class="funding">
+        <ul>
+          <li class="box-funding">
+            <div class="box-funding">
+              <h3>Colaboraciones</h3>
+              <div class="funding-text">
+                <p>Colabora con Podemos de la manera más sencilla y personalizada. Elige cantidad, periodicidad y forma de pago. </p>
+              </div>
+              <div class="buttonbox">
+                <%= link_to "Colabora", edit_collaboration_path, class: "button" %>
+              </div>
+            </div>
+          </li>
+          <li class="box-funding">
+            <div class="box-funding">
+              <h3>Microcréditos</h3>        
+              <div class="funding-text">
+                <p>Nuestras campañas son financiadas fundamentalmente con préstamos ciudadanos. Entra y realiza tu aportación y te lo devolvemos de manera íntegra y sin intereses.</p>
+              </div><div class="buttonbox">
+                  <%= link_to "Ver campañas", microcredit_path, class: "button" %>
+              </div>
+            </div>
+          </li>
+        </ul>  
+      </section>
+    </div>
+  </div>
+</div>

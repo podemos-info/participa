@@ -2316,3 +2316,59 @@ fieldset .inputlabel-box label.text-xl {
 body.noheader {
   background: white;
 }
+
+
+.funding ul{
+  position:relative;
+
+  li{
+    width:45%;
+    position:relative;
+    display:block;
+    background:#eaeaea;
+    float:left;
+    padding:1.5%;
+    margin-bottom:1.5em;
+
+    div.box-funding {
+      position:relative;
+    }
+
+    div.funding-text{
+      padding-top:7em;
+    }
+
+    div.box-funding:before{
+      display: inline-block;
+      margin: 0;
+      content:image-url("ico.ropes-purple.png");
+      position:absolute;
+      top: -1.7em;
+      left: -1.7em;
+    }
+
+    .button{
+      display:block;
+      width: 100%;
+      padding:1em 0;
+      text-align:center;
+    }
+
+    .buttonbox{
+      padding-bottom:0;
+    }
+  }
+
+  li:first-child {
+    margin-right: 1em;
+  }
+
+  h3{
+    position: absolute;
+    width: 60%;
+    top: 0;
+    right: 0;
+    border-bottom:0;
+    line-height:1em;
+  }
+}

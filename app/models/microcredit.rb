@@ -111,7 +111,7 @@ class Microcredit < ActiveRecord::Base
   def should_count? amount, confirmed
     # check that there is any remaining loan for this amount and phase
     remaining = phase_remaining(amount)
-    return false if (remaining and remaining.first.last<=0)
+    return false if (remaining.none? || remaining.first.last<=0)
     
     if confirmed
       return true
