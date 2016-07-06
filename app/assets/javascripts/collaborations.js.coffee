@@ -32,14 +32,6 @@ change_payment_type = (type) ->
       $('.js-collaboration-type-form-2').hide()
       $('.js-collaboration-type-form-3').hide()
 
-show_assignments = false
-update_assigments = () ->
-  if (show_assignments)
-    $('.js-collaboration-assignment-toggle').hide()
-    $('.js-collaboration-assignment').show('slide')
-  else
-    $('.js-collaboration-assignment').hide('slide')
-    $('.js-collaboration-assignment-toggle').show()
 
 init_collaborations = () ->
 
@@ -64,18 +56,6 @@ init_collaborations = () ->
   calculate_collaboration()
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
     calculate_collaboration()
-
-  if ($('.js-collaboration-assignment-toggle').length==0)
-    show_assignments = true;
-    
-  update_assigments()
-  $('.js-collaboration-assignment-autonomy').on 'change', () ->
-    update_assigments()
-
-  $('.js-collaboration-assignment-toggle').on 'click', (e) ->
-    e.preventDefault()
-    show_assignments = true
-    update_assigments()
 
   $('.js-collaboration-assignment-town input').on 'click', () ->
     if ($(this).prop('checked'))

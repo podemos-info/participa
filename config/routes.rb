@@ -94,6 +94,7 @@ Rails.application.routes.draw do
       sessions:      'sessions'
     } 
 
+    get '/financiacion', to: 'page#funding', as: 'funding'
     get '/microcreditos', to: 'microcredit#index', as: 'microcredit'
     get '/microcréditos', to: redirect('/microcreditos')
     get '/microcreditos/provincias', to: 'microcredit#provinces'
