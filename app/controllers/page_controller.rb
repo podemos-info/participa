@@ -1,7 +1,7 @@
 require 'securerandom'
 class PageController < ApplicationController
 
-  before_action :authenticate_user!, except: [:privacy_policy, :faq, :guarantees, :guarantees_form, :show_form,
+  before_action :authenticate_user!, except: [ :privacy_policy, :faq, :guarantees, :funding, :guarantees_form, :show_form,
                                               :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :count_votes,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
@@ -12,14 +12,14 @@ class PageController < ApplicationController
 
   def show_form
     @page = Page.find(params[:id])
-	raise("not found") unless @page
-    authenticate_user! if @page.require_login
+  	raise("not found") unless @page
+      authenticate_user! if @page.require_login
 
-	if /https:\/\/[a-z]*\.podemos.info\/.*/.match(@page.link)
-		render :formview_iframe, locals: { title: @page.title, url: @page.link }
-	else
-    	render :form_iframe, locals: { title: @page.title, form_id: @page.id_form, extra_qs:"" }
-	end
+  	if /https:\/\/[a-z]*\.podemos.info\/.*/.match(@page.link)
+  		render :formview_iframe, locals: { title: @page.title, url: @page.link }
+  	else
+      	render :form_iframe, locals: { title: @page.title, form_id: @page.id_form, extra_qs:"" }
+  	end
   end
 
   def count_votes
@@ -37,6 +37,9 @@ class PageController < ApplicationController
   end
 
   def guarantees
+  end
+
+  def funding
   end
 
   def guarantees_form
