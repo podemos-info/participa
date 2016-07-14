@@ -603,7 +603,7 @@ class User < ActiveRecord::Base
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
 
-      if current_user.has_vote_town?
+      if current_user.has_vote_town? && current_user.vote_province
         user_location[:vote_town] ||= current_user.vote_town
         user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions.coded(current_user.vote_province).code
       else
