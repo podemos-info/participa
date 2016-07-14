@@ -690,7 +690,7 @@ class User < ActiveRecord::Base
   def _vote_town
     @vote_town_cache = begin
       town = nil
-      if self.has_vote_town?
+      if self.has_vote_town? && _vote_province
         town = _vote_province.subregions.coded(self.vote_town) 
       elsif self.country=="ES"
         town = _town
