@@ -603,7 +603,7 @@ class User < ActiveRecord::Base
       user_location[:province] ||= current_user.province
       user_location[:town] ||= current_user.town.downcase
 
-      if current_user.has_vote_town?
+      if current_user.has_vote_town? && current_user.vote_province
         user_location[:vote_town] ||= current_user.vote_town
         user_location[:vote_province] ||= Carmen::Country.coded("ES").subregions.coded(current_user.vote_province).code
       else
@@ -690,7 +690,7 @@ class User < ActiveRecord::Base
   def _vote_town
     @vote_town_cache = begin
       town = nil
-      if self.has_vote_town?
+      if self.has_vote_town? && _vote_province
         town = _vote_province.subregions.coded(self.vote_town) 
       elsif self.country=="ES"
         town = _town
