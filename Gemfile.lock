@@ -289,7 +289,7 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pg (0.18.2)
-    phonelib (0.6.0)
+    phonelib (0.6.2)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     pushmeup (0.3.0)
@@ -513,4 +513,4 @@ RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.12.1
+   1.12.4
