@@ -24,11 +24,14 @@ class PageController < ApplicationController
   def show_form
     @page = Page.find(params[:id])
   	raise("not found") unless @page
-    authenticate_user! if @page.require_login
-    
+
     @meta_description = @page.meta_description if !@page.meta_description.blank?
     @meta_image = @page.meta_image if !@page.meta_image.blank?
-
+    if @page.require_login && !user_signed_in?
+      flash[:metas] = { description: @meta_description, image: @meta_image }
+      authenticate_user! 
+    end
+    
   	if /https:\/\/[a-z]*\.podemos.info\/.*/.match(@page.link)
   		render :formview_iframe, locals: { title: @page.title, url: @page.link }
   	else

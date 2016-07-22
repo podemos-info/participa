@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     
     @meta_description = Rails.application.secrets.metas["description"] if @meta_description.nil?
     @meta_image = Rails.application.secrets.metas["image"] if @meta_image.nil?
+
+    if flash[:metas] && flash[:metas]["description"]
+      @meta_description = flash[:metas]["description"]
+      @meta_image = flash[:metas]["image"]
+    end
   end
 
   def allow_iframe_requests

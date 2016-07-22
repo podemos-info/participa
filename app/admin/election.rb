@@ -33,6 +33,8 @@ ActiveAdmin.register Election do
       row :title
       row :info_url
       row :info_text
+      row :meta_description
+      row :meta_image
       row :server
       row :priority
       row :agora_election_id
