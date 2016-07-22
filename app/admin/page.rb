@@ -1,6 +1,6 @@
 ActiveAdmin.register Page do
 
-  permit_params :id_form, :title, :slug, :link, :require_login
+  permit_params :id_form, :title, :slug, :link, :require_login, :meta_description, :meta_image
 
   action_item(:reload_routes, only: :show) do
     link_to('Recargar rutas', reload_admin_pages_path, data: { confirm: "¿Estas segura de querer recargar las rutas?" })
@@ -20,6 +20,8 @@ ActiveAdmin.register Page do
       f.input :id_form, label: "Número de formulario en gravity"
       f.input :link, label: "Enlace a la vista en gravity"
       f.input :require_login, :as => :boolean, label: "Requerir que el usuario se autentifique"
+      f.input :meta_description, label: "Descripción de la página para redes sociales"
+      f.input :meta_image, label: "URL de la imagen para redes sociales"
     end
     f.actions
   end

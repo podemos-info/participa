@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525121317) do
+ActiveRecord::Schema.define(version: 20160722092611) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(version: 20160525121317) do
     t.integer  "ccc_entity"
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
-    t.integer  "ccc_account",             limit: 8
+    t.integer  "ccc_account"
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",                            default: 0
+    t.integer  "status",                  default: 0
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
@@ -119,6 +119,8 @@ ActiveRecord::Schema.define(version: 20160525121317) do
     t.integer  "priority"
     t.string   "info_text"
     t.integer  "flags"
+    t.string   "meta_description"
+    t.string   "meta_image"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -136,8 +138,8 @@ ActiveRecord::Schema.define(version: 20160525121317) do
 
   create_table "impulsa_edition_categories", force: :cascade do |t|
     t.integer  "impulsa_edition_id"
-    t.string   "name",                                              null: false
-    t.integer  "category_type",                                     null: false
+    t.string   "name"
+    t.integer  "category_type"
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
@@ -166,8 +168,10 @@ ActiveRecord::Schema.define(version: 20160525121317) do
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
 
   create_table "impulsa_edition_topics", force: :cascade do |t|
-    t.integer "impulsa_edition_id"
-    t.string  "name"
+    t.integer  "impulsa_edition_id"
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   add_index "impulsa_edition_topics", ["impulsa_edition_id"], name: "index_impulsa_edition_topics_on_impulsa_edition_id"
@@ -203,8 +207,10 @@ ActiveRecord::Schema.define(version: 20160525121317) do
   end
 
   create_table "impulsa_project_topics", force: :cascade do |t|
-    t.integer "impulsa_project_id"
-    t.integer "impulsa_edition_topic_id"
+    t.integer  "impulsa_project_id"
+    t.integer  "impulsa_edition_topic_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "impulsa_project_topics", ["impulsa_edition_topic_id"], name: "index_impulsa_project_topics_on_impulsa_edition_topic_id"
@@ -431,6 +437,8 @@ ActiveRecord::Schema.define(version: 20160525121317) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "link"
+    t.string   "meta_description"
+    t.string   "meta_image"
   end
 
   add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at"
@@ -494,7 +502,7 @@ ActiveRecord::Schema.define(version: 20160525121317) do
 
   create_table "reports", force: :cascade do |t|
     t.string   "title"
-    t.text     "query"
+    t.text     "query",      limit: 255
     t.text     "main_group"
     t.text     "groups"
     t.text     "results"
