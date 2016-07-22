@@ -10,15 +10,29 @@ class PageController < ApplicationController
                                               :apoderados_campana_autonomica_andalucia, :comparte_cambio_valoracion_propietarios,
                                               :comparte_cambio_valoracion_usuarios, :avales_candidaturas_primarias, :iniciativa_ciudadana]
 
+  before_filter :set_metas
+
+  def set_metas
+    @current_elections = Election.active
+    election = @current_elections.select {|election| election.meta_description if !election.meta_description.blank? } .first
+
+    
+    @meta_description = Rails.application.secrets.metas["description"] if @meta_description.nil?
+    @meta_image = Rails.application.secrets.metas["image"] if @meta_description.nil?
+  end
+
   def show_form
     @page = Page.find(params[:id])
   	raise("not found") unless @page
-      authenticate_user! if @page.require_login
+    authenticate_user! if @page.require_login
+    
+    @meta_description = @page.meta_description if !@page.meta_description.blank?
+    @meta_image = @page.meta_image if !@page.meta_image.blank?
 
   	if /https:\/\/[a-z]*\.podemos.info\/.*/.match(@page.link)
   		render :formview_iframe, locals: { title: @page.title, url: @page.link }
   	else
-      	render :form_iframe, locals: { title: @page.title, form_id: @page.id_form, extra_qs:"" }
+      render :form_iframe, locals: { title: @page.title, form_id: @page.id_form, extra_qs:"" }
   	end
   end
 
