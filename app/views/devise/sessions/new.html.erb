@@ -48,7 +48,11 @@
 
         <% if @upcoming_election %>
           <% cache("current_active_census", expires_in: 5.minutes) do %>
-            <p>Accede al portal de participación y vota en la consulta sobre la nueva hoja de ruta de Podemos Madrid. Del <%=l(@upcoming_election.starts_at, format: if @upcoming_election.starts_at.month==@upcoming_election.ends_at.month then "%-d" else "%-d de %B" end )%> al <%=l(@upcoming_election.ends_at, format: "%-d de %B")%>.</p>
+            <% if @upcoming_election.meta_description %>
+              <p><%=@upcoming_election.meta_description%></p>
+            <% else %>
+              <p>Accede al portal de participación y vota en "<%=@upcoming_election.title%>". Del <%=l(@upcoming_election.starts_at, format: if @upcoming_election.starts_at.month==@upcoming_election.ends_at.month then "%-d" else "%-d de %B" end )%> al <%=l(@upcoming_election.ends_at, format: "%-d de %B")%>.</p>
+            <% end %>
             <% if @upcoming_election.user_created_at_max %>
               <p>El censo válido para esta votación está cerrado desde el día <%=l(@upcoming_election.user_created_at_max, format: "%-d de %B de %Y a las %H:%M horas")%>.</p>
             <% end %>
