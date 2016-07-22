@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_sms_check, :show_on_index, :ignore_multiple_territories
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_sms_check, :show_on_index, :ignore_multiple_territories, :meta_description, :meta_image
 
   index do
     selectable_column
@@ -81,6 +81,8 @@ ActiveAdmin.register Election do
       f.input :title
       f.input :info_url
       f.input :info_text
+      f.input :meta_description, label: "Descripción del sitio para redes sociales durante la votación"
+      f.input :meta_image, label: "URL de la imagen del sitio para redes sociales durante la votación"
       f.input :priority
       f.input :server, as: :select, collection: Election.available_servers
       f.input :agora_election_id

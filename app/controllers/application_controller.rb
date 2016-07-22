@@ -12,6 +12,19 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_filter :allow_iframe_requests
   before_filter :admin_logger
+  before_filter :set_metas
+
+  def set_metas
+    @current_elections = Election.active
+    election = @current_elections.select {|election| election.meta_description if !election.meta_description.blank? } .first
+    if election
+      @meta_description = election.meta_description
+      @meta_image = election.meta_image if !election.meta_image.blank?
+    end
+    
+    @meta_description = Rails.application.secrets.metas["description"] if @meta_description.nil?
+    @meta_image = Rails.application.secrets.metas["image"] if @meta_image.nil?
+  end
 
   def allow_iframe_requests
     response.headers.delete('X-Frame-Options')
