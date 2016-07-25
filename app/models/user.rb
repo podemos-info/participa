@@ -675,7 +675,7 @@ class User < ActiveRecord::Base
   def _vote_province
     @vote_province_cache = begin
       prov = nil
-      if self.has_vote_town? && (1..52).include? self.vote_town[2,2].to_i
+      if self.has_vote_town? && (1..52).include?(self.vote_town[2,2].to_i)
         prov = Carmen::Country.coded("ES").subregions[self.vote_town[2,2].to_i-1]
       elsif self.country=="ES"
         prov = _province
