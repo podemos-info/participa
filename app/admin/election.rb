@@ -70,7 +70,7 @@ ActiveAdmin.register Election do
     end
 
     panel "Evolución" do
-      svg class: "js-election-graph", "data-url" => votes_analysis_admin_election_path(election.id), "data-height"=>400
+      svg class: "js-election-graph", "data-url" => votes_analysis_admin_election_path(election.id), "data-height"=>700
     end
 
     active_admin_comments
