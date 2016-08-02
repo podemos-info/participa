@@ -188,8 +188,8 @@ class Election < ActiveRecord::Base
   end
 
   def votes_histogram
-    xbin_size = 60*5 # 5 minutes
-    ybin_size = 60*60 # 1 hour
+    xbin_size = 60*10 # 10 minutes
+    ybin_size = 60*60*24 # 1 hour
     data = self.votes.joins(:user).pluck(:created_at, "users.created_at")
     data = data.group_by do |v,u| [v.to_i/xbin_size, u.to_i/ybin_size] end .map {|k,v| [k[0]*xbin_size+xbin_size/2, k[1]*ybin_size+ybin_size/2, v.count] }
     { data: data, limits: [ [ data.map(&:first).min, data.map(&:first).max], [ data.map(&:second).min, data.map(&:second).max ] ] }
