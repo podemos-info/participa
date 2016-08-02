@@ -9,3 +9,4 @@
 #= require active_admin_spam_filter
 #= require active_admin_impulsa
 #= require cocoon
+#= require d3

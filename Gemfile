@@ -58,6 +58,7 @@ gem 'cocoon'
 gem 'paperclip'
 gem 'validate_url'
 gem 'norma43', github: 'podemos-info/norma43'
+gem "d3-rails"
 
 group :development, :test do
   gem 'capistrano', '~> 3.4.0'
