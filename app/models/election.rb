@@ -186,4 +186,11 @@ class Election < ActiveRecord::Base
   def duration
     ((ends_at-starts_at)/60/60).to_i
   end
+
+  def votes_histogram
+    bin_size = 300 # 5 minutes
+    data = self.votes.joins(:user).pluck(:created_at, "users.created_at")
+    data = data.group_by do |v,u| [v.to_i/bin_size, u.to_i/bin_size] end .map {|k,v| [k[0]*bin_size+bin_size/2, k[1]*bin_size+bin_size/2, v.count] }
+    { data: data, limits: [ [ data.map(&:first).min, data.map(&:first).max], [ data.map(&:second).min, data.map(&:second).max ] ] }
+  end
 end

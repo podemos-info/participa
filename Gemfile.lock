@@ -163,6 +163,8 @@ GEM
     columnize (0.9.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    d3-rails (4.1.0)
+      railties (>= 3.1)
     daemons (1.2.3)
     database_cleaner (1.4.1)
     date_validator (0.8.1)
@@ -455,6 +457,7 @@ DEPENDENCIES
   carmen-rails
   cocoon
   coffee-rails (~> 4.1.0)
+  d3-rails
   database_cleaner
   date_validator
   devise

@@ -68,6 +68,11 @@ ActiveAdmin.register Election do
       
       span link_to "Añadir ubicación", new_admin_election_election_location_path(election)
     end
+
+    panel "Evolución" do
+      svg class: "js-election-graph", "data-url" => votes_analysis_admin_election_path(election.id), "data-height"=>400
+    end
+
     active_admin_comments
   end
 
@@ -76,6 +81,11 @@ ActiveAdmin.register Election do
     headers["Content-Type"] ||= 'text/csv'
     headers["Content-Disposition"] = "attachment; filename=\"#{election_location.new_vote_id}.tsv\"" 
     render "election_location.tsv", layout: false, locals: { election_location: election_location }
+  end
+
+  member_action :votes_analysis do
+    histogram = Election.find(params[:id]).votes_histogram
+    render json: histogram
   end
 
   form do |f|
