@@ -14,6 +14,7 @@ Accederás a la votación de<% case election.scope
   <% if election.has_valid_location_for? current_user %>
     <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
       <span>Votar</span>
+      <p> Al pulsar en el votón VOTAR aceptas que tus datos sean integrados en la base de datos X para esta votación.</p>
     <% end %>
   <% end %>
 </div>
