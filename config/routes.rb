@@ -101,6 +101,7 @@ Rails.application.routes.draw do
     get '/microcreditos/municipios', to: 'microcredit#towns'
     get '/microcreditos/informacion', to: 'microcredit#info', as: 'microcredits_info'
     get '/microcreditos/informacion/papeletas_con_futuro', to: 'microcredit#info_mailing', as: 'microcredits_info_mailing'
+    get '/microcreditos/informacion/euskera', to: 'microcredit#info_euskera', as: 'microcredits_info_euskera'
     get '/microcreditos/:id', to: 'microcredit#new_loan', as: :new_microcredit_loan
     get '/microcreditos/:id/login', to: 'microcredit#login', as: :microcredit_login
     post '/microcreditos/:id', to: 'microcredit#create_loan', as: :create_microcredit_loan

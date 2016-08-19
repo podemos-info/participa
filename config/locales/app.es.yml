@@ -831,9 +831,11 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       has_circle: "En Círculo"
   microcredit:
     common:
-      title: "Microcréditos %{name}"
+      title: "Microcréditos %{name} / %{name} Mikrokredituak"
       help_us: "Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito %{name}. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
+      help_us2: "Hauteskunde kanpaina finantzatzen lagun gaitzazu Podemos Mikrokreditu bat izenpetzen. Hauteskunde subentzioa jasotzerakoan emandako diru kopurua bueltatuko dizugu."
       more_info: "Más información"
+      more_info2: "Informazio"
       has_finished: "La campaña de microcréditos ha acabado"
       campaign_results: "Hemos recaudado %{total}.<br/>¡Muchas gracias por colaborar con el cambio!"
       choose_province: "Elige una provincia"
