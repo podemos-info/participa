@@ -875,7 +875,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       province: "Provincia"
       town: "Municipio"
       remaining_count: "(quedan %{total})"
-      over_age_message: "Declaro ser mayor de 18 años. /  / 18 urte baino gehiago ditut"
+      over_age_message: "Declaro ser mayor de 18 años. / 18 urte baino gehiago ditut"
       terms_of_service_message: "Acepto la suscripción de un contrato civil de préstamo por el importe indicado, según las condiciones generales que se indican en el siguiente enlace, que declaro haber leído y estar conforme con su contenido."
       terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad"
       terms_of_service_message2: "Jartzen duen diru kopuruaren mailegu kontratu zibil baten harpidetza onartzen dut, hurrengo estekan agertzen diren baldintza orokorretan. Baldintza hauek irakurri ditut eta haiekin ados nago."
