@@ -21,7 +21,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
 
 <h2><%= t 'microcredit.common.title', name: @brand_config["name"]%> - <%=@microcredit.title%></h2>
 <p><%= t 'microcredit.common.help_us', name: @brand_config["name"]%> <%= link_to t('microcredit.common.more_info'), (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
-
+<p><%= t 'microcredit.common.help_us2', name: @brand_config["name"]%> <%= link_to t('microcredit.common.more_info'), (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
 <% if @microcredit.completed %>
   <div>
     <%=fa_icon "check-circle"%>
@@ -128,7 +128,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
         <div class="radio_options">
           <% @microcredit.phase_remaining.each do |amount,remaining| %>
           <input id="microcredit_loan_amount_<%=amount%>" name="microcredit_loan[amount]" value="<%=amount%>" type="radio"<%=" checked" if amount==@loan.amount%><%=' disabled class=disabled' if remaining==0%> />
-          <label onclick="javascript:$('#microcredit_loan_amount_<%=amount%>').attr('checked', true)" for="microcredit_loan_amount_<%=amount%>"><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span><%=t '.remaining_count', total: remaining%></span></label>
+          <label onclick="javascript:$('#microcredit_loan_amount_<%=amount%>').attr('checked', true)" for="microcredit_loan_amount_<%=amount%>"><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span><%=t '.remaining_count', total: remaining%><%=t '.remaining_count2', total: remaining%></span></label>
           <% end %>
           <span>Marca además la siguiente opción si deseas suscribir una cantidad superior a la elegida (300€, 700€, ...)<br/>Te permitirá suscribir varios microcréditos seguidos hasta alcanzar dicha cantidad.</span>
           <span>Aukeratutako diru kopurua baino gehiago harpidetu nahi baduzu (300€,700€…), marka ezazu ere hurrengo aukera. Hainbat mikrokreditu harpidetzeko aukera emango dizu, kopuru horretara heldu harte. Beste bat harpidetu</span>
@@ -170,6 +170,8 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <%= f.label :terms_of_service, class: 'text-xl' do %>
             <%= t '.terms_of_service_message', name: @brand_config["name"]%>
             <%= link_to t('.terms_of_service_link', name: @brand_config["name"]), @microcredit.agreement_link, target: "_blank"%>
+            <%= t '.terms_of_service_message2', name: @brand_config["name"]%>
+            <%= link_to t('.terms_of_service_link2', name: @brand_config["name"]), @microcredit.agreement_link, target: "_blank"%>
           <% end %>
         </div>
       </div>
