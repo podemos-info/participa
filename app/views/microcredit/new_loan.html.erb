@@ -21,7 +21,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
 
 <h2><%= t 'microcredit.common.title', name: @brand_config["name"]%> - <%=@microcredit.title%></h2>
 <p><%= t 'microcredit.common.help_us', name: @brand_config["name"]%> <%= link_to t('microcredit.common.more_info'), (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
-
+<p><%= t 'microcredit.common.help_us2', name: @brand_config["name"]%> <%= link_to t('microcredit.common.more_info'), (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
 <% if @microcredit.completed %>
   <div>
     <%=fa_icon "check-circle"%>
@@ -33,6 +33,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
 <% else %>
   <% if @microcredit.contact_phone and not @microcredit.contact_phone.empty?%>
   <p><%=fa_icon "phone-square"%> <%= t('.help_phone', phone: @microcredit.contact_phone).html_safe %></p>
+  <p><%=fa_icon "phone-square"%> <%= t('.help_phone2', phone: @microcredit.contact_phone).html_safe %></p>
   <% end %>
   <%= errors_in_form @loan %>
   <%= semantic_form_for @loan, url: create_microcredit_loan_path(@url_params), html: {method: :post, autocomplete: 'off'} do |f| %>
@@ -130,6 +131,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <label onclick="javascript:$('#microcredit_loan_amount_<%=amount%>').attr('checked', true)" for="microcredit_loan_amount_<%=amount%>"><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span><%=t '.remaining_count', total: remaining%></span></label>
           <% end %>
           <span>Marca además la siguiente opción si deseas suscribir una cantidad superior a la elegida (300€, 700€, ...)<br/>Te permitirá suscribir varios microcréditos seguidos hasta alcanzar dicha cantidad.</span>
+          <span>Aukeratutako diru kopurua baino gehiago harpidetu nahi baduzu (300€,700€…), marka ezazu ere hurrengo aukera. Hainbat mikrokreditu harpidetzeko aukera emango dizu, kopuru horretara heldu harte. Beste bat harpidetu</span>
           <%= check_box_tag :reload, "1", !params[:reload].blank?, class: 'checkbox' %>
           <%= label_tag :reload, class: 'text-xl' do %><%=fa_icon "check-circle", text: "Suscribir otro"%><% end %>
         </div>
@@ -168,6 +170,8 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <%= f.label :terms_of_service, class: 'text-xl' do %>
             <%= t '.terms_of_service_message', name: @brand_config["name"]%>
             <%= link_to t('.terms_of_service_link', name: @brand_config["name"]), @microcredit.agreement_link, target: "_blank"%>
+            <%= t '.terms_of_service_message2', name: @brand_config["name"]%>
+            <%= link_to t('.terms_of_service_link2', name: @brand_config["name"]), @microcredit.agreement_link, target: "_blank"%>
           <% end %>
         </div>
       </div>
