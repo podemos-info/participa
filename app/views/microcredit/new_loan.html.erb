@@ -130,6 +130,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <label onclick="javascript:$('#microcredit_loan_amount_<%=amount%>').attr('checked', true)" for="microcredit_loan_amount_<%=amount%>"><%=fa_icon "#{remaining==0 ? "times" : "check"}-circle", text: "#{number_to_euro amount*100,0}"%><span><%=t '.remaining_count', total: remaining%></span></label>
           <% end %>
           <span>Marca además la siguiente opción si deseas suscribir una cantidad superior a la elegida (300€, 700€, ...)<br/>Te permitirá suscribir varios microcréditos seguidos hasta alcanzar dicha cantidad.</span>
+          <span>Aukeratutako diru kopurua baino gehiago harpidetu nahi baduzu (300€,700€…), marka ezazu ere hurrengo aukera. Hainbat mikrokreditu harpidetzeko aukera emango dizu, kopuru horretara heldu harte. Beste bat harpidetu</span>
           <%= check_box_tag :reload, "1", !params[:reload].blank?, class: 'checkbox' %>
           <%= label_tag :reload, class: 'text-xl' do %><%=fa_icon "check-circle", text: "Suscribir otro"%><% end %>
         </div>
