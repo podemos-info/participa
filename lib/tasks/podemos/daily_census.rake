@@ -75,7 +75,7 @@ namespace :podemos do
         autonomies[FOREIGN][0] +=1
       end
 
-      if u.current_sign_in_at > active_date then
+      if u.current_sign_in_at.present? && u.current_sign_in_at > active_date then
         countries[if countries.include? u.country_name then u.country_name else UNKNOWN end][1] += 1 
         if u.country=="ES"
           autonomies[u.autonomy_name][1] += 1 if not u.autonomy_name.empty?
