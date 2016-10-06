@@ -92,13 +92,13 @@ namespace :podemos do
         autonomies[u.vote_autonomy_name][2] += 1 if not u.vote_autonomy_name.empty?
         provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][2] += 1
         towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][2] += 1
-        islands[u.vote_island_name][2] += 1 if not u.island_name.empty?
+        islands[u.vote_island_name][2] += 1 if not u.vote_island_name.empty?
 
-        if u.current_sign_in_at > active_date then
+        if u.current_sign_in_at.present? && u.current_sign_in_at > active_date then
           autonomies[u.vote_autonomy_name][3] += 1 if not u.vote_autonomy_name.empty?
           provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][3] += 1
           towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][3] += 1
-          islands[u.vote_island_name][3] += 1 if not u.island_name.empty?
+          islands[u.vote_island_name][3] += 1 if not u.vote_island_name.empty?
         end      
       end
 
