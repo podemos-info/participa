@@ -88,7 +88,7 @@ namespace :podemos do
         end
       end
 
-      if u.vote_town
+      if u.vote_town && u.not_banned?
         autonomies[u.vote_autonomy_name][2] += 1 if not u.vote_autonomy_name.empty?
         provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][2] += 1
         towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][2] += 1
