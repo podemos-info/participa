@@ -11,7 +11,7 @@ namespace :podemos do
     args.with_defaults(:year => nil, :month=>nil, :day=>nil)
 
     if args.year.nil?
-        users = User.confirmed
+        users = User.confirmed.not_banned
         date = Date.today        
     else
         users = User.with_deleted
@@ -61,7 +61,7 @@ namespace :podemos do
 
       if args.year
         u = u.version_at(date)
-        next if u.nil?
+        next if !(u.present? && u.sms_confirmed_at.present? && u.not_banned?)
       end
      
       countries[if countries.include? u.country_name then u.country_name else UNKNOWN end][0] += 1 
@@ -88,7 +88,7 @@ namespace :podemos do
         end
       end
 
-      if u.vote_town && u.not_banned?
+      if u.vote_town
         autonomies[u.vote_autonomy_name][2] += 1 if not u.vote_autonomy_name.empty?
         provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][2] += 1
         towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][2] += 1
