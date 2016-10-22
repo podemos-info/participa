@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.sidr.min
+//= require jquery-fileupload/basic
 //= require iframeSizer.min
 //= require select2
 //= require cookie_policy

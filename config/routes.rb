@@ -135,13 +135,13 @@ Rails.application.routes.draw do
     scope :impulsa do
       get '', to: 'impulsa#index', as: 'index_impulsa'
       get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
-      get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
       post 'crear', to: 'impulsa#create', as: 'create_impulsa'
-      post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
-      get ':id/attachment/:field/:style/:filename', to: 'impulsa#attachment', as: 'attachments_impulsa', constraints: { filename: /[^\/]*/ }
-      get 'categorias', to: 'impulsa#categories', as: 'impulsa_categories'
-      get 'categoria/:id', to: 'impulsa#category', as: 'impulsa_category'
-      get 'proyecto/:id', to: 'impulsa#project', as: 'impulsa_project'
+      get 'p/:step', to: 'impulsa#edit', as: 'edit_impulsa'
+      post 'modificar', to: 'impulsa#update', as: 'update_impulsa'
+      post 'subir/:field', to: 'impulsa#upload', as: 'upload_impulsa', constraints: { field: /[^\/]*/ }
+      delete 'borrar/:field', to: 'impulsa#delete', as: 'delete_impulsa', constraints: { field: /[^\/]*/ }
+      get 'descargar/:field', to: 'impulsa#download', as: 'download_impulsa', constraints: { field: /[^\/]*/ }
+
     end
 
     scope :brujula do

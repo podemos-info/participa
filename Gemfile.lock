@@ -220,6 +220,10 @@ GEM
     jbuilder (2.3.0)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-fileupload-rails (0.4.6)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      sass (>= 3.2)
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -394,6 +398,13 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    state_machines (0.4.0)
+    state_machines-activemodel (0.4.0)
+      activemodel (>= 4.1, < 5.1)
+      state_machines (>= 0.4.0)
+    state_machines-activerecord (0.4.0)
+      activerecord (>= 4.1, < 5.1)
+      state_machines-activemodel (>= 0.3.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -471,6 +482,7 @@ DEPENDENCIES
   friendly_id (~> 5.1.0)
   iban-tools
   jbuilder (~> 2.0)
+  jquery-fileupload-rails
   jquery-rails
   kaminari
   launchy
@@ -503,6 +515,8 @@ DEPENDENCIES
   spanish_vat_validators
   spring
   sqlite3
+  state_machines
+  state_machines-activerecord
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)

@@ -3,7 +3,7 @@ ActiveAdmin.register ImpulsaProject do
   belongs_to :impulsa_edition
   navigation_menu :default
 
-  permit_params ImpulsaProject::ALL_FIELDS + ImpulsaProject::ADMIN_REVIEWABLE_FIELDS.map {|f| "#{f}_review".to_sym }, impulsa_edition_topic_ids: []
+  #permit_params ImpulsaProject::ALL_FIELDS + ImpulsaProject::ADMIN_REVIEWABLE_FIELDS.map {|f| "#{f}_review".to_sym }, impulsa_edition_topic_ids: []
 
   filter :impulsa_edition_topics, as: :select, collection: -> { parent.impulsa_edition_topics}
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}

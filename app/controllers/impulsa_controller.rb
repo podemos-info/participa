@@ -1,12 +1,121 @@
 class ImpulsaController < ApplicationController
-  before_action :authenticate_user!, except: [ :index, :categories, :category, :project, :attachment ]
-  before_action :set_current_edition
-  before_action :set_user_project
+  before_action :authenticate_user!, except: [ :index ]
+  before_action :set_variables
  
   def index
     @upcoming = ImpulsaEdition.upcoming.first if @edition.nil?
   end
 
+  def new
+  end
+
+  def create
+    if @project.save
+      redirect_to edit_impulsa_path(@project.wizard_step) 
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @project.update_column :wizard_step, @step if @project.wizard_step != @step
+    @show_errors = @project.wizard_status[@step][:filled]
+    @project.valid? & @project.wizard_valid? if @show_errors
+  end
+
+  def update
+    redirect_to new_impulsa_path and return unless @project
+
+    changes = (@project.changes.keys-["wizard_step"]).any?
+
+    if @project.save
+      flash[:notice] = "Los cambios han sido guardados" if changes
+      redirect_to edit_impulsa_path(step: @project.wizard_next_step)
+      return
+    end
+    render :edit
+  end
+
+  def upload
+    gname, fname = params[:field].split(".")
+    result = @project.assign_wizard_value(gname, fname, params[:file])
+    errors = [
+            case result
+              when :wrong_extension
+                "El tipo de fichero subido no es correcto."
+              when :wrong_size
+                "El tamaño del fichero subido supera el límite permitido."
+              when :wrong_field
+                "El fichero subido no corresponde a ningún campo. Por favor, recarga la página e intenta subirlo nuevamente."
+            end 
+          ]
+
+    if errors.any?
+      render json: errors, status: :unprocessable_entity
+    else
+      @project.save
+      filename = @project.wizard_values[params[:field]]
+      ret = {
+              name: filename,
+              path: download_impulsa_path(field: filename)
+            }
+      render json: ret
+    end
+  end
+
+  def delete
+    gname, fname = params[:field].split(".")
+    result = @project.assign_wizard_value(gname, fname, nil)
+    errors = [
+            case result
+              when :wrong_field
+                "El fichero indicado no corresponde a ningún campo. Por favor, recarga la página e intenta borrarlo nuevamente."
+            end 
+          ]
+
+    if errors.any?
+      render json: errors, status: :unprocessable_entity
+    else
+      @project.save
+      render json: {}
+    end
+  end
+
+  def download
+    gname, fname, extension = params[:field].split(".")
+    send_file @project.wizard_path(gname, fname)
+  end
+
+private
+  def set_variables
+    @edition = ImpulsaEdition.current
+    return if @edition.nil? || !current_user
+
+    @step = params[:step]
+    @project = @edition.impulsa_projects.where(user:current_user).first
+    if @project.nil? && @edition.allow_creation?
+      @project = ImpulsaEdition.current.impulsa_projects.build      
+      @project.user = current_user
+    end
+
+    @available_categories = @edition.impulsa_edition_categories
+    @available_categories = @available_categories.non_authors if !current_user.impulsa_author?
+
+    if @project then
+      @project.wizard_step = @step if @step
+      @project.assign_attributes(project_params) unless params[:impulsa_project].blank?
+    end
+  end
+
+  def project_params
+    if @project.persisted?
+      params.require(:impulsa_project).permit(*@project.wizard_step_fields)
+    else
+      params.require(:impulsa_project).permit(:name, :impulsa_edition_category_id)
+    end
+  end
+
+'''
   def new
     if @edition
       redirect_to edit_impulsa_path and return if @project
@@ -65,23 +174,6 @@ class ImpulsaController < ApplicationController
     send_file path
   end
 
-  def categories
-    @categories_state = @edition.impulsa_edition_categories.state.select {|c| c.impulsa_projects.public_visible.count>0}
-    @categories_territorial = @edition.impulsa_edition_categories.territorial.select {|c| c.impulsa_projects.public_visible.count>0}
-    @categories_internal = @edition.impulsa_edition_categories.internal.select {|c| c.impulsa_projects.public_visible.count>0}
-  end
-
-  def category
-    @category = ImpulsaEditionCategory.find(params[:id])
-    @projects = @category.impulsa_projects.public_visible
-    redirect_to impulsa_categories_path and return if @category.nil?
-  end
-
-  def project
-    @project = ImpulsaProject.public_visible.where(id:params[:id]).first
-    redirect_to impulsa_categories_path and return if @project.nil?
-  end
-
   private
 
   def cache_files
@@ -114,4 +206,5 @@ class ImpulsaController < ApplicationController
       params.require(:impulsa_project).permit(@project.user_editable_fields + @project.user_editable_cache_fields)
     end
   end
+'''
 end

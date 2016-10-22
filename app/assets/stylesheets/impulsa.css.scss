@@ -1,246 +1,76 @@
-#proyectos {
-	font-family: 'Montserrat', sans-serif;
-	box-sizing: border-box;
-}
-#proyectos .proyecto {
-	width: 287px;
-	float: left;
-	margin: 5px 0 25px 0;
-	/*margin: 0;*/
-	padding: 0;
-	background-color:#fff;
-	position: relative;
-	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
-	opacity:1;
-}
-
-#proyectos .proyecto:hover {
-	opacity:0.9;
-}
-
-#proyectos .proyecto a {
-	text-decoration: none;
-	color: #00a19a;
-}
-#proyectos .proyecto a:hover {
-	color: #82368c;
-}
-#proyectos .proyecto h2 {
-	font-size: 1.2em;
-	margin:0 0 20px 0;
-	padding:0.8em;
-}
-#proyectos .proyecto img {
-	width: 100%;
-    /*filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");*/ /* Firefox 3.5+ */
-    /*filter: gray;*/ /* IE6-9 */
-    /*-webkit-filter: grayscale(100%);*/ /* Chrome 19+ & Safari 6+ */
+.impulsa {
+	.form-label label.control-label {
+		font-size: 18px;
+		a {
+			display: block;
+			font-size: 14px;
+		}
+	}
+	.file-data {
+		clear: left;
+		.form-label label {
+			font-size: 14px;
+			padding-top: 0;
+		}
+		.form-wrapper {
+			position: relative;
+		}
+		.current-file {
+			a {
+				text-align: right;
+				color: #269283;
+				font-size: 14px;
+				&.delete {
+					color: #f5bfc9;
+				}
+			}
+		}
+		.progress {
+			position: absolute;
+			margin: 5px;
+			width: 100%;
+		}
+	}
 }
 
-#proyectos .proyecto .youtube {
-	postition:relative;
-}
+nav.steps {
+	ul {
+		margin-bottom: 14px;
+		li {
+		  background: #269283;
+		  display: inline-block;
+		  padding: 5px 10px;
+		  margin-right: 2px;
+		  margin-bottom: 2px;
+		  font-size: 12px;
+		  border-radius: 2px 8px 8px 2px;
+		  max-width: 200px;
 
-#proyectos .proyecto .youtube figure {
-	display:block;
-	width:287px;
-	height:160px;
-	margin:-90px 0 0 0;
-	overflow:hidden;
-	
-}
+		  &.active {
+		  	background: #612d62;
+		  }
 
-#proyectos .proyecto .youtube i {
-	display:block;
-	text-align:center;
-	font-size:30px;
-	padding:60px 5px 0 5px;
-}
+		  a {
+		  	color: white;
+		  }
 
-#proyectos .proyecto .youtube img {
-	width:100%;
-	margin:-30px 0 -30px 0;
+		  span.errors {
+		  	color: #f5bfc9;
+		  	display: inline-block;
+		  	font-size: 13px;
+		  	font-weight: bold;
+		  	text-align: center;
+		  	margin-left: 5px; 
+		  }
+		  i.ok {
+		  	color: #8f8;
+		  }
+		  i { 
+		  	display: inline-block;
+		  	font-size: 13px;
+		  	text-align: center;
+		  	margin-left: 5px;
+		  }
+	  }
+  }
 }
-
-#proyectos .proyecto iframe {
-	width: 100% !important;
-	height: 161px;
-}
-#proyectos .proyecto img:hover {
-	-webkit-filter: none;
-	filter: none;
-}
-#proyectos .proyecto.activo img, #proyectos .proyecto.activo hr.medio {
-	-webkit-filter: none;
-	filter: none;
-}
-#proyectos .proyecto hr.medio {
-	border: 0;
-	display: block;
-	position: relative;
-	margin-top:-20px;
-	background-image:image-url("barra-impulsa.png");
-	background-color:transparent;
-	width:287px;
-	height:61px;
-	z-index:100;
-
-/*    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");*/ /* Firefox 3.5+ */
-/*    filter: gray;*/ /* IE6-9 */
-/*    -webkit-filter: grayscale(100%);*/ /* Chrome 19+ & Safari 6+ */
-}
-#proyectos .proyecto hr {
-	width:100%;
-	height:20px;
-	border:0;
-	margin:0;
-	padding:0;
-}
-#proyectos .proyecto hr.inicio {
-	/*background-color:#999;*/
-	background-color:#00a19a;
-}
-#proyectos .proyecto hr.fin {
-	/*background-color:#444;*/
-	background-color:#82368c;
-}
-#proyectos .proyecto.activo hr.inicio {
-	background-color:#00a19a;
-}
-#proyectos .proyecto.activo hr.fin {
-	background-color:#82368c;
-}
-#proyectos .proyecto .votos {
-	text-align: right;
-}
-#proyectos .proyecto .votos span {
-	font-size: 1.5em;
-}
-#proyectos .proyecto p {
-	margin:0;
-}
-#proyectos .proyecto .temas {
-	background-color:#82368c;
-	height:66px;
-	list-style: none;
-}
-#proyectos .proyecto .temas li{
-	float:right;
-	/*clear: right;*/
-	background-color: #000;
-	opacity:0.7;
-	padding:5px 5px 5px 5px;
-	line-height:23px;
-}
-#proyectos .proyecto .temas li.votes {
-	font-size:2em;
-	font-weight:bold;
-	color:#82368c;
-}
-#proyectos .proyecto .temas a {
-	background-repeat:no-repeat;
-	background-position:0 0;
-	background-size:30px 30px;
-	display:inline-block;
-	color: #ddd;
-	background-color: #000;
-	cursor:pointer;
-}
-#proyectos .proyecto .temas a:hover {
-	color: #fff;
-}
-
-#proyectos .proyecto .temas li.winner, #proyectos .proyecto .temas a.winner,
-#proyectos .proyecto .temas li.validated, #proyectos .proyecto .temas a.validated,
-#proyectos .proyecto .temas li.discarded, #proyectos .proyecto .temas a.discarded {
-	text-align:center;
-	opacity:1;
-	line-height: 12px;
-	float: left;
-	margin: 1px 2px 0;
-	background: none;
-}
-
-#proyectos .proyecto .temas a.winner i,
-#proyectos .proyecto .temas a.validated i,
-#proyectos .proyecto .temas a.discarded i {
-	font-size:4em;
-	display:block;
-}
-
-#botonera, .categorias {
-	font-size: medium;
-	margin-bottom: 30px;
-}
-
-#botonera .filtro {
-	display:block;
-	clear:both;
-	/* margin-bottom:2em;*/
-}
-
-.categorias .titulo {
-	display:inline-block;
-	width:110px;
-	font-weight:bold;
-}
-
-#botonera a, .categorias a {
-	display:inline-block;
-	/*clear:both;*/
-	text-decoration:none;
-	margin:0;
-	padding:10px;
-	background-color:#82368c;
-	color: #fff;
-	/*font-family: 'Roboto', sans-serif;*/
-}
-
-#botonera a {
-	display:none;
-}
-
-/*
-#botonera a.vertodos {
-	display: none;
-}
-*/
-#botonera a:hover, #botonera a.active, #botonera a.vertodos, .categorias a:hover {
-	background-color:#00a19a;
-}
-
-#botonera a.active ~ a.vertodos {
-	display: inline-block;
-	margin:-1em 0;
-	border:0;
-}
-
-#cargando {
-/* centrado
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-*/
-	position: fixed;
-	top:10%;
-	right:10%;
-	font-size:8em;
-}
-
-
-#impulsa-project h4 {
-	font-size:1.4em;
-	margin-top:2em;
-}
-
-#impulsa-project p {
-	font-size:1.4em;
-}
-
-#impulsa-project li {
-	font-size:1.4em;
-}
-

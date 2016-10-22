@@ -10,3 +10,5 @@
 #= require active_admin_impulsa
 #= require cocoon
 #= require d3
+#= require codemirror
+#= require codemirror-yaml
