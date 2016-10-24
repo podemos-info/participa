@@ -12,27 +12,27 @@
       <% case @project.state 
           when "unsaved" %>
             <p>Estás a punto de comenzar a inscribir un proyecto para la edición actual del Programa IMPULSA. Antes de comenzar te recomendamos que consultes las <a href="http://impulsa.podemos.info/bases">bases de esta edición</a>. Lee atentamente el apartado de la documentación que hay que entregar.</p>
-            <p>Recuerda que la fecha límite para presentar tu proyecto es el <strong><%= l(@project.impulsa_edition.new_projects_until, format: :long) %></strong>.</p>
+            <p>Recuerda que la fecha límite para presentar tu proyecto es el <strong><%= l(@edition.new_projects_until, format: :long) %></strong>.</p>
           <% when "new", "spam" %>
-            <% if @project.impulsa_edition.allow_creation? %>
+            <% if @edition.allow_creation? %>
               <p>Ya tienes creado un proyecto para la edición actual del Programa IMPULSA. <% if @project.wizard_has_errors? %>Debes completar todos los datos del proyecto para que podamos revisarlo. Una vez que lo hayas hecho debes volver a está página para aceptar los términos del programa IMPULSA y marcar tu proyecto para revisión.<% else %>Para que podamos revisar que todos los datos enviados son correctos debes aceptar los términos del programa IMPULSA y presionar el botón "marcar para revisión".<%end%></p>
-             <p>Recuerda que la fecha límite para presentar tu proyecto es el <strong><%= l(@project.impulsa_edition.new_projects_until, format: :long) %></strong>.</p>
+             <p>Recuerda que la fecha límite para presentar tu proyecto es el <strong><%= l(@edition.new_projects_until, format: :long) %></strong>.</p>
             <% else %>
               <p>No hemos recibido, en plazo, toda la información necesaria sobre el proyecto que has presentado a esta edición de IMPULSA. El plazo de presentación de proyectos ha finalizado, por lo que lamentamos comunicarte que tu proyecto no podrá ser revisado.</p>
             <% end %>
           <% when "fixes" %>
-            <% if @project.impulsa_edition.allow_fixes? %>
+            <% if @edition.allow_fixes? %>
               <p>Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación. <% if @project.wizard_has_errors? %>Por favor, revisa los pasos marcados, lee atentamente nuestras indicaciones y corrígelos. Una vez que lo hayas hecho debes volver a está página para marcar tu proyecto para que sea revisado nuevamente.<% else %>Para que podamos revisar nuevamente tu proyecto debes presionar el botón "marcar para revisión".<%end%></p>
-              <p>Recuerda que la fecha límite para corregir los datos de tu proyecto es el <strong><%= l(@project.impulsa_edition.validation_projects_until, format: :long) %></strong>.</p>
+              <p>Recuerda que la fecha límite para corregir los datos de tu proyecto es el <strong><%= l(@edition.validation_projects_until, format: :long) %></strong>.</p>
             <% else %>
               <p>No hemos recibido, en plazo, la subsanación de los errores indicados en el proyecto que has presentado a esta edición de IMPULSA. El plazo de subsanación ha finalizado, por lo que lamentamos comunicarte que tu proyecto no pasa a la fase de validación.</p>
             <% end %>
           <% when "review" %>
-            <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos. Lo haremos antes del <strong><%= l(@project.impulsa_edition.review_projects_until, format: :long) %></strong>, te recomendamos que estés atento para poder corregirlo si fuera necesario. Hasta que eso suceda puedes seguir modificando tu proyecto si lo deseas.</p>
+            <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos. Lo haremos antes del <strong><%= l(@edition.review_projects_until, format: :long) %></strong>, te recomendamos que estés atento para poder corregirlo si fuera necesario. Hasta que eso suceda puedes seguir modificando tu proyecto si lo deseas.</p>
           <% when "review_fixes" %>
-            <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos. Lo haremos antes del <strong><%= l(@project.impulsa_edition.review_projects_until, format: :long) %></strong>, te recomendamos que estés atento para poder corregirlo si fuera necesario.</p>
+            <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos. Lo haremos antes del <strong><%= l(@edition.review_projects_until, format: :long) %></strong>, te recomendamos que estés atento para poder corregirlo si fuera necesario.</p>
           <% when "validate", "dissent" %>
-            <p>Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de evaluación. Esto se realizará <strong><%= l(@project.impulsa_edition.validation_projects_until, format: :long) %></strong>.</p>
+            <p>Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de evaluación. Esto se realizará <strong><%= l(@edition.validation_projects_until, format: :long) %></strong>.</p>
           <% when "invalidated" %>
             <p>Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones:</p>
           <% when "validated" %>
@@ -46,8 +46,10 @@
       <p>
       <p>Si tienes cualquier consulta, escribe a <a href='mailto:proyectoimpulsa3@podemos.info'>proyectoimpulsa3@podemos.info</a> y te responderemos en el menor tiempo posible. También puedes consultar las <a href="http://impulsa.podemos.info/bases">bases de esta edición</a>.</p>
 
+      <% if @project.persisted? %>
       <h3>Histórico de actividad</h3>
-
+      <% end %>
+      
       <h3>Datos del proyecto</h3>
       <%= errors_in_form @project %>
 
@@ -58,7 +60,6 @@
           <%= field_notice_box %>
           <% end %>
           <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories.sort_by(&:name), required: true, input_html: {class: 'input-xl', onchange: @project.persisted? ? "submit()" : "", disabled: @project.persisted? } %>
-          <%= content_tag(:p, fa_icon("asterisk", text: t("podemos.impulsa.impulsa_edition_category_extra", legal: link_to(t("podemos.impulsa.legal"),@edition.legal_link)).html_safe, class: "fa-fw"), class: :note) if !@project.persisted? %>
         </div>
         <div class="inputlabel-box">
           <% if @project.errors.include?(:name) %>
