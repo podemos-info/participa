@@ -9,9 +9,9 @@ class ImpulsaProject < ActiveRecord::Base
   belongs_to :evaluator1, class_name: "User"
   belongs_to :evaluator2, class_name: "User"
 
-  validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
   validates :name, :impulsa_edition_category_id, :status, presence: true
-
+  validates :user, uniqueness: {scope: :impulsa_edition_category}, allow_blank: false, allow_nil: false, unless: Proc.new { |project| project.user.nil? || project.user.impulsa_author? }
+  
   scope :by_status, ->(status) { where( status: status ) }
 
   scope :first_phase, -> { where( status: [ 0, 1, 2, 3 ] ) }

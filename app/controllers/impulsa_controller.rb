@@ -27,6 +27,7 @@ class ImpulsaController < ApplicationController
   def delete
     redirect_to project_impulsa_path and return unless @project.deleteable?
     if @project.delete
+      flash[:notice] = "El proyecto ha sido borrado."
       redirect_to impulsa_path
     else
       flash[:error] = "El proyecto no ha podido ser borrado."
@@ -105,16 +106,18 @@ private
     @step = params[:step]
     @project = @edition.impulsa_projects.where(user:current_user).first
     if @project.nil? && @edition.allow_creation?
-      @project = ImpulsaProject.new user: current_user, impulsa_edition: @edition
+      @project = ImpulsaProject.new user: current_user
     end
 
     @available_categories = @edition.impulsa_edition_categories
     @available_categories = @available_categories.non_authors if !current_user.impulsa_author?
 
-    if @project then
+    if @project.present? then
       @project.wizard_step = @step if @step
       @project.assign_attributes(project_params) unless params[:impulsa_project].blank?
     end
+
+    p @project
   end
 
   def project_params
