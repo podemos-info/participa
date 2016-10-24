@@ -41,7 +41,7 @@ module ImpulsaProjectStates
         end
       end
 
-      state all - [:new, :review, :fixes, :review_fixes, :spam] do
+      state all - [:unsaved, :new, :review, :fixes, :review_fixes, :spam] do
         def editable?
           false
         end

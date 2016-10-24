@@ -116,8 +116,6 @@ private
       @project.wizard_step = @step if @step
       @project.assign_attributes(project_params) unless params[:impulsa_project].blank?
     end
-
-    p @project
   end
 
   def project_params
