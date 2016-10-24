@@ -48,6 +48,10 @@ module ImpulsaProjectStates
     def saveable?
       editable? || reviewable?
     end
+
+    def deleteable?
+      editable?
+    end
   end
 end
 

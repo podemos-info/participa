@@ -133,13 +133,14 @@ Rails.application.routes.draw do
     end
     
     scope :impulsa do
-      get '', to: 'impulsa#index', as: 'index_impulsa'
-      get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
-      post 'crear', to: 'impulsa#create', as: 'create_impulsa'
-      get 'p/:step', to: 'impulsa#edit', as: 'edit_impulsa'
+      get '', to: 'impulsa#index', as: 'impulsa'
+      get 'proyecto', to: 'impulsa#project', as: 'project_impulsa'
+      get 'proyecto/:step', to: 'impulsa#project_step', as: 'project_step_impulsa'
+      delete 'proyecto/borrar', to: 'impulsa#delete', as: 'delete_impulsa'
       post 'modificar', to: 'impulsa#update', as: 'update_impulsa'
+      post 'modificar/:step', to: 'impulsa#update_step', as: 'update_step_impulsa'
       post 'subir/:field', to: 'impulsa#upload', as: 'upload_impulsa', constraints: { field: /[^\/]*/ }
-      delete 'borrar/:field', to: 'impulsa#delete', as: 'delete_impulsa', constraints: { field: /[^\/]*/ }
+      delete 'borrar/:field', to: 'impulsa#delete_file', as: 'delete_file_impulsa', constraints: { field: /[^\/]*/ }
       get 'descargar/:field', to: 'impulsa#download', as: 'download_impulsa', constraints: { field: /[^\/]*/ }
 
     end

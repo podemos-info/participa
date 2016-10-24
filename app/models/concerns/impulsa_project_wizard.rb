@@ -8,7 +8,7 @@ module ImpulsaProjectWizard
     store :wizard_values, coder: YAML
 
     before_create do
-      self.wizard_step = self.wizard_steps.first.first
+      self.wizard_step = self.wizard_steps.keys.first
     end
 
     EXTENSIONS = {

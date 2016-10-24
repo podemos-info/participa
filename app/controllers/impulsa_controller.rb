@@ -6,31 +6,42 @@ class ImpulsaController < ApplicationController
     @upcoming = ImpulsaEdition.upcoming.first if @edition.nil?
   end
 
-  def new
+  def project
   end
 
-  def create
-    if @project.save
-      redirect_to edit_impulsa_path(@project.wizard_step) 
-    else
-      render :new
-    end
-  end
-
-  def edit
+  def project_step
     @project.update_column :wizard_step, @step if @project.wizard_step != @step
     @show_errors = @project.wizard_status[@step][:filled]
     @project.valid? & @project.wizard_valid? if @show_errors
   end
 
   def update
-    redirect_to new_impulsa_path and return unless @project
+    redirect_to project_impulsa_path and return unless @project.editable?
+    if @project.save
+      redirect_to project_step_impulsa_path(step: @project.wizard_step) 
+    else
+      render :project
+    end
+  end
+
+  def delete
+    redirect_to project_impulsa_path and return unless @project.deleteable?
+    if @project.delete
+      redirect_to impulsa_path
+    else
+      flash[:error] = "El proyecto no ha podido ser borrado."
+      redirect_to project_impulsa_path
+    end
+  end
+
+  def update_step
+    redirect_to project_impulsa_path and return unless @project.saveable?
 
     changes = (@project.changes.keys-["wizard_step"]).any?
 
     if @project.save
       flash[:notice] = "Los cambios han sido guardados" if changes
-      redirect_to edit_impulsa_path(step: @project.wizard_next_step)
+      redirect_to project_step_impulsa_path(step: @project.wizard_next_step)
       return
     end
     render :edit
@@ -63,7 +74,7 @@ class ImpulsaController < ApplicationController
     end
   end
 
-  def delete
+  def delete_file
     gname, fname = params[:field].split(".")
     result = @project.assign_wizard_value(gname, fname, nil)
     errors = [
@@ -94,8 +105,7 @@ private
     @step = params[:step]
     @project = @edition.impulsa_projects.where(user:current_user).first
     if @project.nil? && @edition.allow_creation?
-      @project = ImpulsaEdition.current.impulsa_projects.build      
-      @project.user = current_user
+      @project = ImpulsaProject.new user: current_user, impulsa_edition: @edition
     end
 
     @available_categories = @edition.impulsa_edition_categories
@@ -108,10 +118,12 @@ private
   end
 
   def project_params
-    if @project.persisted?
-      params.require(:impulsa_project).permit(*@project.wizard_step_fields)
-    else
+    if !@project.persisted?
       params.require(:impulsa_project).permit(:name, :impulsa_edition_category_id)
+    elsif @step.blank?
+      params.require(:impulsa_project).permit(:name)
+    elsif @project.editable?
+      params.require(:impulsa_project).permit(*@project.wizard_step_fields)
     end
   end
 
