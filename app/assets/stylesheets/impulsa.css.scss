@@ -47,10 +47,12 @@ nav.steps {
 		  margin: 2px;
 		  font-size: 12px;
 		  border-radius: 2px 8px 8px 2px;
-		  max-width: 200px;
 
-		  &.active {
+		  &.main {
 		  	background: #612d62;
+		  }
+		  &.active {
+		  	background: #954e99;
 		  }
 
 		  a {

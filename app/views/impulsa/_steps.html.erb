@@ -1,7 +1,7 @@
 <nav class="steps">
   <ul>
-    <li <%= 'class=active' if "main"==step %>>
-      <a href="<%=project_impulsa_path%>">Resumen</a>
+    <li class="main<%= ' active' if "main"==step %>">
+      <a href="<%=project_impulsa_path%>"><%= fa_icon "thumb-tack", text: "Proyecto"%> </a>
     </li>
     <% project.wizard_status.each do |sname, info| %>
       <li <%= 'class=active' if sname==step %>>

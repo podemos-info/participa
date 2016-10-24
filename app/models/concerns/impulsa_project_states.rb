@@ -3,7 +3,14 @@ module ImpulsaProjectStates
 
   included do
 
-    state_machine initial: :new do
+    before_create do
+      self.create_project
+    end
+    
+    state_machine initial: :unsaved do
+      event :create_project do
+        transition :unsaved => :new
+      end
 
       event :mark_for_review do
         transition :new => :review, unless: :wizard_has_errors?
@@ -14,7 +21,7 @@ module ImpulsaProjectStates
         transition all => :spam
       end
 
-      state :new, :review, :spam do
+      state :unsaved, :new, :review, :spam do
         def editable?
           self.impulsa_edition.allow_edition?
         end
