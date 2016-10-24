@@ -2,15 +2,8 @@ module ImpulsaProjectStates
   extend ActiveSupport::Concern
 
   included do
-
-    before_create do
-      self.create_project
-    end
     
-    state_machine initial: :unsaved do
-      event :create_project do
-        transition :unsaved => :new
-      end
+    state_machine initial: :new do
 
       event :mark_for_review do
         transition :new => :review, unless: :wizard_has_errors?
@@ -21,7 +14,7 @@ module ImpulsaProjectStates
         transition all => :spam
       end
 
-      state :unsaved, :new, :review, :spam do
+      state :new, :review, :spam do
         def editable?
           self.impulsa_edition.allow_edition?
         end
@@ -41,7 +34,7 @@ module ImpulsaProjectStates
         end
       end
 
-      state all - [:unsaved, :new, :review, :fixes, :review_fixes, :spam] do
+      state all - [:new, :review, :fixes, :review_fixes, :spam] do
         def editable?
           false
         end
