@@ -405,6 +405,8 @@ GEM
     state_machines-activerecord (0.4.0)
       activerecord (>= 4.1, < 5.1)
       state_machines-activemodel (>= 0.3.0)
+    state_machines-audit_trail (1.0.2)
+      state_machines
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -517,6 +519,7 @@ DEPENDENCIES
   sqlite3
   state_machines
   state_machines-activerecord
+  state_machines-audit_trail
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)

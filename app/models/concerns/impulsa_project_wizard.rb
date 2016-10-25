@@ -5,21 +5,27 @@ module ImpulsaProjectWizard
     include ActiveModel::Validations::SpanishVatValidatorsHelpers
     include ActiveModel::Validations::EmailValidatorHelpers
 
-    store :wizard_values, coder: YAML
+    store :wizard_values, coder: YAML 
+    store :wizard_review, coder: YAML
 
     before_create do
       self.wizard_step = self.wizard_steps.keys.first
     end
 
     EXTENSIONS = {
-      xls: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      xlsx: "application/vnd.ms-excel",
-      pdf: "application/x-pdf"
+      doc: "application/msword",
+      docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      jpg: "image/jpeg",
+      ods: "application/vnd.oasis.opendocument.spreadsheet",
+      odt: "application/vnd.oasis.opendocument.text",
+      pdf: "application/pdf",
+      xls: "application/vnd.ms-excel",
+      xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     }
     FILETYPES = {
-      sheet: [:xls, :xlsx],
-      image: [:jpg, :png, :gif],
-      pdf: [:pdf]
+      sheet: [:xls, :xlsx, :ods],
+      scan: [:jpg, :pdf],
+      document: [:doc, :docx, :odt]
     }
     MAX_FILE_SIZE = 1024*1024*10
 
@@ -66,13 +72,17 @@ module ImpulsaProjectWizard
       end
     end
 
-    def wizard_step_fields
+    def wizard_step_params
       _all = wizard[wizard_step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|
-          ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"]
+          ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"] if self.wizard_editable_field?(gname, fname)
         end
-      end .flatten(1)
+      end .compact.flatten(1)
       _all.collect{|field, multiple| field unless multiple}.compact + [Hash[_all.select(&:last).map{|field,multiple| [field, []]}]]
+    end
+
+    def wizard_editable_field? gname, fname
+      self.editable? || (self.fixable? && self.review_fields["#{gname}.#{fname}"])
     end
 
     def wizard_has_errors?
@@ -133,6 +143,8 @@ module ImpulsaProjectWizard
             wizard_values["#{gname}.#{fname}"] = nil
           end
           File.delete(File.join(files_folder, old_name)) if old_name && old_name != file
+        elsif field[:type] == "check_boxes"
+          wizard_values["#{gname}.#{fname}"] = value.select(&:present?)
         else
           wizard_values["#{gname}.#{fname}"] = value
         end
@@ -153,6 +165,16 @@ module ImpulsaProjectWizard
           end
           def _wiz_#{$1}__#{$2}= value
             assign_wizard_value(:"#{$1}", :"#{$2}", value)
+          end
+        RUBY
+        send(method_sym, *arguments)
+      elsif method_sym.to_s =~ /^_rvw_(.+)__([^=]+)=?$/
+        self.instance_eval <<-RUBY
+          def _rvw_#{$1}__#{$2}
+            wizard_review["#{$1}.#{$2}"]
+          end
+          def _rvw_#{$1}__#{$2}= value
+            wizard_review["#{$1}.#{$2}"] = value
           end
         RUBY
         send(method_sym, *arguments)

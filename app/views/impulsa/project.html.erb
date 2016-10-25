@@ -7,7 +7,11 @@
 
       <%= render partial: "steps", locals: {project: @project, step: 'main'} %>
 
-      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <% if @project.name.present? %>
+        <%= content_tag(:h2, @project.name)%>
+      <% else %>
+        <%= content_tag(:h2, "Nuevo proyecto de IMPULSA") %>
+      <% end %>
 
       <% case @project.state 
           when "new", "spam" %>
@@ -46,10 +50,6 @@
       <% end %>
       <p>
       <p>Si tienes cualquier consulta, escribe a <a href='mailto:proyectoimpulsa3@podemos.info'>proyectoimpulsa3@podemos.info</a> y te responderemos en el menor tiempo posible. También puedes consultar las <a href="http://impulsa.podemos.info">bases de esta edición</a>.</p>
-
-      <% if @project.persisted? %>
-      <h3>Histórico de actividad</h3>
-      <% end %>
       
       <h3>Datos del proyecto</h3>
       <%= errors_in_form @project %>
@@ -66,7 +66,7 @@
           <% if @project.errors.include?(:name) %>
           <%= field_notice_box %>
           <% end %>
-          <%= f.input :name, required: true, input_html: { class: 'input-xl'} %>
+          <%= f.input :name, required: true, input_html: { class: 'input-xl', disabled: !@project.editable?} %>
         </div>
         <%= f.actions class: 'enter' do %>
           <%= f.action :submit, :label=>t("podemos.impulsa.next_step"), :as => :input, button_html: {class: 'button'} %>

@@ -4,6 +4,7 @@ module ImpulsaProjectStates
   included do
     
     state_machine initial: :new do
+      audit_trail
 
       event :mark_for_review do
         transition :new => :review, unless: :wizard_has_errors?
@@ -16,41 +17,39 @@ module ImpulsaProjectStates
 
       state :new, :review, :spam do
         def editable?
-          self.impulsa_edition.allow_edition?
-        end
-
-        def reviewable?
-          false
+          !self.persisted? || self.impulsa_edition.allow_edition?
         end
       end
 
-      state :fixes, :review_fixes do
+      state all - [:new, :review, :fixes, :spam] do
         def editable?
-          false
-        end
-        
-        def reviewable?
-          self.impulsa_edition.allow_fixes?
-        end
-      end
-
-      state all - [:new, :review, :fixes, :review_fixes, :spam] do
-        def editable?
-          false
-        end
-
-        def reviewable?
           false
         end
       end
     end
 
     def saveable?
-      editable? || reviewable?
+      editable? || fixable?
     end
 
     def deleteable?
       editable?
+    end
+
+    def fixable?
+      state == "fixes"
+    end
+
+    def reviewable?
+      state == "review"
+    end
+
+    def validable?
+      state == "validate"
+    end
+
+    def dissent?
+      state == "dissent"
     end
   end
 end

@@ -30,3 +30,10 @@ table.index_table th a {
   white-space: normal !important;
 }
 
+.review {
+  background: #f5bfc9;
+  border-bottom: 1px solid #999;
+  .label {
+    color: #612d6;
+  }
+}
