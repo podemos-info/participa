@@ -41,7 +41,6 @@ class ImpulsaController < ApplicationController
     changes = (@project.changes.keys-["wizard_step"]).any?
 
     if @project.save
-      flash[:notice] = "Los cambios han sido guardados" if changes
       redirect_to project_step_impulsa_path(step: @project.wizard_next_step)
       return
     end

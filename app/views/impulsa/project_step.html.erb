@@ -5,33 +5,8 @@
     <div class="col-b-4a12">
 
       <%= render partial: "steps", locals: {project: @project, step: @step} %>
-      <%= content_tag(:h2, t("podemos.impulsa.title") + " - " + @project.wizard_step_info[:title]) %>
-      <% info = if @project.saveable? then
-          content_tag(:p, t("podemos.impulsa.fixes_text")) if @project.fixes?
-        else
-          if @project.spam?
-            content_tag(:p, t("podemos.impulsa.spam_text"))
-          elsif @project.validable?
-            content_tag(:p, t("podemos.impulsa.validable_text"))
-          elsif @project.invalidated?
-            content_tag(:p, t("podemos.impulsa.invalidated_text", invalid_reasons: @project.evaluator2_invalid_reasons))
-          elsif @project.validated?
-            if @project.impulsa_edition_category.needs_preselection?
-              content_tag(:p, t("podemos.impulsa.validated1_text", voting_dates: @project.voting_dates, winners: @project.impulsa_edition_category.winners, prewinners: @project.impulsa_edition_category.prewinners))
-            else
-              content_tag(:p, t("podemos.impulsa.validated2_text", voting_dates: @project.voting_dates))
-            end
-          elsif @project.fixes?
-            content_tag(:p, t("podemos.impulsa.non_fixes_text"))
-          else
-            content_tag(:p, t("podemos.impulsa.reviewing_text"))
-          end
-        end %>
-
-      <%= info_box do %>
-        <%= info %>
-      <% end if info %>
-
+      <%= content_tag(:h2, @project.impulsa_edition_category.name + " - " + @project.wizard_step_info[:title]) %>
+      
       <%= semantic_form_for @project, url: update_step_impulsa_path(step: @step), html: {method: :post, autocomplete: 'off'} do |f| %>
         <%= simple_format(@project.wizard_step_info[:text]) if @project.wizard_step_info[:text].present? %>
         <% @project.wizard_step_info[:groups].each do |gname, group|
