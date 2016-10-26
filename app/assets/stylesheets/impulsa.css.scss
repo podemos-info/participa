@@ -32,13 +32,11 @@
 		}
 	}
 	.choice {
-		span {
-			font-size: 13px;
-			color: #666;
-			line-height: 20px;
-		}
+		font-size: 13px;
+		color: #666;
+		line-height: 20px;
 		input {
-			margin: 1px 10px;
+			margin: 1px 10px !important;
 		}
 	}
 	.form-wrapper > input + .help-block {

@@ -21,7 +21,7 @@
   <% elsif field[:type]=="boolean" %>
       <%= f.label field[:title] %>
       <div class="input-box">
-        <label class="choice"><%= f.check_box field_name, class: 'checkbox' %><span><%= field[:tip] %></span></label>
+        <label class="choice"><%= f.check_box field_name, class: 'checkbox' %><%= field[:tip] %></label>
       </div>
   <% else %>
     <%= f.input field_name, label: field[:title], as: field[:type], hint: hint, input_html: {class: 'input-xl', disable: disable} %>
