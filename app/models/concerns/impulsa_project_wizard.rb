@@ -125,21 +125,20 @@ module ImpulsaProjectWizard
       value = wizard_values["#{gname}.#{fname}"]
       return "no es un campo" if field.nil?
       return "es obligatorio" if value.blank? && !field[:optional]
-      return "debe ser aceptado" if value!="1" && field[:format]=="accept"
-      return "puede tener hasta #{field[:limit]} caracteres" if field[:limit] && value && value.length>field[:limit]
-      return "no es un NIF correcto" if field[:format]=="cif" && !validate_cif(value)
-      return "no es un DNI correcto" if field[:format]=="dni" && !validate_nif(value)
-      return "no es un NIE correcto" if field[:format]=="nie" && !validate_nie(value)
-      return "no es un DNI o NIE correcto" if field[:format]=="dninie" && !(validate_nif(value) || validate_nie(value))
-      return "no es un teléfono válido" if field[:format]=="phone" && Phonelib.parse(value).valid?
-      return "no es una dirección web válida" if field[:type]=="url" && URI::regexp(%w(http https)).match(value).nil?
-      return "debes seleccionar al menos #{field[:minimum]} opciones" if field[:type]=="check_boxes" && field[:minimum] && value.count<field[:minimum]
-      return "puedes seleccionar hasta #{field[:maximum]} opciones" if field[:type]=="check_boxes" && field[:maximum] && value.count>field[:maximum]
-
-      error = validate_email(value) if field[:type]=="email"
-
-      return error if error
-
+      if value.present?
+        return "debe ser aceptado" if value!="1" && field[:format]=="accept"
+        return "puede tener hasta #{field[:limit]} caracteres" if field[:limit] && value.length>field[:limit]
+        return "no es un NIF correcto" if field[:format]=="cif" && !validate_cif(value)
+        return "no es un DNI correcto" if field[:format]=="dni" && !validate_nif(value)
+        return "no es un NIE correcto" if field[:format]=="nie" && !validate_nie(value)
+        return "no es un DNI o NIE correcto" if field[:format]=="dninie" && !(validate_nif(value) || validate_nie(value))
+        return "no es un teléfono válido" if field[:format]=="phone" && Phonelib.parse(value).valid?
+        return "no es una dirección web válida" if field[:type]=="url" && URI::regexp(%w(http https)).match(value).nil?
+        return "debes seleccionar al menos #{field[:minimum]} opciones" if field[:type]=="check_boxes" && field[:minimum] && value.count<field[:minimum]
+        return "puedes seleccionar hasta #{field[:maximum]} opciones" if field[:type]=="check_boxes" && field[:maximum] && value.count>field[:maximum]
+        error = validate_email(value) if field[:type]=="email"
+        return error if error
+      end
       return self.wizard_review["#{gname}.#{fname}"] if (options[:ignore_state] || self.fixable?) && self.wizard_review["#{gname}.#{fname}"].present? && self.wizard_review["#{gname}.#{fname}"][0] != "*"
       nil
     end
