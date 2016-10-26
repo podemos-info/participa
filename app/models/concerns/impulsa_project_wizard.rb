@@ -125,6 +125,7 @@ module ImpulsaProjectWizard
       value = wizard_values["#{gname}.#{fname}"]
       return "no es un campo" if field.nil?
       return "es obligatorio" if value.blank? && !field[:optional]
+      return "debe ser aceptado" if value!="1" && field[:format]=="accept"
       return "no es un NIF correcto" if field[:format]=="nif" && !validate_nif(value)
       return "no es un CIF correcto" if field[:format]=="cif" && !validate_cif(value)
       return "no es un NIE correcto" if field[:format]=="nie" && !validate_nie(value)

@@ -36,7 +36,7 @@ class ImpulsaController < ApplicationController
 
   def delete
     redirect_to project_impulsa_path and return unless @project.deleteable?
-    if @project.delete
+    if @project.destroy
       flash[:notice] = "El proyecto ha sido borrado."
       redirect_to impulsa_path
     else

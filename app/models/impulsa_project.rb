@@ -5,6 +5,7 @@ class ImpulsaProject < ActiveRecord::Base
   belongs_to :impulsa_edition_category
   belongs_to :user, -> { with_deleted }
   has_one :impulsa_edition, through: :impulsa_edition_category
+  has_many :impulsa_project_state_transitions, dependent: :destroy
 
   belongs_to :evaluator1, class_name: "User"
   belongs_to :evaluator2, class_name: "User"

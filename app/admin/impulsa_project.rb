@@ -147,7 +147,7 @@ ActiveAdmin.register ImpulsaProject do
                   when "select"
                     div field[:collection][value]
                   when "check_boxes"
-                    div value.map {|i| field[:collection][i] } .join(", ")
+                    div (value || []).map {|i| field[:collection][i] } .join(", ")
                   when "file"
                     div value
                   else
