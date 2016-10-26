@@ -7,12 +7,27 @@ module ImpulsaProjectStates
       audit_trail
 
       event :mark_for_review do
-        transition :new => :review, unless: :wizard_has_errors?
-        transition :fixes => :review_fixes, unless: :wizard_has_errors?
+        transition :new => :review, if: :markable_for_review?
+        transition :spam => :review, if: :markable_for_review?
+        transition :fixes => :review_fixes, if: :markable_for_review?
       end
 
       event :mark_as_spam do
         transition all => :spam
+      end
+
+      event :mark_as_fixes do
+        transition :review => :fixes
+        transition :review_fixes => :fixes
+      end
+      event :mark_as_dissent do
+        transition :validate => :dissent
+      end
+      event :mark_as_validated do
+        transition :validate => :validated
+      end
+      event :mark_as_invalidated do
+        transition :validate => :invalidated
       end
 
       state :new, :review, :spam do
@@ -21,11 +36,19 @@ module ImpulsaProjectStates
         end
       end
 
-      state all - [:new, :review, :fixes, :spam] do
+      state all - [:new, :review, :spam] do
         def editable?
           false
         end
       end
+    end
+
+    def reviewable?
+      review?
+    end
+
+    def markable_for_review?
+      !reviewable? && saveable? && !wizard_has_errors?
     end
 
     def saveable?
@@ -37,19 +60,12 @@ module ImpulsaProjectStates
     end
 
     def fixable?
-      state == "fixes"
+      fixes? && self.impulsa_edition.allow_fixes?
     end
 
-    def reviewable?
-      state == "review"
-    end
 
     def validable?
-      state == "validate"
-    end
-
-    def dissent?
-      state == "dissent"
+      validate?
     end
   end
 end

@@ -4,10 +4,16 @@ ActiveAdmin.register ImpulsaProject do
   navigation_menu :default
 
   permit_params do
-    params = [:name, :impulsa_edition_category_id] + resource.wizard_step_params
-    params.concat(params.pop.keys) if params.last.is_a?(Hash)  # last param could be a hash for multivalue fields
-    params.concat(params.map {|param| "_rvw"+param[4..-1]}) if resource.reviewable?    # add review fields
-    params
+    ps = [:review, :name, :impulsa_edition_category_id]
+    all_fields = resource.wizard_step_admin_params
+
+    if params[:review]
+      all_fields.concat(all_fields.pop.keys) if all_fields.last.is_a?(Hash)  # last param could be a hash for multivalue fields  
+      ps.concat(all_fields.map {|param| "_rvw"+param[4..-1]}) if resource.reviewable?    # add review fields
+    else
+      ps.concat(all_fields)
+    end
+    ps
   end
 
   filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
@@ -38,6 +44,10 @@ ActiveAdmin.register ImpulsaProject do
     actions
   end
 
+  action_item(:fixes, only: :show ) do
+    link_to('Marcar como revisado', fixes_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como revisado?" }) if impulsa_project.reviewable?
+  end
+
   action_item(:spam, only: :show ) do
     link_to('Marcar como Spam', spam_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como Spam?" }) if !impulsa_project.spam?
   end
@@ -47,6 +57,18 @@ ActiveAdmin.register ImpulsaProject do
     p.mark_as_spam
     p.save
     flash[:notice] = "El proyecto ha sido marcado como spam."
+    redirect_to action: :index
+  end
+
+  member_action :fixes, :method => :post do
+    p = ImpulsaProject.find( params[:id] )
+    if p.wizard_review.any?
+      p.mark_as_fixes
+    else
+      p.mark_as_validable
+    end
+    p.save
+    flash[:notice] = "El proyecto ha sido marcado como revisado."
     redirect_to action: :index
   end
 
@@ -106,34 +128,44 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    impulsa_project.wizard.map do |sname, step|
-      panel step[:title] do
-        step[:groups].each do |gname, group|
-          next if !impulsa_project.wizard_eval_condition(group)
-          h3 group[:title] if group[:title]
-          attributes_table_for impulsa_project do
-            group[:fields].each do |fname, field|
-              row field[:title] do
-                case field[:type]
-                when "select"
-                  field[:collection][impulsa_project.wizard_values["#{gname}.#{fname}"]]
-                when "check_boxes"
-                  impulsa_project.wizard_values["#{gname}.#{fname}"].map {|i| field[:collection][i] } .join(", ")
-                else
-                  impulsa_project.wizard_values["#{gname}.#{fname}"]
+    form method: :post do
+      input type: :hidden, name: :_method, value: :patch
+      input type: :hidden, name: :review, value: true
+      input type: :hidden, name: :authenticity_token, value: form_authenticity_token
+      impulsa_project.wizard.map do |sname, step|
+        panel step[:title] do
+          step[:groups].each do |gname, group|
+            next if !impulsa_project.wizard_eval_condition(group)
+            h3 group[:title] if group[:title]
+            attributes_table_for impulsa_project do
+              group[:fields].each do |fname, field|
+                value = impulsa_project.wizard_values["#{gname}.#{fname}"]
+                row field[:title] do
+                  case field[:type]
+                  when "select"
+                    div field[:collection][value]
+                  when "check_boxes"
+                    div value.map {|i| field[:collection][i] } .join(", ")
+                  when "file"
+                    div download_impulsa_path(field: value)
+                  else
+                    div value
+                  end
                 end
+                row "revisión", class: "review" do
+                  textarea(impulsa_project.wizard_review["#{gname}.#{fname}"], id: "impulsa_project__rvw_#{gname}__#{fname}", name: "impulsa_project[_rvw_#{gname}__#{fname}]", rows: 2) 
+                end if impulsa_project.reviewable?
               end
             end
           end
         end
       end
+      input type: :submit if impulsa_project.reviewable?
     end
-
     active_admin_comments
   end
 
   form do |f|
-  
     f.inputs t("podemos.impulsa.admin_section") do
       li do
         label "Edition"
@@ -172,14 +204,6 @@ ActiveAdmin.register ImpulsaProject do
             else
               f.input field_name, label: field[:title], as: field[:type]
             end
-            if impulsa_project.reviewable?
-              li class: "review" do
-                label "Revisión", class:"label"
-                div do
-                  textarea impulsa_project.wizard_review["#{gname}.#{fname}"], id: "impulsa_project__rvw_#{gname}__#{fname}", name: "impulsa_project[_rvw_#{gname}__#{fname}]", rows: 2
-                end
-              end
-            end 
           end
         end
       end
@@ -188,11 +212,10 @@ ActiveAdmin.register ImpulsaProject do
     if impulsa_project.reviewable?
       f.inputs "Revisión del proyecto" do
         li do
-          "Al utilizar esta casilla el proyecto cambiará de estado: si hay comentarios asociados a algún campo pasar al estado 'Correcciones' 
+          "Al guardar el proyecto cambiará de estado: si hay comentarios asociados a algún campo pasar al estado 'Correcciones' 
           para que sea revisado por el usuario; en caso contrario pasará al estado 'Validar'. En cualquier caso, se enviará un correo al usuario
           para informarle del progreso de su proyecto, por lo que es recomendable revisar el formulario antes de enviarlo." 
         end
-        f.input :mark_as_viewed, label: "Marcar como revisado", as: :boolean
       end
     elsif impulsa_project.validable?
       f.inputs "Validación del proyecto" do
@@ -286,7 +309,6 @@ ActiveAdmin.register ImpulsaProject do
     end
 
     def update
-      byebug
       send_email = false
       was_dissent = resource.dissent?
       super

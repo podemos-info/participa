@@ -24,6 +24,15 @@ class ImpulsaController < ApplicationController
     end
   end
 
+  def review
+    if @project.mark_for_review
+      flash[:notice] = "El proyecto ha sido marcado para ser revisado."
+    else
+      flash[:error] = "El proyecto no puede ser marcado para ser revisado."
+    end
+    redirect_to project_impulsa_path
+  end
+
   def delete
     redirect_to project_impulsa_path and return unless @project.deleteable?
     if @project.delete
@@ -41,7 +50,11 @@ class ImpulsaController < ApplicationController
     changes = (@project.changes.keys-["wizard_step"]).any?
 
     if @project.save
-      redirect_to project_step_impulsa_path(step: @project.wizard_next_step)
+      if @project.wizard_next_step
+        redirect_to project_step_impulsa_path(step: @project.wizard_next_step)
+      else
+        redirect_to project_impulsa_path
+      end
       return
     end
     render :edit

@@ -55,24 +55,63 @@
       <%= errors_in_form @project %>
 
       <%= semantic_form_for @project, url: update_impulsa_path, html: { method: :post, autocomplete: 'off'} do |f| %>
-      <fieldset>
-        <div class="inputlabel-box">
-          <% if @project.errors.include?(:impulsa_edition_category) %>
-          <%= field_notice_box %>
-          <% end %>
-          <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories.sort_by(&:name), required: true, input_html: {class: 'input-xl', onchange: @project.persisted? ? "submit()" : "", disabled: @project.persisted? } %>
-        </div>
-        <div class="inputlabel-box">
-          <% if @project.errors.include?(:name) %>
-          <%= field_notice_box %>
-          <% end %>
-          <%= f.input :name, required: true, input_html: { class: 'input-xl', disabled: !@project.editable?} %>
-        </div>
-        <%= f.actions class: 'enter' do %>
-          <%= f.action :submit, :label=>t("podemos.impulsa.next_step"), :as => :input, button_html: {class: 'button'} %>
+        <fieldset>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:impulsa_edition_category) %>
+            <%= field_notice_box %>
+            <% end %>
+            <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories.sort_by(&:name), required: true, input_html: {class: 'input-xl', onchange: @project.persisted? ? "submit()" : "", disabled: @project.persisted? } %>
+          </div>
+          <div class="inputlabel-box">
+            <% if @project.errors.include?(:name) %>
+            <%= field_notice_box %>
+            <% end %>
+            <%= f.input :name, required: true, input_html: { class: 'input-xl', disabled: !@project.editable?} %>
+          </div>
+        </fieldset>
+
+        <% if !@project.persisted? %>
+          <fieldset>
+            <div class="inputlabel-box">
+              <% if @project.errors.include?(:terms_of_service) %>
+                  <%= field_notice_box %>
+              <% end %>
+
+              <%= f.label :terms_of_service %>
+              <div class="input-box">
+                <%= f.check_box :terms_of_service, required: true, class: 'checkbox' %>
+                <p class="text-xl"><%= t("podemos.impulsa.terms_of_service", link: @edition.legal_link).html_safe %></p>
+              </div>
+            </div>
+            <div class="inputlabel-box">
+              <% if @project.errors.include?(:data_truthfulness) %>
+                  <%= field_notice_box %>
+              <% end %>
+
+              <%= f.label :data_truthfulness %>
+              <div class="input-box">
+                <%= f.check_box :data_truthfulness, required: true, class: 'checkbox' %>
+                <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
+              </div>
+            </div>
+            <div class="inputlabel-box">
+              <% if @project.errors.include?(:content_rights) %>
+                  <%= field_notice_box %>
+              <% end %>
+
+              <%= f.label :content_rights %>
+              <div class="input-box">
+                <%= f.check_box :content_rights, required: true, class: 'checkbox' %>
+                <p class="text-xl"><%= t("podemos.impulsa.content_rights") %></p>
+              </div>
+            </div>
+          </fieldset>
+        <% end %>
+        <%= f.actions do %>
+          <%= link_to("Marcar para revisión", review_impulsa_path, class: 'button button-success', method: :post) if @project.markable_for_review? %>
+          <%= f.action :submit, label: "Guardar", :as => :input, button_html: {class: 'button'} %>
           <%= link_to("Borrar proyecto", delete_impulsa_path, "data-confirm"=>"Esto borrará el proyecto y no se podrá recuperar. ¿Deseas continuar?", class: 'button button-danger', method: :delete) if @project.persisted? && @project.deleteable? %>
         <% end %>
-      </fieldset>
       <% end %>
     </div>
   </div>

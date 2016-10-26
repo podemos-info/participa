@@ -34,9 +34,7 @@ module ImpulsaProjectWizard
     end
 
     def wizard_steps
-      ret = Hash[wizard.map {|sname, step| [sname, step[:title]]}]
-      #ret["compartir"] = "Compartir"
-      ret
+      Hash[wizard.map {|sname, step| [sname, step[:title]]}]
     end
 
     def wizard_next_step
@@ -72,19 +70,30 @@ module ImpulsaProjectWizard
       end
     end
 
+    def wizard_step_admin_params
+      _all = wizard.map do |sname, step|
+        step[:groups].map do |gname,group|
+          group[:fields].map do |fname, field|
+            ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"]
+          end .compact
+        end .flatten(1)
+      end .flatten(1)
+      _all.collect{|field, multiple| field unless multiple}.compact + [Hash[_all.select(&:last).map{|field,multiple| [field, []]}]]
+    end
+
     def wizard_step_params
       _all = wizard[wizard_step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|
           ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"] if self.wizard_editable_field?(gname, fname)
-        end
-      end .compact.flatten(1)
+        end .compact
+      end .flatten(1)
       _all.collect{|field, multiple| field unless multiple}.compact + [Hash[_all.select(&:last).map{|field,multiple| [field, []]}]]
     end
 
     def wizard_editable_field? gname, fname
-      self.editable? || (self.fixable? && self.review_fields["#{gname}.#{fname}"])
+      self.editable? || (self.fixable? && self.wizard_review["#{gname}.#{fname}"].present?)
     end
-
+    
     def wizard_has_errors?
       wizard.any? do |sname, step|
         wizard_step_errors(sname).any?
@@ -120,8 +129,13 @@ module ImpulsaProjectWizard
       return "no es un CIF correcto" if field[:format]=="cif" && !validate_cif(value)
       return "no es un NIE correcto" if field[:format]=="nie" && !validate_nie(value)
       return "no es un DNI o NIE correcto" if field[:format]=="dninie" && !(validate_nif(value) || validate_nie(value))
-      error = validate_email(value) if field[:format]=="email"
+      return "no es un teléfono válido" if field[:format]=="phone" && Phonelib.parse(value).valid?
+      return "no es una dirección web válida" if field[:type]=="url" && URI::regexp(%w(http https)).match(value)
+      error = validate_email(value) if field[:type]=="email"
+
       return error if error
+
+      return self.wizard_review["#{gname}.#{fname}"] if self.fixable? && self.wizard_review["#{gname}.#{fname}"].present?
       nil
     end
 
