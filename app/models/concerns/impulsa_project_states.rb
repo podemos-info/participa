@@ -43,29 +43,28 @@ module ImpulsaProjectStates
       end
     end
 
-    def reviewable?
-      review?
-    end
-
-    def markable_for_review?
-      !reviewable? && saveable? && !wizard_has_errors?
-    end
-
     def saveable?
       editable? || fixable?
     end
 
+    def reviewable?
+      persisted? && review?
+    end
+
+    def markable_for_review?
+      persisted? && !reviewable? && saveable? && !wizard_has_errors?
+    end
+
     def deleteable?
-      editable?
+      persisted? && editable?
     end
 
     def fixable?
-      fixes? && self.impulsa_edition.allow_fixes?
+      persisted? && fixes? && self.impulsa_edition.allow_fixes?
     end
 
-
     def validable?
-      validate?
+      persisted? && validate?
     end
   end
 end
