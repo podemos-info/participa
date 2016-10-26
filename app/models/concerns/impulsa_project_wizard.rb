@@ -49,7 +49,7 @@ module ImpulsaProjectWizard
       @wizard_status ||= begin
         filled = true
         ret = wizard.map do |sname, step|
-          filled = false if sname == wizard_step
+          filled = false if sname == wizard_step_was
           fields = values = errors = 0
           step[:groups].each do |gname,group| 
             group[:fields].each do |fname, field|

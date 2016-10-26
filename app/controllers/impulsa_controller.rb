@@ -11,7 +11,7 @@ class ImpulsaController < ApplicationController
   end
 
   def project_step
-    @project.update_column :wizard_step, @step if @project.wizard_step != @step
+    #@project.update_column :wizard_step, @step if @project.wizard_step != @step
     @show_errors = @project.wizard_status[@step][:filled]
     @project.valid? & @project.wizard_valid? if @show_errors
   end
@@ -51,7 +51,9 @@ class ImpulsaController < ApplicationController
     changes = (@project.changes.keys-["wizard_step"]).any?
 
     if @project.save
-      if @project.wizard_next_step
+      if @project.wizard_step_errors.any?
+        redirect_to project_step_impulsa_path(step: @project.wizard_step)
+      elsif @project.wizard_next_step
         redirect_to project_step_impulsa_path(step: @project.wizard_next_step)
       else
         redirect_to project_impulsa_path
