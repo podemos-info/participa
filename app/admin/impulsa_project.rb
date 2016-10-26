@@ -69,6 +69,7 @@ ActiveAdmin.register ImpulsaProject do
         row :category do
           link_to(impulsa_project.impulsa_edition_category.name, admin_impulsa_edition_impulsa_edition_category_path(impulsa_project.impulsa_edition, resource.impulsa_edition_category))
         end
+        row :state
         row :user do
           attributes_table_for impulsa_project.user do
             row :status do
@@ -106,7 +107,6 @@ ActiveAdmin.register ImpulsaProject do
             end
           end if impulsa_project.user
         end
-        row :state
         row :created_at
         row :updated_at
       end
