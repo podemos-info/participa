@@ -4,10 +4,12 @@
   <div class="row">
     <div class="col-b-4a12">
       <%= render partial: "steps", locals: {project: @project, step: @step} %>
-      <%= content_tag(:h2, @project.wizard_step_info[:title]) %>
-      <% unless @project.wizard_has_errors? %>
-        <p>El formulario parece estar completo. Si es así, pueder ir a la <%= link_to("página del proyecto", project_impulsa_path) %> y presionar el botón <strong><%=t("podemos.impulsa.mark_for_review")%></strong></p>
+      <% if @project.saveable? && !@project.wizard_has_errors? %>
+        <div class="box">
+          <div class="box-info"><p>El formulario parece ya estar completo. Si es así, puedes ir a la <%= link_to("página del proyecto", project_impulsa_path) %> y presionar el botón <strong><%=t("podemos.impulsa.mark_for_review")%></strong>.</p></div>
+        </div>
       <% end %>
+      <%= content_tag(:h2, @project.wizard_step_info[:title]) %>
       <%= semantic_form_for @project, url: update_step_impulsa_path(step: @step), html: {method: :post, autocomplete: 'off'} do |f| %>
         <%= simple_format(@project.wizard_step_info[:text]) if @project.wizard_step_info[:text].present? %>
         <% @project.wizard_step_info[:groups].each do |gname, group|

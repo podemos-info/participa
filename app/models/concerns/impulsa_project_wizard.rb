@@ -94,9 +94,9 @@ module ImpulsaProjectWizard
       self.editable? || (self.fixable? && (self.wizard_review["#{gname}.#{fname}"].present? || self.wizard_field_error(gname,fname)))
     end
     
-    def wizard_has_errors?
+    def wizard_has_errors? options = {}
       wizard.any? do |sname, step|
-        wizard_step_errors(sname).any?
+        wizard_step_errors(sname, options).any?
       end
     end
 
@@ -106,10 +106,10 @@ module ImpulsaProjectWizard
       end .none?
     end
 
-    def wizard_step_errors step = nil
+    def wizard_step_errors step = nil, options = {}
       wizard[step || wizard_step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|
-          [ "_wiz_#{gname}__#{fname}", wizard_field_error(gname, fname, group, field) ]
+          [ "_wiz_#{gname}__#{fname}", wizard_field_error(gname, fname, group, field, options) ]
         end.select(&:last)
       end.flatten(1)
     end
@@ -118,7 +118,7 @@ module ImpulsaProjectWizard
       group[:condition].blank? || eval(group[:condition])
     end
 
-    def wizard_field_error gname, fname, group = nil, field = nil
+    def wizard_field_error gname, fname, group = nil, field = nil, options = {}
       group = wizard.collect {|sname, step| step[:groups][gname] } .compact.first if group.nil?
       return nil if !wizard_eval_condition(group)
       field = group[:fields][fname] if field.nil?
@@ -126,17 +126,20 @@ module ImpulsaProjectWizard
       return "no es un campo" if field.nil?
       return "es obligatorio" if value.blank? && !field[:optional]
       return "debe ser aceptado" if value!="1" && field[:format]=="accept"
-      return "no es un NIF correcto" if field[:format]=="nif" && !validate_nif(value)
-      return "no es un CIF correcto" if field[:format]=="cif" && !validate_cif(value)
+      return "no es un NIF correcto" if field[:format]=="cif" && !validate_cif(value)
+      return "no es un DNI correcto" if field[:format]=="dni" && !validate_nif(value)
       return "no es un NIE correcto" if field[:format]=="nie" && !validate_nie(value)
       return "no es un DNI o NIE correcto" if field[:format]=="dninie" && !(validate_nif(value) || validate_nie(value))
       return "no es un teléfono válido" if field[:format]=="phone" && Phonelib.parse(value).valid?
       return "no es una dirección web válida" if field[:type]=="url" && URI::regexp(%w(http https)).match(value)
+      return "debes seleccionar al menos #{field[:minimum]} opciones" if field[:type]=="check_boxes" && field[:minimum] && value.count<field[:minimum]
+      return "puedes seleccionar hasta #{field[:maximum]} opciones" if field[:type]=="check_boxes" && field[:maximum] && value.count>field[:maximum]
+
       error = validate_email(value) if field[:type]=="email"
 
       return error if error
 
-      return self.wizard_review["#{gname}.#{fname}"] if self.fixable? && self.wizard_review["#{gname}.#{fname}"].present? && self.wizard_review["#{gname}.#{fname}"][0] != "*"
+      return self.wizard_review["#{gname}.#{fname}"] if (options[:ignore_state] || self.fixable?) && self.wizard_review["#{gname}.#{fname}"].present? && self.wizard_review["#{gname}.#{fname}"][0] != "*"
       nil
     end
 

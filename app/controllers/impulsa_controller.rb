@@ -11,7 +11,6 @@ class ImpulsaController < ApplicationController
   end
 
   def project_step
-    #@project.update_column :wizard_step, @step if @project.wizard_step != @step
     @show_errors = @project.wizard_status[@step][:filled]
     @project.valid? & @project.wizard_valid? if @show_errors
   end

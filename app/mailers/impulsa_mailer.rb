@@ -10,7 +10,7 @@ class ImpulsaMailer < ActionMailer::Base
 
   def on_fixes(project)
     @fixes_limit = I18n.l(project.impulsa_edition.review_projects_until.to_date, format: :medium)
-    @project_url = edit_impulsa_url
+    @project_url = project_impulsa_url
 
     mail(
       to: project.user.email,

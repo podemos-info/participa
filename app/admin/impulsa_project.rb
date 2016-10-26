@@ -44,10 +44,6 @@ ActiveAdmin.register ImpulsaProject do
     actions
   end
 
-  action_item(:reviewed, only: :show ) do
-    link_to('Marcar como revisado', reviewed_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como revisado?" }) if impulsa_project.reviewable?
-  end
-
   action_item(:spam, only: :show ) do
     link_to('Marcar como Spam', spam_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como Spam?" }) if !impulsa_project.spam?
   end
@@ -57,20 +53,6 @@ ActiveAdmin.register ImpulsaProject do
     p.mark_as_spam
     p.save
     flash[:notice] = "El proyecto ha sido marcado como spam."
-    redirect_to action: :index
-  end
-
-  member_action :reviewed, :method => :post do
-    p = ImpulsaProject.find( params[:id] )
-    if p.wizard_has_errors?
-      p.mark_as_fixes
-      ImpulsaMailer.on_fixes(resource).deliver_now
-    else
-      p.mark_as_validable
-      ImpulsaMailer.on_validable(resource).deliver_now
-    end
-    p.save
-    flash[:notice] = "El proyecto ha sido marcado como revisado."
     redirect_to action: :index
   end
 
@@ -141,6 +123,7 @@ ActiveAdmin.register ImpulsaProject do
             h3 group[:title] if group[:title]
             attributes_table_for impulsa_project do
               group[:fields].each do |fname, field|
+                next if field[:type]=="boolean" && field[:format] == "accept"
                 value = impulsa_project.wizard_values["#{gname}.#{fname}"]
                 row field[:title] do
                   case field[:type]
@@ -162,7 +145,14 @@ ActiveAdmin.register ImpulsaProject do
           end
         end
       end
-      input type: :submit if impulsa_project.reviewable?
+      fieldset class: :actions do
+        ol do 
+          li class: "action input_action ", id: "impulsa_project_submit_action" do
+            input type: :submit, value: "Marcar como revisado"
+          end
+        end
+      end if impulsa_project.reviewable?
+
     end
     active_admin_comments
   end
@@ -314,7 +304,15 @@ ActiveAdmin.register ImpulsaProject do
       send_email = false
       was_dissent = resource.dissent?
       super
-      if resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
+      if resource.reviewable? && params[:review]
+        if resource.wizard_has_errors?(ignore_state: true)
+          resource.mark_as_fixes
+        else
+          resource.mark_as_validable
+        end
+        flash[:notice] = "El proyecto ha sido marcado como revisado."
+        send_email = true
+      elsif resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
         if resource.evaluator1.nil?
           resource.evaluator1 = current_active_admin_user
           resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
