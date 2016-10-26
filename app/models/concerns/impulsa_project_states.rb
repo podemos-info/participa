@@ -20,6 +20,10 @@ module ImpulsaProjectStates
         transition :review => :fixes
         transition :review_fixes => :fixes
       end
+      event :mark_as_validable do
+        transition :review => :validate
+        transition :review_fixes => :validate
+      end
       event :mark_as_dissent do
         transition :validate => :dissent
       end
@@ -48,7 +52,7 @@ module ImpulsaProjectStates
     end
 
     def reviewable?
-      persisted? && review?
+      persisted? && (review? || review_fixes?)
     end
 
     def markable_for_review?

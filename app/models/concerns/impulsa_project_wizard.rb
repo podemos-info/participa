@@ -84,14 +84,14 @@ module ImpulsaProjectWizard
     def wizard_step_params
       _all = wizard[wizard_step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|
-          ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"] if self.wizard_editable_field?(gname, fname)
+          ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"] if self.wizard_editable_field?(gname, fname) 
         end .compact
       end .flatten(1)
       _all.collect{|field, multiple| field unless multiple}.compact + [Hash[_all.select(&:last).map{|field,multiple| [field, []]}]]
     end
 
     def wizard_editable_field? gname, fname
-      self.editable? || (self.fixable? && self.wizard_review["#{gname}.#{fname}"].present?)
+      self.editable? || (self.fixable? && (self.wizard_review["#{gname}.#{fname}"].present? || self.wizard_field_error(gname,fname)))
     end
     
     def wizard_has_errors?

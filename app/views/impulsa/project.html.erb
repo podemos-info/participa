@@ -37,7 +37,7 @@
         <% when "review_fixes" %>
           <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos. Lo haremos antes del <strong><%= l(@edition.review_projects_until, format: :long) %></strong>, te recomendamos que estés atento para poder corregirlo si fuera necesario.</p>
         <% when "validate", "dissent" %>
-          <p>Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de evaluación. Esto se realizará <strong><%= l(@edition.validation_projects_until, format: :long) %></strong>.</p>
+          <p>Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de evaluación. Esto se realizará antes del <strong><%= l(@edition.validation_projects_until, format: :long) %></strong>.</p>
         <% when "invalidated" %>
           <p>Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones:</p>
         <% when "validated" %>

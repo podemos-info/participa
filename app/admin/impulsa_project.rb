@@ -44,8 +44,8 @@ ActiveAdmin.register ImpulsaProject do
     actions
   end
 
-  action_item(:fixes, only: :show ) do
-    link_to('Marcar como revisado', fixes_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como revisado?" }) if impulsa_project.reviewable?
+  action_item(:reviewed, only: :show ) do
+    link_to('Marcar como revisado', reviewed_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto como revisado?" }) if impulsa_project.reviewable?
   end
 
   action_item(:spam, only: :show ) do
@@ -60,12 +60,14 @@ ActiveAdmin.register ImpulsaProject do
     redirect_to action: :index
   end
 
-  member_action :fixes, :method => :post do
+  member_action :reviewed, :method => :post do
     p = ImpulsaProject.find( params[:id] )
-    if p.wizard_review.any?
+    if p.wizard_has_errors?
       p.mark_as_fixes
+      ImpulsaMailer.on_fixes(resource).deliver_now
     else
       p.mark_as_validable
+      ImpulsaMailer.on_validable(resource).deliver_now
     end
     p.save
     flash[:notice] = "El proyecto ha sido marcado como revisado."
@@ -147,7 +149,7 @@ ActiveAdmin.register ImpulsaProject do
                   when "check_boxes"
                     div value.map {|i| field[:collection][i] } .join(", ")
                   when "file"
-                    div download_impulsa_path(field: value)
+                    div value
                   else
                     div value
                   end
@@ -312,14 +314,7 @@ ActiveAdmin.register ImpulsaProject do
       send_email = false
       was_dissent = resource.dissent?
       super
-      if resource.saveable? && params[:impulsa_project][:mark_as_viewed]
-        if resource.review_fields.any?
-          resource.mark_as_fixable
-        else
-          resource.mark_as_validable
-        end
-        send_email = resource.save
-      elsif resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
+      if resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
         if resource.evaluator1.nil?
           resource.evaluator1 = current_active_admin_user
           resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
