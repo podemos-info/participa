@@ -135,15 +135,15 @@ module ImpulsaProjectWizard
 
       return error if error
 
-      return self.wizard_review["#{gname}.#{fname}"] if self.fixable? && self.wizard_review["#{gname}.#{fname}"].present?
+      return self.wizard_review["#{gname}.#{fname}"] if self.fixable? && self.wizard_review["#{gname}.#{fname}"].present? && self.wizard_review["#{gname}.#{fname}"][0] != "*"
       nil
     end
 
     def assign_wizard_value gname, fname, value
       field = wizard.map {|sname, step| step[:groups][gname] && step[:groups][gname][:fields][fname] } .compact.first
       if field
+        old_value = wizard_values["#{gname}.#{fname}"]
         if field[:type] == "file"
-          old_name = wizard_values["#{gname}.#{fname}"]
           file = "#{gname}.#{fname}"
           if value.present?
             ext = File.extname(value.path)
@@ -156,12 +156,16 @@ module ImpulsaProjectWizard
           else
             wizard_values["#{gname}.#{fname}"] = nil
           end
-          File.delete(File.join(files_folder, old_name)) if old_name && old_name != file
+          File.delete(File.join(files_folder, old_value)) if old_value && old_value != file
         elsif field[:type] == "check_boxes"
           wizard_values["#{gname}.#{fname}"] = value.select(&:present?)
         else
           wizard_values["#{gname}.#{fname}"] = value
         end
+
+        if old_value!=value && self.fixable? && self.wizard_review["#{gname}.#{fname}"].present? && self.wizard_review["#{gname}.#{fname}"][0]!="*"
+          self.wizard_review["#{gname}.#{fname}"] = "*" + self.wizard_review["#{gname}.#{fname}"]
+        end  
         return :ok
       end
       return :wrong_field

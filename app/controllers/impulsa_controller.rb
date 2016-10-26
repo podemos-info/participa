@@ -1,6 +1,7 @@
 class ImpulsaController < ApplicationController
   before_action :authenticate_user!, except: [ :index ]
   before_action :set_variables
+  before_action :check_project, except: [ :index ]
  
   def index
     @upcoming = ImpulsaEdition.upcoming.first if @edition.nil?
@@ -139,6 +140,11 @@ private
       params.require(:impulsa_project).permit(*@project.wizard_step_params)
     end
   end
+
+  def check_project
+    redirect_to impulsa_path if @project.nil?
+  end
+
 
 '''
   def new

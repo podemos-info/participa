@@ -3,7 +3,6 @@
   field_name = :"_wiz_#{gname}__#{fname}"
   value = project.send(field_name) # TO-DO: this force to call missing_method, Formtastic use don't work with arrays (check_boxes) 
   disable = !project.wizard_editable_field?(gname, fname)
-  required = !field[:optional]
 %>
 
 <div class="inputlabel-box impulsa">
@@ -11,7 +10,7 @@
     <%= field_notice_box %>
   <% end %>
   <% if field[:type]=="file" %>
-    <%= f.input field_name, label: field[:title], as: :file, required: required, input_html: {class: 'input-xl', accept: filetypes_to_file_filter(field[:filetype]), disable: disable, "data-url"=>upload_impulsa_path(field: key)} %>
+    <%= f.input field_name, label: field[:title], as: :file, input_html: {class: 'input-xl', accept: filetypes_to_file_filter(field[:filetype]), disable: disable, "data-url"=>upload_impulsa_path(field: key)} %>
     <div class="file form-group file-data">
       <span class="form-label"><label><%= link_to(fa_icon("cloud-download", text: t("podemos.impulsa.model_link")), field[:template]) if field[:template] %></label></span>
       <span class="form-wrapper">
@@ -20,9 +19,9 @@
       </span>
     </div>
   <% elsif field[:type].in? ["select", "check_boxes"] %>
-    <%= f.input field_name, label: field[:title], as: field[:type], required: required, collection: field[:collection].to_a.map(&:reverse), input_html: {class: if field[:type]=="check_boxes" then '' else 'input-xl' end, disable: disable} %>
+    <%= f.input field_name, label: field[:title], as: field[:type], collection: field[:collection].to_a.map(&:reverse), input_html: {class: if field[:type]=="check_boxes" then '' else 'input-xl' end, disable: disable} %>
   <% else %>
-    <%= f.input field_name, label: field[:title], as: field[:type], required: required, input_html: {class: 'input-xl', disable: disable} %>
+    <%= f.input field_name, label: field[:title], as: field[:type], input_html: {class: 'input-xl', disable: disable} %>
   <% end %>
 </div>
 <%= content_tag(:p, fa_icon("asterisk", text: field[:tip], class: "fa-fw"), class: :note) if field[:tip].present? %>

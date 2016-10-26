@@ -5,7 +5,7 @@
     </li>
     <% project.wizard_status.each do |sname, info| %>
       <li <%= 'class=active' if sname==step %>>
-        <a href="<%=project_step_impulsa_path(step: sname)%>"><%= info[:title] %> <%= if info[:errors]==0 then fa_icon("check-square-o", class: "ok") elsif !info[:filled] then fa_icon("square-o") else content_tag(:span, class: "errors") { info[:errors].to_s } end if info[:fields]>0 %></a>
+        <a href="<%=project_step_impulsa_path(step: sname)%>"><%= info[:title] %> <%= if info[:filled] && info[:errors]==0 then fa_icon("check-square-o", class: "ok") elsif !info[:filled] then fa_icon("square-o") else content_tag(:span, class: "errors") { info[:errors].to_s } end if info[:fields]>0 %></a>
       </li>
     <% end if project.persisted? %>
   </ul>
