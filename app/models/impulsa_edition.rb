@@ -19,12 +19,16 @@ class ImpulsaEdition < ActiveRecord::Base
   validates_attachment_content_type :requested_budget_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
   validates_attachment_content_type :monitoring_evaluation_model, content_type: [ "application/vnd.ms-excel", "application/msexcel", "application/x-msexcel", "application/x-ms-excel", "application/x-excel", "application/x-dos_ms_excel", "application/xls", "application/x-xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.oasis.opendocument.spreadsheet" ]
 
-  #scope :active, -> { where("? BETWEEN start_at AND ends_at", DateTime.now) }
-  scope :active, -> { where("start_at < ?", DateTime.now) }
-  scope :upcoming, -> { where("start_at > ?", DateTime.now) }
+  scope :active, -> { where("start_at < ? and ends_at > ?", DateTime.now, DateTime.now).order(start_at: :asc) }
+  scope :upcoming, -> { where("start_at > ?", DateTime.now).order(start_at: :asc) }
+  scope :previous, -> { where("ends_at < ?", DateTime.now).order(start_at: :desc) }
 
   def self.current
-    active.first
+    active.first || previous.first
+  end
+
+  def active?
+    current_phase!=EDITION_PHASES[:ended]
   end
 
   EDITION_PHASES = {
@@ -56,6 +60,10 @@ class ImpulsaEdition < ActiveRecord::Base
     else
       EDITION_PHASES[:ended]
     end
+  end
+
+  def allow_creation?
+    self.current_phase == EDITION_PHASES[:new_projects]
   end
 
   def publish_results?

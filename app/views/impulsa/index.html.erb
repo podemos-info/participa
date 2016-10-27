@@ -5,52 +5,52 @@
     <div class="col-b-4a12">
       <%= content_tag(:h2, t("podemos.impulsa.title")) %>
 
-<h3 style="margin-top:30px;">¿Qué es IMPULSA?</h3>
-
-<div style="width:50%;margin:0 2% 1% 0;float:left;">
-  <%= link_to image_tag('postal-impulsa2-05.jpg', :style => "width:100%;") %>
-</div>
-
-<p>IMPULSA nace para facilitar el desarrollo de proyectos emprendedores con proyección social. El apoyo ofrecido desde Podemos consiste en una dotación económica para los proyectos más votados por la gente, y en la posibilidad de utilizar el Banco de Talentos de Podemos para así abrir sus proyectos a nuevos colaboradores, y especialmente a aquellos de los que más necesitados están de sus habilidades. La dotación económica del Proyecto IMPULSA procede del remanente de los cargos públicos electos de Podemos, quienes con el compromiso de ser gente corriente y hacer de la política un servicio a la sociedad, tienen un límite salarial, de cuyo excedente procede la financiación de los proyectos ganadores. La existencia de un fondo común y de un sistema democrático, participativo y transparente de selección de proyectos permitirá evitar el desarrollo de vínculos entre los cargos públicos electos y las iniciativas concursantes que desvirtúen los objetivos del proyecto.</p>
-
-<p>En esta edición de IMPULSA se contará con un presupuesto de 300.000€, que serán distribuidos a partes iguales entre tres categorías: IMPULSA tu país; IMPULSA tu entorno; Podemos IMPULSA. Cada categoría cuenta con unos procesos de selección diferenciados (para más información consultar las bases). </p>
-
-<p>Debido al gran número de proyectos recibidos, hemos tenido que ampliar el periodo de validación y por lo tanto el proceso de votaciones será del 17 al 20 de octubre.</p>
-
-<p style="text-align:right;"><%= link_to "Ver más información", "http://podemos.info/impulsa" %></p> 
-
-<% if @edition && @edition.show_projects? %>
-  <p>&nbsp;</p>
-  <%= link_to "Ver los proyectos", impulsa_categories_path, :class => "button", :title => "Ver los proyectos" %>
-<% end %>
-<p>&nbsp;</p>
+      <%if @upcoming.nil? && @edition && !@edition.active? %>
+        <div class="box">
+          <div class="box-info"><p>La edición actual ha concluído. En esta misma página te informaremos de futuras convocatorias.</p></div>
+        </div>
+      <% end %>
 
       <% if @edition %>
-        <% if current_user %> 
+        <%= raw @edition.description %>
+      <% else %>
+        <h3 style="margin-top:30px;">¿Qué es IMPULSA?</h3>
+
+        <p>IMPULSA nace para facilitar el desarrollo de proyectos emprendedores con proyección social. El apoyo ofrecido desde Podemos consiste en una dotación económica para los proyectos más votados por la gente, y en la posibilidad de utilizar el Banco de Talentos de Podemos para así abrir sus proyectos a nuevos colaboradores, y especialmente a aquellos de los que más necesitados están de sus habilidades. La dotación económica del Proyecto IMPULSA procede del remanente de los cargos públicos electos de Podemos, quienes con el compromiso de ser gente corriente y hacer de la política un servicio a la sociedad, tienen un límite salarial, de cuyo excedente procede la financiación de los proyectos ganadores. La existencia de un fondo común y de un sistema democrático, participativo y transparente de selección de proyectos permitirá evitar el desarrollo de vínculos entre los cargos públicos electos y las iniciativas concursantes que desvirtúen los objetivos del proyecto.</p>
+      <% end %>
+
+      <p style="text-align:right;"><%= link_to "Ver más información", "http://podemos.info/impulsa" %></p> 
+
+      <% if @edition && @edition.active? %>
+        <% if @edition.show_projects? %>
+          <p>&nbsp;</p>
+          <%= link_to "Ver los proyectos", impulsa_categories_path, :class => "button", :title => "Ver los proyectos" %>
+        <% end %>
+        <p>&nbsp;</p>
         <h3>Presentación de proyectos</h3>
-          <% if @project.nil? && @edition.allow_edition? %>
-            <p>El plazo de presentación de proyectos finaliza el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
-            <p>&nbsp;</p>
-            <%= link_to "Presenta tu proyecto", new_impulsa_path, :class => "button", :title => "Presenta tu proyecto" %>
-          <% elsif @project && @edition.allow_fixes? %>
-            <p>El plazo de revisión de proyectos finaliza el <%= I18n.localize @edition.review_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
-            <p>&nbsp;</p>
-            <%= link_to "Revisa tu proyecto", edit_impulsa_path, :class => "button", :title => "Revisa tu proyecto" %>
-          <% elsif @project %>
-            <p>El plazo de validación de proyectos finaliza el <%= I18n.localize @edition.validation_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
-            <p>&nbsp;</p>
-            <%= link_to "Consulta tu proyecto", edit_impulsa_path, :class => "button", :title => "Consulta tu proyecto" %>
-          <% else %>
-            <p>Lo sentimos la fase de presentación de proyectos ha concluido el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
-            <%= content_tag(:p, t("podemos.impulsa.noupcoming")) %>
-          <% end %>
+        <% if @edition.allow_creation? && (current_user.nil? || (@project && !@project.persisted?)) %>
+          <p>El plazo de presentación de proyectos finaliza el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>&nbsp;</p>
+          <%= link_to "Presenta tu proyecto", project_impulsa_path, :class => "button", :title => "Presenta tu proyecto" %>
+        <% elsif @edition.allow_fixes? && (current_user.nil? || @project) %>
+          <p>El plazo de revisión de proyectos finaliza el <%= I18n.localize @edition.review_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>&nbsp;</p>
+          <%= link_to "Accede a tu proyecto", project_impulsa_path, :class => "button", :title => "Revisa tu proyecto" %>
+        <% elsif @project %>
+          <p>El plazo de validación de proyectos finaliza el <%= I18n.localize @edition.validation_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>&nbsp;</p>
+          <%= link_to "Consulta tu proyecto", project_impulsa_path, :class => "button", :title => "Consulta tu proyecto" %>
+        <% else %>
+          <p>Lo sentimos la fase de presentación de proyectos ha concluido el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <%= content_tag(:p, t("podemos.impulsa.noupcoming")) %>
         <% end %>
         <p>&nbsp;</p>
       <% elsif @upcoming %>
         <% i18n_start_at = I18n.localize @upcoming.start_at, :format => "%e de %B a las %k:%M" %>
         <p style="text-align:center; margin:80px 0 80px 0;">
-          <%= link_to( t("podemos.impulsa.upcoming", start_at: i18n_start_at ), "http://podemos.info/wp-content/uploads/2015/08/calendario-impulsa2-cas.jpg", :class => "button button-danger", :title => "Ver calendario IMPULSA", :target => "_blank") %>
+          <%= t("podemos.impulsa.upcoming", start_at: i18n_start_at ) %>
         </p><p>&nbsp;</p>
+
       <% end %>
 
     </div>
