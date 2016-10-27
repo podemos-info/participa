@@ -31,7 +31,7 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def voting_dates
-    "#{I18n.l(self.impulsa_edition.votings_start_at.to_date, format: :medium)} al #{I18n.l(self.impulsa_edition.ends_at.to_date, format: :medium)}"
+    "#{I18n.l(self.impulsa_edition.votings_start_at.to_date, format: :long)} al #{I18n.l(self.impulsa_edition.ends_at.to_date, format: :long)}"
   end
 
   def translated?

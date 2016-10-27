@@ -13,18 +13,20 @@
         <%= content_tag(:h2, @project.wizard_step_info[:title]) %>
         <%= semantic_form_for @project, url: update_step_impulsa_path(step: @step), html: {method: :post, autocomplete: 'off'} do |f| %>
           <%= simple_format(@project.wizard_step_info[:text]) if @project.wizard_step_info[:text].present? %>
-          <% @project.wizard_step_info[:groups].each do |gname, group|
+          <% 
+          saveable = false
+          @project.wizard_step_info[:groups].each do |gname, group|
             next unless @project.wizard_eval_condition(group) %>
             <fieldset>
               <% if group[:title].present? %><h3><%=group[:title]%></h3><% end %>
               <%= simple_format(group[:text]) if group[:text].present? %>
-              <% group[:fields].each do |fname, field| %>
+              <% group[:fields].each do |fname, field| 
+                saveable ||= @project.wizard_editable_field?(gname, fname) %>
                 <%= render partial: "field", locals: {project: @project, f: f, gname: gname, group: group, fname: fname, field: field} %>
               <% end %>
             </fieldset>
           <% end %>
-
-          <% if @project.saveable? %>
+          <% if saveable %>
             <%= f.actions class: 'enter' do %>
               <%= f.action :submit, :label=>@show_errors ? "Guardar cambios" : t("podemos.impulsa.next_step"), :as => :input, button_html: {class: 'button'} %>
             <% end %>

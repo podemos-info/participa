@@ -108,7 +108,7 @@
           <% end %>
           <%= f.actions do %>
             <%= link_to(t("podemos.impulsa.mark_for_review"), review_impulsa_path, class: 'button button-success', method: :post) if @project.markable_for_review? %>
-            <%= f.action :submit, label: "Guardar", :as => :input, button_html: {class: 'button'} %>
+            <%= f.action :submit, label: "Guardar", :as => :input, button_html: {class: 'button'} if @project.editable?%>
             <%= link_to("Borrar proyecto", delete_impulsa_path, "data-confirm"=>"Esto borrará el proyecto y no se podrá recuperar. ¿Deseas continuar?", class: 'button button-danger', method: :delete) if @project.persisted? && @project.deleteable? %>
           <% end %>
         </div>
