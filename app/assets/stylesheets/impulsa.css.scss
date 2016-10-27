@@ -156,4 +156,12 @@
 			}
 		}
 	}
+
+	@media only screen and (max-width: 500px) {
+	   nav.steps.vertical-steps, .data-form-container {
+	       width: 100%;
+	       margin-right: 0%;
+	       float: none;
+	   }
+	}
 }
