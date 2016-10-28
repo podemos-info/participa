@@ -6,18 +6,14 @@ module ImpulsaProjectStates
     state_machine initial: :new do
       audit_trail
 
+      event :mark_as_spam do
+        transition all => :spam
+      end
+      
       event :mark_for_review do
         transition :new => :review, if: :markable_for_review?
         transition :spam => :review, if: :markable_for_review?
         transition :fixes => :review_fixes, if: :markable_for_review?
-      end
-
-      event :mark_as_spam do
-        transition all => :spam
-      end
-
-      event :mark_as_resigned do
-        transition all => :resigned
       end
 
       event :mark_as_fixes do
@@ -36,6 +32,9 @@ module ImpulsaProjectStates
       end
       event :mark_as_invalidated do
         transition :validate => :invalidated
+      end
+      event :mark_as_resigned do
+        transition all => :resigned
       end
 
       state :new, :review, :spam do
