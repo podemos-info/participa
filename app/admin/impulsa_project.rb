@@ -37,7 +37,8 @@ ActiveAdmin.register ImpulsaProject do
       if impulsa_project.wizard_valid?
         status_tag("OK", :ok)
       else
-        status_tag("#{impulsa_project.errors.keys.length} errores", :error)
+
+        status_tag("#{impulsa_project.wizard_count_errors} errores", :error)
       end
     end
     column :votes
@@ -293,12 +294,11 @@ ActiveAdmin.register ImpulsaProject do
     def update_scopes
       resource = active_admin_config
 
-      '''ImpulsaProject::PROJECT_STATUS.each do |status, id|
-        status_name = t("podemos.impulsa.project_status.#{status}")
-        if !resource.scopes.any? { |scope| scope.name == status_name }
-          resource.scopes << ActiveAdmin::Scope.new( status_name ) do |projects| projects.by_status(id) end
+      ImpulsaProject.state_machine.states.keys.each do |state|
+        if !resource.scopes.any? { |scope| scope.name == state }
+          resource.scopes << ActiveAdmin::Scope.new( state ) do |projects| projects.by_status(id) end
         end
-      end'''
+      end
     end
 
     def update

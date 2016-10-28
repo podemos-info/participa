@@ -95,8 +95,12 @@ module ImpulsaProjectWizard
     end
     
     def wizard_has_errors? options = {}
-      wizard.any? do |sname, step|
-        wizard_step_errors(sname, options).any?
+      wizard_count_errors(options) > 0
+    end      
+
+    def wizard_count_errors options = {}
+      wizard.sum do |sname, step|
+        wizard_step_errors(sname, options).count
       end
     end
 
