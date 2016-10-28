@@ -33,11 +33,11 @@
           <p>&nbsp;</p>
           <%= link_to "Presenta tu proyecto", project_impulsa_path, :class => "button", :title => "Presenta tu proyecto" %>
         <% elsif @edition.allow_fixes? && (current_user.nil? || @project) %>
-          <p>El plazo de revisión de proyectos finaliza el <%= I18n.localize @edition.review_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>El plazo de subsanación de proyectos finaliza el <%= I18n.localize @edition.review_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
           <p>&nbsp;</p>
           <%= link_to "Accede a tu proyecto", project_impulsa_path, :class => "button", :title => "Revisa tu proyecto" %>
         <% elsif @project %>
-          <p>El plazo de validación de proyectos finaliza el <%= I18n.localize @edition.validation_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>El plazo de evaluación de proyectos finaliza el <%= I18n.localize @edition.validation_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
           <p>&nbsp;</p>
           <%= link_to "Consulta tu proyecto", project_impulsa_path, :class => "button", :title => "Consulta tu proyecto" %>
         <% else %>
