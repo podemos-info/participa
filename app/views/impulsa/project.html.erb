@@ -45,6 +45,7 @@
             <p>Una vez realizada la revisión de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado.</p>
           <% when "discarded" %>
           <% when "resigned" %>
+            <p>Lamentamos que hayas renunciado a realizar tu proyecto y te animamos a presentarlo en la próxima edición de IMPULSA.</p>
           <% when "winner" %>
         <% end %>
         <p>Si tienes cualquier consulta, escribe a <a href='mailto:proyectoimpulsa3@podemos.info'>proyectoimpulsa3@podemos.info</a> y te responderemos en el menor tiempo posible. También puedes consultar las <a href="http://impulsa.podemos.info/#bases">bases de esta edición</a>.</p>
@@ -110,9 +111,10 @@
             <%= link_to(t("podemos.impulsa.mark_for_review"), review_impulsa_path, class: 'button button-success', method: :post) if @project.markable_for_review? %>
             <%= f.action :submit, label: "Guardar", :as => :input, button_html: {class: 'button'} if @project.editable?%>
             <%= link_to("Borrar proyecto", delete_impulsa_path, "data-confirm"=>"Esto borrará el proyecto y no se podrá recuperar. ¿Deseas continuar?", class: 'button button-danger', method: :delete) if @project.persisted? && @project.deleteable? %>
+            <%= link_to("Renunciar al proyecto", delete_impulsa_path, "data-confirm"=>"El proyecto será descartado y ya no podrás presentar otro. ¿Deseas continuar?", class: 'button button-danger', method: :delete) if @project.persisted? && !@project.deleteable? && !@project.resigned? %>
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -34,12 +34,20 @@ class ImpulsaController < ApplicationController
   end
 
   def delete
-    redirect_to project_impulsa_path and return unless @project.deleteable?
-    if @project.destroy
-      flash[:notice] = "El proyecto ha sido borrado."
-      redirect_to impulsa_path
+    if @project.deleteable?
+      if @project.destroy
+        flash[:notice] = "El proyecto ha sido borrado."
+        redirect_to impulsa_path
+      else
+        flash[:error] = "El proyecto no ha podido ser borrado."
+        redirect_to project_impulsa_path
+      end
     else
-      flash[:error] = "El proyecto no ha podido ser borrado."
+      if @project.mark_as_resigned
+        flash[:notice] = "Tu renuncia a realizar el proyecto ha sido registrada."
+      else
+        flash[:error] = "No se ha podido registrar la renuncia al proyecto."
+      end
       redirect_to project_impulsa_path
     end
   end
