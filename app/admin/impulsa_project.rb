@@ -143,6 +143,7 @@ ActiveAdmin.register ImpulsaProject do
               end
             end
           end
+          span # no groups shown, empty span avoid render each output
         end
       end
       fieldset class: :actions do
