@@ -29,26 +29,25 @@
         <p>&nbsp;</p>
         <h3>Presentación de proyectos</h3>
         <% if @edition.allow_creation? && (current_user.nil? || (@project && !@project.persisted?)) %>
-          <p>El plazo de presentación de proyectos finaliza el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>El plazo de presentación de proyectos finaliza el <%= l((@edition.new_projects_until-1.second).to_date, format: :long)%>.</p>
           <p>&nbsp;</p>
           <%= link_to "Presenta tu proyecto", project_impulsa_path, :class => "button", :title => "Presenta tu proyecto" %>
         <% elsif @edition.allow_fixes? && (current_user.nil? || @project) %>
-          <p>El plazo de subsanación de proyectos finaliza el <%= I18n.localize @edition.review_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>El plazo de subsanación de proyectos finaliza el <%= l((@edition.review_projects_until-1.second).to_date, format: :long)%>.</p>
           <p>&nbsp;</p>
           <%= link_to "Accede a tu proyecto", project_impulsa_path, :class => "button", :title => "Revisa tu proyecto" %>
         <% elsif @project %>
-          <p>El plazo de evaluación de proyectos finaliza el <%= I18n.localize @edition.validation_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>El plazo de evaluación de proyectos finaliza el <%= l((@edition.validation_projects_until-1.second).to_date, format: :long)%>.</p>
           <p>&nbsp;</p>
           <%= link_to "Consulta tu proyecto", project_impulsa_path, :class => "button", :title => "Consulta tu proyecto" %>
         <% else %>
-          <p>Lo sentimos la fase de presentación de proyectos ha concluido el <%= I18n.localize @edition.new_projects_until, :format => "%e de %B a las %k:%M" %>.</p>
+          <p>Lo sentimos la fase de presentación de proyectos ha concluido el <%= l((@edition.new_projects_until-1.second).to_date, format: :long)%>.</p>
           <%= content_tag(:p, t("podemos.impulsa.noupcoming")) %>
         <% end %>
         <p>&nbsp;</p>
       <% elsif @upcoming %>
-        <% i18n_start_at = I18n.localize @upcoming.start_at, :format => "%e de %B a las %k:%M" %>
         <p style="text-align:center; margin:80px 0 80px 0;">
-          <%= t("podemos.impulsa.upcoming", start_at: i18n_start_at ) %>
+          <%= t("podemos.impulsa.upcoming", start_at: l((@upcoming.start_at).to_date, format: :long) ) %>
         </p><p>&nbsp;</p>
 
       <% end %>

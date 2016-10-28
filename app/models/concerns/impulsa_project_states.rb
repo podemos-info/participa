@@ -16,6 +16,10 @@ module ImpulsaProjectStates
         transition all => :spam
       end
 
+      event :mark_as_resigned do
+        transition all => :resigned
+      end
+
       event :mark_as_fixes do
         transition :review => :fixes
         transition :review_fixes => :fixes
@@ -36,7 +40,7 @@ module ImpulsaProjectStates
 
       state :new, :review, :spam do
         def editable?
-          !self.persisted? || self.impulsa_edition.allow_edition?
+          !self.persisted? || (!resigned? && self.impulsa_edition.allow_edition?)
         end
       end
 
@@ -48,27 +52,27 @@ module ImpulsaProjectStates
     end
 
     def saveable?
-      editable? || fixable?
+      !resigned? && (editable? || fixable?)
     end
 
     def reviewable?
-      persisted? && (review? || review_fixes?)
+      persisted? && !resigned? && (review? || review_fixes?)
     end
 
     def markable_for_review?
-      persisted? && !reviewable? && saveable? && !wizard_has_errors?
+      persisted? && !resigned? && !reviewable? && saveable? && !wizard_has_errors?
     end
 
     def deleteable?
-      persisted? && editable?
+      persisted? && !resigned? && editable?
     end
 
     def fixable?
-      persisted? && fixes? && self.impulsa_edition.allow_fixes?
+      persisted? && !resigned? && fixes? && self.impulsa_edition.allow_fixes?
     end
 
     def validable?
-      persisted? && validate?
+      persisted? && !resigned? && validate?
     end
   end
 end
