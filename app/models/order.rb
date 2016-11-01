@@ -379,7 +379,7 @@ class Order < ActiveRecord::Base
       "Ds_Merchant_TransactionType"   => self.redsys_secret("transaction_type"),
       "Ds_Merchant_PayMethods"        => self.redsys_secret("payment_methods"),
       "Ds_Merchant_MerchantData"      => self.user_id.to_s,
-      "Ds_Merchant_MerchantURL"       => self.redsys_merchant_url.gsub("&", "+"),
+      "Ds_Merchant_MerchantURL"       => self.redsys_merchant_url,
       "Ds_Merchant_Order"             => self.redsys_order_id
     }.merge(extra).map{|k,v| [k.upcase, v]}]
 
