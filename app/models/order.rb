@@ -278,14 +278,14 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_request_signature
-    self.sign(self.redsys_order_id, self.redsys_merchant_params)
+    self._sign(self.redsys_order_id, self.redsys_merchant_params)
   end
 
   def redsys_merchant_response_signature
     request_start = self.raw_xml.index "<Request"
     request_end = self.raw_xml.index "</Request>", request_start if request_start
     msg = self.raw_xml[request_start..request_end+9] if request_start and request_end
-    self.sign(self.redsys_order_id, msg)
+    self._sign(self.redsys_order_id, msg)
   end
   
   def redsys_logger
