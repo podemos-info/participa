@@ -278,14 +278,14 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_request_signature
-    self._sign(self.redsys_order_id, self.redsys_merchant_params)
+    _sign(self.redsys_order_id, self.redsys_merchant_params)
   end
 
   def redsys_merchant_response_signature
     request_start = self.raw_xml.index "<Request"
     request_end = self.raw_xml.index "</Request>", request_start if request_start
     msg = self.raw_xml[request_start..request_end+9] if request_start and request_end
-    self._sign(self.redsys_order_id, msg)
+    _sign(self.redsys_order_id, msg)
   end
   
   def redsys_logger
@@ -459,7 +459,7 @@ class Order < ActiveRecord::Base
 
   def redsys_callback_response
     response = "<Response Ds_Version='0.0'><Ds_Response_Merchant>#{self.is_paid? ? "OK" : "KO" }</Ds_Response_Merchant></Response>"
-    signature = self._sign(self.redsys_order_id, response)
+    signature = _sign(self.redsys_order_id, response)
 
     soap = []
     soap << <<-EOL
