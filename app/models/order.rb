@@ -278,34 +278,14 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_request_signature
-    des3 = OpenSSL::Cipher::Cipher.new('des-ede3-cbc')
-    des3.encrypt
-    des3.key = Base64.strict_decode64(self.redsys_secret("secret_key"))
-    des3.iv = "\0"*8
-    des3.padding = 0
-    data = self.redsys_order_id 
-    data += "\0" until data.bytesize % 8 == 0
-    key = des3.update(data) + des3.final
-    digest = OpenSSL::Digest.new('sha256')
-    Base64.strict_encode64(OpenSSL::HMAC.digest(digest, key, redsys_merchant_params))
+    self.sign(self.redsys_order_id, self.redsys_merchant_params)
   end
 
   def redsys_merchant_response_signature
-    des3 = OpenSSL::Cipher::Cipher.new('des-ede3-cbc')
-    des3.encrypt
-    des3.key = Base64.strict_decode64(self.redsys_secret("secret_key"))
-    des3.iv = "\0"*8
-    des3.padding = 0
-    data = self.redsys_order_id 
-    data += "\0" until data.bytesize % 8 == 0
-    key = des3.update(data) + des3.final
-
     request_start = self.raw_xml.index "<Request"
     request_end = self.raw_xml.index "</Request>", request_start if request_start
     msg = self.raw_xml[request_start..request_end+9] if request_start and request_end
-
-    digest = OpenSSL::Digest.new('sha256')
-    OpenSSL::HMAC.hexdigest(digest, self.redsys_secret("secret_key"), msg).upcase
+    self.sign(self.redsys_order_id, msg)
   end
   
   def redsys_logger
@@ -479,7 +459,7 @@ class Order < ActiveRecord::Base
 
   def redsys_callback_response
     response = "<Response Ds_Version='0.0'><Ds_Response_Merchant>#{self.is_paid? ? "OK" : "KO" }</Ds_Response_Merchant></Response>"
-    signature = Digest::SHA1.hexdigest("#{response}#{self.redsys_secret "secret_key"}")
+    signature = self._sign(self.redsys_order_id, response)
 
     soap = []
     soap << <<-EOL
@@ -494,5 +474,21 @@ EOL
     soap << "</return>\n</ns1:procesaNotificacionSIS>\n</SOAP-ENV:Body>\n</SOAP-ENV:Envelope>"
 
     soap.join
+  end
+
+private
+
+  def _sign key, data
+    des3 = OpenSSL::Cipher::Cipher.new('des-ede3-cbc')
+    des3.encrypt
+    des3.key = Base64.strict_decode64(self.redsys_secret("secret_key"))
+    des3.iv = "\0"*8
+    des3.padding = 0
+
+    _key = key
+    _key += "\0" until data.bytesize % 8 == 0
+    key = des3.update(_key) + des3.final
+    digest = OpenSSL::Digest.new('sha256')
+    Base64.strict_encode64(OpenSSL::HMAC.digest(digest, key, data))
   end
 end
