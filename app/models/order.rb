@@ -477,7 +477,6 @@ EOL
   end
 
 private
-
   def _sign key, data
     des3 = OpenSSL::Cipher::Cipher.new('des-ede3-cbc')
     des3.encrypt
@@ -486,7 +485,7 @@ private
     des3.padding = 0
 
     _key = key
-    _key += "\0" until data.bytesize % 8 == 0
+    _key += "\0" until _key.bytesize % 8 == 0
     key = des3.update(_key) + des3.final
     digest = OpenSSL::Digest.new('sha256')
     Base64.strict_encode64(OpenSSL::HMAC.digest(digest, key, data))
