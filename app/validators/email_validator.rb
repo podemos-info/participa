@@ -3,7 +3,7 @@ require 'mail'
 module ActiveModel::Validations
   module EmailValidatorHelpers
     def validate_email value
-      return true if value.length==0
+      return false if value.length==0
 
       # First check, with the whole string
       if (value.downcase =~ /[ÁÉÍÓÚàèìòùÀÈÍÓÚáéíóúñÑçÇ]/) != nil
@@ -22,10 +22,10 @@ module ActiveModel::Validations
           if value.include? "," and m.address != value
             return "contiene caracteres inválidos"
           elsif not m.domain.include? "." or m.domain.starts_with? "."# domain validation
-            return "es incorrecta"
+            return "es incorrecto"
           end
         rescue
-          return "es incorrecta"
+          return "es incorrecto"
         end
       end
       false
