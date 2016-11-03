@@ -295,8 +295,8 @@ ActiveAdmin.register ImpulsaProject do
       resource = active_admin_config
 
       ImpulsaProject.state_machine.states.keys.each do |state|
-        if !resource.scopes.any? { |scope| scope.name == state }
-          resource.scopes << ActiveAdmin::Scope.new( state ) do |projects| projects.by_status(id) end
+        if !resource.scopes.any? { |scope|  scope.name == state.to_s }
+          resource.scopes << ActiveAdmin::Scope.new( state ) do |projects| projects.where(state: state) end
         end
       end
     end
