@@ -58,8 +58,8 @@ ActiveAdmin.register Election do
           br
           span link_to el.new_link, el.new_link if el.new_version_pending
         end
-        column :counter do |el|
-          span link_to "Contador", election_location_votes_count_path(el.election, el, el.counter_hash)
+        column :votes do |el|
+          span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_hash)
         end
         column :actions do |el|
           span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
@@ -130,9 +130,8 @@ ActiveAdmin.register Election do
 
   sidebar "Progreso", only: :show, priority: 0 do
     ul do
-      li "Votos totales: #{election.valid_votes_count}"
       li do
-        a "Contador total", href: election_votes_count_path(election, election.counter_hash)
+        a "Votos totales: #{election.valid_votes_count}", href: election_votes_count_path(election, election.counter_hash)
       end
       li "Censo activos: #{election.current_active_census}"
       li "Censo actual: #{election.current_total_census}"
