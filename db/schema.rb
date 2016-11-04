@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103145826) do
+ActiveRecord::Schema.define(version: 20161104173730) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -636,6 +636,7 @@ ActiveRecord::Schema.define(version: 20161103145826) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "agora_id"
   end
 
   add_index "votes", ["deleted_at"], name: "index_votes_on_deleted_at"
