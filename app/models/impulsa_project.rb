@@ -1,6 +1,7 @@
 class ImpulsaProject < ActiveRecord::Base
   include ImpulsaProjectStates
   include ImpulsaProjectWizard
+  #include ImpulsaProjectEvaluation
 
   belongs_to :impulsa_edition_category
   belongs_to :user, -> { with_deleted }

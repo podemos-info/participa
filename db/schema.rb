@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025132651) do
+ActiveRecord::Schema.define(version: 20161104173730) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 20161025132651) do
     t.integer  "monitoring_evaluation_model_override_file_size"
     t.datetime "monitoring_evaluation_model_override_updated_at"
     t.text     "wizard"
+    t.text     "evaluation"
   end
 
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
@@ -354,6 +355,9 @@ ActiveRecord::Schema.define(version: 20161025132651) do
     t.string   "state"
     t.string   "wizard_step"
     t.text     "wizard_review"
+    t.text     "evaluator1_evaluation"
+    t.text     "evaluator2_evaluation"
+    t.string   "evaluation_result"
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"
@@ -632,6 +636,7 @@ ActiveRecord::Schema.define(version: 20161025132651) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "agora_id"
   end
 
   add_index "votes", ["deleted_at"], name: "index_votes_on_deleted_at"

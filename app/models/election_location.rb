@@ -79,12 +79,20 @@ class ElectionLocation < ActiveRecord::Base
     agora_version != new_agora_version
   end
 
+  def vote_location
+    if election.scope==3
+      location[0..4]
+    else
+      location
+    end
+  end
+  
   def vote_id
-    "#{election.agora_election_id}#{override.blank? ? location : override}#{agora_version}".to_i
+    "#{election.agora_election_id}#{override.blank? ? vote_location : override}#{agora_version}".to_i
   end
 
   def new_vote_id
-    "#{election.agora_election_id}#{override.blank? ? location : override}#{new_agora_version}".to_i
+    "#{election.agora_election_id}#{override.blank? ? vote_location : override}#{new_agora_version}".to_i
   end
 
   def link
