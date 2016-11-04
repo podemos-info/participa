@@ -39,14 +39,6 @@ class PageController < ApplicationController
   	end
   end
 
-  def count_votes
-    @election = Election.find(params[:election_id])
-    votes = 0
-    votes = @election.votes.count + @election.votes.only_deleted.where("deleted_at>?", @election.ends_at).count if @election
-	render layout: 'minimal', locals: { votes: votes }
-    #render plain: "#{votes}"
-  end
-
   def privacy_policy
   end
 

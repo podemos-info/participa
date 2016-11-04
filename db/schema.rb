@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104173730) do
+ActiveRecord::Schema.define(version: 20161104182603) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20161104173730) do
     t.integer  "flags"
     t.string   "meta_description"
     t.string   "meta_image"
+    t.string   "counter_key"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

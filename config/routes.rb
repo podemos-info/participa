@@ -23,7 +23,6 @@ Rails.application.routes.draw do
     get '/user/:id', to: 'open_id#user', as: "open_id_user"
     get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
 
-    get '/countvotes/:election_id', to: 'page#count_votes', as: 'page_count_votes'
 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
@@ -87,6 +86,9 @@ Rails.application.routes.draw do
     get '/vote/sms_check/:election_id', to: 'vote#sms_check', as: :sms_check_vote
     get '/vote/send_sms_check/:election_id', to: 'vote#send_sms_check', as: :send_sms_check_vote
     
+    get '/votos/:election_id/:hash', to: 'vote#election_votes_count', as: 'election_votes_count'
+    get '/votos/:election_id/:election_location_id/:hash', to: 'vote#election_location_votes_count', as: 'election_location_votes_count'
+
     devise_for :users, controllers: { 
       registrations: 'registrations', 
       passwords:     'passwords', 

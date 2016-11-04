@@ -58,6 +58,9 @@ ActiveAdmin.register Election do
           br
           span link_to el.new_link, el.new_link if el.new_version_pending
         end
+        column :counter do |el|
+          span link_to "Contador", election_location_votes_count_path(el.election, el, el.counter_hash)
+        end
         column :actions do |el|
           span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
           span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
@@ -127,11 +130,16 @@ ActiveAdmin.register Election do
 
   sidebar "Progreso", only: :show, priority: 0 do
     ul do
-      li "Votos totales: #{election.votes.count}"
+      li "Votos totales: #{election.valid_votes_count}"
+      li do
+        a "Contador total", href: election_votes_count_path(election, election.counter_hash)
+      end
       li "Censo activos: #{election.current_active_census}"
       li "Censo actual: #{election.current_total_census}"
       li "Votos de usuarios baneados: #{election.votes.joins(:user).merge(User.banned).count}"
-      a 'Descargar voter ids', href: download_voter_ids_admin_election_path(election)
+      li do 
+        a 'Descargar voter ids', href: download_voter_ids_admin_election_path(election)
+      end
     end
   end
 end
