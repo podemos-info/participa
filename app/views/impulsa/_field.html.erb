@@ -3,7 +3,7 @@
   field_name = :"_wiz_#{gname}__#{fname}"
   value = project.send(field_name) # TO-DO: this force to call missing_method, Formtastic use don't work with arrays (check_boxes) 
   disable = !project.wizard_editable_field?(gname, fname)
-  hint = fa_icon("asterisk", text: raw(field[:tip])) if field[:tip].present?
+  hint = field[:tip].present? ? fa_icon("asterisk", text: raw(field[:tip])) : content_tag(:span)
 %>
 
 <div class="inputlabel-box impulsa">
