@@ -22,21 +22,18 @@
       <p style="text-align:right;"><%= link_to "Ver más información", "http://podemos.info/impulsa" %></p> 
 
       <% if @edition && @edition.active? %>
-        <% if @edition.show_projects? %>
-          <p>&nbsp;</p>
-          <%= link_to "Ver los proyectos", impulsa_categories_path, :class => "button", :title => "Ver los proyectos" %>
-        <% end %>
-        <p>&nbsp;</p>
-        <h3>Presentación de proyectos</h3>
         <% if @edition.allow_creation? && (current_user.nil? || (@project && !@project.persisted?)) %>
+          <h3>Presentación de proyectos</h3>
           <p>El plazo de presentación de proyectos finaliza el <%= l((@edition.new_projects_until-1.second).to_date, format: :long)%>.</p>
           <p>&nbsp;</p>
           <%= link_to "Presenta tu proyecto", project_impulsa_path, :class => "button", :title => "Presenta tu proyecto" %>
         <% elsif @edition.allow_fixes? && (current_user.nil? || @project) %>
+          <h3>Subsanación de proyectos</h3>
           <p>El plazo de subsanación de proyectos finaliza el <%= l((@edition.review_projects_until-1.second).to_date, format: :long)%>.</p>
           <p>&nbsp;</p>
           <%= link_to "Accede a tu proyecto", project_impulsa_path, :class => "button", :title => "Revisa tu proyecto" %>
         <% elsif @project %>
+          <h3>Evaluación de proyectos</h3>
           <p>El plazo de evaluación de proyectos finaliza el <%= l((@edition.validation_projects_until-1.second).to_date, format: :long)%>.</p>
           <p>&nbsp;</p>
           <%= link_to "Consulta tu proyecto", project_impulsa_path, :class => "button", :title => "Consulta tu proyecto" %>
