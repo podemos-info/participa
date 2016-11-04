@@ -5,7 +5,7 @@
     <div class="col-b-4a12">
       <%= render partial: "steps", locals: {project: @project, step: @step} %>
       <div class="data-form-container">
-        <% if @project.saveable? && !@project.wizard_has_errors? %>
+        <% if @project.saveable? && !@project.wizard_has_errors? && !@project.reviewable? %>
           <div class="box">
             <div class="box-info"><p>El formulario parece ya estar completo. Si es así, puedes ir a la <%= link_to("página del proyecto", project_impulsa_path) %> y presionar el botón <strong><%=t("podemos.impulsa.mark_for_review")%></strong>.</p></div>
           </div>

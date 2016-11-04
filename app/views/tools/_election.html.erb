@@ -5,7 +5,7 @@ Accederás a la votación de<% case election.scope
   <% when 2 %> la provincia en la
   <% when 3 %>l municipio en el 
   <% when 4 %> la isla en la
-  <% end %> que <% if election.user_created_at_max %>estabas inscrito/a en el momento del cierre del censo.<% else %>estás inscrito/a. Puedes actualizarlo, pero recuerda que solo tu último voto es válido.<% end %><% end %>
+  <% end %> que <% if election.user_created_at_max %>estabas inscrito/a en el momento del cierre del censo.<% else %>estás inscrito/a. Puedes actualizar tu ubicación, pero recuerda que sólo tu último voto es válido.<% end %><% end %>
 <div class="box-poll">
   <div>
     <p class="poll-q"><%= election.full_title_for current_user %></p>
