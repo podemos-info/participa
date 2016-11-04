@@ -15,7 +15,7 @@ class Election < ActiveRecord::Base
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}
 
   before_create do |election|
-    election[:counter_key] = SecureRandom.random_bytes(20)
+    election[:counter_key] = SecureRandom.base64(20)
   end
 
   def counter_key
