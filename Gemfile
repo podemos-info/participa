@@ -84,5 +84,6 @@ group :development, :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'minitest-rails-capybara'
+  gem 'pry-rails'
 end
 
