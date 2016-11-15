@@ -69,6 +69,9 @@ class Collaboration < ActiveRecord::Base
 
   after_create :set_initial_status
   before_save :check_spanish_bic
+  before_save do
+    self.iban.upcase! if self.iban.present?
+  end
 
   def set_initial_status
     self.status = 0
