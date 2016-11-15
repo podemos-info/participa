@@ -112,7 +112,7 @@ class ElectionLocation < ActiveRecord::Base
   end
 
   def valid_votes_count
-    election.votes.with_deleted.where(agora_id: vote_id).where("deleted_at is null or deleted_at<?", election.ends_at).select(:user_id).distinct.count
+    election.votes.with_deleted.where(agora_id: vote_id).where("deleted_at is null or deleted_at>?", election.ends_at).select(:user_id).distinct.count
   end
 
   def counter_hash

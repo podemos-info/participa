@@ -204,7 +204,7 @@ class Election < ActiveRecord::Base
   end
 
   def valid_votes_count
-    votes.with_deleted.where("deleted_at is null or deleted_at<?", ends_at).select(:user_id).distinct.count
+    votes.with_deleted.where("deleted_at is null or deleted_at>?", ends_at).select(:user_id).distinct.count
   end
 
   def counter_hash
