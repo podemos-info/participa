@@ -249,6 +249,7 @@ ActiveAdmin.register User do
     column :current_sign_in_ip
     column :last_sign_in_ip
     column :circle
+    column :created_at
     column :deleted_at
   end
 
