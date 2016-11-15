@@ -18,7 +18,7 @@ namespace :podemos do
     election_ids = args.ids.split(",")
 
     batch_size = 1000
-    progress = RakeProgressbar.new(total + 14)
+    progress = RakeProgressbar.new(User.with_deleted.count)
     
     i=0
     total=Hash.new do |h1,k1| 
@@ -29,7 +29,7 @@ namespace :podemos do
       end
     end
 
-    elections = (if election_ids.any? then Election.where(id:election_ids) end Election.all end).order(id: :asc)
+    elections = (election_ids.any? ? Election.where(id:election_ids) : Election.all).order(id: :asc)
 
     max_id = 0
     votes = {}
