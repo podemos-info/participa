@@ -5,7 +5,7 @@ Accederás a la votación de<% case election.scope
   <% when 2 %> la provincia en la
   <% when 3 %>l municipio en el 
   <% when 4 %> la isla en la
-  <% end %> que <% if election.user_created_at_max %>estabas inscrito/a en el momento del cierre del censo.<% else %>estás inscrito/a. Puedes actualizarlo, pero recuerda que solo tu último voto es válido.<% end %><% end %>
+  <% end %> que <% if election.user_created_at_max %>estabas inscrito/a en el momento del cierre del censo.<% else %>estás inscrito/a. Puedes actualizar tu ubicación, pero recuerda que sólo tu último voto es válido.<% end %><% end %>
 <div class="box-poll">
   <div>
     <p class="poll-q"><%= election.full_title_for current_user %></p>
@@ -15,6 +15,5 @@ Accederás a la votación de<% case election.scope
     <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
       <span>Votar</span>
     <% end %>
-     <p style="width: 25%; float: right; padding-top: 0.5em;">Al pulsar el botón VOTAR aceptas que tus datos pasen a formar parte del censo de EN MAREA mediante estas <a href="https://podemos.info/wp-content/uploads/2016/08/Registro-en-el-censo-de-primarias-de-En-Marea.pdf" target="_blank">condiciones generales</a> y aceptas el <a href="https://mareaconstituinte.gal/manifesto/" target="_blank">manifiesto</a> y los <a href="http://mareaconstituinte.gal/principios-basicos/" target="_blank">principios básicos</a>.<br><br>Ao premer o botón VOTAR aceptas que os teus datos <a href="https://podemos.info/wp-content/uploads/2016/08/Registro-en-el-censo-de-primarias-de-En-Marea.pdf" target="_blank">pasen a formar parte do censo de EN MAREA</a> e aceptas o seu <a href="https://mareaconstituinte.gal/manifesto/" target="_blank">manifesto</a> e os seus <a href="http://mareaconstituinte.gal/principios-basicos/" target="_blank">principios básicos</a></p>
   <% end %>
 </div>

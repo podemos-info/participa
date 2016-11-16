@@ -9,6 +9,8 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+@import "codemirror";
+
 $skinActiveColor: #000;
 $skinHeaderBck: #612D62;
 $panelHeaderBck: #612D62;
@@ -28,3 +30,10 @@ table.index_table th a {
   white-space: normal !important;
 }
 
+.review {
+  background: #f5bfc9;
+  border-bottom: 1px solid #999;
+  .label {
+    color: #612d6;
+  }
+}

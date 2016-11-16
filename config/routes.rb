@@ -23,7 +23,6 @@ Rails.application.routes.draw do
     get '/user/:id', to: 'open_id#user', as: "open_id_user"
     get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
 
-    get '/countvotes/:election_id', to: 'page#count_votes', as: 'page_count_votes'
 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
@@ -87,6 +86,9 @@ Rails.application.routes.draw do
     get '/vote/sms_check/:election_id', to: 'vote#sms_check', as: :sms_check_vote
     get '/vote/send_sms_check/:election_id', to: 'vote#send_sms_check', as: :send_sms_check_vote
     
+    get '/votos/:election_id/:hash', to: 'vote#election_votes_count', as: 'election_votes_count'
+    get '/votos/:election_id/:election_location_id/:hash', to: 'vote#election_location_votes_count', as: 'election_location_votes_count'
+
     devise_for :users, controllers: { 
       registrations: 'registrations', 
       passwords:     'passwords', 
@@ -133,15 +135,17 @@ Rails.application.routes.draw do
     end
     
     scope :impulsa do
-      get '', to: 'impulsa#index', as: 'index_impulsa'
-      get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
-      get 'ver', to: 'impulsa#edit', as: 'edit_impulsa'
-      post 'crear', to: 'impulsa#create', as: 'create_impulsa'
-      post 'modificar', to: 'impulsa#modify', as: 'modify_impulsa'
-      get ':id/attachment/:field/:style/:filename', to: 'impulsa#attachment', as: 'attachments_impulsa', constraints: { filename: /[^\/]*/ }
-      get 'categorias', to: 'impulsa#categories', as: 'impulsa_categories'
-      get 'categoria/:id', to: 'impulsa#category', as: 'impulsa_category'
-      get 'proyecto/:id', to: 'impulsa#project', as: 'impulsa_project'
+      get '', to: 'impulsa#index', as: 'impulsa'
+      get 'proyecto', to: 'impulsa#project', as: 'project_impulsa'
+      get 'proyecto/:step', to: 'impulsa#project_step', as: 'project_step_impulsa'
+      post 'revisar', to: 'impulsa#review', as: 'review_impulsa'
+      delete 'proyecto/borrar', to: 'impulsa#delete', as: 'delete_impulsa'
+      post 'modificar', to: 'impulsa#update', as: 'update_impulsa'
+      post 'modificar/:step', to: 'impulsa#update_step', as: 'update_step_impulsa'
+      post 'subir/:field', to: 'impulsa#upload', as: 'upload_impulsa', constraints: { field: /[^\/]*/ }
+      delete 'borrar/:field', to: 'impulsa#delete_file', as: 'delete_file_impulsa', constraints: { field: /[^\/]*/ }
+      get 'descargar/:field', to: 'impulsa#download', as: 'download_impulsa', constraints: { field: /[^\/]*/ }
+
     end
 
     scope :brujula do

@@ -59,6 +59,10 @@ gem 'paperclip'
 gem 'validate_url'
 gem 'norma43', github: 'podemos-info/norma43'
 gem "d3-rails"
+gem "jquery-fileupload-rails"
+gem 'state_machines'
+gem 'state_machines-activerecord'
+gem 'state_machines-audit_trail'
 
 group :development, :test do
   gem 'capistrano', '~> 3.4.0'

@@ -1,0 +1,12 @@
+<nav class="steps vertical-steps">
+  <ul>
+    <li class="main<%= ' active' if "main"==step %>">
+      <a href="<%=project_impulsa_path%>">Proyecto</a>
+    </li>
+    <% project.wizard_status.each do |sname, info| %>
+      <li class="<%= if info[:filled] then if info[:errors]==0 then "is-ok" else "is-not-ok" end else "" end %><%= ' active' if sname==step %>">
+        <a href="<%=project_step_impulsa_path(step: sname)%>"><%= info[:title] %><%= content_tag(:span, class: "errors") { info[:errors].to_s } if info[:filled] && info[:errors]>0 && info[:fields]>0 %></a>
+      </li>
+    <% end if project.persisted? %>
+  </ul>
+</nav>

@@ -14,6 +14,14 @@ class Election < ActiveRecord::Base
   scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}
 
+  before_create do |election|
+    election[:counter_key] = SecureRandom.base64(20)
+  end
+
+  def counter_key
+    self[:counter_key] || created_at.to_s
+  end
+
   def to_s
     "#{title}"
   end
@@ -193,5 +201,17 @@ class Election < ActiveRecord::Base
     data = self.votes.joins(:user).pluck(:created_at, "users.created_at")
     data = data.group_by do |v,u| [v.to_i/xbin_size, u.to_i/ybin_size] end .map {|k,v| [k[0]*xbin_size+xbin_size/2, k[1]*ybin_size+ybin_size/2, v.count] }
     { data: data, limits: [ [ data.map(&:first).min, data.map(&:first).max], [ data.map(&:second).min, data.map(&:second).max ] ] }
+  end
+
+  def valid_votes_count
+    votes.with_deleted.where("deleted_at is null or deleted_at>?", ends_at).select(:user_id).distinct.count
+  end
+
+  def counter_hash
+    Base64::strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new('sha256'), counter_key, "#{created_at.to_i} #{id}"))[0..16]
+  end
+
+  def validate_hash _hash
+    counter_hash == _hash
   end
 end

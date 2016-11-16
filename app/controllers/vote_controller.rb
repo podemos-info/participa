@@ -69,4 +69,16 @@ class VoteController < ApplicationController
       redirect_to root_url, flash: {error: "No hay votaciones en tu municipio." }
     end
   end
+
+  def election_votes_count
+    @election = Election.find(params[:election_id])
+    redirect_to root_url and return if !@election.validate_hash(params[:hash])
+    render 'votes_count', layout: 'minimal', locals: { votes: @election.valid_votes_count }
+  end
+
+  def election_location_votes_count
+    @election_location = ElectionLocation.find(params[:election_location_id])
+    redirect_to root_url and return if !@election_location.validate_hash(params[:hash])
+    render 'votes_count', layout: 'minimal', locals: { votes: @election_location.valid_votes_count }
+  end
 end

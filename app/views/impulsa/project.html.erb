@@ -1,79 +1,120 @@
 <% content_for :title, t("podemos.impulsa.title") %>
 
-<div id="impulsa-project" class="content-content cols">
+
+<div class="content-content cols impulsa">
   <div class="row">
     <div class="col-b-4a12">
-      <%= content_tag(:h2, t("podemos.impulsa.title")) %>
+      <%= render partial: "steps", locals: {project: @project, step: 'main'} %>
+      <div class="data-form-container">
+        <% if @project.name.present? %>
+          <%= content_tag(:h2, @project.name)%>
+        <% else %>
+          <%= content_tag(:h2, "Nuevo proyecto de IMPULSA") %>
+        <% end %>
 
-    <span id="id_proyecto"><strong>Proyecto:</strong>&nbsp;<%= @project.id %></span>
-    <h3 class="impulsa_title"><%= @project.name %></h3>
-    </div>
-  </div>
-  <div class="row">
+        <% case @project.state 
+            when "new", "spam" %>
+            <% if @edition.allow_creation? %>
+              <% if @project.persisted? %>
+                <p>Ya tienes creado un proyecto para la edición actual del Programa IMPULSA. <% if @project.wizard_has_errors? %>Debes completar todos los datos del proyecto para que podamos revisarlo. Una vez que lo hayas hecho debes volver a está página para marcar tu proyecto para revisión.<% else %>Para que podamos revisar que todos los datos enviados son correctos debes presionar el botón "marcar para revisión".<%end%></p>
+              <% else %>
+                <p>Estás a punto de comenzar a inscribir un proyecto para la edición actual del Programa IMPULSA. Antes de comenzar te recomendamos que consultes las <a href="http://impulsa.podemos.info/#bases">bases de esta edición</a>. Lee atentamente el apartado de la documentación que hay que entregar.</p>
+              <% end %>
+             <p>Recuerda que la fecha límite para presentar tu proyecto es el <strong><%= l((@edition.new_projects_until-1.second).to_date, format: :long) %></strong>.</p>
+            <% else %>
+              <p>No hemos recibido, en plazo, toda la información necesaria sobre el proyecto que has presentado a esta edición de IMPULSA. El plazo de presentación de proyectos ha finalizado, por lo que lamentamos comunicarte que tu proyecto no podrá ser revisado.</p>
+            <% end %>
+          <% when "fixes" %>
+            <% if @edition.allow_fixes? %>
+              <p>Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación. <% if @project.wizard_has_errors? %>Por favor, revisa los pasos marcados con números, lee atentamente nuestras indicaciones y corrígelos. Una vez que lo hayas hecho debes volver a esta página para marcar tu proyecto para que sea revisado nuevamente.<% else %>Para que podamos revisar nuevamente tu proyecto debes presionar el botón <strong><%=t("podemos.impulsa.mark_for_review")%></strong>.<%end%></p>
+              <p>Recuerda que la fecha límite para que los datos de tu proyecto estén subsanados es el <strong><%= l((@edition.review_projects_until-1.second).to_date, format: :long) %></strong>.</p>
+            <% else %>
+              <p>No hemos recibido, en plazo, la subsanación de los errores indicados en el proyecto que has presentado a esta edición de IMPULSA. El plazo de subsanación ha finalizado, por lo que lamentamos comunicarte que tu proyecto no pasa a la fase de validación.</p>
+            <% end %>
+          <% when "review" %>
+            <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos por correo electrónico, hasta que eso suceda puedes seguir modificando tu proyecto si lo deseas. Te recomendamos que estés atento para poder corregirlo si fuera necesario, ya que todos los datos deberán estar subsanados antes del <strong><%= l((@edition.review_projects_until-1.second).to_date, format: :long) %></strong> para que pueda ser evaluado. </p>
+          <% when "review_fixes" %>
+            <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos por correo electrónico, hasta que eso suceda puedes seguir modificando tu proyecto si lo deseas. Te recomendamos que estés atento para poder corregirlo si fuera necesario, ya que todos los datos deberán estar subsanados antes del <strong><%= l((@edition.review_projects_until-1.second).to_date, format: :long) %></strong> para que pueda ser evaluado. </p>
+          <% when "validate", "dissent" %>
+            <p>Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de evaluación. Esto se realizará antes del <strong><%= l((@edition.validation_projects_until-1.second).to_date, format: :long) %></strong>.</p>
+          <% when "invalidated" %>
+            <p>Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones:</p>
+            <%= simple_format(project.evaluator1_invalid_reasons) %>
+            <%= simple_format(project.evaluator2_invalid_reasons) %>
+          <% when "validated" %>
+            <p>Una vez realizada la revisión de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado.</p>
+          <% when "discarded" %>
+          <% when "resigned" %>
+            <p>Lamentamos que hayas renunciado a realizar tu proyecto y te animamos a presentarlo en la próxima edición de IMPULSA.</p>
+          <% when "winner" %>
+        <% end %>
+        <p>Si tienes cualquier consulta, escribe a <a href='mailto:proyectoimpulsa3@podemos.info'>proyectoimpulsa3@podemos.info</a> y te responderemos en el menor tiempo posible. También puedes consultar las <a href="http://impulsa.podemos.info/#bases">bases de esta edición</a>.</p>
+      
+        <h3>Datos del proyecto</h3>
+        <%= errors_in_form @project %>
 
-    <!-- derecha -->
-    <div class="col-bhome-9a12">
-      <% if @project.logo.present? %>
-        <%= image_tag @project.logo.url(:medium), title: @project.name, alt: @project.name %>
-      <% end %>
-      <%= content_tag :h4, @project.short_description, style: "text-align:center;" %>
-      <% if @project.video_link.present? %>
-          <!--<h4><%= link_to("Vídeo de presentación", @project.video_link, target: "_blank") %></h4>-->
-          <iframe width="100%" height="200" style="margin: 20px 0 20px 0;" src="//www.youtube.com/embed/<%=@project.video_id%>" frameborder="0" allowfullscreen></iframe>
-      <% end %>
-    </div>
+        <%= semantic_form_for @project, url: update_impulsa_path, html: { method: :post, autocomplete: 'off'} do |f| %>
+          <fieldset>
+            <div class="inputlabel-box">
+              <% if @project.errors.include?(:impulsa_edition_category) %>
+              <%= field_notice_box %>
+              <% end %>
+              <%= f.input :impulsa_edition_category, as: :select, collection: @available_categories.sort_by(&:name), required: true, input_html: {class: 'input-xl', onchange: @project.persisted? ? "submit()" : "", disabled: @project.persisted? } %>
+              <%= content_tag(:p, fa_icon("asterisk", text: "Selecciona cuidadosamente esta opción, ya que no podrás cambiarla luego", class: "fa-fw"), class: :note) if !@project.persisted? %>
+            </div>
+            <div class="inputlabel-box">
+              <% if @project.errors.include?(:name) %>
+              <%= field_notice_box %>
+              <% end %>
+              <%= f.input :name, required: true, input_html: { class: 'input-xl', disabled: !@project.editable?} %>
+            </div>
+          </fieldset>
 
-    <!-- izquierda -->
-    <div class="col-bhome-1a6">
+          <% if !@project.persisted? %>
+            <fieldset>
+              <div class="inputlabel-box">
+                <% if @project.errors.include?(:terms_of_service) %>
+                    <%= field_notice_box %>
+                <% end %>
 
-    <% if @project.authority.present? %>
-      <h4>Órgano que presenta la iniciativa</h4>
-      <%= content_tag :p, @project.authority %>
-    <% end %>
+                <%= f.label :terms_of_service %>
+                <div class="input-box">
+                  <%= f.check_box :terms_of_service, required: true, class: 'checkbox' %>
+                  <p class="text-xl"><%= t("podemos.impulsa.terms_of_service", link: "http://impulsa.podemos.info/#bases").html_safe %></p>
+                </div>
+              </div>
+              <div class="inputlabel-box">
+                <% if @project.errors.include?(:data_truthfulness) %>
+                    <%= field_notice_box %>
+                <% end %>
 
-    <% if @project.total_budget.present? %>
-      <h4>Presupuesto: <%= @project.total_budget.to_s %></h4>
-      <p></p>
-    <% end %>
+                <%= f.label :data_truthfulness %>
+                <div class="input-box">
+                  <%= f.check_box :data_truthfulness, required: true, class: 'checkbox' %>
+                  <p class="text-xl"><%= t("podemos.impulsa.data_truthfulness") %></p>
+                </div>
+              </div>
+              <div class="inputlabel-box">
+                <% if @project.errors.include?(:content_rights) %>
+                    <%= field_notice_box %>
+                <% end %>
 
-    <% if @project.territorial_context.present? %>
-      <h4>Contexto territorial</h4>
-      <%= content_tag :p, @project.territorial_context %>
-    <% end %>
-
-    <% if @project.impulsa_edition_topics.any? %>
-      <h4>Temáticas:
-          <%= @project.impulsa_edition_topics.map { |t| t.name }.join(', ') %>
-      </h4>
-      <p></p>
-    <% end %>
-
-    <% if @project.long_description.present? %>
-      <h4>Descripción del proyecto</h4>
-      <%= content_tag :p, @project.long_description %>
-    <% end %>
-
-    <% if @project.aim.present? %>
-      <h4>Objetivos del proyecto</h4>
-      <%= content_tag :p, @project.aim %>
-    <% end %>
-
-    <% if @project.metodology.present? %>
-      <h4>Metodología del proyecto y fomento de la participación</h4>
-      <%= content_tag :p, @project.metodology %>
-    <% end %>
-
-    <% if @project.population_segment.present? %>
-      <h4>Segmento poblacional objetivo del proyecto</h4>
-      <%= content_tag :p, @project.population_segment %>
-    <% end %>
-
-    <% if @project.career.present? %>
-      <h4>Trayectoria</h4>
-      <%= content_tag :p, @project.career %>
-    <% end %>
-
-
+                <%= f.label :content_rights %>
+                <div class="input-box">
+                  <%= f.check_box :content_rights, required: true, class: 'checkbox' %>
+                  <p class="text-xl"><%= t("podemos.impulsa.content_rights") %></p>
+                </div>
+              </div>
+            </fieldset>
+          <% end %>
+          <%= f.actions do %>
+            <%= link_to(t("podemos.impulsa.mark_for_review"), review_impulsa_path, class: 'button button-success', method: :post) if @project.markable_for_review? %>
+            <%= f.action :submit, label: "Guardar", :as => :input, button_html: {class: 'button'} if @project.editable?%>
+            <%= link_to("Borrar proyecto", delete_impulsa_path, "data-confirm"=>"Esto borrará el proyecto y no se podrá recuperar. ¿Deseas continuar?", class: 'button button-danger', method: :delete) if @project.persisted? && @project.deleteable? %>
+            <%= link_to("Renunciar al proyecto", delete_impulsa_path, "data-confirm"=>"El proyecto será descartado y ya no podrás presentar otro. ¿Deseas continuar?", class: 'button button-danger', method: :delete) if @project.persisted? && !@project.deleteable? && !@project.resigned? %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -16,3 +16,9 @@ $(document).delegate('.enable_tabs', 'keydown', function(e) {
     $(this).get(0).selectionEnd = start + 1;
   }
 });
+
+$(function(){
+  $(".yaml").each(function(i,me){
+    cm = CodeMirror.fromTextArea(me, { lineNumbers: true, mode: "yaml", lineWrapping: true });
+  });
+});

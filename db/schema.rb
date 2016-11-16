@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722092611) do
+ActiveRecord::Schema.define(version: 20161104182603) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20160722092611) do
     t.integer  "flags"
     t.string   "meta_description"
     t.string   "meta_image"
+    t.string   "counter_key"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -163,6 +164,8 @@ ActiveRecord::Schema.define(version: 20160722092611) do
     t.string   "monitoring_evaluation_model_override_content_type"
     t.integer  "monitoring_evaluation_model_override_file_size"
     t.datetime "monitoring_evaluation_model_override_updated_at"
+    t.text     "wizard"
+    t.text     "evaluation"
   end
 
   add_index "impulsa_edition_categories", ["impulsa_edition_id"], name: "index_impulsa_edition_categories_on_impulsa_edition_id"
@@ -204,7 +207,19 @@ ActiveRecord::Schema.define(version: 20160722092611) do
     t.text     "legal"
     t.datetime "votings_start_at"
     t.datetime "publish_results_at"
+    t.text     "description"
   end
+
+  create_table "impulsa_project_state_transitions", force: :cascade do |t|
+    t.integer  "impulsa_project_id"
+    t.string   "namespace"
+    t.string   "event"
+    t.string   "from"
+    t.string   "to"
+    t.datetime "created_at"
+  end
+
+  add_index "impulsa_project_state_transitions", ["impulsa_project_id"], name: "index_impulsa_project_state_transitions_on_impulsa_project_id"
 
   create_table "impulsa_project_topics", force: :cascade do |t|
     t.integer  "impulsa_project_id"
@@ -337,6 +352,13 @@ ActiveRecord::Schema.define(version: 20160722092611) do
     t.integer  "evaluator2_analysis_file_size"
     t.datetime "evaluator2_analysis_updated_at"
     t.integer  "votes",                                              default: 0
+    t.text     "wizard_values"
+    t.string   "state"
+    t.string   "wizard_step"
+    t.text     "wizard_review"
+    t.text     "evaluator1_evaluation"
+    t.text     "evaluator2_evaluation"
+    t.string   "evaluation_result"
   end
 
   add_index "impulsa_projects", ["impulsa_edition_category_id"], name: "index_impulsa_projects_on_impulsa_edition_category_id"
@@ -615,6 +637,7 @@ ActiveRecord::Schema.define(version: 20160722092611) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "agora_id"
   end
 
   add_index "votes", ["deleted_at"], name: "index_votes_on_deleted_at"

@@ -79,12 +79,20 @@ class ElectionLocation < ActiveRecord::Base
     agora_version != new_agora_version
   end
 
+  def vote_location
+    if election.scope==3
+      location[0..4]
+    else
+      location
+    end
+  end
+  
   def vote_id
-    "#{election.agora_election_id}#{override.blank? ? location : override}#{agora_version}".to_i
+    "#{election.agora_election_id}#{override.blank? ? vote_location : override}#{agora_version}".to_i
   end
 
   def new_vote_id
-    "#{election.agora_election_id}#{override.blank? ? location : override}#{new_agora_version}".to_i
+    "#{election.agora_election_id}#{override.blank? ? vote_location : override}#{new_agora_version}".to_i
   end
 
   def link
@@ -101,5 +109,17 @@ class ElectionLocation < ActiveRecord::Base
     else
       ""
     end
+  end
+
+  def valid_votes_count
+    election.votes.with_deleted.where(agora_id: vote_id).where("deleted_at is null or deleted_at>?", election.ends_at).select(:user_id).distinct.count
+  end
+
+  def counter_hash
+    Base64::strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new('sha256'), election.counter_key, "#{created_at.to_i} #{election.id} #{id}"))[0..16]
+  end
+
+  def validate_hash _hash
+    counter_hash == _hash
   end
 end

@@ -278,26 +278,14 @@ class Order < ActiveRecord::Base
   end
 
   def redsys_merchant_request_signature
-    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_secret "transaction_type"}#{self.redsys_merchant_url}"
-    msg = if self.first
-            "#{msg}#{self.redsys_secret "identifier"}#{self.redsys_secret "secret_key"}"
-          else
-            "#{msg}#{self.payment_identifier}true#{self.redsys_secret "secret_key"}"   
-          end
-
-    Digest::SHA1.hexdigest(msg).upcase
+    _sign(self.redsys_order_id, self.redsys_merchant_params)
   end
 
   def redsys_merchant_response_signature
-    msg = "#{self.amount}#{self.redsys_order_id}#{self.redsys_secret "code"}#{self.redsys_secret "currency"}#{self.redsys_response['Ds_Response']}"
-    if self.raw_xml
-      request_start = self.raw_xml.index "<Request"
-      request_end = self.raw_xml.index "</Request>", request_start if request_start
-      msg = self.raw_xml[request_start..request_end+9] if request_start and request_end
-    end
-
-    msg = "#{msg}#{self.redsys_secret "secret_key"}"
-    Digest::SHA1.hexdigest(msg)
+    request_start = self.raw_xml.index "<Request"
+    request_end = self.raw_xml.index "</Request>", request_start if request_start
+    msg = self.raw_xml[request_start..request_end+9] if request_start and request_end
+    _sign(self.redsys_order_id, msg)
   end
   
   def redsys_logger
@@ -323,7 +311,7 @@ class Order < ActiveRecord::Base
       begin
         payment_date = REDSYS_SERVER_TIME_ZONE.parse "#{params["Fecha"] or params["Ds_Date"]} #{params["Hora"] or params["Ds_Hour"]}"
         redsys_logger.info("Validation data: #{payment_date}, #{Time.now}, #{params["user_id"]}, #{self.user_id}, #{params["Ds_Signature"]}, #{self.redsys_merchant_response_signature}")
-        if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) #and params["user_id"].to_i == self.user_id and params["Ds_Signature"] == self.redsys_merchant_response_signature
+        if (payment_date-1.hours) < Time.now and Time.now < (payment_date+1.hours) and params["Ds_Signature"] == self.redsys_merchant_response_signature #and params["user_id"].to_i == self.user_id
           redsys_logger.info("Status: OK")
           self.status = 2
         else
@@ -348,7 +336,7 @@ class Order < ActiveRecord::Base
     end    
   end
 
-  def redsys_params
+  def redsys_raw_params
     extra = if self.first 
             {
               "Ds_Merchant_Identifier"        => self.redsys_secret("identifier"),
@@ -362,19 +350,31 @@ class Order < ActiveRecord::Base
             }
             end
 
-    {
+    Hash[{
+      "Ds_Merchant_Amount"            => self.amount.to_s,
       "Ds_Merchant_Currency"          => self.redsys_secret("currency"),
       "Ds_Merchant_MerchantCode"      => self.redsys_secret("code"),
       "Ds_Merchant_MerchantName"      => self.redsys_secret("name"),
       "Ds_Merchant_Terminal"          => self.redsys_secret("terminal"),
       "Ds_Merchant_TransactionType"   => self.redsys_secret("transaction_type"),
       "Ds_Merchant_PayMethods"        => self.redsys_secret("payment_methods"),
-      "Ds_Merchant_MerchantData"      => self.user_id,
+      "Ds_Merchant_MerchantData"      => self.user_id.to_s,
       "Ds_Merchant_MerchantURL"       => self.redsys_merchant_url,
-      "Ds_Merchant_Order"             => self.redsys_order_id,
-      "Ds_Merchant_Amount"            => self.amount,
-      "Ds_Merchant_MerchantSignature" => self.redsys_merchant_request_signature
-    }.merge extra
+      "Ds_Merchant_Order"             => self.redsys_order_id
+    }.merge(extra).map{|k,v| [k.upcase, v]}]
+
+  end
+
+  def redsys_merchant_params
+    Base64.strict_encode64(redsys_raw_params.to_json)
+  end
+
+  def redsys_params
+    {
+      'Ds_SignatureVersion' => "HMAC_SHA256_V1",
+      'Ds_MerchantParameters' => redsys_merchant_params,
+      'Ds_Signature' => self.redsys_merchant_request_signature
+    }
   end
 
   def redsys_send_request
@@ -459,7 +459,7 @@ class Order < ActiveRecord::Base
 
   def redsys_callback_response
     response = "<Response Ds_Version='0.0'><Ds_Response_Merchant>#{self.is_paid? ? "OK" : "KO" }</Ds_Response_Merchant></Response>"
-    signature = Digest::SHA1.hexdigest("#{response}#{self.redsys_secret "secret_key"}")
+    signature = _sign(self.redsys_order_id, response)
 
     soap = []
     soap << <<-EOL
@@ -474,5 +474,20 @@ EOL
     soap << "</return>\n</ns1:procesaNotificacionSIS>\n</SOAP-ENV:Body>\n</SOAP-ENV:Envelope>"
 
     soap.join
+  end
+
+private
+  def _sign key, data
+    des3 = OpenSSL::Cipher::Cipher.new('des-ede3-cbc')
+    des3.encrypt
+    des3.key = Base64.strict_decode64(self.redsys_secret("secret_key"))
+    des3.iv = "\0"*8
+    des3.padding = 0
+
+    _key = key
+    _key += "\0" until _key.bytesize % 8 == 0
+    key = des3.update(_key) + des3.final
+    digest = OpenSSL::Digest.new('sha256')
+    Base64.strict_encode64(OpenSSL::HMAC.digest(digest, key, data))
   end
 end

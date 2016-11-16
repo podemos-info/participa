@@ -12,7 +12,7 @@
                   placeholder: 'dd/mm/aaaa',
                   input_html: {  required: true, class: 'input-m', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
                   start_year: 1900,
-                  end_year: 1996 %>
+                  end_year: Date.today.year-18 %>
 
     <%= f.input :address %>
 
