@@ -1,5 +1,6 @@
 def export name, total, col_sep="\t", force_quotes=false
   elections = Election.all.order(id: :asc)
+  FileUtils.mkdir_p("tmp/export") unless File.directory?("tmp/export")
   CSV.open( "tmp/export/#{name}.csv", 'w', { col_sep: col_sep, encoding: 'utf-8', force_quotes: force_quotes} ) do |writer|
     elections.each do |e|
       total[e.id].each do |town, totals|
@@ -18,7 +19,6 @@ namespace :podemos do
     election_ids = args.ids.split(",")
 
     batch_size = 1000
-    progress = RakeProgressbar.new(User.with_deleted.count)
     
     i=0
     total=Hash.new do |h1,k1| 
@@ -30,6 +30,7 @@ namespace :podemos do
     end
 
     elections = (election_ids.any? ? Election.where(id:election_ids) : Election.all).order(id: :asc)
+    progress = RakeProgressbar.new(User.with_deleted.count*elections.count)
 
     max_id = 0
     votes = {}
@@ -45,6 +46,7 @@ namespace :podemos do
       i+=1
       
       elections.each do |e|
+        progress.inc
         lsd = e.ends_at - 1.year
         next if u.created_at > e.ends_at
 
@@ -67,7 +69,6 @@ namespace :podemos do
           total[e.id][town][:activos] += 1 if user.current_sign_in_at && user.current_sign_in_at > lsd
         end
       end
-      progress.inc
       
       if i%100==0
         export("election-stats-#{i}", total) if i%1000==0
