@@ -1,4 +1,6 @@
 require 'dynamic_router'
+require 'resque/server'
+
 Rails.application.routes.draw do
 
   get '', to: redirect("/#{I18n.locale}")
