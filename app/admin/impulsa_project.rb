@@ -32,14 +32,12 @@ ActiveAdmin.register ImpulsaProject do
     end
     column :user
     column :impulsa_edition_category
-    
-    #column :updated_at
     column :state do |impulsa_project|
       div impulsa_project.state
-      if impulsa_project.wizard_valid?
-        status_tag("OK", :ok)
-      else
+      if impulsa_project.wizard_has_errors?
         status_tag("#{impulsa_project.wizard_count_errors} errores", :error)
+      else
+        status_tag("OK", :ok)
       end
     end
     column :votes
