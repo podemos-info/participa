@@ -49,4 +49,11 @@ table.index_table th a {
     margin-top: 20px;
     padding-top: inherit;
   }
+  .input.full {
+    clear: both;
+    margin-top: 15px;
+    label {
+      width: 100%;
+    }
+  }
 }

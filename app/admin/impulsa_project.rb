@@ -162,7 +162,8 @@ ActiveAdmin.register ImpulsaProject do
 
       if impulsa_project.validable?
         evaluator = impulsa_project.current_evaluator(current_active_admin_user.id)
-
+        impulsa_project.evaluator[evaluator] = current_active_admin_user if evaluator
+        
         panel "Evaluación", class:"evaluation" do
           fieldset class: "inputs" do
             legend do
@@ -179,27 +180,33 @@ ActiveAdmin.register ImpulsaProject do
             end
           end
 
-          impulsa_project.evaluation.map do |sname, step|
+          impulsa_project.evaluation.each do |sname, step|
             fieldset class: "inputs" do
               legend do
                 span step[:title]
               end
               ol do
                 step[:groups].each do |gname, group|
-                  li do h3 group[:title] if group[:title] end
+                  li class: "input full" do h3 group[:title] if group[:title] end
                   group[:fields].each do |fname, field|
+                    li class: "input full" do
+                      label class:"label" do field[:title] end
+                    end
                     impulsa_project.evaluators.each do |i|
                       e = impulsa_project.evaluator[i]
                       break if e.nil?
                       li class: "input input_#{i}" do
-                        label class:"label" do "#{i}. #{field[:title]}" end
+                        label class:"label" do impulsa_project.evaluator[i].full_name end
                         value = impulsa_project.evaluation_values(i)["#{gname}.#{fname}"]
                         if evaluator == i
                           field_name = "impulsa_project[_evl#{i}_#{gname}__#{fname}]"
                           if field[:type]=="text"
                             textarea(value, name: field_name, type: field[:type])
                           else
-                            input name: field_name, type: field[:type], value: value
+                            params = { name: field_name, type: field[:type], value: value }
+                            params[:max] = field[:maximum] if field[:maximum]
+                            params[:min] = field[:minimum] if field[:minimum]
+                            input params
                           end
                         else
                           div value, class:"readonly"
@@ -215,7 +222,7 @@ ActiveAdmin.register ImpulsaProject do
           fieldset class: :actions do
             ol do 
               li class: "action input_action" do
-                input(type: :submit, value: "Guardar evaluación")
+                input type: :submit, value: "Guardar evaluación"
               end
             end
           end if evaluator
