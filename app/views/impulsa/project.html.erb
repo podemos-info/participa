@@ -25,7 +25,7 @@
               <p>No hemos recibido, en plazo, toda la información necesaria sobre el proyecto que has presentado a esta edición de IMPULSA. El plazo de presentación de proyectos ha finalizado, por lo que lamentamos comunicarte que tu proyecto no podrá ser revisado.</p>
             <% end %>
           <% when "fixes" %>
-            <% if @edition.allow_fixes? %>
+            <% if @project.fixable? %>
               <p>Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación. <% if @project.wizard_has_errors? %>Por favor, revisa los pasos marcados con números, lee atentamente nuestras indicaciones y corrígelos. Una vez que lo hayas hecho debes volver a esta página para marcar tu proyecto para que sea revisado nuevamente.<% else %>Para que podamos revisar nuevamente tu proyecto debes presionar el botón <strong><%=t("podemos.impulsa.mark_for_review")%></strong>.<%end%></p>
               <p>Recuerda que la fecha límite para que los datos de tu proyecto estén subsanados es el <strong><%= l((@edition.review_projects_until-1.second).to_date, format: :long) %></strong>.</p>
             <% else %>
