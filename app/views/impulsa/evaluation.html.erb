@@ -4,30 +4,31 @@
   <div class="row">
     <div class="col-b-4a12">
       <%= render partial: "steps", locals: {project: @project, step: "evaluation"} %>
-      <div class="data-form-container"><fieldset>
+      <div class="data-form-container">
         <%= content_tag(:h2, "Evaluación") %>
         <p>La evaluación del proyecto ha sido realizada de forma minuciosa e independiente por dos evaluadores. El resultado final de la evaluación es el siguiente, y la valoración de cada criterio se detalla a continuación:</p>
 
         <p class="impulsa_evaluation_result <%= @project.invalidated? ? "invalid" : "valid" %>"><%=@project.evaluation_result%></p> 
 
-        <% @project.evaluation.each do |sname, step| %>
-          <%= content_tag(:h3, step[:title]) %>
-          <%= simple_format(step[:text]) if step[:text].present? %>
+        <div class="impulsa_evaluation">
+          <% @project.evaluation.each do |sname, step| %>
+            <%= content_tag(:h3, step[:title]) %>
+            <%= simple_format(step[:text]) if step[:text].present? %>
 
-          <% step[:groups].each do |gname, group| %>
-            <%= simple_format(group[:text]) if group[:text].present? %>
-            <% group[:fields].each do |fname, field| %>
-              <div class="inputlabel-box impulsa">
-                <label><%=field[:title]%></label>
-                <div class="input-box">
+            <% step[:groups].each do |gname, group| %>
+              <%= content_tag(:h4, group[:title]) %>
+              <%= simple_format(group[:text]) if group[:text].present? %>
+              <% group[:fields].each do |fname, field| %>
+                <div>
+                  <p><%=field[:title]%></p>
                   <% @project.evaluators.each do |i| %>
-                    <label><%=@project.evaluation_values(i)["#{gname}.#{fname}"]%></label>
+                    <span><%=@project.evaluation_values(i)["#{gname}.#{fname}"]%></span>
                   <% end %>
                 </div>
-              </div>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %></fieldset>
+        </div>
       </div>
     </div>
   </div>
