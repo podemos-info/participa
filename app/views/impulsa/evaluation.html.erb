@@ -11,6 +11,10 @@
         <p class="impulsa_evaluation_result <%= @project.invalidated? ? "invalid" : "valid" %>"><%=@project.evaluation_result%></p> 
 
         <div class="impulsa_evaluation">
+          <% @project.evaluators.each do |i| %>
+            <span>Evaluador <%=i%></span>
+          <% end %>
+
           <% @project.evaluation.each do |sname, step| %>
             <%= content_tag(:h3, step[:title]) %>
             <%= simple_format(step[:text]) if step[:text].present? %>

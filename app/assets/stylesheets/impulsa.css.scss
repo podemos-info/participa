@@ -181,17 +181,18 @@
       margin-top: 30px;
     }
     h4 {
+      margin-top: 20px;
       font-size: 14px;
     }
     p {
-      margin: 5px 0;
+      margin: 10px 0 5px;
     }
     span {
       display: inline-block;
-      width: 50%;
+      width: calc( 50% - 22px );
       text-align: center;
-      padding: 10px 0;
-      margin: 0 -1px;
+      padding: 10px;
+      margin: 0;
       font-size: 12px;
       background: #eee;
       & + span {
