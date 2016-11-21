@@ -33,4 +33,8 @@ class ImpulsaProject < ActiveRecord::Base
   def voting_dates
     "#{I18n.l(self.impulsa_edition.votings_start_at.to_date, format: :long)} al #{I18n.l(self.impulsa_edition.ends_at.to_date, format: :long)}"
   end
+
+  def files_folder
+    "#{Rails.application.root}/non-public/system/impulsa_projects/#{id}/"
+  end
 end
