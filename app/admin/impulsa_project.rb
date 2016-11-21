@@ -162,7 +162,8 @@ ActiveAdmin.register ImpulsaProject do
 
       if impulsa_project.validable?
         evaluator = impulsa_project.current_evaluator(current_active_admin_user.id)
-
+        impulsa_project.evaluator[evaluator] = current_active_admin_user if evaluator
+        
         panel "Evaluación", class:"evaluation" do
           fieldset class: "inputs" do
             legend do
@@ -179,7 +180,7 @@ ActiveAdmin.register ImpulsaProject do
             end
           end
 
-          impulsa_project.evaluation.map do |sname, step|
+          impulsa_project.evaluation.each do |sname, step|
             fieldset class: "inputs" do
               legend do
                 span step[:title]
@@ -215,7 +216,7 @@ ActiveAdmin.register ImpulsaProject do
           fieldset class: :actions do
             ol do 
               li class: "action input_action" do
-                input(type: :submit, value: "Guardar evaluación")
+                input type: :submit, value: "Guardar evaluación"
               end
             end
           end if evaluator
