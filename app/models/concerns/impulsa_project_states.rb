@@ -21,17 +21,14 @@ module ImpulsaProjectStates
         transition :review_fixes => :fixes
       end
       event :mark_as_validable do
-        transition :review => :validate
-        transition :review_fixes => :validate
-      end
-      event :mark_as_dissent do
-        transition :validate => :dissent
+        transition :review => :validable
+        transition :review_fixes => :validable
       end
       event :mark_as_validated do
-        transition :validate => :validated
+        transition :validable => :validated, if: :evaluation_result?
       end
       event :mark_as_invalidated do
-        transition :validate => :invalidated
+        transition :validable => :invalidated, if: :evaluation_result?
       end
       event :mark_as_resigned do
         transition all => :resigned
@@ -68,10 +65,6 @@ module ImpulsaProjectStates
 
     def fixable?
       persisted? && !resigned? && fixes? && self.impulsa_edition.allow_fixes?
-    end
-
-    def validable?
-      persisted? && !resigned? && validate?
     end
   end
 end

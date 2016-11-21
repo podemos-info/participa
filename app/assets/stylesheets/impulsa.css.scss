@@ -1,168 +1,186 @@
 .impulsa {
-	.form-label label.control-label {
-		font-size: 18px;
-		a {
-			display: block;
-			font-size: 14px;
-		}
-	}
-	.file-data {
-		clear: left;
-		.form-label label.template {
-			font-size: 14px;
-			padding-top: 0;
-		}
-		.form-wrapper {
-			position: relative;
-		}
-		.current-file {
-			a {
-				text-align: right;
-				color: #269283;
-				font-size: 14px;
-				&.delete {
-					color: #f5bfc9;
-				}
-			}
-		}
-		.progress {
-			position: absolute;
-			margin: 5px;
-			width: 100%;
-		}
-	}
-	.choice {
-		font-size: 13px;
-		color: #666;
-		line-height: 20px;
-		input {
-			margin: 1px 10px !important;
-		}
-	}
-	.form-wrapper > .help-block {
-		float: right;
+  .form-label label.control-label {
+    font-size: 18px;
+    a {
+      display: block;
+      font-size: 14px;
+    }
+  }
+  .file-data {
+    clear: left;
+    .form-label label.template {
+      font-size: 14px;
+      padding-top: 0;
+    }
+    .form-wrapper {
+      position: relative;
+    }
+    .current-file {
+      a {
+        text-align: right;
+        color: #269283;
+        font-size: 14px;
+        &.delete {
+          color: #f5bfc9;
+        }
+      }
+    }
+    .progress {
+      position: absolute;
+      margin: 5px;
+      width: 100%;
+    }
+  }
+  .choice {
+    font-size: 13px;
+    color: #666;
+    line-height: 20px;
+    input {
+      margin: 1px 10px !important;
+    }
+  }
+  .form-wrapper > .help-block {
+    float: right;
 
-		& + .help-block {
-			float: none;
-			color: red;
-		}
-	}
-	input[type=submit] {
-	  font-size: 14px;
-	  line-height: 16px;
-	}
-	fieldset.form-actions input {
-	  font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
-	}
-	.select2-container {
-		float: none !important;
-	}
+    & + .help-block {
+      float: none;
+      color: red;
+    }
+  }
+  input[type=submit] {
+    font-size: 14px;
+    line-height: 16px;
+  }
+  fieldset.form-actions input {
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
+  }
+  .select2-container {
+    float: none !important;
+  }
 
-	/* Content */
-	.data-form-container {
-		width: 75%;
-		float: right;
-	}
+  /* Content */
+  .data-form-container {
+    width: 75%;
+    float: right;
+  }
 
 
-	nav.steps.vertical-steps {
-		margin-top: 10px;
-		width: 20%;
-		min-width: 50px;
-		margin-right: 5%;
-		float: left;
-		ul {
-			margin: 0px;
-			padding: 0px;
-			li:first-child {
-				a {
-					padding-top: 5px;
-					color: #333;
-					&:before {
-						border-width: 4px;
-						left: -15px;
-						top: 0px;
-					}
-				}
-			}
-			li {
-				margin: 0px;
-				padding: 0px;
+  nav.steps.vertical-steps {
+    margin-top: 10px;
+    width: 20%;
+    min-width: 50px;
+    margin-right: 5%;
+    float: left;
+    ul {
+      margin: 0px;
+      padding: 0px;
+      li.main {
+        a {
+          padding-top: 5px;
+          color: #333;
+          &:before {
+            border-width: 4px;
+            left: -15px;
+            top: 0px;
+          }
+        }
+      }
+      li {
+        margin: 0px;
+        padding: 0px;
 
-				border: 0px solid;
-			 	width: 100%;
-			 	display: block;
-			 	background: #fff !important;
-			 	border-radius: 0px; 
+        border: 0px solid;
+        width: 100%;
+        display: block;
+        background: #fff !important;
+        border-radius: 0px; 
 
-			 	position: relative;
-			 	cursor: pointer;
-				a {
-					margin: 0px;
-					padding: 0px;
-					text-transform: uppercase;
-					color: #666;
-					display: block;
-					border-left: 2px solid #269283;
-					font-size: 11px;
-					font-weight: bold;
-					padding: 10px 5px 12px 20px;
-					margin-left: 20px;
-					text-align: left;
-					position: relative;
-					&:before {
-						content: '';
-						width: 20px;
-						height: 20px;
-						border: solid 2px #269283;
-						background: #fff;
+        position: relative;
+        cursor: pointer;
+        a {
+          margin: 0px;
+          padding: 0px;
+          text-transform: uppercase;
+          color: #666;
+          display: block;
+          border-left: 2px solid #269283;
+          font-size: 11px;
+          font-weight: bold;
+          padding: 10px 5px 12px 20px;
+          margin-left: 20px;
+          text-align: left;
+          position: relative;
+          &:before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: solid 2px #269283;
+            background: #fff;
 
-						position: absolute;
-						left: -13px;
-						top: 7px;
+            position: absolute;
+            left: -13px;
+            top: 7px;
 
-						-webkit-border-radius: 500px;
-						-moz-border-radius: 500px;
-						border-radius: 500px;
+            -webkit-border-radius: 500px;
+            -moz-border-radius: 500px;
+            border-radius: 500px;
 
-					}
+          }
 
-				}			 
-				span.errors {
-					display: block;
-				  width: 27px;
-				  height: 20px;
-				  font-size: 12px;
-				  text-align: center;
-				  position: absolute;
-				  left: -14px;
-				  top: 10px;
-				  z-index: 3;
+        }      
+        span.errors {
+          display: block;
+          width: 27px;
+          height: 20px;
+          font-size: 12px;
+          text-align: center;
+          position: absolute;
+          left: -14px;
+          top: 10px;
+          z-index: 3;
 
-				  color: #fff;
-				}
+          color: #fff;
+        }
 
-				&.is-ok a:before{
-					background: #269283;
-					border-color: #269283;
-				}
-				&.is-not-ok a:before{
-					background: #ff9696;
-					border-color: #ff9696;
-				}
-				&:hover a:before, &.active a:before{
-					background: #612d62;
-					border-color:  #612d62;
-				}		
-			}
-		}
-	}
+        &.is-ok a:before{
+          background: #269283;
+          border-color: #269283;
+        }
+        &.is-not-ok a:before{
+          background: #ff9696;
+          border-color: #ff9696;
+        }
+        &:hover a:before, &.active a:before{
+          background: #612d62;
+          border-color:  #612d62;
+        }   
+      }
+    }
+  }
 
-	@media only screen and (max-width: 500px) {
-	   nav.steps.vertical-steps, .data-form-container {
-	       width: 100%;
-	       margin-right: 0%;
-	       float: none;
-	   }
-	}
+  .impulsa_evaluation_result {
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid black;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .valid {
+    color: #3c763d;
+    border-color: #3c763d;
+  }
+  .invalid {
+    color: #a94442;
+    border-color: #a94442;
+  }
+
+  @media only screen and (max-width: 500px) {
+     nav.steps.vertical-steps, .data-form-container {
+         width: 100%;
+         margin-right: 0%;
+         float: none;
+     }
+  }
 }

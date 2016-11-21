@@ -26,7 +26,7 @@
   <% elsif field[:type].in? ["select", "check_boxes"] %>
     <%= f.input field_name, label: field[:title], as: field[:type], hint: hint, collection: field[:collection].to_a.map(&:reverse), input_html: {disabled: disable, class: if field[:type]=="check_boxes" then '' else 'input-xl' end} %>
   <% elsif field[:type]=="boolean" %>
-      <%= f.label field[:title] %>
+      <%= f.label field[:title], for: field_name %>
       <div class="input-box">
         <label class="choice"><%= f.check_box field_name, class: 'checkbox', disabled: disable %><%= field[:tip] %></label>
       </div>
