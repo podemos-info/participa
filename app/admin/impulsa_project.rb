@@ -187,13 +187,16 @@ ActiveAdmin.register ImpulsaProject do
               end
               ol do
                 step[:groups].each do |gname, group|
-                  li do h3 group[:title] if group[:title] end
+                  li class: "input clear" do h3 group[:title] if group[:title] end
                   group[:fields].each do |fname, field|
+                    li class: "input clear" do
+                      label class:"label" do field[:title] end
+                    end
                     impulsa_project.evaluators.each do |i|
                       e = impulsa_project.evaluator[i]
                       break if e.nil?
                       li class: "input input_#{i}" do
-                        label class:"label" do "#{i}. #{field[:title]}" end
+                        label class:"label" do impulsa_project.evaluator[i].full_name end
                         value = impulsa_project.evaluation_values(i)["#{gname}.#{fname}"]
                         if evaluator == i
                           field_name = "impulsa_project[_evl#{i}_#{gname}__#{fname}]"
