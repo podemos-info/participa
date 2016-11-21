@@ -4,12 +4,14 @@ ActiveAdmin.register ImpulsaProject do
   navigation_menu :default
 
   permit_params do
-    ps = [:review, :name, :impulsa_edition_category_id]
+    ps = [:review, :validable, :name, :impulsa_edition_category_id, :evaluation_result]
     all_fields = resource.wizard_step_admin_params
 
-    if params[:review]
+    if params[:review]=="true"
       all_fields.concat(all_fields.pop.keys) if all_fields.last.is_a?(Hash)  # last param could be a hash for multivalue fields  
       ps.concat(all_fields.map {|param| "_rvw"+param[4..-1]}) if resource.reviewable?    # add review fields
+    elsif params[:validable]=="true"
+      ps.concat(resource.evaluation_admin_params)
     else
       ps.concat(all_fields)
     end
@@ -30,15 +32,12 @@ ActiveAdmin.register ImpulsaProject do
     end
     column :user
     column :impulsa_edition_category
-    
-    #column :updated_at
     column :state do |impulsa_project|
       div impulsa_project.state
-      if impulsa_project.wizard_valid?
-        status_tag("OK", :ok)
-      else
-
+      if impulsa_project.wizard_has_errors?
         status_tag("#{impulsa_project.wizard_count_errors} errores", :error)
+      else
+        status_tag("OK", :ok)
       end
     end
     column :votes
@@ -64,6 +63,7 @@ ActiveAdmin.register ImpulsaProject do
   show do
     panel t("podemos.impulsa.admin_section") do
       attributes_table_for impulsa_project do
+        row :id
         row :edition do 
           link_to(impulsa_project.impulsa_edition.name, admin_impulsa_edition_path(impulsa_project.impulsa_edition))
         end
@@ -113,10 +113,12 @@ ActiveAdmin.register ImpulsaProject do
       end
     end
 
-    form method: :post do
+    form method: :post do |f|
       input type: :hidden, name: :_method, value: :patch
-      input type: :hidden, name: :review, value: true
+      input type: :hidden, name: :review, value: impulsa_project.reviewable?
+      input type: :hidden, name: :validable, value: impulsa_project.validable?
       input type: :hidden, name: :authenticity_token, value: form_authenticity_token
+      
       impulsa_project.wizard.map do |sname, step|
         panel step[:title] do
           step[:groups].each do |gname, group|
@@ -144,17 +146,102 @@ ActiveAdmin.register ImpulsaProject do
               end
             end
           end
-          span # no groups shown, empty span avoid render each output
+
         end
       end
-      fieldset class: :actions do
-        ol do 
-          li class: "action input_action ", id: "impulsa_project_submit_action" do
-            input type: :submit, value: "Marcar como revisado"
+
+      panel "Acciones" do
+        fieldset class: :actions do
+          ol do 
+            li class: "action input_action ", id: "impulsa_project_submit_action" do
+              input type: :submit, value: "Marcar como revisado"
+            end
           end
         end
       end if impulsa_project.reviewable?
 
+      if impulsa_project.validable?
+        evaluator = impulsa_project.current_evaluator(current_active_admin_user.id)
+
+        panel "Evaluación", class:"evaluation" do
+          fieldset class: "inputs" do
+            legend do
+              span "Evaluadores"
+            end
+            ol do
+              impulsa_project.evaluators.each do |i|
+                e = impulsa_project.evaluator[i]
+                li class: "input" do 
+                  label "Evaluador #{i}", class: :label
+                  div e.full_name, class:"readonly"
+                end if e.present?
+              end
+            end
+          end
+
+          impulsa_project.evaluation.map do |sname, step|
+            fieldset class: "inputs" do
+              legend do
+                span step[:title]
+              end
+              ol do
+                step[:groups].each do |gname, group|
+                  li do h3 group[:title] if group[:title] end
+                  group[:fields].each do |fname, field|
+                    impulsa_project.evaluators.each do |i|
+                      e = impulsa_project.evaluator[i]
+                      break if e.nil?
+                      li class: "input input_#{i}" do
+                        label class:"label" do "#{i}. #{field[:title]}" end
+                        value = impulsa_project.evaluation_values(i)["#{gname}.#{fname}"]
+                        if evaluator == i
+                          field_name = "impulsa_project[_evl#{i}_#{gname}__#{fname}]"
+                          if field[:type]=="text"
+                            textarea(value, name: field_name, type: field[:type])
+                          else
+                            input name: field_name, type: field[:type], value: value
+                          end
+                        else
+                          div value, class:"readonly"
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end      
+
+          fieldset class: :actions do
+            ol do 
+              li class: "action input_action" do
+                input(type: :submit, value: "Guardar evaluación")
+              end
+            end
+          end if evaluator
+        end
+      end
+
+      if impulsa_project.validable? && !impulsa_project.evaluation_has_errors?
+        panel "Finalizar evaluación" do
+          ol do
+            li class: "input" do
+              label class:"label" do "Resultado de la evaluación" end
+              input name: "impulsa_project[evaluation_result]", type:"text"
+            end
+          end
+          fieldset class: :actions do
+            ol do
+              li class: "action input_action" do
+                input type: :submit, name: "evaluation_action", value: "Validar", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+              end
+              li class: "action input_action" do
+                input type: :submit, name: "evaluation_action", value: "Invalidar", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+              end
+            end
+          end
+        end
+      end
     end
     active_admin_comments
   end
@@ -200,48 +287,6 @@ ActiveAdmin.register ImpulsaProject do
             end
           end
         end
-      end
-    end
-
-    if impulsa_project.reviewable?
-      f.inputs "Revisión del proyecto" do
-        li do
-          "Al guardar el proyecto cambiará de estado: si hay comentarios asociados a algún campo pasar al estado 'Correcciones' 
-          para que sea revisado por el usuario; en caso contrario pasará al estado 'Validar'. En cualquier caso, se enviará un correo al usuario
-          para informarle del progreso de su proyecto, por lo que es recomendable revisar el formulario antes de enviarlo." 
-        end
-      end
-    elsif impulsa_project.validable?
-      f.inputs "Validación del proyecto" do
-        if impulsa_project.evaluator1
-          li do "Validación por #{impulsa_project.evaluator1.full_name}" end
-          li do impulsa_project.evaluator1_invalid_reasons end
-          li do link_to(impulsa_project.evaluator1_analysis, impulsa_project.evaluator1_analysis.url) end if impulsa_project.evaluator1_analysis.exists?
-        end
-
-        if impulsa_project.evaluator1 != current_active_admin_user
-          li do
-            if impulsa_project.evaluator1.nil?
-              "Al rellenar estos campos se almacenará su análisis del proyecto para que sea complementado con el de otro evaluador.
-              Para marcar el proyecto como validado basta con dejar el campo 'Razones de invalidación' vacío."
-            else
-              "Al rellenar estos campos se almacenará su análisis del proyecto. Para marcar el proyecto como validado basta con 
-              dejar el campo 'Razones de invalidación' vacío. Dado que otro evaluador ya ha analizado el proyecto, este cambiará de
-              estado según el resultado de ambas evaluaciones: pasará a 'Validado' si ambos han aprobado el proyecto, a 'Invalidado'
-              si ambos han rechazado el proyecto y a 'Disenso' si no hay acuerdo entre ambas opiniones. Salvo en el último caso, se
-              enviará un correo al usuario para indicar el resultado del proceso y las razones de invalidación, si hubieran, 
-              por lo que es importante revisar el formulario antes de enviarlo y asegurarse que las razones de invalidación de ambos
-              evaluadores no son contradictorias para no confundir al usuario." 
-            end
-          end
-          f.input :invalid_reasons, as: :text, label: "Razones de invalidación"
-          f.input :evaluator_analysis, as: :file
-        end
-      end
-    elsif impulsa_project.dissent?
-      f.inputs "Validación del proyecto" do
-        f.input :evaluator1_invalid_reasons, as: :text, label: "Razones de invalidación del evaluador 1"
-        f.input :evaluator2_invalid_reasons, as: :text, label: "Razones de invalidación del evaluador 2"
       end
     end
     f.actions
@@ -303,7 +348,11 @@ ActiveAdmin.register ImpulsaProject do
 
     def update
       send_email = false
-      was_dissent = resource.dissent?
+
+      if resource.validable?
+        evaluator = resource.current_evaluator(current_active_admin_user.id)
+        resource.evaluator[evaluator] = current_active_admin_user if evaluator
+      end
       super
       if resource.reviewable? && params[:review]
         if resource.wizard_has_errors?(ignore_state: true)
@@ -313,21 +362,15 @@ ActiveAdmin.register ImpulsaProject do
         end
         flash[:notice] = "El proyecto ha sido marcado como revisado."
         send_email = true
-      elsif resource.validable? && !params[:impulsa_project][:evaluator_analysis].blank?
-        if resource.evaluator1.nil?
-          resource.evaluator1 = current_active_admin_user
-          resource.evaluator1_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
-          resource.evaluator1_analysis = params[:impulsa_project][:evaluator_analysis]
-          send_email = resource.save
-        elsif resource.evaluator1!=current_active_admin_user
-          resource.evaluator2 = current_active_admin_user
-          resource.evaluator2_invalid_reasons = params[:impulsa_project][:invalid_reasons].strip
-          resource.evaluator2_analysis = params[:impulsa_project][:evaluator_analysis]
-          resource.check_evaluators_validation
-          send_email = resource.save
+      elsif resource.validable? && resource.evaluation_result?
+        if params[:evaluation_action].downcase=="validar"
+          resource.mark_as_validated
+          flash[:notice] = "El proyecto ha sido marcado como validado."
+        else
+          resource.mark_as_invalidated
+          flash[:notice] = "El proyecto ha sido marcado como invalidado."
         end
-      elsif was_dissent
-        send_email = resource.validated? || resource.invalidated?
+        send_email = true
       end
       
       if send_email

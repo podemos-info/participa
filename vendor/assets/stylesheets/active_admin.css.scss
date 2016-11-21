@@ -37,3 +37,16 @@ table.index_table th a {
     color: #612d6;
   }
 }
+.evaluation {
+  .readonly {
+    padding-top: 7px;
+  }
+  .input {
+    padding-top:0px;
+    padding-bottom:0px;
+  }
+  .input.input_1 {
+    margin-top: 20px;
+    padding-top: inherit;
+  }
+}

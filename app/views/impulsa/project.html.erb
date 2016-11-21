@@ -25,7 +25,7 @@
               <p>No hemos recibido, en plazo, toda la información necesaria sobre el proyecto que has presentado a esta edición de IMPULSA. El plazo de presentación de proyectos ha finalizado, por lo que lamentamos comunicarte que tu proyecto no podrá ser revisado.</p>
             <% end %>
           <% when "fixes" %>
-            <% if @edition.allow_fixes? %>
+            <% if @project.fixable? %>
               <p>Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación. <% if @project.wizard_has_errors? %>Por favor, revisa los pasos marcados con números, lee atentamente nuestras indicaciones y corrígelos. Una vez que lo hayas hecho debes volver a esta página para marcar tu proyecto para que sea revisado nuevamente.<% else %>Para que podamos revisar nuevamente tu proyecto debes presionar el botón <strong><%=t("podemos.impulsa.mark_for_review")%></strong>.<%end%></p>
               <p>Recuerda que la fecha límite para que los datos de tu proyecto estén subsanados es el <strong><%= l((@edition.review_projects_until-1.second).to_date, format: :long) %></strong>.</p>
             <% else %>
@@ -35,14 +35,12 @@
             <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos por correo electrónico, hasta que eso suceda puedes seguir modificando tu proyecto si lo deseas. Te recomendamos que estés atento para poder corregirlo si fuera necesario, ya que todos los datos deberán estar subsanados antes del <strong><%= l((@edition.review_projects_until-1.second).to_date, format: :long) %></strong> para que pueda ser evaluado. </p>
           <% when "review_fixes" %>
             <p>Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos por correo electrónico, hasta que eso suceda puedes seguir modificando tu proyecto si lo deseas. Te recomendamos que estés atento para poder corregirlo si fuera necesario, ya que todos los datos deberán estar subsanados antes del <strong><%= l((@edition.review_projects_until-1.second).to_date, format: :long) %></strong> para que pueda ser evaluado. </p>
-          <% when "validate", "dissent" %>
+          <% when "validable" %>
             <p>Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de evaluación. Esto se realizará antes del <strong><%= l((@edition.validation_projects_until-1.second).to_date, format: :long) %></strong>.</p>
           <% when "invalidated" %>
-            <p>Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones:</p>
-            <%= simple_format(project.evaluator1_invalid_reasons) %>
-            <%= simple_format(project.evaluator2_invalid_reasons) %>
+            <p>Lamentamos comunicarte que el proyecto que has presentado a la edición actual de IMPULSA no ha superado la fase de evaluación. Puedes consultar el resultado detallado de la evaluación <%=link_to("aquí", evaluation_impulsa_path)%>.</p>
           <% when "validated" %>
-            <p>Una vez realizada la revisión de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado.</p>
+            <p>Una vez realizada la evaluación de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que <strong>tu proyecto ha sido validado</strong>. Puedes consultar el resultado detallado de la evaluación <%=link_to("aquí", evaluation_impulsa_path)%>.</p>
           <% when "discarded" %>
           <% when "resigned" %>
             <p>Lamentamos que hayas renunciado a realizar tu proyecto y te animamos a presentarlo en la próxima edición de IMPULSA.</p>

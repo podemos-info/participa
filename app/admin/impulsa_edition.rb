@@ -1,12 +1,7 @@
 ActiveAdmin.register ImpulsaEdition do
   menu :parent => "Participación"
   config.filters = false
-  permit_params do
-    fields = [:id, :name, :description, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :votings_start_at, :ends_at, :publish_results_at, :schedule_model, :activities_resources_model, :requested_budget_model, :monitoring_evaluation_model]
-    fields += I18n.available_locales.map do |locale|
-      :"legal_#{locale}"
-    end
-  end
+  permit_params :id, :name, :description, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :votings_start_at, :ends_at, :publish_results_at
 
   index do
     selectable_column
@@ -36,23 +31,6 @@ ActiveAdmin.register ImpulsaEdition do
       row :votings_start_at
       row :ends_at
       row :publish_results_at
-      row :legal do |impulsa_edition|
-        I18n.available_locales.each do |locale|
-          span link_to(I18n.name_for_locale(locale), impulsa_edition[:legal]["legal_#{locale}"]) if !impulsa_edition[:legal]["legal_#{locale}"].blank?
-        end .compact
-      end
-      row :schedule_model do |impulsa_edition|
-        link_to impulsa_edition.schedule_model_file_name, impulsa_edition.schedule_model.url if impulsa_edition.schedule_model.exists?
-      end
-      row :activities_resources_model do |impulsa_edition|
-        link_to impulsa_edition.activities_resources_model_file_name, impulsa_edition.activities_resources_model.url if impulsa_edition.activities_resources_model.exists?
-      end
-      row :requested_budget_model do |impulsa_edition|
-        link_to impulsa_edition.requested_budget_model_file_name, impulsa_edition.requested_budget_model.url if impulsa_edition.requested_budget_model.exists?
-      end
-      row :monitoring_evaluation_model do |impulsa_edition|
-        link_to impulsa_edition.monitoring_evaluation_model_file_name, impulsa_edition.monitoring_evaluation_model.url if impulsa_edition.monitoring_evaluation_model.exists?
-      end
     end
 
     panel t "activerecord.models.impulsa_edition_categories" do
@@ -97,13 +75,6 @@ ActiveAdmin.register ImpulsaEdition do
       f.input :votings_start_at
       f.input :ends_at
       f.input :publish_results_at
-      I18n.available_locales.each do |locale|
-        f.input "legal_#{locale}", label: "#{t("activerecord.attributes.impulsa_edition.legal")} #{I18n.name_for_locale(locale)}"
-      end
-      f.input :schedule_model, as: :file
-      f.input :activities_resources_model, as: :file
-      f.input :requested_budget_model, as: :file
-      f.input :monitoring_evaluation_model, as: :file
     end
     f.actions
   end

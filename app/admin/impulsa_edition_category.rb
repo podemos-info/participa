@@ -3,7 +3,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
   belongs_to :impulsa_edition
   navigation_menu :default
 
-  permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :only_authors, :coofficial_language, :wizard_raw, territories: []
+  permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :only_authors, :coofficial_language, :wizard_raw, :evaluation_raw, territories: []
 
   show do
     attributes_table do
@@ -18,6 +18,16 @@ ActiveAdmin.register ImpulsaEditionCategory do
       row :coofficial_language_name
       row :territories do |impulsa_edition_category|
         impulsa_edition_category.territories_names.join ", "
+      end
+      row :warnings do
+        all_fields = impulsa_edition_category.wizard.map do |sname,step| 
+          step[:groups].map do |gname,group|
+            group[:fields].map do |fname,field|
+              "#{gname}.#{fname}"
+            end
+          end
+        end .flatten
+        status_tag("Campos duplicados", :warn) if all_fields.count > all_fields.uniq.count
       end
     end
   end
@@ -39,6 +49,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
       f.input :coofficial_language, as: :select, collection: I18n.available_locales.map {|l| [I18n.name_for_locale(l),l] if l!=I18n.default_locale }
       f.input :territories, as: :check_boxes, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse).sort if resource.has_territory?
       f.input :wizard_raw, as: :text, input_html: { rows: 30, class: "yaml" }
+      f.input :evaluation_raw, as: :text, input_html: { rows: 30, class: "yaml" }
     end
     f.actions
   end
