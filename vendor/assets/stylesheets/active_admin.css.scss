@@ -51,6 +51,9 @@ table.index_table th a {
   }
   .input.full {
     clear: both;
-    width: 100%;
+    margin-top: 15px;
+    label {
+      width: 100%;
+    }
   }
 }

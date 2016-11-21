@@ -176,6 +176,30 @@
     border-color: #a94442;
   }
 
+  .impulsa_evaluation {
+    h3 {
+      margin-top: 30px;
+    }
+    h4 {
+      font-size: 14px;
+    }
+    p {
+      margin: 5px 0;
+    }
+    span {
+      display: inline-block;
+      width: 50%;
+      text-align: center;
+      padding: 10px 0;
+      margin: 0 -1px;
+      font-size: 12px;
+      background: #eee;
+      & + span {
+        background: #e0e0e0;
+      }
+    }
+  }
+
   @media only screen and (max-width: 500px) {
      nav.steps.vertical-steps, .data-form-container {
          width: 100%;
