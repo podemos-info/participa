@@ -75,7 +75,7 @@ module ImpulsaProjectWizard
         step[:groups].map do |gname,group|
           group[:fields].map do |fname, field|
             ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"]
-          end .compact
+          end
         end .flatten(1)
       end .flatten(1)
       _all.collect{|field, multiple| field unless multiple}.compact + [Hash[_all.select(&:last).map{|field,multiple| [field, []]}]]
@@ -183,7 +183,7 @@ module ImpulsaProjectWizard
       files_folder + wizard_values["#{gname}.#{fname}"]
     end
 
-    def method_missing(method_sym, *arguments, &block)
+    def wizard_method_missing(method_sym, *arguments, &block)
       if method_sym.to_s =~ /^_wiz_(.+)__([^=]+)=?$/
         self.instance_eval <<-RUBY
           def _wiz_#{$1}__#{$2}
@@ -193,7 +193,7 @@ module ImpulsaProjectWizard
             assign_wizard_value(:"#{$1}", :"#{$2}", value)
           end
         RUBY
-        send(method_sym, *arguments)
+        return send(method_sym, *arguments)
       elsif method_sym.to_s =~ /^_rvw_(.+)__([^=]+)=?$/
         self.instance_eval <<-RUBY
           def _rvw_#{$1}__#{$2}
@@ -203,11 +203,9 @@ module ImpulsaProjectWizard
             wizard_review["#{$1}.#{$2}"] = value
           end
         RUBY
-        send(method_sym, *arguments)
-      else
-        super
+        return send(method_sym, *arguments)
       end
+      :super
     end
- 
   end
 end
