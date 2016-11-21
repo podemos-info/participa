@@ -187,9 +187,9 @@ ActiveAdmin.register ImpulsaProject do
               end
               ol do
                 step[:groups].each do |gname, group|
-                  li class: "input clear" do h3 group[:title] if group[:title] end
+                  li class: "input full" do h3 group[:title] if group[:title] end
                   group[:fields].each do |fname, field|
-                    li class: "input clear" do
+                    li class: "input full" do
                       label class:"label" do field[:title] end
                     end
                     impulsa_project.evaluators.each do |i|
