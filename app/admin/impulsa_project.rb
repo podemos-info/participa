@@ -203,7 +203,10 @@ ActiveAdmin.register ImpulsaProject do
                           if field[:type]=="text"
                             textarea(value, name: field_name, type: field[:type])
                           else
-                            input name: field_name, type: field[:type], value: value
+                            params = { name: field_name, type: field[:type], value: value }
+                            params[:max] = field[:maximum] if field[:maximum]
+                            params[:min] = field[:minimum] if field[:minimum]
+                            input params
                           end
                         else
                           div value, class:"readonly"
