@@ -150,11 +150,11 @@ ActiveAdmin.register ImpulsaProject do
         end
       end
 
-      panel do
+      panel "Acciones" do
         fieldset class: :actions do
           ol do 
             li class: "action input_action ", id: "impulsa_project_submit_action" do
-              input(type: :submit, value: "Marcar como revisado")
+              input type: :submit, value: "Marcar como revisado"
             end
           end
         end
