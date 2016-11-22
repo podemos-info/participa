@@ -1,4 +1,8 @@
 class ImpulsaEditionCategory < ActiveRecord::Base
+  include FlagShihTzu
+
+  has_flags 1 => :has_votings
+
   belongs_to :impulsa_edition
   has_many :impulsa_projects
 
