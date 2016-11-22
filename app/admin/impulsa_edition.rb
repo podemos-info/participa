@@ -1,7 +1,7 @@
 ActiveAdmin.register ImpulsaEdition do
   menu :parent => "Participación"
   config.filters = false
-  permit_params :id, :name, :description, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :votings_start_at, :ends_at, :publish_results_at
+  permit_params :id, :name, :email, :description, :start_at, :new_projects_until, :review_projects_until, :validation_projects_until, :votings_start_at, :ends_at, :publish_results_at
 
   index do
     selectable_column
@@ -23,6 +23,7 @@ ActiveAdmin.register ImpulsaEdition do
   show do
     attributes_table do
       row :name
+      row :email
       row :description
       row :start_at
       row :new_projects_until
@@ -67,6 +68,7 @@ ActiveAdmin.register ImpulsaEdition do
   form do |f|
     f.inputs "Impulsa edition" do
       f.input :name
+      f.input :email
       f.input :description
       f.input :start_at
       f.input :new_projects_until

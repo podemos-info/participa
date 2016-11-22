@@ -742,7 +742,6 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       fixes_text: "Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación."
       non_fixes_text: "No hemos recibido, en plazo, la subsanación de los errores indicados en el proyecto que has presentado a esta edición de IMPULSA. El plazo de subsanación ha finalizado, por lo que lamentamos comunicarte que tu proyecto no pasa a la fase de validación."
       mark_for_review_text: "Cuando hayas completado todos los datos del proyecto y consideres que son correctos utiliza el botón '%{mark_for_review}' para indicarnos que podemos revisarlo (aunque podrás seguir haciendo correcciones hasta que lo hagamos)."
-      spam_text: "Después de realizar la revisión de los proyectos presentados, hemos detectado que tu proyecto está prácticamente vacío. Por esta razón, lo hemos marcado como desestimado. Si tienes alguna consulta al respecto, por favor ponte en contacto con nosotros en el correo proyectoimpulsa2@podemos.info."
       reviewing_text: "Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos."
       validable_text: "Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de revisión."
       invalidated_text: "Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones: %{invalid_reasons}"

@@ -3,7 +3,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
   belongs_to :impulsa_edition
   navigation_menu :default
 
-  permit_params :impulsa_edition_id, :name, :category_type, :winners, :prize, :only_authors, :coofficial_language, :wizard_raw, :evaluation_raw, territories: []
+  permit_params :impulsa_edition_id, :name, :has_votings, :category_type, :winners, :prize, :only_authors, :coofficial_language, :wizard_raw, :evaluation_raw, territories: []
 
   show do
     attributes_table do
@@ -19,7 +19,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
       row :territories do |impulsa_edition_category|
         impulsa_edition_category.territories_names.join ", "
       end
-      row :warnings do
+      row :info do
         all_fields = impulsa_edition_category.wizard.map do |sname,step| 
           step[:groups].map do |gname,group|
             group[:fields].map do |fname,field|
@@ -28,6 +28,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
           end
         end .flatten
         status_tag("Campos duplicados", :warn) if all_fields.count > all_fields.uniq.count
+        status_tag("Votacion", :ok) if impulsa_edition_category.has_votings
       end
     end
   end
@@ -45,6 +46,7 @@ ActiveAdmin.register ImpulsaEditionCategory do
       f.input :category_type, as: :select, collection: ImpulsaEditionCategory::CATEGORY_TYPES.map{|k,v| [I18n.t("podemos.impulsa.category_type_name.#{k}"), v]}
       f.input :winners, min: 1
       f.input :prize, min: 0
+      f.input :has_votings, as: :boolean
       f.input :only_authors
       f.input :coofficial_language, as: :select, collection: I18n.available_locales.map {|l| [I18n.name_for_locale(l),l] if l!=I18n.default_locale }
       f.input :territories, as: :check_boxes, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse).sort if resource.has_territory?
