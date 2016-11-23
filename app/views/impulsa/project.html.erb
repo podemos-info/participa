@@ -46,7 +46,7 @@
             <p>Lamentamos que hayas renunciado a realizar tu proyecto y te animamos a presentarlo en la próxima edición de IMPULSA.</p>
           <% when "winner" %>
         <% end %>
-        <p>Si tienes cualquier consulta, escribe a <a href='mailto:proyectoimpulsa3@podemos.info'>proyectoimpulsa3@podemos.info</a> y te responderemos en el menor tiempo posible. También puedes consultar las <a href="http://impulsa.podemos.info/#bases">bases de esta edición</a>.</p>
+        <p>Si tienes cualquier consulta, escribe a <a href='mailto:<%=@edition.email%>'><%=@edition.email%></a> y te responderemos en el menor tiempo posible. También puedes consultar las <a href="http://impulsa.podemos.info/#bases">bases de esta edición</a>.</p>
       
         <h3>Datos del proyecto</h3>
         <%= errors_in_form @project %>

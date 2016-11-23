@@ -133,5 +133,9 @@ module ImpulsaProjectEvaluation
       end
       :super
     end
+
+    def can_finish_evaluation? user
+      self.validable? && !self.evaluation_has_errors? && user.admin?
+    end
   end
 end

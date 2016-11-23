@@ -110,6 +110,9 @@ ActiveAdmin.register ImpulsaProject do
         end
         row :created_at
         row :updated_at
+        row "Evaluation" do
+          impulsa_project.evaluation_result
+        end if impulsa_project.evaluation_result.present?
       end
     end
 
@@ -146,7 +149,6 @@ ActiveAdmin.register ImpulsaProject do
               end
             end
           end
-
         end
       end
 
@@ -229,7 +231,7 @@ ActiveAdmin.register ImpulsaProject do
         end
       end
 
-      if impulsa_project.validable? && !impulsa_project.evaluation_has_errors?
+      if impulsa_project.can_finish_evaluation?(current_active_admin_user)
         panel "Finalizar evaluación" do
           ol do
             li class: "input" do
@@ -240,10 +242,10 @@ ActiveAdmin.register ImpulsaProject do
           fieldset class: :actions do
             ol do
               li class: "action input_action" do
-                input type: :submit, name: "evaluation_action", value: "Validar", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+                input type: :submit, name: "evaluation_action", value: "Fase superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
               end
               li class: "action input_action" do
-                input type: :submit, name: "evaluation_action", value: "Invalidar", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+                input type: :submit, name: "evaluation_action", value: "Fase NO superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
               end
             end
           end
@@ -388,11 +390,7 @@ ActiveAdmin.register ImpulsaProject do
         elsif resource.invalidated?
           ImpulsaMailer.on_invalidated(resource).deliver_now
         elsif resource.validated?
-          if resource.impulsa_edition_category.needs_preselection?
-            ImpulsaMailer.on_validated1(resource).deliver_now
-          else
-            ImpulsaMailer.on_validated2(resource).deliver_now
-          end
+          ImpulsaMailer.on_validated(resource).deliver_now
         end
       end
     end
