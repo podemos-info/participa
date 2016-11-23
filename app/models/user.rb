@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
             4 => :finances_admin,
             5 => :verifications_admin,
             6 => :impulsa_author,
-            7 => :impulsa_admin
+            7 => :impulsa_admin,
+            check_for_column: false
 
   # Include default devise modules. Others available are:
   # :omniauthable

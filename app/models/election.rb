@@ -3,7 +3,7 @@ class Election < ActiveRecord::Base
 
   SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
   
-  has_flags 1 => :requires_sms_check
+  has_flags 1 => :requires_sms_check, check_for_column: false
 
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
