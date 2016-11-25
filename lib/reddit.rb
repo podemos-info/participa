@@ -34,5 +34,6 @@ class Reddit
       author:      data["author"],
       reddit_url:  data["url"],
       reddit_id:   data["name"]
+    }
   end
 end
