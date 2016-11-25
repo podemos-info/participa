@@ -25,7 +25,7 @@
         <% @hot.each do |proposal| %>
             <article class="proposal-sidebar">    
                 <div>
-                    <p class="finish"><span>Termina en </span><strong><%= time_left(proposal) %></strong></p>
+                    <p class="finish"><span><%= proposal.finished? ? "Cerrada hace" : "Termina en" %> </span><strong><%= time_left(proposal) %></strong></p>
                     <p class="support">
                         <strong>
                             <%= formatted_support_percentage(proposal, precision: 1) %>
