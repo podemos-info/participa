@@ -50,6 +50,10 @@ class Proposal < ActiveRecord::Base
     supports.count >= agoravoting_required_votes
   end
 
+  def finished?
+    finishes_at<Date.today
+  end
+
   def finishes_at
     created_at + 3.months
   end
@@ -57,6 +61,10 @@ class Proposal < ActiveRecord::Base
   def supported?(user)
     return false unless user
     user.supports.where(proposal: self).any?
+  end
+
+  def supportable? user
+    not (finished? || supported?(user))
   end
 
   def self.filter(filtering_params)

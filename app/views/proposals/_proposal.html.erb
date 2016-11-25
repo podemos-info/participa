@@ -19,8 +19,8 @@
     </p>
 
 	<div class="info">
-    	<%= link_to("Ver iniciativa", proposal ) %> | Termina en <%= time_left(proposal) %> | 
-        <%= render "supports/new", {proposal: proposal, button_class: 'support'} %>
+    	<%= link_to("Ver iniciativa", proposal ) %> | <%= proposal.finished? ? "Cerrada hace" : "Termina en" %> <%= time_left(proposal) %> | 
+        <%= render "supports/new", {proposal: proposal, button_class: 'support'} unless proposal.finished?%>
     </div>  	
 
 </article>
