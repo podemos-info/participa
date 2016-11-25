@@ -1,7 +1,9 @@
 <% if proposal.supported?(current_user) %>
     <span class="supported">Ya has apoyado esta propuesta. ¡Muchas gracias!</span>
+<% elsif proposal.discarded? %>  
+    <span class="discarded">Esta propuesta no ha alcanzado el mínimo de apoyos en plazo.</span>
 <% else %>
-    <%= form_for [proposal, Support.new], 
+  <%= form_for [proposal, Support.new], 
                html: {id: "support_proposal_#{proposal.id}", remote: true,
                       style: "display: inline;"} do |f| %>
       <%= f.submit "Apoyar propuesta", :class => button_class %>

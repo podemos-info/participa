@@ -15,7 +15,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def support_percentage
-    supports.count.percent_of(confirmed_users)
+    supports_count.percent_of(confirmed_users)
   end
 
   def confirmed_users
@@ -43,15 +43,19 @@ class Proposal < ActiveRecord::Base
   end
 
   def monthly_email_required_votes?
-    supports.count >= monthly_email_required_votes
+    supports_count >= monthly_email_required_votes
   end
   
   def agoravoting_required_votes?
-    supports.count >= agoravoting_required_votes
+    supports_count >= agoravoting_required_votes
   end
 
   def finished?
     finishes_at<Date.today
+  end
+
+  def discarded?
+    finished? && !agoravoting_required_votes?
   end
 
   def finishes_at
@@ -64,7 +68,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def supportable? user
-    not (finished? || supported?(user))
+    not (finished? || discarded?(user))
   end
 
   def self.filter(filtering_params)
@@ -74,11 +78,14 @@ class Proposal < ActiveRecord::Base
   end
 
   def hotness
-    supports.count + (days_since_created * 1000)
+    supports_count + (days_since_created * 1000)
   end
 
   def days_since_created
     ((Time.now - created_at)/60/60/24).to_i
   end
 
+  def supports_count
+    supports.where("created_at<?", finishes_at).count
+  end
 end
