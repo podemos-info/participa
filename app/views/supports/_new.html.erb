@@ -1,5 +1,4 @@
-<% if Proposal.frozen? %>
-<% elsif proposal.supported?(current_user) %>
+<% if proposal.supported?(current_user) %>
     <span class="supported">Ya has apoyado esta propuesta. ¡Muchas gracias!</span>
 <% else %>
     <%= form_for [proposal, Support.new], 
