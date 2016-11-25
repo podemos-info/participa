@@ -1,7 +1,7 @@
-<% if proposal.supported?(current_user) %>
-    <span class="supported">Ya has apoyado esta propuesta. ¡Muchas gracias!</span>
-<% elsif proposal.discarded? %>  
+<% if proposal.discarded? %>  
     <span class="discarded">Esta propuesta no ha alcanzado el mínimo de apoyos en plazo.</span>
+<% elsif proposal.supported?(current_user) %>
+    <span class="supported">Ya has apoyado esta propuesta. ¡Muchas gracias!</span>
 <% else %>
   <%= form_for [proposal, Support.new], 
                html: {id: "support_proposal_#{proposal.id}", remote: true,
