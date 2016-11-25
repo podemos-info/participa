@@ -145,8 +145,8 @@ Rails.application.routes.draw do
       delete 'proyecto/borrar', to: 'impulsa#delete', as: 'delete_impulsa'
       post 'modificar', to: 'impulsa#update', as: 'update_impulsa'
       post 'modificar/:step', to: 'impulsa#update_step', as: 'update_step_impulsa'
-      post 'subir/:field', to: 'impulsa#upload', as: 'upload_impulsa', constraints: { field: /[^\/]*/ }
-      delete 'borrar/:field', to: 'impulsa#delete_file', as: 'delete_file_impulsa', constraints: { field: /[^\/]*/ }
+      post 'subir/:step/:field', to: 'impulsa#upload', as: 'upload_impulsa', constraints: { field: /[^\/]*/ }
+      delete 'borrar/:step/:field', to: 'impulsa#delete_file', as: 'delete_file_impulsa', constraints: { field: /[^\/]*/ }
       get 'descargar/:field', to: 'impulsa#download', as: 'download_impulsa', constraints: { field: /[^\/]*/ }
 
     end

@@ -8,7 +8,7 @@
 
 <div class="inputlabel-box impulsa">
   <% if field[:type]=="file" %>
-    <%= f.input field_name, label: field[:title], as: :file, hint: hint, input_html: {class: 'input-xl', accept: filetypes_to_file_filter(field[:filetype]), "data-url"=>upload_impulsa_path(field: key), disabled: disable} if !disable%>
+    <%= f.input field_name, label: field[:title], as: :file, hint: hint, input_html: {class: 'input-xl', accept: filetypes_to_file_filter(field[:filetype]), "data-url"=>upload_impulsa_path(step: step, field: key), disabled: disable} if !disable%>
     <div class="file form-group file-data">
       <span class="form-label">
         <% if disable %>
@@ -20,7 +20,7 @@
 
       <span class="form-wrapper">
         <div class="progress hidden"><div class="progress-bar progress-bar-success"></div></div>
-        <div class="current-file<%=" hidden" if project.wizard_values[key].blank?%>"> <%= link_to(project.wizard_values[key] || "", download_impulsa_path(field: project.wizard_values[key] || ""), class: :download)%> <%= link_to(fa_icon("trash"), delete_file_impulsa_path(field: key), method: :delete, "data-remote"=>true, "data-confirm"=>"Esto borrará el fichero. ¿Deseas continuar?", class: :delete) if !disable%></div>
+        <div class="current-file<%=" hidden" if project.wizard_values[key].blank?%>"> <%= link_to(project.wizard_values[key] || "", download_impulsa_path(field: project.wizard_values[key] || ""), class: :download)%> <%= link_to(fa_icon("trash"), delete_file_impulsa_path(step: step, field: key), method: :delete, "data-remote"=>true, "data-confirm"=>"Esto borrará el fichero. ¿Deseas continuar?", class: :delete) if !disable%></div>
       </span>
     </div>
   <% elsif field[:type].in? ["select", "check_boxes"] %>

@@ -33,7 +33,6 @@ class Reddit
       votes:       data["ups"],
       author:      data["author"],
       reddit_url:  data["url"],
-      reddit_id:   data["name"],
-      created_at:  Time.at(data["created"]) }
+      reddit_id:   data["name"]
   end
 end

@@ -147,7 +147,7 @@ private
     if !@project.persisted?
       params.require(:impulsa_project).permit(:name, :impulsa_edition_category_id)
     elsif @step.blank?
-      if @project.editable? then params.require(:impulsa_project).permit(:name) else [] end
+      if @project.editable? then params.require(:impulsa_project).permit(:name) else {} end
     else
       params.require(:impulsa_project).permit(*@project.wizard_step_params)
     end
