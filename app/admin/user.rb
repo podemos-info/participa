@@ -232,20 +232,21 @@ ActiveAdmin.register User do
   csv do
     column :id
     column("Nombre") { |u| u.full_name }
-    column :email
     column :document_vatid
+    column :born_at
+    column :email
+    column :phone
+    column :country
     column :country_name
-    column("vote_autonomy") { |u| u.vote_autonomy_name }
+    column :province
     column :province_name
+    column :town
     column :town_name
     column :address
     column :postal_code
-    column :country
-    column :province
-    column :town
+    column("vote_autonomy") { |u| u.vote_autonomy_name }
     column :vote_town_name
     column :vote_town
-    column :phone
     column :current_sign_in_ip
     column :last_sign_in_ip
     column :circle
