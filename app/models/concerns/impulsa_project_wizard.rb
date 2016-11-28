@@ -94,6 +94,18 @@ module ImpulsaProjectWizard
       self.editable? || (self.fixable? && (self.wizard_review["#{gname}.#{fname}"].present? || self.wizard_field_error(gname,fname)))
     end
     
+    def wizard_all_errors options = {}
+      wizard.map do |sname, step|
+        wizard_step_errors sname, options
+      end .compact.flatten(1)
+    end
+
+    def wizard_step_valid? step = nil, options = {}
+      wizard_step_errors(step, options).each do |gname, fname, error|
+        errors.add("_wiz_#{gname}__#{fname}", error)
+      end .none?
+    end
+
     def wizard_has_errors? options = {}
       wizard_count_errors(options) > 0
     end      
@@ -104,16 +116,10 @@ module ImpulsaProjectWizard
       end
     end
 
-    def wizard_valid?
-      wizard_step_errors.each do |field, error|
-        errors.add(field, error)
-      end .none?
-    end
-
     def wizard_step_errors step = nil, options = {}
       wizard[step || wizard_step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|
-          [ "_wiz_#{gname}__#{fname}", wizard_field_error(gname, fname, group, field, options) ]
+          [ gname, fname, wizard_field_error(gname, fname, group, field, options) ]
         end.select(&:last)
       end.flatten(1)
     end
