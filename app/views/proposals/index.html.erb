@@ -14,14 +14,6 @@
             <%= filtered_proposals 'Por tiempo', 'time' %>
             <%= filtered_proposals 'Candentes',  'hot' %>
         </nav>
-
-        <br/>
-        <% if Proposal.frozen? %>
-            <%= alert_box "Iniciativas pausadas", false  do %>
-                Las ICP están en pausa ya que es se está estudiando un posible cambio en el tipo de censo de Podemos que regirá las ICP. Serán reanudadas una vez se tome una decisión al respecto. Puedes seguir proponiendo ICP en plaza podemos.
-            <% end %>
-        <% end %>
-
         <div>
           <%= render @proposals %>
         </div>
@@ -33,7 +25,7 @@
         <% @hot.each do |proposal| %>
             <article class="proposal-sidebar">    
                 <div>
-                    <p class="finish"><span>Termina en </span><strong><%= time_left(proposal) %></strong></p>
+                    <p class="finish"><span><%= proposal.finished? ? "Cerrada hace" : "Termina en" %> </span><strong><%= time_left(proposal) %></strong></p>
                     <p class="support">
                         <strong>
                             <%= formatted_support_percentage(proposal, precision: 1) %>

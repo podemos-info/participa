@@ -22,7 +22,7 @@
               <%= simple_format(group[:text]) if group[:text].present? %>
               <% group[:fields].each do |fname, field| 
                 saveable ||= @project.wizard_editable_field?(gname, fname) %>
-                <%= render partial: "field", locals: {project: @project, f: f, gname: gname, group: group, fname: fname, field: field} %>
+                <%= render partial: "field", locals: {project: @project, step: @step, f: f, gname: gname, group: group, fname: fname, field: field} %>
               <% end %>
             </fieldset>
           <% end %>

@@ -15,7 +15,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def support_percentage
-    supports.count.percent_of(confirmed_users)
+    supports_count.percent_of(confirmed_users)
   end
 
   def confirmed_users
@@ -43,20 +43,32 @@ class Proposal < ActiveRecord::Base
   end
 
   def monthly_email_required_votes?
-    supports.count >= monthly_email_required_votes
+    supports_count >= monthly_email_required_votes
   end
   
   def agoravoting_required_votes?
-    supports.count >= agoravoting_required_votes
+    supports_count >= agoravoting_required_votes
+  end
+
+  def finished?
+    finishes_at<Date.today
+  end
+
+  def discarded?
+    finished? && !agoravoting_required_votes?
   end
 
   def finishes_at
-    created_at + 3.months + (DateTime.now.to_i-Proposal.now.to_i).seconds
+    created_at + 3.months
   end
 
   def supported?(user)
     return false unless user
     user.supports.where(proposal: self).any?
+  end
+
+  def supportable? user
+    not (finished? || discarded?(user))
   end
 
   def self.filter(filtering_params)
@@ -66,23 +78,14 @@ class Proposal < ActiveRecord::Base
   end
 
   def hotness
-    supports.count + (days_since_created * 1000)
+    supports_count + (days_since_created * 1000)
   end
 
   def days_since_created
-    (Proposal.now.to_i - created_at.to_i)/60/60/24
+    ((Time.now - created_at)/60/60/24).to_i
   end
 
-  def self.frozen?
-    !Rails.application.secrets.icps["freeze_date"].nil?
-  end
-
-  def self.now
-    freeze_date = Rails.application.secrets.icps["freeze_date"]
-    if freeze_date 
-      Date.civil(*freeze_date).to_datetime
-    else
-      DateTime.now
-    end
+  def supports_count
+    supports.where("created_at<?", finishes_at).count
   end
 end

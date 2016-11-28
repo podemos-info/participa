@@ -25,7 +25,7 @@
             </p>
         
             <div class="info">
-                <%= link_to "Debate en Plaza Podemos", @proposal.reddit_url, :target => '_blank' %> | Termina en <%= time_left(@proposal) %>
+                <%= link_to "Debate en Plaza Podemos", @proposal.reddit_url, :target => '_blank' %> | <%= @proposal.finished? ? "Cerrada hace" : "Termina en" %> <%= time_left(@proposal) %>
             </div>
         </article>
     
@@ -61,7 +61,9 @@
             
             <%= link_to "0% de círculos apoyando", "#", :class => 'info-circles soon' %>
 
-            <p class="time-left">Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
+            <% unless @proposal.finished? %> 
+                <p class="time-left">Quedan <%= time_left(@proposal) %> para avalar esta propuesta.</p>
+            <% end %>
             <%= render "supports/new", {proposal: @proposal, button_class: 'button-support'} %>
         </article>
     </div>
