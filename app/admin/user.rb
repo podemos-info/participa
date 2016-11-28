@@ -231,7 +231,8 @@ ActiveAdmin.register User do
 
   csv do
     column :id
-    column("Nombre") { |u| u.full_name }
+    column :first_name
+    column :last_name
     column :document_vatid
     column :born_at
     column :email
