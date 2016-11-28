@@ -15,7 +15,7 @@ class ImpulsaController < ApplicationController
 
   def project_step
     @show_errors = @project.wizard_status[@step][:filled]
-    @project.valid? & @project.wizard_valid? if @show_errors
+    @project.valid? & @project.wizard_step_valid? if @show_errors
   end
 
   def update

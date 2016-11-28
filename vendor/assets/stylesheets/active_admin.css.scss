@@ -30,11 +30,25 @@ table.index_table th a {
   white-space: normal !important;
 }
 
+.attributes_table table {
+  th, td {
+    color: #666;
+  }
+  th {
+    padding-left:10px;
+  }
+}
 .row.review {
   background: #f5bfc9;
   border-bottom: 1px solid #999;
   .label {
     color: #612d6;
+  }
+}
+.row.error {
+  background: red;
+  th, td {
+    color: white;
   }
 }
 .evaluation {

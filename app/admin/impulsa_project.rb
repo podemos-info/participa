@@ -122,6 +122,7 @@ ActiveAdmin.register ImpulsaProject do
       input type: :hidden, name: :validable, value: impulsa_project.validable?
       input type: :hidden, name: :authenticity_token, value: form_authenticity_token
       
+      errors = Hash[impulsa_project.wizard_all_errors.map {|gname, fname, error| ["#{gname}.#{fname}", error] }]
       impulsa_project.wizard.map do |sname, step|
         panel step[:title] do
           step[:groups].each do |gname, group|
@@ -143,6 +144,9 @@ ActiveAdmin.register ImpulsaProject do
                     div value
                   end
                 end
+                row "error", class: "error" do
+                  errors["#{gname}.#{fname}"]
+                end if errors["#{gname}.#{fname}"]
                 row "revisión", class: "review" do
                   textarea(impulsa_project.wizard_review["#{gname}.#{fname}"], id: "impulsa_project__rvw_#{gname}__#{fname}", name: "impulsa_project[_rvw_#{gname}__#{fname}]", rows: 2) 
                 end if impulsa_project.reviewable?
