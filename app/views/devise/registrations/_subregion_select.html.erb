@@ -1,10 +1,15 @@
+<%- province_voting ||= false %>
 <div id="js-registration-user_<%=field%>-wrapper" class="input required form-group">
   <%= label :user, :province, class: "control-label", required: :required do %>
     <%= title %>
     <% if required %><abbr title="requerido">*</abbr><% end %>
   <% end %>
   <span class="form-wrapper">
-  <% provinces = get_provinces(country) %>
+  <% if province_voting %>
+      <% provinces = get_voting_provinces %>
+  <% else %>
+      <% provinces = get_provinces(country) %>
+  <% end %>
   <% if provinces.length>0 
       first_options = if required
                         "<option></option>"

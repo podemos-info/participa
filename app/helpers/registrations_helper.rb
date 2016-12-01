@@ -20,6 +20,14 @@ module RegistrationsHelper
     end
   end
 
+  def get_voting_provinces
+    c = Carmen::Country.coded("ES")
+    galicia_province_codes = ["C","LU","OR","PO"];
+    c.subregions
+      .select { |s| galicia_province_codes.include?(s.code) }
+      .sort &RegistrationsHelper.region_comparer
+  end
+
   def get_towns country, province
     p = if province && country =="ES" then 
           Carmen::Country.coded("ES").subregions.coded(province) 
