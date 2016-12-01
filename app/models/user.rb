@@ -57,8 +57,9 @@ class User < ActiveRecord::Base
 
   validates_attachment :document_copy, 
     content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "application/pdf"] },
-    file_name: { matches: [/png\z/, /jpe?g\z/, /pdf\z/] },
-    presence: true
+    file_name: { matches: [/png\z/, /jpe?g\z/, /pdf\z/] }
+
+  validates_attachment_presence :document_copy, unless: :verified?
 
   def validates_postal_code
     if self.country == "ES"

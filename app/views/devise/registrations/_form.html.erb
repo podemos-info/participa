@@ -67,6 +67,26 @@
       <div class="inputlabel-box inputlabel-box-hint">
         <%= f.input :document_vatid, required: true, hint: t("devise.hints.locked"), input_html: {disabled: true, required: true, class: 'input-s'} %>
       </div>
+
+      <% if !resource.verified? %>
+          <div class="inputlabel-box">
+              <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', "data-url"=>upload_impulsa_path(field: :document_copy), disabled: false} %>
+
+          </div>
+      <% end %>
+
+      <% if resource.document_copy.present? %>
+          <div class="inputlabel-box">
+              <div class="file input optional form-group">
+                  <div class="form-label">
+                      <label>Ver document subido</label>
+                  </div>
+                  <div class="form-wrapper">
+                      <%= link_to('Ver copia subida', resource.document_copy.url, target: 'document_copy') %>
+                  </div>
+              </div>
+          </div>
+      <% end %>
     <% end %>
 
     <div class="inputlabel-box">

@@ -107,7 +107,10 @@ class RegistrationsController < Devise::RegistrationsController
     # We only allow changing location when the user can change it :P
     #
     if current_user.can_change_vote_location?
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town, :vote_province, :vote_town)
+      arr_params = [:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town, :vote_province, :vote_town]
+
+      arr_params << :document_copy if !current_user.verified?
+      params.require(:user).permit(arr_params)
     else
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town)
     end
