@@ -18,6 +18,9 @@
 # Ignore code coverage folder
 coverage/*
 
+# Ignore uploads
+/public/system
+
 config/database.yml
 config/secrets.yml
 
