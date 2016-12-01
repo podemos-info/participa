@@ -50,11 +50,7 @@
       </div>
 
       <div class="inputlabel-box">
-          <%= f.input :document_copy, label: 'Subir DNI', as: :file, hint: 'Sube una fotocopia de tu dni', input_html: {class: 'input-xl', "data-url"=>upload_impulsa_path(field: :document_copy), disabled: false} %>
-
-          <% if resource.document_copy.present? %>
-              <%= image_tag resource.document_copy.url %>
-          <% end %>
+          <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', "data-url"=>upload_impulsa_path(field: :document_copy), disabled: false} %>
       </div>
     <% end %>
 
