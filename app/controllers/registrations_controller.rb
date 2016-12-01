@@ -98,7 +98,7 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     # NEVER allow setting admin, flags, sms or verification fields here
     #
-    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country, :captcha, :captcha_key)
+    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country, :captcha, :captcha_key, :document_copy)
   end
 
   def account_update_params
