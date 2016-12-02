@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   before_filter :banned_user
   before_filter :unresolved_issues
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_locale
   before_filter :allow_iframe_requests
   before_filter :admin_logger
   before_filter :set_metas
@@ -46,14 +45,6 @@ class ApplicationController < ActionController::Base
       tracking.info params.to_s
       #tracking.info request
     end
-  end
-
-  def default_url_options(options={})
-    { locale: I18n.locale }
-  end
-
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
   end
 
   def after_sign_in_path_for(user)
