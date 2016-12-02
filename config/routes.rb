@@ -1,8 +1,6 @@
 require 'dynamic_router'
 Rails.application.routes.draw do
 
-  get '', to: redirect("/#{I18n.locale}")
-
 =begin
   # redsys MerchantURL 
   post '/orders/callback/redsys', to: 'orders#callback_redsys', as: 'orders_callback_redsys'
