@@ -70,7 +70,7 @@
 
       <% if !resource.verified? %>
           <div class="inputlabel-box">
-              <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', "data-url"=>upload_impulsa_path(field: :document_copy), disabled: false} %>
+              <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', disabled: false} %>
 
           </div>
       <% end %>
