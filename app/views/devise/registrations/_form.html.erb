@@ -128,7 +128,7 @@
   <fieldset id="vote_town_section">
     <legend><span>Lugar de participación</span></legend>
     <div class="inputlabel-box">
-      <%= render partial: 'subregion_select', locals:{country: "ES", province: @user_location[:vote_province], disabled: !resource.can_change_vote_location?, required: false, field: :vote_province, title:"Provincia de participación", options_filter: User.blocked_provinces } %>
+      <%= render partial: 'subregion_select', locals:{province_voting: true, country: "ES", province: @user_location[:vote_province], disabled: !resource.can_change_vote_location?, required: false, field: :vote_province, title:"Provincia de participación", options_filter: User.blocked_provinces } %>
     </div>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:vote_town) %>

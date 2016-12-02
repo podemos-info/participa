@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   before_update :_clear_caches
-  before_save :before_save
 
   acts_as_paranoid
   has_paper_trail
@@ -629,16 +628,6 @@ class User < ActiveRecord::Base
   def self.ban_users ids, value
     t = User.arel_table
     User.where(id:ids).where(t[:admin].eq(false).or(t[:admin].eq(nil))).update_all User.set_flag_sql(:banned, value)
-  end
-
-  def before_save
-    unless @skip_before_save
-      # Spanish users can't set a different town for vote, except when blocked
-      if self.in_spain? and self.can_change_vote_location?
-        self.vote_town = self.town
-        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district 
-      end
-    end
   end
 
   def in_participation_team? team_id

@@ -1,3 +1,4 @@
+const GALICIA_PROVINCES_CODES = ["C","LU","OR","PO"];
 
 function show_provinces(country_code){
   // change to provinces for a given country
@@ -61,8 +62,8 @@ function show_towns(parent, field, country_code, province_code, prefix){
   }
 }
 
-function toggle_vote_town(country) {
-  $("#vote_town_section").toggle(country != "ES");
+function toggle_vote_town(country, province = null) {
+  $("#vote_town_section").toggle(country != "ES" || (province != null && $.inArray(province, GALICIA_PROVINCES_CODES) < 0) );
 };
 
 var can_change_vote_location;
@@ -87,6 +88,9 @@ $(function() {
 
     $(document.body).on("change", 'select#user_province', function() {
       show_towns( "user_province", "user_town", country_selector.val(), $(this).val(), "regions" );
+      var province = $("select#user_province").val();
+      var country = country_selector.val();
+      if (can_change_vote_location) toggle_vote_town(country, province);
     });
 
     if ($("select#user_province").is(":disabled")) {
@@ -94,7 +98,7 @@ $(function() {
     }
     
     if (can_change_vote_location) {
-      toggle_vote_town(country_selector.val());
+      toggle_vote_town(country_selector.val(),$("select#user_province").val());
       $('select#user_vote_province').on("change", function() {
         show_towns( "user_vote_province", "user_vote_town", "ES", $(this).val(), "vote" );
       });
