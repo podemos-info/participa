@@ -62,8 +62,8 @@ function show_towns(parent, field, country_code, province_code, prefix){
   }
 }
 
-function toggle_vote_town(country, province = null) {
-  $("#vote_town_section").toggle(country != "ES" || (province != null && $.inArray(province, GALICIA_PROVINCES_CODES) < 0) );
+function toggle_vote_town(country, province) {
+  $("#vote_town_section").toggle(country != "ES" || (typeof province !== 'undefined' && $.inArray(province, GALICIA_PROVINCES_CODES) < 0) );
 };
 
 var can_change_vote_location;
