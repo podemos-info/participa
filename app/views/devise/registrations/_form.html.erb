@@ -74,19 +74,6 @@
 
           </div>
       <% end %>
-
-      <% if resource.document_copy.present? %>
-          <div class="inputlabel-box">
-              <div class="file input optional form-group">
-                  <div class="form-label">
-                      <label>Ver document subido</label>
-                  </div>
-                  <div class="form-wrapper">
-                      <%= link_to('Ver copia subida', resource.document_copy.url, target: 'document_copy') %>
-                  </div>
-              </div>
-          </div>
-      <% end %>
     <% end %>
 
     <div class="inputlabel-box">
