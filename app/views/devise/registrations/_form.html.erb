@@ -1,4 +1,4 @@
-<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {novalidate: true}) do |f| %>
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {novalidate: true, multipart: true}) do |f| %>
   <fieldset>
     <legend class="invisible">
       <span>Completar perfil</span>
@@ -48,6 +48,10 @@
           <%= t('podemos.registration.message.passport') %>
         </p>
       </div>
+
+      <div class="inputlabel-box">
+          <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', "data-url"=>upload_impulsa_path(field: :document_copy), disabled: false} %>
+      </div>
     <% end %>
 
     <% if action == "edit" %>
@@ -63,6 +67,13 @@
       <div class="inputlabel-box inputlabel-box-hint">
         <%= f.input :document_vatid, required: true, hint: t("devise.hints.locked"), input_html: {disabled: true, required: true, class: 'input-s'} %>
       </div>
+
+      <% if !resource.verified? %>
+          <div class="inputlabel-box">
+              <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', "data-url"=>upload_impulsa_path(field: :document_copy), disabled: false} %>
+
+          </div>
+      <% end %>
     <% end %>
 
     <div class="inputlabel-box">

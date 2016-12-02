@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   has_one :collaboration, dependent: :destroy
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
+ 
+  has_attached_file :document_copy
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
@@ -52,6 +54,12 @@ class User < ActiveRecord::Base
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
   validate :validates_unconfirmed_phone_uniqueness
+
+  validates_attachment :document_copy, 
+    content_type: { content_type: ["image/jpeg", "image/gif", "image/png", "application/pdf"] },
+    file_name: { matches: [/png\z/, /jpe?g\z/, /pdf\z/] }
+
+  validates_attachment_presence :document_copy, unless: :verified?
 
   def validates_postal_code
     if self.country == "ES"

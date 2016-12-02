@@ -98,7 +98,7 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     # NEVER allow setting admin, flags, sms or verification fields here
     #
-    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country, :captcha, :captcha_key)
+    params.require(:user).permit(:first_name, :last_name, :email, :email_confirmation, :password, :password_confirmation, :born_at, :wants_newsletter, :document_type, :document_vatid, :terms_of_service, :over_18, :address, :town, :province, :vote_town, :vote_province, :postal_code, :country, :captcha, :captcha_key, :document_copy)
   end
 
   def account_update_params
@@ -107,7 +107,10 @@ class RegistrationsController < Devise::RegistrationsController
     # We only allow changing location when the user can change it :P
     #
     if current_user.can_change_vote_location?
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town, :vote_province, :vote_town)
+      arr_params = [:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town, :vote_province, :vote_town]
+
+      arr_params << :document_copy if !current_user.verified?
+      params.require(:user).permit(arr_params)
     else
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :address, :postal_code, :country, :province, :town)
     end

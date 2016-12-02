@@ -98,6 +98,9 @@ ActiveAdmin.register User do
         user.document_type_name
       end
       row :document_vatid
+      row :document_copy do
+        link_to('Ver copia del documento', user.document_copy.url, target: 'document_copy')
+      end
       row :born_at
       row :email
       row :vote_town_name
