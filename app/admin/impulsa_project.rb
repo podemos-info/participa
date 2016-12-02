@@ -147,7 +147,7 @@ ActiveAdmin.register ImpulsaProject do
                 row "error", class: "error" do
                   errors["#{gname}.#{fname}"]
                 end if errors["#{gname}.#{fname}"]
-                row "revisión", class: "review" do
+                row "revisión", class: "review #{'remark' if impulsa_project.wizard_review["#{gname}.#{fname}"].present?}" do
                   textarea(impulsa_project.wizard_review["#{gname}.#{fname}"], id: "impulsa_project__rvw_#{gname}__#{fname}", name: "impulsa_project[_rvw_#{gname}__#{fname}]", rows: 2) 
                 end if impulsa_project.reviewable?
               end

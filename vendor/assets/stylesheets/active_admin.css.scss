@@ -39,10 +39,13 @@ table.index_table th a {
   }
 }
 .row.review {
-  background: #f5bfc9;
+  background: #ccc;
   border-bottom: 1px solid #999;
   .label {
     color: #612d6;
+  }
+  &.remark {
+    background: #f5bfc9;
   }
 }
 .row.error {
