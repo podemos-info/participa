@@ -81,17 +81,16 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # FIXME: AWS::SES::ResponseError: Throttling - Daily message quota exceeded.
-  config.action_mailer.delivery_method = :ses
-  #config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
 
   ActionMailer::Base.smtp_settings = {
     :address              => Rails.application.secrets.smtp["address"],
     :user_name            => Rails.application.secrets.smtp["user_name"],
     :password             => Rails.application.secrets.smtp["password"],
     :domain               => Rails.application.secrets.smtp["domain"],
-    :port                 => 25,
+    :port                 => 587,
     :authentication       => :login,
-    :enable_starttls_auto => false
+    :enable_starttls_auto => true
   }
 
 end
