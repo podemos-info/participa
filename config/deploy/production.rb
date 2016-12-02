@@ -4,7 +4,7 @@ role :db,  %w{deploy@medrando.enmarea.gal}
 
 set :rvm_ruby_version, '2.2.2'
 set :repo_url, 'https://github.com/EnMarea/participa.git'
-set :branch, "deploy/mare"
+set :branch, "master"
 set :deploy_to, '/var/www/participa'
 
 after 'deploy:publishing', 'deploy:restart'
