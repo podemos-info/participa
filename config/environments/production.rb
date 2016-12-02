@@ -89,9 +89,9 @@ Rails.application.configure do
     :user_name            => Rails.application.secrets.smtp["user_name"],
     :password             => Rails.application.secrets.smtp["password"],
     :domain               => Rails.application.secrets.smtp["domain"],
-    :port                 => 25,
+    :port                 => 587,
     :authentication       => :login,
-    :enable_starttls_auto => false
+    :enable_starttls_auto => true
   }
 
 end
