@@ -210,7 +210,7 @@ Main components
     display: none;
   }
   .no-touch .cd-faq-categories a:hover {
-    background: #612d62;
+    background: #11407b;
   }
   .no-js .cd-faq-categories {
     width: 100%;
@@ -240,7 +240,7 @@ Main components
     transition: opacity 0.2s;
   }
   .cd-faq-categories .selected {
-    background: #612d62 !important;
+    background: #11407b !important;
   }
   .cd-faq-categories .selected::before {
     opacity: 1;
@@ -395,7 +395,7 @@ Main components
   font-size: 12px;
   font-size: 1.2rem;
   font-weight: 700;
-  color: #612d62;
+  color: #11407b;
 }
 .no-js .cd-faq-group {
   display: block;
@@ -447,7 +447,7 @@ Main components
     top: 50%;
     height: 2px;
     width: 13px;
-    background: #612d62;
+    background: #11407b;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-transition-property: -webkit-transform;
