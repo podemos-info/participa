@@ -1,0 +1,16 @@
+.git*
+config/docker/*
+config/database.yml.*
+config/mailserver.yml.*
+config/redis.yml.*
+config/secrets.yml.*
+coverage/*
+db/*.sqlite3
+db/*.sqlite3-journal
+doc/*
+log/*
+tmp/*
+docker-compose.yml
+LICENSE
+README.md
+Vagrantfile

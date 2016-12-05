@@ -1,0 +1,6 @@
+development:
+  address: localhost
+  port: 1025
+staging:
+  address: localhost
+  port: 1025

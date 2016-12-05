@@ -13,7 +13,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
-gem 'sprockets-rails', '2.3.3' # http://stackoverflow.com/a/34344602 
+gem 'sprockets-rails', '2.3.3' # http://stackoverflow.com/a/34344602
 
 gem 'unicorn'
 gem 'pg'
@@ -52,7 +52,7 @@ gem 'rails_autolink'
 gem 'flag_shih_tzu'
 gem 'wicked_pdf'
 gem "font-awesome-rails"
-gem 'friendly_id', '~> 5.1.0' 
+gem 'friendly_id', '~> 5.1.0'
 gem 'auto_html'
 gem "paranoia", :github => "radar/paranoia", :branch => "rails4"
 gem 'cocoon'
@@ -77,9 +77,8 @@ group :development, :test do
   gem 'webmock'
   gem 'minitest-reporters'
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'minitest-rails-capybara'
 end
-
