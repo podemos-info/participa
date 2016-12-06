@@ -12,8 +12,8 @@
 @import "codemirror";
 
 $skinActiveColor: #000;
-$skinHeaderBck: #612D62;
-$panelHeaderBck: #612D62;
+$skinHeaderBck: #004fff;
+$panelHeaderBck: #004fff;
 $skinLogo: inherit;
 @import "active_skin";
 #header h1.site_title {
@@ -31,9 +31,9 @@ table.index_table th a {
 }
 
 .review {
-  background: #f5bfc9;
+  background: #a1b8ed;
   border-bottom: 1px solid #999;
   .label {
-    color: #612d6;
+    color: #004fff;
   }
 }
