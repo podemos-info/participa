@@ -18,7 +18,7 @@ box info & alerts
   position:relative;
 }
 .box-info{
-  background:#d7cad8;
+  background:#a1b8ed;
   padding:1.5em 3em 1.5em 9em;
   margin:0 0 1.5em
 }
@@ -48,7 +48,7 @@ box info & alerts
 
 }
 .box-info p{
-  color:#11407b;
+  color:#004fff;
 }
 .box-ko p:last-of-type,
 .box-ok p:last-of-type,
@@ -62,7 +62,7 @@ box info & alerts
 }
 
 .box-notif{
-  background:#d7cad8;
+  background:#a1b8ed;
   padding:1.5em 3em 1.5em 1.5em;
   margin:0 0 1.5em
 }
@@ -75,7 +75,7 @@ box info & alerts
 
 
 .box-notif{
-  background:#d7cad8;
+  background:#a1b8ed;
   padding:1.5em 3em 1.5em 1.5em;
   margin:0 0 1.5em
 }
@@ -113,7 +113,7 @@ fieldset legend{
   font-family:Montserrat,Arial,sans-sefif;
   display:block;
   width:100%;
-  border-bottom:1px solid #d7cad8;
+  border-bottom:1px solid #a1b8ed;
   position:relative;
   margin:0 0 1.5em;
   font-weight:bold;
@@ -124,7 +124,7 @@ legend span{
   padding:0 0.1em 0 0;
   position:relative;
   top:0.3em;
-  color:#11407b;
+  color:#004fff;
 }
 
 fieldset .inputlabel-box{
@@ -150,7 +150,7 @@ fieldset .inputlabel-box span.no-label,
   background:none;
   float:left;
   border:none;
-  color:#11407b;
+  color:#004fff;
   padding:0.55em 0;
 }
 .content-content span.no-input{
@@ -248,7 +248,7 @@ fieldset .inputlabel-box p.note {
 }
 fieldset .alert-nexttolabel{
   display:inline-block;
-  background:#d7cad8;
+  background:#a1b8ed;
   width:30%;
   clear:right;
   float:none;
@@ -260,7 +260,7 @@ fieldset .alert-nexttolabel{
 }
 fieldset .alert-nexttolabel .alert-ico{
   padding:2.5em 1.5em;
-  background:#11407b image-url("ico.alert-exclam.png") 50% 50% no-repeat;
+  background:#004fff image-url("ico.alert-exclam.png") 50% 50% no-repeat;
   display:inline-block;
   float:right;
   position:relative;
@@ -275,7 +275,7 @@ fieldset .alert-nexttolabel .alert-ico span{
   right:-1em;
 }
 fieldset .alert-nexttolabel p{
-  color:#11407b;
+  color:#004fff;
   margin:1.1em 0 0.5em 3%;
   width:75%;
   text-align:center;
@@ -343,7 +343,7 @@ fieldset .inputlabel-box label.choice {
   float:left;
   clear:right;
   border:none;
-  color:#11407b;
+  color:#004fff;
   padding:0.55em 0;
 }
 fieldset .inputlabel-box input{
@@ -366,7 +366,7 @@ fieldset .inputlabel-box input{
 .table-collaborations th,
 .table-collaborations td{
   margin:0;
-  color:#11407b;
+  color:#004fff;
   border:none;
   padding:0.55em 0;
 }
