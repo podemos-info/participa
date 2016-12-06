@@ -9,9 +9,9 @@ Version: 1.0
 corporate colours
 ----------------------------------- */
 /*
-Purple 1 (main):   #11407b;
-Purple 2 (interm): #954e99;
-Purple 3 (light):  #c3a6cf;
+Purple 1 (main):   #004fff;
+Purple 2 (interm): #3272ff;
+Purple 3 (light):  #6695ff ;
 Purple 3 (60%):    #9c76a3;
 Green 1 (interm):  #269283;
 Green 2 (light):   #97c2b8;
@@ -405,7 +405,7 @@ header & menu
   display:block;
   float:right;
   clear:both;
-  color:#c3a6cf;
+  color:#6695ff ;
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:1.4em;
   line-height:1.1em;
@@ -568,11 +568,11 @@ pagination
 }
 .pagination li a{
   padding:0.5em;
-  color:#11407b;
-  background:#d7cad8;
+  color:#004fff;
+  background:#6695ff;
 }
 .pagination li a:hover{
-  background:#8e618c;
+  background:#3272ff;
   color:#fff;
 }
 .pagination li.active a{
@@ -593,7 +593,7 @@ tools
   min-height: 5em;
 }
 .content-content .box-vote h3{
-  color:#11407b;
+  color:#004fff;
   margin:0;
   border:0;
 }
@@ -796,7 +796,7 @@ microcredits
 
   .control-label {
     float: left;
-    color: #612D62;
+    color: #004fff;
   }
   .radio_options {
     float: left;
@@ -865,7 +865,7 @@ proposals
   min-height: 700px;
 
   h1 {
-    color: #11407b;
+    color: #004fff;
     font-family: Montserrat,Arial,sans-serif;
     font-size: 3em;
     padding: 20px;
@@ -884,8 +884,8 @@ proposals
       margin-right: 20px;
 
       &.active {
-        border-bottom: 3px solid #11407b;
-        color: #11407b;      
+        border-bottom: 3px solid #004fff;
+        color: #004fff;      
         padding-bottom: 20px;  
       }
     }
@@ -931,8 +931,8 @@ proposals
     width: 24%;
 
     h2 {
-      border-top: 3px solid #11407b;
-      color: #11407b;
+      border-top: 3px solid #004fff;
+      color: #004fff;
       display: inline-block;
       font-size: 1.4em;   
       margin-top: -2px;
@@ -951,9 +951,9 @@ proposals
         font-size: 1.2em;
         font-weight: bold;
         margin-left: 20px;
-        color: #11407b;
+        color: #004fff;
         a {
-          color: #11407b;
+          color: #004fff;
         }
         &:before {
           content:"> ";
@@ -964,11 +964,11 @@ proposals
 
   article {
     h2 {
-      color: #11407b;
+      color: #004fff;
       font-size: 2em;
       margin-top: 6px;
       a {
-        color: #11407b;
+        color: #004fff;
       }
     }
   }
@@ -1057,7 +1057,7 @@ proposals
   }
 
   .button-support {
-    background: #11407b;
+    background: #004fff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1118,7 +1118,7 @@ proposals
     padding-bottom: 10px;
 
     .name {
-      color: #954e99;
+      color: #3272ff;
       padding-left: 50px;
     }
     
@@ -1149,7 +1149,7 @@ proposals
   }
 
   .support {
-    background: #11407b;
+    background: #004fff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1212,7 +1212,7 @@ info page
   padding-bottom: 52px;
 
   h1 {
-    color: #11407b;
+    color: #004fff;
     font-family: Montserrat,Arial,sans-serif;
     font-size: 2.6em;
     padding: 20px;
@@ -1221,8 +1221,8 @@ info page
   }
 
   h2 {
-    border-top: 3px solid #11407b;
-    color: #11407b;
+    border-top: 3px solid #004fff;
+    color: #004fff;
     display: inline-block;
     font-size: 2em;
     text-transform: uppercase;
@@ -1230,7 +1230,7 @@ info page
   }
 
   h3 {
-    color: #11407b;
+    color: #004fff;
     font-size: 1.4em;   
     padding: 10px 20px;
   }
@@ -1364,7 +1364,7 @@ input.button-danger:hover{
 .content-content h2{
   font-family:Montserrat,Arial,sans-serif;
   text-transform:uppercase;
-  color:#11407b;
+  color:#004fff;
   margin-bottom:1em;
 }
 .content-content h2 span{
@@ -1386,7 +1386,7 @@ input.button-danger:hover{
   padding:0 0.1em 0 0;
   position:relative;
   top:0.3em;
-  color:#11407b;
+  color:#004fff;
 }
 
 
