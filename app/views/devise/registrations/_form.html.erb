@@ -50,7 +50,7 @@
       </div>
 
       <div class="inputlabel-box">
-          <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', disabled: false} %>
+          <%= f.input :document_copy, label: 'Validación de identidade', as: :file, hint: 'Escanea o teu documento a dobre cara', input_html: {class: 'input-xl', disabled: false} %>
       </div>
     <% end %>
 
@@ -70,7 +70,7 @@
 
       <% if !resource.verified? %>
           <div class="inputlabel-box">
-              <%= f.input :document_copy, label: 'Copia de documento', as: :file, hint: 'Sube una fotocopia de tu documento seleccionado anteriormente', input_html: {class: 'input-xl', disabled: false} %>
+              <%= f.input :document_copy, label: 'Validación de identidade', as: :file, hint: 'Escanea o teu documento a dobre cara', input_html: {class: 'input-xl', disabled: false} %>
 
           </div>
       <% end %>
@@ -172,10 +172,10 @@
 
       <fieldset class="with-tos">
 
-        <legend><span>Consentimiento</span></legend>
+        <legend><span>Consentimento</span></legend>
         <div class="inputlabel-box">
           <span class="no-label">
-            Condiciones generales de inscripción y política de privacidad.
+            Condicións xerais de inscrición e política de privacidade.
           </span>
           <span class="no-input">
             <div class="tos">
@@ -191,7 +191,7 @@
           <%= f.label :terms_of_service %>
           <div class="input-box">
             <%= f.check_box :terms_of_service, class: 'checkbox' %>
-            <p class="text-xl">Acepto las condiciones generales.</p>
+            <p class="text-xl">Acepto as condicións xerais.</p>
           </div>
         </div>
 
@@ -202,7 +202,7 @@
           <%= f.label :over_18 %>
           <div class="input-box">
             <%= f.check_box :over_18, class: 'checkbox' %>
-            <p class="text-xl">Declaro ser mayor de 18 años</p>
+            <p class="text-xl">Declaro ser maior de 18 anos</p>
           </div>
         </div>
 
