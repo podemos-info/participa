@@ -13,11 +13,11 @@
               </legend>
               <div>
                 <%= f.label :login, class: 'invisible' %>
-                <%= f.text_field :login, autofocus: true, class: 'input-100', placeholder: 'Email o Documento (DNI / NIE / Pasaporte)' %>
+                <%= f.text_field :login, autofocus: true, class: 'input-100', placeholder: 'Email ou Documento (DNI / NIE / Pasaporte)' %>
               </div>
               <div>
                 <%= f.label :password, class: 'invisible' %>
-                <%= f.password_field :password, class: 'input-100', placeholder: 'Contraseña' %>
+                <%= f.password_field :password, class: 'input-100', placeholder: 'Contrasinal' %>
               </div>
 
               <% if devise_mapping.rememberable? %>
@@ -32,7 +32,7 @@
               </div>
             </fieldset>
             <p>
-              <a style="font-size:1.3em;" href="/soporte-votaciones">Ayuda para acceder a votar</a>
+              <a style="font-size:1.3em;" href="mailto:soporte@enmarea.gal">Necesitas axuda?</a>
             </p>
             <p>
               <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
@@ -43,8 +43,8 @@
 
       <div class="col-bhome-1a6">
         <article class="intro">
-        <p>Bienvenido/a al Portal de Participación de Podemos.</p>
-        <p><em class="podemos">Podemos</em> nace con la voluntad de construir una forma nueva de hacer política, y para ello estamos construyendo una estructura transparente, ciudadana, abierta, democrática y eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos y todas.</p>
+        <p>Dámoste a benvida ao portelo de participación de En Marea.</p>
+        <p><em class="podemos">En Marea</em> estamos a construír unha estrutura transparente, cidadá, aberta, democrática e eficaz. Unha organización na que discutamos, debatamos e decidamos entre todas as persoas.</p>
 
         <% if @upcoming_election %>
           <% cache("current_active_census", expires_in: 5.minutes) do %>
@@ -60,16 +60,16 @@
             <p>Censo total llamado al voto: <%=number_with_delimiter @upcoming_election.current_total_census%></p>
           <% end %>
         <% else %>
-          <p class="total">Ya somos
+          <p class="total">Xa somos
           <span>
             <% cache("total_users", expires_in: 30.minutes) do %>
               <%= number_with_delimiter User.confirmed.count %>
             <% end %>
           </span>
-          personas inscritas.</p>
+          persoas afiliadas.</p>
         <% end %>
           <div class="buttonbox">
-            <%= link_to "Inscripción", new_user_registration_path, class: 'button intro-indent clear' %>
+            <%= link_to "Afíliate", new_user_registration_path, class: 'button intro-indent clear' %>
           </div>
         </article><!--.intro-->
 
