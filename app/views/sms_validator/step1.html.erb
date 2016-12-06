@@ -1,4 +1,4 @@
-<% content_for :title, "Comprueba tu teléfono móvil" %>
+<% content_for :title, "Comproba o teu teléfono móbil" %>
 
 <div class="content-content cols">
   <div class="row">
@@ -8,12 +8,12 @@
 
       <%= semantic_form_for(current_user, url: sms_validator_phone_path, html: {method: :post}) do |f| %>
           <fieldset>
-            <legend class="invisible">Cambia tu móvil</legend>
+            <legend class="invisible">Cambia o teu móbil</legend>
             <p><%= t('podemos.valid.phone.p1') %></p>
 
             <p><%= t('podemos.valid.phone.p2') %></p>
 
-            <p>Debes ingresar un teléfono móvil válido para el país en el que te encuentras, sin prefijo internacional, sólo con números (sin espacios ni guiones). Según el formulario que has rellenado te encuentras en <b><%= current_user.country_name %></b> (prefijo internacional +<%= current_user.country_phone_prefix %>). Si esto no es correcto, puedes cambiar tu ubicación en tu <a href="<%=edit_user_registration_path%>">página del perfil</a>.</p>
+            <p>Debes ingresar un teléfono móbil válido para o país no que che atopas, sen prefixo internacional, só con números (sen espazos nin guións). Segundo o formulario que enchiches atópasche en <b><%= current_user.country_name %></b> (prefixo internacional +<%= current_user.country_phone_prefix %>). Se isto non é correcto, podes cambiar a túa localización na túa <a href="<%=edit_user_registration_path%>">páxina do perfil</a>.</p>
 
             <%= errors_in_form current_user %>
 
