@@ -2,7 +2,7 @@ module ImpulsaProjectStates
   extend ActiveSupport::Concern
 
   included do
-    scope :exportable, -> { state: [ :validated, :winner ] }
+    scope :exportable, -> { where state: [ :validated, :winner ] }
 
     state_machine initial: :new do
       audit_trail
