@@ -284,76 +284,76 @@ ga:
         title: "Título"
         body: "Mensaje" 
       user:
-        login: "Correo electrónico o Nº de documento"
-        first_name: "Nombre"
-        last_name: "Apellidos"
+        login: "Correo electrónico ou Nº de documento"
+        first_name: "Nome"
+        last_name: "Apelidos"
         document_type: "Tipo de documento"
         document_vatid: "Nº de documento"
-        born_at: "Fecha de nacimiento"
+        born_at: "Data de nacemento"
         email: "Correo electrónico"
         email_confirmation: "Correo electrónico (repetir)"
-        phone: "Teléfono móvil"
-        unconfirmed_phone: "Teléfono móvil"
+        phone: "Teléfono móbil"
+        unconfirmed_phone: "Teléfono móbil"
         address: "Dirección"
         town: "Municipio"
         province: "Provincia"
-        vote_town: "Municipio de origen"
-        province_town: "Provincia de origen"
+        vote_town: "Municipio de orixe"
+        province_town: "Provincia de orixe"
         postal_code: "Código postal"
         country: "País"
-        password: "Contraseña"
-        password_confirmation: "Contraseña (repetir)"
-        remember_me: "Recordarme"
+        password: "Contrasinal"
+        password_confirmation: "Contrasinal (repetir)"
+        remember_me: "Lembrarme"
         wants_newsletter: 'Newsletter'
-        terms_of_service: "He leído y acepto las condiciones generales"
-        over_18: "Declaro ser mayor de 18 años"
+        terms_of_service: "Lin e acepto as condicións xerais"
+        over_18: "Declaro ser maior de 18 anos"
         captcha: "Captcha"
-        current_password: "Contraseña actual"
+        current_password: "Contrasinal actual"
         circle: "Círculo"
       category:
-        name: "nombre"
+        name: "nome"
   podemos:
     election:
       no_location: "No hay votaciones en tu municipio."
       close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
-    unauthorized: "No tienes permisos para acceder a esa sección"
-    banned: "Gracias, %{full_name}. Lamentamos decirte que para poder participar debes enviarnos además una fotocopia de tu documento de identidad (o pasaporte, si no tienes DNI ni NIE) a la dirección LOPD@podemos.info o, si te viene mejor, pasarte por cualquier Delegación del Partido. Si quieres más información puedes consultarnos también en organos.autonomicos@podemos.info. Pero lo más eficaz para poder participar de forma inmediata es escanear tu documento y mandárnoslos al primer correo. Muchas gracias y perdona las molestias."
+    unauthorized: "Non tes permisos para acceder a esa sección"
+    banned: "Parece que hai algún problema coa túa afiliación. Escribe un correo a soporte@enmarea.gal e axudarémosche a solucionalo."
     user:
-      general_data: "Datos generales"
-      collaborations: "Colaboraciones económicas"
-      personal_data: "Datos personales"
+      general_data: "Datos xerais"
+      collaborations: "Colaboracións económicas"
+      personal_data: "Datos persoais"
       change_email: "Cambiar correo electrónico"
-      change_email_explain: "Si cambias tu correo electrónico te enviaremos otro correo para que lo confirmes."
-      change_phone: "Cambiar teléfono móvil"
-      change_phone_explain_html: "Ahora mismo tienes el móvil <b> %{phone} </b>"
-      change_password: "Cambiar contraseña"
-      location_change_blocked: "El cambio de ubicación está bloqueado durante las votaciones. Por favor, espera a que estas acaben para cambiar tu domicilio o lugar de participación."
-      recover_password: "Recuperar contraseña"
-      cancel_account: "Darme de baja"
-      cancel_account_explain_html: "<p>Al pulsar el botón ‘Darme de baja’ dejarás de ser miembro de Podemos y cancelaremos tus datos personales de conformidad con lo dispuesto en la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal.</p>
-<p> A partir de este momento tu cuenta de acceso al portal de participación de Podemos quedará eliminada.</p>
+      change_email_explain: "Se cambias o teu correo electrónico enviarémosche outro correo para que o confirmes."
+      change_phone: "Cambiar teléfono móbil"
+      change_phone_explain_html: "Agora mesmo tes o móbil <b> %{phone} </b>"
+      change_password: "Cambiar contrasinal"
+      location_change_blocked: "O cambio de localización está bloqueado durante as votacións. Por favor, espera a que estas acaben para cambiar o teu domicilio ou lugar de participación."
+      recover_password: "Recuperar contrasinal"
+      cancel_account: "Darme de baixa"
+      cancel_account_explain_html: "<p>Ao pulsar o botón DARME DE BAIXA deixarás de ser afiliado/a e cancelaremos os teus datos persoais de conformidade co disposto na Lei Orgánica 15/1999 de Protección de Datos de Carácter Persoal.</p>
+<p> A partir deste momento a túa conta de acceso ao portal de participación de En Marea quedará eliminada.</p>
 <p>
-De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Protección de Datos, la cancelación dará lugar al bloqueo de los datos, conservándose únicamente a disposición de las Administraciones públicas, Jueces y Tribunales, para la atención de las posibles responsabilidades nacidas del tratamiento, durante el plazo de prescripción de éstas. Cumplido el citado plazo se procederá a la supresión de los datos.
+De conformidade co disposto no artigo 16.3 da Lei Orgánica de Protección de Datos, a cancelación dará lugar ao bloqueo dos datos, conservándose unicamente a disposición das Administracións públicas, Xuíces e Tribunais, para a atención das posibles responsabilidades nadas do tratamento, durante o prazo de prescrición destas. Cumprido o citado prazo procederase á supresión dos datos.
 </p>
 "
     devise:
       mailer:
-        hello: "Hola"
-        welcome: "Bienvenida"
+        hello: "Ola"
+        welcome: "Benvido/a"
         lock: 
-          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de soportevotaciones@podemos.info."
+          p1: "A túa conta foi bloqueada por un número excesivo de intentos de inicio de sesión errados. Se non fuches ti, avísanos a través de soporte@enmarea.gal."
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
-          p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
+          p3: "Feixe click no link de aquí abaixo para desbloquear a túa conta:" 
         confirm:
-          p1: "Te has dado de alta o has cambiado tu correo electrónico en el entorno PODEMOS. Si no es ese el caso, ignora este correo. Puedes confirmar que esta es tu dirección de correo a través del siguiente enlace:"
-          p2: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
+          p1: "Déchesche de alta ou cambiaches o teu correo electrónico na contorna PODEMOS. Se non é ese o caso, ignora este correo. Podes confirmar que esta é a túa dirección de correo a través da seguinte ligazón:"
+          p2: "Se non funciona a ligazón proba copiando e pegándoo na barra de direccións do teu navegador." 
         password: 
-          p1: "Alguien ha pedido que cambies tu contraseña. Puedes hacerlo a través del siguiente enlace:"
-          p2: "Si no has sido tú, por favor ignora este correo."
-          p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
-          p4: "Tu contraseña no cambiará hasta que accedas a este enlace y crees una nueva."
+          p1: "Alguén pediu que cambies o teu contrasinal. Podes facelo a través da seguinte ligazón:"
+          p2: "Se non fuches ti, por favor ignora este correo."
+          p3: "Se non funciona a ligazón proba copiando e pegándoo na barra de direccións do teu navegador." 
+          p4: "O teu contrasinal non cambiará ata que accedas a esta ligazón e crees unha nova."
     navbar: 
       tools: "Herramientas"
       profile: "Perfil"
@@ -364,13 +364,13 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
       p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
     valid: 
       phone:
-        p1: "Introduce tu nuevo número de teléfono móvil."
-        p2: "Recibirás el código de verificación para validar el nuevo número en unos segundos."
-        p3: "Si ya has participado en alguna votación de PODEMOS, te enviaremos el código por e-mail."
-        p4: "Introduce el texto que aparece en la imagen."
-        p5: "Introduce el código que hayas recibido por SMS para confirmarlo"
-        valid: "Has validado correctamente."
-        invalid: "El código que has puesto no corresponde con el que te enviamos por SMS."
+        p1: "Introduce o teu novo número de teléfono móbil."
+        p2: "Recibirás o código de verificación para validar o novo número nuns segundos."
+        p3: "Se xa participaches nalgunha votación de PODEMOS, enviarémosche o código por e-mail."
+        p4: "Introduce o texto que aparece na imaxe."
+        p5: "Introduce o código que recibises por SMS para confirmalo"
+        valid: "Validaches correctamente."
+        invalid: "O código que puxeches non corresponde co que che enviamos por SMS."
         captcha: "Validar Captcha"
         token: Código SMS
         button: "Comprobar"
@@ -427,54 +427,53 @@ Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 
 mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
     registration:
       message: 
-        dni: "El formato deben ser 8 números y una letra, sin guiones ni espacios."
-        nie: "El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios."
-        passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
-        existing_user_location: "Se ha recuperado tu lugar de participación de un usuario anterior."
-      p1_html: "<p> Rellenando este formulario con tus datos pasarás a formar parte del censo de inscritos de Podemos y podrás participar en todas las votaciones. Es un procedimiento sencillo que te permitirá ser parte activa de Podemos.  </p>
-<p> Tus datos se asociarán a un teléfono móvil, en el que recibirás un SMS con tu código de verificación para validar la inscripción.  </p>
-<p><b> ¿Es seguro el sistema de inscripción? </b> </p>
-<p> Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.  </p>
-<p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>
-<p><a href='/soporte-votaciones/'>¿Problemas con la inscripción?</a></p>
-<p><strong>Si no recibes el correo electrónico para completar la inscripción, recuerda comprobar 
-si ha llegado a la carpeta de <em>correo electrónico no deseado</em>, <em>promociones</em> o <em>spam</em>.</strong></p>
+        dni: "O formato debe ser 8 números e unha letra, sen guións nin espazos."
+        nie: "O formato deben ser unha letra, 7 números e unha letra, sen guións nin espazos."
+        passport: "Envía unha copia do teu pasaporte a lopd@enmarea.gal para validar a afiliación."
+        existing_user_location: "Recuperouse o teu lugar de participación dun usuario anterior."
+      p1_html: "<p> Enchendo este formulario cos teus datos pasarás a formar parte do censo de persoas afiliadas a En Marea e poderás participar en todas as votacións. É un procedemento sinxelo que che permitirá ser parte activa do proxecto.  </p>
+<p> Os teus datos asociaranse a un teléfono móbil, no que recibirás un SMS co teu código de verificación para validar a inscrición. </p>
+<p><b> É seguro o sistema de afiliación? </b> </p>
+<p> Si. Tentamos buscar o equilibrio entre seguridade e facilidade do proceso, cada inscrición é asociada a un teléfono móbil ao que se envía automaticamente o código de verificación persoal. Os nosos equipos informáticos han traballado no desenvolvemento dun sistema seguro, fiable e de fácil acceso para todas e todos.  </p>
+<p><a href='/soporte-votaciones/'>Problemas coa inscrición? Escribe a soporte@enmarea.gal</a></p>
+<p><strong>Se non recibes o correo electrónico para completar a inscrición, lembra comprobar 
+se chegou ao cartafol de <em>correo electrónico non desexado</em>, <em>promocións</em> ou <em>spamem>.</strong></p>
 "
       terms_of_service:
         title: 'Condiciones generales'
         p1_html: '
-<h2>Condiciones generales de inscripción y política de privacidad</h2>
-<p><b> 1. Condiciones legales de la inscripción en Podemos Partido Político</b></p>
+<h2>Condicións xerais de inscrición e política de privacidade</h2>
+<p><b> 1. Condicións legais da afiliación en En Marea</b></p>
 <p>
-Al cumplimentar y enviar el formulario de inscripción el interesado pasará a ser miembro de PODEMOS partido político con CIF G86976941 y será titular de los derechos y obligaciones reconocidos por la legislación española a todos los inscritos en partidos políticos.
+Ao cumprimentar e enviar o formulario de inscrición o interesado pasará a ser membro de EN MAREA partido político con CIF V70498191 e será titular dos dereitos e obrigacións recoñecidos pola lexislación española a todos os inscritos en partidos políticos.
 </p>
 <p>
-La inscripción supone la aceptación expresa de los estatutos del partido y los acuerdos éticos, organizativos y políticos que apruebe la Asamblea Ciudadana y demás órganos del partido, así como de los métodos de participación y las fórmulas de decisión que legítimamente se establezcan.
+A inscrición supón a aceptación expresa do manifesto de EM MAREA, así como dos métodos de participación e as fórmulas de decisión que lexitimamente se establezan.
 </p>
-<p><b>2. Protección de datos personales</b></p>
+<p><b>2. Protección de datos persoais</b></p>
 <p>
-PODEMOS, de acuerdo con la Ley Orgánica 15/1999 de Protección de Datos de Carácter Personal, informa a las personas que quieran inscribirse de que los datos personales que faciliten en el formulario de inscripción serán incorporados al fichero de “afiliados” del que es responsable PODEMOS Partido Político, con CIF G86976941, que los utilizará para gestionar los perfiles de los inscritos, contactar con ellos para gestionar su registro y hacerles llegar toda la información necesaria sobre su inscripción.
-</p>
-<p>
-El inscrito acepta y consiente expresamente el tratamiento de sus datos personales y la recepción de comunicaciones electrónicas para los fines indicados.
+PODEMOS, de acordo coa Lei Orgánica 15/1999 de Protección de Datos de Carácter Persoal, informa as persoas que queiran inscribirse de que os datos persoais que faciliten no formulario de inscrición serán incorporados ao ficheiro de ?afiliados? do que é responsable EN MAREA, con CIF V70498191, que os utilizará para xestionar os perfís dos afiliados, contactar con eles para xestionar o seu rexistro e facerlles chegar toda a información necesaria sobre a súa afiliación.
 </p>
 <p>
-Salvo imperativo legal, los datos personales de los inscritos no serán cedidos a terceras personas sin su consentimiento expreso.
+O inscrito acepta e consente expresamente o tratamento dos seus datos persoais e a recepción de comunicacións electrónicas para os fins indicados.
 </p>
 <p>
-PODEMOS cumple con todas las medidas de seguridad para la protección de datos personales exigidas por el Real Decreto 1720/2007, de 21 de diciembre, por el que se aprueba el Reglamento de desarrollo de la Ley Orgánica 15/1999, de 13 de diciembre, de protección de datos de carácter personal.
+Salvo imperativo legal, os datos persoais dos inscritos non serán cedidos a terceiras persoas sen o seu consentimento expreso.
 </p>
 <p>
-<p><b>3. Ejercicios de los derechos de acceso, rectificación, cancelación y oposición</b></p>
-<p>
-Para ejercer los derechos de acceso, rectificación, cancelación y posición el inscrito podrá utilizar los formularios disponibles en la página web del perfil de usuario de la web participa.podemos.info o dirigirse por correo electrónico a lopd@podemos.info indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación.
+EN MAREA cumpre con todas as medidas de seguridade para a protección de datos persoais esixidas polo Real Decreto 1720/2007, do 21 de decembro, polo que se aproba o Regulamento de desenvolvemento da Lei Orgánica 15/1999, do 13 de decembro, de protección de datos de carácter persoal.
 </p>
-<p><b>4. Aceptación de las presentes condiciones generales</b></p>
 <p>
-Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO declara haber leído este aviso legal y estar conforme con su contenido.
+<p><b>3. Exercicios dos dereitos de acceso, rectificación, cancelación e oposición</b></p>
+<p>
+Para exercer os dereitos de acceso, rectificación, cancelación e posición o inscrito poderá utilizar os formularios dispoñibles na páxina web do perfil de usuario da web medrando.enmarea.gal ou dirixirse por correo electrónico a lopd@enmarea.gal indicando o seu nome e apelidos e achegando copia do seu DNI ou documento legal de identificación.
 </p>
-<p> <b> Podemos </b></p>
-<p> <b>Versión 7 de octubre de 2014 16:01 </b> </p>
+<p><b>4. Aceptación das presentes condicións xerais</b></p>
+<p>
+Ao marcar a casa ?Lin e acepto as condicións xerais" o USUARIO declara ler este aviso legal e estar conforme co seu contido.
+</p>
+<p> <b> En Marea </b></p>
+<p> <b>Versión 7 de decembro de 2016 11:05 </b> </p>
 '
     legacy:
       password:
@@ -484,70 +483,70 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO
     guarantees:
       title: "Comisión de Garantías"
     legal: 
-      title1: "WEB PARTICIPA.PODEMOS.INFO"
+      title1: "WEB MEDRANDO.PODEMOS.INFO"
       title2: "Aviso legal"
-      title3: "CONDICIONES GENERALES DE ACCESO, EMPLEO DE COOKIES Y POLÍTICA DE PRIVACIDAD"
+      title3: "CONDICIONS XERAIS DE ACCESO, EMPREGO DE COOKIES E POLÍTICA DE PRIVACIDADE"
       p1:
-        title: "Información general"
+        title: "Información xeral"
         p1: 
-          subtitle: "Identificación del propietario de la web"
-          text_html: "PODEMOS PARTIDO POLÍTICO (en adelante PODEMOS) <br> CIF G86976941 <br> Calle Zurita, núm. 21 <br> 28012 Madrid"
+          subtitle: "Identificación do propietario da web"
+          text_html: "EN MAREA PARTIDO POLÍTICO (en adiante EN MAREA) <br> V70498191 <br> Praza Horta de abaixo nº 5B, 4A <br> 15220 Bertamiráns"
         p2: 
           subtitle: "Contacto"
-          text_html: "Información general: contacto@podemos.info <br> Incidencias inscripciones: partido@podemos.info <br> Protección de datos: lopd@podemos.info <br>"
+          text_html: "Información xeral: contacto@enmarea.gal  <br> Incidencias inscripciones: soporte@ enmarea.gal <br> Protección de datos: lopd@ enmarea.gal <br>"
       p2: 
-        title: "Condiciones generales de acceso y uso de la web participa.podemos.info"
+        title: "Condicións xerais de acceso e uso dá web medrando.enmarea.gal"
         p1:
-          subtitle: "Usuarios y derecho de acceso"
+          subtitle: "Persoas USUARIAS e dereito de acceso"
           text_html: "
-  <p>El acceso a esta web está reservado a los inscritos en PODEMOS y que se registren en la misma conforme al procedimiento establecido en el apartado 2.4 de estas condiciones.
+  <p>O acceso a esta web está reservado as persoas afiliadas a EN MAREA e que se rexistren na mesma conforme ao procedemento establecido non apartado 2.4 destas condicións. 
   </p>
   <p>
-  El acceso a esta web atribuye la condición de USUARIO e implica la aceptación expresa y sin reservas de todas y cada una de las condiciones generales que se publican en este aviso legal, sin perjuicio de la aceptación concreta de las condiciones particulares que se incluyan en las páginas del sitio.
+  O acceso a esta web atribúe a condición de persoa USUARIA e implica a aceptación expresa e sen reservas de todas e cada unha dás condicións xerais que se publican neste aviso legal, sen prexuízo dá aceptación concreta dás condicións particulares que se inclúan nas páxinas do site.
   </p>
   <p>
-  El derecho a acceder y utilizar esta web queda condicionado al buen uso de la misma y al cumplimiento de las presentes condiciones generales y las condiciones particulares incluidas en las páginas del sitio.
+  O dereito a acceder e utilizar esta web queda condicionado ao bo uso dá mesma e ao cumprimento dás presentes condicións xerais  e as condicións particulares incluídas nas páxinas do site.
   </p>
   <p>
-  PODEMOS denegará y retirará el acceso y uso de la web en cualquier momento y sin previo aviso a toda persona que incumpla las condiciones generales o particulares que se publiquen en este sitio web o que haga un mal uso de las herramientas y servicios que se facilitan a los usuarios.
+  EN MAREA denegará e retirará o acceso e uso dá web en calquera momento e sen previo aviso a toda persoa que incumpra as condicións xerais  ou particulares que se publiquen neste sitio web ou que faga un mal uso dás ferramentas e servizos que se facilitan as persoas usuarias. 
   </p>
   "
         p2: 
-          subtitle: "Modificaciones del sitio y de los servicios"
+          subtitle: "Modificacións do site e dos servizos"
           text_html: "<p>
-PODEMOS se reserva el derecho de modificar unilateralmente en cualquier momento y sin previo aviso las presentes condiciones generales, las condiciones particulares y las condiciones de uso y los servicios que se prestan en esta página web. 
+En Marea reservase o dereito de modificar unilateralmente en calquera momento e sen previo aviso as presentes condicións xerais, as condicións particulares e as condicións de uso e os servizos que se prestan nesta páxina web. 
 </p>
 
 <p>
-También se reserva el derecho a modificar unilateralmente en cualquier momento y sin previo aviso la presentación, diseño y configuración del sitio web.
+Tamén resérvase o dereito a modificar unilateralmente en calquera momento e sen previo aviso a presentación, deseño e configuración do sitio web. 
 </p>
 
 <p>
-Las modificaciones serán publicadas oportunamente a todos los usuarios mediante avisos en la propia página web.
+As modificacións serán publicadas oportunamente para todas as persoas usuarias mediante avisos na propia páxina web. 
 </p>"
         p3:
-          subtitle: "Accesibilidad a la web"
-          text_html: "La web ha sido diseñada y programada siguiendo las técnicas y directrices de accesibilidad internacional, para hacer posible su uso a todo tipo de usuarios, incluidos los que sufren algún tipo de discapacidad."
+          subtitle: "Accesibilidade á web"
+          text_html: "A web foi deseñada e programada seguindo as técnicas e directrices de accesibilidade internacional, para facer posible seu uso a todo tipo de persoas usuarias, incluídos os que sofren algún tipo de discapacidade."
         p4:
-          subtitle: "Acceso y uso de la web"
+          subtitle: "Acceso e uso da web"
           text_html: "
 <p>
-El acceso y uso de la web tiene carácter gratuito para los USUARIOS y está reservado para los inscritos en PODEMOS.
+O acceso e uso dá web ten carácter gratuíto para as persoas USUARIAS e está reservado para as persoas afiliadas a EN MAREA. 
 </p>
 
 <p>
-Para acceder a los servicios es necesario estar inscrito previamente como miembro de PODEMOS y registrarse posteriormente en la web con el nombre de usuario y la contraseña que sean requeridos y facilitados por PODEMOS. 
+Para acceder aos servizos é necesario estar inscrito previamente como persoa afiliada de EN MAREA e rexistrarse posteriormente na web có nome de persoa USUARIA e o contrasinal que sexan requiridos e facilitados por EN MAREA. 
 </p>
 <p>
-Para el acceso deberán seguirse las instrucciones de registro que particularmente se establezcan en la página de inicio.
-</p>
-
-<p>
-El USUARIO se compromete a hacer un uso diligente y a no poner a disposición de terceros su nombre de usuario y contraseña, así como a comunicar a PODEMOS con la mayor brevedad, la pérdida, robo o cualquier riesgo de acceso a los mismos por un tercero.
+Para o acceso deberán seguirse as instrucións de rexistro que particularmente se establezan na páxina de inicio. 
 </p>
 
 <p>
-El acceso y uso de la web tienen, en principio, una duración indefinida. No obstante, PODEMOS se reservará el derecho a suspender el acceso a la web y su uso en cualquier momento. En estos casos lo comunicará a los usuarios por correo electrónico o mediante aviso en la página de inicio.
+A persoa USUARIA comprométese a facer un uso dilixente e a non poñer a disposición de terceiros o seu nome de persoa USUARIA e contrasinal, así como a comunicar a EN MAREA coa maior brevidade, a perda, roubo ou calquera risco de acceso aos mesmos por un terceiro. 
+</p>
+
+<p>
+O acceso e uso dá web teñen, en principio, unha duración indefinida. Non obstante, EN MAREA reservarase o dereito a suspender o acceso á web e seu uso en calquera momento. Nestes casos comunicarao as persoas usuarias por correo electrónico ou mediante aviso na páxina de inicio. 
 </p>
 "
         p5:
