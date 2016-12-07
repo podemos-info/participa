@@ -2,7 +2,8 @@ module ImpulsaProjectStates
   extend ActiveSupport::Concern
 
   included do
-    
+    scope :exportable, -> { state: [ :validated, :winner ] }
+
     state_machine initial: :new do
       audit_trail
 
@@ -29,6 +30,9 @@ module ImpulsaProjectStates
       end
       event :mark_as_invalidated do
         transition :validable => :invalidated, if: :evaluation_result?
+      end
+      event :mark_as_winner do
+        transition :validated => :winner
       end
       event :mark_as_resigned do
         transition all => :resigned
@@ -67,4 +71,5 @@ module ImpulsaProjectStates
       persisted? && !resigned? && fixes? && self.impulsa_edition.allow_fixes?
     end
   end
+
 end

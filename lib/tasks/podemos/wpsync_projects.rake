@@ -9,7 +9,7 @@ namespace :podemos do
                               username: Rails.application.secrets.wordpress["username"],
                               password: Rails.application.secrets.wordpress["password"]
     loop do
-      ImpulsaProject.with_deleted.where("updated_at>?", last_update).order(updated_at: :asc).each do |project|
+      ImpulsaProject.exportable.with_deleted.where("updated_at>?", last_update).order(updated_at: :asc).each do |project|
         begin
           if project.deleted_at || project.force_invisible?
             ret = wp.execute('podemos.deleteProject', { project_id: project.id} )
