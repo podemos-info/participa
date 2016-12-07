@@ -1,7 +1,7 @@
 # https://gist.github.com/Theby/8278002
 # Traducciones adicionales en https://github.com/plataformatec/devise/wiki/I18n
 
-es:
+ga:
   devise:
     confirmations:
       confirmed: "A túa dirección de correo electrónico xa foi confirmada."
