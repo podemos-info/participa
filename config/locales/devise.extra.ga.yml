@@ -1,6 +1,6 @@
 # adicionales a devise
 
-es:
+ga:
   devise:
     registrations: 
       ok: "Inscribíchesche correctamente. Recibirás un correo que terás que confirmar para continuar co proceso. Revisa o teu correo."
