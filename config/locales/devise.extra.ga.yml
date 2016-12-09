@@ -2,42 +2,42 @@
 
 ga:
   devise:
-    registrations: 
+    registrations:
       ok: "Inscribíchesche correctamente. Recibirás un correo que terás que confirmar para continuar co proceso. Revisa o teu correo."
-   buttons:
-     sign_in: "Iniciar sesión"
-     sign_up: "Inscribirse"
-     edit: "Actualizar datos"
-     cancel_account: "Darme de baixa"
-     reset_password: "Enviarme as instrucións por correo electrónico"
-     change_password: "Cambiar contrasinal"
-     confirmation_instructions: "Reenviar instruccións de confirmación"
-     unlock_instructions: "Reenviar instruccións de desbloqueo"
-   hints:
-     locked: "Non podes modificar este campo"
-     password: ""
-     current_password: "Por seguridade, debes introducir o teu contrasinal actual para facer trocos. Fai click %{link} se non a lembras. "
-     labels:
-     new_password: "Contrasinal nova"
-     new_password_confirmation: "Confirmar contrasinal nova"
-   links:
-     sign_in: "Iniciar sesión"
-     sign_in_with: "Iniciar sesión con %{provider}"
-     sign_up: "Inscribirse"
-     sign_out: "Cerrar sesión"
-     my_account: "Miña conta"
-     back: "Voltar"
-     forgot_password: "Esquecín o meu contrasinal"
-     confirmation_instructions: "Non recibiches as instrucións de confirmación?"
-     unlock_instructions: "Non recibiches as instrucións de desbloqueo?"
-     here: "aquí"
-   messages:
-     cancel_account_confirmation: "Tes a certeza?"
-     waiting_confirmation: "Actualmente esperando instruccións para %{email}"
-   titles:
-     sign_in: "Iniciar sesión"
-     sign_up: "Formulario de afiliación a EN MAREA CIF V70498191"
-     cancel_account: "Cancelar a miña conta"
-     forgot_password: "Esqueciches o teu contrasinal?"
-     change_password: "Cambiar o teu contrasinal"
-     confirmation_instructions: "Reenviar instruccións de confirmación"
+    buttons:
+      sign_in: "Iniciar sesión"
+      sign_up: "Inscribirse"
+      edit: "Actualizar datos"
+      cancel_account: "Darme de baixa"
+      reset_password: "Enviarme as instrucións por correo electrónico"
+      change_password: "Cambiar contrasinal"
+      confirmation_instructions: "Reenviar instruccións de confirmación"
+      unlock_instructions: "Reenviar instruccións de desbloqueo"
+    hints:
+      locked: "Non podes modificar este campo"
+      password: ""
+      current_password: "Por seguridade, debes introducir o teu contrasinal actual para facer trocos. Fai click %{link} se non a lembras. "
+      labels:
+      new_password: "Contrasinal nova"
+      new_password_confirmation: "Confirmar contrasinal nova"
+    links:
+      sign_in: "Iniciar sesión"
+      sign_in_with: "Iniciar sesión con %{provider}"
+      sign_up: "Inscribirse"
+      sign_out: "Cerrar sesión"
+      my_account: "Miña conta"
+      back: "Voltar"
+      forgot_password: "Esquecín o meu contrasinal"
+      confirmation_instructions: "Non recibiches as instrucións de confirmación?"
+      unlock_instructions: "Non recibiches as instrucións de desbloqueo?"
+      here: "aquí"
+    messages:
+      cancel_account_confirmation: "Tes a certeza?"
+      waiting_confirmation: "Actualmente esperando instruccións para %{email}"
+    titles:
+      sign_in: "Iniciar sesión"
+      sign_up: "Formulario de afiliación a EN MAREA CIF V70498191"
+      cancel_account: "Cancelar a miña conta"
+      forgot_password: "Esqueciches o teu contrasinal?"
+      change_password: "Cambiar o teu contrasinal"
+      confirmation_instructions: "Reenviar instruccións de confirmación"
