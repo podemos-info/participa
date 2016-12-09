@@ -1,6 +1,6 @@
 <% if resource.errors.present? %>
     <div id="errors_in_form">
-    <%= error_box "Por favor, corrige los siguientes campos" do %>
+    <%= error_box "Por favor, corrixe os seguintes campos" do %>
         <% resource.errors.each do |attr, msg| %>
             <p><b><%= resource.class.human_attribute_name attr %></b>: <%= sanitize msg, tags: ["a"] %></p>
         <% end %>

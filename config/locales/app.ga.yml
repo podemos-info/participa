@@ -310,6 +310,8 @@ ga:
         captcha: "Captcha"
         current_password: "Contrasinal actual"
         circle: "Círculo"
+        document_copy_front: "Documento - frontal"
+        document_copy_back: "Documento - traseira"
       category:
         name: "nome"
   podemos:
@@ -347,8 +349,8 @@ De conformidade co disposto no artigo 16.3 da Lei Orgánica de Protección de Da
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
           p3: "Feixe click no link de aquí abaixo para desbloquear a túa conta:" 
         confirm:
-          p1: "Déchesche de alta ou cambiaches o teu correo electrónico na contorna ENMAREA. Se non é ese o caso, ignora este correo. Podes confirmar que esta é a túa dirección de correo a través da seguinte ligazón:"
-          p2: "Se non funciona a ligazón proba copiando e pegándoo na barra de direccións do teu navegador." 
+          p1: "Fixeches a Alta ou modificaches os teus contrasinais na Portal de Participación de EnMarea. Se non é asi, ignora este correo. Para finalizar o proceso precisamos que confirmes que esta é a túa dirección de correo electrónico na seguinte ligazón."
+          p2: "Se non funciona proba copiando e pegando na barra de direccións no teu navegador."
         password: 
           p1: "Alguén pediu que cambies o teu contrasinal. Podes facelo a través da seguinte ligazón:"
           p2: "Se non fuches ti, por favor ignora este correo."
