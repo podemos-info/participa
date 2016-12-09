@@ -6,7 +6,7 @@ ga:
       ok: "Inscribíchesche correctamente. Recibirás un correo que terás que confirmar para continuar co proceso. Revisa o teu correo."
     buttons:
       sign_in: "Iniciar sesión"
-      sign_up: "Afíliate"
+      sign_up: "Inscríbete"
       edit: "Actualizar datos"
       cancel_account: "Darme de baixa"
       reset_password: "Enviarme as instrucións por correo electrónico"
