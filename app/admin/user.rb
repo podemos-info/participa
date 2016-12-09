@@ -98,8 +98,11 @@ ActiveAdmin.register User do
         user.document_type_name
       end
       row :document_vatid
-      row :document_copy do
-        link_to('Ver copia del documento', user.document_copy.url, target: 'document_copy')
+      row :document_copy_front do
+        link_to('Ver copia del documento front', user.document_copy_front.url, target: 'document_copy_front')
+      end
+      row :document_copy_back do
+        link_to('Ver copia del documento back', user.document_copy_back.url, target: 'document_copy_back')
       end
       row :born_at
       row :email
