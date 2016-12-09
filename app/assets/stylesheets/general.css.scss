@@ -290,6 +290,9 @@ footer
 .footer-content ul{
   overflow:hidden;
 }
+.footer-content .footer-siguenos ul{
+  width:127px;
+}
 .footer-content .footer-siguenos li{
   float:left;
   margin-right:1em;
@@ -331,7 +334,6 @@ footer
   color:#b9bdcc;
 }
 .disclaimer-links{
-  background:image-url("bg.purple-divide-h.png") 0 0 repeat-x;
   padding:3em 0 0;
   margin:3em 0 0;
   clear:both;
