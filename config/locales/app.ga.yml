@@ -180,7 +180,7 @@ ga:
         coofficial_organization_mission: "Misión de la organización traducida"
         coofficial_career: "Trayectoria traducida"
         logo: "Foto o logo"
-        endorsement: "Aval de un Círculo, de un Consejo Ciudadano o de una Secretaría General de Podemos"
+        endorsement: "Aval de un Círculo, de un Consejo Ciudadano o de una Secretaría General de enmarea"
         register_entry: "Inscripción de la entidad solicitante en el registro correspondiente"
         statutes: "Copia de los Estatutos de la entidad solicitante debidamente registrados"
         responsible_nif: "NIF del responsable (gestor de proyectos o solicitante)"
@@ -347,7 +347,7 @@ De conformidade co disposto no artigo 16.3 da Lei Orgánica de Protección de Da
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
           p3: "Feixe click no link de aquí abaixo para desbloquear a túa conta:" 
         confirm:
-          p1: "Déchesche de alta ou cambiaches o teu correo electrónico na contorna PODEMOS. Se non é ese o caso, ignora este correo. Podes confirmar que esta é a túa dirección de correo a través da seguinte ligazón:"
+          p1: "Déchesche de alta ou cambiaches o teu correo electrónico na contorna ENMAREA. Se non é ese o caso, ignora este correo. Podes confirmar que esta é a túa dirección de correo a través da seguinte ligazón:"
           p2: "Se non funciona a ligazón proba copiando e pegándoo na barra de direccións do teu navegador." 
         password: 
           p1: "Alguén pediu que cambies o teu contrasinal. Podes facelo a través da seguinte ligazón:"
@@ -360,13 +360,13 @@ De conformidade co disposto no artigo 16.3 da Lei Orgánica de Protección de Da
       notice: "Avisos"
     home: 
       button: "¿No estás inscripto? ¡Inscríbete!"
-      p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
-      p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
+      p1: "ENAMREA nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de ENMAREA, en la que discutamos, debatamos y decidamos entre todos. "
+      p2: "Pasar a formar parte del censo de inscritos de ENMAREA, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad ENMAREA. Juntos ENMAREA, claro que ENMAREA."
     valid: 
       phone:
         p1: "Introduce o teu novo número de teléfono móbil."
         p2: "Recibirás o código de verificación para validar o novo número nuns segundos."
-        p3: "Se xa participaches nalgunha votación de PODEMOS, enviarémosche o código por e-mail."
+        p3: "Se xa participaches nalgunha votación de ENMAREA, enviarémosche o código por e-mail."
         p4: "Introduce o texto que aparece na imaxe."
         p5: "Introduce o código que recibises por SMS para confirmalo"
         valid: "Validaches correctamente."
@@ -377,49 +377,49 @@ De conformidade co disposto no artigo 16.3 da Lei Orgánica de Protección de Da
         captcha_invalid: "Captcha invalido"
     collaboration:
       title: "Colaboración económica" 
-      p1: "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes y garantizarás la independencia necesaria para un proyecto cuyas únicas lealtades van a estar del lado de la gente. Convirtamos la indignación en cambio. Es el momento, estamos preparados: Hagámoslo posible."
+      p1: "Colaborando con ENMAREA conseguirás que este proyecto siga creciendo mes a mes y garantizarás la independencia necesaria para un proyecto cuyas únicas lealtades van a estar del lado de la gente. Convirtamos la indignación en cambio. Es el momento, estamos preparados: Hagámoslo posible."
       ok: 
         p1: Tu donación se ha dado de alta correctamente.
-        p2: Gracias por colaborar con Podemos.
+        p2: Gracias por colaborar con ENMAREA.
       ko:
         title: Hubo un error con tu colaboración.
-        contact: Por favor intenta realizar el pago nuevamente. Si continúas teniendo problemas contacta a donaciones@podemos.info.
+        contact: Por favor intenta realizar el pago nuevamente. Si continúas teniendo problemas contacta a donaciones@enmarea.gal.
       terms_of_service:
         title: Condiciones Generales
-        p1_title: "Relación entre PODEMOS y el colaborador."
+        p1_title: "Relación entre ENMAREA y el colaborador."
         p1: '
 La realización de aportaciones económicas es totalmente voluntaria, no implica la vinculación
-del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o 
+del colaborador con el partido político enmarea ni le confiere la condición legal de afiliado o 
 simpatizante, ni de derechos frente al partido, ni queda obligado por sus estatutos y demás normas internas.
 
-Para colaborar económicamente con PODEMOS y poder cumplimentar el formulario de alta como colaborador es
-imprescindible disponer de DNI o NIE y estar inscrito en la web http://participa.podemos.info.
+Para colaborar económicamente con enmarea y poder cumplimentar el formulario de alta como colaborador es
+imprescindible disponer de DNI o NIE y estar inscrito en la web http://participa.enmarea.info.
 
 Conforme a lo dispuesto en el artículo 8 de la Ley Orgánica 8/2007 de 4 de julio sobre
 Financiación de los Partidos Políticos, su donativo tendrá la consideración de “aportación
 privada”, distinta de las cuotas de afiliados, adheridos y simpatizantes.'
         p2_title: "Protección de datos de carácter personal."
         p2: '
-PODEMOS Partido Político, de acuerdo con la Ley Orgánica 15/1999 de Protección de
+enmarea Partido Político, de acuerdo con la Ley Orgánica 15/1999 de Protección de
 Datos de Carácter Personal, le informa de que sus datos serán incorporados al fichero
-“APORTACIONES”, del que es responsable PODEMOS, que los utilizará para tramitar su
+“APORTACIONES”, del que es responsable enmarea, que los utilizará para tramitar su
 colaboración, gestionar los adeudos bancarios, cumplir con la normativa de financiación
 de partidos políticos, para fines estadísticos y hacerle llegar periódicamente información
 sobre sus actividades.
 
 Para ejercer sus derechos de acceso, rectificación, cancelación y oposición, como
 cancelar su suscripción, modificar los datos de cobro o el importe y frecuencia de su
-aportación, podrá utilizar la web participa.podemos.info accediendo a su perfil personal
+aportación, podrá utilizar la web participa.enmarea.info accediendo a su perfil personal
 mediante su nombre de usuario y contraseña.
 
 También podrá ejercer sus derechos solicitándolo por correo electrónico a la dirección
-colaboraciones@podemos.info, indicando tu nombre, apellidos y adjuntando copia de su
+colaboraciones@enmarea.info, indicando tu nombre, apellidos y adjuntando copia de su
 DNI o documento legal de identificación.'
         p3_title: "Consentimiento cesión de datos y orden de domiciliación y cargos en tarjeta de crédito o débito"
         p3: '
 A los efectos previstos en la Ley 16/2009, de 13 de Noviembre, de Servicios de Pago, al
 confirmar el alta de la colaboración económica el colaborador autoriza expresamente a
-PODEMOS partido político y a su entidad bancaria para efectuar las operaciones de cobro
+enmarea partido político y a su entidad bancaria para efectuar las operaciones de cobro
 mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera, por el importe
 y con la frecuencia de pago que ha indicado en el formulario.
 
@@ -452,7 +452,7 @@ A inscrición supón a aceptación expresa do manifesto de EM MAREA, así como d
 </p>
 <p><b>2. Protección de datos persoais</b></p>
 <p>
-PODEMOS, de acordo coa Lei Orgánica 15/1999 de Protección de Datos de Carácter Persoal, informa as persoas que queiran inscribirse de que os datos persoais que faciliten no formulario de inscrición serán incorporados ao ficheiro de ?afiliados? do que é responsable EN MAREA, con CIF V70498191, que os utilizará para xestionar os perfís dos afiliados, contactar con eles para xestionar o seu rexistro e facerlles chegar toda a información necesaria sobre a súa afiliación.
+enmarea, de acordo coa Lei Orgánica 15/1999 de Protección de Datos de Carácter Persoal, informa as persoas que queiran inscribirse de que os datos persoais que faciliten no formulario de inscrición serán incorporados ao ficheiro de ?afiliados? do que é responsable EN MAREA, con CIF V70498191, que os utilizará para xestionar os perfís dos afiliados, contactar con eles para xestionar o seu rexistro e facerlles chegar toda a información necesaria sobre a súa afiliación.
 </p>
 <p>
 O inscrito acepta e consente expresamente o tratamento dos seus datos persoais e a recepción de comunicacións electrónicas para os fins indicados.
@@ -483,7 +483,7 @@ Ao marcar a casa ?Lin e acepto as condicións xerais" o USUARIO declara ler este
     guarantees:
       title: "Comisión de Garantías"
     legal: 
-      title1: "WEB MEDRANDO.PODEMOS.INFO"
+      title1: "WEB MEDRANDO.enmarea.INFO"
       title2: "Aviso legal"
       title3: "CONDICIONS XERAIS DE ACCESO, EMPREGO DE COOKIES E POLÍTICA DE PRIVACIDADE"
       p1:
@@ -572,7 +572,7 @@ A PERSOA USUARIA non está autorizada para empregar a información contida na we
           text_html: "<p>
 Toda a información contida nesta web, incluíndo imaxes, deseños gráficos ou códigos informáticos, nomes comerciais, marcas e signos distintivos, entre outros, é propiedade intelectual e industrial de EN MAREA. </p>
 <p>
-PODEMOS no cede total ni parcialmente, ni concede licencia o autorización alguna a los usuarios sobre los derechos de propiedad intelectual o industrial o de cualquier otra forma relativa a la web.
+enmarea no cede total ni parcialmente, ni concede licencia o autorización alguna a los usuarios sobre los derechos de propiedad intelectual o industrial o de cualquier otra forma relativa a la web.
 </p>
 <p>
 Supón unha infracción dos dereitos de propiedade intelectual e industrial protexidos por la lei copiar, reproducir, comunicar, distribuír, modificar ou ceder a información contida na web, a menos que se conte coa autorización do titular dos correspondentes dereitos ou que resulte legalmente permitido.  
@@ -739,16 +739,16 @@ EN MAREA cumpre con todas as medidas de seguridade para a protección de datos p
       save_draft_text: "Puedes utilizar el botón '%{save_draft}' en cualquier momento para guardar la información que has cargado hasta el momento. Esto te permitirá buscar la información que no tengas a mano o revisar con algún compañero los datos ingresados antes de enviárnoslos."
       fixes_text: "Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación."
       non_fixes_text: "No hemos recibido, en plazo, la subsanación de los errores indicados en el proyecto que has presentado a esta edición de IMPULSA. El plazo de subsanación ha finalizado, por lo que lamentamos comunicarte que tu proyecto no pasa a la fase de validación."
-      mark_for_review_text: "Cuando hayas completado todos los datos del proyecto y consideres que son correctos utiliza el botón '%{mark_for_review}' para indicarnos que podemos revisarlo (aunque podrás seguir haciendo correcciones hasta que lo hagamos)."
-      spam_text: "Después de realizar la revisión de los proyectos presentados, hemos detectado que tu proyecto está prácticamente vacío. Por esta razón, lo hemos marcado como desestimado. Si tienes alguna consulta al respecto, por favor ponte en contacto con nosotros en el correo proyectoimpulsa2@podemos.info."
+      mark_for_review_text: "Cuando hayas completado todos los datos del proyecto y consideres que son correctos utiliza el botón '%{mark_for_review}' para indicarnos que enmarea revisarlo (aunque podrás seguir haciendo correcciones hasta que lo hagamos)."
+      spam_text: "Después de realizar la revisión de los proyectos presentados, hemos detectado que tu proyecto está prácticamente vacío. Por esta razón, lo hemos marcado como desestimado. Si tienes alguna consulta al respecto, por favor ponte en contacto con nosotros en el correo proyectoimpulsa2@enmarea.info."
       reviewing_text: "Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos."
       validable_text: "Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de revisión."
       invalidated_text: "Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones: %{invalid_reasons}"
-      validated1_text: "Una vez realizada la revisión de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado. Esto implica que participarás en la fase de pre-selección en la que un Jurado compuesto por el Equipo técnico de IMPULSA, miembros de la Comisión de Garantías Democráticas, miembros del Consejo Ciudadano Estatal, y las Senadoras de Podemos, valorarán los proyectos validados en función de los criterios establecidos en las bases de la convocatoria y preseleccionarán un máximo de %{prewinners} proyectos. Los resultados de la preselección se harán públicos en la página web: <a href='http://podemos.info/impulsa'>http://podemos.info/impulsa</a>. En el caso de que tu proyecto sea preseleccionado, te informaremos por correo electrónico. Del %{voting_dates}, se abrirá un proceso de votaciones en el que las personas inscritas en Podemos podrán elegir %{winners} proyectos ganadores entre los %{prewinners} preseleccionados."
+      validated1_text: "Una vez realizada la revisión de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado. Esto implica que participarás en la fase de pre-selección en la que un Jurado compuesto por el Equipo técnico de IMPULSA, miembros de la Comisión de Garantías Democráticas, miembros del Consejo Ciudadano Estatal, y las Senadoras de enmarea, valorarán los proyectos validados en función de los criterios establecidos en las bases de la convocatoria y preseleccionarán un máximo de %{prewinners} proyectos. Los resultados de la preselección se harán públicos en la página web: <a href='http://podemos.info/impulsa'>http://podemos.info/impulsa</a>. En el caso de que tu proyecto sea preseleccionado, te informaremos por correo electrónico. Del %{voting_dates}, se abrirá un proceso de votaciones en el que las personas inscritas en Podemos podrán elegir %{winners} proyectos ganadores entre los %{prewinners} preseleccionados."
       validated2_text: "Una vez realizada la valoración de los proyectos presentados a esta edición de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado. Esto implica que participarás, del %{voting_dates}, en la fase de votaciones con los demás proyectos validados de tu territorio, dependiendo de la categoría donde te hayas presentado."
       terms_of_service: "He leído y acepto <a href='%{link}'>las condiciones generales del proyecto IMPULSA y la política de privacidad</a>."
       data_truthfulness: "Declaro la veracidad de los datos facilitados y de los documentos aportados en la solicitud de la presente convocatoria."
-      content_rights: "Declaro ser titular de todos los derechos de propiedad intelectual, industrial y derechos de imagen, de las obras, textos, imágenes, vídeos, música, logotipos e ideas incluidos en este formulario y que forman parte del proyecto, eximiendo a Podemos de cualquier responsabilidad que pudiera derivarse de las infracciones de estos derechos."
+      content_rights: "Declaro ser titular de todos los derechos de propiedad intelectual, industrial y derechos de imagen, de las obras, textos, imágenes, vídeos, música, logotipos e ideas incluidos en este formulario y que forman parte del proyecto, eximiendo a enmarea de cualquier responsabilidad que pudiera derivarse de las infracciones de estos derechos."
       translated: "en %{lang}"
       save_draft: "Guardar borrador"
       mark_for_review: "Marcar para revisión"
@@ -831,7 +831,7 @@ EN MAREA cumpre con todas as medidas de seguridade para a protección de datos p
     common:
       title: "Microcréditos %{name} / %{name} Mikrokredituak"
       help_us: "Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito %{name}. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
-      help_us2: "Hauteskunde kanpaina finantzatzen lagun gaitzazu Podemos Mikrokreditu bat izenpetzen. Hauteskunde subentzioa jasotzerakoan emandako diru kopurua bueltatuko dizugu."
+      help_us2: "Hauteskunde kanpaina finantzatzen lagun gaitzazu enmarea Mikrokreditu bat izenpetzen. Hauteskunde subentzioa jasotzerakoan emandako diru kopurua bueltatuko dizugu."
       more_info: "Más información"
       more_info2: "Informazio"
       has_finished: "La campaña de microcréditos ha acabado"
@@ -846,7 +846,7 @@ EN MAREA cumpre con todas as medidas de seguridade para a protección de datos p
       empty: "No detectados"
     mailing:
       title: 'Campaña "Papeletas con futuro"'
-      help_us: "Para este 26J abrimos esta campaña dirigida especialmente a financiar el  envío de papeletas en todas las provincias. Elige la tuya y colabora para que los sobres con el voto de Podemos llegue al mayor número de hogares.  Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
+      help_us: "Para este 26J abrimos esta campaña dirigida especialmente a financiar el  envío de papeletas en todas las provincias. Elige la tuya y colabora para que los sobres con el voto de enmarea llegue al mayor número de hogares.  Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
     index:
       will_start: "La próxima campaña de microcréditos comenzará en unos momentos"
       will_start_at: "Podrás suscribir un microcrédito %{name} a partir de las %{hour} del día %{date}."
