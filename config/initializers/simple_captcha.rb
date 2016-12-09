@@ -26,9 +26,9 @@ SimpleCaptcha.setup do |sc|
   # possible values: 'none', 'low', 'medium', 'high'
   sc.implode = 'medium'
 
-  sc.image_style = 'podemos'
-  sc.add_image_style('podemos', [
-      "-background '#612d62'",
+  sc.image_style = 'enmarea'
+  sc.add_image_style('enmarea', [
+      "-background '#004fff'",
       "-fill '#FFFFFF'",
       "-border 2",
       "-bordercolor '#269283'"])

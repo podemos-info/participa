@@ -1,3 +1,916 @@
 ga:
   meta:
-    language_name: "Galego"
+    language_name: "Gallego"
+    languages:
+      ca: "catalán"
+      es: "español"
+      eu: "vasco"
+      ga: "gallego"
+  errors:
+    show:
+      "404":
+        title: "Páxina non atopada"
+        message_html: "Non puidemos atopar esa páxina. Tentao máis tarde ou <a href='/'>proba desde a páxina principal</a>."
+      "500":
+        title: "Error no servidor" 
+        message_html: "Houbo un erro no servidor. Podes avisarnos en <a href='mailto:soporte@enmarea.gal'>soporte@enmarea.gal</a>"
+    messages:
+      not_valid_spanish_vat: O número de identificación fiscal non é válido
+      not_valid_nif: O DNI non é válido
+      not_valid_cif: O CIF non é válido
+      not_valid_nie: O NIE non é válido
+      url: "non é unha dirección web válida (ten que comezar con http:// ou https://)"
+  activerecord:
+    models:
+      user: Usuario
+      users: Usuarios
+      spam_filter: Filtro anti-spam
+      spam_filters: Filtros anti-spam
+      collaboration: Colaboración económica
+      collaborations: Colaboraciónes económicas
+      order: Orden de pago
+      orders: Ordenes de pago
+      election: Elección
+      elections: Elecciones
+      proposal: Iniciativa ciudadana
+      proposals: Iniciativas ciudadanas
+      notice: Aviso
+      notices: Avisos
+      participation_team: Equipo de Acción Participativa
+      participation_teams: Equipos de Acción Participativa
+      report: Informe
+      reports: Informes
+      report_group: Parte de Informe
+      report_groups: Partes de Informe
+      microcredit: Microcrédito
+      microcredits: Microcréditos
+      microcredit_loan: Suscripción
+      microcredit_loans: Suscripciones
+      page: Formulario
+      pages: Formularios
+      category: Categoría
+      categories: Categorías
+      impulsa_edition: Edición de Impulsa
+      impulsa_editions: Ediciones de Impulsa
+      impulsa_edition_topic: Temática de Impulsa
+      impulsa_edition_topics: Temáticas de Impulsa
+      impulsa_edition_category: Categoría de Impulsa
+      impulsa_edition_categories: Categorías de Impulsa
+      impulsa_project: Proyecto de Impulsa
+      impulsa_projects: Proyectos de Impulsa
+    errors:
+      models: 
+        user:
+          attributes: 
+            first_name:
+              blank: "O teu nome non pode estar en branco"
+            last_name: 
+              blank: "O teu apelido non pode estar en branco"
+            document_type: 
+              blank: "Tu tipo de documento no puede estar en blanco"
+            document_vatid: 
+              blank: "O teu tipo de documento non pode estar en branco"
+              taken: "Houbo un erro ao gardar este dato. Téntao de novo" 
+            born_at: 
+              blank: "A túa data de nacemento non pode estar en branco"
+              not_a_date: "Non é unha data válida. Comproba que o formato co que estás a poñer a data sexa o correcto"
+            address:
+              blank: "A túa dirección non pode estar en branco"
+            town:
+              blank: "O teu concello non pode estar en branco"
+            postal_code:
+              blank: "O teu código postal non pode estar en branco"
+            province: 
+              blank: "A túa provincia non pode estar en branco"
+            country: 
+              blank: "O teu país non pode estar en branco"
+            email: 
+              blank: "O teu correo electrónico non pode estar en branco"
+              taken: "Houbo un erro ao gardar este dato. Téntao de novo"
+            password: 
+              blank: "O teu contrasinal non pode estar en branco"
+            current_password: 
+              blank: "Debes indicar o teu contrasinal para validar os cambios."
+            password_confirmation: "Contraseña (repetir)"
+            wants_newsletter: "Desmarca este cadro se non queres recibir a nosa newsletter. Só enviamos información importante." 
+        impulsa_edition:
+          attributes:
+            terms_of_service: "Acepto las condiciones generales"
+    attributes:
+      impulsa_edition:
+        name: "Nombre"
+        start_at: "Fecha de inicio"
+        new_projects_until: "Cierre de inscripciones"
+        review_projects_until: "Fecha de fin revisiones"
+        validation_projects_until: "Fecha de fin validación"
+        votings_start_at: "Fecha de inicio de las votaciones"
+        ends_at: "Fecha de final de las votaciones"
+        publish_results_at: "Fecha de publicación de los resultados"
+        legal: "Bases"
+        schedule_model: "Modelo de cronograma"
+        activities_resources_model: "Modelo de actividades y recursos"
+        requested_budget_model: "Modelo de solicitud de presupuesto"
+        monitoring_evaluation_model: "Modelo de seguimiento y evaluación"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_edition_topic:
+        impulsa_edition: "Edición de Impulsa"
+        name: "Nombre"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_edition_category:
+        impulsa_edition: "Edición de Impulsa"
+        name: "Nombre"
+        category_type: "Tipo de categoría"
+        category_type_name: "Tipo de categoría"
+        winners: "Ganadores"
+        prize: "Premio"
+        only_authors: "Sólo autores"
+        coofficial_language: "Idioma cooficial"
+        coofficial_language_name: "Idioma cooficial"
+        territories: "Territorios"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+      impulsa_project:
+        impulsa_edition: "Edición de Impulsa"
+        impulsa_edition_category: "Categoría de Impulsa"
+        impulsa_edition_topics: "Temáticas"
+        impulsa_edition_topic_ids: "Temáticas"
+        name: "Título"
+        user: "Usuario"
+        status: "Estado"
+        status_name: "Estado"
+        additional_contact: "Información de contacto (nombre y apellidos, telefono, email)"
+        counterpart_information: "Información adicional sobre la contraparte"
+        authority: "Órgano que presenta la iniciativa"
+        authority_name: "Nombre y apellidos del representante del órgano"
+        authority_phone: "Teléfono del representante del órgano"
+        authority_email: "Email del representante del órgano"
+        organization_type: "Tipo de solicitante"
+        organization_name: "Nombre"
+        organization_address: "Dirección postal completa (vía, número, ciudad y código postal)"
+        organization_web: "Página web o blog"
+        organization_nif: "NIF"
+        scanned_nif: "Tarjeta del NIF"
+        organization_year: "Año de creación"
+        organization_legal_name: "Nombre y apellidos del representante legal"
+        organization_legal_nif: "DNI/NIE de la persona representante legal"
+        organization_mission: "Misión de la organización"
+        career: "Trayectoria"
+        counterpart: "Contrapartes"
+        short_description: "Descripción breve"
+        territorial_context: "Contexto territorial"
+        long_description: "Descripción"
+        aim: "Objetivos"
+        metodology: "Metodología y fomento de la participación"
+        population_segment: "Segmento poblacional objetivo"
+        video_link: "Enlace al vídeo"
+        coofficial_translation: "Traducir"
+        coofficial_name: "Título traducido"
+        coofficial_short_description: "Descripción breve traducida"
+        coofficial_video_link: "Enlace al vídeo traducido"
+        coofficial_territorial_context: "Contexto territorial traducido"
+        coofficial_long_description: "Descripción traducida"
+        coofficial_aim: "Objetivos traducidos"
+        coofficial_metodology: "Metodología y fomento de la participación traducidas"
+        coofficial_population_segment: "Segmento poblacional objetivo traducido"
+        coofficial_organization_mission: "Misión de la organización traducida"
+        coofficial_career: "Trayectoria traducida"
+        logo: "Foto o logo"
+        endorsement: "Aval de un Círculo, de un Consejo Ciudadano o de una Secretaría General de Podemos"
+        register_entry: "Inscripción de la entidad solicitante en el registro correspondiente"
+        statutes: "Copia de los Estatutos de la entidad solicitante debidamente registrados"
+        responsible_nif: "NIF del responsable (gestor de proyectos o solicitante)"
+        fiscal_obligations_certificate: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente"
+        labor_obligations_certificate: "Certificado de la Seguridad Social de obligaciones laborales al corriente"
+        last_fiscal_year_report_of_activities: "Memoria de actividades del último ejercicio"
+        last_fiscal_year_annual_accounts: "Cuentas anuales del último ejercicio"
+        home_certificate: "Certificado de inscripción en el Consulado español del país de su residencia actual"
+        bank_certificate: "Certificado bancario de titularidad de una cuenta en una entidad financiera resi­dente en España en la que se abonará la ayuda"
+        schedule: "Cronograma y fases" 
+        activities_resources: "Actividades y Recursos"
+        total_budget: "Presupuesto total"
+        requested_budget: "Presupuesto solicitado"
+        monitoring_evaluation: "Seguimiento y evaluación"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+        terms_of_service: "Términos legales"
+        data_truthfulness: "Veracidad de los datos"
+        content_rights: "Propiedad intelectual"
+        votes: "Votos"
+      microcredit:
+        id: "Identificador"
+        starts_at: "Fecha de inicio"
+        ends_at: "Fecha de final"
+        reset_at: "Fecha último cambio de fase"
+        limits: "Montos y limites por fase"
+        deleted_at: "Fecha de borrado"
+        created_at: "Fecha de creación"
+        updated_at: "Fecha de última modificación"
+        account_number: "Número de cuenta"
+        agreement_link: "Enlace al contrato"
+        contact_phone: "Teléfono de contacto"
+        total_goal: "Objetivo final"
+        slug: "Dirección página"
+      microcredit_loan:
+        first_name: "Nombre"
+        last_name: "Apellidos"
+        document_vatid: "DNI o NIE"
+        address: "Dirección"
+        postal_code: "Código postal"
+        minimal_year_old: "Edad mínima requerida" 
+        terms_of_service: "Acuerdo legal"
+        amount: "Importe"
+        microcredit: "Microcrédito"
+        microcredits: "Microcréditos"
+        user: "Usuario"
+        created_at: "Fecha de suscripción"
+        confirmed_at: "Fecha de confirmación"
+        counted_at: "Fecha de aparición en la web"
+        discarded_at: "Fecha de descarte"
+        returned_at: "Fecha de devolución"
+        original_loans: "Suscripción original"
+        transferred_to: "Transferido a"
+        transferred_to_id: "Transferido a"
+        all: "Todos"
+        id: "Identificador"
+      renewals:
+        loan_renewals: "Microcréditos suscritos"
+        renewal_terms: "Condiciones generales de extinción del anterior microcrédito y renovación de la suscripción"
+        terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
+      collaboration: 
+        user: "Usuario"
+        created_at: "Creada el"
+        updated_at: "Actualizada el"
+        amount: "Importe mensual"
+        frequency: "Frecuencia de pago" 
+        frequency_name: "Frecuencia de pago" 
+        minimal_year_old: "Edad mínima requerida" 
+        terms_of_service: "Acuerdo legal"
+        order_id: "Número de orden en Redsys"
+        payment_type: "Método de pago"
+        payment_type_name: "Método de pago"
+        ccc_entity: "Entidad"
+        ccc_office: "Oficina"
+        ccc_dc: "DC"
+        ccc_account: "Número de cuenta"
+        iban_account: "IBAN"
+        iban_bic: "BIC/SWIFT"
+      order:
+        status: "Estado"
+        status_name: "Estado"
+        collaboration: "Colaboración"
+        user: "Usuario"
+        payable_at: "A cobrarse el" 
+        payed_at: "Cobrada el"
+        created_at: "Creada el"
+        deleted_at: "Borrada el"
+        updated_at: "Actualizada el"
+      election: 
+        title: "Título"
+        agora_election_id: "ID en AgoraVoting"
+        starts_at: "Empieza"
+        ends_at: "Termina"
+        close_message: "Mensaje de cierre"
+      proposal: 
+        title: "Título"
+        description: "Descripción"
+        image_url: "URL de la imagen"
+      notice:
+        title: "Título"
+        body: "Mensaje" 
+      user:
+        login: "Correo electrónico ou Nº de documento"
+        first_name: "Nome"
+        last_name: "Apelidos"
+        document_type: "Tipo de documento"
+        document_vatid: "Nº de documento"
+        born_at: "Data de nacemento"
+        email: "Correo electrónico"
+        email_confirmation: "Correo electrónico (repetir)"
+        phone: "Teléfono móbil"
+        unconfirmed_phone: "Teléfono móbil"
+        address: "Dirección"
+        town: "Municipio"
+        province: "Provincia"
+        vote_town: "Municipio de orixe"
+        province_town: "Provincia de orixe"
+        postal_code: "Código postal"
+        country: "País"
+        password: "Contrasinal"
+        password_confirmation: "Contrasinal (repetir)"
+        remember_me: "Lembrarme"
+        wants_newsletter: 'Newsletter'
+        terms_of_service: "Lin e acepto as condicións xerais"
+        over_18: "Declaro ser maior de 18 anos"
+        captcha: "Captcha"
+        current_password: "Contrasinal actual"
+        circle: "Círculo"
+      category:
+        name: "nome"
+  podemos:
+    election:
+      no_location: "No hay votaciones en tu municipio."
+      close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
+    other_locales: "Otros idiomas"
+    home_address: "Domicilio"
+    unauthorized: "Non tes permisos para acceder a esa sección"
+    banned: "Parece que hai algún problema coa túa afiliación. Escribe un correo a soporte@enmarea.gal e axudarémosche a solucionalo."
+    user:
+      general_data: "Datos xerais"
+      collaborations: "Colaboracións económicas"
+      personal_data: "Datos persoais"
+      change_email: "Cambiar correo electrónico"
+      change_email_explain: "Se cambias o teu correo electrónico enviarémosche outro correo para que o confirmes."
+      change_phone: "Cambiar teléfono móbil"
+      change_phone_explain_html: "Agora mesmo tes o móbil <b> %{phone} </b>"
+      change_password: "Cambiar contrasinal"
+      location_change_blocked: "O cambio de localización está bloqueado durante as votacións. Por favor, espera a que estas acaben para cambiar o teu domicilio ou lugar de participación."
+      recover_password: "Recuperar contrasinal"
+      cancel_account: "Darme de baixa"
+      cancel_account_explain_html: "<p>Ao pulsar o botón DARME DE BAIXA deixarás de ser afiliado/a e cancelaremos os teus datos persoais de conformidade co disposto na Lei Orgánica 15/1999 de Protección de Datos de Carácter Persoal.</p>
+<p> A partir deste momento a túa conta de acceso ao portal de participación de En Marea quedará eliminada.</p>
+<p>
+De conformidade co disposto no artigo 16.3 da Lei Orgánica de Protección de Datos, a cancelación dará lugar ao bloqueo dos datos, conservándose unicamente a disposición das Administracións públicas, Xuíces e Tribunais, para a atención das posibles responsabilidades nadas do tratamento, durante o prazo de prescrición destas. Cumprido o citado prazo procederase á supresión dos datos.
+</p>
+"
+    devise:
+      mailer:
+        hello: "Ola"
+        welcome: "Benvido/a"
+        lock: 
+          p1: "A túa conta foi bloqueada por un número excesivo de intentos de inicio de sesión errados. Se non fuches ti, avísanos a través de soporte@enmarea.gal."
+          p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
+          p3: "Feixe click no link de aquí abaixo para desbloquear a túa conta:" 
+        confirm:
+          p1: "Déchesche de alta ou cambiaches o teu correo electrónico na contorna PODEMOS. Se non é ese o caso, ignora este correo. Podes confirmar que esta é a túa dirección de correo a través da seguinte ligazón:"
+          p2: "Se non funciona a ligazón proba copiando e pegándoo na barra de direccións do teu navegador." 
+        password: 
+          p1: "Alguén pediu que cambies o teu contrasinal. Podes facelo a través da seguinte ligazón:"
+          p2: "Se non fuches ti, por favor ignora este correo."
+          p3: "Se non funciona a ligazón proba copiando e pegándoo na barra de direccións do teu navegador." 
+          p4: "O teu contrasinal non cambiará ata que accedas a esta ligazón e crees unha nova."
+    navbar: 
+      tools: "Herramientas"
+      profile: "Perfil"
+      notice: "Avisos"
+    home: 
+      button: "¿No estás inscripto? ¡Inscríbete!"
+      p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
+      p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
+    valid: 
+      phone:
+        p1: "Introduce o teu novo número de teléfono móbil."
+        p2: "Recibirás o código de verificación para validar o novo número nuns segundos."
+        p3: "Se xa participaches nalgunha votación de PODEMOS, enviarémosche o código por e-mail."
+        p4: "Introduce o texto que aparece na imaxe."
+        p5: "Introduce o código que recibises por SMS para confirmalo"
+        valid: "Validaches correctamente."
+        invalid: "O código que puxeches non corresponde co que che enviamos por SMS."
+        captcha: "Validar Captcha"
+        token: Código SMS
+        button: "Comprobar"
+        captcha_invalid: "Captcha invalido"
+    collaboration:
+      title: "Colaboración económica" 
+      p1: "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes y garantizarás la independencia necesaria para un proyecto cuyas únicas lealtades van a estar del lado de la gente. Convirtamos la indignación en cambio. Es el momento, estamos preparados: Hagámoslo posible."
+      ok: 
+        p1: Tu donación se ha dado de alta correctamente.
+        p2: Gracias por colaborar con Podemos.
+      ko:
+        title: Hubo un error con tu colaboración.
+        contact: Por favor intenta realizar el pago nuevamente. Si continúas teniendo problemas contacta a donaciones@podemos.info.
+      terms_of_service:
+        title: Condiciones Generales
+        p1_title: "Relación entre PODEMOS y el colaborador."
+        p1: '
+La realización de aportaciones económicas es totalmente voluntaria, no implica la vinculación
+del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o 
+simpatizante, ni de derechos frente al partido, ni queda obligado por sus estatutos y demás normas internas.
+
+Para colaborar económicamente con PODEMOS y poder cumplimentar el formulario de alta como colaborador es
+imprescindible disponer de DNI o NIE y estar inscrito en la web http://participa.podemos.info.
+
+Conforme a lo dispuesto en el artículo 8 de la Ley Orgánica 8/2007 de 4 de julio sobre
+Financiación de los Partidos Políticos, su donativo tendrá la consideración de “aportación
+privada”, distinta de las cuotas de afiliados, adheridos y simpatizantes.'
+        p2_title: "Protección de datos de carácter personal."
+        p2: '
+PODEMOS Partido Político, de acuerdo con la Ley Orgánica 15/1999 de Protección de
+Datos de Carácter Personal, le informa de que sus datos serán incorporados al fichero
+“APORTACIONES”, del que es responsable PODEMOS, que los utilizará para tramitar su
+colaboración, gestionar los adeudos bancarios, cumplir con la normativa de financiación
+de partidos políticos, para fines estadísticos y hacerle llegar periódicamente información
+sobre sus actividades.
+
+Para ejercer sus derechos de acceso, rectificación, cancelación y oposición, como
+cancelar su suscripción, modificar los datos de cobro o el importe y frecuencia de su
+aportación, podrá utilizar la web participa.podemos.info accediendo a su perfil personal
+mediante su nombre de usuario y contraseña.
+
+También podrá ejercer sus derechos solicitándolo por correo electrónico a la dirección
+colaboraciones@podemos.info, indicando tu nombre, apellidos y adjuntando copia de su
+DNI o documento legal de identificación.'
+        p3_title: "Consentimiento cesión de datos y orden de domiciliación y cargos en tarjeta de crédito o débito"
+        p3: '
+A los efectos previstos en la Ley 16/2009, de 13 de Noviembre, de Servicios de Pago, al
+confirmar el alta de la colaboración económica el colaborador autoriza expresamente a
+PODEMOS partido político y a su entidad bancaria para efectuar las operaciones de cobro
+mediante adeudos y cargos en la cuenta bancaria o en la tarjeta financiera, por el importe
+y con la frecuencia de pago que ha indicado en el formulario.
+
+Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 15 de cada
+mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
+    registration:
+      message: 
+        dni: "O formato debe ser 8 números e unha letra, sen guións nin espazos."
+        nie: "O formato deben ser unha letra, 7 números e unha letra, sen guións nin espazos."
+        passport: "Envía unha copia do teu pasaporte a lopd@enmarea.gal para validar a afiliación."
+        existing_user_location: "Recuperouse o teu lugar de participación dun usuario anterior."
+      p1_html: "<p> Enchendo este formulario cos teus datos pasarás a formar parte do censo de persoas afiliadas a En Marea e poderás participar en todas as votacións. É un procedemento sinxelo que che permitirá ser parte activa do proxecto.  </p>
+<p> Os teus datos asociaranse a un teléfono móbil, no que recibirás un SMS co teu código de verificación para validar a inscrición. </p>
+<p><b> É seguro o sistema de afiliación? </b> </p>
+<p> Si. Tentamos buscar o equilibrio entre seguridade e facilidade do proceso, cada inscrición é asociada a un teléfono móbil ao que se envía automaticamente o código de verificación persoal. Os nosos equipos informáticos han traballado no desenvolvemento dun sistema seguro, fiable e de fácil acceso para todas e todos.  </p>
+<p><a href='/soporte-votaciones/'>Problemas coa inscrición? Escribe a soporte@enmarea.gal</a></p>
+<p><strong>Se non recibes o correo electrónico para completar a inscrición, lembra comprobar 
+se chegou ao cartafol de <em>correo electrónico non desexado</em>, <em>promocións</em> ou <em>spamem>.</strong></p>
+"
+      terms_of_service:
+        title: 'Condiciones generales'
+        p1_html: '
+<h2>Condicións xerais de inscrición e política de privacidade</h2>
+<p><b> 1. Condicións legais da afiliación en En Marea</b></p>
+<p>
+Ao cumprimentar e enviar o formulario de inscrición o interesado pasará a ser membro de EN MAREA partido político con CIF V70498191 e será titular dos dereitos e obrigacións recoñecidos pola lexislación española a todos os inscritos en partidos políticos.
+</p>
+<p>
+A inscrición supón a aceptación expresa do manifesto de EM MAREA, así como dos métodos de participación e as fórmulas de decisión que lexitimamente se establezan.
+</p>
+<p><b>2. Protección de datos persoais</b></p>
+<p>
+PODEMOS, de acordo coa Lei Orgánica 15/1999 de Protección de Datos de Carácter Persoal, informa as persoas que queiran inscribirse de que os datos persoais que faciliten no formulario de inscrición serán incorporados ao ficheiro de ?afiliados? do que é responsable EN MAREA, con CIF V70498191, que os utilizará para xestionar os perfís dos afiliados, contactar con eles para xestionar o seu rexistro e facerlles chegar toda a información necesaria sobre a súa afiliación.
+</p>
+<p>
+O inscrito acepta e consente expresamente o tratamento dos seus datos persoais e a recepción de comunicacións electrónicas para os fins indicados.
+</p>
+<p>
+Salvo imperativo legal, os datos persoais dos inscritos non serán cedidos a terceiras persoas sen o seu consentimento expreso.
+</p>
+<p>
+EN MAREA cumpre con todas as medidas de seguridade para a protección de datos persoais esixidas polo Real Decreto 1720/2007, do 21 de decembro, polo que se aproba o Regulamento de desenvolvemento da Lei Orgánica 15/1999, do 13 de decembro, de protección de datos de carácter persoal.
+</p>
+<p>
+<p><b>3. Exercicios dos dereitos de acceso, rectificación, cancelación e oposición</b></p>
+<p>
+Para exercer os dereitos de acceso, rectificación, cancelación e posición o inscrito poderá utilizar os formularios dispoñibles na páxina web do perfil de usuario da web medrando.enmarea.gal ou dirixirse por correo electrónico a lopd@enmarea.gal indicando o seu nome e apelidos e achegando copia do seu DNI ou documento legal de identificación.
+</p>
+<p><b>4. Aceptación das presentes condicións xerais</b></p>
+<p>
+Ao marcar a casa ?Lin e acepto as condicións xerais" o USUARIO declara ler este aviso legal e estar conforme co seu contido.
+</p>
+<p> <b> En Marea </b></p>
+<p> <b>Versión 7 de decembro de 2016 11:05 </b> </p>
+'
+    legacy:
+      password:
+        title: "Cambiar contraseña antigua"
+        explain: "Por motivos de seguridad tienes que cambiar la contraseña."
+        changed: "Has cambiado tu contraseña"
+    guarantees:
+      title: "Comisión de Garantías"
+    legal: 
+      title1: "WEB MEDRANDO.PODEMOS.INFO"
+      title2: "Aviso legal"
+      title3: "CONDICIONS XERAIS DE ACCESO, EMPREGO DE COOKIES E POLÍTICA DE PRIVACIDADE"
+      p1:
+        title: "Información xeral"
+        p1: 
+          subtitle: "Identificación do propietario da web"
+          text_html: "EN MAREA PARTIDO POLÍTICO (en adiante EN MAREA) <br> V70498191 <br> Praza Horta de abaixo nº 5B, 4A <br> 15220 Bertamiráns"
+        p2: 
+          subtitle: "Contacto"
+          text_html: "Información xeral: contacto@enmarea.gal  <br> Incidencias inscripciones: soporte@ enmarea.gal <br> Protección de datos: lopd@ enmarea.gal <br>"
+      p2: 
+        title: "Condicións xerais de acceso e uso dá web medrando.enmarea.gal"
+        p1:
+          subtitle: "Persoas USUARIAS e dereito de acceso"
+          text_html: "
+  <p>O acceso a esta web está reservado as persoas afiliadas a EN MAREA e que se rexistren na mesma conforme ao procedemento establecido non apartado 2.4 destas condicións. 
+  </p>
+  <p>
+  O acceso a esta web atribúe a condición de persoa USUARIA e implica a aceptación expresa e sen reservas de todas e cada unha dás condicións xerais que se publican neste aviso legal, sen prexuízo dá aceptación concreta dás condicións particulares que se inclúan nas páxinas do site.
+  </p>
+  <p>
+  O dereito a acceder e utilizar esta web queda condicionado ao bo uso dá mesma e ao cumprimento dás presentes condicións xerais  e as condicións particulares incluídas nas páxinas do site.
+  </p>
+  <p>
+  EN MAREA denegará e retirará o acceso e uso dá web en calquera momento e sen previo aviso a toda persoa que incumpra as condicións xerais  ou particulares que se publiquen neste sitio web ou que faga un mal uso dás ferramentas e servizos que se facilitan as persoas usuarias. 
+  </p>
+  "
+        p2: 
+          subtitle: "Modificacións do site e dos servizos"
+          text_html: "<p>
+En Marea reservase o dereito de modificar unilateralmente en calquera momento e sen previo aviso as presentes condicións xerais, as condicións particulares e as condicións de uso e os servizos que se prestan nesta páxina web. 
+</p>
+
+<p>
+Tamén resérvase o dereito a modificar unilateralmente en calquera momento e sen previo aviso a presentación, deseño e configuración do sitio web. 
+</p>
+
+<p>
+As modificacións serán publicadas oportunamente para todas as persoas usuarias mediante avisos na propia páxina web. 
+</p>"
+        p3:
+          subtitle: "Accesibilidade á web"
+          text_html: "A web foi deseñada e programada seguindo as técnicas e directrices de accesibilidade internacional, para facer posible seu uso a todo tipo de persoas usuarias, incluídos os que sofren algún tipo de discapacidade."
+        p4:
+          subtitle: "Acceso e uso da web"
+          text_html: "
+<p>
+O acceso e uso dá web ten carácter gratuíto para as persoas USUARIAS e está reservado para as persoas afiliadas a EN MAREA. 
+</p>
+
+<p>
+Para acceder aos servizos é necesario estar inscrito previamente como persoa afiliada de EN MAREA e rexistrarse posteriormente na web có nome de persoa USUARIA e o contrasinal que sexan requiridos e facilitados por EN MAREA. 
+</p>
+<p>
+Para o acceso deberán seguirse as instrucións de rexistro que particularmente se establezan na páxina de inicio. 
+</p>
+
+<p>
+A persoa USUARIA comprométese a facer un uso dilixente e a non poñer a disposición de terceiros o seu nome de persoa USUARIA e contrasinal, así como a comunicar a EN MAREA coa maior brevidade, a perda, roubo ou calquera risco de acceso aos mesmos por un terceiro. 
+</p>
+
+<p>
+O acceso e uso dá web teñen, en principio, unha duración indefinida. Non obstante, EN MAREA reservarase o dereito a suspender o acceso á web e seu uso en calquera momento. Nestes casos comunicarao as persoas usuarias por correo electrónico ou mediante aviso na páxina de inicio. 
+</p>
+"
+        p5:
+          subtitle: "Uso do contido e servizos da web"
+          text_html: "<p>
+A persoa USUARIA só está autorizada a acceder as páxinas e servizos incluídos na súa conta de persoa USUARIA e para os que se lle teña dado dereito de acceso.  </p>
+<p>
+Cando a PERSOA USUARIA accede a súa páxina de perfil queda expresamente autorizada para visualizar e modificar toda a información persoal contida no seu perfil persoal, así como para efectuar reproducións privadas de seus datos nos seus sistemas informáticos.
+O uso das ferramentas de votación e participación incluídas na web estarán reguladas polas condicións particulares que se publiquen en cada momento e para cada uso en concreto. 
+</p>
+<p>
+Cando o uso destas ferramentas implique o enlace a outros sitios web de terceiros, deberán cumprirse as condicións de uso, emprego de cookies e política de procacidade do prestador de servizos da web de destino.
+</p>
+<p>
+A PERSOA USUARIA non está autorizada a reproducir ou copiar, distribuír, modificar, ceder ou comunicar publicamente a información contida na web, a menos que conte coa autorización do titular dos correspondentes dereitos ou que resulte legalmente permitido. 
+</p>
+<p>
+A PERSOA USUARIA non está autorizada para empregar a información contida na web con fins comerciais, enviar mensaxes non solicitados dirixidos a unha pluralidade de persoas con independencia da súa finalidade, así como comercializar de calquera xeito dita información. 
+</p>
+"
+        p6:
+          subtitle: "Titularidade dos contidos"
+          text_html: "<p>
+Toda a información contida nesta web, incluíndo imaxes, deseños gráficos ou códigos informáticos, nomes comerciais, marcas e signos distintivos, entre outros, é propiedade intelectual e industrial de EN MAREA. </p>
+<p>
+PODEMOS no cede total ni parcialmente, ni concede licencia o autorización alguna a los usuarios sobre los derechos de propiedad intelectual o industrial o de cualquier otra forma relativa a la web.
+</p>
+<p>
+Supón unha infracción dos dereitos de propiedade intelectual e industrial protexidos por la lei copiar, reproducir, comunicar, distribuír, modificar ou ceder a información contida na web, a menos que se conte coa autorización do titular dos correspondentes dereitos ou que resulte legalmente permitido.  
+</p>"
+        p7:
+          subtitle: "Tradución a outros idiomas"
+          text_html: "<p>
+A web poderá contar con versións en outros idiomas, en especial castelán.   </p>
+<p>Ante calquera discrepancia de tradución entre os textos das diferentes versións que afecte á comprensión das condicións de uso e contido da web prevalecerá sempre o texto publicado na versión en galego.
+</p>"
+        p8:
+          subtitle: "Exclusión de garantías e responsabilidades"
+          text_html: "<p>
+EN MAREA no responderá ante as PERSOAS USUARIAS polos danos e prexuízos de calquera clase e natureza causados por: 
+</p>
+<ol>
+  <li>os contidos, produtos e servizos prestados por terceiras persoas, empresas ou entidades a través desta web, e en particular, polos servizos e ferramentas de votación e participación prestados polas empresas enlazadas nas súas páxinas;</li>
+  <li>a falla de funcionamento da web ou dos servizos que se prestan e dos fallos no aceso as distintas páxinas web ou a aquelas desde as que se prestan os servizos;</li>
+  <li>a existencia de virus no sistema informático, documentos electrónicos ou ficheiros das persoas USUARIAS;</li>
+  <li>a presencia de virus nos servizos prestados por terceiras persoas, empresas ou entidades a través desta web;</li>
+  <li>o acceso á web por persoas non autorizadas utilizando os nomes de persoas USUARIAS e contrasinais da PERSOA USUARIA ou saltándose as medidas de seguridade legalmente establecidas e implementadas por EN MAREA;</li>
+  <li>o incumprimento por parte das PERSOAS USUARIAS das obrigacións de privacidade e de protección de datos de carácter persoal propios e de terceiras persoas;</li>
+  <li>7.	o mal uso da web ou dos servizos de votación e participación prestados por EN MAREA e polas empresas enlazadas nas súas páxinas;</li>
+  <li>8.	o incumprimento das presentes condicións xerais e particulares e as publicadas en calquera páxina desta web e nas de terceiros;</li>
+</ol>
+"
+        p9:
+          subtitle: "Emprego de COOKIES"
+          text_html: '<p> EN MAREA utiliza na web cookies de empresas colaboradoras para mellorar a súa experiencia de persoa USUARIA e ofrecerlle os mellores servizos.   <p>
+<p> Navegar por esta web coas cookies activadas no navegador leva de maneira imprescindible a aceptación do uso das mesmas conforme as presentes condicións. Se non aceptas o uso de cookies podes bloquealas no navegador.  </p>
+
+<p> As cookies permiten á web lembrar as túas preferencias e recoñecerche en sucesivas visitas. Isto conséguese almacenando no teu equipo de navegación certa información sobre o teu uso da web.  </p>
+
+<h5> ¿Que son as cookies?  </h5>
+
+<p> As "cookies" son pequenos ficheiros temporais que se crean no teu dispositivo de navegación (computador, teléfono, tableta, etc.) cando visitas unha web, e que permiten á mesma almacenar información, por exemplo para gardar as túas preferencias de uso ou para recoñecerche en sucesivas visitas.  </p>
+
+<p> Cando unha web crea unha cookie no teu dispositivo, almacénase o seguinte:  </p>
+
+<ul>
+  <li>A dirección/dominio da web que creou a cookie</li>
+  <li>A duración da cookie, que pode ir de escasos minutos a varios anos.</li>
+  <li>O contido da cookie.</li>
+</ul>
+ 
+<p> En todo momento podes configurar o teu programa de navegación para impedir (bloquear) o uso de cookies por parte de determinadas webs, así como borrar as cookies almacenadas previamente.</p>
+
+<h5>¿Para que se usan as cookies?</h5>
+<ul>
+  <li> Cookies esenciais. Trátase de cookies técnicas necesarias para xestionar o fluxo de navegación dentro da web ou para manterche conectado á mesma. Se as deshabilitas, é posible que algún apartado da web non funcione correctamente.</li>
+  <li> Cookies de personalización. Necesarias para lembrar determinadas preferencias da persoa USUARIA.</li>
+  <li> Cookies analíticas. Axúdannos a nós e a terceiros a recompilar información da procedencia das persoas USUARIAS e a súa navegación dentro da web, a efectos de realizar unha análise estatística para poder mellorar a súa estrutura e contidos.</li>
+  <li>Cookies publicitarias. Utilizadas para xestionar os anuncios que aparecen na web, decidir o contido ou a frecuencia dos anuncios.</li>
+  <li>•	Cookies publicitarias comportamentales. Axudan a recompilar os teus hábitos de navegación para crear un perfil de intereses que serve para mostrarche anuncios máis relevantes.</li>
+  <li>•	Cookies para compartición social. Estas cookies son necesarias para identificarche nas túas redes sociais e así permitirche compartir contidos.</li>
+</ul>
+
+<h5>¿Qué cookies utiliza esta web?  </h5>
+<ul>
+<li><b>•	CloudFlare (__cfduid): Esta cookie a serve CloudFlare, unha rede de entrega de contidos (CDN). </li>
+<li><b>•	Google Analytics (__utma, __utmz): Estas cookies son servidas por Google Analytics para recoller diversa información sobre a navegación da persoa USUARIA polo site. Por exemplo, a localización do visitante, detalles da visita realizada (tempo, páxinas vistas, etc.). </li>
+<li><b>•	Piwik (cookies que empiezan con los prefijos _pk_id, _pk_ref, _pk_ses): Estas cookies son servidas por Piwik para recoller diversa información sobre a navegación da persoa USUARIA polo site. Por exemplo, a localización do visitante, detalles da visita realizada (tempo, páxinas vistas, etc.). </li>
+<li><b>•	Ruby On Rails (_EN MAREA-juntos_session, cookie_law, cookiepolicy, request_method): estas cookies son para a sesión da persoa USUARIA da ferramenta e comprobar se o visitante aceptou ou non a política de cookies.</li>
+<li><b>•	Recaptcha (AID, APISID, CAL, GAPS, HSID, I4SUserLocale, NID, OGPC, OTZ, PREF, PREF, SAPISID, SID, SNID, SSID) Estas cookies son servidas por Google, para o correcto funcionamento do seu servizo de <a href="https://www.google.com/recaptcha/">Recaptcha</a>.</li>
+  </li>
+
+</ul>
+ 
+<h5>Como impedir o uso de cookies e como borrar as cookies?</h5>
+<p>A maioría de navegadores permítenche desactivar completamente as cookies. Os navegadores tamén che permiten borrar as cookies creadas por unha web específica.</p>
+
+<p> Lembra que en caso de bloquear as cookies é posible que determinados servizos ou funcións da web non funcionen correctamente.  </p>
+
+<p> Hai que ter en conta que as diferentes versións dos navegadores da internet poden modificar os sistemas de desactivación e borrado de cookies e por iso é imprescindible que o PERSOA USUARIA consulte en cada momento as preferencias do navegador que utilice no seu equipo e as instrucións publicadas nas súas páxinas web.  </p>
+
+<h5> Onde atopar información sobre uso e bloqueo de cookies?</h5>
+<p>
+Podes atopar información nas webs dos principais navegadores:
+</p>
+<ul>
+  <li><a href="http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647">Chrome</a><li>
+  <li><a href="http://windows.microsoft.com/es-es/windows7/how-to-manage-cookies-in-internet-explorer-9">Explorer</a></li>
+  <li><a href="http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we">Firefox</a></li>
+  <li><a href="http://support.apple.com/kb/ph5042">Safari</a></li>
+  <li><a href="http://support.apple.com/kb/HT1677?viewlocale=es_ES&locale=es_ES"> Safari para IOS </a></li>
+  <li><a href="http://help.opera.com/Windows/11.50/es-ES/cookies.html">Opera</a></li>
+</ul>
+'
+        p10:
+          subtitle: "Lexislación aplicable e xurisdición"
+          text_html: "<p> As condicións xerais e particulares de uso, emprego de cookies e política de privacidade desta páxina web rexeranse pola lexislación española.   </p> 
+<p> EN MAREA e a PERSOA USUARIA, con renuncia expresa ao foro que puidese corresponderlles, sométense aos xulgados e tribunais do domicilio da persoa USUARIA, para calquera controversia que puidese xurdir da prestación dos servizos obxecto destas condicións xerais. No caso de que a persoa USUARIA tivese o seu domicilio fose do territorio español, EN MAREA e a PERSOA USUARIA sométense, con renuncia expresa ao foro que puidese corresponderlles, aos xulgados e tribunais de Santiago de Compostela (España). 
+</p>"
+      p3:
+        title: "Política de privacidade"
+        p1:
+          subtitle: "Protección de datos persoais"
+          text_html: "<p>
+EN MAREA, de acordo coa Lei Orgánica 15/1999 de Protección de Datos de Carácter Persoal, informa aos PERSOA USUARIAS de que os datos persoais que constan nos perfís persoais desta páxina web están incorporados nos ficheiros de “afiliados” e “achegas”, dos que é responsable EN MAREA Partido Político, CIF V70498191, que os utiliza para xestionar os perfís das persoas afiliadas, contactar con elas para xestionar o seu rexistro, votación e participación na web, facerlles chegar información sobre as incidencias e cambios de condicións de uso e prestarlles toda a información relativa ás votacións e participación no proxecto de EN MAREA. 
+</p>
+
+<p>
+A PERSOA USUARIA acepta e consente expresamente o tratamento dos seus datos persoais e a recepción de comunicacións electrónicas para os fins indicados.
+</p>
+
+<p>
+Os datos non serán cedidos a terceiras persoas sen o consentimento expreso da PERSOA USUARIA. 
+</p>
+
+<p>
+EN MAREA cumpre con todas as medidas de seguridade para a protección de datos persoais esixidas polo Real Decreto 1720/2007, do 21 de decembro, polo que se aproba o Regulamento de desenvolvemento da Lei Orgánica 15/1999, do 13 de decembro, de protección de datos de carácter persoal. 
+</p>"
+        p2:
+          subtitle: "Exercicios dos dereitos de acceso, rectificación, cancelación e oposición"
+          text_html: "Para exercer os dereitos de acceso, rectificación, cancelación e posición a persoa  USUARIA pode utilizar os formularios dispoñibles na páxina web do perfil de persoa USUARIA ou dirixirse por correo electrónico a lopd@enmarea.gal indicando o seu nome e apelidos e achegando copia do seu DNI ou documento legal de identificación."
+      p4:
+        title: "Aceptación das presentes condicións xerais"
+        p1: 
+          subtitle: "Protección de datos persoais"
+          text_html: '
+<p> Ao marcar a casa "Lin e acepto as condicións de uso, emprego de cookies e política de privacidade" a PERSOA USUARIA declara ler este aviso legal e estar conforme co seu contido. 
+</p>
+<p> <b> EN MAREA Partido Político<br> CIF V70498191<br> Versión 7 de decembro de 2016 12:58<br> </b> </p>
+'
+    impulsa:
+      title: "IMPULSA"
+      upcoming: "La próxima edición de IMPULSA comenzará el %{start_at}."
+      noupcoming: "La convocatoria de una nueva edición de IMPULSA se realizará próximamente, mantente informado."
+      text_limit: "máximo %{limit} caracteres"
+      model_link: "Utiliza este fichero como modelo."
+      file_validation: "el fichero subido debe ser %{file_type} y su tamaño no puede superar %{file_size}"
+      file_type_image: "una imagen (ficheros .jpeg, .jpg, .png o .gif)"
+      file_type_spreadsheet: "una hoja de cálculo Excel (ficheros .xls, .xlsx o .ods)"
+      file_type_document: "un documento Word (ficheros .doc, .docx o .odt)"
+      file_type_pdf: "un documento PDF (ficheros .pdf)"
+      admin_section: "Datos para administración"
+      project_data_section: "Datos del proyecto"
+      organization_data_section: "Datos de la organización que desarrollará el proyecto"
+      organization_data_internal_section: "Datos de la organización premiada"
+      documents_section: "Documentos solicitados"
+      project_progress_section: "Desarrollo del proyecto"
+      impulsa_edition_category_extra: "En esta edición de IMPULSA puedes presentar tu proyecto a diferentes categorías, comprueba los requisitos y condiciones en las %{legal} para saber en cual hacerlo."
+      legal: "bases de la convocatoria"
+      organization_mission_extra: "Describe cuál es la misión de la organización y las actividades principales a las que se dedica."
+      short_description_extra: "En este apartado deberá aparecer la descripción que se desee exponer en la página web de Impulsa para dar a conocer el proyecto."
+      short_description_internal_extra: "En este apartado deberá aparecer la descripción que se desee exponer en la página web de Impulsa para dar a conocer la iniciativa premiada."
+      last_year_extra: "Sólo en el caso de que la entidad tenga una antigüedad de más de un año."
+      counterpart_extra: "Si el proyecto se realiza junto a otras entidades, se solicitará también información sobre dichas entidades para confirmar el cumplimiento del código ético."
+      territorial_context_extra: "Indicar nombre del municipio, provincia y/ o comunidad autónoma en que se desarrolla (en caso de desarrollarse en un barrio o distrito específico, indicar también), número de habitantes de la zona en que se realizará el proyecto y contexto general en la zona de realización del proyecto (prestando atención a elementos de desigualdad social, exclusión,...)"
+      long_description_extra: "Describe las necesidades que atiende el proyecto, las razones por las que es importante atender estas necesidades y cómo va a responder el proyecto a estas necesidades."
+      aim_extra: "Describe el objetivo general, que es la situación deseable a cuya realización contribuirá el proyecto a largo plazo, y los objetivos específicos, que se derivan del objetivo general y lo concretan, señalando el camino que hay que seguir para conseguirlos y expresando los cambios o efectos más concretos que se pretenden alcanzar."
+      metodology_extra: "Describe cómo se va a desarrollar el proyecto y qué estrategias se pondrían en marcha para fomentar la participación dentro del mismo."
+      population_segment_extra: "Especifica si el proyecto se dirige a un grupo concreto de población, cuáles son las razones de dicha elección y qué tipo de estrategias se utilizarán para asegurar la comunicación con ese grupo (o grupos)."
+      schedule_extra: "Indica las fechas de inicio y finalización del proyecto, sus fases y duración, y los principales hitos a cumplir, mediante un cuadro o cronograma. Recuerda que el periodo de ejecución del proyecto es de %{limit} meses, aunque en casos excepcionales y justificados se podrá alargar el periodo de duración de un proyecto."
+      activities_resources_extra: "Según la planificación presentada en el cronograma, detalla las actividades que prevéis desarrollar durante el periodo de ejecución del proyecto. Para cada actividad, indica los recursos materiales y humanos que serán necesarios para llevarla a cabo."      
+      requested_budget_extra: "Basándote en el cuadro de actividades y recursos, establece el presupuesto de gastos e ingresos utilizando la plantilla adjunta. Asegúrate de rellenar las dos pestañas de la hoja de cálculo: Gastos e Ingresos. Recuerda que el presupuesto máximo son %{limit}."
+      monitoring_evaluation_extra: "Detalla los indicadores que se utilizarán para la evaluación, especificando el objetivo al que responden, el tiempo estimado para alcanzarlo, el valor esperado al final del proyecto para cada indicador y la fuente de verificación que se utilizará para su medición."
+      coofficial_translation_extra: "Si quieres que, para la fase de votaciones, tu proyecto se pueda ver en %{lang} marca esta casilla y rellena los siguientes campos en ese idioma."
+      authority_section: "Órgano que presenta la iniciativa"
+      translation_section: "Traducciones a idioma cooficial"
+      next_step: "Continuar"
+      next_step_text: "Introduce los datos básicos del proyecto y presiona '%{next_step}' para cargar el resto de información."
+      choose_user_text: "Al dar de alta el proyecto con tu usuario serás la persona de contacto para hacer correcciones en el proyecto. Si crees que hay otra persona más adecuada para esto, por favor comunícalo para que sea quien cargue el proyecto utilizando su usuario del portal de participación."
+      save_draft_text: "Puedes utilizar el botón '%{save_draft}' en cualquier momento para guardar la información que has cargado hasta el momento. Esto te permitirá buscar la información que no tengas a mano o revisar con algún compañero los datos ingresados antes de enviárnoslos."
+      fixes_text: "Hemos revisado el proyecto que has presentado a IMPULSA y hemos detectado algunos puntos que necesitan subsanación."
+      non_fixes_text: "No hemos recibido, en plazo, la subsanación de los errores indicados en el proyecto que has presentado a esta edición de IMPULSA. El plazo de subsanación ha finalizado, por lo que lamentamos comunicarte que tu proyecto no pasa a la fase de validación."
+      mark_for_review_text: "Cuando hayas completado todos los datos del proyecto y consideres que son correctos utiliza el botón '%{mark_for_review}' para indicarnos que podemos revisarlo (aunque podrás seguir haciendo correcciones hasta que lo hagamos)."
+      spam_text: "Después de realizar la revisión de los proyectos presentados, hemos detectado que tu proyecto está prácticamente vacío. Por esta razón, lo hemos marcado como desestimado. Si tienes alguna consulta al respecto, por favor ponte en contacto con nosotros en el correo proyectoimpulsa2@podemos.info."
+      reviewing_text: "Hemos recibido tu proyecto y estamos revisando que todos los datos sean correctos. En cuanto terminemos este proceso te avisaremos."
+      validable_text: "Hemos recibido correctamente el proyecto que has presentado, está completo y pasa a la fase de revisión."
+      invalidated_text: "Lamentamos comunicarte que el proyecto que has presentado a IMPULSA ha sido invalidado por las siguientes razones: %{invalid_reasons}"
+      validated1_text: "Una vez realizada la revisión de los proyectos presentados a la edición actual de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado. Esto implica que participarás en la fase de pre-selección en la que un Jurado compuesto por el Equipo técnico de IMPULSA, miembros de la Comisión de Garantías Democráticas, miembros del Consejo Ciudadano Estatal, y las Senadoras de Podemos, valorarán los proyectos validados en función de los criterios establecidos en las bases de la convocatoria y preseleccionarán un máximo de %{prewinners} proyectos. Los resultados de la preselección se harán públicos en la página web: <a href='http://podemos.info/impulsa'>http://podemos.info/impulsa</a>. En el caso de que tu proyecto sea preseleccionado, te informaremos por correo electrónico. Del %{voting_dates}, se abrirá un proceso de votaciones en el que las personas inscritas en Podemos podrán elegir %{winners} proyectos ganadores entre los %{prewinners} preseleccionados."
+      validated2_text: "Una vez realizada la valoración de los proyectos presentados a esta edición de IMPULSA, tenemos el placer de informarte de que tu proyecto ha sido validado. Esto implica que participarás, del %{voting_dates}, en la fase de votaciones con los demás proyectos validados de tu territorio, dependiendo de la categoría donde te hayas presentado."
+      terms_of_service: "He leído y acepto <a href='%{link}'>las condiciones generales del proyecto IMPULSA y la política de privacidad</a>."
+      data_truthfulness: "Declaro la veracidad de los datos facilitados y de los documentos aportados en la solicitud de la presente convocatoria."
+      content_rights: "Declaro ser titular de todos los derechos de propiedad intelectual, industrial y derechos de imagen, de las obras, textos, imágenes, vídeos, música, logotipos e ideas incluidos en este formulario y que forman parte del proyecto, eximiendo a Podemos de cualquier responsabilidad que pudiera derivarse de las infracciones de estos derechos."
+      translated: "en %{lang}"
+      save_draft: "Guardar borrador"
+      mark_for_review: "Marcar para revisión"
+      choose_impulsa_category: "Debes elegir una categoría para que aparezca el resto de campos."
+      authority_hint: "nombre del Grupo parlamentario, Consejo Ciudadano Autonómico, Grupo juntero (País Vasco) o Grupo Europarlamentario"
+      impulsa_edition_topics_hint: "señalar un máximo de dos entre las diferentes temáticas propuestas"
+      video_link_hint: "debe ser un enlace a un video subido en YouTube"
+      project_status:
+        new: "Nuevo"
+        review: "Revisar"
+        fixes: "Correcciones"
+        review_fixes: "Revisar correcciones"
+        validate: "Validar"
+        invalidated: "Invalidado"
+        validated: "Validado"
+        discarded: "Descartado"
+        resigned: "Renuncia"
+        winner: "Premiado"
+        spam: "Spam"
+        dissent: "Disenso"
+      category_type_name:
+        internal: "Interna"
+        state: "Estatal"
+        territorial: "Territorial"
+      organization_type:
+        organization: "Entidad constituida"
+        people: "Grupo de personas que no tienen una entidad constituida legalmente"
+        foreign_people: "Residentes en el extranjero"
+      responsible_nif:
+        organization: "NIF de la persona que representa a la entidad en la gestión de proyectos o, en el caso de que no exista, del representante legal de la entidad"
+        people: "DNI/NIE de la persona solicitante del proyecto"
+        foreign_people: "DNI o pasaporte español en vigor de la persona solicitante"
+      fiscal_obligations_certificate: 
+        local: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente en el momento de la presentación del proyecto"
+        foreign: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto"
+      labor_obligations_certificate: 
+        local: "Certificado de la Seguridad Social de obligaciones laborales al corriente en el momento de la presentación del proyecto"
+        foreign: "Certificado de la Seguridad Social española de obligaciones laborales al corriente en el momento de la presentación del proyecto"
+      career:
+        internal: "Trayectoria del colectivo"
+        territorial: "Trayectoria formativa y profesional de las personas solicitantes del proyecto"
+      career_extra:
+        internal: "Incluir cuándo se formó, qué causas sociales defienden y qué hitos han logrado."
+        territorial: "Indica brevemente la formación y experiencia profesional de las personas que desarrollarán el proyecto, incidiendo en las relacionadas con el ámbito del proyecto presentado."
+      coofficial_translation: "Traducir al %{lang}"
+      total_price: "Importe del premio concedido"
+  issues:
+    confirm_sms: "Por seguridade, debes confirmar o teu teléfono."
+    legacy_password: "Por seguridade, debes cambiar o teu contrasinal."
+    born_at: "Debes indicar a túa data de nacemento."
+    location: "Por favor, verifica que os datos do teu domicilio son correctos e garda os datos."
+    country: "Debes indicar o país onde resides."
+    province: "Debes indicar a provincia onde resides."
+    town: "Debes indicar o municipio onde resides."
+    vote_town: "Si lo deseas, puedes indicar el municipio en España donde deseas votar."
+  recaptcha:
+    errors:
+      incorrect-captcha-sol: "Houbo un erro co captcha, por favor completalo de novo"
+      verification_failed: "Houbo un erro co captcha, por favor completalo de novo"
+      recaptcha_unreachable: "Houbo un erro co captcha, por favor completalo de novo"
+  active_admin:
+    scopes:
+      created: "Creados"
+      confirmed: "Confirmados"
+      deleted: "Borrados"
+      unconfirmed_mail: "Email sin confirmar"
+      unconfirmed_phone: "Teléfono sin confirmar"
+      confirmed_mail: "Email confirmado"
+      confirmed_phone: "Teléfono confirmado"
+      legacy_password: "Contraseña antigua (legacy)"
+      signed_in: "Ha iniciado sesión"
+      not_signed_in: "No ha iniciado sesión"
+      has_collaboration: "Con colaboración económica"
+      has_collaboration_credit_card: "Con colaboración económica (tarjeta de crédito)"
+      has_collaboration_bank_national: "Con colaboración económica (banco nacional)"
+      has_collaboration_bank_international: "Con colaboración económica (banco internacional)"
+      participation_team: "En equipos de participación"
+      has_circle: "En Círculo"
+  microcredit:
+    common:
+      title: "Microcréditos %{name} / %{name} Mikrokredituak"
+      help_us: "Ayúdanos a financiar las campañas electorales suscribiendo un microcrédito %{name}. Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
+      help_us2: "Hauteskunde kanpaina finantzatzen lagun gaitzazu Podemos Mikrokreditu bat izenpetzen. Hauteskunde subentzioa jasotzerakoan emandako diru kopurua bueltatuko dizugu."
+      more_info: "Más información"
+      more_info2: "Informazio"
+      has_finished: "La campaña de microcréditos ha acabado"
+      campaign_results: "Hemos recaudado %{total}.<br/>¡Muchas gracias por colaborar con el cambio!"
+      choose_province: "Elige una provincia"
+      no_province: "Ninguna"
+      choose_town: "Elige un municipio"
+      amount: "Importe"
+      sure: "Seguros"
+      doubts: "Dudas"
+      confirmed: "Confirmados"
+      empty: "No detectados"
+    mailing:
+      title: 'Campaña "Papeletas con futuro"'
+      help_us: "Para este 26J abrimos esta campaña dirigida especialmente a financiar el  envío de papeletas en todas las provincias. Elige la tuya y colabora para que los sobres con el voto de Podemos llegue al mayor número de hogares.  Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
+    index:
+      will_start: "La próxima campaña de microcréditos comenzará en unos momentos"
+      will_start_at: "Podrás suscribir un microcrédito %{name} a partir de las %{hour} del día %{date}."
+      no_campaigns: "En este momento no hay campañas de microcréditos activas."
+      no_campaigns_message: "No te preocupes, te avisaremos cuando abramos la próxima campaña."
+      success: "Objetivo alcanzado"
+      remaining: "Restante"
+      current_phase: "Fase actual:"
+      accumulated: "Acumulado:"
+      want_to_collaborate: "Quiero colaborar"
+    new_loan:
+      user_access: "Te recomendamos que %{link} para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro."
+      user_access_link: "accedas con tu usuario del Portal de Participación"
+      nologin: "Continuar sin identificarse"
+      login: "Acceder con tu usuario"
+      help_phone: "Si necesitas ayuda contacta al <strong>%{phone}</strong>."
+      help_phone2: "Laguntza behar izanez gero jarri harremanetan <strong>%{phone}</strong> telefonoan."
+      info: "Información"
+      has_microcredit: "Ya has suscrito un microcrédito para esta campaña por un importe de %{total}."
+      has_microcredits: "Ya has suscrito %{count} microcréditos para esta campaña por un importe total de %{total}."
+      required: "requerido"
+      home_address: "Domicilio"
+      country: "País"
+      province: "Provincia"
+      town: "Municipio"
+      remaining_count: "(quedan %{total})"
+      over_age_message: "Declaro ser mayor de 18 años. / 18 urte baino gehiago ditut"
+      terms_of_service_message: "Acepto la suscripción de un contrato civil de préstamo por el importe indicado, según las condiciones generales que se indican en el siguiente enlace, que declaro haber leído y estar conforme con su contenido."
+      terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad"
+      terms_of_service_message2: "Jartzen duen diru kopuruaren mailegu kontratu zibil baten harpidetza onartzen dut, hurrengo estekan agertzen diren baldintza orokorretan. Baldintza hauek irakurri ditut eta haiekin ados nago."
+      terms_of_service_link2: "Mailegu kontratu zibilaren baldintza orokorrak eta pribatutasun politika"
+      will_receive_email: "En unos segundos recibirás un correo electrónico con toda la información necesaria para finalizar el proceso de suscripción del microcrédito %{name}. Por favor, ten en cuenta que es posible que el contador no se actualice de forma inmediata. ¡Gracias por colaborar!"
+      tweet_campaign: "Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/intent/tweet?text=He%20suscrito%20un%20microcr%C3%A9dito%20%{twitter_account}%20para%20financiar%20la%20campa%C3%B1a.%20Apoya%20el%20cambio%20en%20%{main_url}%20%23YoInviertoEnUnFuturoMejor'>compártelo en Twitter</a>."
+      subscribe: "Suscribir"
+    loans_renewal:
+      renew: "Renovar"
+      renewal_terms_message: "He leído y acepto las condiciones particulares de extinción del anterior microcrédito y la renovación de la suscripción."
+      renewal_terms_link: "Condiciones particulares sobre extinción de microcréditos y depósito para nueva suscripción."
+      terms_of_service_message: "He leído y acepto las condiciones generales de la suscripción del microcrédito %{name} %{campaign}."
+      terms_of_service_link: "Condiciones generales del contrato civil de préstamo y política de privacidad del microcrédito %{name} %{campaign}"
+      renewal_success: "Has renovado microcréditos por valor de %{amount} para la campaña %{campaign}. ¡Muchas gracias por colaborar con el cambio!"
+      none_selected: "Debes elegir al menos una suscripción para renovar"
+    email:
+      subject: "Confirmación microcréditos %{name}"
+      intro: "Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 48 horas con los siguientes datos:"
+      recipient: "Beneficiario"
+      bank: "Banco"
+      account_number: "Número de cuenta"
+      concept: "Concepto del ingreso"
+      thanks: "Muchas gracias por colaborar. El cambio empieza gracias a ti."
+  formtastic:
+    labels:
+      first_name: "Nombre"
+      last_name: "Apellidos"
+      document_vatid: "Nº de documento"
+      email: "Correo electrónico"
+      address: "Dirección"
+      postal_code: "Código postal"
+      loan_renewals: "Microcréditos confirmados"
+      renewal_terms: "Condiciones generales de extinción del microcrédito y renovación de la suscripción"
+      terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
+  simple_captcha:
+    placeholder: "texto"
+    label: "Introduce el texto que se ve en la imagen"
+    refresh_button_text: "Regenerar"
+    message:
+      default: "El texto introducido no corresponde con el de la imagen"

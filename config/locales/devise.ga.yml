@@ -1,0 +1,68 @@
+# https://gist.github.com/Theby/8278002
+# Traducciones adicionales en https://github.com/plataformatec/devise/wiki/I18n
+
+ga:
+  devise:
+    confirmations:
+      confirmed: "A túa dirección de correo electrónico xa foi confirmada."
+      confirmed_and_signed_in: "A túa dirección de correo electrónico xa foi confirmada. Fuches identificado."
+      send_instructions: "Recibirás un correo electrónico nuns minutos con instrucións sobre como restablecer o teu contrasinal."
+      send_paranoid_instructions: "Enviamos a %{email} os pasos para recuperar o teu contrasinal. Se non recibes o noso correo nuns minutos, é posible que usases unha conta de email diferente cando te inscribiches en En Marea: proba con outras contas que teñas, e se non o consegues con ningunha, envía un correo a soporte@enmarea.gal para recibir axuda."
+    failure:
+      already_authenticated: "Xa estás identificado."
+      inactive: "A túa conta aínda non foi activada."
+      invalid: "Correo electrónico, número de documento ou contrasinal inválidos. Lembre que pode iniciar sesión tanto co seu DNI como son o seu correo electrónico."
+      invalid_token: "Cadena de autenticación invalida."
+      locked: "A tua conta está bloqueada."
+      not_found_in_database: "Correo electrónico, número de documento ou contrasinal inválidos. Lembre que pode iniciar sesión tanto co seu DNI como son o seu correo electrónico."
+      timeout: "A túa sesión expirou, por favor identifícache de novo para continuar."
+      unauthenticated: "Necesitas iniciar sesión ou rexistrarche para continuar."
+      unauthenticated_html: "Necesitas <a href='/'>iniciar sesión</a> ou <a href='/users/sign_up'>rexistrarche</a> para continuar."
+      unconfirmed: "Debes confirmar a tua conta para continuar."
+      last_attempt: "Tes un intento máis antes que tua conta quede bloqueada."
+    mailer:
+      confirmation_instructions:
+        subject: "[medramos.enmarea.gal] Instrucións de confirmación"
+      reset_password_instructions:
+        subject: "[medramos.enmarea.gal] Instrucións para restablecer o teu contrasinal"
+      unlock_instructions:
+        subject: "[medramos.enmarea.gal] Instruccións de desbloqueo"
+    omniauth_callbacks:
+      failure: "Non se che puido autorizar de %{kind} debido a \"%{reason}\"."
+      success: "Identificado correctamente de %{kind}."
+    passwords:
+      no_token: "Non podes acceder a esta páxina senón é por medio dunha ligazón para restablecer contrasinal. Se accediches desde a ligazón para restablecer o contrasinal, asegúrache de que a URL está completa."
+      send_instructions: "Recibirás un correo electrónico con instrucións sobre como restablecer o teu contrasinal nuns minutos."
+      send_paranoid_instructions: "Enviamos a %{email} os pasos para recuperar o teu contrasinal. Se non recibes o noso correo nuns minutos, é posible que usases unha conta de email diferente cando te inscribiches en En Marea: proba con outras contas que teñas, e se non o consegues con ningunha, envía un correo a soporte@enmarea.gal para recibir axuda."
+      updated: "O teu contrasinal cambiouse correctamente. Fuches identificado."
+      updated_not_active: "O teu contrasinal cambiouse correctamente."
+    registrations:
+      destroyed: "Ata mais ver! A túa conta foi cancelada. Esperamos  verche pronto."
+      signed_up: "Benvido! Fuches identificado."
+      signed_up_but_inactive: "Inscribíchesche correctamente, pero non puideches iniciar sesión porque non activaches a túa conta."
+      signed_up_but_locked: "Inscribíchesche correctamente, pero non puideches iniciar sesión porque a túa conta está bloqueada."
+      signed_up_but_unconfirmed: "Envióuseche unha mensaxe cunha ligazón de confirmación. Por favor visita a ligazón nas próximas horas para activar a túa conta."
+      update_needs_confirmation: "Actualizaches a túa conta correctamente, con todo necesitamos verificar a túa nova conta de correo. Por favor revisa o teu correo electrónico e visita a ligazón para finalizar a confirmación da túa nova dirección de correo electrónico."
+      updated: "Actualizaches a túa conta correctamente."
+    sessions:
+      signed_in: ""
+      signed_out: ""
+    unlocks:
+      send_instructions: "Recibirás un correo electrónico nuns minutos con instrucións sobre como desbloquear a túa conta."
+      send_paranoid_instructions: "Enviamos ao correo que indicaches os pasos para desbloquear a túa conta. Se non recibes o noso correo nuns minutos, é posible que usases unha conta de email diferente cando te inscribiches en En Marea: proba con outras contas que teñas, e se non o consegues con ningunha, envía un correo a soporte@enmarea.gal para recibir axuda."
+      unlocked: "A túa conta foi desbloqueada. Por favor inicia sesión para continuar."
+    labels:
+      new_password: "Contrasinal novo"
+      new_password_confirmation: "Contrasinal novo (repetir)"
+  errors:
+    messages:
+      confirmation: "O valor non coincide coa confirmación."
+      invalid: "O valor non é correto."
+      already_confirmed: "xa foi confirmado, por favor tenta iniciar sesión."
+      confirmation_period_expired: "necesita ser confirmado en %{period}, por favor volve a solicitala."
+      expired: "expirou, por favor volve solicitala."
+      not_found: "non se atopou."
+      not_locked: "non estaba bloqueado."
+      not_saved:
+        one: "1 error impediu que este %{resource} fose gardado:"
+        other: "%{count} errores impediron que este %{resource} fose gardado:"

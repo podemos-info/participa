@@ -9,9 +9,9 @@ Version: 1.0
 corporate colours
 ----------------------------------- */
 /*
-Purple 1 (main):   #11407b;
-Purple 2 (interm): #954e99;
-Purple 3 (light):  #c3a6cf;
+Purple 1 (main):   #004fff;
+Purple 2 (interm): #3272ff;
+Purple 3 (light):  #6695ff ;
 Purple 3 (60%):    #9c76a3;
 Green 1 (interm):  #269283;
 Green 2 (light):   #97c2b8;
@@ -35,7 +35,7 @@ base
 -------------------------------------------------------------------------------------------------------------------------------------------- */
 
 *,html{margin:0;padding:0;}
-body{font:62.5%/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif;text-align:center;color:#333;background:#11407b;}
+body{font:62.5%/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif;text-align:center;color:#333;background:#004fff;}
 ul,ol,dl{margin:0;list-style:none;}
 li,dt,dd{list-style:none;}
 img{border:0;}
@@ -103,7 +103,7 @@ general
   width: 100%;
   position:relative;
   overflow:hidden;
-  background:#11407b;
+  background:#004fff;
 }
 .header-content{
   margin: auto;
@@ -121,7 +121,7 @@ general
   overflow:hidden;
 }
 .logged-out .content{
-  background:#11407b;
+  background:#004fff;
 }
 .content-content{
   margin: auto;
@@ -132,7 +132,7 @@ general
   overflow:hidden;
 }
 .logged-out .content-content{
-  background:#11407b;
+  background:#004fff;
   padding: 0 1%;
 }
 .content-content-home{
@@ -195,7 +195,7 @@ background-image:image-url("mitinsantiagoblue.jpg");
 .intro p.total{
   padding-top:0.5em;
   padding-bottom:0.5em;
-  background:#11407b;
+  background:#004fff;
 }
 .intro p.total span{
   font-family:Montserrat,Arial,sans-serif;
@@ -214,8 +214,8 @@ background-image:image-url("mitinsantiagoblue.jpg");
 }
 .login-box a{
   width:100%;
-  color:#c3a6cf;
-  border-bottom:2px solid #8e618c;
+  color:#e8e8e8;
+  border-bottom:1px solid #e8e8e8;
 }
 .login-box .button{
   float:right;
@@ -267,7 +267,7 @@ footer
   padding:3em 0;
 }
 .footer a{
-  color:#c3a6cf;
+  color:#b9bdcc;
 }
 .footer strong{
   text-transform:uppercase;
@@ -276,7 +276,7 @@ footer
 .footer-content h2{
   text-transform:uppercase;
   font-family:Montserrat,Arial,sans-serif;
-  color:#c3a6cf;
+  color:#b9bdcc;
   font-weight:bold;
   margin-top:1.1em;
   margin-bottom:0.5em;
@@ -290,6 +290,9 @@ footer
 .footer-content ul{
   overflow:hidden;
 }
+.footer-content .footer-siguenos ul{
+  width:127px;
+}
 .footer-content .footer-siguenos li{
   float:left;
   margin-right:1em;
@@ -298,7 +301,7 @@ footer
   margin-right:0;
 }
 .footer-contact{
-  color:#c3a6cf;
+  color:#b9bdcc;
   margin-bottom:1em;
 }
 .footer-contact p{
@@ -328,10 +331,9 @@ footer
 }
 .footer-contact .languages ul li a.active,
 .footer-contact .languages ul li a:hover{
-  color:#c3a6cf;
+  color:#b9bdcc;
 }
 .disclaimer-links{
-  background:image-url("bg.purple-divide-h.png") 0 0 repeat-x;
   padding:3em 0 0;
   margin:3em 0 0;
   clear:both;
@@ -405,7 +407,7 @@ header & menu
   display:block;
   float:right;
   clear:both;
-  color:#c3a6cf;
+  color:#6695ff ;
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:1.4em;
   line-height:1.1em;
@@ -440,20 +442,20 @@ submenu
 .submenu li a{
   display:inline-block;
   padding:0.5em 0.75em;
-  background:#d7cad8;
-  color:#11407b;
+  background:#6695ff;
+  color:#004fff;
 }
 .submenu li a:hover{
-  background:#8e618c;
-  color:#d7cad8;
+  background:#6695ff;
+  color:#6695ff;
 }
 .submenu li.active{
   text-transform:Montserrat,Arial,sans-serif;
-  background:#d7cad8;
+  background:#3272ff;
   float:left;
 }
 .submenu li.active a{
-  background:#11407b;
+  background:#004fff;
   color:#fff;
 }
 
@@ -481,11 +483,11 @@ steps
   margin:0;
   padding:0;
   overflow:hidden;
-  background:#d7cad8;
+  background:#6695ff;
 }
 .steps3 li:nth-child(1),
 .steps3 li:nth-child(2){
-  background:#d7cad8 image-url("bg.steps-tip-right.png") right 50% no-repeat;
+  background:#6695ff image-url("bg.steps-tip-right.png") right 50% no-repeat;
 }
 .steps3 li:nth-child(2) span.block,
 .steps3 li:nth-child(3) span.block{
@@ -493,7 +495,7 @@ steps
 }
 .steps3 li span.block{
   display:block;
-  color:#11407b;
+  color:#004fff;
   width:100%;
   overflow:hidden;
 }
@@ -527,7 +529,7 @@ steps
 }
 .steps3 li:nth-child(1).active{
   text-transform:Montserrat,Arial,sans-serif;
-  background:#11407b image-url("bg.steps-tip-right.png") right 50% no-repeat;
+  background:#004fff image-url("bg.steps-tip-right.png") right 50% no-repeat;
   float:left;
 }
 .steps3 li:nth-child(1).active span.block{
@@ -535,7 +537,7 @@ steps
 }
 .steps3 li:nth-child(2).active{
   text-transform:Montserrat,Arial,sans-serif;
-  background:#11407b image-url("bg.steps-tip-right.png") right 50% no-repeat;
+  background:#004fff image-url("bg.steps-tip-right.png") right 50% no-repeat;
   float:left;
 }
 .steps3 li:nth-child(2).active span.block{
@@ -544,7 +546,7 @@ steps
 }
 .steps3 li:nth-child(3).active{
   text-transform:Montserrat,Arial,sans-serif;
-  background:#11407b;
+  background:#004fff;
   float:left;
 }
 .steps3 li:nth-child(3).active span.block{
@@ -568,15 +570,15 @@ pagination
 }
 .pagination li a{
   padding:0.5em;
-  color:#11407b;
-  background:#d7cad8;
+  color:#004fff;
+  background:#6695ff;
 }
 .pagination li a:hover{
-  background:#8e618c;
+  background:#3272ff;
   color:#fff;
 }
 .pagination li.active a{
-  background:#11407b;
+  background:#004fff;
   color:#fff;
 }
 
@@ -593,7 +595,7 @@ tools
   min-height: 5em;
 }
 .content-content .box-vote h3{
-  color:#11407b;
+  color:#004fff;
   margin:0;
   border:0;
 }
@@ -796,7 +798,7 @@ microcredits
 
   .control-label {
     float: left;
-    color: #612D62;
+    color: #004fff;
   }
   .radio_options {
     float: left;
@@ -865,7 +867,7 @@ proposals
   min-height: 700px;
 
   h1 {
-    color: #11407b;
+    color: #004fff;
     font-family: Montserrat,Arial,sans-serif;
     font-size: 3em;
     padding: 20px;
@@ -884,8 +886,8 @@ proposals
       margin-right: 20px;
 
       &.active {
-        border-bottom: 3px solid #11407b;
-        color: #11407b;      
+        border-bottom: 3px solid #004fff;
+        color: #004fff;      
         padding-bottom: 20px;  
       }
     }
@@ -931,8 +933,8 @@ proposals
     width: 24%;
 
     h2 {
-      border-top: 3px solid #11407b;
-      color: #11407b;
+      border-top: 3px solid #004fff;
+      color: #004fff;
       display: inline-block;
       font-size: 1.4em;   
       margin-top: -2px;
@@ -951,9 +953,9 @@ proposals
         font-size: 1.2em;
         font-weight: bold;
         margin-left: 20px;
-        color: #11407b;
+        color: #004fff;
         a {
-          color: #11407b;
+          color: #004fff;
         }
         &:before {
           content:"> ";
@@ -964,11 +966,11 @@ proposals
 
   article {
     h2 {
-      color: #11407b;
+      color: #004fff;
       font-size: 2em;
       margin-top: 6px;
       a {
-        color: #11407b;
+        color: #004fff;
       }
     }
   }
@@ -1057,7 +1059,7 @@ proposals
   }
 
   .button-support {
-    background: #11407b;
+    background: #004fff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1118,7 +1120,7 @@ proposals
     padding-bottom: 10px;
 
     .name {
-      color: #954e99;
+      color: #3272ff;
       padding-left: 50px;
     }
     
@@ -1149,7 +1151,7 @@ proposals
   }
 
   .support {
-    background: #11407b;
+    background: #004fff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1212,7 +1214,7 @@ info page
   padding-bottom: 52px;
 
   h1 {
-    color: #11407b;
+    color: #004fff;
     font-family: Montserrat,Arial,sans-serif;
     font-size: 2.6em;
     padding: 20px;
@@ -1221,8 +1223,8 @@ info page
   }
 
   h2 {
-    border-top: 3px solid #11407b;
-    color: #11407b;
+    border-top: 3px solid #004fff;
+    color: #004fff;
     display: inline-block;
     font-size: 2em;
     text-transform: uppercase;
@@ -1230,7 +1232,7 @@ info page
   }
 
   h3 {
-    color: #11407b;
+    color: #004fff;
     font-size: 1.4em;   
     padding: 10px 20px;
   }
@@ -1364,7 +1366,7 @@ input.button-danger:hover{
 .content-content h2{
   font-family:Montserrat,Arial,sans-serif;
   text-transform:uppercase;
-  color:#11407b;
+  color:#004fff;
   margin-bottom:1em;
 }
 .content-content h2 span{
@@ -1386,7 +1388,7 @@ input.button-danger:hover{
   padding:0 0.1em 0 0;
   position:relative;
   top:0.3em;
-  color:#11407b;
+  color:#004fff;
 }
 
 
