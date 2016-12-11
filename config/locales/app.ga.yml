@@ -435,8 +435,8 @@ mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
         existing_user_location: "Recuperouse o teu lugar de participación dun usuario anterior."
       p1_html: "<p> Enchendo este formulario cos teus datos pasarás a formar parte do censo de persoas afiliadas a En Marea e poderás participar en todas as votacións. É un procedemento sinxelo que che permitirá ser parte activa do proxecto.  </p>
 <p> Os teus datos asociaranse a un teléfono móbil, no que recibirás un SMS co teu código de verificación para validar a inscrición. </p>
-<p><b> É seguro o sistema de afiliación? </b> </p>
-<p> Si. Tentamos buscar o equilibrio entre seguridade e facilidade do proceso, cada inscrición é asociada a un teléfono móbil ao que se envía automaticamente o código de verificación persoal. Os nosos equipos informáticos han traballado no desenvolvemento dun sistema seguro, fiable e de fácil acceso para todas e todos.  </p>
+<p><b> É seguro o procedemento de inscrición? </b> </p>
+<p> Si. Tentamos buscar o equilibrio entre seguridade e facilidade do proceso, cada inscrición é asociada a un teléfono móbil ao que se envía automaticamente o código de verificación persoal. Os nosos equipos informaticos traballaron no desenvolvemento dun sistema seguro, fiable e de fácil acceso para todas e todos.  </p>
 <p><a href='/soporte-votaciones/'>Problemas coa inscrición? Escribe a soporte@enmarea.gal</a></p>
 <p><strong>Se non recibes o correo electrónico para completar a inscrición, lembra comprobar 
 se chegou ao cartafol de <em>correo electrónico non desexado</em>, <em>promocións</em> ou <em>spamem>.</strong></p>
@@ -755,7 +755,7 @@ EN MAREA cumpre con todas as medidas de seguridade para a protección de datos p
       save_draft: "Guardar borrador"
       mark_for_review: "Marcar para revisión"
       choose_impulsa_category: "Debes elegir una categoría para que aparezca el resto de campos."
-      authority_hint: "nombre del Grupo parlamentario, Consejo Ciudadano Autonómico, Grupo juntero (País Vasco) o Grupo Europarlamentario"
+      authority_hint: "del Grupo parlamentario, Consejo Ciudadano Autonómico, Grupo juntero (País Vasco) o Grupo Europarlamentario"
       impulsa_edition_topics_hint: "señalar un máximo de dos entre las diferentes temáticas propuestas"
       video_link_hint: "debe ser un enlace a un video subido en YouTube"
       project_status:
