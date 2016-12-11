@@ -36,7 +36,7 @@ ga:
       waiting_confirmation: "Actualmente esperando instruccións para %{email}"
     titles:
       sign_in: "Iniciar sesión"
-      sign_up: "Formulario de afiliación a EN MAREA CIF V70498191"
+      sign_up: "Formulario de inscrición a EN MAREA"
       cancel_account: "Cancelar a miña conta"
       forgot_password: "Esqueciches o teu contrasinal?"
       change_password: "Cambiar o teu contrasinal"
