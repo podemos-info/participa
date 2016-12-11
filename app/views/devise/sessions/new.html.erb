@@ -32,7 +32,7 @@
               </div>
             </fieldset>
             <p>
-              <a style="font-size:1.3em;" href="mailto:soporte@enmarea.gal">Necesitas axuda?</a>
+              <a style="font-size:1.3em;" href="mailto:soporte@enmarea.gal">Problemas coa inscrición?</a>
             </p>
             <p>
               <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
@@ -43,7 +43,7 @@
 
       <div class="col-bhome-1a6">
         <article class="intro">
-        <p>Dámoste a benvida ao portelo de participación de En Marea.</p>
+        <p>Dámosche a benvida ao Portal de Participación de En Marea.</p>
         <p><em class="podemos">En Marea</em> estamos a construír unha estrutura transparente, cidadá, aberta, democrática e eficaz. Unha organización na que discutamos, debatamos e decidamos entre todas as persoas.</p>
 
         <% if @upcoming_election %>
@@ -66,7 +66,7 @@
               <%= number_with_delimiter User.confirmed.count %>
             <% end %>
           </span>
-          persoas afiliadas.</p>
+          persoas inscritas.</p>
         <% end %>
           <div class="buttonbox">
             <%= link_to "Inscríbete", new_user_registration_path, class: 'button intro-indent clear' %>
