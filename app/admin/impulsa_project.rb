@@ -57,7 +57,7 @@ ActiveAdmin.register ImpulsaProject do
   end
 
   action_item(:review, only: :show ) do
-    link_to('Marcar para revision', review_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto para revisión?" }) if !impulsa_project.markable_for_review?
+    link_to('Marcar para revision', review_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto para revisión?" }) if impulsa_project.markable_for_review?
   end
 
   member_action :review, :method => :post do
