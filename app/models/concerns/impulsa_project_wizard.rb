@@ -116,6 +116,25 @@ module ImpulsaProjectWizard
       end
     end
 
+    def wizard_export
+      Hash[ 
+        wizard.map do |sname, step|
+          step[:groups].map do |gname,group|
+            group[:fields].map do |fname, field|
+              value = wizard_values["#{gname}.#{fname}"]
+              next if !field[:export] || value.blank?
+              if field[:type] == "check_boxes"
+                value = value.select(&:present?).map{|v| field[:collection][v] }
+              elsif field[:type] == "select"
+                value = field[:collection][value]
+              end
+              [ "wizard_#{field[:export]}", value ]
+            end .compact
+          end .compact
+        end .flatten(1)
+      ]
+    end
+
     def wizard_step_errors step = nil, options = {}
       wizard[step || wizard_step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|

@@ -75,6 +75,27 @@ module ImpulsaProjectEvaluation
       end
     end
 
+    def evaluation_export
+      Hash[ 
+        evaluation.map do |sname, step|
+          step[:groups].map do |gname,group|
+            group[:fields].map do |fname, field|
+              evaluators.map do |i|
+                value = evaluation_values(i)["#{gname}.#{fname}"]
+                next if !field[:export] || value.blank?
+                if field[:type] == "check_boxes"
+                  value = value.select(&:present?).map{|v| field[:collection][v] }
+                elsif field[:type] == "select"
+                  value = field[:collection][value]
+                end
+                [ "evaluation_#{i}_#{field[:export]}", value ]
+              end.compact if field[:export]
+            end.compact
+          end
+        end.flatten(1)
+      ]
+    end
+
     def evaluation_step_errors evaluator, step, options = {}
       evaluation[step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|
