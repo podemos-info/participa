@@ -56,6 +56,18 @@ ActiveAdmin.register ImpulsaProject do
     redirect_to action: :index
   end
 
+  action_item(:review, only: :show ) do
+    link_to('Marcar para revision', review_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "¿Estas segura de querer marcar este proyecto para revisión?" }) if !impulsa_project.markable_for_review?
+  end
+
+  member_action :review, :method => :post do
+    p = ImpulsaProject.find( params[:id] )
+    p.mark_for_review
+    p.save
+    flash[:notice] = "El proyecto ha sido marcado para revisión."
+    redirect_to action: :index
+  end
+
   sidebar "Subir resultados de votación", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
     render("admin/upload_vote_results_form")
   end
