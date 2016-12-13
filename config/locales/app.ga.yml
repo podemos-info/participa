@@ -901,8 +901,8 @@ EN MAREA cumpre con todas as medidas de seguridade para a protección de datos p
       thanks: "Muchas gracias por colaborar. El cambio empieza gracias a ti."
   formtastic:
     labels:
-      first_name: "Nombre"
-      last_name: "Apellidos"
+      first_name: "Nome"
+      last_name: "Apelidos"
       document_vatid: "Nº de documento"
       email: "Correo electrónico"
       address: "Dirección"
