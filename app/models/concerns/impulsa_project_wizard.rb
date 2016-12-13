@@ -117,7 +117,7 @@ module ImpulsaProjectWizard
     end
 
     def wizard_export
-      Hash[ 
+      Hash[
         wizard.map do |sname, step|
           step[:groups].map do |gname,group|
             group[:fields].map do |fname, field|
@@ -130,7 +130,7 @@ module ImpulsaProjectWizard
               end
               [ "wizard_#{field[:export]}", value ]
             end .compact
-          end .compact
+          end .compact.flatten(1)
         end .flatten(1)
       ]
     end

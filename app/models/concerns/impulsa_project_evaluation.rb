@@ -91,7 +91,7 @@ module ImpulsaProjectEvaluation
                 [ "evaluation_#{i}_#{field[:export]}", value ]
               end.compact if field[:export]
             end.compact
-          end
+          end.flatten(1)
         end.flatten(1)
       ]
     end

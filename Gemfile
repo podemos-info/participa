@@ -72,7 +72,7 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
   gem 'factory_girl_rails'
-  gem 'byebug'
+  gem 'byebug', '<7.0.0'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails-perftest'
