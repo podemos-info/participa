@@ -5,3 +5,12 @@ Airbrake.configure do |config|
   config.secure  = config.port == 443
 end
 
+module Airbrake
+  def self.notify_or_raise ex
+    if self.configuration.api_key
+      self.notify ex
+    else
+      raise ex
+    end
+  end
+end
