@@ -12,7 +12,7 @@ ga:
         title: "Páxina non atopada"
         message_html: "Non puidemos atopar esa páxina. Tentao máis tarde ou <a href='/'>proba desde a páxina principal</a>."
       "500":
-        title: "Error no servidor" 
+        title: "Error no servidor"
         message_html: "Houbo un erro no servidor. Podes avisarnos en <a href='mailto:soporte@enmarea.gal'>soporte@enmarea.gal</a>"
     messages:
       not_valid_spanish_vat: O número de identificación fiscal non é válido
@@ -301,8 +301,8 @@ ga:
         province_town: "Provincia de orixe"
         postal_code: "Código postal"
         country: "País"
-        password: "Contrasinal"
-        password_confirmation: "Contrasinal (repetir)"
+        password: "Novo contrasinal"
+        password_confirmation: "Novo contrasinal (repetir)"
         remember_me: "Lembrarme"
         wants_newsletter: 'Newsletter'
         terms_of_service: "Lin e acepto as condicións xerais"
