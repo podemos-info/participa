@@ -912,7 +912,7 @@ EN MAREA cumpre con todas as medidas de seguridade para a protección de datos p
       terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
   simple_captcha:
     placeholder: "texto"
-    label: "Introduce el texto que se ve en la imagen"
-    refresh_button_text: "Regenerar"
+    label: "Introduce o texto que se ve na imaxe"
+    refresh_button_text: "Rexenerar"
     message:
-      default: "El texto introducido no corresponde con el de la imagen"
+      default: "O texto introducido non corresponde co da imaxe"
