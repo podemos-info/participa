@@ -39,7 +39,7 @@ class ImpulsaMailer < ActionMailer::Base
 
   def on_validated(project)
     @evaluation_url = evaluation_impulsa_url
-    @voting_dates = project.votings_dates if project.impulsa_edition_category.has_votings
+    @voting_dates = project.voting_dates if project.impulsa_edition_category.has_votings
     @winners = project.impulsa_edition_category.winners
 
     mail(
