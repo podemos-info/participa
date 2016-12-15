@@ -76,7 +76,8 @@ module ImpulsaProjectEvaluation
     end
 
     def evaluation_export
-      _evaluation_update_formulas evaluator
+      evaluation_update_formulas
+
       Hash[ 
         evaluation.map do |sname, step|
           step[:groups].map do |gname,group|
@@ -132,7 +133,7 @@ module ImpulsaProjectEvaluation
       if field
         old_value = evaluation_values(evaluator)["#{gname}.#{fname}"]
         evaluation_values(evaluator)["#{gname}.#{fname}"] = value
-        _evaluation_update_formulas evaluator, sname
+        _evaluator_update_formulas evaluator, sname
         return :ok
       end
       return :wrong_field
@@ -160,17 +161,23 @@ module ImpulsaProjectEvaluation
     end
 
     def can_finish_evaluation? user
-      _evaluation_update_formulas evaluator
+      evaluation_update_formulas
       self.validable? && !self.evaluation_has_errors? && user.admin?
     end
 
+    def evaluation_update_formulas
+      (1..EVALUATORS).each do |i|
+        _evaluator_update_formulas(i) if evaluator[i]
+      end
+    end
+
 private
-    def _evaluation_update_formulas evaluator, updated_step = nil
+    def _evaluator_update_formulas evaluator, updated_step = nil
       evaluation.each do |sname, step|
         step[:groups].each do |gname,group|
           group[:fields].each do |fname, field|
             if field[:sum] && evaluation[field[:sum]] && (updated_step.nil? || field[:sum]==updated_step)
-              value = evaluation[field[:sum]].sum do |gname,group|
+              value = evaluation[field[:sum]][:groups].sum do |gname,group|
                         group[:fields].sum do |fname, field|
                           evaluation_values(evaluator)["#{gname}.#{fname}"] if field[:type]=="number"
                         end
