@@ -56,8 +56,8 @@ module ImpulsaProjectEvaluation
         step[:groups].map do |gname,group|
           group[:fields].map do |fname, field|
             evaluators.map do |i|
-              "_evl#{i}_#{gname}__#{fname}"
-            end
+              "_evl#{i}_#{gname}__#{fname}" if field[:sum].blank?
+            end .compact
           end .flatten(1)
         end .flatten(1)
       end .flatten(1)
@@ -130,8 +130,7 @@ module ImpulsaProjectEvaluation
     def assign_evaluation_value evaluator, gname, fname, value
       sname = evaluation.map {|sname, step| step[:groups][gname] && step[:groups][gname][:fields][fname] && sname } .compact.first
       field = evaluation[sname][:groups][gname][:fields][fname]
-      if field
-        old_value = evaluation_values(evaluator)["#{gname}.#{fname}"]
+      if field && field[:sum].blank?
         evaluation_values(evaluator)["#{gname}.#{fname}"] = value
         _evaluator_update_formulas evaluator, sname
         return :ok
@@ -176,13 +175,14 @@ private
       evaluation.each do |sname, step|
         step[:groups].each do |gname,group|
           group[:fields].each do |fname, field|
-            if field[:sum] && evaluation[field[:sum]] && (updated_step.nil? || field[:sum]==updated_step)
+            if field[:sum] && evaluation[field[:sum]] && (updated_step.nil? || field[:sum]==updated_step.to_s)
               value = evaluation[field[:sum]][:groups].sum do |gname,group|
                         group[:fields].sum do |fname, field|
-                          evaluation_values(evaluator)["#{gname}.#{fname}"] if field[:type]=="number"
+                          (evaluation_values(evaluator)["#{gname}.#{fname}"].to_i if field[:type]=="number") || 0
                         end
                       end
-              assign_evaluation_value(evaluator, gname, fname, value)
+              evaluation_values(evaluator)["#{gname}.#{fname}"] = value
+              _evaluator_update_formulas evaluator, sname
             end
           end
         end
