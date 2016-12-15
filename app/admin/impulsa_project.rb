@@ -224,6 +224,7 @@ ActiveAdmin.register ImpulsaProject do
                             params = { name: field_name, type: field[:type], value: value }
                             params[:max] = field[:maximum] if field[:maximum]
                             params[:min] = field[:minimum] if field[:minimum]
+                            params[:readonly] = true if field[:sum]
                             input params
                           end
                         else
@@ -258,10 +259,10 @@ ActiveAdmin.register ImpulsaProject do
           fieldset class: :actions do
             ol do
               li class: "action input_action" do
-                input type: :submit, name: "evaluation_action", value: "Fase superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+                input type: :submit, name: "evaluation_action_ok", value: "Fase superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
               end
               li class: "action input_action" do
-                input type: :submit, name: "evaluation_action", value: "Fase NO superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+                input type: :submit, name: "evaluation_action_ko", value: "Fase NO superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
               end
             end
           end
@@ -388,10 +389,10 @@ ActiveAdmin.register ImpulsaProject do
         flash[:notice] = "El proyecto ha sido marcado como revisado."
         send_email = true
       elsif resource.validable? && resource.evaluation_result?
-        if params[:evaluation_action].downcase=="validar"
+        if params[:evaluation_action_ok].present?
           resource.mark_as_validated
           flash[:notice] = "El proyecto ha sido marcado como validado."
-        else
+        elsif params[:evaluation_action_ko].present?
           resource.mark_as_invalidated
           flash[:notice] = "El proyecto ha sido marcado como invalidado."
         end
