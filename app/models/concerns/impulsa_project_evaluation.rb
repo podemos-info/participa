@@ -76,6 +76,7 @@ module ImpulsaProjectEvaluation
     end
 
     def evaluation_export
+      _evaluation_update_formulas evaluator
       Hash[ 
         evaluation.map do |sname, step|
           step[:groups].map do |gname,group|
@@ -103,6 +104,7 @@ module ImpulsaProjectEvaluation
         end.select(&:last)
       end.flatten(1)
     end
+
     def evaluation_field_error evaluator, gname, fname, group = nil, field = nil, options = {}
       group = evaluation.collect {|sname, step| step[:groups][gname] } .compact.first if group.nil?
       field = group[:fields][fname] if field.nil?
@@ -125,10 +127,12 @@ module ImpulsaProjectEvaluation
     end
 
     def assign_evaluation_value evaluator, gname, fname, value
-      field = evaluation.map {|sname, step| step[:groups][gname] && step[:groups][gname][:fields][fname] } .compact.first
+      sname = evaluation.map {|sname, step| step[:groups][gname] && step[:groups][gname][:fields][fname] && sname } .compact.first
+      field = evaluation[sname][:groups][gname][:fields][fname]
       if field
         old_value = evaluation_values(evaluator)["#{gname}.#{fname}"]
         evaluation_values(evaluator)["#{gname}.#{fname}"] = value
+        _evaluation_update_formulas evaluator, sname
         return :ok
       end
       return :wrong_field
@@ -156,7 +160,26 @@ module ImpulsaProjectEvaluation
     end
 
     def can_finish_evaluation? user
+      _evaluation_update_formulas evaluator
       self.validable? && !self.evaluation_has_errors? && user.admin?
+    end
+
+private
+    def _evaluation_update_formulas evaluator, updated_step = nil
+      evaluation.each do |sname, step|
+        step[:groups].each do |gname,group|
+          group[:fields].each do |fname, field|
+            if field[:sum] && evaluation[field[:sum]] && (updated_step.nil? || field[:sum]==updated_step)
+              value = evaluation[field[:sum]].sum do |gname,group|
+                        group[:fields].sum do |fname, field|
+                          evaluation_values(evaluator)["#{gname}.#{fname}"] if field[:type]=="number"
+                        end
+                      end
+              assign_evaluation_value(evaluator, gname, fname, value)
+            end
+          end
+        end
+      end
     end
   end
 end
