@@ -391,12 +391,13 @@ ActiveAdmin.register ImpulsaProject do
       elsif resource.validable? && resource.evaluation_result?
         if params[:evaluation_action_ok].present?
           resource.mark_as_validated
+          send_email = true
           flash[:notice] = "El proyecto ha sido marcado como validado."
         elsif params[:evaluation_action_ko].present?
           resource.mark_as_invalidated
+          send_email = true
           flash[:notice] = "El proyecto ha sido marcado como invalidado."
         end
-        send_email = true
       end
       
       if send_email
