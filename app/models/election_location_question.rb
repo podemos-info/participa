@@ -4,7 +4,7 @@
   VOTING_SYSTEMS = { "plurality-at-large" => "Elección entre todas las respuestas", "pairwise-beta" => "Comparaciones uno a uno (requiere layout simple)" }
   TOTALS = { "over-total-valid-votes" => "Sobre votos válidos" }
 
-  validates :title, :voting_system, :winners, :minimum, :maximum, :random_order, :totals, :options, presence: true
+  validates :title, :voting_system, :winners, :minimum, :maximum, :totals, :options, presence: true
 
   after_initialize do
     if self.title.blank?
