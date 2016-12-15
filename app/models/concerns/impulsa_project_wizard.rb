@@ -75,7 +75,7 @@ module ImpulsaProjectWizard
         step[:groups].map do |gname,group|
           group[:fields].map do |fname, field|
             ["_wiz_#{gname}__#{fname}", field[:type]=="check_boxes"]
-          end .compact
+          end
         end .flatten(1)
       end .flatten(1)
       _all.collect{|field, multiple| field unless multiple}.compact + [Hash[_all.select(&:last).map{|field,multiple| [field, []]}]]
@@ -94,6 +94,18 @@ module ImpulsaProjectWizard
       self.editable? || (self.fixable? && (self.wizard_review["#{gname}.#{fname}"].present? || self.wizard_field_error(gname,fname)))
     end
     
+    def wizard_all_errors options = {}
+      wizard.map do |sname, step|
+        wizard_step_errors sname, options
+      end .compact.flatten(1)
+    end
+
+    def wizard_step_valid? step = nil, options = {}
+      wizard_step_errors(step, options).each do |gname, fname, error|
+        errors.add("_wiz_#{gname}__#{fname}", error)
+      end .none?
+    end
+
     def wizard_has_errors? options = {}
       wizard_count_errors(options) > 0
     end      
@@ -104,16 +116,29 @@ module ImpulsaProjectWizard
       end
     end
 
-    def wizard_valid?
-      wizard_step_errors.each do |field, error|
-        errors.add(field, error)
-      end .none?
+    def wizard_export
+      Hash[
+        wizard.map do |sname, step|
+          step[:groups].map do |gname,group|
+            group[:fields].map do |fname, field|
+              value = wizard_values["#{gname}.#{fname}"]
+              next if !field[:export] || value.blank?
+              if field[:type] == "check_boxes"
+                value = value.select(&:present?).map{|v| field[:collection][v] }
+              elsif field[:type] == "select"
+                value = field[:collection][value]
+              end
+              [ "wizard_#{field[:export]}", value ]
+            end .compact
+          end .compact.flatten(1)
+        end .flatten(1)
+      ]
     end
 
     def wizard_step_errors step = nil, options = {}
       wizard[step || wizard_step][:groups].map do |gname,group|
         group[:fields].map do |fname, field|
-          [ "_wiz_#{gname}__#{fname}", wizard_field_error(gname, fname, group, field, options) ]
+          [ gname, fname, wizard_field_error(gname, fname, group, field, options) ]
         end.select(&:last)
       end.flatten(1)
     end
@@ -183,7 +208,7 @@ module ImpulsaProjectWizard
       files_folder + wizard_values["#{gname}.#{fname}"]
     end
 
-    def method_missing(method_sym, *arguments, &block)
+    def wizard_method_missing(method_sym, *arguments, &block)
       if method_sym.to_s =~ /^_wiz_(.+)__([^=]+)=?$/
         self.instance_eval <<-RUBY
           def _wiz_#{$1}__#{$2}
@@ -193,7 +218,7 @@ module ImpulsaProjectWizard
             assign_wizard_value(:"#{$1}", :"#{$2}", value)
           end
         RUBY
-        send(method_sym, *arguments)
+        return send(method_sym, *arguments)
       elsif method_sym.to_s =~ /^_rvw_(.+)__([^=]+)=?$/
         self.instance_eval <<-RUBY
           def _rvw_#{$1}__#{$2}
@@ -203,11 +228,9 @@ module ImpulsaProjectWizard
             wizard_review["#{$1}.#{$2}"] = value
           end
         RUBY
-        send(method_sym, *arguments)
-      else
-        super
+        return send(method_sym, *arguments)
       end
+      :super
     end
- 
   end
 end

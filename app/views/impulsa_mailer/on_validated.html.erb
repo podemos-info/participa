@@ -1,0 +1,23 @@
+<p>Estimado/a compañero/a,</p>
+
+<p>Tenemos el placer de informarte de que tu proyecto ha superado la fase de evaluación.</p>
+
+<p>Puedes conocer los detalles de este proceso en la <a href="<%=@evaluation_url%>">página de tu proyecto en el Portal de Participación de Podemos</a>.</p>
+
+<% if @voting_dates.present? %>
+<p>Del <%=@voting_dates%>, se abrirá un proceso de votaciones en el que las personas inscritas en Podemos podrán elegir <%=@winners%> proyectos ganadores entre los que han llegado hasta esta fase.</p>
+
+<p>Posteriormente, los resultados de la votación se harán públicos en la <a href="http://impulsa.podemos.info/">página web de IMPULSA</a>.</p>
+<% else %>
+<p>El <%=@results_date%> se publicarán en la <a href="http://impulsa.podemos.info/">página web de IMPULSA</a> el listado de proyectos que han superado esta fase, de los que resultarán premiados los proyectos los que hayan obtenido mejor valoración en cada categoría hasta agotar su presupuesto.</p>
+<% end %>
+
+<p>Te deseamos mucha suerte en este proceso, y te agradecemos por participar en esta edición de IMPULSA.</p>
+
+<p>Un cordial saludo,</p>
+
+<p>Equipo técnico<br/>
+Proyecto IMPULSA<br/>
+Área de participación estatal<br/>
+Podemos</p>
+

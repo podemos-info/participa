@@ -10,7 +10,8 @@ class ImpulsaEdition < ActiveRecord::Base
   has_attached_file :requested_budget_model
   has_attached_file :monitoring_evaluation_model
 
-  validates :name, presence: true
+  validates :name, :email, presence: true
+  validates :email, email: true
 
   validates *I18n.available_locales.map {|l| "legal_#{l}".to_sym }, allow_blank: true, url: true
 

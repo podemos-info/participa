@@ -1074,7 +1074,7 @@ proposals
     border: 0; 
   }
 
-  .supported, .thanks {
+  .supported, .thanks, .discarded {
     background: #dff0d8;
     border: 1px solid #d6e9c6;
     color: #3c763d;
@@ -1089,7 +1089,11 @@ proposals
     -moz-border-radius: 3px;
     -o-border-radius: 3px;
   }
-
+  .discarded {
+    color: #a94442;
+    background: #f2dede;
+    border: 1px solid #a94442;
+  }
 }
 
 .no-border-bottom {
@@ -1143,9 +1147,12 @@ proposals
     color: #858585;
     line-height: 24px;
 
-    .supported, .thanks {
+    .supported, .thanks, .discarded {
       color: #3c763d;
       font-weight: bold;
+    }
+    .discarded {
+      color: #a94442;
     }
   }
 

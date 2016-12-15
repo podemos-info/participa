@@ -3,7 +3,7 @@ class Reddit
   attr_accessor :base_url, :filter, :limit
   
   def initialize(name)
-    @base_url = "http://api.reddit.com/r/#{name}"
+    @base_url = "https://api.reddit.com/r/#{name}"
     @filter   = 'top'
     @limit    = 100
   end
@@ -33,6 +33,7 @@ class Reddit
       votes:       data["ups"],
       author:      data["author"],
       reddit_url:  data["url"],
-      reddit_id:   data["name"] }
+      reddit_id:   data["name"]
+    }
   end
 end

@@ -4,8 +4,14 @@
     <div class="how-info">
         <%= link_to '¿Qué son y cómo funcionan las Iniciativas Ciudadanas Podemos?', proposals_info_path %>
     </div>
-    
     <h1>Iniciativas Ciudadanas</h1>
+
+    <div class="box">
+      <div class="box-info">
+        <p>Debido a un fallo en el sistema que gestiona las iniciativas, se ha permitido recoger apoyos a iniciativas pasado <a href="<%=proposals_info_path%>">el plazo de 3 meses que marca el documento organizativo</a>. Una vez detectado, este fallo ha sido subsanado y se ha modificado el sistema para que únicamente tenga en cuenta los apoyos recibidos durante el plazo válido, esto explica el descenso reciente de apoyos en las iniciativas. Sentimos las molestias. Seguimos trabajando para mejorar.</p>
+      </div>
+    </div>   
+
     
     <div class="container">
         <nav>
@@ -14,26 +20,20 @@
             <%= filtered_proposals 'Por tiempo', 'time' %>
             <%= filtered_proposals 'Candentes',  'hot' %>
         </nav>
-
-        <br/>
-        <% if Proposal.frozen? %>
-            <%= alert_box "Iniciativas pausadas", false  do %>
-                Las ICP están en pausa ya que es se está estudiando un posible cambio en el tipo de censo de Podemos que regirá las ICP. Serán reanudadas una vez se tome una decisión al respecto. Puedes seguir proponiendo ICP en plaza podemos.
-            <% end %>
-        <% end %>
-
         <div>
           <%= render @proposals %>
         </div>
     </div>
 
     <div class="sidebar">
+    
+
 
         <h2>Candentes</h2>
         <% @hot.each do |proposal| %>
             <article class="proposal-sidebar">    
                 <div>
-                    <p class="finish"><span>Termina en </span><strong><%= time_left(proposal) %></strong></p>
+                    <p class="finish"><span><%= proposal.finished? ? "Cerrada hace" : "Termina en" %> </span><strong><%= time_left(proposal) %></strong></p>
                     <p class="support">
                         <strong>
                             <%= formatted_support_percentage(proposal, precision: 1) %>

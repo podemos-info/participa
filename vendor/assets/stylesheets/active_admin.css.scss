@@ -30,10 +30,47 @@ table.index_table th a {
   white-space: normal !important;
 }
 
-.review {
-  background: #f5bfc9;
+.attributes_table table {
+  th, td {
+    color: #666;
+  }
+  th {
+    padding-left:10px;
+  }
+}
+.row.review {
+  background: #ccc;
   border-bottom: 1px solid #999;
   .label {
     color: #612d6;
+  }
+  &.remark {
+    background: #f5bfc9;
+  }
+}
+.row.error {
+  background: red;
+  th, td {
+    color: white;
+  }
+}
+.evaluation {
+  .readonly {
+    padding-top: 7px;
+  }
+  .input {
+    padding-top:0px;
+    padding-bottom:0px;
+  }
+  .input.input_1 {
+    margin-top: 20px;
+    padding-top: inherit;
+  }
+  .input.full {
+    clear: both;
+    margin-top: 15px;
+    label {
+      width: 100%;
+    }
   }
 }
