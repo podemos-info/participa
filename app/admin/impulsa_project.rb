@@ -68,6 +68,11 @@ ActiveAdmin.register ImpulsaProject do
     redirect_to action: :index
   end
 
+  member_action :download_attachment do
+    project = ImpulsaProject.find( params[:id] )
+    send_file project.wizard_path(params[:gname], params[:fname])
+  end
+
   sidebar "Subir resultados de votación", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
     render("admin/upload_vote_results_form")
   end
@@ -151,7 +156,7 @@ ActiveAdmin.register ImpulsaProject do
                   when "check_boxes"
                     div (value || []).map {|i| field[:collection][i] } .join(", ")
                   when "file"
-                    div value
+                    div link_to(value, download_attachment_admin_impulsa_edition_impulsa_project_path(id: impulsa_project.id, fname: fname, gname: gname))
                   else
                     div value
                   end
@@ -391,12 +396,13 @@ ActiveAdmin.register ImpulsaProject do
       elsif resource.validable? && resource.evaluation_result?
         if params[:evaluation_action_ok].present?
           resource.mark_as_validated
+          send_email = true
           flash[:notice] = "El proyecto ha sido marcado como validado."
         elsif params[:evaluation_action_ko].present?
           resource.mark_as_invalidated
+          send_email = true
           flash[:notice] = "El proyecto ha sido marcado como invalidado."
         end
-        send_email = true
       end
       
       if send_email
