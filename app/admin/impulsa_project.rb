@@ -156,7 +156,11 @@ ActiveAdmin.register ImpulsaProject do
                   when "check_boxes"
                     div (value || []).map {|i| field[:collection][i] } .join(", ")
                   when "file"
-                    div link_to(value, download_attachment_admin_impulsa_edition_impulsa_project_path(id: impulsa_project.id, fname: fname, gname: gname))
+                    if value
+                      div link_to(value, download_attachment_admin_impulsa_edition_impulsa_project_path(id: impulsa_project.id, fname: fname, gname: gname))
+                    else
+                      div ""
+                    end
                   else
                     div value
                   end
