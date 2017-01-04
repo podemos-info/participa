@@ -442,11 +442,11 @@ class User < ActiveRecord::Base
   end
 
   def has_vote_town?
-    not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
+    self.vote_town.present? && self.vote_town[0].downcase=="m" && (1..52).include?(self.vote_town[2,2].to_i)
   end
 
   def has_verified_vote_town?
-    self.has_vote_town? and self.vote_town[0]=="m"
+    self.has_vote_town? && self.vote_town[0]=="m"
   end
 
   def vote_autonomy_code
@@ -675,7 +675,7 @@ class User < ActiveRecord::Base
   def _vote_province
     @vote_province_cache = begin
       prov = nil
-      if self.has_vote_town? && (1..52).include?(self.vote_town[2,2].to_i)
+      if self.has_vote_town?
         prov = Carmen::Country.coded("ES").subregions[self.vote_town[2,2].to_i-1]
       elsif self.country=="ES"
         prov = _province
