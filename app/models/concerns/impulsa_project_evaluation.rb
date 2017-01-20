@@ -49,7 +49,7 @@ module ImpulsaProjectEvaluation
 
     def is_current_evaluator? user_id
       e = current_evaluator(user_id)
-      e && changes.keys.include? "evaluator#{e}_id"
+      e && changes.keys.include?("evaluator#{e}_id")
     end
 
     def reset_evaluator user_id
