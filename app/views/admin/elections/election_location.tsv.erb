@@ -23,7 +23,5 @@ Totals	<%= elq.totals %>
 		
 @Options
 Id	<%= elq.options_headers.join("\t") %>
-<% elq.options.split("\n").each_with_index do |option, i| %>
-<%= i%>	<%= option.html_safe %>
-<% end %>
-<% end %>
+<% CSV.parse(elq.options, col_sep: "\t").each_with_index do |option, i| %>
+<%= i%>	<%= option.to_csv(col_sep: "\t").html_safe %><% end %><% end %>
