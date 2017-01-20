@@ -47,6 +47,18 @@ module ImpulsaProjectEvaluation
       return nil
     end
 
+    def is_current_evaluator? user_id
+      e = current_evaluator(user_id)
+      e && changes.keys.include? "evaluator#{e}_id"
+    end
+
+    def reset_evaluator user_id
+      i = current_evaluator user_id
+      return unless i
+      evaluator[i] = nil
+      evaluation_values(i).clear
+    end
+
     def evaluation_values evaluator
       send("evaluator#{evaluator}_evaluation")
     end
