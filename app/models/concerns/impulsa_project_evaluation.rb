@@ -48,8 +48,10 @@ module ImpulsaProjectEvaluation
     end
 
     def is_current_evaluator? user_id
-      e = current_evaluator(user_id)
-      e && !changes.keys.include?("evaluator#{e}_id")
+      evaluators.each do |i|
+        return true if send("evaluator#{i}_id_was")==user_id
+      end
+      false
     end
 
     def reset_evaluator user_id
