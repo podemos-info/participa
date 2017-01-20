@@ -73,6 +73,18 @@ ActiveAdmin.register ImpulsaProject do
     send_file project.wizard_path(params[:gname], params[:fname])
   end
 
+  action_item(:reset_evaluator, only: :show ) do
+    link_to('Abandonar evaluación',reset_evaluator_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "Si abandonas se perderán los datos introducidos por ti en el formulario de evaluación. ¿Deseas continuar?" }) if impulsa_project.is_current_evaluator?(current_active_admin_user.id)
+  end
+
+  member_action :reset_evaluator, :method => :post do
+    p = ImpulsaProject.find( params[:id] )
+    p.reset_evaluator(current_active_admin_user.id)
+    p.save
+    flash[:notice] = "Has abandonado la evaluación del proyecto, cualquier usuario podrá realizarla en tu lugar."
+    redirect_to action: :index
+  end
+
   sidebar "Subir resultados de votación", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
     render("admin/upload_vote_results_form")
   end
