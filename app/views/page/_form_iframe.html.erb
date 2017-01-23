@@ -12,6 +12,7 @@
 	%>&participa_user_email=<%=u  current_user.email 
 	%>&participa_user_document_vatid=<%=u current_user.document_vatid
 	%>&participa_user_born_at=<%=u current_user.born_at.strftime('%d/%m/%Y')
+	%>&participa_user_autonomy=<%=u current_user.vote_autonomy
 	%>&participa_user_comunity=<%=u current_user.vote_autonomy_code
 	%>&participa_user_town_code=<%=u current_user.town
 %><% end %><%= 
