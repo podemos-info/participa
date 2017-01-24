@@ -8,8 +8,15 @@
         <%= content_tag(:h2, "Evaluación") %>
         <p>La evaluación del proyecto ha sido realizada de forma minuciosa e independiente por dos evaluadores. El resultado final de la evaluación es el siguiente, y la valoración de cada criterio se detalla a continuación:</p>
 
-        <p class="impulsa_evaluation_result <%= @project.invalidated? ? "invalid" : "valid" %>"><%=@project.evaluation_result%></p> 
-
+        <p class="impulsa_evaluation_result <%= @project.invalidated? ? "invalid" : "valid" %>"><%=@project.evaluation_result%>.
+        <% if @project.invalidated? %>
+          Evaluación no superada. 
+          <%= "No pasa a fase de votaciones al no haber alcanzado la puntuación mínima requerida." if @project.impulsa_edition_category.has_votings %>
+        <% else %>
+          Evaluación superada ¡Enhorabuena! 
+          <%= "El proyecto pasa a la fase de votación." if @project.impulsa_edition_category.has_votings %>
+        <% end %>
+        </p> 
         <div class="impulsa_evaluation">
           <% @project.evaluators.each do |i| %>
             <span><strong>Evaluador <%=i%></strong></span>

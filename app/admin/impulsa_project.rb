@@ -53,7 +53,7 @@ ActiveAdmin.register ImpulsaProject do
     p.mark_as_spam
     p.save
     flash[:notice] = "El proyecto ha sido marcado como spam."
-    redirect_to action: :index
+    redirect_to :back
   end
 
   action_item(:review, only: :show ) do
@@ -65,7 +65,7 @@ ActiveAdmin.register ImpulsaProject do
     p.mark_for_review
     p.save
     flash[:notice] = "El proyecto ha sido marcado para revisión."
-    redirect_to action: :index
+    redirect_to :back
   end
 
   member_action :download_attachment do
@@ -82,7 +82,7 @@ ActiveAdmin.register ImpulsaProject do
     p.reset_evaluator(current_active_admin_user.id)
     p.save
     flash[:notice] = "Has abandonado la evaluación del proyecto, cualquier usuario podrá realizarla en tu lugar."
-    redirect_to action: :index
+    redirect_to :back
   end
 
   sidebar "Subir resultados de votación", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
