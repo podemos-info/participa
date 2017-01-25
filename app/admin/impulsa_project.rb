@@ -40,6 +40,7 @@ ActiveAdmin.register ImpulsaProject do
         status_tag("OK", :ok)
       end
     end
+    column :evaluation_result
     column :votes
     actions
   end
@@ -139,7 +140,7 @@ ActiveAdmin.register ImpulsaProject do
         end
         row :created_at
         row :updated_at
-        row "Evaluation" do
+        row "Evaluación" do
           impulsa_project.evaluation_result
         end if impulsa_project.evaluation_result.present?
       end
