@@ -446,7 +446,7 @@ ActiveAdmin.register ImpulsaProject do
     column(:phone) { |project| project.user.phone }
     column(:town_name) { |project| project.user.town_name }
     column(:impulsa_edition_category) { |project| project.impulsa_edition_category.name }
-
+    column :evaluation_result
     column :votes
   end
 
