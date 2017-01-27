@@ -1,21 +1,28 @@
 require 'dynamic_router'
 Rails.application.routes.draw do
 
+  use_doorkeeper
   get '', to: redirect("/#{I18n.locale}")
 
-  # redsys MerchantURL 
+  # redsys MerchantURL
   post '/orders/callback/redsys', to: 'orders#callback_redsys', as: 'orders_callback_redsys'
 
   namespace :api do
-    scope :v1 do 
-      scope :gcm do 
+    scope :v1 do
+      scope :gcm do
         post 'registrars', to: 'v1#gcm_registrate'
         delete 'registrars/:registrar_id', to: 'v1#gcm_unregister'
       end
     end
+
+    namespace :v2 do
+      scope :users do
+        get 'me', to: 'users#show'
+      end
+    end
   end
 
-  scope "/(:locale)", locale: /es|ca|eu/ do 
+  scope "/(:locale)", locale: /es|ca|eu/ do
 
     get '/openid/discover', to: 'open_id#discover', as: "open_id_discover"
     get '/openid', to: 'open_id#index', as: "open_id_index"
@@ -57,7 +64,7 @@ Rails.application.routes.draw do
     get '/responsables-areas-cc-autonomicos', to: 'page#responsables_areas_cc_autonomicos', as:"responsables_areas_cc_autonomicos"
     get '/boletin-correo-electronico', to: 'page#boletin_correo_electronico', as:"boletin_correo_electronico"
     get '/responsable-web-autonomico', to: 'page#responsable_web_autonomico', as: 'responsable_web_autonomico'
-    
+
     get '/comparte-el-cambio/compartir-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
     get '/comparte-el-cambio/compartir-coche-sevilla', to: 'page#share_car_sevilla', as: 'share_car_sevilla'
@@ -85,15 +92,15 @@ Rails.application.routes.draw do
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote
     get '/vote/check/:election_id', to: 'vote#check', as: :check_vote
-    
+
     get '/vote/sms_check/:election_id', to: 'vote#sms_check', as: :sms_check_vote
     get '/vote/send_sms_check/:election_id', to: 'vote#send_sms_check', as: :send_sms_check_vote
-    
-    devise_for :users, controllers: { 
-      registrations: 'registrations', 
-      passwords:     'passwords', 
+
+    devise_for :users, controllers: {
+      registrations: 'registrations',
+      passwords:     'passwords',
       confirmations: 'confirmations'
-    } 
+    }
 
     get '/microcreditos', to: 'microcredit#index', as: 'microcredit'
     get '/microcréditos', to: redirect('/microcreditos')
@@ -108,7 +115,7 @@ Rails.application.routes.draw do
 
     authenticate :user do
       scope :validator do
-        scope :sms do 
+        scope :sms do
           get :step1, to: 'sms_validator#step1', as: 'sms_validator_step1'
           get :step2, to: 'sms_validator#step2', as: 'sms_validator_step2'
           get :step3, to: 'sms_validator#step3', as: 'sms_validator_step3'
@@ -117,7 +124,7 @@ Rails.application.routes.draw do
           post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
         end
       end
-      
+
       scope :colabora do
         delete 'baja', to: 'collaborations#destroy', as: 'destroy_collaboration'
         get 'ver', to: 'collaborations#edit', as: 'edit_collaboration'
@@ -129,7 +136,7 @@ Rails.application.routes.draw do
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
     end
-    
+
     scope :impulsa do
       get '', to: 'impulsa#index', as: 'index_impulsa'
       get 'nuevo', to: 'impulsa#new', as: 'new_impulsa'
@@ -147,8 +154,8 @@ Rails.application.routes.draw do
       get ':id', to: 'blog#post', as: 'post'
       get 'categoria/:id', to: 'blog#category', as: 'category'
     end
-    
-    # http://stackoverflow.com/a/8884605/319241 
+
+    # http://stackoverflow.com/a/8884605/319241
     devise_scope :user do
       get '/registrations/regions/provinces', to: 'registrations#regions_provinces'
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
@@ -164,9 +171,9 @@ Rails.application.routes.draw do
         root 'devise/sessions#new', as: :root
       end
     end
-    
+
     if Rails.application.secrets.features["verification_presencial"]
-      scope '/verificadores' do 
+      scope '/verificadores' do
         get '/', to: 'verification#step1', as: :verification_step1
         get '/nueva', to: 'verification#step2', as: :verification_step2
         get '/confirmar', to: 'verification#step3', as: :verification_step3
@@ -175,10 +182,10 @@ Rails.application.routes.draw do
         get '/ok', to: 'verification#result_ok', as: :verification_result_ok
         get '/ko', to: 'verification#result_ko', as: :verification_result_ko
       end
-      scope '/verificaciones' do 
+      scope '/verificaciones' do
         get '/', to: 'verification#show', as: :verification_show
       end
-    end    
+    end
 
     %w(404 422 500).each do |code|
       get code, to: 'errors#show', code: code

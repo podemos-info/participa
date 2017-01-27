@@ -32,6 +32,8 @@ es:
       verification/centers: "Puntos de Verificación"
       verification/slot: "Horario"
       verification/slots: "Horarios"
+      doorkeeper/application: "Aplicación"
+      doorkeeper/applications: "Aplicaciones"
     errors:
       models:
         user:

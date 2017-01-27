@@ -7,6 +7,7 @@ require 'webmock/minitest'
 require 'minitest/reporters'
 require 'minitest/rails/capybara'
 require 'capybara/poltergeist'
+require 'mocha/mini_test'
 
 SimpleCov.start
 WebMock.disable_net_connect!(allow_localhost: true)
