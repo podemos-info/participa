@@ -6,6 +6,7 @@ class CollaborationsController < ApplicationController
   def new
     redirect_to edit_collaboration_path and return if current_user.collaboration 
     @collaboration = Collaboration.new
+    @collaboration.for_town_cc = true
   end
 
   def modify
