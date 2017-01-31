@@ -34,6 +34,7 @@ namespace :podemos do
                             }
             elsif value.is_a? Array
               post_info[:terms_names][key] = value
+              post_info[:custom_fields] << { key: "project_#{key}", value: value }
             else
               post_info[:custom_fields] << { key: "project_#{key}", value: value }
             end
