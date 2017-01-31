@@ -40,6 +40,7 @@ ActiveAdmin.register ImpulsaProject do
         status_tag("OK", :ok)
       end
     end
+    column :evaluation_result
     column :votes
     actions
   end
@@ -139,7 +140,7 @@ ActiveAdmin.register ImpulsaProject do
         end
         row :created_at
         row :updated_at
-        row "Evaluation" do
+        row "Evaluación" do
           impulsa_project.evaluation_result
         end if impulsa_project.evaluation_result.present?
       end
@@ -445,7 +446,7 @@ ActiveAdmin.register ImpulsaProject do
     column(:phone) { |project| project.user.phone }
     column(:town_name) { |project| project.user.town_name }
     column(:impulsa_edition_category) { |project| project.impulsa_edition_category.name }
-
+    column :evaluation_result
     column :votes
   end
 
