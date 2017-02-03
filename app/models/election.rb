@@ -64,6 +64,9 @@ class Election < ActiveRecord::Base
                   when 3 then " en #{user.vote_town_name}"
                   when 4 then " en #{user.vote_island_name}"      
                 end
+      if not has_valid_location_for? user, false
+        suffix = " (no hay votación#{suffix})"
+      end
     end
     "#{self.title}#{suffix}"
   end
