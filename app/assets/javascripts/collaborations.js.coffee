@@ -57,6 +57,21 @@ init_collaborations = () ->
   $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
     calculate_collaboration()
 
+  $('.js-collaboration-assignment-town input').on 'click', () ->
+    if ($(this).prop('checked'))
+      $('.js-collaboration-assignment-autonomy input').prop('checked', false)
+      $('.js-collaboration-assignment-island input').prop('checked', false)
+      
+  $('.js-collaboration-assignment-autonomy input').on 'click', () ->
+    if ($(this).prop('checked'))
+      $('.js-collaboration-assignment-town input').prop('checked', false)
+      $('.js-collaboration-assignment-island input').prop('checked', false)
+
+  $('.js-collaboration-assignment-island input').on 'click', () ->
+    if ($(this).prop('checked'))
+      $('.js-collaboration-assignment-town input').prop('checked', false)
+      $('.js-collaboration-assignment-autonomy input').prop('checked', false)
+
 $(window).bind 'page:change', ->
   init_collaborations()
 
