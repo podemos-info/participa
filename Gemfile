@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby RUBY_VERSION
 
 gem 'rails', '~> 4.2.2'
 gem 'sqlite3'
@@ -63,7 +63,6 @@ gem 'sepa_king' # for generate SEPA XML files
 
 group :development, :test do
   gem 'capistrano', '~> 3.4.0'
-  gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
