@@ -124,9 +124,6 @@ GEM
     capistrano-rails (1.1.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-rvm (0.1.2)
-      capistrano (~> 3.0)
-      sshkit (~> 1.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -458,7 +455,6 @@ DEPENDENCIES
   capistrano-bundler
   capistrano-passenger
   capistrano-rails
-  capistrano-rvm
   capybara
   carmen-rails
   cocoon
@@ -521,7 +517,7 @@ DEPENDENCIES
   wicked_pdf
 
 RUBY VERSION
-   ruby 2.2.2p95
+   ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.6
+   1.14.4
