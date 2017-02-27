@@ -184,6 +184,9 @@ ActiveAdmin.register ImpulsaProject do
                 row "revisión", class: "review #{'remark' if impulsa_project.wizard_review["#{gname}.#{fname}"].present?}" do
                   textarea(impulsa_project.wizard_review["#{gname}.#{fname}"], id: "impulsa_project__rvw_#{gname}__#{fname}", name: "impulsa_project[_rvw_#{gname}__#{fname}]", rows: 2) 
                 end if impulsa_project.reviewable?
+                row "revisión", class: "review" do
+                  impulsa_project.wizard_review["#{gname}.#{fname}"]
+                end if !impulsa_project.reviewable? && impulsa_project.wizard_review["#{gname}.#{fname}"].present?
               end
             end
           end
@@ -200,7 +203,7 @@ ActiveAdmin.register ImpulsaProject do
         end
       end if impulsa_project.reviewable?
 
-      if impulsa_project.validable?
+      if impulsa_project.validable? || impulsa_project.evaluator[1].present?
         evaluator = impulsa_project.current_evaluator(current_active_admin_user.id)
         impulsa_project.evaluator[evaluator] = current_active_admin_user if evaluator
         
@@ -238,7 +241,7 @@ ActiveAdmin.register ImpulsaProject do
                       li class: "input input_#{i}" do
                         label class:"label" do impulsa_project.evaluator[i].full_name end
                         value = impulsa_project.evaluation_values(i)["#{gname}.#{fname}"]
-                        if evaluator == i
+                        if evaluator == i && impulsa_project.validable?
                           field_name = "impulsa_project[_evl#{i}_#{gname}__#{fname}]"
                           if field[:type]=="text"
                             textarea(value, name: field_name, type: field[:type])
@@ -266,7 +269,7 @@ ActiveAdmin.register ImpulsaProject do
                 input type: :submit, value: "Guardar evaluación"
               end
             end
-          end if evaluator
+          end if evaluator && impulsa_project.validable?
         end
       end
 
