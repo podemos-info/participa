@@ -60,6 +60,7 @@ gem 'paperclip'
 gem 'validate_url'
 gem 'norma43', github: 'podemos-info/norma43'
 gem 'sepa_king' # for generate SEPA XML files
+gem 'doorkeeper'
 
 group :development, :test do
   gem 'capistrano', '~> 3.4.0'
@@ -80,4 +81,5 @@ group :development, :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'minitest-rails-capybara'
+  gem 'mocha'
 end

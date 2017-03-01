@@ -28,4 +28,4 @@ services:
   mailcatcher:
     image: schickling/mailcatcher:latest
     ports:
-      - "1080:1080"
+      - "4080:1080"

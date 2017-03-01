@@ -25,6 +25,8 @@ ca:
       elections: Eleccions
       notice: Avís
       notices: Avisos
+      doorkeeper/application: "Aplicació"
+      doorkeeper/applications: "Aplicacions"
     errors:
       models:
         user:
@@ -716,4 +718,3 @@ Amb tres passos molt senzills:
       document: "He verificat el document original de l'inscrit/a"
       age: "L'inscrit/a és major de 16 anys - nascut abans de %{date}"
       town: "He verificat un document (DNI/NIE/Passaport, rebut d'un subministrament) que acredita que l'inscrit/a viu a Barcelona."
-
