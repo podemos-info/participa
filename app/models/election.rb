@@ -220,4 +220,8 @@ class Election < ActiveRecord::Base
   def validate_hash _hash
     counter_hash == _hash
   end
+
+  def external?
+    external_link.present?
+  end
 end

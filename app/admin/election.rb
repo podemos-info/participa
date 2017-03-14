@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_sms_check, :show_on_index, :ignore_multiple_territories, :meta_description, :meta_image
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_sms_check, :show_on_index, :ignore_multiple_territories, :meta_description, :meta_image, :external_link
 
   index do
     selectable_column
@@ -35,9 +35,10 @@ ActiveAdmin.register Election do
       row :info_text
       row :meta_description
       row :meta_image
-      row :server
       row :priority
-      row :agora_election_id
+      row :external_link if election.external?
+      row :server if !election.external?
+      row :agora_election_id if !election.external?
       row :scope_name
       row :starts_at
       row :ends_at
@@ -57,14 +58,14 @@ ActiveAdmin.register Election do
           span link_to el.link, el.link
           br
           span link_to el.new_link, el.new_link if el.new_version_pending
-        end
+        end if !election.external?
         column :votes do |el|
           span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_hash)
-        end
+        end if !election.external?
         column :actions do |el|
           span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
           span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
-          span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info
+          span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info && !election.external?
           status_tag("VERSION NUEVA", :error) if el.new_version_pending
         end
       end
@@ -99,6 +100,7 @@ ActiveAdmin.register Election do
       f.input :meta_description, label: "Descripción del sitio para redes sociales durante la votación"
       f.input :meta_image, label: "URL de la imagen del sitio para redes sociales durante la votación"
       f.input :priority
+      f.input :external_link
       f.input :server, as: :select, collection: Election.available_servers
       f.input :agora_election_id
       f.input :scope, as: :select, collection: Election::SCOPE
