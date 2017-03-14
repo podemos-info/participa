@@ -16,8 +16,14 @@ Accederás a la votación de<% case election.scope
     <p class="date"><%= l election.starts_at, format: :short %> - <%= l election.ends_at, format: :short %></p>
   </div>
   <% if election.has_valid_location_for?(current_user) && election.has_valid_user_created_at?(current_user) %>
-    <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
-      <span>Votar</span>
+    <% if election.external_link.blank? %>
+      <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
+        <span>Votar</span>
+      <% end %>
+    <% else %>
+      <%= link_to election.external_link, class: 'button button-vote' do %>
+        <span>Votar</span>
+      <% end %>
     <% end %>
   <% else %>
     <span class="button button-danger"><span>Censo cerrado</span></span>
