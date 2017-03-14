@@ -65,9 +65,9 @@ ActiveAdmin.register Election do
         column :actions do |el|
           span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
           span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
-          span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info
+          span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info && !election.external?
           status_tag("VERSION NUEVA", :error) if el.new_version_pending
-        end if !election.external?
+        end
       end
       
       span link_to "Añadir ubicación", new_admin_election_election_location_path(election)
