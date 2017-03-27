@@ -83,10 +83,10 @@ class Collaboration < ActiveRecord::Base
   end
 
   def territorial_assignment
-    if self.for_town_cc
-      :town
-    elsif self.for_island_cc
+    if self.for_island_cc
       :island
+    elsif self.for_town_cc
+      :town
     elsif self.for_autonomy_cc
       :autonomy
     else
