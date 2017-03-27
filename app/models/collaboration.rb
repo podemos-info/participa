@@ -73,6 +73,27 @@ class Collaboration < ActiveRecord::Base
     self.iban_account.upcase! if self.iban_account.present?
   end
 
+  def territorial_assignment= value
+    self.for_town_cc = self.for_island_cc = self.for_autonomy_cc = false
+    case value.to_sym
+    when :town then self.for_town_cc = true
+    when :island then self.for_island_cc = true
+    when :autonomy then self.for_autonomy_cc = true
+    end
+  end
+
+  def territorial_assignment
+    if self.for_town_cc
+      :town
+    elsif self.for_island_cc
+      :island
+    elsif self.for_autonomy_cc
+      :autonomy
+    else
+      :country
+    end     
+  end
+
   def set_initial_status
     self.status = 0
   end
