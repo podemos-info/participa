@@ -2380,3 +2380,14 @@ body.noheader {
     line-height:1em;
   }
 }
+
+fieldset .collaboration-assignment .inputlabel-box .input-box {
+  p {
+    padding: 0;
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  input {
+    margin: 0;
+  }
+}
