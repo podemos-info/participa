@@ -24,9 +24,9 @@ namespace :podemos do
 
         row << "e_" if user.country!="ES"
 
-        if user.urban_town?
+        if user.urban_vote_town?
           row << "t_urban"
-        elsif user.semi_urban_town?
+        elsif user.semi_urban_vote_town?
           row << "t_semi_urban"
         else
           row << "t_rural"
