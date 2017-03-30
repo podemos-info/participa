@@ -738,11 +738,11 @@ class User < ActiveRecord::Base
   end
 
   def urban?
-    self.vote_town.present? && Podemos::GeoExtra::URBAN_TOWNS.member? self.vote_town
+    self.vote_town.present? && Podemos::GeoExtra::URBAN_TOWNS.member?(self.vote_town)
   end
 
   def semi_urban?
-    self.vote_town.present? && Podemos::GeoExtra::SEMI_URBAN_TOWNS.member? self.vote_town
+    self.vote_town.present? && Podemos::GeoExtra::SEMI_URBAN_TOWNS.member?(self.vote_town)
   end
 
   def rural?
