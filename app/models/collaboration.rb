@@ -73,7 +73,7 @@ class Collaboration < ActiveRecord::Base
     self.iban_account.upcase! if self.iban_account.present?
   end
 
-  def territorial_assignment value
+  def territorial_assignment= value
     self.for_town_cc = self.for_island_cc = self.for_autonomy_cc = false
     case value.to_sym
     when :town then self.for_town_cc = true
@@ -83,10 +83,10 @@ class Collaboration < ActiveRecord::Base
   end
 
   def territorial_assignment
-    if self.for_town_cc
-      :town
-    elsif self.for_island_cc
+    if self.for_island_cc
       :island
+    elsif self.for_town_cc
+      :town
     elsif self.for_autonomy_cc
       :autonomy
     else
