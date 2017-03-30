@@ -25,11 +25,11 @@ namespace :podemos do
         row << "e_" if user.country!="ES"
 
         if user.urban_town?
-          row << "urban"
+          row << "t_urban"
         elsif user.semi_urban_town?
-          row << "semi_urban"
+          row << "t_semi_urban"
         else
-          row << "rural"
+          row << "t_rural"
         end
 
         writer << row
