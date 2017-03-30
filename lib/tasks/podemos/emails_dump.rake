@@ -23,6 +23,15 @@ namespace :podemos do
         end
 
         row << "e_" if user.country!="ES"
+
+        if user.urban_town?
+          row << "urban"
+        elsif user.semi_urban_town?
+          row << "semi_urban"
+        else
+          row << "rural"
+        end
+
         writer << row
       end
     end
