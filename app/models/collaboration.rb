@@ -83,10 +83,10 @@ class Collaboration < ActiveRecord::Base
   end
 
   def territorial_assignment
-    if self.for_island_cc
-      :island
-    elsif self.for_town_cc
+    if self.for_town_cc
       :town
+    elsif self.for_island_cc
+      :island
     elsif self.for_autonomy_cc
       :autonomy
     else
@@ -248,9 +248,9 @@ class Collaboration < ActiveRecord::Base
       o.payable_at = date
       o.payment_type = self.is_credit_card? ? 1 : 3
       o.payment_identifier = self.payment_identifier
-      if self.for_autonomy_cc && self.user && !self.user.vote_autonomy_code.empty?
-        o.autonomy_code = self.user.vote_autonomy_code
-        o.town_code = self.user.vote_town if self.for_town_cc || self.for_island_cc 
+      if self.user && !self.user.vote_autonomy_code.empty?
+        o.autonomy_code = self.user.vote_autonomy_code if self.for_autonomy_cc
+        o.town_code = self.user.vote_town if self.for_town_cc
         o.island_code = self.user.vote_island_code if self.for_island_cc
       end
     end
