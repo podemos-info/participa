@@ -189,7 +189,7 @@ class User < ActiveRecord::Base
     parent.table[:vote_town]
   end
 
-  GENDER = { "M" => "Femenino", "H" => "Masculino", "O" => "Otro", "N" => "No contesta" }
+  GENDER = { "F" => "Femenino", "M" => "Masculino", "O" => "Otro", "N" => "No contesta" }
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
   # Based on 
