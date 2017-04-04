@@ -198,6 +198,7 @@ ActiveAdmin.register User do
   end
 
   filter :email
+  filter :gender, as: :select, collection: User::GENDER.invert
   filter :document_vatid
   filter :document_vatid_in, as: :string, label: "Lista de DNI o NIE"
   filter :id_in, as: :string, label: "Lista de IDs"
