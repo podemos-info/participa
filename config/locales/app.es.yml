@@ -65,7 +65,9 @@ es:
             first_name:
               blank: "Tu nombre no puede estar en blanco"
             last_name: 
-              blank: "Tu apellido no puede estar en blanco" 
+              blank: "Tu apellido no puede estar en blanco"
+            gender:
+              blank: "Debes indicar tu genero"
             document_type: 
               blank: "Tu tipo de documento no puede estar en blanco"
             document_vatid: 
@@ -287,6 +289,7 @@ es:
         login: "Correo electrónico o Nº de documento"
         first_name: "Nombre"
         last_name: "Apellidos"
+        gender: "Género"
         document_type: "Tipo de documento"
         document_vatid: "Nº de documento"
         born_at: "Fecha de nacimiento"
