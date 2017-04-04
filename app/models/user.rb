@@ -189,6 +189,7 @@ class User < ActiveRecord::Base
     parent.table[:vote_town]
   end
 
+  GENDER = { "M" => "Femenino", "H" => "Masculino", "O" => "Otro", "N" => "No contesta" }
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
   # Based on 
@@ -363,6 +364,10 @@ class User < ActiveRecord::Base
 
   def document_type_name
     User::DOCUMENTS_TYPE.select{|v| v[1] == self.document_type }[0][0]
+  end
+
+  def gender_name
+    User::GENDER[self.gender]
   end
 
   def in_spain?

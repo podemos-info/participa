@@ -18,7 +18,20 @@
       <%= f.input :last_name, required: true, input_html: {required: true, class: 'input-xl'} %>
     </div><%#--.inputlabel-box--%>
 
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:gender) %>
+          <%= field_notice_box %>
+      <% end %>
+      <%= f.input :gender,
+                  required: true,
+                  as: :select,
+                  collection: User::GENDER.invert.to_a,
+                  input_html: {required: true} %>
+    </div>
+    
     <% if action == "new" %>
+
+
       <div class="inputlabel-box">
         <% if resource.errors.include?(:document_type) %>
             <%= field_notice_box %>
