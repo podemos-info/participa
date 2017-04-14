@@ -196,8 +196,4 @@ Rails.application.routes.draw do
   # /admin
   ActiveAdmin.routes(self)
 
-  constraints CanAccessResque.new do
-    mount Resque::Server.new, at: '/admin/resque', as: :resque
-  end
-
 end
