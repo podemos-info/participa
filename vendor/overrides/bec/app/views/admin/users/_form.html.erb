@@ -1,6 +1,11 @@
 
 <%= semantic_form_for([:admin, @user], builder: Formtastic::FormBuilder) do |f| %>
-  <%= f.inputs "Admin Details" do %>
+  <%= f.inputs "Grups" do %>
+    <%= f.input :groups, as: :check_boxes %>
+    <%= f.actions %>
+  <% end %>
+
+  <%= f.inputs "Fitxa" do %>
     <%= f.input :email %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
@@ -12,13 +17,9 @@
                   input_html: {  required: true, class: 'input-m', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
                   start_year: 1900,
                   end_year: 1996 %>
-
     <%= f.input :address %>
-
-    <li class="select input required" id="user_country_input"><label class="label" for="user_address">País<abbr title="requerido">*</abbr></label>
     <%= f.input :postal_code %>
-    <%= f.input :circle %>
     <%= f.input :wants_newsletter %>
+    <%= f.actions %>
   <% end %>
-  <%= f.actions %>
 <% end %>

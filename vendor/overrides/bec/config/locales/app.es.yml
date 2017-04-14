@@ -16,6 +16,8 @@ es:
     models:
       user: Usuario
       users: Usuarios
+      group: Grupo
+      groups: Grupos
       collaboration: Colaboración económica
       collaborations: Colaboraciones económicas
       order: Orden de pago
@@ -114,6 +116,12 @@ es:
       notice:
         title: "Título"
         body: "Mensaje"
+      group:
+        name: "Nombre"
+        users: "Usuarios/as"
+        description: "Descripción"
+        created_at: "Creada el"
+        updated_at: "Actualizada el"
       user:
         login: "Correo elctrónico o Nº de documento"
         first_name: "Nombre"
@@ -137,6 +145,7 @@ es:
         over_18: "Declaro ser mayor de 16 años"
         captcha: "Escribe el siguiente texto o número"
         current_password: "Contraseña actual"
+        groups: "Grupos"
 
   formtastic:
     hints:

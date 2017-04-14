@@ -17,6 +17,8 @@ ca:
     models:
       user: Usuari/ària
       users: Usuaris/àries
+      group: Grup
+      groups: Grups
       collaboration: Col·laboració econòmica
       collaborations: Col·laboracions econòmiques
       order: Ordre de pagament
@@ -97,6 +99,12 @@ ca:
       notice:
         title: "Títol"
         body: "Missatge"
+      group:
+        name: "Nom"
+        users: "Usuaris/àries"
+        description: "Descripció"
+        created_at: "Creada el"
+        updated_at: "Actualitzada el"
       user:
         login: "Correu electrónic o núm. de document"
         first_name: "Nom"
@@ -120,6 +128,7 @@ ca:
         over_18: "Declaro ser major de 16 anys"
         captcha: "Captcha"
         current_password: "Contrasenya actual"
+        groups: "Grups"
   formtastic:
     hints:
       user:
