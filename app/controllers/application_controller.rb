@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :document_vatid, :email, :password, :remember_me) }
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:login, :document_vatid, :email, :password, :remember_me])
   end
 
 end
