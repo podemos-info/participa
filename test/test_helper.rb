@@ -6,11 +6,12 @@ require 'simplecov'
 require 'webmock/minitest'
 require 'minitest/reporters'
 require 'minitest/rails/capybara'
+require 'capybara/poltergeist'
+require 'mocha/mini_test'
 
 SimpleCov.start
 WebMock.disable_net_connect!(allow_localhost: true)
 Minitest::Reporters.use!
-Capybara.javascript_driver = :webkit
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -41,9 +42,13 @@ end
 
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
-Capybara::Webkit.configure do |config|
-  config.block_unknown_urls
+# Poltergeist customization
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, url_whitelist: ['127.0.0.1'])
 end
+
+Capybara.javascript_driver = :poltergeist
+
 
 def with_versioning
   was_enabled = PaperTrail.enabled?

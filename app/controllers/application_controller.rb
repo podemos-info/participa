@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  
+
   ensure_security_headers
 
   # Prevent CSRF attacks by raising an exception.
@@ -63,9 +63,9 @@ class ApplicationController < ActionController::Base
     # no issues, don't check it again
     session[:no_unresolved_issues] = true
 
-    super    
+    super
   end
-  
+
   def banned_user
     if current_user and current_user.banned?
       name = current_user.full_name
@@ -113,10 +113,14 @@ class ApplicationController < ActionController::Base
     unless signed_in? && (current_user.is_admin? || current_user.finances_admin? || current_user.impulsa_admin?)
       redirect_to root_url, flash: { error: t('podemos.unauthorized') }
     end
-  end 
+  end
 
   def user_for_papertrail
     user_signed_in? ? current_user : "Unknown user"
+  end
+
+  def doorkeeper_unauthorized_render_options(error: nil)
+    { json: { error: "Not authorized"} }
   end
 
   protected

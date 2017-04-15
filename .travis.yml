@@ -1,11 +1,13 @@
 # .travis.yml
 language: ruby
 rvm:
-  - 2.2.2
+  - 2.3.3
 cache: bundler
 before_script:
   - cp config/secrets.yml.example config/secrets.yml
   - cp config/database.yml.travis config/database.yml
+  - cp config/redis.yml.example config/redis.yml
+  - cp config/mailserver.yml.example config/mailserver.yml
   - bundle exec rake db:create
   - bundle exec rake db:migrate
-script: xvfb-run bundle exec rake test
+script: bundle exec rake test

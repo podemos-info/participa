@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   apply_simple_captcha
-  
+
   include FlagShihTzu
 
   include Rails.application.routes.url_helpers
@@ -248,6 +248,10 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def username
+    self.full_name.parameterize()
   end
 
   def full_address
@@ -625,7 +629,7 @@ class User < ActiveRecord::Base
       # Spanish users can't set a different town for vote, except when blocked
       if self.in_spain? and self.can_change_vote_location?
         self.vote_town = self.town
-        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district 
+        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
     end
   end
@@ -702,7 +706,7 @@ class User < ActiveRecord::Base
   def can_request_sms_check?
     DateTime.now > next_sms_check_request_at
   end
-  
+
   def can_check_sms_check?
     sms_check_at.present? && (DateTime.now < (sms_check_at + eval(Rails.application.secrets.users["sms_check_valid_interval"])))
   end
@@ -714,7 +718,7 @@ class User < ActiveRecord::Base
       DateTime.now - 1.second
     end
   end
-  
+
   def send_sms_check!
     require 'sms'
     if can_request_sms_check?

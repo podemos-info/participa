@@ -19,6 +19,8 @@
 coverage/*
 
 config/database.yml
+config/mailserver.yml
+config/redis.yml
 config/secrets.yml
 
 .vagrant/*

@@ -10,7 +10,6 @@ feature "VerificationPresencial" do
   scenario "user should verificate to access tools", js: true do
 
     # cant access as anon
-    page.driver.block_unknown_urls
     visit verification_step1_path
     assert_equal page.current_path, root_path(locale: :es)
 
@@ -39,7 +38,6 @@ feature "VerificationPresencial" do
     user2 = FactoryGirl.create(:user)
     login_as(user2)
     visit root_path
-    page.driver.block_unknown_urls
     #page.must_have_content I18n.t('verification.pending0_html')
     logout(user2)
     Capybara.reset_sessions!
