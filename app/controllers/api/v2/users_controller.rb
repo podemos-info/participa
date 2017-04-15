@@ -5,7 +5,7 @@ module Api::V2
     before_action -> { doorkeeper_authorize! :public }, only: :show
 
     def show
-      render json: current_resource_owner.to_json(only: [:id, :admin, :email], methods: [:username, :full_name])
+      render json: current_resource_owner.to_json(only: [:id, :admin, :email], methods: [:username, :full_name, :list_groups])
     end
 
     private
