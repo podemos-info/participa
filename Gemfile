@@ -32,7 +32,7 @@ gem 'esendex'
 gem 'activeadmin'
 gem 'active_skin'
 gem 'mailcatcher' # for staging too
-gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/server'
+#gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/server'
 gem 'aws-ses', '~> 0.6.0', :require => 'aws/ses'
 gem 'kaminari'
 gem 'pushmeup'

@@ -8,7 +8,7 @@ class Ability
     if user.is_admin?
       can :manage, :all
       can :manage, Notice
-      can :manage, Resque
+      can :manage, Resque if Rails.application.secrets.features["use_resque"]
       can :manage, Report
       can :manage, ActiveAdmin
       can :admin, User
@@ -28,7 +28,7 @@ class Ability
       end
     else
       cannot :manage, :all
-      cannot :manage, Resque
+      cannot :manage, Resque if Rails.application.secrets.features["use_resque"]
       cannot :manage, ActiveAdmin
 
       can [:read], MicrocreditLoan if user.finances_admin?
