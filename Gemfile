@@ -29,7 +29,7 @@ gem 'spanish_vat_validators'
 gem 'simple_captcha2', require: 'simple_captcha'
 gem 'carmen-rails'
 gem 'esendex'
-gem 'activeadmin'
+gem 'activeadmin', '1.0.0.pre1'
 gem 'active_skin'
 gem 'mailcatcher' # for staging too
 #gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/server'
