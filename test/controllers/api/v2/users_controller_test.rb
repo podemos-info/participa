@@ -32,7 +32,7 @@ class Api::V2::UsersControllerTest < ActionController::TestCase
     token = FactoryGirl.create(:access_token, application: application, resource_owner_id: user.id, scopes: 'public')
 
     get :show, format: :json, access_token: token.token
-    assert_equal user.to_json(only: [:id, :admin, :email], methods: [:username, :full_name]), @response.body
+    assert_equal user.to_json(only: [:id, :admin, :email], methods: [:username, :full_name, :list_groups]), @response.body
   end
 
 end

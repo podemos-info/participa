@@ -18,12 +18,6 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
   end
 
-  test "should not get /admin/resque as anon" do
-    assert_raises(ActionController::RoutingError) do
-      get '/admin/resque'
-    end
-  end
-
   test "should not get /admin as normal user" do
     login @user
     get '/admin'
@@ -43,13 +37,6 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
     login @admin
     get '/admin'
     assert_response :success
-  end
-
-  test "should get /admin/resque as admin user" do
-    login @admin
-    get '/admin/resque'
-    assert_response :redirect
-    assert_redirected_to '/admin/resque/overview'
   end
 
   test "should not download newsletter CSV as user" do

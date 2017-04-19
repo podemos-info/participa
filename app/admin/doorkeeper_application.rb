@@ -2,7 +2,7 @@ ActiveAdmin.register Doorkeeper::Application, as: "Application" do
 
   permit_params :name, :redirect_uri, :scopes
 
-  menu label:->{ I18n.t "doorkeeper.layouts.admin.nav.applications" }
+  menu parent: "Users", label:->{ I18n.t "doorkeeper.layouts.admin.nav.applications" }
   config.comments = false
 
   index do

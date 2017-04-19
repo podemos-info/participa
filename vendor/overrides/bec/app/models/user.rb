@@ -52,4 +52,8 @@ class User
     VerificationMailer.verified(self).deliver
   end
 
+  def list_groups
+    self.groups.pluck(:name)
+  end
+
 end

@@ -17,7 +17,6 @@ ActiveAdmin.register User do
   scope :has_collaboration_bank_national
   scope :has_collaboration_bank_international
   scope :participation_team
-  scope :has_circle
   scope :banned
   scope :admins
   if Rails.application.secrets.features["verification_presencial"]
@@ -29,7 +28,7 @@ ActiveAdmin.register User do
     scope :verified
   end
 
-  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :phone, :unconfirmed_phone
+  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :phone, :unconfirmed_phone, group_ids: []
 
   index do
     selectable_column
@@ -61,6 +60,13 @@ ActiveAdmin.register User do
 
   show do
     authorize! :admin, user
+    panel "Grups" do
+    attributes_table do
+        row :groups do
+          user.groups.map { |g| link_to g.name, admin_group_path(g)}.join(' ,').html_safe
+        end
+      end
+    end
     attributes_table do
       row :id
       row :status do
@@ -156,7 +162,6 @@ ActiveAdmin.register User do
         end
       end
       row :admin
-      row :circle
       row :created_at
       row :updated_at
       row :confirmation_sent_at
@@ -236,7 +241,6 @@ ActiveAdmin.register User do
   filter :postal_code
   filter :province
   filter :country
-  filter :circle
   filter :vote_autonomy_in, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse), label: "Vote autonomy"
   filter :vote_province_in, as: :select, collection: Carmen::Country.coded("ES").subregions.map{|x|[x.name, "p_#{(x.index+1).to_s.rjust(2,"0")}"]}, label: "Vote province"
   filter :vote_island_in, as: :select, collection: Podemos::GeoExtra::ISLANDS.values.uniq.map(&:reverse), label: "Vote island"
@@ -272,7 +276,7 @@ ActiveAdmin.register User do
     column :last_sign_in_ip
   end
 
-  action_item :only => :show do
+  action_item(:verify, only: :show) do
     unless user.is_verified?
       msg = "¿Estas segura de querer verificar a este usuario?"
       if Rails.application.secrets.features["verification_presencial"]
@@ -283,7 +287,7 @@ ActiveAdmin.register User do
   end
 
   if Rails.application.secrets.features["verification_presencial"]
-    action_item :only => :show do
+    action_item(:verification_item, only: :show) do
       if user.verifications_admin?
         link_to('Quitar de Equipo de Verificación', verification_unteam_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer que este usuario ya no verifique a otros?" })
       else
@@ -306,11 +310,11 @@ ActiveAdmin.register User do
     end
   end
 
-  action_item(:verify, only: :show) do
-    if user.not_verified?
-      link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer verificar a este usuario?" })
-    end
-  end
+  #action_item(:verify, only: :show) do
+  #  if user.not_verified?
+  #    link_to('Verificar usuario', verify_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer verificar a este usuario?" })
+  #  end
+  #end
 
   batch_action :ban, if: proc{ can? :ban, User } do |ids|
     User.ban_users(ids, true)
@@ -487,9 +491,9 @@ ActiveAdmin.register User do
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Círculo", "Email", "Equipos"]
+      csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Email", "Equipos"]
       User.participation_team.where("participation_team_at>?", date).each do |user| 
-        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle, user.email, user.participation_team.map { |team| team.name }.join(",") ]
+        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.email, user.participation_team.map { |team| team.name }.join(",") ]
       end
     end
 
