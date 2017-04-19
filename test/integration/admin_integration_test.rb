@@ -39,13 +39,6 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get /admin/resque as admin user" do
-    login @admin
-    get '/admin/resque'
-    assert_response :redirect
-    assert_redirected_to '/admin/resque/overview'
-  end
-
   test "should not download newsletter CSV as user" do
     login @user
     get '/admin/users/download_newsletter_csv'
