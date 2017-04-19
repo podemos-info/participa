@@ -18,12 +18,6 @@ class AdminIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('podemos.unauthorized'), flash[:error] 
   end
 
-  test "should not get /admin/resque as anon" do
-    assert_raises(ActionController::RoutingError) do
-      get '/admin/resque'
-    end
-  end
-
   test "should not get /admin as normal user" do
     login @user
     get '/admin'
