@@ -26,10 +26,10 @@ ActiveAdmin.register Report do
         @groups.each do |group|
           panel "#{main_group} - #{group.title}", 'data-panel' => :collapsed, 'data-panel-id' => group.id, 'data-panel-parent' => main_group do
             results = @results[:data][main_group][group.id]
-            if results.length>200
-              new_results = results.first(200)
+            if results.length>500
+              new_results = results.first(500)
               has_rest_row = results[-1][:count] > results[-2][:count]
-              new_results << { name: "(#{results.length-(has_rest_row ? 201 : 200)} más)", count: (results[200..(has_rest_row ? -2 : -1)].map {|r| r[:count]} .sum)}
+              new_results << { name: "(#{results.length-(has_rest_row ? 501 : 500)} más)", count: (results[500..(has_rest_row ? -2 : -1)].map {|r| r[:count]} .sum)}
               new_results << results[-1] if has_rest_row
               results = new_results
             end

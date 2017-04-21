@@ -40,6 +40,7 @@ ActiveAdmin.register ImpulsaProject do
         status_tag("OK", :ok)
       end
     end
+    column :evaluation_result
     column :votes
     actions
   end
@@ -53,7 +54,7 @@ ActiveAdmin.register ImpulsaProject do
     p.mark_as_spam
     p.save
     flash[:notice] = "El proyecto ha sido marcado como spam."
-    redirect_to action: :index
+    redirect_to :back
   end
 
   action_item(:review, only: :show ) do
@@ -65,7 +66,24 @@ ActiveAdmin.register ImpulsaProject do
     p.mark_for_review
     p.save
     flash[:notice] = "El proyecto ha sido marcado para revisión."
-    redirect_to action: :index
+    redirect_to :back
+  end
+
+  member_action :download_attachment do
+    project = ImpulsaProject.find( params[:id] )
+    send_file project.wizard_path(params[:gname], params[:fname])
+  end
+
+  action_item(:reset_evaluator, only: :show ) do
+    link_to('Abandonar evaluación',reset_evaluator_admin_impulsa_edition_impulsa_project_path(impulsa_edition, impulsa_project), method: :post, data: { confirm: "Si abandonas se perderán los datos introducidos por ti en el formulario de evaluación. ¿Deseas continuar?" }) if impulsa_project.is_current_evaluator?(current_active_admin_user.id)
+  end
+
+  member_action :reset_evaluator, :method => :post do
+    p = ImpulsaProject.find( params[:id] )
+    p.reset_evaluator(current_active_admin_user.id)
+    p.save
+    flash[:notice] = "Has abandonado la evaluación del proyecto, cualquier usuario podrá realizarla en tu lugar."
+    redirect_to :back
   end
 
   sidebar "Subir resultados de votación", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
@@ -122,7 +140,7 @@ ActiveAdmin.register ImpulsaProject do
         end
         row :created_at
         row :updated_at
-        row "Evaluation" do
+        row "Evaluación" do
           impulsa_project.evaluation_result
         end if impulsa_project.evaluation_result.present?
       end
@@ -151,7 +169,11 @@ ActiveAdmin.register ImpulsaProject do
                   when "check_boxes"
                     div (value || []).map {|i| field[:collection][i] } .join(", ")
                   when "file"
-                    div value
+                    if value
+                      div link_to(value, download_attachment_admin_impulsa_edition_impulsa_project_path(id: impulsa_project.id, fname: fname, gname: gname))
+                    else
+                      div ""
+                    end
                   else
                     div value
                   end
@@ -162,6 +184,9 @@ ActiveAdmin.register ImpulsaProject do
                 row "revisión", class: "review #{'remark' if impulsa_project.wizard_review["#{gname}.#{fname}"].present?}" do
                   textarea(impulsa_project.wizard_review["#{gname}.#{fname}"], id: "impulsa_project__rvw_#{gname}__#{fname}", name: "impulsa_project[_rvw_#{gname}__#{fname}]", rows: 2) 
                 end if impulsa_project.reviewable?
+                row "revisión", class: "review" do
+                  impulsa_project.wizard_review["#{gname}.#{fname}"]
+                end if !impulsa_project.reviewable? && impulsa_project.wizard_review["#{gname}.#{fname}"].present?
               end
             end
           end
@@ -178,7 +203,7 @@ ActiveAdmin.register ImpulsaProject do
         end
       end if impulsa_project.reviewable?
 
-      if impulsa_project.validable?
+      if impulsa_project.validable? || impulsa_project.evaluator[1].present?
         evaluator = impulsa_project.current_evaluator(current_active_admin_user.id)
         impulsa_project.evaluator[evaluator] = current_active_admin_user if evaluator
         
@@ -216,7 +241,7 @@ ActiveAdmin.register ImpulsaProject do
                       li class: "input input_#{i}" do
                         label class:"label" do impulsa_project.evaluator[i].full_name end
                         value = impulsa_project.evaluation_values(i)["#{gname}.#{fname}"]
-                        if evaluator == i
+                        if evaluator == i && impulsa_project.validable?
                           field_name = "impulsa_project[_evl#{i}_#{gname}__#{fname}]"
                           if field[:type]=="text"
                             textarea(value, name: field_name, type: field[:type])
@@ -224,6 +249,7 @@ ActiveAdmin.register ImpulsaProject do
                             params = { name: field_name, type: field[:type], value: value }
                             params[:max] = field[:maximum] if field[:maximum]
                             params[:min] = field[:minimum] if field[:minimum]
+                            params[:readonly] = true if field[:sum]
                             input params
                           end
                         else
@@ -243,7 +269,7 @@ ActiveAdmin.register ImpulsaProject do
                 input type: :submit, value: "Guardar evaluación"
               end
             end
-          end if evaluator
+          end if evaluator && impulsa_project.validable?
         end
       end
 
@@ -258,10 +284,10 @@ ActiveAdmin.register ImpulsaProject do
           fieldset class: :actions do
             ol do
               li class: "action input_action" do
-                input type: :submit, name: "evaluation_action", value: "Fase superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+                input type: :submit, name: "evaluation_action_ok", value: "Fase superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
               end
               li class: "action input_action" do
-                input type: :submit, name: "evaluation_action", value: "Fase NO superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
+                input type: :submit, name: "evaluation_action_ko", value: "Fase NO superada", "data-confirm"=>"Se avisará al usuario de esta decisión. ¿Deseas continuar?"
               end
             end
           end
@@ -388,14 +414,15 @@ ActiveAdmin.register ImpulsaProject do
         flash[:notice] = "El proyecto ha sido marcado como revisado."
         send_email = true
       elsif resource.validable? && resource.evaluation_result?
-        if params[:evaluation_action].downcase=="validar"
+        if params[:evaluation_action_ok].present?
           resource.mark_as_validated
+          send_email = true
           flash[:notice] = "El proyecto ha sido marcado como validado."
-        else
+        elsif params[:evaluation_action_ko].present?
           resource.mark_as_invalidated
+          send_email = true
           flash[:notice] = "El proyecto ha sido marcado como invalidado."
         end
-        send_email = true
       end
       
       if send_email
@@ -422,7 +449,7 @@ ActiveAdmin.register ImpulsaProject do
     column(:phone) { |project| project.user.phone }
     column(:town_name) { |project| project.user.town_name }
     column(:impulsa_edition_category) { |project| project.impulsa_edition_category.name }
-
+    column :evaluation_result
     column :votes
   end
 

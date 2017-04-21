@@ -189,6 +189,7 @@ class User < ActiveRecord::Base
     parent.table[:vote_town]
   end
 
+  GENDER = { "F" => "Femenino", "M" => "Masculino", "O" => "Otro", "N" => "No contesta" }
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
   # Based on 
@@ -365,6 +366,10 @@ class User < ActiveRecord::Base
     User::DOCUMENTS_TYPE.select{|v| v[1] == self.document_type }[0][0]
   end
 
+  def gender_name
+    User::GENDER[self.gender]
+  end
+
   def in_spain?
     self.country=="ES"
   end
@@ -442,11 +447,11 @@ class User < ActiveRecord::Base
   end
 
   def has_vote_town?
-    not self.vote_town.nil? and not self.vote_town.empty? and not self.vote_town=="NOTICE"
+    self.vote_town.present? && self.vote_town[0].downcase=="m" && (1..52).include?(self.vote_town[2,2].to_i)
   end
 
   def has_verified_vote_town?
-    self.has_vote_town? and self.vote_town[0]=="m"
+    self.has_vote_town? && self.vote_town[0]=="m"
   end
 
   def vote_autonomy_code
@@ -675,7 +680,7 @@ class User < ActiveRecord::Base
   def _vote_province
     @vote_province_cache = begin
       prov = nil
-      if self.has_vote_town? && (1..52).include?(self.vote_town[2,2].to_i)
+      if self.has_vote_town?
         prov = Carmen::Country.coded("ES").subregions[self.vote_town[2,2].to_i-1]
       elsif self.country=="ES"
         prov = _province
@@ -736,4 +741,16 @@ class User < ActiveRecord::Base
   def sms_check_token
     Digest::SHA1.digest("#{sms_check_at}#{id}#{Rails.application.secrets.users['sms_secret_key'] }")[0..3].codepoints.map { |c| "%02X" % c }.join if sms_check_at
   end
+
+  def urban_vote_town?
+    self.vote_town.present? && Podemos::GeoExtra::URBAN_TOWNS.member?(self.vote_town)
+  end
+
+  def semi_urban_vote_town?
+    self.vote_town.present? && Podemos::GeoExtra::SEMI_URBAN_TOWNS.member?(self.vote_town)
+  end
+
+  def rural_vote_town?
+    !self.urban_vote_town? && !self.semi_urban_vote_town?
+  end  
 end

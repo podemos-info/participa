@@ -21,7 +21,7 @@ ActiveAdmin.register User do
   scope :banned
   scope :verified
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle
 
   index download_links: -> { current_user.is_admin? && current_user.superadmin? } do
     selectable_column
@@ -94,6 +94,9 @@ ActiveAdmin.register User do
       row :full_name
       row :first_name
       row :last_name
+      row :gender do
+        user.gender_name
+      end
       row :document_type do
         user.document_type_name
       end
@@ -195,6 +198,7 @@ ActiveAdmin.register User do
   end
 
   filter :email
+  filter :gender, as: :select, collection: User::GENDER.invert
   filter :document_vatid
   filter :document_vatid_in, as: :string, label: "Lista de DNI o NIE"
   filter :id_in, as: :string, label: "Lista de IDs"
@@ -233,6 +237,7 @@ ActiveAdmin.register User do
     column :id
     column :first_name
     column :last_name
+    column :gender_name
     column :document_vatid
     column :born_at
     column :email

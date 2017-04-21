@@ -1,6 +1,6 @@
 class VoteController < ApplicationController
   layout "full", only: [:create]
-  before_action :authenticate_user! 
+  before_action :authenticate_user!, except: [:election_votes_count, :election_location_votes_count]
   
   def send_sms_check
     if current_user.send_sms_check!

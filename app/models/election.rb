@@ -64,7 +64,7 @@ class Election < ActiveRecord::Base
                   when 3 then " en #{user.vote_town_name}"
                   when 4 then " en #{user.vote_island_name}"      
                 end
-      if not has_valid_location_for? user
+      if not has_valid_location_for? user, false
         suffix = " (no hay votación#{suffix})"
       end
     end
@@ -76,16 +76,22 @@ class Election < ActiveRecord::Base
     not ((self.scope==5 and user.country=="ES") or (self.scope==4 and not user.vote_in_spanish_island?))
   end
 
-  def has_valid_location_for? _user
-    return false if !has_valid_user_created_at?(_user)
-    user = self.user_version(_user)
-    case self.scope
-      when 0 then self.election_locations.any?
-      when 1 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_autonomy_numeric}
-      when 2 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_province_numeric}
-      when 3 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_town_numeric}
-      when 4 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_island_numeric}
-      when 5 then user.country!="ES" and self.election_locations.any?
+  def has_valid_location_for? _user, check_created_at = true
+    users = []
+    return false if check_created_at && !has_valid_user_created_at?(_user)
+
+    users << self.user_version(_user)
+    users << _user unless check_created_at # allow to see election even when changed location
+
+    users.any? do |user|
+      case self.scope
+        when 0 then self.election_locations.any?
+        when 1 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_autonomy_numeric}
+        when 2 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_province_numeric}
+        when 3 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_town_numeric}
+        when 4 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_island_numeric}
+        when 5 then user.country!="ES" and self.election_locations.any?
+      end
     end
   end
 
@@ -95,9 +101,9 @@ class Election < ActiveRecord::Base
 
   def current_total_census
     if self.user_created_at_max.nil?
-      base = User.confirmed.not_banned
+      base = User.confirmed
     else
-      base = User.with_deleted.not_banned.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where.not(sms_confirmed_at:nil).where("created_at < ?", self.user_created_at_max)
+      base = User.with_deleted.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where.not(sms_confirmed_at:nil).where("created_at < ?", self.user_created_at_max)
     end
     if self.ignore_multiple_territories
       base.count
@@ -213,5 +219,9 @@ class Election < ActiveRecord::Base
 
   def validate_hash _hash
     counter_hash == _hash
+  end
+
+  def external?
+    external_link.present?
   end
 end

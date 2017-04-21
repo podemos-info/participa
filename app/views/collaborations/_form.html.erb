@@ -77,26 +77,34 @@
     <span class="no-input"><span id="js-collaboration-alert-amount"></span></span>
   </div>
 
-  <div class="js-collaboration-assignment">
+  <div class="collaboration-assignment">
   <%= content_tag(:h3, "Financiación territorial") %>
-    <p>Marcando estas casillas un porcentaje de tu colaboración se destinará a la financiación de los consejos ciudadanos territoriales:</p>
+    <p>Deseo colaborar con el Consejo Ciudadano</p>
     <div class="inputlabel-box">
-      <div class="input-box js-collaboration-assignment-autonomy">
-        <%= f.check_box :for_autonomy_cc, class:"checkbox"%>
-        <p class="text-xl">Deseo colaborar con mi consejo autonómico.</p>
-      </div>            
-
       <div class="input-box js-collaboration-assignment-town">
-        <%= f.check_box :for_town_cc, class:"checkbox"%>
-        <p class="text-xl">Deseo colaborar con mi consejo municipal.</p>
+        <label class="text-xl">
+        <%= f.radio_button :territorial_assignment, :town, class:"checkbox"%>
+        <p>Municipal donde estoy inscrito/a</p>
+        </label>
       </div>
         <% if current_user.vote_in_spanish_island? then%>
       <div class="input-box js-collaboration-assignment-island">
-          <%= f.check_box :for_island_cc, class:"checkbox"%>
-        <p class="text-xl">Deseo colaborar con mi consejo insular.</p>
+        <label class="text-xl">
+        <%= f.radio_button :territorial_assignment, :island, class:"checkbox"%>
+        <p>Insular donde estoy inscrito/a</p>
+        </label>
       </div>
         <% end %>
-
+      <div class="input-box js-collaboration-assignment-autonomy">
+        <label class="text-xl"><%= f.radio_button :territorial_assignment, :autonomy, class:"checkbox"%>
+        <p>Autonómico donde estoy inscrito/a</p>
+        </label>
+      </div> 
+      <div class="input-box js-collaboration-assignment-country">
+        <label class="text-xl"><%= f.radio_button :territorial_assignment, :country, class:"checkbox"%>
+        <p>Estatal</p>
+        </label>
+      </div>
     </div>
   </div>
 </fieldset>

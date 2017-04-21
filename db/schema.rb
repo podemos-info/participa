@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122125321) do
+ActiveRecord::Schema.define(version: 20170321135401) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20161122125321) do
     t.string   "meta_description"
     t.string   "meta_image"
     t.string   "counter_key"
+    t.string   "external_link"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -607,6 +608,7 @@ ActiveRecord::Schema.define(version: 20161122125321) do
     t.datetime "participation_team_at"
     t.datetime "sms_check_at"
     t.string   "vote_district"
+    t.string   "gender"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
