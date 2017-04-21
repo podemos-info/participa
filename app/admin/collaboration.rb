@@ -471,14 +471,33 @@ ActiveAdmin.register Collaboration do
     autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
     autonomies["~"] = "Sin asignación"
     autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.where(town_code:nil, island_code:nil).group(:autonomy_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
-      autonomies_data[k[0]||"~"][k[1].to_i] = v
+
+    Order.paid.where(town_code:nil, island_code:nil).group('autonomy_code',Order.unique_month('payable_at')).order('autonomy_code', Order.unique_month('payable_at')).pluck('autonomy_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
+      autonomies_data[c||"~"][m.to_i]=[t,v]
     end
 
-    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      csv << ["Comunidad Autónoma"] + months.values
+    csv =CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      header1 =["Comunidad Autónoma"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      csv << header1
+
+      header2 =[""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      csv << header2
+
       autonomies.sort.each do |autonomy_code,autonomy|
-        csv << [autonomy] + months.keys.map{|month| autonomies_data[autonomy_code][month]/100}
+        row=[autonomy]
+        months.keys.each do |month|
+          row.push(autonomies_data[autonomy_code][month][0])
+          row.push(autonomies_data[autonomy_code][month][1]/100)
+        end
+        csv << row
       end
     end
 
@@ -500,17 +519,35 @@ ActiveAdmin.register Collaboration do
     provinces = Carmen::Country.coded("ES").subregions
 
     island_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.where(town_code:nil).group(:island_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
-      island_data[k[0]][k[1].to_i] = v
+    Order.paid.where(town_code:nil).group('island_code',Order.unique_month('payable_at')).order('island_code', Order.unique_month('payable_at')).pluck('island_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
+      island_data[c][m.to_i]=[t,v]
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      csv << ["Comunidad Autónoma", "Provincia", "Isla"] + months.values
+      header1 =["Comunidad Autónoma", "Provincia", "Isla"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      csv << header1
+
+      header2 =["","",""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      csv << header2
 
       provinces.each_with_index do |province,i|
         prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
         islands[prov_code].each do |island_code, island_name|
-          csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, island_name ] + months.keys.map{|k| island_data[island_code][k]/100}
+          row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, island_name ]
+          months.keys.each do |month|
+            puts("#{island_code} #{month}")
+            row.push(island_data[island_code][month][0])
+            row.push(island_data[island_code][month][1]/100)
+          end
+          csv << row
         end
       end
     end
@@ -526,16 +563,33 @@ ActiveAdmin.register Collaboration do
 
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.group(:town_code, Order.unique_month("payable_at")).sum(:amount).each do |k,v|
-      towns_data[k[0]][k[1].to_i] = v
+    Order.paid.group(:town_code, Order.unique_month('payable_at')).order(:town_code, Order.unique_month('payable_at')).pluck('town_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
+      towns_data[c][m.to_i]=[t,v]
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      csv << ["Comunidad Autónoma", "Provincia", "Municipio"] + months.values
+      header1 =["Comunidad Autónoma", "Provincia", "Municipio"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      csv << header1
+
+      header2 =["","",""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      csv << header2
       provinces.each_with_index do |province,i|
         prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
         province.subregions.each do |town|
-          csv << [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name ] + months.keys.map{|k| towns_data[town.code][k]/100}
+          row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name ]
+          months.keys.each do |month|
+            row.push(towns_data[town.code][month][0])
+            row.push(towns_data[town.code][month][1]/100)
+          end
+          csv << row
         end
       end
     end
