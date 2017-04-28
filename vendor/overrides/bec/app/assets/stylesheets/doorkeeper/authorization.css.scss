@@ -1,0 +1,112 @@
+/*
+ *= require general
+ *
+ *= require_self
+ */
+
+/* -----------------------------------
+General
+----------------------------------- */
+
+$color-primary: #E65C56;
+$color-secondary: #269283;
+
+.content {
+  min-height: 45vh;
+}
+
+.btn {
+  padding: 1em 1em;
+  width: 100%;
+  color: #fff;
+  font-weight: bold;
+  border: 0;
+  border-radius: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &.btn-success {
+    background-color: $color-secondary;
+  }
+
+  &.btn-danger {
+    background-color: $color-primary;
+  }
+}
+
+/* ---------------------------------------
+app/views/layouts/doorkeeper/authorization
+--------------------------------------- */
+
+.a1-auth-box {
+  margin: 0 auto 20em;
+  width: 90%;
+}
+
+/* ---------------------------------------
+app/views/doorkeeper/authorization/*
+--------------------------------------- */
+
+.page-header {
+  text-align: center;
+  margin: 5em 0 2.5em;
+
+  h1 {
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 2em;
+  }
+}
+
+main {
+  width: 100%;
+  font-size: 1.2em;
+}
+
+/* ---------------------------------------
+app/views/doorkeeper/authorization/new
+--------------------------------------- */
+
+main {
+  p {
+    margin-top: 1em;
+  }
+
+  ul {
+    font-size: 1.4em;
+
+    li {
+      list-style: inside;
+    }
+  }
+}
+
+main {
+  .h4, #oauth-permissions {
+    margin-left: .5em;
+  }
+}
+
+main .actions {
+  margin-top: 2em;
+
+  form {
+    display: inline-block;
+    float: left;
+    width: 45%;
+    margin: 1em .5em;
+  }
+}
+
+/* ---------------------------------------
+form factors
+--------------------------------------- */
+
+@media only screen and (min-width: 769px) {
+
+  .a1-auth-box {
+    margin: 5em auto 20em;
+    width: 50%;
+  }
+
+}
