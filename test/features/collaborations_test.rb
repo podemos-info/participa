@@ -36,7 +36,7 @@ feature "Collaborations" do
     check('collaboration_terms_of_service')
     check('collaboration_minimal_year_old') 
 
-    click_button "Guardar Colaboración económica"
+    click_button "Guardar"
     page.must_have_content "6.000,00€"
     assert_equal 1, Collaboration.all.count 
 
@@ -71,7 +71,7 @@ feature "Collaborations" do
     check('collaboration_terms_of_service')
     check('collaboration_minimal_year_old') 
 
-    click_button "Guardar Colaboración económica"
+    click_button "Guardar"
     page.must_have_content "6.000,00€"
     assert_equal 1, Collaboration.all.count 
 

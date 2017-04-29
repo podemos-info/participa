@@ -200,6 +200,7 @@ La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona 
         first: Quant i com vols col·laborar
         second: Confirmació
         third: Resultat
+      submit: Guardar
   bec:
     other_locales: "Altres idiomes"
     home_address: "Adreça"
