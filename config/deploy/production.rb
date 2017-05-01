@@ -2,7 +2,7 @@ role :app, %w{participa@participa.barcelonaencomu.cat}
 role :web, %w{participa@participa.barcelonaencomu.cat}
 role :db,  %w{participa@participa.barcelonaencomu.cat}
 
-set :rvm_ruby_version, '2.2.2'
+set :rvm_ruby_version, '2.3.3'
 set :branch, ENV['BRANCH'] || :master
 set :deploy_to, '/srv/rails/participa.barcelonaencomu.cat'
 
