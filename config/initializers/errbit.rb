@@ -1,4 +1,4 @@
-if Rails.env.production?
+if Rails.env.production? or Rails.env.staging?
   Airbrake.configure do |config|
     airbrake_secrets = Rails.application.secrets.airbrake
 

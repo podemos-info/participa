@@ -33,7 +33,7 @@ class Election
       when 3 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_town_numeric}
       when 4 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_island_numeric}
       when 5 then user.country!="ES"
-      when 6 then user.has_vote_town? and self.election_locations.any? {|l| "%02d" % l.location == user.vote_district_numeric}
+      when 6 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_district_numeric}
     end
   end
 
