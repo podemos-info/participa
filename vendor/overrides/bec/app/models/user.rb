@@ -53,7 +53,7 @@ class User
   end
 
   def list_groups
-    self.groups.pluck(:name)
+    self.groups.pluck(:name).map{|group| group.downcase.parameterize('-')}
   end
 
 end
