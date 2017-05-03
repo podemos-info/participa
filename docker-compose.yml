@@ -1,7 +1,7 @@
 version: '2'
 services:
   participa:
-    image: bec/participa:1.0.0
+    image: bec/participa:1.1.0
     build:
       context: .
       dockerfile: config/docker/Dockerfile
@@ -15,15 +15,11 @@ services:
       - "4000:3000"
     depends_on:
       - postgres
-      - redis
       - mailcatcher
     command: bundle exec rails server -p 3000 -b '0.0.0.0'
 
   postgres:
     image: postgres:9.6
-
-  redis:
-    image: redis:2.8
 
   mailcatcher:
     image: schickling/mailcatcher:latest

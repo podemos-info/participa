@@ -1,12 +1,12 @@
 # NAME:     bec/participa
-# VERSION:  1.0.0
+# VERSION:  1.1.0
 
 FROM buildpack-deps:xenial
 
 LABEL \
   cat.bcnencomu.participa.description="Docker image to run BeC's Participa platform" \
-  cat.bcnencomu.participa.vendor="BeC" \
-  cat.bcnencomu.participa.version="1.0.0"
+  cat.bcnencomu.participa.vendor="Adab1ts" \
+  cat.bcnencomu.participa.version="1.1.0"
 
 MAINTAINER Carles Muiños "carles@adabits.org"
 
@@ -25,7 +25,7 @@ RUN \
 && rm -rf /var/lib/apt/lists/*
 
 # Ruby
-ENV RUBY_VERSION 2.2.2
+ENV RUBY_VERSION 2.3.3
 ENV RUBY_HOME /usr/local/ruby
 RUN \
   set -ex \
