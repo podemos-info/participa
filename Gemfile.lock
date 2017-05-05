@@ -256,7 +256,6 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
-    newrelic_rpm (4.1.0.333)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
@@ -460,7 +459,6 @@ DEPENDENCIES
   minitest-rails-capybara
   minitest-reporters
   mocha
-  newrelic_rpm
   norma43!
   paper_trail
   paperclip
