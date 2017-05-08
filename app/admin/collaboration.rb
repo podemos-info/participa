@@ -419,26 +419,14 @@ ActiveAdmin.register Collaboration do
     column :address do |collaboration|
       collaboration.get_user.address
     end
-    column :postal_code do |collaboration|
-      collaboration.get_user.postal_code
-    end
     column :town do |collaboration|
       collaboration.get_user.town_name
     end
-    column :province do |collaboration|
-      collaboration.get_user.province_name
-    end
-    column :island do |collaboration|
-      collaboration.get_user.province_name
-    end
-    column :autonomy do |collaboration|
-      collaboration.get_user.autonomy_name
+    column :postal_code do |collaboration|
+      collaboration.get_user.postal_code
     end
     column :country do |collaboration|
       collaboration.get_user.country
-    end
-    column :collabortion_type do |collaboration|
-      collaboration.for_island_cc ? "I" : collaboration.for_town_cc ? "M" : collaboration.for_autonomy_cc ? "A" : "E"
     end
     column :frequency_name
     column :amount do |collaboration|
