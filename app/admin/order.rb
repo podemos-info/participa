@@ -157,6 +157,22 @@ ActiveAdmin.register Order do
       order.parent.get_user.address if order.parent and order.parent.get_user
     end
 
+    column :order_type do |order|
+      order.island_code ? "I" : order.town_code ? "M" : order.province_code ? "P" : "E"
+    end
+    column :town do |order|
+      order.parent.get_user.town_name if order.parent and order.parent.get_user
+    end
+    column :province do |order|
+      order.parent.get_user.province_name if order.parent and order.parent.get_user
+    end
+    column :island do |order|
+      order.parent.get_user.island_name if order.parent and order.parent.get_user
+    end
+    column :autonomy do |order|
+      order.parent.get_user.autonomy_name if order.parent and order.parent.get_user
+    end
+
     column :status_name
     column :payable_at
     column :payed_at
