@@ -500,6 +500,18 @@ class Collaboration < ActiveRecord::Base
     @non_user
   end
 
+  def province_name
+    :province
+  end
+
+  def autonomy_name
+
+  end
+
+  def island_name
+
+  end
+
   def validates_has_user
     if self.get_user.nil?
       self.errors.add(:user, "La colaboración debe tener un usuario asociado.")
