@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20170321135401) do
     t.boolean  "for_autonomy_cc"
     t.boolean  "for_town_cc"
     t.boolean  "for_island_cc"
+    t.date     "mail_send_at"
   end
 
   add_index "collaborations", ["deleted_at"], name: "index_collaborations_on_deleted_at"
