@@ -4,7 +4,6 @@ class UserTest < ActiveSupport::TestCase
 
   setup do 
     @user = FactoryGirl.create(:user)
-    @group = FactoryGirl.create(:group)
     @admin = FactoryGirl.create(:user, :admin)
   end
 
@@ -345,11 +344,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should scope .wants_newsletter work" do 
-    assert_equal 3, User.wants_newsletter.count
+    assert_equal 2, User.wants_newsletter.count
     FactoryGirl.create(:user, :no_newsletter_user)
-    assert_equal 3, User.wants_newsletter.count
+    assert_equal 2, User.wants_newsletter.count
     FactoryGirl.create(:user, :newsletter_user)
-    assert_equal 4, User.wants_newsletter.count
+    assert_equal 3, User.wants_newsletter.count
   end
 
   test "should act_as_paranoid" do 
@@ -532,8 +531,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should list_groups work correctly" do 
-    u = @group.users.first
-    assert_equal ["nom-inventat-28"], u.list_groups
+    group = FactoryGirl.create(:group, name: "NOM INVENTAT i NOU")
+    u = group.users.first
+    assert_equal ["nom-inventat-i-nou"], u.list_groups
   end
 
 end
