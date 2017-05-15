@@ -64,6 +64,7 @@ group :development, :test do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
+  gem 'capistrano-rvm'
   gem 'factory_girl_rails'
   gem 'byebug'
   gem 'better_errors'

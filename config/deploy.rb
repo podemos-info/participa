@@ -8,5 +8,3 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 
 set :user, 'participa'
 set :ssh_options, forward_agent: true
-
-after 'deploy:publishing', 'passenger:restart'

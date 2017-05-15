@@ -531,9 +531,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should list_groups work correctly" do 
-    group = FactoryGirl.create(:group, name: "NOM INVENTAT i NOU")
+    group = FactoryGirl.create(:group, name: "new WORLD ORDER!!")
     u = group.users.first
-    assert_equal ["nom-inventat-i-nou"], u.list_groups
+    assert_equal ["new-world-order"], u.list_groups
   end
 
 end
