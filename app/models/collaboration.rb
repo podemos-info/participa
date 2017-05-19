@@ -501,7 +501,6 @@ class Collaboration < ActiveRecord::Base
   end
 
   def province_name
-<<<<<<< HEAD
     :province
   end
 
@@ -510,12 +509,6 @@ class Collaboration < ActiveRecord::Base
   end
 
   def island_name
-=======
-
-  end
-
-  def autonomy_name
->>>>>>> master
 
   end
 
