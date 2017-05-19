@@ -439,12 +439,12 @@ class Collaboration < ActiveRecord::Base
 
   class NonUser
     def initialize(args)
-      [:legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone, :province_name, :autonomy_name].each do |var|
+      [:legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone, :province_name, :island_name, :autonomy_name].each do |var|
         instance_variable_set("@#{var}", args[var]) if args.member? var
       end
     end
 
-    attr_accessor :legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone, :province_name, :autonomy_name
+    attr_accessor :legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone, :province_name, :island_name, :autonomy_name
 
     def to_s
       "#{full_name} (#{document_vatid} - #{email})"
@@ -487,6 +487,10 @@ class Collaboration < ActiveRecord::Base
   end
 
   def autonomy_name
+
+  end
+
+  def island_name
 
   end
 
