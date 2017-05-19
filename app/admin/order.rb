@@ -158,7 +158,7 @@ ActiveAdmin.register Order do
     end
 
     column :order_type do |order|
-      order.island_code ? "I" : order.town_code ? "M" : order.province_code ? "P" : "E"
+      order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
     end
     column :town do |order|
       order.parent.get_user.town_name if order.parent and order.parent.get_user
