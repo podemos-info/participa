@@ -434,6 +434,15 @@ ActiveAdmin.register Collaboration do
     column :autonomy do |collaboration|
       collaboration.get_user.autonomy_name
     end
+    column :province do |collaboration|
+      collaboration.get_user.province_name
+    end
+    column :island do |collaboration|
+      collaboration.get_user.island_name
+    end
+    column :autonomy do |collaboration|
+      collaboration.get_user.autonomy_name
+    end
     column :country do |collaboration|
       collaboration.get_user.country
     end

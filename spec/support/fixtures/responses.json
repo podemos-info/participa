@@ -1,0 +1,93 @@
+[{
+  "redsys_identifier":012647493728,
+  "redsys_expiration":"2018-04-30 10:00",
+  "redsys_text_status":"Transacción no procesada",
+  "redsys_response":"101"
+},
+ {
+  "redsys_identifier":012647493728,
+  "redsys_expiration":"2018-04-30 10:00",
+  "redsys_text_status":"0: Transacción autorizada para pagos y preautorizaciones",
+    "redsys_response":"102"
+},
+ {
+  "redsys_identifier":012647493728,
+  "redsys_expiration":"2018-04-30 10:00",
+  "redsys_text_status":"116: Disponible insuficiente",
+    "redsys_response":"104"
+},
+ {
+  "redsys_identifier":012647493728,
+  "redsys_expiration":"2018-04-30 10:00",
+  "redsys_text_status":"116: Disponible insuficiente",
+    "redsys_response":"9104"
+},
+ {
+  "redsys_identifier":012647493728,
+  "redsys_expiration":"2018-04-30 10:00",
+  "redsys_text_status":"116: Disponible insuficiente",
+    "redsys_response":"116"
+},
+ {
+  "redsys_identifier":012647493728,
+  "redsys_expiration":"2018-04-30 10:00",
+  "redsys_text_status":"116: Disponible insuficiente",
+    "redsys_response":"190"
+},
+ {
+  "redsys_identifier":012647493728,
+  "redsys_expiration":"2018-04-30 10:00",
+  "redsys_text_status":"116: Disponible insuficiente",
+    "redsys_response":"202"
+}
+]
+
+
+
+  def redsys_text_status
+    case self.status
+    when 5
+      "Orden devuelta"
+    else
+      code =  if self.redsys_response
+                if self.first
+                  self.redsys_response["Ds_Response"]
+                else
+                  self.redsys_response[-1]
+                end
+              else
+                nil
+              end
+
+      if code
+        code = code.to_i if code.is_a? String and not code.start_with? "SIS"
+          # Given a status code, returns the status message
+        message = case code
+          when "SIS0298"  then "El comercio no permite realizar operaciones de Tarjeta en Archivo."
+          when "SIS0319"  then "El comercio no pertenece al grupo especificado en Ds_Merchant_Group."
+          when "SIS0321"  then "La referencia indicada en Ds_Merchant_Identifier no está asociada al comercio."
+          when "SIS0322"  then "Error de formato en Ds_Merchant_Group."
+          when "SIS0325"  then "Se ha pedido no mostrar pantallas pero no se ha enviado ninguna referencia de tarjeta."
+          when 0..99      then "Transacción autorizada para pagos y preautorizaciones"
+          when 900        then "Transacción autorizada para devoluciones y confirmaciones"
+          when 101        then "Tarjeta caducada"
+          when 102        then "Tarjeta en excepción transitoria o bajo sospecha de fraude"
+          when 104, 9104  then "Operación no permitida para esa tarjeta o terminal"
+          when 116        then "Disponible insuficiente"
+          when 118        then "Tarjeta no registrada"
+          when 129        then "Código de seguridad (CVV2/CVC2) incorrecto"
+          when 180        then "Tarjeta ajena al servicio"
+          when 184        then "Error en la autenticación del titular"
+          when 190        then "Denegación sin especificar Motivo"
+          when 191        then "Fecha de caducidad errónea"
+          when 202        then "Tarjeta en excepción transitoria o bajo sospecha de fraude con retirada de tarjeta"
+          when 912, 9912  then "Emisor no disponible"
+          else
+            "Transacción denegada"
+        end
+        "#{code}: #{message}"
+      else
+        "Transacción no procesada"
+      end
+    end
+  end

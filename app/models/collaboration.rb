@@ -304,6 +304,24 @@ class Collaboration < ActiveRecord::Base
         end
         self.set_error! "Marcada como error porque se ha superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
+      # added in diferent block code to maintain code coherence and to allow future code refactor
+
+      # send diferent mail in diferent
+      if !self.send_email_at and self.user
+        if self.payment_type == 1 # paid with CreditCard
+          if warn
+            collaborations_mailer.creditcard_expired_email(self.user).deliver
+          elsif error
+            collaborations_mailer.creditcard_error_email(self.user).deliver
+          end
+        else
+          if self.order.count == 1
+            collaborations_mailer.receipt_returned_email(self.user).deliver
+          else
+            collaborations_mailer.receipt_suspended_email(self.user).deliver
+          end
+        end
+      end
     end
   end
 
@@ -483,10 +501,14 @@ class Collaboration < ActiveRecord::Base
   end
 
   def province_name
-
+    :province
   end
 
   def autonomy_name
+
+  end
+
+  def island_name
 
   end
 
