@@ -15,7 +15,7 @@
   <meta name="twitter:title" content="Podemos | Portal de participación" />
   <meta name="twitter:description" content="<%=@meta_description%>" />
   <meta name="twitter:image" content="<%=@meta_image%>" />
-
+  <%= render partial: 'tag_manager_head' %>
 </head>
 <body class="<%= body_class user_signed_in?, controller_name, action_name %>">
   <div class="wrap">
@@ -26,7 +26,7 @@
     </div>
     <%= render partial: 'footer' %>
     <%= render partial: 'cookie_policy' %>
-    <%= render partial: 'analytics' %>
+    <%= render partial: 'tag_manager_body' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   </div>
 </body>
