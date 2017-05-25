@@ -157,8 +157,6 @@ ActiveAdmin.register Order do
       order.parent.get_user.address if order.parent and order.parent.get_user
     end
 
-<<<<<<< HEAD
-=======
     column :order_type do |order|
       order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
     end
@@ -175,7 +173,6 @@ ActiveAdmin.register Order do
       order.parent.get_user.autonomy_name if order.parent and order.parent.get_user
     end
 
->>>>>>> master
     column :status_name
     column :payable_at
     column :payed_at
