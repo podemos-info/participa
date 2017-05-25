@@ -7,9 +7,10 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <%= csrf_meta_tags %>
+  <%= render partial: 'tag_manager_head' %>
 </head>
 <body class="<%= body_class user_signed_in?, controller_name, action_name %>">
     <%= yield %>
-    <%= render partial: 'analytics' %>
+    <%= render partial: 'tag_manager_body' %>
 </body>
 </html>
