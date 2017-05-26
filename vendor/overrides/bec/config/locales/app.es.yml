@@ -860,3 +860,15 @@ Al confirmar este formulario aceptáis que:
         second: Confirmación
         third:  Resultado
       submit: Guardar
+  tools:
+    index: 
+      title: "Herramientas de participación ciudadana"
+    tool_box:
+      box1:
+        title: "Agora"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam mattis luctus eros natoque mattis pellentesque! Imperdiet ullamcorper ad per; Magnis venenatis dictum fringilla sem sollicitudin adipiscing eget... "
+        button: "Ir al Agora"
+      box2:
+        title: "Fitxers"
+        description: "Ipsum feugiat quisque metus ultricies ullamcorper. Habitant dignissim dictumst. Nisi tellus mattis hymenaeos quam mattis? Vitae vestibulum commodo amet nisi per, suspendisse nulla luctus sollicitudin ut "
+        button: "Ir a Fitxers"

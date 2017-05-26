@@ -787,40 +787,31 @@ tools
   position:relative;
 }
 .tools li{
-  width:97%;
   position:relative;
   display:block;
   float:left;
   padding:1.5%;
   margin-bottom:1.5em;
+  background-color:#eee;
 }
 .tools li:nth-child(3n+0){
   margin-right:0;
   clear:right;
 }
-.tools li div.box-tool{
-  position:relative;
+.tools li.box-tool-large{
+  width:97%;
+}
+
+.tools li.box-tool-large{
+  background-color:#EEE;
 }
 .tools li div.tool-text{
-  padding-top:20em;
-}
-.tools li div.box-tool:before{
-  display: inline-block;
-  margin: 0;
-  position:absolute;
-  top: -1.7em;
-  left: -1.7em;
 }
 .tools li h3{
-  position: absolute;
-  width: 75%;
-  top: 0;
-  right: 0;
-  border-bottom:0;
 }
 .tools li .button{
   display:block;
-  width: 100%;
+  width:100%;
   padding:1em 0;
   text-align:center;
 }
@@ -1011,7 +1002,7 @@ div.help {
         height: auto;
       }
       .info {
-        padding-left: 45%;
+        padding-left:45%;
         font-family:Montserrat,Arial,sans-serif;
         vertical-align: top;
         display: inline-block;
@@ -1603,7 +1594,6 @@ input.button-primary:hover{
   font-family:Montserrat,Arial,sans-sefif;
   display:block;
   width:100%;
-  border-bottom:1px solid #269283;
   position:relative;
   margin:0 0 1.5em;
   font-weight:bold;
@@ -1706,9 +1696,6 @@ elementos
 .steps3 li:nth-child(3) span.block span.tab-number{
   width:70%;
   text-align:center;
-}
-.tools li h3{
-  width:75%;
 }
 .subtitle {
   margin:1em 0;
@@ -2344,10 +2331,6 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     margin-right:2%;
   }
   .tools li div.tool-text{
-    height:20em;
-  }
-  .tools li h3{
-    width:75%;
   }
   .subtitle-welcome ol li {
     margin: 0 0 4em;
@@ -2494,14 +2477,12 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     text-align:left;
   }
   .tools li{
-    width:45%;
+    width:46%;
     margin-right:2%;
   }
   .tools li div.tool-text{
-    height:12em;
   }
   .tools li h3{
-    width:75%;
   }
   .content-content-home{
     margin: auto;
@@ -2587,9 +2568,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 }
 
 .tools li {
- margin-left: -10px;
  text-align: left;
- width: 90%;
 }
 
 .col-b-4a12 {

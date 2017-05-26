@@ -1,14 +1,18 @@
 <section class="tools">
 <ul>
-  <li class="box-tool">
-  <div class="box-tool">
-    <%# image_tag "img-vota.png", class: "img3" %>
-    <div class="tool-text">
-    <h3>
-      <%= t('voting.election_none') %>
-    </h3>
-    </div><!--.tool-text-->
-  </div><!--.box-tool-->
+  <li class="box-tool-large">
+    <div class="box-tool">
+      <%# image_tag "img-vota.png", class: "img3" %>
+      <div class="tool-text">
+      <h3>
+        <%= t('voting.election_none') %>
+      </h3>
+      </div><!--.tool-text-->
+    </div><!--.box-tool-->
   </li>
+  <% if current_user.groups.any? %>
+    <%= render "tool_box", link: "https://agora.barcelonaencomu.cat/login", number: 1  %>
+    <%= render "tool_box", link: "https://fitxers.barcelonaencomu.cat/login", number: 2  %>
+  <% end %>
 </ul>
 </section><!--.tools-->
