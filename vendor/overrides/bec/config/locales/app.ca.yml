@@ -728,3 +728,15 @@ Amb tres passos molt senzills:
       document: "He verificat el document original de l'inscrit/a"
       age: "L'inscrit/a és major de 16 anys - nascut abans de %{date}"
       town: "He verificat un document (DNI/NIE/Passaport, rebut d'un subministrament) que acredita que l'inscrit/a viu a Barcelona."
+  tools:
+    index: 
+      title: "Eines de participació ciutadana"
+    tool_box:
+      box1:
+        title: "Agora"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam mattis luctus eros natoque mattis pellentesque! Imperdiet ullamcorper ad per; Magnis venenatis dictum fringilla sem sollicitudin adipiscing eget... "
+        button: "Ir al Agora"
+      box2:
+        title: "Fitxers"
+        description: "Ipsum feugiat quisque metus ultricies ullamcorper. Habitant dignissim dictumst. Nisi tellus mattis hymenaeos quam mattis? Vitae vestibulum commodo amet nisi per, suspendisse nulla luctus sollicitudin ut "
+        button: "Ir a Fitxers"
