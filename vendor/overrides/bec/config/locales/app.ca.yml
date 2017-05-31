@@ -733,10 +733,10 @@ Amb tres passos molt senzills:
       title: "Eines de participació ciutadana"
     tool_box:
       box1:
-        title: "Agora"
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam mattis luctus eros natoque mattis pellentesque! Imperdiet ullamcorper ad per; Magnis venenatis dictum fringilla sem sollicitudin adipiscing eget... "
-        button: "Ir al Agora"
+        title: "Àgora"
+        description: "Accediu al fòrum per compartir, aprendre i debatre. La informació i el coneixement també el fem en comú"
+        button: "Anar al àgora"
       box2:
         title: "Fitxers"
-        description: "Ipsum feugiat quisque metus ultricies ullamcorper. Habitant dignissim dictumst. Nisi tellus mattis hymenaeos quam mattis? Vitae vestibulum commodo amet nisi per, suspendisse nulla luctus sollicitudin ut "
-        button: "Ir a Fitxers"
+        description: "Accediu als documents treballats als vostres espais de Barcelona en Comú. Teniu els documents ordenats per grups, carpetes i subcarpetes."
+        button: "Anar als fitxers"
