@@ -20,6 +20,11 @@
     <%= f.input :address %>
     <%= f.input :postal_code %>
     <%= f.input :wants_newsletter %>
+    <%= f.input :district,
+                  required: true,
+                  as: :select,
+                  collection: User::DISTRICT,
+                  input_html: {required: true} %>
     <%= f.actions %>
   <% end %>
 <% end %>
