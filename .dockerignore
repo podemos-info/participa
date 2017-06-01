@@ -2,7 +2,6 @@
 config/docker/*
 config/database.yml.*
 config/mailserver.yml.*
-config/redis.yml.*
 config/secrets.yml.*
 coverage/*
 db/*.sqlite3
