@@ -45,7 +45,7 @@ namespace :podemos do
           end
 
           post_info[:custom_fields] << { key: "project_email", value: project.user ? project.user.email : project.wizard_values["autoridad.email_contacto"] ? project.wizard_values["autoridad.email_contacto"] : project.wizard_values["persona.email"]}
-          post_info[:custom_fields] << { key: "project_evaluation_result", value: project.evaluation_result ? project.evaluation_result : "55,0/100" }
+          post_info[:custom_fields] << { key: "project_evaluation_result", value: project.evaluation_result ? project.evaluation_result : "" }
           post_info[:post_name] = post_info[:post_title].parameterize
           post_info[:terms_names][:edition_category] = [ project.impulsa_edition.name, project.impulsa_edition_category.name ]
           
@@ -53,8 +53,6 @@ namespace :podemos do
           p "S #{project.id} -> #{ret}"
         rescue Exception => ex
           p "ERROR IN #{project.id} -> #{ex}"
-          p "post info: #{post_info}"
-          Airbrake.notify_or_raise(ex)
         end
         last_update = project.updated_at
       end
