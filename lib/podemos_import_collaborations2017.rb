@@ -1,16 +1,15 @@
 class PodemosImportCollaborations2017
-
- fields={
+ @@fields={
       :name => "NOMBRE",
-      :surname1 => "APELLIDO1",
-      :surname2 => "APELLIDO2",
+      :surname1 => "APELLIDO 1",
+      :surname2 => "APELLIDO 2",
       :dni => "DNI",
       :born => "FECHA DE NACIMIENTO",
-      :tlf => "TELEFONO MOVIL",
+      :phone => "TELEFONO MOVIL",
       :email => "EMAIL",
       :gender =>"GENERO",
       :address => "DOMICILIO",
-      :town => "MUNICIPIO",
+      :town_name => "MUNICIPIO",
       :postal_code => "CODIGO POSTAL",
       :province => "PROVINCIA",
       :amount => "IMPORTE MENSUAL",
@@ -24,27 +23,34 @@ class PodemosImportCollaborations2017
       :donation_type => "FINANCIACION TERRITORIAL",
       :payment_type => "METODO DE PAGO",
       :payment_frecuency => "FRECUENCIA DE PAGO",
-      :created_At => "CREADO"
+      :created_at => "CREADO"
     }
 
   def self.log_to_file(filename, text)
     File.open(filename, 'a') { |f| f.write(text) }
   end
 
-  def self.process_row(fields=self.fields ,row)
+  def self.process_row(row,fields=@@fields )
     params = { document_vatid: row[fields[:dni]].strip.upcase,
       full_name: row[fields[:surname1]] || row[fields[:surname2]] ? "#{row[fields[:name]]} #{row[fields[:surname1]]} #{row[fields[:surname2]]}" : row[fields[:name]],
       email: row[fields[:email]],
-      ccc_1: row[fields[:entity_code],
-      ccc_2: row[fields[:office_code],
+      ccc_1: row[fields[:entity_code]],
+      ccc_2: row[fields[:office_code]],
       ccc_3: row[fields[:cc_code]],
-      ccc_4: row[fields[:account_code]],
+      ccc_4: row[fields[:acount_code]],
       iban_1: row[fields[:iban_code]],
       iban_2: row[fields[:swift_code]] || "",
-      payment_type: row[fields[:fields[:payment_type]] || 2,
+      payment_type: row[fields[:payment_type]] || 2,
       amount: row[fields[:amount]].to_i * 100.0,
       frequency: row[fields[:payment_frecuency]] || 1,  # 1 3 12
-      created_at: DateTime.parse(row["Creado"]) || DateTime.now,
+      created_at: row[fields[:created_at]] ? DateTime.parse(row[fields[:created_at]]) : DateTime.now,
+      address: row[fields[:address]] || "",
+      town_name: row[fields[:town_name]],
+      postal_code: row[fields[:postal_code]],
+      province: row[fields[:province]],
+      phone: row[fields[:phone]],
+      gender: row[fields[:gender]],
+      donation_type: row[fields[:donation_type]],
       row: row
     }
 
@@ -69,18 +75,31 @@ class PodemosImportCollaborations2017
         c.ccc_account = params[:ccc_4]
         c.iban_account = params[:iban_1]
         c.iban_bic = c.calculate_bic
+        c.status = 2
+
+        case params[:donation_type]
+        when 'CCM'
+          c.for_town_cc = true
+        when 'CCA'
+          c.for_autonomy_cc = true
+        when 'CCE'
+          c.for_town_cc = false
+          c.for_island_cc = false
+          c.for_autonomy_cc = false
+        when 'CCI'
+          c.for_island_cc = true
+        end
 
         if c.valid?
           c.save
           self.log_to_file "#{Rails.root}/log/collaboration/valid.txt", params[:row]
         else
           # en caso de que tenga un iban_account pero no un iban_bic ...
-          if c.errors.messages[:iban_bic].first == "no puede estar en blanco"
-              self.log_to_file "#{Rails.root}/log/collaboration/valid_not_bic.txt", "#{params[:row]}"
-            end
-          else
-            self.log_to_file "#{Rails.root}/log/collaboration/not_valid.txt", "#{params[:row]};#{c.errors.messages.to_s}"
-          end
+          #if c.errors.messages[:iban_bic].first == "no puede estar en blanco"
+          #  self.log_to_file "#{Rails.root}/log/collaboration/valid_not_bic.txt", "#{params[:row]}"
+          #else
+          self.log_to_file "#{Rails.root}/log/collaboration/not_valid.txt", "#{params[:row]};#{c.errors.messages.to_s} #{c.created_at}"
+          #end
         end
       else
         # Si el usuario Existe
@@ -109,20 +128,72 @@ class PodemosImportCollaborations2017
         end
       else
         # por ultimo, usuarios de los que no tenemos ni el email ni el documento en participa
-        #self.create_non_user params
-        self.log_to_file "#{Rails.root}/log/collaboration/not_participation.txt", params[:row]
+        self.create_non_user params
+        #self.log_to_file "#{Rails.root}/log/collaboration/not_participation.txt", params[:row]
       end
+    end
+  end
+
+  def self.create_non_user(params)
+    info= {
+      full_name: params[:full_name],
+      document_vatid: params[:document_vatid],
+      email: params[:email],
+      address: params[:address],
+      town_name: params[:town_name],
+      postal_code: params[:postal_code],
+      province: params[:province],
+      phone: params[:phone],
+      gender: params[:gender],
+      }
+    c = Collaboration.new
+    c.user = nil
+
+    c.amount = params[:amount]
+    c.frequency = params[:frequency]
+    c.created_at = params[:created_at]
+    c.payment_type = params [:payment_type]
+    c.ccc_entity = params[:ccc_1]
+    c.ccc_office = params[:ccc_2]
+    c.ccc_dc = params[:ccc_3]
+    c.ccc_account = params[:ccc_4]
+    c.iban_account = params[:iban_1]
+    c.iban_bic = c.calculate_bic
+    c.set_non_user info
+    c.status = 2
+    case params[:donation_type]
+    when 'CCM'
+      c.for_town_cc = true
+    when 'CCA'
+      c.for_autonomy_cc = true
+    when 'CCE'
+      c.for_town_cc = false
+      c.for_island_cc = false
+      c.for_autonomy_cc = false
+    when 'CCI'
+      c.for_island_cc = true
+    end
+
+    if c.valid?
+      c.save
+      self.log_to_file "#{Rails.root}/log/collaboration/non_user_valid.txt", params[:row]
+    else
+      # en caso de que tenga un iban_account pero no un iban_bic ...
+      #if c.errors.messages[:iban_bic].first == "no puede estar en blanco"
+      #  self.log_to_file "#{Rails.root}/log/collaboration/valid_not_bic.txt", "#{params[:row]}"
+      #else
+      self.log_to_file "#{Rails.root}/log/collaboration/non_user_not_valid.txt", "#{params[:row]};#{c.errors.messages.to_s}"
+      #end
     end
   end
 
   def self.init csv_file
-    CSV.foreach(csv_file, headers: true) do |row|
+    CSV.foreach(csv_file, {:headers=> true , :col_sep=> "\t"}) do |row|
       begin
         process_row row
-      rescue
-        self.log_to_file "#{Rails.root}/log/collaboration/exception.txt", row
+      #rescue
+        #self.log_to_file "#{Rails.root}/log/collaboration/exception.txt", row
       end
     end
   end
-
 end
