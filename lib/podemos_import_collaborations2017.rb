@@ -51,7 +51,6 @@ class PodemosImportCollaborations2017
       phone: row[fields[:phone]],
       gender: row[fields[:gender]],
       donation_type: row[fields[:donation_type]],
-      country: row[fields[:country]] || "ES"
       row: row
     }
 
@@ -146,7 +145,6 @@ class PodemosImportCollaborations2017
       province: params[:province],
       phone: params[:phone],
       gender: params[:gender],
-      country: params[:country]
       }
     c = Collaboration.new
     c.user = nil
