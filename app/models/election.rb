@@ -5,7 +5,8 @@ class Election < ActiveRecord::Base
   
   has_flags 1 => :requires_sms_check,
             2 => :show_on_index,
-            3 => :ignore_multiple_territories
+            3 => :ignore_multiple_territories,
+            4 => :requires_vatid_check
 
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes

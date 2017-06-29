@@ -64,7 +64,7 @@ class Collaboration < ActiveRecord::Base
   scope :full_view, -> { with_deleted.eager_load(:user).eager_load(:order) }
 
   scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
-  scope :town_cc, -> { created.where(for_town_cc: true, for_autonomy_cc: true)}
+  scope :town_cc, -> { created.where(for_town_cc: true)}
   scope :island_cc, -> { created.where(for_island_cc: true)}
 
   after_create :set_initial_status
