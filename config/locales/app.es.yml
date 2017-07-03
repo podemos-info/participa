@@ -313,6 +313,10 @@ es:
         captcha: "Captcha"
         current_password: "Contraseña actual"
         circle: "Círculo"
+      user_verification:
+        front_vatid: "Primer adjunto"
+        back_vatid: "Segundo adjunto"
+        terms_of_service: "Términos y condiciones"
       category:
         name: "nombre"
   podemos:
@@ -799,6 +803,21 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         territorial: "Indica brevemente la formación y experiencia profesional de las personas que desarrollarán el proyecto, incidiendo en las relacionadas con el ámbito del proyecto presentado."
       coofficial_translation: "Traducir al %{lang}"
       total_price: "Importe del premio concedido"
+    user_verification:
+      title: "Verificación de identidad"
+      directions: "Pincha en las imágenes de ejemplo para subir fotos de tu documento, así podremos verificar tu identidad."
+      dni:
+        sample1_description: "Anverso del DNI"
+        sample2_description: "Reverso del DNI"
+      nie:
+        sample1_description: "Anverso de la tarjeta de residencia. Comunitarios: Certificado de registro de ciudadano de la Unión"
+        sample2_description: "Reverso de la tarjeta de residencia. Comunitarios: pasaporte o carnet de identificación nacional"
+      pasaporte:
+        sample1_description: "Página principal del pasaporte"
+        sample2_description: "Página adicional del pasaporte (opcional)"
+      terms_of_service:
+        title: "Términos y condiciones"
+      upload: "Subir"
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."

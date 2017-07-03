@@ -5,20 +5,32 @@
     <div class="col-b-4a12">
 
       <%= content_tag(:h2, t("podemos.user_verification.title")) %>
-
+      <%= content_tag(:p, t("podemos.user_verification.directions")) %>     
       <%= errors_in_form @user_verification %>
       
       <%= semantic_form_for @user_verification, url: create_user_verification_path, html: {method: :post, autocomplete: 'off'} do |f| %>
 
-          <%= render partial: "form", locals: { f: f } %>
+          <fieldset>
+            <div class="js-user-verification">
+              <label for="user_verification_front_vatid" class="vatid_sample user_verification_front_vatid">
+                <%= image_tag("user_verifications/#{current_user.document_type_name.downcase}-sample1.png", alt: t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample1_description")) %>
+                <div class="button"><%= content_tag(:span, t("podemos.user_verification.upload")) %> <%= t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample1_description") %></div>
+              </label>
+              <%= f.input :front_vatid, label: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
+            </div>
+            <div class="js-user-verification">
+              <label for="user_verification_back_vatid" class="vatid_sample user_verification_back_vatid">
+                <%= image_tag("user_verifications/#{current_user.document_type_name.downcase}-sample2.png", alt: t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample2_description")) %>
+                <div class="button"><%= content_tag(:span, t("podemos.user_verification.upload")) %> <%= t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample2_description") %></div>
+              </label>
+              <%= f.input :back_vatid, label: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
+            </div>
+          </fieldset>
 
           <fieldset class="with-tos">
-
-            <legend><span>Consentimiento</span></legend>
-
             <div class="inputlabel-box">
-              <span class="no-label"><%= t('podemos.user_verification.terms_of_service.title') %></span>
-              <span class="no-input">
+              <%= f.label :terms_of_service %>
+              <div class="input-box">
                 <div class="tos">
                   <p>1. <%= t('podemos.user_verification.terms_of_service.p1_title') %> </p>
                   <%= simple_format t('podemos.user_verification.terms_of_service.p1') %>
@@ -27,8 +39,11 @@
                   <p>3. <%= t('podemos.user_verification.terms_of_service.p3_title') %> </p>
                   <%= simple_format t('podemos.user_verification.terms_of_service.p3') %>
                 </div>
-              </span>
+                <%= f.check_box :terms_of_service, class: 'checkbox' %>
+                <p class="text-xl">Acepto las condiciones generales.</p>
+              </div>
             </div>
+
             <%= f.actions class: 'enter' do %>
               <%= f.action :submit, :as => :input, button_html: {class: 'button'} %>
             <% end %>
