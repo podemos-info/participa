@@ -160,18 +160,17 @@ ActiveAdmin.register Collaboration do
         """.html_safe
       end
     end
-  end
 
-  h4 "Listados Especiales"
-  ul do
-    li do
-      """por Código Postal:
+    h4 "Listados Especiales"
+    ul do
+      li do
+        """por Código Postal:
 	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_cp, date: Date.today) }
-      #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_cp, date: Date.today-1.month) }
-      """.html_safe
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_cp, date: Date.today-1.month) }
+        """.html_safe
+      end
     end
   end
-end
   
   sidebar "Procesar respuestas del banco", 'data-panel' => :collapsed, :only => :index, priority: 1 do  
     render("admin/process_bank_response")
@@ -678,7 +677,6 @@ end
         end
       end
     end
-
     send_data file_csv.encode('utf-8'),
               type: 'text/tsv; charset=utf-8; header=present',
               disposition: "attachment; filename=podemos.user_for_cp_cc.#{Date.today.to_s}.csv"
@@ -694,3 +692,4 @@ end
     end
     redirect_to(collection_path, warning: "Ha ocurrido un error y las colaboraciones no han sido marcadas como erróneas.") if !ok
   end
+end
