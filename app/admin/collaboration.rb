@@ -694,4 +694,3 @@ end
     end
     redirect_to(collection_path, warning: "Ha ocurrido un error y las colaboraciones no han sido marcadas como erróneas.") if !ok
   end
-end
