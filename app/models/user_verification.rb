@@ -34,7 +34,7 @@ class UserVerification < ActiveRecord::Base
     if current
       current.assign_attributes(params)
     else
-      UserVerification.new params.merge(user: user)
+      current = UserVerification.new params.merge(user: user)
     end
     current
   end
