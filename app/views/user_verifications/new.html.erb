@@ -35,11 +35,17 @@
                 <div class="tos">
                   <%= raw t('podemos.user_verification.terms_of_service.full_text') %>
                 </div>
-                <%= f.check_box :terms_of_service, class: 'checkbox' %>
-                <%= content_tag(:p, t('podemos.user_verification.terms_of_service.accept')) %>
+                <div class="input-box">
+                  <%= f.check_box :terms_of_service, class: 'checkbox' %>
+                  <%= content_tag(:p, t('podemos.user_verification.terms_of_service.accept')) %>
+                </div>
+
+                <div class="input-box" style="width: initial">
+                  <%= f.check_box :wants_card, class: 'checkbox' %>
+                  <%= content_tag(:p, t('podemos.user_verification.wants_card')) %>
+                </div>
               </div>
             </div>
-
             <%= f.actions class: 'enter' do %>
               <%= f.action :submit, as: :input, label: t('podemos.user_verification.submit'), button_html: {class: 'button'} %>
             <% end %>
