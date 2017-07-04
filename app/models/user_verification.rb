@@ -29,13 +29,4 @@ class UserVerification < ActiveRecord::Base
     !user.is_passport?
   end
 
-  def self.for(user, params = {})
-    current = self.pending.where(user:user).first
-    if current
-      current.assign_attributes(params)
-    else
-      UserVerification.new params.merge(user: user)
-    end
-    current
-  end
 end

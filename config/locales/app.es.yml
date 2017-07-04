@@ -826,16 +826,6 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         sample2_description: "Página adicional del pasaporte (opcional)"
       terms_of_service:
         title: "Términos y condiciones"
-        full_text: "<h4>INFORMACIÓN SOBRE PROTECCIÓN DE DATOS PERSONALES</h4>
-          <p>Te recordamos que tus datos personales están registrados en el fichero de personas inscritas del partido político PODEMOS, con CIF G86976941, y que al tramitar tu inscripción aceptaste expresamente el tratamiento de tus datos personales y la recepción de mensajes y comunicaciones electrónicas para los fines indicados.</p>
-          <p>Los documentos que nos envíes serán utilizados para verificar tu identidad y la exactitud de tus datos personales, de conformidad con lo dispuesto en el artículo 4.3 de la Ley Orgánica de Protección de Datos, que establece que los datos de carácter personal deben ser exactos y puestos al día de forma que respondan con veracidad a la situación actual del interesado.</p>
-          <p>i los datos de carácter personal registrados resultaran ser inexactos, en todo o en parte, o incompletos, serán cancelados y sustituidos de oficio por los correspondientes datos rectificados o completados, sin perjuicio de las facultades rectificación y cancelación de los interesados previstas en el artículo 16 de la Ley Orgánica de Protección de Datos.
-          <p>Estos documentos quedarán incorporados a tu ficha personal y no serán cedidos a terceras personas ni organismos públicos sin tu consentimiento expreso, excepto cuando la ley establezca la obligación de ceder estos datos a las autoridades.
-          <p>Declaras y garantizas que los documentos que nos adjuntas son verdaderos, exactos, completos y actualizados, que has leído este aviso legal sobre protección de datos personales y que estás conforme con su contenido.</p><p>Para ejercer los derechos de acceso, rectificación, cancelación y oposición podrás dirigirte por correo electrónico a la dirección <a href='mailto:lopd@podemos.info'>lopd@podemos.info</a> y adjuntar como archivo anexo una copia de tu documento legal de identificación al objeto de verificar tu identidad.</p>
-          <p></p>"
-        accept: "He leído y acepto los términos y condiciones"
-      submit: "Solicitar verificación"
-      pending: "Ya hemos recibido una solicitud de verificación de tu usuario, si lo deseas puedes enviarla nuevamente."
       upload: "Subir"
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
