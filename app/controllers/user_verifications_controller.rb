@@ -1,5 +1,5 @@
 class UserVerificationsController < ApplicationController
-  before_action :check_verified
+  before_action :check_valid_and_verified
   def new
     @user_verification = UserVerification.for current_user
   end
@@ -21,7 +21,16 @@ class UserVerificationsController < ApplicationController
 
   private
 
-  def check_verified
+  def check_valid_and_verified
+    invalid = true
+    Election.future.each do |e|
+      if e.has_valid_location_for? current_user
+        invalid = false
+        break
+      end
+    end
+
+    redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') }) if invalid
     redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_already_verified') }) if current_user.verified?
   end
 
