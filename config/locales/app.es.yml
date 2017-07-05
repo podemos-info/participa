@@ -829,6 +829,9 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       pending: "Ya hemos recibido una solicitud de verificación de tu usuario, si lo deseas puedes enviarla nuevamente."
       upload: "Subir"
       wants_card: "Deseo tener un carnét físico donde aparezca mi afiliación con Podemos."
+      please_check_details: "Por favor verifica tus datos personales para que recibas la tarjeta de afiliación correctamente"
+      documentation_received: "Ya hemos recibido tu documentación y la procesaremos proximamente."
+      user_already_verified: "Tu usuario ya está verificado"
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."
