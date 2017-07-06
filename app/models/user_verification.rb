@@ -11,7 +11,7 @@ class UserVerification < ActiveRecord::Base
   validates_attachment_content_type :front_vatid, content_type: /\Aimage\/.*\z/
   validates_attachment_content_type :back_vatid, content_type: /\Aimage\/.*\z/
 
-  validates_attachment_size :front_vatid, :back_vatid, less_than: 1.megabyte
+  validates_attachment_size :front_vatid, :back_vatid, less_than: 2.megabyte
 
   after_validation do
     errors.each do |attr|

@@ -8,7 +8,7 @@ class UserVerificationsController < ApplicationController
   def create
     @user_verification = UserVerification.for current_user, user_verification_params
     if @user_verification.save
-      if params[:wants_card].present?
+      if @user_verification.wants_card
         redirect_to(edit_user_registration_path ,flash: { notice: [t('podemos.user_verification.documentation_received'),
                                                                    t('podemos.user_verification.please_check_details')].join("<br>")})
       else
