@@ -2,7 +2,6 @@ require 'dynamic_router'
 require 'resque/server'
 
 Rails.application.routes.draw do
-
   get '', to: redirect("/#{I18n.locale}")
 
   # redsys MerchantURL 
@@ -16,8 +15,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  scope "/(:locale)", locale: /es|ca|eu/ do 
+  scope "/(:locale)", locale: /es|ca|eu/ do
 
     get '/openid/discover', to: 'open_id#discover', as: "open_id_discover"
     get '/openid', to: 'open_id#index', as: "open_id_index"
@@ -88,6 +86,7 @@ Rails.application.routes.draw do
     get '/vote/sms_check/:election_id', to: 'vote#sms_check', as: :sms_check_vote
     get '/vote/send_sms_check/:election_id', to: 'vote#send_sms_check', as: :send_sms_check_vote
     
+
     get '/votos/:election_id/:hash', to: 'vote#election_votes_count', as: 'election_votes_count'
     get '/votos/:election_id/:election_location_id/:hash', to: 'vote#election_location_votes_count', as: 'election_location_votes_count'
 
@@ -134,6 +133,10 @@ Rails.application.routes.draw do
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
+
+      get 'verificacion-identidad(/:election_id)', to: 'user_verifications#new', as: 'new_user_verification'
+      post 'verificacion-identidad(/:election_id)', to: 'user_verifications#create', as: 'create_user_verification'
+      get 'user_verifications/:id/front_vatids/:size/:filename', to: 'user_verifications#download_image', as: 'images_user_verification'
     end
     
     scope :impulsa do

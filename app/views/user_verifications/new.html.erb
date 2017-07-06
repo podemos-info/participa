@@ -1,0 +1,56 @@
+<% content_for :title, t("podemos.user_verification.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <%= content_tag(:h2, t("podemos.user_verification.title")) %>
+      <%= content_tag(:p, t("podemos.user_verification.directions")) %>
+      <%= content_tag(:p, t("podemos.user_verification.pending")) if @user_verification.persisted? %>
+      <%= errors_in_form @user_verification %>
+      
+      <%= semantic_form_for @user_verification, url: create_user_verification_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+
+          <fieldset>
+            <div class="js-user-verification">
+              <label for="user_verification_front_vatid" class="vatid_sample user_verification_front_vatid">
+                <%= image_tag("user_verifications/#{current_user.document_type_name.downcase}-sample1.png", alt: t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample1_description")) %>
+                <div class="button"><%= content_tag(:span, t("podemos.user_verification.upload")) %> <%= t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample1_description") %></div>
+              </label>
+              <%= f.input :front_vatid, label: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
+            </div>
+            <div class="js-user-verification">
+              <label for="user_verification_back_vatid" class="vatid_sample user_verification_back_vatid">
+                <%= image_tag("user_verifications/#{current_user.document_type_name.downcase}-sample2.png", alt: t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample2_description")) %>
+                <div class="button"><%= content_tag(:span, t("podemos.user_verification.upload")) %> <%= t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample2_description") %></div>
+              </label>
+              <%= f.input :back_vatid, label: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
+            </div>
+          </fieldset>
+
+          <fieldset class="with-tos">
+            <div class="inputlabel-box">
+              <%= f.label :terms_of_service %>
+              <div class="input-box">
+                <div class="tos">
+                  <%= raw t('podemos.user_verification.terms_of_service.full_text') %>
+                </div>
+                <div class="input-box">
+                  <%= f.check_box :terms_of_service, class: 'checkbox' %>
+                  <%= content_tag(:p, t('podemos.user_verification.terms_of_service.accept')) %>
+                </div>
+
+                <div class="input-box" style="width: initial">
+                  <%= f.check_box :wants_card, class: 'checkbox' %>
+                  <%= content_tag(:p, t('podemos.user_verification.wants_card')) %>
+                </div>
+              </div>
+            </div>
+            <%= f.actions class: 'enter' do %>
+              <%= f.action :submit, as: :input, label: t('podemos.user_verification.submit'), button_html: {class: 'button'} %>
+            <% end %>
+          </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

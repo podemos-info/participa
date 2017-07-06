@@ -17,26 +17,20 @@ class VoteController < ApplicationController
 
   def create
     @election = Election.find params[:election_id]
-    if @election.is_active? 
-      if @election.has_valid_user_created_at? current_user
-        if @election.has_valid_location_for? current_user
-          if @election.requires_sms_check?
-            if params[:sms_check_token].nil?
-              redirect_to sms_check_vote_path(params[:election_id])
-            elsif !current_user.valid_sms_check? params[:sms_check_token]
-              redirect_to sms_check_vote_path(params[:election_id]), flash: {error: "El código introducido es incorrecto."}
-            end
-          end
-          @scoped_agora_election_id = @election.scoped_agora_election_id current_user
-        else
-          redirect_to root_url, flash: {error: "No hay votaciones en tu municipio." }
-        end
-      else
-        redirect_to root_url, flash: {error: "Tu usuario no tiene la antigüedad requerida para participar en esta votación."}
+    redirect_to(root_path, flash: {error: "Ha llegado la fecha límite para votar. La votación está cerrada." }) and return unless @election.is_active? 
+    redirect_to(root_path, flash: {error: "Tu usuario no tiene la antigüedad requerida para participar en esta votación."}) and return unless @election.has_valid_user_created_at? current_user
+    redirect_to(root_path, flash: {error: "No hay votaciones en tu municipio." }) and return unless @election.has_valid_location_for? current_user
+
+    redirect_to(new_user_verification_path(params[:election_id])) and return if @election.requires_vatid_check? && !current_user.pass_vatid_check?
+
+    if @election.requires_sms_check?
+      if params[:sms_check_token].nil?
+        redirect_to sms_check_vote_path(params[:election_id])
+      elsif !current_user.valid_sms_check? params[:sms_check_token]
+        redirect_to sms_check_vote_path(params[:election_id]), flash: {error: "El código introducido es incorrecto."}
       end
-    else
-      redirect_to root_url, flash: {error: "Ha llegado la fecha límite para votar. La votación está cerrada." }
     end
+    @scoped_agora_election_id = @election.scoped_agora_election_id current_user
   end
 
   def create_token
