@@ -5,7 +5,7 @@
     <div class="col-b-4a12">
 
       <%= content_tag(:h2, t("podemos.user_verification.title")) %>
-      <%= content_tag(:p, t("podemos.user_verification.directions")) %>
+      <%= content_tag(:span, t("podemos.user_verification.full_directions").html_safe) %>
       <%= content_tag(:p, t("podemos.user_verification.pending")) if @user_verification.persisted? %>
       <%= errors_in_form @user_verification %>
       
@@ -27,7 +27,6 @@
               <%= f.input :back_vatid, label: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
             </div>
           </fieldset>
-
           <fieldset class="with-tos">
             <div class="inputlabel-box">
               <%= f.label :terms_of_service %>
