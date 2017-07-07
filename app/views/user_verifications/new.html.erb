@@ -29,15 +29,17 @@
           </fieldset>
           <fieldset>
             <%= content_tag(:h3, t("podemos.user_verification.get_card")) %>
-            <%= content_tag(:label , t("podemos.user_verification.get_card_text")) %>
+            <%= content_tag(:p , t("podemos.user_verification.get_card_text")) %>
             <p> </p>
-            <div class="input-box" style="width: initial">
-              <%= f.check_box :wants_card, class: 'checkbox' %>
-              <%= content_tag(:label, t('podemos.user_verification.wants_card')) %>
+            <div class="inputlabel-box">
+              <div class="input-box" style="width: initial">
+                <%= f.check_box :wants_card, class: 'checkbox' %>
+                <%= content_tag(:p, t('podemos.user_verification.wants_card')) %>
+              </div>
             </div>
           </fieldset>
           <fieldset class="with-tos">
-            <h3> </h3>
+            <h3>Consentimiento</h3>
             <div class="inputlabel-box">
               <%= f.label :terms_of_service %>
               <div class="input-box">
@@ -50,10 +52,11 @@
                 </div>
               </div>
             </div>
-            <%= f.actions class: 'enter' do %>
-              <%= f.action :submit, as: :input, label: t('podemos.user_verification.submit'), button_html: {class: 'button'} %>
-            <% end %>
+
           </fieldset>
+          <%= f.actions class: 'enter' do %>
+          <%= f.action :submit, as: :input, label: t('podemos.user_verification.submit'), button_html: {class: 'button'} %>
+          <% end %>
       <% end %>
     </div>
   </div>
