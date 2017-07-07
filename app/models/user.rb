@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_one :collaboration, dependent: :destroy
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
+  has_many :verifications, class_name: "UserVerification"
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
@@ -742,6 +743,10 @@ class User < ActiveRecord::Base
     Digest::SHA1.digest("#{sms_check_at}#{id}#{Rails.application.secrets.users['sms_secret_key'] }")[0..3].codepoints.map { |c| "%02X" % c }.join if sms_check_at
   end
 
+  def pass_vatid_check?
+    self.verified || self.verifications.pending.any?
+  end
+
   def urban_vote_town?
     self.vote_town.present? && Podemos::GeoExtra::URBAN_TOWNS.member?(self.vote_town)
   end
@@ -752,5 +757,5 @@ class User < ActiveRecord::Base
 
   def rural_vote_town?
     !self.urban_vote_town? && !self.semi_urban_vote_town?
-  end  
+  end
 end

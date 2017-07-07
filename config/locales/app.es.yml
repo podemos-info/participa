@@ -313,6 +313,10 @@ es:
         captcha: "Captcha"
         current_password: "Contraseña actual"
         circle: "Círculo"
+      user_verification:
+        front_vatid: "Primer adjunto"
+        back_vatid: "Segundo adjunto"
+        terms_of_service: "Términos y condiciones"
       category:
         name: "nombre"
   podemos:
@@ -799,6 +803,45 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         territorial: "Indica brevemente la formación y experiencia profesional de las personas que desarrollarán el proyecto, incidiendo en las relacionadas con el ámbito del proyecto presentado."
       coofficial_translation: "Traducir al %{lang}"
       total_price: "Importe del premio concedido"
+    user_verification:
+      title: "Verificación de identidad"
+      directions: "Pincha en las imágenes de ejemplo para subir fotos de tu documento, así podremos verificar tu identidad."
+      dni:
+        sample1_description: "Anverso del DNI"
+        sample2_description: "Reverso del DNI"
+      nie:
+        sample1_description: "Anverso de la tarjeta de residencia. Comunitarios: Certificado de registro de ciudadano de la Unión"
+        sample2_description: "Reverso de la tarjeta de residencia. Comunitarios: pasaporte o carnet de identificación nacional"
+      pasaporte:
+        sample1_description: "Página principal del pasaporte"
+        sample2_description: "Página adicional del pasaporte (opcional)"
+      terms_of_service:
+        title: "Términos y condiciones"
+        full_text: "<h4>INFORMACIÓN SOBRE PROTECCIÓN DE DATOS PERSONALES</h4>
+          <p>Te recordamos que tus datos personales están registrados en el fichero de personas inscritas del partido político PODEMOS, con CIF G86976941, y que al tramitar tu inscripción aceptaste expresamente el tratamiento de tus datos personales y la recepción de mensajes y comunicaciones electrónicas para los fines indicados.</p>
+          <p>Los documentos que nos envíes serán utilizados para verificar tu identidad y la exactitud de tus datos personales, de conformidad con lo dispuesto en el artículo 4.3 de la Ley Orgánica de Protección de Datos, que establece que los datos de carácter personal deben ser exactos y puestos al día de forma que respondan con veracidad a la situación actual del interesado.</p>
+          <p>Si los datos de carácter personal registrados resultaran ser inexactos, en todo o en parte, o incompletos, serán cancelados y sustituidos de oficio por los correspondientes datos rectificados o completados, sin perjuicio de las facultades rectificación y cancelación de los interesados previstas en el artículo 16 de la Ley Orgánica de Protección de Datos.
+          <p>Estos documentos quedarán incorporados a tu ficha personal y no serán cedidos a terceras personas ni organismos públicos sin tu consentimiento expreso, excepto cuando la ley establezca la obligación de ceder estos datos a las autoridades.
+          <p>Declaras y garantizas que los documentos que nos adjuntas son verdaderos, exactos, completos y actualizados, que has leído este aviso legal sobre protección de datos personales y que estás conforme con su contenido.</p><p>Para ejercer los derechos de acceso, rectificación, cancelación y oposición podrás dirigirte por correo electrónico a la dirección <a href='mailto:lopd@podemos.info'>lopd@podemos.info</a> y adjuntar como archivo anexo una copia de tu documento legal de identificación al objeto de verificar tu identidad.</p>
+          <p></p>"
+        accept: "He leído y acepto los términos y condiciones"
+      submit: "Solicitar verificación"
+      pending: "Ya hemos recibido una solicitud de verificación de tu usuario que aún no ha sido procesada. Si lo deseas puedes envíar nuevamente este formulario para corregir lo que has enviado anteriormente."
+      upload: "Subir"
+      wants_card: "Me gustaría recibir el carnet de afiliación a Podemos."
+      please_check_details: "Por favor, verifica tu ficha para asegurarte que el carnet llega a tu domicilio y con los datos correctos."
+      documentation_received: "Ya hemos recibido tu documentación y la procesaremos próximamente."
+      user_already_verified: "Tu usuario ya está verificado."
+      user_not_valid_to_verify: "Gracias por tu interés pero, de momento, no es necesario que verifiques tu identidad."
+      format_directions_1: "Puedes hacer las fotos directamente con tu teléfono móvil intentado ajustar los bordes del documento dentro de la pantalla."
+      format_directions_2: "Si decides no hacerlo así ten encuenta que sólo admitimos imágenes en formato '.jpg' o '.png'"
+      support: "Si tienes cualquier problema, puedes ponerte en contacto con nosotros enviando un email a <a href='mailto:verificaciones@soporte.podemos.info'>verificaciones@soporte.podemos.info</a>"
+      full_directions: "<p>Pincha en las imágenes de ejemplo para subir fotos de tu documento, así podremos verificar tu identidad.</p>
+          <p>Puedes hacer las fotos directamente con tu teléfono móvil intentado ajustar los bordes del documento dentro de la pantalla.
+          <br>Si decides no hacerlo así ten encuenta que sólo admitimos imágenes en formato '.jpg' o '.png'</p>
+          <p>Si tienes cualquier problema, puedes ponerte en contacto con nosotros enviando un email a <a href='mailto:verificaciones@soporte.podemos.info'>verificaciones@soporte.podemos.info</a></p>"
+      get_card_text: "Todas las personas que participen en las próximas votaciones podrán solicitar gratuitamente el carnet de Podemos."
+      get_card: "Recibe tu carnet de Podemos"
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."
