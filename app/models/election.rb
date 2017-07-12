@@ -14,7 +14,7 @@ class Election < ActiveRecord::Base
  
   scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}
-  scope :future, -> { where("ends_at > ?", DateTime.now).order(priority: :asc).requires_vatid_check}
+  scope :future, -> { where("ends_at > ?", DateTime.now).order(priority: :asc)}
 
   before_create do |election|
     election[:counter_key] = SecureRandom.base64(20)

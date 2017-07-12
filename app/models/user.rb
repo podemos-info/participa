@@ -761,10 +761,10 @@ class User < ActiveRecord::Base
   end
 
   def has_not_future_verified_elections?
-    Election.future.none? { |e| e.has_valid_location_for? self}
+    !self.has_future_verified_elections?
   end
 
   def has_future_verified_elections?
-    !self.has_not_future_verified_elections?
+    Election.future.requires_vatid_check.any? { |e| e.has_valid_location_for? self}
   end
 end
