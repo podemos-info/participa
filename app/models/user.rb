@@ -760,7 +760,11 @@ class User < ActiveRecord::Base
     !self.urban_vote_town? && !self.semi_urban_vote_town?
   end
 
-  def has_no_future_elections?
+  def has_not_future_verified_elections?
     Election.future.none? { |e| e.has_valid_location_for? self}
+  end
+
+  def has_future_verified_elections?
+    !self.has_not_future_verified_elections?
   end
 end
