@@ -1,8 +1,8 @@
 ActiveAdmin.register UserVerification do
   menu :parent => "Users"
   permit_params do
-    params = [:user_id, :processed_at, :publisher_id, :front_vatid, back_vatid: :wants_card]
-    params.push :result, if: proc {current_admin_user.is_admin?}
+    params = [:user_id, :processed_at, :publisher_id, :front_vatid, :back_vatid, :wants_card, :status, :comment]
+    params.push :result, if: proc {current_user.is_admin?}
     params
   end
   #puts current_admin_user.is_admin?
@@ -239,7 +239,7 @@ ActiveAdmin.register UserVerification do
         render partial: "personal_data"
         panel "verificar" do
           f.inputs do
-            f.input :status, :as => :radio, :collection => ["Pendiente", "Aceptado", "Con problemas", "Rechazado"]
+            f.input :status, :as => :radio, :collection => {"Pendiente":0, "Aceptado":1, "Con problemas":2, "Rechazado":3}
             f.input :comment, as: :text
           end
           f.actions

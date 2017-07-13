@@ -1,5 +1,13 @@
 panel "User Details" do
   attributes_table_for user_verification.user do
+    # TIPO DE DOCUMENTO
+    # NÚM. DE DOCUMENTO
+    # APELLIDOS
+    # NOMBRE
+    # FECHA DE NACIMIENTO
+    # DOMICILIO
+    # CORREO ELECTRÓNICO
+    # TELÉFONO
     row :id
     row "status" do
       status_tag("Verificado", :ok) if user_verification.user.verified?
@@ -22,14 +30,14 @@ panel "User Details" do
         end
       end
     end
-    row :esendex_status do
-      if user_verification.user.phone?
-        span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
-      end
-      if user_verification.user.unconfirmed_phone?
-        span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.unconfirmed_phone.sub(/^00/,'')}")
-      end
-    end
+    # row :esendex_status do
+    #   if user_verification.user.phone?
+    #     span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
+    #   end
+    #   if user_verification.user.unconfirmed_phone?
+    #     span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.unconfirmed_phone.sub(/^00/,'')}")
+    #   end
+    # end
     row :validations_status do
       if user_verification.user.valid?
         status_tag("El usuario supera todas las validaciones", :ok)
@@ -41,16 +49,19 @@ panel "User Details" do
         end
       end
     end
-    row :full_name
-    row :first_name
-    row :last_name
-    row :gender do
-      user_verification.user.gender_name
-    end
+    #row :full_name
+
+
+
     row :document_type do
       user_verification.user.document_type_name
     end
     row :document_vatid
+    row :last_name
+    row :first_name
+    #row :gender do
+    #  user_verification.user.gender_name
+    #end
     row :born_at
     row :email
     row :vote_town_name
@@ -76,46 +87,46 @@ panel "User Details" do
         status_tag("NO", :error)
       end
     end
-    row :vote_place do
-      district = user_verification.user.vote_district ? " / distrito #{user_verification.user.vote_district}" : ""
-      "#{user_verification.user.vote_autonomy_name} / #{user_verification.user.vote_province_name} / #{user_verification.user.vote_town_name}#{district}"
-    end
-    row :vote_in_spanish_island? do
-      if user_verification.user.vote_in_spanish_island?
-        user_verification.user.vote_island_name
-      else
-        status_tag("NO", :error)
-      end
-    end
-    row :admin
-    row :circle
-    row :created_at
-    row :updated_at
-    row :confirmation_sent_at
-    row :confirmed_at
-    row :unconfirmed_email
-    row :has_legacy_password
+    # row :vote_place do
+    #   district = user_verification.user.vote_district ? " / distrito #{user_verification.user.vote_district}" : ""
+    #   "#{user_verification.user.vote_autonomy_name} / #{user_verification.user.vote_province_name} / #{user_verification.user.vote_town_name}#{district}"
+    # end
+    # row :vote_in_spanish_island? do
+    #   if user_verification.user.vote_in_spanish_island?
+    #     user_verification.user.vote_island_name
+    #   else
+    #     status_tag("NO", :error)
+    #   end
+    # end
+    # row :admin
+    # row :circle
+    # row :created_at
+    # row :updated_at
+    # row :confirmation_sent_at
+    # row :confirmed_at
+    # row :unconfirmed_email
+    # row :has_legacy_password
     row "Teléfono móvil (confirmado)" do
       user_verification.user.phone
     end
     row "Teléfono móvil (sin confirmar)" do
       user_verification.user.unconfirmed_phone
     end
-    row :sms_confirmation_token
-    row :confirmation_sms_sent_at
-    row :sms_confirmed_at
-    #row :sms_confirmation do
-    #  link_to "Ver en Esendex (proveedor SMS)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue="
-    #end
-    row :failed_attempts
-    row :locked_at
-    row :sign_in_count
-    row :current_sign_in_at
-    row :last_sign_in_at
-    row :last_sign_in_ip
-    row :current_sign_in_ip
-    row :remember_created_at
-    row :deleted_at
-    row :participation_team_at
-    end
+    # row :sms_confirmation_token
+    # row :confirmation_sms_sent_at
+    # row :sms_confirmed_at
+    # #row :sms_confirmation do
+    # #  link_to "Ver en Esendex (proveedor SMS)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue="
+    # #end
+    # row :failed_attempts
+    # row :locked_at
+    # row :sign_in_count
+    # row :current_sign_in_at
+    # row :last_sign_in_at
+    # row :last_sign_in_ip
+    # row :current_sign_in_ip
+    # row :remember_created_at
+    # row :deleted_at
+    # row :participation_team_at
+  end
 end
