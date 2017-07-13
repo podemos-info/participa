@@ -217,7 +217,6 @@ ActiveAdmin.register UserVerification do
           end
 
           if !verification.user.participation_team_at.nil?
-
             panel "Equipos de Acción Participativa" do
               if verification.user.participation_team.any?
                 table_for verification.user.participation_team do
@@ -233,10 +232,18 @@ ActiveAdmin.register UserVerification do
       end
     end
   end
+
   form title: "Verificar Identidad", decorate: true do |f|
     columns do
       column do
         render partial: "personal_data"
+        panel "verificar" do
+          f.inputs do
+            f.input :status, :as => :radio, :collection => ["Pendiente", "Aceptado", "Con problemas", "Rechazado"]
+            f.input :comment, as: :text
+          end
+          f.actions
+        end
       end
       column do
         panel "DNI Details" do
@@ -246,6 +253,7 @@ ActiveAdmin.register UserVerification do
           span do
             image_tag images_user_verification_path(id:user_verification.id,attachment:"back_vatid", filename:user_verification.back_vatid_file_name, size: :thumb)
           end
+
         end
       end
     end

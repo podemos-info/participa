@@ -1,40 +1,121 @@
 panel "User Details" do
-  semantic_form_for([:admin, user_verification.user_id], builder: Formtastic::FormBuilder) do |f|
-    f.inputs "Admin Details" do
-      f.input :email
-      f.input :phone, label: 'Teléfono móvil (confirmado)'
-      f.input :unconfirmed_phone, label: 'Teléfono móvil (sin confirmar)'
-      f.input :first_name
-      f.input :last_name
-      f.input :gender, as: :radio, collection: User::GENDER
-      f.input :document_type, as: :radio, collection: User::DOCUMENTS_TYPE
-      f.input :document_vatid
-      f.input :born_at, required: true, placeholder: 'dd/mm/aaaa',
-              input_html: {  required: true, class: 'input-m', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
-              start_year: 1900, end_year: Date.today.year-18
-
-      f.input :address
-
-      li class: "select input required", id: "user_country_input" do
-        label class: "label", for: "user_address" do
-          "País"
-          abbr title: "requerido" do
-            "*"
-          end
-        end
-        user_location = User.get_location(@user, params)
-        select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", user_location[:country]), {required: "required", data: {allowClear: true} }
-        render partial: 'subregion_select', locals:{country: user_location[:country], province: user_location[:province], required: true, field: :province, title:"Provincia"}
-        render partial: 'municipies_select', locals:{country: user_location[:country], province: user_location[:province], town: user_location[:town], required: true, field: :town, title:"Municipio"}
-        render partial: 'subregion_select', locals:{country: "ES", province: user_location[:vote_province], required: false, field: :vote_province, title:"Provincia de participación"}
-        render partial: 'municipies_select', locals:{country: "ES", province: user_location[:vote_province], town: user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de participación"}
+  attributes_table_for user_verification.user do
+    row :id
+    row "status" do
+      status_tag("Verificado", :ok) if user_verification.user.verified?
+      status_tag("Baneado", :error) if user_verification.user.banned?
+      user_verification.user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
+      if user_verification.user.confirmed_at?
+        status_tag("El usuario ha confirmado por email", :ok)
+      else
+        status_tag("El usuario NO ha confirmado por email", :error)
       end
-
-      f.input :vote_district
-      f.input :postal_code
-      f.input :circle
-      f.input :wants_newsletter
+      if user_verification.user.sms_confirmed_at?
+        status_tag("El usuario ha confirmado por SMS", :ok)
+      else
+        status_tag("El usuario NO ha confirmado por SMS", :error)
+      end
+      if user_verification.user.errors.any? # If there are errors, do something
+        user_verification.user.errors.each do |attribute, message|
+          b attribute
+          span message
+        end
+      end
     end
-    f.actions
-  end
+    row :esendex_status do
+      if user_verification.user.phone?
+        span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
+      end
+      if user_verification.user.unconfirmed_phone?
+        span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.unconfirmed_phone.sub(/^00/,'')}")
+      end
+    end
+    row :validations_status do
+      if user_verification.user.valid?
+        status_tag("El usuario supera todas las validaciones", :ok)
+      else
+        status_tag("El usuario no supera alguna validación", :error)
+        ul
+        user_verification.user.errors.full_messages.each do |mes|
+          li mes
+        end
+      end
+    end
+    row :full_name
+    row :first_name
+    row :last_name
+    row :gender do
+      user_verification.user.gender_name
+    end
+    row :document_type do
+      user_verification.user.document_type_name
+    end
+    row :document_vatid
+    row :born_at
+    row :email
+    row :vote_town_name
+    row :address
+    row :postal_code
+
+    row :country do
+      user_verification.user.country_name
+    end
+    row :autonomy do
+      user_verification.user.autonomy_name
+    end
+    row :province do
+      user_verification.user.province_name
+    end
+    row :town do
+      user_verification.user.town_name
+    end
+    row :in_spanish_island? do
+      if user_verification.user.in_spanish_island?
+        user_verification.user.island_name
+      else
+        status_tag("NO", :error)
+      end
+    end
+    row :vote_place do
+      district = user_verification.user.vote_district ? " / distrito #{user_verification.user.vote_district}" : ""
+      "#{user_verification.user.vote_autonomy_name} / #{user_verification.user.vote_province_name} / #{user_verification.user.vote_town_name}#{district}"
+    end
+    row :vote_in_spanish_island? do
+      if user_verification.user.vote_in_spanish_island?
+        user_verification.user.vote_island_name
+      else
+        status_tag("NO", :error)
+      end
+    end
+    row :admin
+    row :circle
+    row :created_at
+    row :updated_at
+    row :confirmation_sent_at
+    row :confirmed_at
+    row :unconfirmed_email
+    row :has_legacy_password
+    row "Teléfono móvil (confirmado)" do
+      user_verification.user.phone
+    end
+    row "Teléfono móvil (sin confirmar)" do
+      user_verification.user.unconfirmed_phone
+    end
+    row :sms_confirmation_token
+    row :confirmation_sms_sent_at
+    row :sms_confirmed_at
+    #row :sms_confirmation do
+    #  link_to "Ver en Esendex (proveedor SMS)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue="
+    #end
+    row :failed_attempts
+    row :locked_at
+    row :sign_in_count
+    row :current_sign_in_at
+    row :last_sign_in_at
+    row :last_sign_in_ip
+    row :current_sign_in_ip
+    row :remember_created_at
+    row :deleted_at
+    row :participation_team_at
+    end
 end
