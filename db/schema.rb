@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627141734) do
+ActiveRecord::Schema.define(version: 20170711111825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -567,12 +567,11 @@ ActiveRecord::Schema.define(version: 20170627141734) do
   end
 
   create_table "user_verifications", force: :cascade do |t|
-    t.integer  "user_id",                  null: false
+    t.integer  "user_id",                              null: false
     t.integer  "author_id"
     t.datetime "processed_at"
-    t.boolean  "result"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "front_vatid_file_name"
     t.string   "front_vatid_content_type"
     t.integer  "front_vatid_file_size"
@@ -581,6 +580,8 @@ ActiveRecord::Schema.define(version: 20170627141734) do
     t.string   "back_vatid_content_type"
     t.integer  "back_vatid_file_size"
     t.datetime "back_vatid_updated_at"
+    t.boolean  "wants_card"
+    t.integer  "status",                   default: 0
   end
 
   create_table "users", force: :cascade do |t|

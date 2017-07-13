@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :supports, dependent: :destroy
   has_one :collaboration, dependent: :destroy
+  has_one :user_verification, dependent: :destroy
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
   has_many :verifications, class_name: "UserVerification"
@@ -757,5 +758,13 @@ class User < ActiveRecord::Base
 
   def rural_vote_town?
     !self.urban_vote_town? && !self.semi_urban_vote_town?
+  end
+
+  def has_not_future_verified_elections?
+    !self.has_future_verified_elections?
+  end
+
+  def has_future_verified_elections?
+    Election.future.requires_vatid_check.any? { |e| e.has_valid_location_for? self}
   end
 end

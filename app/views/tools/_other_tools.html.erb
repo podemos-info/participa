@@ -2,6 +2,22 @@
 <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
 <section class="tools">
   <ul>
+    <% if (current_user && !current_user.user_verification && current_user.has_future_verified_elections?) || (current_user && current_user.user_verification && current_user.user_verification.status!=1) %>
+      <li class="box-tool-large">
+        <div class="box-tool-large">
+          <h3>Verificación de Identidad</h3>
+          <div class="tool-text" style="padding-bottom: 1em;">
+            <p>Para participar en las próximas votaciones
+              deberás verificar tu identidad mediante unos sencillos pasos.</p>
+
+          </div><!--.tool-text-->
+
+          <div class="buttonbox">
+            <%= link_to "Verificate aquí", new_user_verification_path, class: "button" %>
+          </div>
+        </div><!--.box-tool-->
+      </li>
+    <%end%>
     <li class="box-tool-large">
       <div class="box-tool-large">
         <h3>CENSO DE MILITANTES</h3>

@@ -5,8 +5,8 @@
     <div class="col-b-4a12">
 
       <%= content_tag(:h2, t("podemos.user_verification.title")) %>
-      <%= content_tag(:p, t("podemos.user_verification.directions")) %>
-      <%= content_tag(:p, t("podemos.user_verification.pending")) if @user_verification.persisted? %>
+      <%= content_tag(:span, t("podemos.user_verification.full_directions").html_safe) %>
+      <%= content_tag(:p, t("podemos.user_verification.pending"), style: "font-weight:bold") if @user_verification.persisted? %>
       <%= errors_in_form @user_verification %>
       
       <%= semantic_form_for @user_verification, url: create_user_verification_path, html: {method: :post, autocomplete: 'off'} do |f| %>
@@ -27,8 +27,19 @@
               <%= f.input :back_vatid, label: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
             </div>
           </fieldset>
-
+          <fieldset>
+            <%= content_tag(:h3, t("podemos.user_verification.get_card")) %>
+            <%= content_tag(:p , t("podemos.user_verification.get_card_text")) %>
+            <p> </p>
+            <div class="inputlabel-box">
+              <div class="input-box" style="width: initial">
+                <%= f.check_box :wants_card, class: 'checkbox' %>
+                <%= content_tag(:p, t('podemos.user_verification.wants_card')) %>
+              </div>
+            </div>
+          </fieldset>
           <fieldset class="with-tos">
+            <h3>Consentimiento</h3>
             <div class="inputlabel-box">
               <%= f.label :terms_of_service %>
               <div class="input-box">
@@ -39,17 +50,13 @@
                   <%= f.check_box :terms_of_service, class: 'checkbox' %>
                   <%= content_tag(:p, t('podemos.user_verification.terms_of_service.accept')) %>
                 </div>
-
-                <div class="input-box" style="width: initial">
-                  <%= f.check_box :wants_card, class: 'checkbox' %>
-                  <%= content_tag(:p, t('podemos.user_verification.wants_card')) %>
-                </div>
               </div>
             </div>
-            <%= f.actions class: 'enter' do %>
-              <%= f.action :submit, as: :input, label: t('podemos.user_verification.submit'), button_html: {class: 'button'} %>
-            <% end %>
+
           </fieldset>
+          <%= f.actions class: 'enter' do %>
+          <%= f.action :submit, as: :input, label: t('podemos.user_verification.submit'), button_html: {class: 'button'} %>
+          <% end %>
       <% end %>
     </div>
   </div>
