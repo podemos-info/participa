@@ -1,0 +1,40 @@
+panel "User Details" do
+  semantic_form_for([:admin, user_verification.user_id], builder: Formtastic::FormBuilder) do |f|
+    f.inputs "Admin Details" do
+      f.input :email
+      f.input :phone, label: 'Teléfono móvil (confirmado)'
+      f.input :unconfirmed_phone, label: 'Teléfono móvil (sin confirmar)'
+      f.input :first_name
+      f.input :last_name
+      f.input :gender, as: :radio, collection: User::GENDER
+      f.input :document_type, as: :radio, collection: User::DOCUMENTS_TYPE
+      f.input :document_vatid
+      f.input :born_at, required: true, placeholder: 'dd/mm/aaaa',
+              input_html: {  required: true, class: 'input-m', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
+              start_year: 1900, end_year: Date.today.year-18
+
+      f.input :address
+
+      li class: "select input required", id: "user_country_input" do
+        label class: "label", for: "user_address" do
+          "País"
+          abbr title: "requerido" do
+            "*"
+          end
+        end
+        user_location = User.get_location(@user, params)
+        select_tag "user[country]", options_from_collection_for_select(get_countries, "code", "name", user_location[:country]), {required: "required", data: {allowClear: true} }
+        render partial: 'subregion_select', locals:{country: user_location[:country], province: user_location[:province], required: true, field: :province, title:"Provincia"}
+        render partial: 'municipies_select', locals:{country: user_location[:country], province: user_location[:province], town: user_location[:town], required: true, field: :town, title:"Municipio"}
+        render partial: 'subregion_select', locals:{country: "ES", province: user_location[:vote_province], required: false, field: :vote_province, title:"Provincia de participación"}
+        render partial: 'municipies_select', locals:{country: "ES", province: user_location[:vote_province], town: user_location[:vote_town], required: false, field: :vote_town, title:"Municipio de participación"}
+      end
+
+      f.input :vote_district
+      f.input :postal_code
+      f.input :circle
+      f.input :wants_newsletter
+    end
+    f.actions
+  end
+end

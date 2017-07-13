@@ -1,0 +1,11 @@
+li class: "select input required", id: "js-registration-user_#{field}-wrapper" do
+  label :user, :province, class: "control-label", required: :required do
+    title(abbr title: "requerido") {"*"}
+  end
+  provinces = get_provinces(country)
+  if provinces.length>0
+    select_tag "user[#{field}]", "<option></option>".html_safe+options_from_collection_for_select(provinces, "code", "name", province), {required: "required", data: {placeholder: "-- Elige una provincia --", allowClear: true} }
+  else
+    text_field(:user, field, class: "form-control input-xl")
+  end
+end
