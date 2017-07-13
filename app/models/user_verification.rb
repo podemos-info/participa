@@ -21,14 +21,14 @@ class UserVerification < ActiveRecord::Base
     end
   end
 
-  scope :pending, -> {where(result: nil)}
-  scope :passed, -> {where(result: true)}
-  scope :failed, -> {where(result: false)}
+  scope :pending, -> {where(status: 0)}
+  scope :accepted, -> {where(status: 1)}
+  scope :issues, -> {where(status: 2)}
+  scope :rejected, -> {where(status: 3)}
 
   def require_back?
     !user.is_passport?
   end
-
   def self.for(user, params = {})
     current = self.pending.where(user:user).first
     if current

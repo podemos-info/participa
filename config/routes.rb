@@ -136,7 +136,8 @@ Rails.application.routes.draw do
 
       get 'verificacion-identidad(/:election_id)', to: 'user_verifications#new', as: 'new_user_verification'
       post 'verificacion-identidad(/:election_id)', to: 'user_verifications#create', as: 'create_user_verification'
-      get 'user_verifications/:id/front_vatids/:size/:filename', to: 'user_verifications#download_image', as: 'images_user_verification'
+      #get 'user_verifications/:id/front_vatids/:size/:filename', to: 'user_verifications#download_image', as: 'images_user_verification'
+      get 'user_verifications/:id/:attachment/:filename', to: 'user_verifications#download_image', as: 'images_user_verification'
     end
     
     scope :impulsa do
