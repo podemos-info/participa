@@ -1,8 +1,9 @@
 ActiveAdmin.register UserVerification do
+  filter :status
   menu :parent => "Users"
   permit_params do
-    params = [:user_id, :processed_at, :publisher_id, :front_vatid, :back_vatid, :wants_card, :status, :comment]
-    params.push :result, if: proc {current_user.is_admin?}
+    params = [:user_id, :processed_at, :publisher_id, :front_vatid, :back_vatid, :wants_card]
+    params.push :status, :comment, if: proc {current_user.is_admin?}
     params
   end
   #puts current_admin_user.is_admin?
