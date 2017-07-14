@@ -46,7 +46,7 @@ ActiveAdmin.register UserVerification do
     #end
 
     actions defaults: false do |verification|
-      link_to t("procesar"),"user_verifications/#{verification.id}/edit", class: "member_link"
+      link_to t("procesar"), edit_admin_user_verification_path(verification.id)
     end
   end
 
