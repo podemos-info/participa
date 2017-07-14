@@ -30,43 +30,47 @@ panel "User Details" do
         end
       end
     end
-    row :esendex_status do
-      if user_verification.user.phone?
-        span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
-      end
-      if user_verification.user.unconfirmed_phone?
-        span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.unconfirmed_phone.sub(/^00/,'')}")
-      end
-    end
-    row :validations_status do
-      if user_verification.user.valid?
-        status_tag("El usuario supera todas las validaciones", :ok)
-      else
-        status_tag("El usuario no supera alguna validación", :error)
-        ul
-        user_verification.user.errors.full_messages.each do |mes|
-          li mes
-        end
-      end
-    end
+    # row :esendex_status do
+    #   if user_verification.user.phone?
+    #     span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
+    #   end
+    #   if user_verification.user.unconfirmed_phone?
+    #     span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.unconfirmed_phone.sub(/^00/,'')}")
+    #   end
+    # end
+    # row :validations_status do
+    #   if user_verification.user.valid?
+    #     status_tag("El usuario supera todas las validaciones", :ok)
+    #   else
+    #     status_tag("El usuario no supera alguna validación", :error)
+    #     ul
+    #     user_verification.user.errors.full_messages.each do |mes|
+    #       li mes
+    #     end
+    #   end
+    # end
     #row :full_name
 
 
 
-    row :document_type do
+    row "Tipo de documento", :document_type do
       user_verification.user.document_type_name
     end
-    row :document_vatid
-    row :last_name
-    row :first_name
+    row "Número de documento", :document_vatid
+    row "Apellidos", :last_name
+    row "Nombre", :first_name
     #row :gender do
     #  user_verification.user.gender_name
     #end
-    row :born_at
+    row "Fecha de nacimiento", :born_at
     row :email
-    row :vote_town_name
-    row :address
-    row :postal_code
+    row "Teléfono móvil (confirmado)" do
+      user_verification.user.phone
+    end
+    row "municipio", :vote_town_name
+    row "provincia", :vote_town_province
+    row "dirección", :address
+    row "código postal", :postal_code
 
     # row :country do
     #   user_verification.user.country_name
@@ -106,12 +110,10 @@ panel "User Details" do
     # row :confirmed_at
     # row :unconfirmed_email
     # row :has_legacy_password
-    row "Teléfono móvil (confirmado)" do
-      user_verification.user.phone
-    end
-    row "Teléfono móvil (sin confirmar)" do
-      user_verification.user.unconfirmed_phone
-    end
+
+    # row "Teléfono móvil (sin confirmar)" do
+    #   user_verification.user.unconfirmed_phone
+    # end
     # row :sms_confirmation_token
     # row :confirmation_sms_sent_at
     # row :sms_confirmed_at
