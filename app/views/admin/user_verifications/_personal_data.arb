@@ -53,10 +53,9 @@ panel "Detalles del usuario" do
 
 
 
-    row "Tipo de documento"  do
-      user_verification.user.document_type_name
+    row "Nº de documento"  do
+       "#{user_verification.user.document_type_name} - #{user_verification.user.document_vatid}"
     end
-    row :document_vatid
     row :last_name
     row :first_name
     #row :gender do
