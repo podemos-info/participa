@@ -30,14 +30,14 @@ panel "User Details" do
         end
       end
     end
-    # row :esendex_status do
-    #   if user_verification.user.phone?
-    #     span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
-    #   end
-    #   if user_verification.user.unconfirmed_phone?
-    #     span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.unconfirmed_phone.sub(/^00/,'')}")
-    #   end
-    # end
+    row :esendex_status do
+      if user_verification.user.phone?
+        span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
+      end
+      if user_verification.user.unconfirmed_phone?
+        span link_to("Ver en panel de Elementos Enviados de Esendex (no confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.unconfirmed_phone.sub(/^00/,'')}")
+      end
+    end
     row :validations_status do
       if user_verification.user.valid?
         status_tag("El usuario supera todas las validaciones", :ok)
@@ -68,25 +68,25 @@ panel "User Details" do
     row :address
     row :postal_code
 
-    row :country do
-      user_verification.user.country_name
-    end
-    row :autonomy do
-      user_verification.user.autonomy_name
-    end
-    row :province do
-      user_verification.user.province_name
-    end
-    row :town do
-      user_verification.user.town_name
-    end
-    row :in_spanish_island? do
-      if user_verification.user.in_spanish_island?
-        user_verification.user.island_name
-      else
-        status_tag("NO", :error)
-      end
-    end
+    # row :country do
+    #   user_verification.user.country_name
+    # end
+    # row :autonomy do
+    #   user_verification.user.autonomy_name
+    # end
+    # row :province do
+    #   user_verification.user.province_name
+    # end
+    # row :town do
+    #   user_verification.user.town_name
+    # end
+    # row :in_spanish_island? do
+    #   if user_verification.user.in_spanish_island?
+    #     user_verification.user.island_name
+    #   else
+    #     status_tag("NO", :error)
+    #   end
+    # end
     # row :vote_place do
     #   district = user_verification.user.vote_district ? " / distrito #{user_verification.user.vote_district}" : ""
     #   "#{user_verification.user.vote_autonomy_name} / #{user_verification.user.vote_province_name} / #{user_verification.user.vote_town_name}#{district}"
