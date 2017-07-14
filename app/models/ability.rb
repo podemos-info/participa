@@ -39,6 +39,10 @@ class Ability
       
       can [:read, :create], ActiveAdmin::Comment if user.finances_admin? || user.impulsa_admin?
 
+      can [:show, :read, :update], UserVerification if user.verifier?
+
+      can [:create, :update], UserVerification, user_id: user.id
+
       can [:show, :update], User, id: user.id
       can :show, Notice
 

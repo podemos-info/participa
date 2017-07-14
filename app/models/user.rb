@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
             3 => :verified,
             4 => :finances_admin,
             5 => :impulsa_author,
-            6 => :impulsa_admin
+            6 => :impulsa_admin,
+            7 => :verifier
 
   # Include default devise modules. Others available are:
   # :omniauthable
