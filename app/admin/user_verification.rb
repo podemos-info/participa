@@ -80,15 +80,12 @@ ActiveAdmin.register UserVerification do
         end
       end
       column do
-        panel "DNI Details" do
           span do
             image_tag images_user_verification_path(id:user_verification.id,attachment:"front_vatid", filename:user_verification.front_vatid_file_name, size: :thumb)
           end
           span do
             image_tag images_user_verification_path(id:user_verification.id,attachment:"back_vatid", filename:user_verification.back_vatid_file_name, size: :thumb)
           end
-
-        end
       end
     end
   end

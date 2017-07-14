@@ -1,4 +1,4 @@
-panel "User Details" do
+panel "Detalles del usuario" do
   attributes_table_for user_verification.user do
     # TIPO DE DOCUMENTO
     # NÚM. DE DOCUMENTO
@@ -67,10 +67,13 @@ panel "User Details" do
     row "Teléfono móvil (confirmado)" do
       user_verification.user.phone
     end
-    row "municipio", :vote_town_name
-    row "provincia", :vote_town_province
+
     row "dirección", :address
     row "código postal", :postal_code
+    row "municipio", :vote_town_name
+    row "provincia", :vote_town_province
+
+
 
     # row :country do
     #   user_verification.user.country_name
