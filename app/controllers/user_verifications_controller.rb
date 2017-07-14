@@ -1,5 +1,5 @@
 class UserVerificationsController < ApplicationController
-  before_action :check_valid_and_verified
+  before_action :check_valid_and_verified, only: :create
 
   def new
     @user_verification = UserVerification.for current_user
@@ -20,13 +20,23 @@ class UserVerificationsController < ApplicationController
     end
   end
 
-  private
+  def download_image
+    verification = UserVerification.find(params[:id])
+    type= params[:attachment]
+     case type
+       when "front_vatid"
+         send_file verification.front_vatid.path(:thumb)
+       when "back_vatid"
+         send_file verification.back_vatid.path(:thumb)
+     end
 
-  def check_valid_and_verified
-    redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') }) if Election.future.none? { |e| e.has_valid_location_for? current_user }
-    redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_already_verified') }) if current_user.verified?
   end
 
+  private
+  def check_valid_and_verified
+    redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') }) if current_user.has_not_future_verified_elections?
+    redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_already_verified') }) if current_user.verified?
+  end
   def user_verification_params
     params.require(:user_verification).permit(:procesed_at, :front_vatid, :back_vatid, :terms_of_service, :wants_card)
   end

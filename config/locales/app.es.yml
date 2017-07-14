@@ -58,6 +58,8 @@ es:
       impulsa_edition_categories: Categorías de Impulsa
       impulsa_project: Proyecto de Impulsa
       impulsa_projects: Proyectos de Impulsa
+      user_verification: Verificación de usuario
+      user_verifications: Verificación de usuarios
     errors:
       models: 
         user:
