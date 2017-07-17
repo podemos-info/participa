@@ -58,10 +58,10 @@ ActiveAdmin.register UserVerification do
 
       column do
         span do
-          image_tag images_user_verification_path(id:verification.id,attachment:"front_vatid", filename:verification.front_vatid_file_name, size: :thumb)
+          image_tag images_user_verification_path(id:verification.id,attachment:"front_vatid", filename:verification.front_vatid_file_name.match(/[^\/.]*/), size: :thumb)
         end
         span do
-          image_tag images_user_verification_path(id:verification.id,attachment:"back_vatid", filename:verification.back_vatid_file_name, size: :thumb)
+          image_tag images_user_verification_path(id:verification.id,attachment:"back_vatid", filename:verification.back_vatid_file_name.match(/[^\/.]*/), size: :thumb)
         end
       end
     end
