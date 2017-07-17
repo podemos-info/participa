@@ -133,12 +133,14 @@ Rails.application.routes.draw do
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
+    end
 
+    scope :user_verification do
       get 'verificacion-identidad(/:election_id)', to: 'user_verifications#new', as: 'new_user_verification'
       post 'verificacion-identidad(/:election_id)', to: 'user_verifications#create', as: 'create_user_verification'
       get 'user_verifications/:id/:attachment/:filename', to: 'user_verifications#download_image', as: 'images_user_verification', constraints: { field: /[^\/]*/ }
     end
-    
+
     scope :impulsa do
       get '', to: 'impulsa#index', as: 'impulsa'
       get 'proyecto', to: 'impulsa#project', as: 'project_impulsa'
