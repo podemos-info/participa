@@ -73,7 +73,7 @@ ActiveAdmin.register UserVerification do
         render partial: "personal_data"
         panel "verificar" do
           f.inputs :class => "remove-padding-top" do
-            f.input :status, :label => "Estado", :as => :radio, :collection => {"Pendiente":0, "Aceptado":1, "Con problemas":2, "Rechazado":3}
+            f.input :status, :label => "Estado", :as => :radio, :collection => current_user.is_admin? ? {"Pendiente":0, "Aceptado":1, "Con problemas":2, "Rechazado":3} : {"Pendiente":0, "Aceptado":1, "Con problemas":2}
             f.input :comment, :label => "Comentarios", as: :text, :input_html => {:rows => 2}
           end
           f.actions
