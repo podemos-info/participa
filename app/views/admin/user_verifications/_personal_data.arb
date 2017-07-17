@@ -9,27 +9,27 @@ panel "Detalles del usuario" do
     # CORREO ELECTRÓNICO
     # TELÉFONO
     row :id
-    row "status" do
-      status_tag("Verificado", :ok) if user_verification.user.verified?
-      status_tag("Baneado", :error) if user_verification.user.banned?
-      user_verification.user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
-      if user_verification.user.confirmed_at?
-        status_tag("El usuario ha confirmado por email", :ok)
-      else
-        status_tag("El usuario NO ha confirmado por email", :error)
-      end
-      if user_verification.user.sms_confirmed_at?
-        status_tag("El usuario ha confirmado por SMS", :ok)
-      else
-        status_tag("El usuario NO ha confirmado por SMS", :error)
-      end
-      if user_verification.user.errors.any? # If there are errors, do something
-        user_verification.user.errors.each do |attribute, message|
-          b attribute
-          span message
-        end
-      end
-    end
+    # row "Estado" do
+    #   status_tag("Verificado", :ok) if user_verification.user.verified?
+    #   status_tag("Baneado", :error) if user_verification.user.banned?
+    #   user_verification.user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
+    #   if user_verification.user.confirmed_at?
+    #     status_tag("El usuario ha confirmado por email", :ok)
+    #   else
+    #     status_tag("El usuario NO ha confirmado por email", :error)
+    #   end
+    #   if user_verification.user.sms_confirmed_at?
+    #     status_tag("El usuario ha confirmado por SMS", :ok)
+    #   else
+    #     status_tag("El usuario NO ha confirmado por SMS", :error)
+    #   end
+    #   if user_verification.user.errors.any? # If there are errors, do something
+    #     user_verification.user.errors.each do |attribute, message|
+    #       b attribute
+    #       span message
+    #     end
+    #   end
+    # end
     # row :esendex_status do
     #   if user_verification.user.phone?
     #     span link_to("Ver en panel de Elementos Enviados de Esendex (confirmado)", "https://www.esendex.com/echo/a/EX0145806/Sent/Messages?FilterRecipientValue=#{user_verification.user.phone.sub(/^00/,'')}")
