@@ -34,9 +34,11 @@ class UserVerification < ActiveRecord::Base
     !user.is_passport?
   end
   def self.for(user, params = {})
-    current = self.pending.where(user:user).first
+    current = self.where("status  =0 or status = 3",user:user).first
     if current
       current.assign_attributes(params)
+      # if the validation was rejected, restart it
+      current.status = 0 if current.status == 3
     else
       current = UserVerification.new params.merge(user: user)
     end

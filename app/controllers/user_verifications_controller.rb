@@ -7,8 +7,6 @@ class UserVerificationsController < ApplicationController
 
   def create
     @user_verification = UserVerification.for current_user, user_verification_params
-    # if the validation was rejected, restart it
-    @user_verification.status = 0 if @user_verification.status == 3
 
     if @user_verification.save
       if @user_verification.wants_card
