@@ -37,8 +37,6 @@ class UserVerification < ActiveRecord::Base
     current = self.where(" user_id = ? and (status  = 0 or status = 3)",user.id).first
     if current
       current.assign_attributes(params)
-      # if the validation was rejected, restart it
-      current.status = 0 if current.status == 3
     else
       current = UserVerification.new params.merge(user: user)
     end
