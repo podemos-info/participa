@@ -34,7 +34,7 @@ class UserVerification < ActiveRecord::Base
     !user.is_passport?
   end
   def self.for(user, params = {})
-    current = self.pending.where(user:user).first
+    current = self.where(" user_id = ? and (status  = 0 or status = 3)",user.id).first
     if current
       current.assign_attributes(params)
     else

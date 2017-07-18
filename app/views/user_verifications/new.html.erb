@@ -6,7 +6,7 @@
 
       <%= content_tag(:h2, t("podemos.user_verification.title")) %>
       <%= content_tag(:span, t("podemos.user_verification.full_directions").html_safe) %>
-      <%= content_tag(:p, t("podemos.user_verification.pending"), style: "font-weight:bold") if @user_verification.persisted? %>
+      <%= content_tag(:p, t("podemos.user_verification.pending"), style: "font-weight:bold") if @user_verification.persisted? and @user_verification.status !=1 and @user_verification.status !=3 %>
       <%= errors_in_form @user_verification %>
       
       <%= semantic_form_for @user_verification, url: create_user_verification_path, html: {method: :post, autocomplete: 'off'} do |f| %>
