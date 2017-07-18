@@ -16,7 +16,6 @@ class Ability
       can :admin, MicrocreditLoan
       can :admin, ImpulsaProject
       can :admin, ImpulsaEdition
-      can :admin, UserVerification
 
       can :manage, Post
 
