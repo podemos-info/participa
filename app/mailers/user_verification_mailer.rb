@@ -1,5 +1,5 @@
 class UserVerificationMailer < ActionMailer::Base
-  def on_accepted(user_to_mail)
+  def on_accepted(user_id)
     @user_email = User.find(user_id).email
     mail(
         from: "verificaciones@soporte.podemos.info",
