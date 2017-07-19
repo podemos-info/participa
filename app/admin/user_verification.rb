@@ -95,8 +95,18 @@ ActiveAdmin.register UserVerification do
       if current_user.verifier? or current_user.is_admin?
         super do |format|
           verification = UserVerification.find(params[:id])
-          UserVerificationMailer.on_accepted(verification.user_id).deliver_now if verification.status == 1 and (current_user.is_admin? or current_user.verfier?)
-          UserVerificationMailer.on_rejected(verification.user_id).deliver_now if verification.status == 3 and current_user.is_admin?
+          case verification.status
+            when 1
+              if (current_user.is_admin? or current_user.verfier?)
+                u = User.find( verification.user_id )
+                u.verified = true
+                u.banned = false
+                u.save
+                UserVerificationMailer.on_accepted(verification.user_id).deliver_now
+              end
+            when 3
+              UserVerificationMailer.on_rejected(verification.user_id).deliver_now if current_user.is_admin?
+          end
         end
       end
     end
