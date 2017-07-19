@@ -35,8 +35,8 @@ class UserVerificationsController < ApplicationController
     filas=[]
     @report = {autonomias: {}, provincias: {} }
     UserVerification.all.each do |v|
-      a = v.user.autonomy_name
-      p = v.user.province_name
+      a = v.user.vote_autonomy_name
+      p = v.user.vote_province_name
       s = v.status
       filas.push([a, p, s])
       @report[:autonomias][a] = @report[:autonomias][a] || {pendientes: 0, verificados: 0, con_problemas: 0, rechazados: 0, total: 0}
