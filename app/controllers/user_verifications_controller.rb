@@ -30,6 +30,37 @@ class UserVerificationsController < ApplicationController
          send_file verification.back_vatid.path(:thumb)
      end
   end
+
+  def report
+    filas=[]
+    @report = {autonomias: {}, provincias: {} }
+    UserVerification.all.each do |v|
+      a = v.user.autonomy_name
+      p = v.user.province_name
+      s = v.status
+      filas.push([a, p, s])
+      @report[:autonomias][a] = @report[:autonomias][a] || {pendientes: 0, verificados: 0, con_problemas: 0, rechazados: 0, total: 0}
+      @report[:provincias][p] = @report[:provincias][p] || {pendientes: 0, verificados: 0, con_problemas: 0, rechazados: 0, total: 0}
+      case s
+        when 0
+          @report[:autonomias][a][:pendientes] += 1
+          @report[:provincias][p][:pendientes] += 1
+        when 1
+          @report[:autonomias][a][:verificados] += 1
+          @report[:provincias][p][:verificados] += 1
+        when 2
+          @report[:autonomias][a][:con_problemas] += 1
+          @report[:provincias][p][:con_problemas] += 1
+        when 3
+          @report[:autonomias][a][:rechazados] += 1
+          @report[:provincias][p][:rechazados] += 1
+      end
+
+      @report[:autonomias][a][:total] += 1
+      @report[:provincias][p][:total] += 1
+    end
+    @report
+  end
   private
   def check_valid_and_verified
     redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') }) if current_user.has_not_future_verified_elections?

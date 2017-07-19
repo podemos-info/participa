@@ -1,0 +1,58 @@
+<% content_for :title, "Informe sobre verificaciones de identidad" %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <div>
+        <h2>Autonomias</h2>
+        <table class="table-collaborations">
+          <tr>
+            <td>Autonomia</td><td>Pendientes</td><td>Verificados</td><td>Con problemas</td><td>Rechazados</td><td>Total</td>
+          </tr>
+          <% sum_pending  = 0 %>
+          <% sum_accepted  = 0 %>
+          <% sum_issues  = 0 %>
+          <% sum_rejected  = 0 %>
+          <% sum_total  = 0 %>
+          <% @report[:autonomias].each do |current_autonomy| %>
+              <tr>
+                <td><%= current_autonomy[0] %></td><td><%=current_autonomy[1][:pendientes] %></td><td><%=current_autonomy[1][:verificados] %></td><td><%=current_autonomy[1][:con_problemas] %></td><td><%=current_autonomy[1][:rechazados] %></td><td><%=current_autonomy[1][:total] %></td></tr>
+              <% sum_pending += current_autonomy[1][:pendientes] %>
+              <% sum_accepted += current_autonomy[1][:verificados] %>
+              <% sum_issues += current_autonomy[1][:con_problemas] %>
+              <% sum_rejected += current_autonomy[1][:rechazados] %>
+              <% sum_total += current_autonomy[1][:total] %>
+          <% end %>
+          <tr>
+            <td>Totales</td><td><%= sum_pending %></td><td><%= sum_accepted %></td><td><%= sum_issues %></td><td><%= sum_rejected %></td><td><%= sum_total %></td>
+          </tr>
+        </table>
+      </div>
+
+
+<!-- PROVINCIAS -->
+      <h2>Provincias</h2>
+      <div>
+        <table class="table-collaborations">
+          <tr>
+            <td>Provincia</td><td>Pendientes</td><td>Verificados</td><td>Con problemas</td><td>Rechazados</td><td>Total</td>
+          </tr>
+          <% sum_prov_pending  = 0 %>
+          <% sum_prov_accepted  = 0 %>
+          <% sum_prov_issues  = 0 %>
+          <% sum_prov_rejected  = 0 %>
+          <% sum_prov_total  = 0 %>
+          <% @report[:provincias].each do |current_province| %>
+              <tr><td><%=current_province[0]%></td><td><%= current_province[1][:pendientes] %></td><td><%= current_province[1][:verificados] %></td><td><%= current_province[1][:con_problemas] %></td><td><%= current_province[1][:rechazados] %></td><td><%= current_province[1][:total] %></td></tr>
+              <% sum_prov_pending  += current_province[1][:pendientes] %>
+              <% sum_prov_accepted  += current_province[1][:verificados] %>
+              <% sum_prov_issues  += current_province[1][:con_problemas] %>
+              <% sum_prov_rejected  += current_province[1][:rechazados] %>
+              <% sum_prov_total  += current_province[1][:total] %>
+          <% end %>
+          <tr><td>Totales</td><td><%= sum_prov_pending %></td><td><%= sum_prov_accepted %></td><td><%= sum_prov_issues %></td><td><%= sum_prov_rejected %></td><td><%= sum_prov_total %></td></tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
