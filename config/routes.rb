@@ -136,6 +136,7 @@ Rails.application.routes.draw do
 
       get 'verificacion-identidad(/:election_id)', to: 'user_verifications#new', as: 'new_user_verification'
       post 'verificacion-identidad(/:election_id)', to: 'user_verifications#create', as: 'create_user_verification'
+      get Rails.application.secrets.user_verification_report_page, to: 'user_verifications#report', as: 'report_user_verification'
     end
 
     scope :user_verification do
