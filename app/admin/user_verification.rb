@@ -14,6 +14,7 @@ ActiveAdmin.register UserVerification do
   scope "Todas", :all
   scope "Pendientes", :pending
   scope "Aceptadas", :accepted, if: proc {current_user.is_admin?}
+  scope "Aceptadas por Email", :accepted_by_email, if: proc {current_user.is_admin?}
   scope "Con Problemas", :issues, if: proc {current_user.is_admin?}
   scope "Rechazadas", :rejected, if: proc {current_user.is_admin?}
 
@@ -26,14 +27,16 @@ ActiveAdmin.register UserVerification do
 
     column "estado" do |verification|
 
-      case verification.status
-        when 0
+      case UserVerification.statuses[verification.status]
+        when UserVerification.statuses[:pending]
           status_tag("Pendiente", :warning)
-        when 1
+        when UserVerification.statuses[:accepted]
           status_tag("Verificado", :ok)
-        when 2
+        when UserVerification.statuses[:accepted_by_email]
+          status_tag("Verificado por Email", :ok)
+        when UserVerification.statuses[:issues]
           status_tag("con Problemas", :important)
-        when 3
+        when UserVerification.statuses[:rejected]
           status_tag("Rechazado", :error)
       end
     end
@@ -73,7 +76,7 @@ ActiveAdmin.register UserVerification do
         render partial: "personal_data"
         panel "verificar" do
           f.inputs :class => "remove-padding-top" do
-            f.input :status, :label => "Estado", :as => :radio, :collection => current_user.is_admin? ? {"Pendiente":0, "Aceptado":1, "Con problemas":2, "Rechazado":3} : {"Pendiente":0, "Aceptado":1, "Con problemas":2}
+            f.input :status, :label => "Estado", :as => :radio, :collection => current_user.is_admin? ? {"Pendiente": UserVerification.statuses[:pending], "Aceptado": UserVerification.statuses[:accepted], "Con problemas": UserVerification.statuses[:issues], "Rechazado": UserVerification.statuses[:rejected]} : {"Pendiente": UserVerification.statuses[:pending], "Aceptado": UserVerification.statuses[:accepted], "Con problemas": UserVerification.statuses[:issues]}
             f.input :comment, :label => "Comentarios", as: :text, :input_html => {:rows => 2}
           end
           f.actions
@@ -95,8 +98,8 @@ ActiveAdmin.register UserVerification do
       if current_user.verifier? or current_user.is_admin?
         super do |format|
           verification = UserVerification.find(params[:id])
-          case verification.status
-            when 1
+          case UserVerification.statuses[verification.status]
+            when UserVerification.statuses[:accepted]
               if (current_user.is_admin? or current_user.verfier?)
                 u = User.find( verification.user_id )
                 u.verified = true
@@ -104,7 +107,7 @@ ActiveAdmin.register UserVerification do
                 u.save
                 UserVerificationMailer.on_accepted(verification.user_id).deliver_now
               end
-            when 3
+            when UserVerification.statuses[:rejected]
               UserVerificationMailer.on_rejected(verification.user_id).deliver_now if current_user.is_admin?
           end
         end
