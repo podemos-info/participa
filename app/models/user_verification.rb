@@ -25,10 +25,13 @@ class UserVerification < ActiveRecord::Base
     end
   end
 
-  scope :pending, -> {where(status: 0)}
-  scope :accepted, -> {where(status: 1)}
-  scope :issues, -> {where(status: 2)}
-  scope :rejected, -> {where(status: 3)}
+  enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4}
+
+  #scope :pending, -> {where(status: :pending)}
+  #scope :accepted, -> {where(status: :accepted)}
+  #scope :issues, -> {where(status: :issues)}
+  #scope :rejected, -> {where(status: :rejected)}
+  #scope :accepted_by_email, -> {where(status: :accepted_by_email)}
 
   def require_back?
     !user.is_passport?
