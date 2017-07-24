@@ -66,8 +66,11 @@ class UserVerificationsController < ApplicationController
   end
   private
   def check_valid_and_verified
-    redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') }) if current_user.has_not_future_verified_elections?
-    redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_already_verified') }) if current_user.verified?
+    if current_user.has_not_future_verified_elections?
+      redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') })
+    elsif current_user.verified?
+      redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_already_verified') })
+    end
   end
   def user_verification_params
     params.require(:user_verification).permit(:procesed_at, :front_vatid, :back_vatid, :terms_of_service, :wants_card)
