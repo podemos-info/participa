@@ -1,17 +1,18 @@
-<% content_for :title, t("podemos.user_verification.title") %>
 
+<% content_for :title, t("podemos.user_verification.title") %>
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
 
       <%= content_tag(:h2, t("podemos.user_verification.title")) %>
+      <%= render partial: "multimedia" %>
       <%= content_tag(:span, t("podemos.user_verification.full_directions").html_safe) %>
       <%= content_tag(:p, t("podemos.user_verification.pending"), style: "font-weight:bold") if @user_verification.persisted? and @user_verification.status !=1 and @user_verification.status !=3 %>
       <%= errors_in_form @user_verification %>
       
       <%= semantic_form_for @user_verification, url: create_user_verification_path, html: {method: :post, autocomplete: 'off'} do |f| %>
 
-          <fieldset>
+          <fieldset >
             <div class="js-user-verification">
               <label for="user_verification_front_vatid" class="vatid_sample user_verification_front_vatid">
                 <%= image_tag("user_verifications/#{current_user.document_type_name.downcase}-sample1.png", alt: t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample1_description")) %>
