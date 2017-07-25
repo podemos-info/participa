@@ -2,7 +2,7 @@
 <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
 <section class="tools">
   <ul>
-    <% if (current_user && !current_user.user_verification && current_user.has_future_verified_elections?) || (current_user && current_user.user_verification && current_user.user_verification.status!=1) %>
+    <% if (current_user && !current_user.user_verification) || (current_user && current_user.user_verification && current_user.photos_necessary? && current_user.user_verification.status!=1) %>
       <li class="box-tool-large">
         <div class="box-tool-large">
           <h3>Verificación de Identidad</h3>
