@@ -76,7 +76,6 @@ ActiveAdmin.register UserVerification do
         render partial: "personal_data"
         panel "verificar" do
           f.inputs :class => "remove-padding-top" do
-            #byebug
             f.input :status, :label => "Estado", :as => :radio, :collection => current_user.is_admin? ? {
                 "Pendiente": UserVerification.statuses.keys[ UserVerification.statuses[:pending]],
                 "Aceptado": UserVerification.statuses.keys[ UserVerification.statuses[:accepted]],
