@@ -768,11 +768,4 @@ class User < ActiveRecord::Base
   def has_future_verified_elections?
     Election.future.requires_vatid_check.any? { |e| e.has_valid_location_for? self}
   end
-
-  def photos_unnecessary?
-    self.has_future_verified_elections? && self.verified && UserVerification.where(user_id:self.id).none?
-  end
-  def photos_necessary?
-    self.has_future_verified_elections? && !self.verified  && (UserVerification.where(user_id:self.id).none? || UserVerification.where(user_id:self.id).where(status: !:accepted_by_email).any?)
-  end
 end
