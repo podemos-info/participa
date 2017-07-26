@@ -6,8 +6,8 @@ class UserVerification < ActiveRecord::Base
   has_attached_file :front_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300#", :png] }
   has_attached_file :back_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300#", :png] }
 
-  validates :user, :front_vatid, presence: true #, unless: :not_require_photos?
-  validates :back_vatid, presence: true, if: :require_back? #, unless: :not_require_photos?
+  validates :user, :front_vatid, presence: true, unless: :not_require_photos?
+  validates :back_vatid, presence: true, if: :require_back?, unless: :not_require_photos?
   validates :terms_of_service, acceptance: true
 
   validates_attachment_content_type :front_vatid, content_type: /\Aimage\/.*\z/
