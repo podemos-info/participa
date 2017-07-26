@@ -76,7 +76,15 @@ ActiveAdmin.register UserVerification do
         render partial: "personal_data"
         panel "verificar" do
           f.inputs :class => "remove-padding-top" do
-            f.input :status, :label => "Estado", :as => :radio, :collection => current_user.is_admin? ? {"Pendiente": UserVerification.statuses[:pending], "Aceptado": UserVerification.statuses[:accepted], "Con problemas": UserVerification.statuses[:issues], "Rechazado": UserVerification.statuses[:rejected]} : {"Pendiente": UserVerification.statuses[:pending], "Aceptado": UserVerification.statuses[:accepted], "Con problemas": UserVerification.statuses[:issues]}
+            #byebug
+            f.input :status, :label => "Estado", :as => :radio, :collection => current_user.is_admin? ? {
+                "Pendiente": UserVerification.statuses.keys[ UserVerification.statuses[:pending]],
+                "Aceptado": UserVerification.statuses.keys[ UserVerification.statuses[:accepted]],
+                "Con problemas": UserVerification.statuses.keys[ UserVerification.statuses[:issues]],
+                "Rechazado": UserVerification.statuses.keys[ UserVerification.statuses[:rejected]]} : {
+                "Pendiente": UserVerification.statuses.keys[ UserVerification.statuses[:pending]],
+                "Aceptado": UserVerification.statuses.keys[ UserVerification.statuses[:accepted]],
+                "Con problemas": UserVerification.statuses.keys[ UserVerification.statuses[:issues]]}
             f.input :comment, :label => "Comentarios", as: :text, :input_html => {:rows => 2}
           end
           f.actions
@@ -97,10 +105,10 @@ ActiveAdmin.register UserVerification do
     def update
       if current_user.verifier? or current_user.is_admin?
         super do |format|
-          verification = UserVerification.find(params[:id])
+          verification = UserVerification.find(permitted_params[:id])
           case UserVerification.statuses[verification.status]
             when UserVerification.statuses[:accepted]
-              if (current_user.is_admin? or current_user.verfier?)
+              if current_user.is_admin? or current_user.verfier?
                 u = User.find( verification.user_id )
                 u.verified = true
                 u.banned = false
