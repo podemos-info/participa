@@ -770,7 +770,7 @@ class User < ActiveRecord::Base
   end
 
   def photos_unnecessary?
-    self.has_future_verified_elections? && self.verified && UserVerification.where(user_id:self.id).none?
+    self.has_future_verified_elections? && self.verified && (UserVerification.where(user_id:self.id).none? || UserVerification.accepted_by_email.where(user_id: self.id).any?)
   end
   def photos_necessary?
     self.has_future_verified_elections? && !self.verified  || (UserVerification.where(user_id: self.id).any? && UserVerification.accepted_by_email.where(user_id: self.id).none?)
