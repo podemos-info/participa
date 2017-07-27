@@ -9,7 +9,7 @@ class UserVerificationsController < ApplicationController
     @user_verification = UserVerification.for current_user, user_verification_params
     # if the validation was rejected, restart it
     @user_verification.status = UserVerification.statuses[:pending] if @user_verification.rejected?
-    # @user_verification.status = UserVerification.statuses[:accepted_by_email] if current_user.photos_unnecessary?
+    @user_verification.status = UserVerification.statuses[:accepted_by_email] if current_user.photos_unnecessary?
     if @user_verification.save
       if @user_verification.wants_card
         redirect_to(edit_user_registration_path ,flash: { notice: [t('podemos.user_verification.documentation_received'), t('podemos.user_verification.please_check_details')].join("<br>")})
