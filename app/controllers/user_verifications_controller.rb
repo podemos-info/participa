@@ -29,31 +29,35 @@ class UserVerificationsController < ApplicationController
                 autonomias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } }
               }
 
-    provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "p_%02d" % + p.index, p.name ] }
-    autonomies = Podemos::GeoExtra::AUTONOMIES.values.uniq.sort
+    base_query = User.confirmed.where("vote_town ilike 'm\\___%'")
 
-    provinces.each do |province_code, province_name|
-      total_sum = 0
-      UserVerification.joins(:user).merge(User.confirmed.ransack( vote_province_in: province_code ).result)
-                      .group(:status).pluck(:status, "count(*)").each do |status, total|
-        status = UserVerification.statuses.invert[status].to_sym
-        @report[:provincias][province_name][status] = total
-        total_sum += total
-      end
-      @report[:provincias][province_name][:total] = total_sum
-      @report[:provincias][province_name][:users] = User.confirmed.ransack( vote_province_in: province_code ).result.count
+    # get totals by prov and status
+    data = Hash[
+              base_query.joins(:user_verification).group(:prov, :status)
+              .pluck("right(left(vote_town,4),2) as prov", "status", "count(distinct users.id)").map { |prov, status, count| [[prov, status], count] }
+            ]
+    
+    # add users totals by prov
+    base_query.group(:prov).pluck("right(left(vote_town,4),2) as prov", "count(distinct users.id)").each do |prov, count|
+      data[prov] = count
     end
 
-    autonomies.each do |autonomy_code, autonomy_name|
+    provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "%02d" % + p.index, p.name ] }
+
+    provinces.each do |province_num, province_name|
+      autonomy_name = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].last
       total_sum = 0
-      UserVerification.joins(:user).merge(User.confirmed.ransack( vote_autonomy_in: autonomy_code ).result)
-                      .group(:status).pluck(:status, "count(*)").each do |status, total|
-        status = UserVerification.statuses.invert[status].to_sym
-        @report[:autonomias][autonomy_name][status] = total
-        total_sum += total
+      UserVerification.statuses.each do |name, status|
+        count = data[[province_num, status]] || 0
+        @report[:provincias][province_name][name.to_sym] = count
+        @report[:autonomias][autonomy_name][name.to_sym] += count
+        total_sum += count
       end
-      @report[:autonomias][autonomy_name][:total] = total_sum
-      @report[:autonomias][autonomy_name][:users] = User.confirmed.ransack( vote_autonomy_in: autonomy_code ).result.count
+      @report[:provincias][province_name][:total] = total_sum
+      @report[:autonomias][autonomy_name][:total] += total_sum
+      total_sum = data[province_num] || 0
+      @report[:provincias][province_name][:users] = total_sum
+      @report[:autonomias][autonomy_name][:users] += total_sum
     end
 
     @report
@@ -71,4 +75,3 @@ class UserVerificationsController < ApplicationController
     params.require(:user_verification).permit(:procesed_at, :front_vatid, :back_vatid, :terms_of_service, :wants_card)
   end
 end
-
