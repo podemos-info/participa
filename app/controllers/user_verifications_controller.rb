@@ -33,21 +33,27 @@ class UserVerificationsController < ApplicationController
     autonomies = Podemos::GeoExtra::AUTONOMIES.values.uniq.sort
 
     provinces.each do |province_code, province_name|
+      total_sum = 0
       UserVerification.joins(:user).merge(User.confirmed.ransack( vote_province_in: province_code ).result)
                       .group(:status).pluck(:status, "count(*)").each do |status, total|
         status = UserVerification.statuses.invert[status].to_sym
         @report[:provincias][province_name][status] = total
-        @report[:provincias][province_name][:users] = User.confirmed.ransack( vote_province_in: province_code ).result.count
+        total_sum += total
       end
+      @report[:provincias][province_name][:total] = total_sum
+      @report[:provincias][province_name][:users] = User.confirmed.ransack( vote_province_in: province_code ).result.count
     end
 
     autonomies.each do |autonomy_code, autonomy_name|
+      total_sum = 0
       UserVerification.joins(:user).merge(User.confirmed.ransack( vote_autonomy_in: autonomy_code ).result)
                       .group(:status).pluck(:status, "count(*)").each do |status, total|
         status = UserVerification.statuses.invert[status].to_sym
         @report[:autonomias][autonomy_name][status] = total
-        @report[:autonomias][autonomy_name][:users] = User.confirmed.ransack( vote_autonomy_in: autonomy_code ).result.count
+        total_sum += total
       end
+      @report[:autonomias][autonomy_name][:total] = total_sum
+      @report[:autonomias][autonomy_name][:users] = User.confirmed.ransack( vote_autonomy_in: autonomy_code ).result.count
     end
 
     @report
