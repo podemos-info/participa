@@ -61,14 +61,18 @@ class UserVerificationsController < ApplicationController
       end
       @report[:provincias][province_name][:total] = total_sum
       @report[:autonomias][autonomy_name][:total] += total_sum
-      active = data[[province_num, true, false]] || 0
       active_verified = data[[province_num, true, true]] || 0
-      inactive = data[[province_num, false, false]] || 0
+      active = active_verified + (data[[province_num, true, false]] || 0)
       inactive_verified = data[[province_num, false, true]] || 0
+      inactive = inactive_verified + (data[[province_num, false, false]] || 0)
       @report[:provincias][province_name][:active] = active
+      @report[:provincias][province_name][:active_verified] = active_verified
       @report[:autonomias][autonomy_name][:active] += active
+      @report[:autonomias][autonomy_name][:active_verified] += active_verified
       @report[:provincias][province_name][:users] = active + inactive
+      @report[:provincias][province_name][:users_verified] = active_verified + inactive_verified
       @report[:autonomias][autonomy_name][:users] += active + inactive
+      @report[:autonomias][autonomy_name][:users_verified] += active_verified + inactive_verified
     end
 
     @report
