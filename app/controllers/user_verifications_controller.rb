@@ -21,54 +21,35 @@ class UserVerificationsController < ApplicationController
       render :new
     end
   end
-    report = {
-                autonomias: Hash.new do |h, k| 
-                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
-                end,
-                provincias: Hash.new do |h, k| 
-                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
-                end
-              }
 
   def report
     filas=[]
     @report = {
-                autonomias: Hash.new do |h, k|
-                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
-                  h[k][:usuarios] = User.confirmed.ransack( vote_autonomy_in: k[0] ).result.count
-                  h[k]
-                end,
-                provincias: Hash.new do |h, k|
-                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
-                  h[k][:usuarios] = User.confirmed.ransack( vote_province_in: k[0] ).result.count
-                  h[k]
-                end
+                provincias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
+                autonomias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } }
               }
 
-    UserVerification.all.each do |v|
-      a = [ v.user.vote_autonomy_code, v.user.vote_autonomy_name ]
-      p = [ v.user.vote_province_code, v.user.vote_province_name ]
-      case UserVerification.statuses[v.status]
-        when UserVerification.statuses[:pending]
-          @report[:autonomias][a][:pendientes] += 1
-          @report[:provincias][p][:pendientes] += 1
-        when UserVerification.statuses[:accepted]
-          @report[:autonomias][a][:verificados] += 1
-          @report[:provincias][p][:verificados] += 1
-        when UserVerification.statuses[:accepted_by_email]
-          @report[:autonomias][a][:verificados_por_email] += 1
-          @report[:provincias][p][:verificados_por_email] += 1
-        when UserVerification.statuses[:issues]
-          @report[:autonomias][a][:con_problemas] += 1
-          @report[:provincias][p][:con_problemas] += 1
-        when UserVerification.statuses[:rejected]
-          @report[:autonomias][a][:rechazados] += 1
-          @report[:provincias][p][:rechazados] += 1
-      end
+    provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "p_%02d" % + p.index, p.name ] }
+    autonomies = Podemos::GeoExtra::AUTONOMIES.values.uniq.sort
 
-      @report[:autonomias][a][:total] += 1
-      @report[:provincias][p][:total] += 1
+    provinces.each do |province_code, province_name|
+      UserVerification.joins(:user).merge(User.confirmed.ransack( vote_province_in: province_code ).result)
+                      .group(:status).pluck(:status, "count(*)").each do |status, total|
+        status = UserVerification.statuses.invert[status].to_sym
+        @report[:provincias][province_name][status] = total
+        @report[:provincias][province_name][:users] = User.confirmed.ransack( vote_province_in: province_code ).result.count
+      end
     end
+
+    autonomies.each do |autonomy_code, autonomy_name|
+      UserVerification.joins(:user).merge(User.confirmed.ransack( vote_autonomy_in: autonomy_code ).result)
+                      .group(:status).pluck(:status, "count(*)").each do |status, total|
+        status = UserVerification.statuses.invert[status].to_sym
+        @report[:autonomias][autonomy_name][status] = total
+        @report[:autonomias][autonomy_name][:users] = User.confirmed.ransack( vote_autonomy_in: autonomy_code ).result.count
+      end
+    end
+
     @report
   end
 
