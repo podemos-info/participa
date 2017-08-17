@@ -2,7 +2,7 @@ module Paperclip
   class Rotator < Thumbnail
     def transformation_command
       if rotate_command
-         rotate_command + super.join(' ')
+        rotate_command + super.join(' ')
       else
         super
       end

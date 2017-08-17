@@ -62,12 +62,21 @@ ActiveAdmin.register UserVerification do
         render partial: "personal_data"
       end
 
-      column do
-        a target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: :front, size: :original) do
-          image_tag view_image_admin_user_verification_path(user_verification, attachment: :front, size: :thumb)
-        end
-        a target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: :back, size: :original) do
-          image_tag view_image_admin_user_verification_path(user_verification, attachment: :back, size: :thumb)
+      column class: "column attachments" do
+        [:front, :back].each do |attachment|
+          div class: "attachment" do
+            a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
+              image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
+            end
+            div class: "rotate" do
+              span "ROTAR"
+              [0, 90, 180, 270].reverse.each do |degrees|
+                a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
+                  fa_icon "id-card-o"
+                end
+              end
+            end
+          end
         end
       end
     end
@@ -115,7 +124,7 @@ ActiveAdmin.register UserVerification do
   member_action :rotate, method: :patch do
     verification = UserVerification.find(params[:id])
     attachment = "#{params[:attachment]}_vatid"
-    degrees = params[:degrees].to_i
+    degrees = -params[:degrees].to_i
     verification.rotate[attachment] = degrees
     verification.send(attachment).reprocess!
     redirect_to :back
