@@ -11,14 +11,14 @@
           </tr>
           <% sum_pending = sum_accepted = sum_accepted_by_email = sum_issues = sum_rejected = sum_total = 0 %>
           <% @report[level].each do |territory, info|
-               accepted = info[:verificados] + info[:verificados_por_email]
-               sum_pending += info[:pendientes]
+               accepted = info[:accepted] + info[:accepted_by_email]
+               sum_pending += info[:pending]
                sum_accepted += accepted
-               sum_issues += info[:con_problemas]
-               sum_rejected += info[:rechazados]
+               sum_issues += info[:issues]
+               sum_rejected += info[:rejected]
                sum_total += info[:total] %>
               <tr>
-                <td><%= territory[1] %></td><td><%=info[:pendientes] %></td><td><%=info[:verificados] %></td><td><%=info[:con_problemas] %></td><td><%=info[:rechazados] %></td><td><%=info[:total] %></td><td><%= info[:usuarios] %> (<%= info[:usuarios]>0 ? number_to_percentage(100.0 * accepted / (info[:usuarios]) : "-" %>)</td>
+                <td><%= territory %></td><td><%=info[:pending] %></td><td><%=info[:accepted] %></td><td><%=info[:issues] %></td><td><%=info[:rejected] %></td><td><%=info[:total] %></td><td><%= info[:users] %> (<%= info[:users]>0 ? number_to_percentage(100.0 * accepted / info[:users]) : "-" %>)</td>
               </tr>
           <% end %>
           <tr>
