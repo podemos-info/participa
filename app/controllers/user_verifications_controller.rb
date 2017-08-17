@@ -21,17 +21,33 @@ class UserVerificationsController < ApplicationController
       render :new
     end
   end
+    report = {
+                autonomias: Hash.new do |h, k| 
+                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
+                end,
+                provincias: Hash.new do |h, k| 
+                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
+                end
+              }
 
   def report
     filas=[]
-    @report = {autonomias: {}, provincias: {} }
+    @report = {
+                autonomias: Hash.new do |h, k|
+                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
+                  h[k][:usuarios] = User.confirmed.ransack( vote_autonomy_in: k[0] ).result.count
+                  h[k]
+                end,
+                provincias: Hash.new do |h, k|
+                  h[k] = Hash.new { |h2, k2| h2[k2] = 0 }
+                  h[k][:usuarios] = User.confirmed.ransack( vote_province_in: k[0] ).result.count
+                  h[k]
+                end
+              }
+
     UserVerification.all.each do |v|
-      a = v.user.vote_autonomy_name
-      p = v.user.vote_province_name
-      s = v.status
-      filas.push([a, p, s])
-      @report[:autonomias][a] = @report[:autonomias][a] || {pendientes: 0, verificados: 0, verificados_por_email: 0,con_problemas: 0, rechazados: 0, total: 0}
-      @report[:provincias][p] = @report[:provincias][p] || {pendientes: 0, verificados: 0, verificados_por_email: 0, con_problemas: 0, rechazados: 0, total: 0}
+      a = [ v.user.vote_autonomy_code, v.user.vote_autonomy_name ]
+      p = [ v.user.vote_province_code, v.user.vote_province_name ]
       case UserVerification.statuses[v.status]
         when UserVerification.statuses[:pending]
           @report[:autonomias][a][:pendientes] += 1
@@ -55,6 +71,7 @@ class UserVerificationsController < ApplicationController
     end
     @report
   end
+
   private
   def check_valid_and_verified
     if current_user.has_not_future_verified_elections?

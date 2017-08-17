@@ -3,8 +3,8 @@ class UserVerification < ActiveRecord::Base
 
   has_paper_trail
 
-  has_attached_file :front_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300#", :png] }, processors: [:rotator]
-  has_attached_file :back_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300#", :png] }, processors: [:rotator]
+  has_attached_file :front_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300", :png] }, processors: [:rotator]
+  has_attached_file :back_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300", :png] }, processors: [:rotator]
 
   def rotate
     @rotate ||= HashWithIndifferentAccess.new
