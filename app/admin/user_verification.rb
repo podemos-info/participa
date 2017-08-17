@@ -1,6 +1,6 @@
 ActiveAdmin.register UserVerification do
   menu :parent => "Users"
-  config.sort_order = 'created_at_asc'
+  config.sort_order = 'created_at_desc'
   permit_params do
     params = [:user_id, :processed_at, :publisher_id, :front_vatid, :back_vatid, :wants_card]
     params.push :status, :comment, if: proc {current_user.is_admin?}
@@ -10,7 +10,7 @@ ActiveAdmin.register UserVerification do
   actions :index, :show, :edit, :update
 
   scope "Todas", :all
-  scope "Pendientes", :pending
+  scope "Pendientes", :pending, default: true
   scope "Aceptadas", :accepted, if: proc {current_user.is_admin?}
   scope "Aceptadas por Email", :accepted_by_email, if: proc {current_user.is_admin?}
   scope "Con Problemas", :issues, if: proc {current_user.is_admin?}
