@@ -7,9 +7,21 @@
         <h2><%=level.capitalize %></h2>
         <table class="table">
           <thead>
-            <th><%=level.capitalize %></th><th>Pendientes</th><th>Verificados</th><th>Con problemas</th><th>Rechazados</th><th>Total</th><th>Usuarios</th><th>% Usuarios</th>
+            <th></th><th colspan="5" class="table-column">Verificaciones</th><th class="table-column" colspan="5">Usuarios</th>
           </thead>
-          <% sum_pending = sum_accepted = sum_accepted_by_email = sum_issues = sum_rejected = sum_total = sum_users = 0 %>
+          <thead>
+            <th><%=level.capitalize %></th>
+            <th class="table-column">Total</th>
+            <th>Pendientes</th>
+            <th>Con problemas</th>
+            <th>Rechazados</th>
+            <th class="good-column">Verificados</th>
+            <th class="table-column">Confirmados</th>
+            <th>% verificados</th>
+            <th class="table-column">Activos</th>
+            <th>% verificados</th>
+          </thead>
+          <% sum_pending = sum_accepted = sum_accepted_by_email = sum_issues = sum_rejected = sum_total = sum_users = sum_active = 0 %>
           <% @report[level].each do |territory, info|
                accepted = info[:accepted] + info[:accepted_by_email]
                sum_pending += info[:pending]
@@ -17,14 +29,33 @@
                sum_issues += info[:issues]
                sum_rejected += info[:rejected]
                sum_total += info[:total]
-               sum_users += info[:users] 
+               sum_users += info[:users]
+               sum_active += info[:active]
                next if info[:total]==0 %>
               <tr>
-                <th><%= territory %></th><td><%=info[:pending] %></td><td><%=info[:accepted] %></td><td><%=info[:issues] %></td><td><%=info[:rejected] %></td><td><%=info[:total] %></td><td><%= info[:users] %></td><td><%= info[:users]>0 ? number_to_percentage(100.0 * accepted / info[:users]) : "-" %></td>
+                <th><%= territory %></th>
+                <td class="table-column"><%=info[:total] %></td>
+                <td><%=info[:pending] %></td>
+                <td><%=info[:issues] %></td>
+                <td><%=info[:rejected] %></td>
+                <td class="good-column"><%=info[:accepted] %></td>
+                <td class="table-column"><%= info[:users] %></td>
+                <td><%= info[:users]>0 ? number_to_percentage(100.0 * accepted / info[:users]) : "-" %></td>
+                <td class="table-column"><%= info[:active] %></td>
+                <td><%= info[:active]>0 ? number_to_percentage(100.0 * accepted / info[:active]) : "-" %></td>
               </tr>
           <% end %>
           <tfoot>
-            <th>Totales</th><td><%= sum_pending %></td><td><%= sum_accepted %></td><td><%= sum_issues %></td><td><%= sum_rejected %></td><td><%= sum_total %></td><td><%= sum_users %></td><td><%= sum_users>0 ? number_to_percentage(100.0 * sum_accepted / sum_users) : "-" %></td>
+            <th>Totales</th>
+            <td class="table-column"><%= sum_total %></td>
+            <td><%= sum_pending %></td>
+            <td><%= sum_issues %></td>
+            <td><%= sum_rejected %></td>
+            <td class="good-column"><%= sum_accepted %></td>
+            <td class="table-column"><%= sum_users %></td>
+            <td><%= sum_users>0 ? number_to_percentage(100.0 * sum_accepted / sum_users) : "-" %></td>
+            <td class="table-column"><%= sum_active %></td>
+            <td><%= sum_active>0 ? number_to_percentage(100.0 * sum_accepted / sum_active) : "-" %></td>
           </tfoot>
         </table>
       </div>

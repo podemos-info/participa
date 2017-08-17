@@ -38,8 +38,8 @@ class UserVerificationsController < ApplicationController
             ]
     
     # add users totals by prov
-    base_query.group(:prov).pluck("right(left(vote_town,4),2) as prov", "count(distinct users.id)").each do |prov, count|
-      data[prov] = count
+    base_query.group(:prov, :active).pluck("right(left(vote_town,4),2) as prov", "(current_sign_in_at > '#{(Date.today - eval(Rails.application.secrets.users["active_census_range"])).to_datetime.iso8601 }') as active", "count(distinct users.id)").each do |prov, active, count|
+      data[[prov, active]] = count
     end
 
     provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "%02d" % + p.index, p.name ] }
@@ -55,9 +55,12 @@ class UserVerificationsController < ApplicationController
       end
       @report[:provincias][province_name][:total] = total_sum
       @report[:autonomias][autonomy_name][:total] += total_sum
-      total_sum = data[province_num] || 0
-      @report[:provincias][province_name][:users] = total_sum
-      @report[:autonomias][autonomy_name][:users] += total_sum
+      active = data[[province_num, true]] || 0
+      inactive = data[[province_num, false]] || 0
+      @report[:provincias][province_name][:active] = active
+      @report[:autonomias][autonomy_name][:active] += active
+      @report[:provincias][province_name][:users] = active + inactive
+      @report[:autonomias][autonomy_name][:users] += active + inactive
     end
 
     @report
