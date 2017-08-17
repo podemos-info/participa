@@ -1,5 +1,4 @@
 ActiveAdmin.register UserVerification do
-  filter :status , label: "Estado"
   menu :parent => "Users"
   config.sort_order = 'created_at_asc'
   permit_params do
@@ -8,7 +7,6 @@ ActiveAdmin.register UserVerification do
     params
   end
 
-  #actions :all, except: [:new, :create, :destroy]
   actions :index, :show, :edit, :update
 
   scope "Todas", :all
@@ -17,6 +15,11 @@ ActiveAdmin.register UserVerification do
   scope "Aceptadas por Email", :accepted_by_email, if: proc {current_user.is_admin?}
   scope "Con Problemas", :issues, if: proc {current_user.is_admin?}
   scope "Rechazadas", :rejected, if: proc {current_user.is_admin?}
+
+  filter :status , label: "Estado"
+  filter :user_document_vatid, as: :string, label: "Número de documento"
+  filter :user_first_name, as: :string, label: "Nombre"
+  filter :user_last_name, as: :string, label: "Apellidos"
 
   index do |verification|
     column "persona" do |verification|
@@ -60,11 +63,11 @@ ActiveAdmin.register UserVerification do
       end
 
       column do
-        span do
-          image_tag images_user_verification_path(id:verification.id,attachment:"front_vatid", filename:verification.front_vatid_file_name.match(/[^\/.]*/), size: :thumb)
+        a target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: :front, size: :original) do
+          image_tag view_image_admin_user_verification_path(user_verification, attachment: :front, size: :thumb)
         end
-        span do
-          image_tag images_user_verification_path(id:verification.id,attachment:"back_vatid", filename:verification.back_vatid_file_name.match(/[^\/.]*/), size: :thumb)
+        a target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: :back, size: :original) do
+          image_tag view_image_admin_user_verification_path(user_verification, attachment: :back, size: :thumb)
         end
       end
     end
@@ -89,15 +92,40 @@ ActiveAdmin.register UserVerification do
           f.actions
         end
       end
-      column do
-          span do
-            image_tag images_user_verification_path(id:user_verification.id,attachment:"front_vatid", filename:user_verification.front_vatid_file_name.match(/[^\/.]*/), size: :thumb)
+      column class: "column attachments" do
+        [:front, :back].each do |attachment|
+          div class: "attachment" do
+            a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
+              image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
+            end
+            div class: "rotate" do
+              span "ROTAR"
+              [0, 90, 180, 270].reverse.each do |degrees|
+                a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
+                  fa_icon "id-card-o"
+                end
+              end
+            end
           end
-          span do
-            image_tag images_user_verification_path(id:user_verification.id,attachment:"back_vatid", filename:user_verification.back_vatid_file_name.match(/[^\/.]*/), size: :thumb)
-          end
+        end
       end
     end
+  end
+
+  member_action :rotate, method: :patch do
+    verification = UserVerification.find(params[:id])
+    attachment = "#{params[:attachment]}_vatid"
+    degrees = params[:degrees].to_i
+    verification.rotate[attachment] = degrees
+    verification.send(attachment).reprocess!
+    redirect_to :back
+  end
+
+  member_action :view_image do
+    verification = UserVerification.find(params[:id])
+    attachment = "#{params[:attachment]}_vatid"
+    size = params[:size].to_sym
+    send_file verification.send(attachment).path(size), disposition: 'inline'
   end
 
   controller do
