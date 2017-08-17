@@ -21,16 +21,6 @@ class UserVerificationsController < ApplicationController
       render :new
     end
   end
-  def download_image
-    verification = UserVerification.find(params[:id])
-    type= params[:attachment]
-     case type
-       when "front_vatid"
-         send_file verification.front_vatid.path(:thumb)
-       when "back_vatid"
-         send_file verification.back_vatid.path(:thumb)
-     end
-  end
 
   def report
     filas=[]
