@@ -1,6 +1,6 @@
 ActiveAdmin.register UserVerification do
   menu :parent => "Users"
-  config.sort_order = 'created_at_desc'
+  config.sort_order = 'created_at_asc'
   permit_params do
     params = [:user_id, :processed_at, :publisher_id, :front_vatid, :back_vatid, :wants_card]
     params.push :status, :comment, if: proc {current_user.is_admin?}
