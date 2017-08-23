@@ -101,7 +101,7 @@ ActiveAdmin.register UserVerification do
         end
       end
       column class: "column attachments" do
-        more_pending = resource.user.user_verifications.pending
+        more_pending = resource.user.user_verifications
         if more_pending.any? { |verification| verification!=resource }
           div class: "flash flash_error" do
             "ATENCIÓN: Este usuario ha enviado varias solicitudes de verificación. Por favor, compruébalas antes de continuar."
