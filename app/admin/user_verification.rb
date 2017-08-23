@@ -29,7 +29,6 @@ ActiveAdmin.register UserVerification do
     column "fecha petición", :created_at
 
     column "estado" do |verification|
-
       case UserVerification.statuses[verification.status]
         when UserVerification.statuses[:pending]
           status_tag("Pendiente", :warning)
@@ -102,6 +101,26 @@ ActiveAdmin.register UserVerification do
         end
       end
       column class: "column attachments" do
+        more_pending = resource.user.user_verifications.pending
+        if more_pending.any? { |verification| verification!=resource }
+          div class: "flash flash_error" do
+            "ATENCIÓN: Este usuario ha enviado varias solicitudes de verificación. Por favor, compruébalas antes de continuar."
+          end
+          table_for more_pending do
+            column "fecha creación", :created_at
+            column "estado" do |verification|
+              t("podemos.user_verification.status.#{verification.status}")
+            end
+            column do |verification|
+              if verification.id == resource.id
+                span "registro actual"
+              else
+                link_to "procesar", edit_admin_user_verification_path(verification.id)
+              end
+            end
+          end
+        end
+
         [:front, :back].each do |attachment|
           div class: "attachment" do
             a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
