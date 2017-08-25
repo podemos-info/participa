@@ -15,11 +15,13 @@ ActiveAdmin.register UserVerification do
   scope "Aceptadas por Email", :accepted_by_email, if: proc {current_user.is_admin?}
   scope "Con Problemas", :issues, if: proc {current_user.is_admin?}
   scope "Rechazadas", :rejected, if: proc {current_user.is_admin?}
+  scope "Descartadas", :discarded, if: proc {current_user.is_admin?}
 
   filter :status , label: "Estado"
   filter :user_document_vatid, as: :string, label: "Número de documento"
   filter :user_first_name, as: :string, label: "Nombre"
   filter :user_last_name, as: :string, label: "Apellidos"
+  filter :user_email, as: :string, label: "Email"
 
   index do |verification|
     column "persona" do |verification|
@@ -33,13 +35,15 @@ ActiveAdmin.register UserVerification do
         when UserVerification.statuses[:pending]
           status_tag("Pendiente", :warning)
         when UserVerification.statuses[:accepted]
-          status_tag("Verificado", :ok)
+          status_tag("Verificada", :ok)
         when UserVerification.statuses[:accepted_by_email]
-          status_tag("Verificado por Email", :ok)
+          status_tag("Verificada por Email", :ok)
         when UserVerification.statuses[:issues]
           status_tag("con Problemas", :important)
         when UserVerification.statuses[:rejected]
-          status_tag("Rechazado", :error)
+          status_tag("Rechazada", :error)
+        when UserVerification.statuses[:discarded]
+          status_tag("Descartada", :error)
       end
     end
 
@@ -60,7 +64,6 @@ ActiveAdmin.register UserVerification do
       column do
         render partial: "personal_data"
       end
-
       column class: "column attachments" do
         [:front, :back].each do |attachment|
           div class: "attachment" do
@@ -101,19 +104,20 @@ ActiveAdmin.register UserVerification do
         end
       end
       column class: "column attachments" do
-        more_pending = resource.user.user_verifications
+        more_pending = resource.user.user_verifications.not_discarded
         if more_pending.any? { |verification| verification!=resource }
           div class: "flash flash_error" do
-            "ATENCIÓN: Este usuario ha enviado varias solicitudes de verificación. Por favor, compruébalas antes de continuar."
+            "ATENCIÓN: Este usuario ha enviado varias solicitudes de verificación. Si se acepta esta solicitud, se descartará el resto."
           end
           table_for more_pending do
             column "fecha creación", :created_at
             column "estado" do |verification|
               t("podemos.user_verification.status.#{verification.status}")
             end
+            column :descartable?
             column do |verification|
               if verification.id == resource.id
-                span "registro actual"
+                span "actual"
               else
                 link_to "procesar", edit_admin_user_verification_path(verification.id)
               end
@@ -160,6 +164,11 @@ ActiveAdmin.register UserVerification do
     def update
       if current_user.verifier? or current_user.is_admin?
         super do |format|
+          resource.user.user_verifications.discardable.each do |verification|
+            verification.status = :discarded
+            verification.save!
+          end
+
           verification = UserVerification.find(permitted_params[:id])
           case UserVerification.statuses[verification.status]
             when UserVerification.statuses[:accepted]
