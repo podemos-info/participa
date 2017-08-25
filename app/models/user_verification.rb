@@ -29,13 +29,14 @@ class UserVerification < ActiveRecord::Base
     end
   end
 
-  enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4}
+  enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4, discarded: 5}
 
-  #scope :pending, -> {where(status: :pending)}
-  #scope :accepted, -> {where(status: :accepted)}
-  #scope :issues, -> {where(status: :issues)}
-  #scope :rejected, -> {where(status: :rejected)}
-  #scope :accepted_by_email, -> {where(status: :accepted_by_email)}
+  scope :not_discarded, -> { where.not status: 5 }
+  scope :discardable, -> { where status: [0, 2] }
+
+  def discardable?
+    status == :pending || status == :issues
+  end
 
   def require_back?
     !user.is_passport?
@@ -45,7 +46,7 @@ class UserVerification < ActiveRecord::Base
     user.photos_unnecessary?
   end
   def self.for(user, params = {})
-    current = self.where(" user_id = ? and (status  = 0 or status = 3)",user.id).first
+    current = self.where(user: user, status: [0, 3]).first
     if current
       current.assign_attributes(params)
     else
