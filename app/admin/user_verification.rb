@@ -1,4 +1,5 @@
 ActiveAdmin.register UserVerification do
+  filter :status , label: "Estado"
   menu :parent => "Users"
   config.sort_order = 'created_at_asc'
   permit_params do
@@ -8,6 +9,9 @@ ActiveAdmin.register UserVerification do
   end
 
   actions :index, :show, :edit, :update
+  action_item "Procesar", only: :index do
+    link_to "Procesar", params.merge(:action => :get_first_free)
+  end
 
   scope "Todas", :all
   scope "Pendientes", :pending, default: true
@@ -22,6 +26,20 @@ ActiveAdmin.register UserVerification do
   filter :user_first_name, as: :string, label: "Nombre"
   filter :user_last_name, as: :string, label: "Apellidos"
   filter :user_email, as: :string, label: "Email"
+
+  collection_action :get_first_free, :method => :get do
+    self.clean_redis_hash
+    $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+
+    ids = $redis.hkeys(:processing)
+    verification = UserVerification.pending.where.not(id: ids).first
+    if verification
+      $redis.hset(:processing,verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
+      redirect_to edit_admin_user_verification_path(verification.id)
+    else
+      redirect_to(admin_user_verifications_path, flash: {warning: "No hay Usuarios que Verificar en Este momento. Muchisimas Gracias por tu colaboración. Intentalo más tarde." })
+    end
+  end
 
   index do |verification|
     column "persona" do |verification|
@@ -55,7 +73,8 @@ ActiveAdmin.register UserVerification do
     #end
 
     actions defaults: false do |verification|
-      link_to t("procesar"), edit_admin_user_verification_path(verification.id)
+      #link_to t("procesar"), edit_admin_user_verification_path(verification.id)
+      #link_to "Procesar", get_first_free_path
     end
   end
 
@@ -160,9 +179,60 @@ ActiveAdmin.register UserVerification do
     send_file verification.send(attachment).path(size), disposition: 'inline'
   end
 
+  # def get_first_free
+  #   byebug
+  #   $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+  #   ids = $redis.hkeys(:processing)
+  #   verification = UserVerification.pending.where.not(id: ids).first
+  #   $redis.hset(:processing,:id,{author_id: current_user.id,locked_at: DateTime.now})
+  #   if verification
+  #     verification
+  #   else
+  #     redirect_to(index_admin_user_verification_path, flash: {warning: "No hay Usuarios que Verificar en Este momento. Muchisimas Gracias por tu colaboración. Intentalo más tarde." })
+  #   end
+  # end
+
   controller do
+
+    def capture_redish_hash id
+      if current_user.is_admin?
+
+      end
+    end
+
+    def verification_active id
+      $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+      current_hash = $redis.hget(:processing,id)
+      current_verification = UserVerification.find(id) if UserVerification.where(id: id).any?
+      if current_verification && current_hash
+        # convert hash in string to hash
+        current_hash = current_hash.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
+        current_hash = Hash[current_hash.map{ |k, v| [k.to_sym, v] }]
+        # end convert hash in string to hash
+        #current_user.id == current_hash[:author_id].to_i  && DateTime.now.utc < (current_hash[:locked_at].gsub(/[\"]/,'').gsub(/[|]/,':').to_datetime + Rails.application.secrets.user_verifications["time_to_expire_session"].minutes)
+        DateTime.now.utc <= (current_hash[:locked_at].gsub(/[\"]/,'').gsub(/[|]/,':').to_datetime + Rails.application.secrets.user_verifications["time_to_expire_session"].minutes)
+      else
+        false
+      end
+    end
+
+    def remove_redis_hash id
+      $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+      current = $redis.hget(:processing,id)
+      $redis.hdel(:processing,id)
+    end
+
+    def clean_redis_hash
+
+      $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+      ids = $redis.hkeys :processing
+      ids.each do |i|
+        $redis.hdel(:processing, i) if !verification_active i
+      end
+    end
+
     def update
-      if current_user.verifier? or current_user.is_admin?
+      if (current_user.verifier? or current_user.is_admin?) and verification_active(permitted_params[:id])
         super do |format|
           resource.user.user_verifications.discardable.each do |verification|
             verification.status = :discarded
@@ -182,7 +252,11 @@ ActiveAdmin.register UserVerification do
             when UserVerification.statuses[:rejected]
               UserVerificationMailer.on_rejected(verification.user_id).deliver_now if current_user.is_admin?
           end
+
+          remove_redis_hash verification.id
         end
+      elsif (current_user.verifier? or current_user.is_admin?) and !verification_active(permitted_params[:id])
+        redirect_to(admin_user_verifications_path,flash: {error: "Has perdido el derecho de Verificar este usuario. Pulsa en Procesar para verificar uno nuevo." })
       end
     end
   end

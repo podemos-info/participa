@@ -55,14 +55,12 @@ class UserVerification < ActiveRecord::Base
     current
   end
 
-  def push_id_to_processing_list
-    $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
-    array_ids=$redis.lrange("processing",0,-1)
-    if :id.in?(array_ids)
-      $redis.rpush("processing",:id)
-    else
-
-    end
-  end
+  # def get_first_free
+  #   $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+  #   array_ids=$redis.hkeys("processing")
+  #   verification=UserVerification.pending.where.not(id: array_ids).first
+  #   $redis.hset("processing",:id,{author_id: current_user.id,locked_at: DateTime.now})
+  #   verification
+  # end
 
 end
