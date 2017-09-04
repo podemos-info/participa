@@ -220,10 +220,10 @@ ActiveAdmin.register UserVerification do
     def update
       if (current_user.verifier? or current_user.is_admin?) and verification_active?(permitted_params[:id]) and current_user_is_author?(permitted_params[:id])
         super do |format|
-          UserVerification.discardable.where('user_id = ?',resource.user.id).each do |verification|
-            verification.status = :discarded
-            verification.save!
-          end
+          # UserVerification.discardable.where('user_id = ?',resource.user.id).each do |verification|
+          #   verification.status = :discarded
+          #   verification.save!
+          # end
 
           verification = UserVerification.find(permitted_params[:id])
           case UserVerification.statuses[verification.status]

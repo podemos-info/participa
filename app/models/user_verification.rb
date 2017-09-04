@@ -46,7 +46,7 @@ class UserVerification < ActiveRecord::Base
     user.photos_unnecessary?
   end
   def self.for(user, params = {})
-    current = self.where(user: user, status: [0, 3]).first
+    current = self.where(user: user, status: [0, 2, 3]).first
     if current
       current.assign_attributes(params)
     else
