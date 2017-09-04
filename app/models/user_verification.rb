@@ -46,7 +46,11 @@ class UserVerification < ActiveRecord::Base
     user.photos_unnecessary?
   end
   def self.for(user, params = {})
+<<<<<<< HEAD
     current = self.where(user: user, status: [0, 2, 3]).first
+=======
+    current = self.where(user: user, status: [0, 3]).first
+>>>>>>> master
     if current
       current.assign_attributes(params)
     else
@@ -54,4 +58,16 @@ class UserVerification < ActiveRecord::Base
     end
     current
   end
+<<<<<<< HEAD
+=======
+
+  # def get_first_free
+  #   $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+  #   array_ids=$redis.hkeys("processing")
+  #   verification=UserVerification.pending.where.not(id: array_ids).first
+  #   $redis.hset("processing",:id,{author_id: current_user.id,locked_at: DateTime.now})
+  #   verification
+  # end
+
+>>>>>>> master
 end

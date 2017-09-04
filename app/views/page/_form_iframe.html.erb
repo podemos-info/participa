@@ -15,6 +15,8 @@
 	%>&participa_user_autonomy=<%=u current_user.vote_autonomy_name
 	%>&participa_user_comunity=<%=u current_user.vote_autonomy_code
 	%>&participa_user_town_code=<%=u current_user.town
+	%>&participa_user_created_at=<%=u current_user.created_at
+	%>&participa_user_gender=<%=u current_user.gender
 %><% end %><%= 
 extra_qs if local_assigns[:extra_qs]%>" width="100%" height="<%= height %>" frameBorder="0" class="gfiframe"></iframe>
 

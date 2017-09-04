@@ -23,7 +23,7 @@ ActiveAdmin.register User do
 
   permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle
 
-  index download_links: -> { current_user.is_admin? && current_user.superadmin? } do
+  index download_links: -> { Rails.env.production? && current_user.is_admin? && current_user.superadmin? } do
     selectable_column
     id_column
     column :full_name

@@ -1,3 +1,4 @@
+//= require font-awesome
 
 .panel[data-panel] {
   table {
@@ -107,4 +108,53 @@ li h3 {
   padding: 5px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.attachments {
+  text-align: center;
+  .attachment {
+    margin: 10px;
+    display: inline-block;
+    .preview {
+      display: block;
+      img {
+        display: block;
+      }
+    }
+    .rotate {
+      margin: 0px;
+      padding: 5px;
+      background-color: #612D62;
+      color: white;
+      text-align: left;
+      font-size: 14px;
+      font-weight: bold;
+      a {
+        float: right;
+        margin: 0 5px;
+        display: inline-block;
+        color: white;
+      }
+    }
+    .degrees-0 {
+    }
+    .degrees-90 {
+      -ms-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+    .degrees-180 {
+      -ms-transform: rotate(180deg);
+      -moz-transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+    .degrees-270 {
+      -ms-transform: rotate(270deg);
+      -moz-transform: rotate(270deg);
+      -webkit-transform: rotate(270deg);
+      transform: rotate(270deg);
+    }
+  }
 }
