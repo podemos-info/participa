@@ -844,6 +844,13 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
           <p>Si tienes cualquier problema, puedes ponerte en contacto con nosotros enviando un email a <a href='mailto:verificaciones@soporte.podemos.info'>verificaciones@soporte.podemos.info</a></p>"
       get_card_text: "Todas las personas que participen en las próximas votaciones podrán solicitar gratuitamente la Credencial de Compañero/a de Podemos."
       get_card: "Recibe tu Credencial de Compañero/a de Podemos"
+      status:
+        pending: Pendiente
+        accepted: Verificado
+        accepted_by_email: Verificado por Email
+        issues: Con problemas
+        rejected: Rechazada
+      no_pending_verifications: "Todos los usuarios pendientes de verificar estan siendo procesados por alguien. Por favor, vuelve más tarde cuando haya nuevas verificaciones pendientes."
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."

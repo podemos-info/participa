@@ -3,8 +3,12 @@ class UserVerification < ActiveRecord::Base
 
   has_paper_trail
 
-  has_attached_file :front_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300#", :png] }
-  has_attached_file :back_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300#", :png] }
+  has_attached_file :front_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300", :png] }, processors: [:rotator]
+  has_attached_file :back_vatid, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:style/:filename", styles: { thumb: ["450x300", :png] }, processors: [:rotator]
+
+  def rotate
+    @rotate ||= HashWithIndifferentAccess.new
+  end
 
   validates :user, :front_vatid, presence: true, unless: :not_require_photos?
   validates :back_vatid, presence: true, if: :require_back?, unless: :not_require_photos?
@@ -25,13 +29,14 @@ class UserVerification < ActiveRecord::Base
     end
   end
 
-  enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4}
+  enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4, discarded: 5}
 
-  #scope :pending, -> {where(status: :pending)}
-  #scope :accepted, -> {where(status: :accepted)}
-  #scope :issues, -> {where(status: :issues)}
-  #scope :rejected, -> {where(status: :rejected)}
-  #scope :accepted_by_email, -> {where(status: :accepted_by_email)}
+  scope :not_discarded, -> { where.not status: 5 }
+  scope :discardable, -> { where status: [0, 2] }
+
+  def discardable?
+    status == :pending || status == :issues
+  end
 
   def require_back?
     !user.is_passport?
@@ -41,7 +46,7 @@ class UserVerification < ActiveRecord::Base
     user.photos_unnecessary?
   end
   def self.for(user, params = {})
-    current = self.where(" user_id = ? and (status  = 0 or status = 3)",user.id).first
+    current = self.where(user: user, status: [0, 3]).first
     if current
       current.assign_attributes(params)
     else
@@ -50,14 +55,12 @@ class UserVerification < ActiveRecord::Base
     current
   end
 
-  def push_id_to_processing_list
-    $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
-    array_ids=$redis.lrange("processing",0,-1)
-    if :id.in?(array_ids)
-      $redis.rpush("processing",:id)
-    else
-
-    end
-  end
+   #def get_first_free
+   #  $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+   #  array_ids=$redis.hkeys("processing")
+   #  verification=UserVerification.pending.where.not(id: array_ids).first
+   #  $redis.hset("processing",:id,{author_id: current_user.id,locked_at: DateTime.now})
+   #  verification
+   #end
 
 end
