@@ -8,10 +8,7 @@ panel "Detalles del usuario" do
     # DOMICILIO
     # CORREO ELECTRÓNICO
     # TELÉFONO
-    row :id do
-      span user_verification.user.id
-      span link_to 'Ver usuario en paticipa', edit_admin_user_path(User.find(user_verification.user.id)), :target => "_blank"
-    end
+    row :id
     # row "Estado" do
     #   status_tag("Verificado", :ok) if user_verification.user.verified?
     #   status_tag("Baneado", :error) if user_verification.user.banned?

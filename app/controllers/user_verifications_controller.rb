@@ -8,7 +8,7 @@ class UserVerificationsController < ApplicationController
   def create
     @user_verification = UserVerification.for current_user, user_verification_params
     # if the validation was rejected, restart it
-    @user_verification.status = UserVerification.statuses[:pending] if @user_verification.rejected? or @user_verification.issues?
+    @user_verification.status = UserVerification.statuses[:pending] if @user_verification.rejected?
     @user_verification.status = UserVerification.statuses[:accepted_by_email] if current_user.photos_unnecessary?
     if @user_verification.save
       if @user_verification.wants_card
@@ -21,50 +21,65 @@ class UserVerificationsController < ApplicationController
       render :new
     end
   end
-  def download_image
-    verification = UserVerification.find(params[:id])
-    type= params[:attachment]
-     case type
-       when "front_vatid"
-         send_file verification.front_vatid.path(:thumb)
-       when "back_vatid"
-         send_file verification.back_vatid.path(:thumb)
-     end
-  end
 
   def report
     filas=[]
-    @report = {autonomias: {}, provincias: {} }
-    UserVerification.all.each do |v|
-      a = v.user.vote_autonomy_name
-      p = v.user.vote_province_name
-      s = v.status
-      filas.push([a, p, s])
-      @report[:autonomias][a] = @report[:autonomias][a] || {pendientes: 0, verificados: 0, verificados_por_email: 0,con_problemas: 0, rechazados: 0, total: 0}
-      @report[:provincias][p] = @report[:provincias][p] || {pendientes: 0, verificados: 0, verificados_por_email: 0, con_problemas: 0, rechazados: 0, total: 0}
-      case UserVerification.statuses[v.status]
-        when UserVerification.statuses[:pending]
-          @report[:autonomias][a][:pendientes] += 1
-          @report[:provincias][p][:pendientes] += 1
-        when UserVerification.statuses[:accepted]
-          @report[:autonomias][a][:verificados] += 1
-          @report[:provincias][p][:verificados] += 1
-        when UserVerification.statuses[:accepted_by_email]
-          @report[:autonomias][a][:verificados_por_email] += 1
-          @report[:provincias][p][:verificados_por_email] += 1
-        when UserVerification.statuses[:issues]
-          @report[:autonomias][a][:con_problemas] += 1
-          @report[:provincias][p][:con_problemas] += 1
-        when UserVerification.statuses[:rejected]
-          @report[:autonomias][a][:rechazados] += 1
-          @report[:provincias][p][:rechazados] += 1
-      end
+    @report = {
+                provincias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
+                autonomias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } }
+              }
 
-      @report[:autonomias][a][:total] += 1
-      @report[:provincias][p][:total] += 1
+    base_query = User.confirmed.where("vote_town ilike 'm\\___%'")
+
+    # get totals by prov and status
+    data = Hash[
+              base_query.joins(:user_verifications).group(:prov, :status)
+              .pluck("right(left(vote_town,4),2) as prov", "status", "count(distinct users.id)").map { |prov, status, count| [[prov, status], count] }
+            ]
+    
+    # add users totals by prov
+    active_date = Date.today - eval(Rails.application.secrets.users["active_census_range"])
+    base_query.group(:prov, :active, :verified).pluck(
+        "right(left(vote_town,4),2) as prov", 
+        "(current_sign_in_at IS NOT NULL AND current_sign_in_at > '#{active_date.to_datetime.iso8601 }') as active", 
+        "#{User.verified_condition} as verified", 
+        "count(distinct users.id)"
+      ).each do |prov, active, verified, count|
+        data[[prov, active, verified]] = count
     end
+
+    provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "%02d" % + p.index, p.name ] }
+
+    provinces.each do |province_num, province_name|
+      autonomy_name = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].last
+      total_sum = 0
+      UserVerification.statuses.each do |name, status|
+        count = data[[province_num, status]] || 0
+        @report[:provincias][province_name][name.to_sym] = count
+        @report[:autonomias][autonomy_name][name.to_sym] += count
+        total_sum += count
+      end
+      @report[:provincias][province_name][:total] = total_sum
+      @report[:autonomias][autonomy_name][:total] += total_sum
+      
+      active_verified = data[[province_num, true, true]] || 0
+      active = active_verified + (data[[province_num, true, false]] || 0)
+      inactive_verified = data[[province_num, false, true]] || 0
+      inactive = inactive_verified + (data[[province_num, false, false]] || 0)
+
+      @report[:provincias][province_name][:users] = active + inactive
+      @report[:provincias][province_name][:verified] = active_verified + inactive_verified
+      @report[:autonomias][autonomy_name][:users] += active + inactive
+      @report[:autonomias][autonomy_name][:verified] += active_verified + inactive_verified
+      @report[:provincias][province_name][:active] = active
+      @report[:provincias][province_name][:active_verified] = active_verified
+      @report[:autonomias][autonomy_name][:active] += active
+      @report[:autonomias][autonomy_name][:active_verified] += active_verified
+    end
+
     @report
   end
+
   private
   def check_valid_and_verified
     if current_user.has_not_future_verified_elections?
@@ -77,4 +92,3 @@ class UserVerificationsController < ApplicationController
     params.require(:user_verification).permit(:procesed_at, :front_vatid, :back_vatid, :terms_of_service, :wants_card)
   end
 end
-
