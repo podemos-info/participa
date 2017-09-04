@@ -20,38 +20,3 @@ label.vatid_sample {
     }
   }
 }
-
-.table {
-  width: 100%;
-  font-size: 12px;
-  border-collapse:collapse;
-  margin-bottom:1em;
-
-  td {
-    text-align: center;
-  }
-  th {
-    font-weight:bold;
-    text-align: left;
-  }
-  th, td{
-    margin:0;
-    color:#612d62;
-    border:none;
-    padding:0.55em 0;
-  }
-  thead th, thead td {
-    border-bottom:1px solid #d7cad8;
-    text-align: center;
-  }
-  tfoot th, tfoot td {
-    border-top:1px solid #d7cad8;
-    font-weight:bold;
-  }
-  .table-column {
-    border-left: 1px solid #d7cad8;
-  }
-  .good-column {
-    background: #DCF1DC;
-  }
-}

@@ -12,7 +12,6 @@ ActiveAdmin.register UserVerification do
   action_item "Procesar", only: :index do
     link_to "Procesar", params.merge(:action => :get_first_free)
   end
-<<<<<<< HEAD
 
   filter :status , label: "Estado"
   filter :user_document_vatid, as: :string, label: "Número de documento"
@@ -24,38 +23,13 @@ ActiveAdmin.register UserVerification do
     self.clean_redis_hash
     $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
 
-=======
-
-  scope "Todas", :all
-  scope "Pendientes", :pending, default: true
-  scope "Aceptadas", :accepted, if: proc {current_user.is_admin?}
-  scope "Aceptadas por Email", :accepted_by_email, if: proc {current_user.is_admin?}
-  scope "Con Problemas", :issues, if: proc {current_user.is_admin?}
-  scope "Rechazadas", :rejected, if: proc {current_user.is_admin?}
-  scope "Descartadas", :discarded, if: proc {current_user.is_admin?}
-
-  filter :status , label: "Estado"
-  filter :user_document_vatid, as: :string, label: "Número de documento"
-  filter :user_first_name, as: :string, label: "Nombre"
-  filter :user_last_name, as: :string, label: "Apellidos"
-  filter :user_email, as: :string, label: "Email"
-
-  collection_action :get_first_free, :method => :get do
-    self.clean_redis_hash
-    $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
-
->>>>>>> master
     ids = $redis.hkeys(:processing)
     verification = UserVerification.pending.where.not(id: ids).first
     if verification
       $redis.hset(:processing,verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
       redirect_to edit_admin_user_verification_path(verification.id)
     else
-<<<<<<< HEAD
       redirect_to(admin_user_verification_path, flash: {warning: t('podemos.user_verification.no_pending_verifications')})
-=======
-      redirect_to(admin_user_verifications_path, flash: {warning: "No hay Usuarios que Verificar en Este momento. Muchisimas Gracias por tu colaboración. Intentalo más tarde." })
->>>>>>> master
     end
   end
 
@@ -80,46 +54,6 @@ ActiveAdmin.register UserVerification do
           status_tag("Rechazada", :error)
         when UserVerification.statuses[:discarded]
           status_tag("Descartada", :error)
-<<<<<<< HEAD
-=======
-      end
-    end
-
-    #column "numDNI" do |verification|
-    #  verification.user.document_vatid
-    #end
-    #column "DNI" do |verification|
-    #  image_tag images_user_verification_path(id:verification.id,attachment:"front_vatid", filename:verification.front_vatid_file_name, size: "150x150")
-    #end
-
-    actions defaults: false do |verification|
-      #link_to t("procesar"), edit_admin_user_verification_path(verification.id)
-      #link_to "Procesar", get_first_free_path
-    end
-  end
-
-  show do |verification|
-    columns do
-      column do
-        render partial: "personal_data"
-      end
-      column class: "column attachments" do
-        [:front, :back].each do |attachment|
-          div class: "attachment" do
-            a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
-              image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
-            end
-            div class: "rotate" do
-              span "ROTAR"
-              [0, 90, 180, 270].reverse.each do |degrees|
-                a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
-                  fa_icon "id-card-o"
-                end
-              end
-            end
-          end
-        end
->>>>>>> master
       end
     end
   end
@@ -144,7 +78,6 @@ ActiveAdmin.register UserVerification do
         end
       end
       column class: "column attachments" do
-<<<<<<< HEAD
         more_pending = UserVerification.not_discarded.where("user_id = ?",resource.user.id)
         if more_pending.any? { |verification| verification!=resource }
           div class: "flash flash_error" do
@@ -161,23 +94,6 @@ ActiveAdmin.register UserVerification do
                 span "actual"
               else
                 link_to "procesar", edit_admin_user_verification_path(verification.id)
-=======
-        more_pending = resource.user.user_verifications.not_discarded
-        if more_pending.any? { |verification| verification!=resource }
-          div class: "flash flash_error" do
-            "ATENCIÓN: Este usuario ha enviado varias solicitudes de verificación. Si se acepta esta solicitud, se descartará el resto."
-          end
-          table_for more_pending do
-            column "fecha creación", :created_at
-            column "estado" do |verification|
-              t("podemos.user_verification.status.#{verification.status}")
-            end
-            column :descartable?
-            column do |verification|
-              if verification.id == resource.id
-                span "actual"
-              else
-                link_to "procesar", edit_admin_user_verification_path(verification.id)
               end
             end
           end
@@ -194,30 +110,10 @@ ActiveAdmin.register UserVerification do
                 a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
                   fa_icon "id-card-o"
                 end
->>>>>>> master
               end
             end
           end
         end
-<<<<<<< HEAD
-
-        [:front, :back].each do |attachment|
-          div class: "attachment" do
-            a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
-              image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
-            end
-            div class: "rotate" do
-              span "ROTAR"
-              [0, 90, 180, 270].reverse.each do |degrees|
-                a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
-                  fa_icon "id-card-o"
-                end
-              end
-            end
-          end
-        end
-=======
->>>>>>> master
       end
     end
   end
@@ -238,22 +134,6 @@ ActiveAdmin.register UserVerification do
     send_file verification.send(attachment).path(size), disposition: 'inline'
   end
 
-<<<<<<< HEAD
-=======
-  # def get_first_free
-  #   byebug
-  #   $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
-  #   ids = $redis.hkeys(:processing)
-  #   verification = UserVerification.pending.where.not(id: ids).first
-  #   $redis.hset(:processing,:id,{author_id: current_user.id,locked_at: DateTime.now})
-  #   if verification
-  #     verification
-  #   else
-  #     redirect_to(index_admin_user_verification_path, flash: {warning: "No hay Usuarios que Verificar en Este momento. Muchisimas Gracias por tu colaboración. Intentalo más tarde." })
-  #   end
-  # end
-
->>>>>>> master
   controller do
 
     def capture_redish_hash id
@@ -262,11 +142,7 @@ ActiveAdmin.register UserVerification do
       end
     end
 
-<<<<<<< HEAD
     def verification_active? id
-=======
-    def verification_active id
->>>>>>> master
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       current_hash = $redis.hget(:processing,id)
       current_verification = UserVerification.find(id) if UserVerification.where(id: id).any?
@@ -275,17 +151,12 @@ ActiveAdmin.register UserVerification do
         current_hash = current_hash.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
         current_hash = Hash[current_hash.map{ |k, v| [k.to_sym, v] }]
         # end convert hash in string to hash
-<<<<<<< HEAD
-=======
-        #current_user.id == current_hash[:author_id].to_i  && DateTime.now.utc < (current_hash[:locked_at].gsub(/[\"]/,'').gsub(/[|]/,':').to_datetime + Rails.application.secrets.user_verifications["time_to_expire_session"].minutes)
->>>>>>> master
         DateTime.now.utc <= (current_hash[:locked_at].gsub(/[\"]/,'').gsub(/[|]/,':').to_datetime + Rails.application.secrets.user_verifications["time_to_expire_session"].minutes)
       else
         false
       end
     end
 
-<<<<<<< HEAD
     def current_user_is_author? id
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       current_hash = $redis.hget(:processing,id)
@@ -301,8 +172,6 @@ ActiveAdmin.register UserVerification do
       end
     end
 
-=======
->>>>>>> master
     def remove_redis_hash id
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       current = $redis.hget(:processing,id)
@@ -314,7 +183,6 @@ ActiveAdmin.register UserVerification do
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       ids = $redis.hkeys :processing
       ids.each do |i|
-<<<<<<< HEAD
         $redis.hdel(:processing, i) if !verification_active? i
       end
     end
@@ -346,28 +214,16 @@ ActiveAdmin.register UserVerification do
         end
       else
 
-=======
-        $redis.hdel(:processing, i) if !verification_active i
->>>>>>> master
       end
     end
 
     def update
-<<<<<<< HEAD
       if (current_user.verifier? or current_user.is_admin?) and verification_active?(permitted_params[:id]) and current_user_is_author?(permitted_params[:id])
         super do |format|
           # UserVerification.discardable.where('user_id = ?',resource.user.id).each do |verification|
           #   verification.status = :discarded
           #   verification.save!
           # end
-=======
-      if (current_user.verifier? or current_user.is_admin?) and verification_active(permitted_params[:id])
-        super do |format|
-          resource.user.user_verifications.discardable.each do |verification|
-            verification.status = :discarded
-            verification.save!
-          end
->>>>>>> master
 
           verification = UserVerification.find(permitted_params[:id])
           case UserVerification.statuses[verification.status]
@@ -382,18 +238,11 @@ ActiveAdmin.register UserVerification do
             when UserVerification.statuses[:rejected]
               UserVerificationMailer.on_rejected(verification.user_id).deliver_now if current_user.is_admin?
           end
-<<<<<<< HEAD
           verification.author_id = current_user.id
           verification.save!
           remove_redis_hash verification.id
         end
       elsif (current_user.verifier? or current_user.is_admin?) and !verification_active?(permitted_params[:id])
-=======
-
-          remove_redis_hash verification.id
-        end
-      elsif (current_user.verifier? or current_user.is_admin?) and !verification_active(permitted_params[:id])
->>>>>>> master
         redirect_to(admin_user_verifications_path,flash: {error: "Has perdido el derecho de Verificar este usuario. Pulsa en Procesar para verificar uno nuevo." })
       end
     end
