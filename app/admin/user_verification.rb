@@ -187,7 +187,7 @@ ActiveAdmin.register UserVerification do
       end
     end
 
-    def show #do |verification|
+    def show
       verification = UserVerification.find(permitted_params[:id])
       if verification_active?(verification.id)
         columns do
