@@ -2,72 +2,57 @@
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
-      <% [:autonomias, :provincias].each do |level| %>
       <div>
-        <h2><%=level.capitalize %></h2>
-        <table class="table">
-          <thead>
-            <th></th><th colspan="5" class="table-column">Verificaciones</th><th class="table-column" colspan="3">Usuarios</th><th class="table-column" colspan="3">Usuarios activos</th>
-          </thead>
-          <thead>
-            <th><%=level.capitalize %></th>
-            <th class="table-column">Pendientes</th>
-            <th>Con problemas</th>
-            <th>Rechazados</th>
-            <th>Aceptadas</th>
-            <th>Total</th>
-            <th class="good-column table-column">Verificados</th>
-            <th>Total</th>
-            <th>% verificados</th>
-            <th class="table-column">Verificados</th>
-            <th>Total</th>
-            <th>% verificados</th>
-          </thead>
-          <% sum_pending = sum_accepted = sum_issues = sum_rejected = sum_total = sum_users = sum_verified = sum_active = sum_active_verified = 0 %>
-          <% @report[level].each do |territory, info|
-               accepted = info[:accepted] + info[:accepted_by_email]
-               sum_pending += info[:pending]
-               sum_accepted += accepted
-               sum_issues += info[:issues]
-               sum_rejected += info[:rejected]
-               sum_total += info[:total]
-               sum_users += info[:users]
-               sum_verified += info[:verified]
-               sum_active += info[:active]
-               sum_active_verified += info[:active_verified]
-               next if info[:total]==0 %>
+        <h2>Autonomias</h2>
+        <table class="table-collaborations">
+          <tr>
+            <td>Autonomia</td><td>Pendientes</td><td>Verificados</td><td>Con problemas</td><td>Rechazados</td><td>Total</td>
+          </tr>
+          <% sum_pending  = 0 %>
+          <% sum_accepted  = 0 %>
+          <% sum_accepted_by_email  = 0 %>
+          <% sum_issues  = 0 %>
+          <% sum_rejected  = 0 %>
+          <% sum_total  = 0 %>
+          <% @report[:autonomias].each do |current_autonomy| %>
               <tr>
-                <th><%= territory %></th>
-                <td class="table-column"><%=info[:pending] %></td>
-                <td><%=info[:issues] %></td>
-                <td><%=info[:rejected] %></td>
-                <td><%=info[:accepted] %></td>
-                <td><%=info[:total] %></td>
-                <td class="good-column table-column"><%= info[:verified] %></td>
-                <td><%= info[:users] %></td>
-                <td><%= info[:users]>0 ? number_to_percentage(100.0 * info[:verified] / info[:users]) : "-" %></td>
-                <td class="table-column"><%= info[:active_verified] %></td>
-                <td><%= info[:active] %></td>
-                <td><%= info[:active]>0 ? number_to_percentage(100.0 * info[:active_verified] / info[:active]) : "-" %></td>
-              </tr>
+                <td><%= current_autonomy[0] %></td><td><%=current_autonomy[1][:pendientes] %></td><td><%=current_autonomy[1][:verificados] %></td><td><%=current_autonomy[1][:con_problemas] %></td><td><%=current_autonomy[1][:rechazados] %></td><td><%=current_autonomy[1][:total] %></td></tr>
+              <% sum_pending += current_autonomy[1][:pendientes] %>
+              <% sum_accepted += current_autonomy[1][:verificados] + current_autonomy[1][:verificados_por_email] %>
+              <% sum_issues += current_autonomy[1][:con_problemas] %>
+              <% sum_rejected += current_autonomy[1][:rechazados] %>
+              <% sum_total += current_autonomy[1][:total] %>
           <% end %>
-          <tfoot>
-            <th>Totales</th>
-            <td class="table-column"><%= sum_pending %></td>
-            <td><%= sum_issues %></td>
-            <td><%= sum_rejected %></td>
-            <td><%= sum_accepted %></td>
-            <td><%= sum_total %></td>
-            <td class="good-column table-column"><%= sum_verified %></td>
-            <td><%= sum_users %></td>
-            <td><%= sum_users>0 ? number_to_percentage(100.0 * sum_verified / sum_users) : "-" %></td>
-            <td class="table-column"><%= sum_active_verified %></td>
-            <td><%= sum_active %></td>
-            <td><%= sum_active>0 ? number_to_percentage(100.0 * sum_active_verified / sum_active) : "-" %></td>
-          </tfoot>
+          <tr>
+            <td>Totales</td><td><%= sum_pending %></td><td><%= sum_accepted %></td><td><%= sum_issues %></td><td><%= sum_rejected %></td><td><%= sum_total %></td>
+          </tr>
         </table>
       </div>
-      <% end %>
+
+<!-- PROVINCIAS -->
+      <h2>Provincias</h2>
+      <div>
+        <table class="table-collaborations">
+          <tr>
+            <td>Provincia</td><td>Pendientes</td><td>Verificados</td><td>Con problemas</td><td>Rechazados</td><td>Total</td>
+          </tr>
+          <% sum_prov_pending  = 0 %>
+          <% sum_prov_accepted  = 0 %>
+          <% sum_prov_accepted_by_email  = 0 %>
+          <% sum_prov_issues  = 0 %>
+          <% sum_prov_rejected  = 0 %>
+          <% sum_prov_total  = 0 %>
+          <% @report[:provincias].each do |current_province| %>
+              <tr><td><%=current_province[0]%></td><td><%= current_province[1][:pendientes] %></td><td><%= current_province[1][:verificados] %></td><td><%= current_province[1][:con_problemas] %></td><td><%= current_province[1][:rechazados] %></td><td><%= current_province[1][:total] %></td></tr>
+              <% sum_prov_pending  += current_province[1][:pendientes] %>
+              <% sum_prov_accepted  += current_province[1][:verificados] +  current_province[1][:verificados_por_email] %>
+              <% sum_prov_issues  += current_province[1][:con_problemas] %>
+              <% sum_prov_rejected  += current_province[1][:rechazados] %>
+              <% sum_prov_total  += current_province[1][:total] %>
+          <% end %>
+          <tr><td>Totales</td><td><%= sum_prov_pending %></td><td><%= sum_prov_accepted %></td><td><%= sum_prov_issues %></td><td><%= sum_prov_rejected %></td><td><%= sum_prov_total %></td></tr>
+        </table>
+      </div>
 
     </div>
   </div>

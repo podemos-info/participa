@@ -27,9 +27,10 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :supports, dependent: :destroy
   has_one :collaboration, dependent: :destroy
+  has_one :user_verification, dependent: :destroy
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
-  has_many :user_verifications
+  has_many :verifications, class_name: "UserVerification"
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
@@ -745,7 +746,7 @@ class User < ActiveRecord::Base
   end
 
   def pass_vatid_check?
-    self.verified || self.user_verifications.pending.any?
+    self.verified || self.verifications.pending.any?
   end
 
   def urban_vote_town?
