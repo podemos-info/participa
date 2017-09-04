@@ -144,6 +144,10 @@ Rails.application.routes.draw do
       get ':id/:attachment/:filename', to: 'user_verifications#download_image', as: 'images_user_verification' #,constraints: { filename:  /[^\/.]*/ }
     end
 
+    scope :user_verification do
+      get ':id/:attachment/:filename', to: 'user_verifications#download_image', as: 'images_user_verification' #,constraints: { filename:  /[^\/.]*/ }
+    end
+
     scope :impulsa do
       get '', to: 'impulsa#index', as: 'impulsa'
       get 'proyecto', to: 'impulsa#project', as: 'project_impulsa'
