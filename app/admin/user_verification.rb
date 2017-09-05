@@ -41,6 +41,11 @@ ActiveAdmin.register UserVerification do
     end
   end
 
+  member_action :cancel_edition, :method => :get do
+    remove_redis_hash params[:id]
+    redirect_to(admin_user_verifications_path)
+  end
+
   index do |verification|
     column "persona" do |verification|
       verification.user.full_name
@@ -82,7 +87,10 @@ ActiveAdmin.register UserVerification do
                 "Con problemas": UserVerification.statuses.keys[ UserVerification.statuses[:issues]]}
             f.input :comment, :label => "Comentarios", as: :text, :input_html => {:rows => 2}
           end
-          f.actions
+          f.actions do
+            f.action :submit
+            f.cancel_link({action: :cancel_edition})
+          end
         end
       end
       column class: "column attachments" do
@@ -187,7 +195,6 @@ ActiveAdmin.register UserVerification do
     end
 
     def clean_redis_hash
-
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       ids = $redis.hkeys :processing
       ids.each do |i|
@@ -258,4 +265,3 @@ ActiveAdmin.register UserVerification do
     end
   end
 end
-
