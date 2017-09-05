@@ -27,3 +27,10 @@ Gemfile.lock
 .idea
 
 .DS_Store
+.DS_Store~HEAD
+.DS_Store~master
+coverage/
+db/openid-store/nonces/
+db/openid-store/temp/
+dump.rdb
+non-public/

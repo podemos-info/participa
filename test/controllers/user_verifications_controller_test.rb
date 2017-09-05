@@ -2,13 +2,13 @@ require 'test_helper'
 
 class UserVerificationsControllerTest < ActionController::TestCase
   setup do
-    @user_verification = user_verifications(:one)
+    @user_verification = user_verification(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:user_verifications)
+    assert_not_nil assigns(:user_verification)
   end
 
   test "should get new" do

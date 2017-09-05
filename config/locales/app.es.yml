@@ -850,6 +850,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         accepted_by_email: Verificado por Email
         issues: Con problemas
         rejected: Rechazada
+      no_pending_verifications: "Todos los usuarios pendientes de verificar estan siendo procesados por alguien. Por favor, vuelve más tarde cuando haya nuevas verificaciones pendientes."
   issues:
     confirm_sms: "Por seguridad, debes confirmar tu teléfono."
     legacy_password: "Por seguridad, debes cambiar tu contraseña."
