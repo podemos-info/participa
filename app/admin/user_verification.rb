@@ -114,6 +114,13 @@ ActiveAdmin.register UserVerification do
             end
           end
         end
+        current_verifier =user_verification.get_current_verifier
+
+        if user_verification.active? and current_verifier != current_user
+          div class: "flash flash_error" do
+            "ATENCIÓN: Esta persona ya esta siendo verificada por #{current_verifier.full_name}"
+          end
+        end
 
         [:front, :back].each do |attachment|
           div class: "attachment" do
@@ -158,36 +165,6 @@ ActiveAdmin.register UserVerification do
       end
     end
 
-    def verification_active? id
-      $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
-      current_hash = $redis.hget(:processing,id)
-      current_verification = UserVerification.find(id) if UserVerification.where(id: id).any?
-      if current_verification && current_hash
-        # convert hash in string to hash
-        current_hash = current_hash.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
-        current_hash = Hash[current_hash.map{ |k, v| [k.to_sym, v] }]
-        # end convert hash in string to hash
-        DateTime.now.utc <= (current_hash[:locked_at].gsub(/[\"]/,'').gsub(/[|]/,':').to_datetime + Rails.application.secrets.user_verifications["time_to_expire_session"].minutes)
-      else
-        false
-      end
-    end
-
-    def current_user_is_author? id
-      $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
-      current_hash = $redis.hget(:processing,id)
-      current_verification = UserVerification.find(id) if UserVerification.where(id: id).any?
-      if current_verification && current_hash
-        # convert hash in string to hash
-        current_hash = current_hash.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
-        current_hash = Hash[current_hash.map{ |k, v| [k.to_sym, v] }]
-        # end convert hash in string to hash
-        current_user.id == current_hash[:author_id].to_i
-      else
-        false
-      end
-    end
-
     def remove_redis_hash id
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       current = $redis.hget(:processing,id)
@@ -198,13 +175,14 @@ ActiveAdmin.register UserVerification do
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       ids = $redis.hkeys :processing
       ids.each do |i|
-        $redis.hdel(:processing, i) if !verification_active? i
+        verification = UserVerification.find(i)
+        $redis.hdel(:processing, i) if verification and !verification.active?
       end
     end
 
     def show
       verification = UserVerification.find(permitted_params[:id])
-      if verification_active?(verification.id)
+      if verification.active?
         columns do
           column do
             render partial: "personal_data"
@@ -233,14 +211,15 @@ ActiveAdmin.register UserVerification do
     end
 
     def update
-      if (current_user.verifier? or current_user.is_admin?) and verification_active?(permitted_params[:id]) and current_user_is_author?(permitted_params[:id])
+      verification = UserVerification.find(permitted_params[:id])
+      current_verifier = verification.get_current_verifier
+      if (current_user.verifier? or current_user.is_admin?) and verification.active? and current_user == current_verifier
         super do |format|
           # UserVerification.discardable.where('user_id = ?',resource.user.id).each do |verification|
           #   verification.status = :discarded
           #   verification.save!
           # end
 
-          verification = UserVerification.find(permitted_params[:id])
           case UserVerification.statuses[verification.status]
             when UserVerification.statuses[:accepted]
               if current_user.is_admin? or current_user.verfier?
@@ -259,7 +238,7 @@ ActiveAdmin.register UserVerification do
           redirect_to(get_first_free_admin_user_verifications_path)
           return
         end
-      elsif (current_user.verifier? or current_user.is_admin?) and !verification_active?(permitted_params[:id])
+      elsif (current_user.verifier? or current_user.is_admin?) and !verification.active?
         redirect_to(admin_user_verifications_path,flash: {error: "Has perdido el derecho de Verificar este usuario. Pulsa en Procesar para verificar uno nuevo." })
       end
     end
