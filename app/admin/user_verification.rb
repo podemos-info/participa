@@ -37,7 +37,7 @@ ActiveAdmin.register UserVerification do
       $redis.hset(:processing,verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
       redirect_to edit_admin_user_verification_path(verification.id)
     else
-      redirect_to(admin_user_verifications_path, flash: {warning: t('podemos.user_verification.no_pending_verifications')})
+      redirect_to(admin_user_verifications_path, flash: {warning: "No hay Usuarios que Verificar en Este momento. Muchisimas Gracias por tu colaboración. Intentalo más tarde." })
     end
   end
 
@@ -63,6 +63,18 @@ ActiveAdmin.register UserVerification do
         when UserVerification.statuses[:discarded]
           status_tag("Descartada", :error)
       end
+    end
+
+    #column "numDNI" do |verification|
+    #  verification.user.document_vatid
+    #end
+    #column "DNI" do |verification|
+    #  image_tag images_user_verification_path(id:verification.id,attachment:"front_vatid", filename:verification.front_vatid_file_name, size: "150x150")
+    #end
+
+    actions defaults: false do |verification|
+      #link_to t("procesar"), edit_admin_user_verification_path(verification.id)
+      #link_to "Procesar", get_first_free_path
     end
   end
 
