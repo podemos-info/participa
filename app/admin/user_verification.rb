@@ -249,6 +249,8 @@ ActiveAdmin.register UserVerification do
           verification.author_id = current_user.id
           verification.save!
           remove_redis_hash verification.id
+          redirect_to(get_first_free_admin_user_verifications_path)
+          return
         end
       elsif (current_user.verifier? or current_user.is_admin?) and !verification_active?(permitted_params[:id])
         redirect_to(admin_user_verifications_path,flash: {error: "Has perdido el derecho de Verificar este usuario. Pulsa en Procesar para verificar uno nuevo." })
