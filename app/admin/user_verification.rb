@@ -116,10 +116,15 @@ ActiveAdmin.register UserVerification do
         end
         current_verifier =user_verification.get_current_verifier
 
-        if user_verification.active? and current_verifier != current_user
-          div class: "flash flash_error" do
-            "ATENCIÓN: Esta persona ya esta siendo verificada por #{current_verifier.full_name}"
+        if user_verification.active?
+          if current_verifier != current_user
+            div class: "flash flash_error" do
+              "ATENCIÓN: Esta persona ya esta siendo verificada por #{current_verifier.full_name}"
+            end
           end
+        else
+          $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+          $redis.hset(:processing,user_verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
         end
 
         [:front, :back].each do |attachment|
