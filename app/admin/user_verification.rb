@@ -41,8 +41,8 @@ ActiveAdmin.register UserVerification do
     end
   end
 
-  collection_action :cancel_edition, :method => :get do
-    remove_redis_hash current_user.id
+  member_action :cancel_edition, :method => :get do
+    remove_redis_hash params[:id]
     redirect_to(admin_user_verifications_path)
   end
 
@@ -87,7 +87,10 @@ ActiveAdmin.register UserVerification do
                 "Con problemas": UserVerification.statuses.keys[ UserVerification.statuses[:issues]]}
             f.input :comment, :label => "Comentarios", as: :text, :input_html => {:rows => 2}
           end
-          f.actions
+          f.actions do
+            f.action :submit
+            f.cancel_link({action: :cancel_edition})
+          end
         end
       end
       column class: "column attachments" do
@@ -129,7 +132,6 @@ ActiveAdmin.register UserVerification do
         end
       end
     end
-    f.cancel_link(:cancel_edition_admin_user_verifications)
   end
 
   member_action :rotate, method: :patch do
