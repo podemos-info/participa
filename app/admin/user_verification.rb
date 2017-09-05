@@ -69,6 +69,14 @@ ActiveAdmin.register UserVerification do
           status_tag("Descartada", :error)
       end
     end
+
+    column "esta siendo verificada por" do |verification|
+      if verification.active?
+        verification.get_current_verifier.full_name || ""
+      else
+        ""
+      end
+    end
   end
 
   form title: "Verificar Identidad", decorate: true do |f|
