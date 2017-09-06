@@ -93,6 +93,31 @@ ActiveAdmin.register UserVerification do
     actions if current_user.is_admin?
   end
 
+show do
+  columns do
+    column do
+      render partial: "personal_data"
+    end
+    column class: "column attachments" do
+      [:front, :back].each do |attachment|
+        div class: "attachment" do
+          a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
+            image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
+          end
+          div class: "rotate" do
+            span "ROTAR"
+            [0, 90, 180, 270].reverse.each do |degrees|
+              a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
+                fa_icon "id-card-o"
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
   form title: "Verificar Identidad", decorate: true do |f|
     columns do
       column do
@@ -204,36 +229,6 @@ ActiveAdmin.register UserVerification do
       ids.each do |i|
         verification = UserVerification.find(i)
         $redis.hdel(:processing, i) if verification and !verification.active?
-      end
-    end
-
-    def show
-      verification = UserVerification.find(permitted_params[:id])
-      if verification.active?
-        columns do
-          column do
-            render partial: "personal_data"
-          end
-          column class: "column attachments" do
-            [:front, :back].each do |attachment|
-              div class: "attachment" do
-                a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
-                  image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
-                end
-                div class: "rotate" do
-                  span "ROTAR"
-                  [0, 90, 180, 270].reverse.each do |degrees|
-                    a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
-                      fa_icon "id-card-o"
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      else
-
       end
     end
 
