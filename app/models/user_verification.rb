@@ -54,4 +54,33 @@ class UserVerification < ActiveRecord::Base
     end
     current
   end
+
+  def active?
+    $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+    current_hash = $redis.hget(:processing,id)
+    current_verification = UserVerification.find(id) if UserVerification.where(id: id).any?
+    if current_verification && current_hash
+      # convert hash in string to hash
+      current_hash = current_hash.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
+      current_hash = Hash[current_hash.map{ |k, v| [k.to_sym, v] }]
+      # end convert hash in string to hash
+      DateTime.now.utc <= (current_hash[:locked_at].gsub(/[\"]/,'').gsub(/[|]/,':').to_datetime + Rails.application.secrets.user_verifications["time_to_expire_session"].minutes)
+    else
+      false
+    end
+  end
+
+  def get_current_verifier
+    $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
+    current_hash = $redis.hget(:processing,id)
+    if current_hash
+      # convert hash in string to hash
+      current_hash = current_hash.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
+      current_hash = Hash[current_hash.map{ |k, v| [k.to_sym, v] }]
+      # end convert hash in string to hash
+      User.find(current_hash[:author_id].to_i)
+    else
+      nil
+    end
+  end
 end
