@@ -80,7 +80,7 @@ ActiveAdmin.register UserVerification do
           status_tag("Descartada", :error)
       end
     end
-    if params[:scope] == "pendientes"
+    if params[:scope] == "pendientes" or params[:scope] == nil
       column "verificando por" do |verification|
         if verification.active?
           verification.get_current_verifier.full_name || ""
