@@ -13,7 +13,7 @@ ActiveAdmin.register UserVerification do
     link_to "Procesar", params.merge(:action => :get_first_free)
   end
 
-  scope "Todas", :all
+  scope "Todas", :all, if: proc {current_user.is_admin?}
   scope "Pendientes", :pending, default: true
   scope "Aceptadas", :accepted, if: proc {current_user.is_admin?}
   scope "Aceptadas por Email", :accepted_by_email, if: proc {current_user.is_admin?}
@@ -32,12 +32,23 @@ ActiveAdmin.register UserVerification do
     $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
 
     ids = $redis.hkeys(:processing)
-    verification = UserVerification.pending.where.not(id: ids).first
+    verifications = UserVerification.pending.where(id: ids)
+    verification = nil
+    verifications.each do |v|
+      verification = v if v.get_current_verifier == current_user
+    end
+
     if verification
       $redis.hset(:processing,verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
-      redirect_to edit_admin_user_verification_path(verification.id)
+      redirect_to(edit_admin_user_verification_path(verification.id),data: {confirm: "Parece ser que ya tienes abierto el registro en otra pestaña, ¿realmente deseas editarlo en esta?"})
     else
-      redirect_to(admin_user_verifications_path, flash: {warning: t('podemos.user_verification.no_pending_verifications')})
+      verification = UserVerification.pending.where.not(id: ids).first
+      if verification
+        $redis.hset(:processing,verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
+        redirect_to edit_admin_user_verification_path(verification.id)
+      else
+        redirect_to(admin_user_verifications_path, flash: {warning: t('podemos.user_verification.no_pending_verifications')})
+      end
     end
   end
 
@@ -69,14 +80,17 @@ ActiveAdmin.register UserVerification do
           status_tag("Descartada", :error)
       end
     end
-
-    column "esta siendo verificada por" do |verification|
-      if verification.active?
-        verification.get_current_verifier.full_name || ""
-      else
-        ""
+    if params[:scope] == "pendientes" or params[:scope] == nil
+      column "verificando por" do |verification|
+        if verification.active?
+          verification.get_current_verifier.full_name || ""
+        else
+          ""
+        end
       end
     end
+
+    actions if current_user.is_admin?
   end
 
   form title: "Verificar Identidad", decorate: true do |f|
