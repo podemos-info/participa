@@ -39,7 +39,7 @@ class Collaboration < ActiveRecord::Base
   FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
-  scope :created, -> { where(deleted_at: nil)  }
+  scope :created, -> { all  }
   scope :credit_cards, -> { created.where(payment_type: 1)}
   scope :banks, -> { created.where.not(payment_type: 1)}
   scope :bank_nationals, -> { created.where.not(payment_type: 1).where.not("collaborations.payment_type = 3 and iban_account NOT LIKE ?", "ES%") }
