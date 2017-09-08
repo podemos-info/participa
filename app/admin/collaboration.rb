@@ -34,7 +34,7 @@ def show_collaboration_orders(collaboration, html_output = true)
 end
 
 ActiveAdmin.register Collaboration do
-  scope_to Collaboration association_method: :full_view
+  scope_to Collaboration, association_method: :full_view
   config.sort_order = 'updated_at_desc'
 
   menu :parent => "Colaboraciones"
