@@ -62,7 +62,6 @@ ActiveAdmin.register Collaboration do
   scope :island_cc
 
   index download_links: -> { current_user.is_admin? && current_user.finances_admin? } do
-    scope :created
     selectable_column
     id_column
     column :user do |collaboration|
