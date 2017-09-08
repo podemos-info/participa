@@ -39,7 +39,7 @@ class Collaboration < ActiveRecord::Base
   FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
-  scope :created, -> { with_deleted }
+  scope :created, -> { where(deleted_at: nil)  }
   scope :credit_cards, -> { created.where(payment_type: 1)}
   scope :banks, -> { created.where.not(payment_type: 1)}
   scope :bank_nationals, -> { created.where.not(payment_type: 1).where.not("collaborations.payment_type = 3 and iban_account NOT LIKE ?", "ES%") }
@@ -61,7 +61,7 @@ class Collaboration < ActiveRecord::Base
   scope :non_user, -> { created.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
-  scope :full_view, -> { with_deleted.eager_load(:user).eager_load(:order) }
+  scope :full_view, -> { with_deleted.eager_load(:order) }
 
   scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
   scope :town_cc, -> { created.where(for_town_cc: true)}
