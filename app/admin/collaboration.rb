@@ -33,8 +33,8 @@ def show_collaboration_orders(collaboration, html_output = true)
   html_output ? output.html_safe : output
 end
 
-ActiveAdmin.register Collaboration.with_deleted do
-  scope_to Collaboration.with_deleted, association_method: :full_view
+ActiveAdmin.register Collaboration do
+  scope_to Collaboration association_method: :full_view
   config.sort_order = 'updated_at_desc'
 
   menu :parent => "Colaboraciones"
@@ -62,6 +62,7 @@ ActiveAdmin.register Collaboration.with_deleted do
   scope :island_cc
 
   index download_links: -> { current_user.is_admin? && current_user.finances_admin? } do
+    scope :created
     selectable_column
     id_column
     column :user do |collaboration|
