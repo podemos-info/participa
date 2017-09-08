@@ -33,7 +33,7 @@ def show_collaboration_orders(collaboration, html_output = true)
   html_output ? output.html_safe : output
 end
 
-ActiveAdmin.register Collaboration do
+ActiveAdmin.register Collaboration.with_deleted do
   scope_to Collaboration.with_deleted, association_method: :full_view
   config.sort_order = 'updated_at_desc'
 
