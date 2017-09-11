@@ -9,7 +9,7 @@ namespace :podemos do
                               username: Rails.application.secrets.wordpress["username"],
                               password: Rails.application.secrets.wordpress["password"]
     loop do
-      ImpulsaProject.exportable.where("updated_at>?", last_update).order(updated_at: :asc).each do |project|
+      ImpulsaProject.exportable.where("updated_at>?", last_update).order(id: :asc).each do |project|
         begin
           attachment = nil
           post_info = {
@@ -44,7 +44,7 @@ namespace :podemos do
             post_info[:custom_fields] << { key: "project_#{key}", value: value }
           end
 
-          post_info[:custom_fields] << { key: "project_email", value: project.user ? project.user.email : project.wizard_values["autoridad.email_contacto"] ? project.wizard_values["autoridad.email_contacto"] : project.wizard_values["persona.email"]}
+          post_info[:custom_fields] << { key: "project_email", value: project.user ? project.user.email : project.wizard_values["autoridad.email_contacto"] ? project.wizard_values["autoridad.email_contacto"] : project.wizard_values["persona.email"] ? project.wizard_values["persona.email"] :project.wizard_values["circulo.email"] }
           post_info[:custom_fields] << { key: "project_evaluation_result", value: project.evaluation_result ? project.evaluation_result : "" }
           post_info[:post_name] = post_info[:post_title].parameterize
           post_info[:terms_names][:edition_category] = [ project.impulsa_edition.name, project.impulsa_edition_category.name ]
