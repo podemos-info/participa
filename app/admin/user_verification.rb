@@ -233,7 +233,7 @@ end
     end
 
     def update
-      verification = UserVerification.find(permitted_params[:id])
+      verification = resource
       current_verifier = verification.get_current_verifier
       if (current_user.verifier? or current_user.is_admin?) and verification.active? and current_user == current_verifier
         super do |format|
@@ -241,7 +241,6 @@ end
           #   verification.status = :discarded
           #   verification.save!
           # end
-
           case UserVerification.statuses[verification.status]
             when UserVerification.statuses[:accepted]
               if current_user.is_admin? or current_user.verfier?
