@@ -241,7 +241,6 @@ end
           #   verification.status = :discarded
           #   verification.save!
           # end
-          byebug
           case UserVerification.statuses[verification.status]
             when UserVerification.statuses[:accepted]
               if current_user.is_admin? or current_user.verfier?
