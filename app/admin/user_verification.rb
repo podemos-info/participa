@@ -243,7 +243,7 @@ end
           # end
           case UserVerification.statuses[verification.status]
             when UserVerification.statuses[:accepted]
-              if current_user.is_admin? or current_user.verfier?
+              if current_user.is_admin? or current_user.verifier?
                 u = User.find( verification.user_id )
                 u.verified = true
                 u.banned = false
