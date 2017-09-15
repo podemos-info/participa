@@ -56,14 +56,14 @@ panel "Detalles del usuario" do
 
     row :last_name
     row :first_name
-    row "Nº de documento"  do
-      "#{user_verification.user.document_type_name} - #{user_verification.user.document_vatid}"
-    end
     #row :gender do
     #  user_verification.user.gender_name
     #end
     row :born_at do
-      user_verification.user.born_at.strftime("%d %m %Y")
+      user_verification.user.born_at.strftime("%d  %m  %Y")
+    end
+    row "Nº de documento"  do
+      "#{user_verification.user.document_type_name} - #{user_verification.user.document_vatid}"
     end
     row :email
     row "Teléfono móvil (confirmado)" do
