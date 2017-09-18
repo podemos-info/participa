@@ -96,6 +96,7 @@ ActiveAdmin.register Election do
   end
 
   form do |f|
+    f.object.requires_sms_check = true if f.object.new_record?
     f.inputs "Election" do
       f.input :title
       f.input :info_url
