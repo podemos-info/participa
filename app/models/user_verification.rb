@@ -29,7 +29,7 @@ class UserVerification < ActiveRecord::Base
     end
   end
 
-  enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4, discarded: 5}
+  enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4, discarded: 5, paused: 6}
 
   scope :not_discarded, -> { where.not status: 5 }
   scope :discardable, -> { where status: [0, 2] }
