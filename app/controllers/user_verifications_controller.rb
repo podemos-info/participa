@@ -8,6 +8,7 @@ class UserVerificationsController < ApplicationController
   def create
     @user_verification = UserVerification.for current_user, user_verification_params
     # if the validation was rejected, restart it
+    @user_verification.status = UserVerification.statuses[:paused] if current_user.autonomy_code == "c_14" # Euskadi convertir en parametro y sacarlo al formulario
     @user_verification.status = UserVerification.statuses[:pending] if @user_verification.rejected? or @user_verification.issues?
     @user_verification.status = UserVerification.statuses[:accepted_by_email] if current_user.photos_unnecessary?
     if @user_verification.save

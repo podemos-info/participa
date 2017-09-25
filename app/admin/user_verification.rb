@@ -20,6 +20,7 @@ ActiveAdmin.register UserVerification do
   scope "Con Problemas", :issues, if: proc {current_user.is_admin?}
   scope "Rechazadas", :rejected, if: proc {current_user.is_admin?}
   scope "Descartadas", :discarded, if: proc {current_user.is_admin?}
+  scope "Pausadas", :paused, if: proc {current_user.is_admin?}
 
   filter :status , label: "Estado"
   filter :user_document_vatid, as: :string, label: "Número de documento"
@@ -78,6 +79,8 @@ ActiveAdmin.register UserVerification do
           status_tag("Rechazada", :error)
         when UserVerification.statuses[:discarded]
           status_tag("Descartada", :error)
+        when UserVerification.statuses[:paused]
+          status_tag("Pausada", :error)
       end
     end
     if params[:scope] == "pendientes" or params[:scope] == nil
