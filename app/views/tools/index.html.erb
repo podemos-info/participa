@@ -9,12 +9,13 @@
         <% elsif @finished_elections.count > 0 %>
           <%= render partial: 'election_finished', locals: { election: @finished_elections[-1] } %>
         <% elsif Rails.env.development? %>
-          <%= render partial: "other_tools" %>
+          <!-- %= render partial: "other_tools" % -->
         <% elsif Date.today < Date.civil(2015,03,20) %>
           <%= render partial: 'demo' %>
         <% else %>
-          <%= render partial: "other_tools" %>
+
         <% end %>
+          <%= render partial: "other_tools" %>
       <% end %>
     </div>
   </div>
