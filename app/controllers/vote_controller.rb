@@ -20,8 +20,7 @@ class VoteController < ApplicationController
     redirect_to(root_path, flash: {error: "Ha llegado la fecha límite para votar. La votación está cerrada." }) and return unless @election.is_active? 
     redirect_to(root_path, flash: {error: "Tu usuario no tiene la antigüedad requerida para participar en esta votación."}) and return unless @election.has_valid_user_created_at? current_user
     redirect_to(root_path, flash: {error: "No hay votaciones en tu municipio." }) and return unless @election.has_valid_location_for? current_user
-
-    redirect_to(new_user_verification_path(params[:election_id])) and return if @election.requires_vatid_check? && !current_user.pass_vatid_check?
+    redirect_to(new_user_verification_path(params[:election_id]), flash: {notice: "Para esta votación es necesario que verifiques tu identidad" }) and return if @election.requires_vatid_check? && !current_user.pass_vatid_check?
 
     if @election.requires_sms_check?
       if params[:sms_check_token].nil?
