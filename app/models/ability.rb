@@ -40,6 +40,7 @@ class Ability
       can [:read, :create], ActiveAdmin::Comment if user.finances_admin? || user.impulsa_admin?
 
       can [:show, :read, :update], UserVerification if user.verifier?
+      can :read, ActiveAdmin::Page, name: "Envios de Credenciales" if user.verifier?
 
       can [:create, :update], UserVerification, user_id: user.id
 

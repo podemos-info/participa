@@ -65,6 +65,7 @@ gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'state_machines-audit_trail'
 gem 'rubypress'
+gem 'digest-crc'
 
 group :development, :test do
   gem 'capistrano', '~> 3.4.0'

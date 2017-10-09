@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713110652) do
+ActiveRecord::Schema.define(version: 20171003100903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -583,6 +583,7 @@ ActiveRecord::Schema.define(version: 20170713110652) do
     t.boolean  "wants_card"
     t.integer  "status",                   default: 0
     t.text     "comment"
+    t.date     "born_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -669,5 +670,12 @@ ActiveRecord::Schema.define(version: 20170713110652) do
 
   add_index "votes", ["deleted_at"], name: "index_votes_on_deleted_at", using: :btree
 
+  add_foreign_key "impulsa_edition_categories", "impulsa_editions"
+  add_foreign_key "impulsa_edition_topics", "impulsa_editions"
+  add_foreign_key "impulsa_project_state_transitions", "impulsa_projects"
+  add_foreign_key "impulsa_project_topics", "impulsa_edition_topics"
+  add_foreign_key "impulsa_project_topics", "impulsa_projects"
+  add_foreign_key "impulsa_projects", "impulsa_edition_categories"
+  add_foreign_key "impulsa_projects", "users"
   add_foreign_key "user_verifications", "users", column: "author_id"
 end
