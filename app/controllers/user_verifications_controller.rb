@@ -24,6 +24,7 @@ class UserVerificationsController < ApplicationController
   end
 
   def report
+    aacc_code = Rails.application.secrets.user_verifications[params[:report_code]]
     filas=[]
     @report = {
                 provincias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
@@ -52,31 +53,34 @@ class UserVerificationsController < ApplicationController
     provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "%02d" % + p.index, p.name ] }
 
     provinces.each do |province_num, province_name|
+      autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].first
       autonomy_name = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].last
       total_sum = 0
-      UserVerification.statuses.each do |name, status|
-        count = data[[province_num, status]] || 0
-        @report[:provincias][province_name][name.to_sym] = count
-        @report[:autonomias][autonomy_name][name.to_sym] += count
-        total_sum += count
-      end
-      @report[:provincias][province_name][:total] = total_sum
-      @report[:autonomias][autonomy_name][:total] += total_sum
-      
-      active_verified = data[[province_num, true, true]] || 0
-      active = active_verified + (data[[province_num, true, false]] || 0)
-      inactive_verified = data[[province_num, false, true]] || 0
-      inactive = inactive_verified + (data[[province_num, false, false]] || 0)
+      if aacc_code == 'c_00' or autonomy_code == aacc_code
+        UserVerification.statuses.each do |name, status|
+          count = data[[province_num, status]] || 0
+          @report[:provincias][province_name][name.to_sym] = count
+          @report[:autonomias][autonomy_name][name.to_sym] += count
+          total_sum += count
+        end
+        @report[:provincias][province_name][:total] = total_sum
+        @report[:autonomias][autonomy_name][:total] += total_sum
 
-      @report[:provincias][province_name][:users] = active + inactive
-      @report[:provincias][province_name][:verified] = active_verified + inactive_verified
-      @report[:autonomias][autonomy_name][:users] += active + inactive
-      @report[:autonomias][autonomy_name][:verified] += active_verified + inactive_verified
-      @report[:provincias][province_name][:active] = active
-      @report[:provincias][province_name][:active_verified] = active_verified
-      @report[:autonomias][autonomy_name][:active] += active
-      @report[:autonomias][autonomy_name][:active_verified] += active_verified
-    end
+        active_verified = data[[province_num, true, true]] || 0
+        active = active_verified + (data[[province_num, true, false]] || 0)
+        inactive_verified = data[[province_num, false, true]] || 0
+        inactive = inactive_verified + (data[[province_num, false, false]] || 0)
+
+        @report[:provincias][province_name][:users] = active + inactive
+        @report[:provincias][province_name][:verified] = active_verified + inactive_verified
+        @report[:autonomias][autonomy_name][:users] += active + inactive
+        @report[:autonomias][autonomy_name][:verified] += active_verified + inactive_verified
+        @report[:provincias][province_name][:active] = active
+        @report[:provincias][province_name][:active_verified] = active_verified
+        @report[:autonomias][autonomy_name][:active] += active
+        @report[:autonomias][autonomy_name][:active_verified] += active_verified
+        end
+      end
 
     @report
   end
