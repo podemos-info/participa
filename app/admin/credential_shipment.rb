@@ -36,7 +36,7 @@ ActiveAdmin.register_page "Envios de Credenciales" do
       code ="#{code[0..3]}-#{code[4..7]}"
 
       u = User.find(r.user_id)
-      row_users_data[r.user_id] = ["#{r.first_name.capitalize} #{r.last_name.capitalize}",r.address, "#{r.postal_code}", " #{u.town_name}", "#{u.province_name}",r.phone,code]
+      row_users_data[r.user_id] = ["#{r.user_id}","#{r.first_name.capitalize} #{r.last_name.capitalize}",r.address, "#{r.postal_code}", " #{u.town_name}", "#{u.province_name}",r.phone,code]
 
       #save data
 
@@ -45,7 +45,7 @@ ActiveAdmin.register_page "Envios de Credenciales" do
     end
 
     csv =CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      header1 =["Nombre y Apellidos", "Dirección","Código Postal", "Municipio", "Provincia", "Teléfono","Código Credencial"]
+      header1 =["Id","Nombre y Apellidos", "Dirección","Código Postal", "Municipio", "Provincia", "Teléfono","Código Credencial"]
       csv << header1
 
       row_users_data.each do |id,data|
