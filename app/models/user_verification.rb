@@ -33,6 +33,7 @@ class UserVerification < ActiveRecord::Base
 
   scope :not_discarded, -> { where.not status: 5 }
   scope :discardable, -> { where status: [0, 2] }
+  scope :not_sended, -> {where wants_card: true, born_at: nil  }
 
   def discardable?
     status == :pending || status == :issues
