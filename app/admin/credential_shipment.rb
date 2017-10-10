@@ -4,16 +4,20 @@ ActiveAdmin.register_page "Envios de Credenciales" do
   end
   content do
     v_count = UserVerification.not_sended.count
-    h2 "Actualmente hay #{v_count} credenciales esperando para ser enviadas."
-    h2 "Generar Listado para Envío"
-    form action: admin_envios_de_credenciales_generate_shipment_path, method: :get do
-      div class: :filter_form_field do
-        label "Número de Credenciales a Generar"
-        input name: :max_reg, type: :number, placeholder:"0", value: "2000"
+    if v_count > 0
+      h2 "Actualmente hay #{v_count} credenciales esperando para ser enviadas."
+      h2 "Generar Listado para Envío"
+      form action: admin_envios_de_credenciales_generate_shipment_path, method: :get do
+        div class: :filter_form_field do
+          label "Número de Credenciales a Generar"
+          input name: :max_reg, type: :number, placeholder:"0", value: "2000"
+        end
+        div class: :buttons do
+          input :type => :submit, value: "Generar"
+        end
       end
-      div class: :buttons do
-        input :type => :submit, value: "Generar"
-      end
+    else
+      h2 "Actualmente no hay credenciales esperando para ser enviadas."
     end
   end
 
