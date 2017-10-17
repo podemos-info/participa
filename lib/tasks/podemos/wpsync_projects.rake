@@ -43,7 +43,11 @@ namespace :podemos do
           project.evaluation_export.each do |key, value|
             post_info[:custom_fields] << { key: "project_#{key}", value: value }
           end
-
+          pr_category = project.impulsa_edition_category.name.split(" ").slice(0)
+          pr_category2 = project.impulsa_edition_category.name.split(" - ").slice(0)
+          pos = pr_category == "HACEMOS" ? 1: pr_category2 == "Impulsa tu entorno" ? 4 : 5
+          pr_territory = project.impulsa_edition_category.name.split(" ").slice(pos)
+          post_info[:custom_fields] << { key: "project_territory", value: pr_territory ? pr_territory : "" }
           post_info[:custom_fields] << { key: "project_email", value: project.user ? project.user.email : project.wizard_values["autoridad.email_contacto"] ? project.wizard_values["autoridad.email_contacto"] : project.wizard_values["persona.email"] ? project.wizard_values["persona.email"] :project.wizard_values["circulo.email"] }
           post_info[:custom_fields] << { key: "project_evaluation_result", value: project.evaluation_result ? project.evaluation_result : "" }
           post_info[:post_name] = post_info[:post_title].parameterize
