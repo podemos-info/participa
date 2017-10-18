@@ -85,6 +85,58 @@ class UserVerificationsController < ApplicationController
     @report
   end
 
+  def report_exterior
+    aacc_code = Rails.application.secrets.user_verifications[params[:report_code]]
+    filas=[]
+    @report_exterior = {
+        paises: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } }
+    }
+
+    base_query = User.confirmed.where("country <> 'ES'")
+
+    # get totals by country and status
+    data = Hash[
+        base_query.joins(:user_verifications).group(:country, :status)
+            .pluck("country", "status", "count(distinct users.id)").map { |country, status, count| [[country, status], count] }
+    ]
+
+    # add users totals by country
+    active_date = Date.today - eval(Rails.application.secrets.users["active_census_range"])
+    base_query.group(:country, :active, :verified).pluck(
+        "country",
+        "(current_sign_in_at IS NOT NULL AND current_sign_in_at > '#{active_date.to_datetime.iso8601 }') as active",
+        "#{User.verified_condition} as verified",
+        "count(distinct users.id)"
+    ).each do |country, active, verified, count|
+      data[[country, active, verified]] = count
+    end
+
+    countries = Hash[ Carmen::Country.all.map do |c| [ c.code,c.name ] end ]
+    countries["Desconocido"] = [0]*4
+
+    countries.each do |country_cod, country_name|
+      total_sum = 0
+      if aacc_code =='c_99'
+        UserVerification.statuses.each do |name, status|
+          count = data[[country_cod, status]] || 0
+          @report_exterior[:paises][country_name][name.to_sym] = count
+          total_sum += count
+        end
+        @report_exterior[:paises][country_name][:total] = total_sum
+
+        active_verified = data[[country_cod, true, true]] || 0
+        active = active_verified + (data[[country_cod, true, false]] || 0)
+        inactive_verified = data[[country_cod, false, true]] || 0
+        inactive = inactive_verified + (data[[country_cod, false, false]] || 0)
+
+        @report_exterior[:paises][country_name][:users] = active + inactive
+        @report_exterior[:paises][country_name][:verified] = active_verified + inactive_verified
+        @report_exterior[:paises][country_name][:active] = active
+        @report_exterior[:paises][country_name][:active_verified] = active_verified
+      end
+    end
+    @report_exterior
+  end
   private
   def check_valid_and_verified
     if current_user.has_not_future_verified_elections?
