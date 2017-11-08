@@ -39,33 +39,34 @@ class Collaboration < ActiveRecord::Base
   FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
-  scope :created, -> { where(deleted_at: nil)  }
-  scope :credit_cards, -> { created.where(payment_type: 1)}
-  scope :banks, -> { created.where.not(payment_type: 1)}
-  scope :bank_nationals, -> { created.where.not(payment_type: 1).where.not("collaborations.payment_type = 3 and iban_account NOT LIKE ?", "ES%") }
-  scope :bank_internationals, -> { created.where(payment_type: 3).where("iban_account NOT LIKE ?", "ES%") }
-  scope :frequency_month, -> { created.where(frequency: 1)}
-  scope :frequency_quarterly, -> { created.where(frequency: 3)}
-  scope :frequency_anual, -> { created.where(frequency: 12) }
-  scope :amount_1, -> { created.where("amount < 1000")}
-  scope :amount_2, -> { created.where("amount >= 1000 and amount < 2000")}
-  scope :amount_3, -> { created.where("amount > 2000")}
+  scope :created, -> { all }
+  scope :live, -> { where(deleted_at: nil)  }
+  scope :credit_cards, -> { live.where(payment_type: 1)}
+  scope :banks, -> { live.where.not(payment_type: 1)}
+  scope :bank_nationals, -> { live.where.not(payment_type: 1).where.not("collaborations.payment_type = 3 and iban_account NOT LIKE ?", "ES%") }
+  scope :bank_internationals, -> { live.where(payment_type: 3).where("iban_account NOT LIKE ?", "ES%") }
+  scope :frequency_month, -> { live.where(frequency: 1)}
+  scope :frequency_quarterly, -> { live.where(frequency: 3)}
+  scope :frequency_anual, -> { live.where(frequency: 12) }
+  scope :amount_1, -> { live.where("amount < 1000")}
+  scope :amount_2, -> { live.where("amount >= 1000 and amount < 2000")}
+  scope :amount_3, -> { live.where("amount > 2000")}
 
-  scope :incomplete, -> { created.where(status: 0)}
-  scope :unconfirmed, -> { created.where(status: 2)}
-  scope :active, -> { created.where(status: 3)}
-  scope :warnings, -> { created.where(status: 4)}
-  scope :errors, -> { created.where(status: 1)}
+  scope :incomplete, -> { live.where(status: 0)}
+  scope :unconfirmed, -> { live.where(status: 2)}
+  scope :active, -> { live.where(status: 3)}
+  scope :warnings, -> { live.where(status: 4)}
+  scope :errors, -> { live.where(status: 1)}
   scope :suspects, -> { banks.active.where("(select count(*) from orders o where o.parent_id=collaborations.id and o.payable_at>? and o.status=5)>2",Date.today-8.months) }
-  scope :legacy, -> { created.where.not(non_user_data: nil)}
-  scope :non_user, -> { created.where(user_id: nil)}
+  scope :legacy, -> { live.where.not(non_user_data: nil)}
+  scope :non_user, -> { live.where(user_id: nil)}
   scope :deleted, -> { only_deleted }
 
   scope :full_view, -> { with_deleted.eager_load(:order) }
 
-  scope :autonomy_cc, -> { created.where(for_autonomy_cc: true)}
-  scope :town_cc, -> { created.where(for_town_cc: true)}
-  scope :island_cc, -> { created.where(for_island_cc: true)}
+  scope :autonomy_cc, -> { live.where(for_autonomy_cc: true)}
+  scope :town_cc, -> { live.where(for_town_cc: true)}
+  scope :island_cc, -> { live.where(for_island_cc: true)}
 
   after_create :set_initial_status
   before_save :check_spanish_bic
