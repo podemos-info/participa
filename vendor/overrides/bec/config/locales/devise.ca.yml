@@ -34,8 +34,8 @@ ca:
       no_token: "No pots accedir a aquesta pàgina sino és per mitjà d'un enllaç per restablir contrasenya. Si has accedit des de l'enlaç per restablir la contrasenya, asegura't que la URL està completa."
       send_instructions: "Rebràs un correu electrònic amb instruccions sobre ccom restablir la teva contrasenya d'aquí uns minuts."
       send_paranoid_instructions: "Si el teu correu electrònic existeix a la nostra base de dades, rebràs un enllaç per restablir la contrasenya d'aquí uns minuts."
-      updated: "La teva contraseny s'ha canviat correctament. Has estat identificat."
-      updated_not_active: "La teva contrasenya ss'ha canviat correctament."
+      updated: "La teva contrasenya s'ha canviat correctament. Has estat identificat."
+      updated_not_active: "La teva contrasenya s'ha canviat correctament."
     registrations:
       destroyed: "¡Adéu! El teu compte ha estat cancel·lat. Esperem tornar-te a veure aviat."
       signed_up: "¡Benvigut/uda! Has estat identificat."
