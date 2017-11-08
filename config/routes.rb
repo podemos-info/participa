@@ -23,6 +23,12 @@ Rails.application.routes.draw do
     get '/user/:id', to: 'open_id#user', as: "open_id_user"
     get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
 
+    get '/open_id_protected/discover', to: 'open_id_protected#discover', as: "open_id_protected_discover"
+    get '/open_id_protected', to: 'open_id_protected#index', as: "open_id_protected_index"
+    post '/open_id_protected', to: 'open_id_protected#create', as: "open_id_protected_create"
+    get '/user/open_id_protected/:id', to: 'open_id_protected#user', as: "open_id_protected_user"
+    get '/user/open_id_protected/xrds', to: 'open_id_protected#xrds', as: "open_id_protected_xrds"
+
 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
