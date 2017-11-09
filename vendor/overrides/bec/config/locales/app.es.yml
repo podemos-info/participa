@@ -717,6 +717,7 @@ Barcelona en Comú cumple con todas las medidas de seguridad para la protección
     pending5_html: y también
     pending6_html: "<li><b>Empadronamiento</b>,</li><li><b>tarjeta censal</b></li><li> o cualquier <b>recibo</b></li><li> (luz, agua o gas)</li><li> del último año.</li>"
     pending7_html: "Trae la documentación a:"
+    pending8_html: "Actualment les verificacions estan tancades, es reactivaran el dilluns 13 de novembre.<br>La verificació presencial pot fer-se al local de Barcelona En Comú (carrer Marina 131-133 baixos) de 10 h a 19 h."
     user_verified: Usuario/a verificado/a
     user_unverified: No te has verificado
     title: Verificación

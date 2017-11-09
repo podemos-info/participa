@@ -688,7 +688,8 @@ Amb tres passos molt senzills:
     pending4_html: "<li>Porta el:</li><li><b>DNI/NIE</b> amb adreça</li><li><li> de fora de Barcelona </li><li> o el <b>passaport</b></li><li> o el <b>carnet de conduir</b></li>"
     pending5_html: i també
     pending6_html: "<li><b>empadronament</b>,</li><li><b>targeta censal</b></li><li> o qualsevol <b>rebut</b></li><li> (llum, aigua o gas)</li><li> de l'últim any.</li>"
-    pending7_html: 
+    pending7_html: "Porta la documentació a:"
+    pending8_html: "Actualmente la verficaciones están cerradas, se reactivarán el dia lunes 13 de noviembre. <br> La verificación presencial puede hacerse presencialmente en el local de Barcelona En Comú (carrer Marina 131-133, baixos) de 10 h a 19 h."
     title: Verificació
     step1: Documents
     step2: Cerca
