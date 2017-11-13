@@ -72,8 +72,8 @@ panel "Detalles del usuario" do
 
     row :address
     row :postal_code
-    row "municipio", &:vote_town_name
-    row "provincia", &:vote_province_name
+    row "municipio", &:town_name
+    row "provincia", &:province_name
 
     # row :country do
     #   user_verification.user.country_name
