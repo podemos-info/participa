@@ -17,18 +17,19 @@ Rails.application.routes.draw do
   end
   scope "/(:locale)", locale: /es|ca|eu/ do
 
-    get '/openid/discover', to: 'open_id#discover', as: "open_id_discover"
-    get '/openid', to: 'open_id#index', as: "open_id_index"
-    post '/openid', to: 'open_id#create', as: "open_id_create"
-    get '/user/:id', to: 'open_id#user', as: "open_id_user"
-    get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
+    if Rails.application.secrets.openid.try(:[], "enabled")
+      # WARNING!!
+      # Enable this only for internal traffic
+      # add the following line in secrets.yml to enable this:
+      # openid:
+      #   enabled: true
 
-    get '/open_id_protected/discover', to: 'open_id_protected#discover', as: "open_id_protected_discover"
-    get '/open_id_protected', to: 'open_id_protected#index', as: "open_id_protected_index"
-    post '/open_id_protected', to: 'open_id_protected#create', as: "open_id_protected_create"
-    get '/user/open_id_protected/:id', to: 'open_id_protected#user', as: "open_id_protected_user"
-    get '/user/open_id_protected/xrds', to: 'open_id_protected#xrds', as: "open_id_protected_xrds"
-
+      get '/openid/discover', to: 'open_id#discover', as: "open_id_discover"
+      get '/openid', to: 'open_id#index', as: "open_id_index"
+      post '/openid', to: 'open_id#create', as: "open_id_create"
+      get '/user/:id', to: 'open_id#user', as: "open_id_user"
+      get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
+    end
 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
