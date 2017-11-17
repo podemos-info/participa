@@ -83,7 +83,7 @@ ActiveAdmin.register UserVerification do
           status_tag("Pausada", :error)
       end
     end
-    column "Quiere tarjeta", :wants_card if current_user.is_admin?
+    column "Quiere tarjeta", :wants_card
     if params[:scope] == "pendientes" or params[:scope] == nil
       column "verificando por" do |verification|
         if verification.active?
