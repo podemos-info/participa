@@ -1,5 +1,5 @@
 class PodemosImportCollaborations2017
- @@fields={
+  @@fields={
       :name => "NOMBRE",
       :surname1 => "APELLIDO 1",
       :surname2 => "APELLIDO 2",
@@ -24,7 +24,7 @@ class PodemosImportCollaborations2017
       :payment_type => "METODO DE PAGO",
       :payment_frecuency => "FRECUENCIA DE PAGO",
       :created_at => "CREADO"
-    }
+  }
 
   def self.log_to_file(filename, text)
     File.open(filename, 'a') { |f| f.write(text) }
@@ -32,26 +32,27 @@ class PodemosImportCollaborations2017
 
   def self.process_row(row,fields=@@fields )
     params = { document_vatid: row[fields[:dni]].strip.upcase,
-      full_name: row[fields[:surname1]] || row[fields[:surname2]] ? "#{row[fields[:name]]} #{row[fields[:surname1]]} #{row[fields[:surname2]]}" : row[fields[:name]],
-      email: row[fields[:email]],
-      ccc_1: row[fields[:entity_code]],
-      ccc_2: row[fields[:office_code]],
-      ccc_3: row[fields[:cc_code]],
-      ccc_4: row[fields[:acount_code]],
-      iban_1: row[fields[:iban_code]],
-      iban_2: row[fields[:swift_code]] || "",
-      payment_type: row[fields[:payment_type]] || 2,
-      amount: row[fields[:amount]].to_i * 100.0,
-      frequency: row[fields[:payment_frecuency]] || 1,  # 1 3 12
-      created_at: row[fields[:created_at]] ? DateTime.parse(row[fields[:created_at]]) : DateTime.now,
-      address: row[fields[:address]] || "",
-      town_name: row[fields[:town_name]],
-      postal_code: row[fields[:postal_code]],
-      province: row[fields[:province]],
-      phone: row[fields[:phone]],
-      gender: row[fields[:gender]],
-      donation_type: row[fields[:donation_type]],
-      row: row
+               full_name: row[fields[:surname1]] || row[fields[:surname2]] ? "#{row[fields[:name]]} #{row[fields[:surname1]]} #{row[fields[:surname2]]}" : row[fields[:name]],
+               email: row[fields[:email]],
+               ccc_1: row[fields[:entity_code]],
+               ccc_2: row[fields[:office_code]],
+               ccc_3: row[fields[:cc_code]],
+               ccc_4: row[fields[:acount_code]],
+               iban_1: row[fields[:iban_code]],
+               iban_2: row[fields[:swift_code]] || "",
+               payment_type: row[fields[:payment_type]] || 2,
+               amount: row[fields[:amount]].to_i * 100.0,
+               frequency: row[fields[:payment_frecuency]] || 1,  # 1 3 12
+               created_at: row[fields[:created_at]] ? DateTime.parse(row[fields[:created_at]]) : DateTime.now,
+               address: row[fields[:address]] || "",
+               town_name: row[fields[:town_name]],
+               postal_code: row[fields[:postal_code]],
+               province: row[fields[:province]],
+               phone: row[fields[:phone]],
+               gender: row[fields[:gender]],
+               donation_type: row[fields[:donation_type]],
+               ine_town: row[fields[:ine_town]],
+               row: row
     }
 
     self.create_collaboration(params)
@@ -75,19 +76,19 @@ class PodemosImportCollaborations2017
         c.ccc_account = params[:ccc_4]
         c.iban_account = params[:iban_1]
         c.iban_bic = c.calculate_bic
-        c.status = 2
+        c.status = 0
 
         case params[:donation_type]
-        when 'CCM'
-          c.for_town_cc = true
-        when 'CCA'
-          c.for_autonomy_cc = true
-        when 'CCE'
-          c.for_town_cc = false
-          c.for_island_cc = false
-          c.for_autonomy_cc = false
-        when 'CCI'
-          c.for_island_cc = true
+          when 'CCM'
+            c.for_town_cc = true
+          when 'CCA'
+            c.for_autonomy_cc = true
+          when 'CCE'
+            c.for_town_cc = false
+            c.for_island_cc = false
+            c.for_autonomy_cc = false
+          when 'CCI'
+            c.for_island_cc = true
         end
 
         if c.valid?
@@ -103,8 +104,8 @@ class PodemosImportCollaborations2017
         end
       else
         # Si el usuario Existe
-          # Si tiene colaboración económica se anula esta y se envia a un fichero ANULADO POR TENER COLABORACION EN PARTICIPA.
-          # Si no tiene colaboración económica vincula esta y se envía a un fichero INVITAR A QUE HAGA LA COLABORACION POR PARTICIPA.
+        # Si tiene colaboración económica se anula esta y se envia a un fichero ANULADO POR TENER COLABORACION EN PARTICIPA.
+        # Si no tiene colaboración económica vincula esta y se envía a un fichero INVITAR A QUE HAGA LA COLABORACION POR PARTICIPA.
         # si concuerda el correo pero no el documento, comprobamos si su nombre es el mismo en colabora y participa
         if user.full_name.downcase == params[:full_name].downcase
           # en ese caso lo guardamos con el documento de participa
@@ -136,17 +137,18 @@ class PodemosImportCollaborations2017
 
   def self.create_non_user(params)
     info= {
-      full_name: params[:full_name],
-      document_vatid: params[:document_vatid],
-      email: params[:email],
-      address: params[:address],
-      town_name: params[:town_name],
-      postal_code: params[:postal_code],
-      province: params[:province],
-      phone: params[:phone],
-      gender: params[:gender],
-      country: "ES"
-      }
+        full_name: params[:full_name],
+        document_vatid: params[:document_vatid],
+        email: params[:email],
+        address: params[:address],
+        town_name: params[:town_name],
+        postal_code: params[:postal_code],
+        province: params[:province],
+        phone: params[:phone],
+        gender: params[:gender],
+        country: "ES",
+        ine_town: params[:ine_town]
+    }
     c = Collaboration.new
     c.user = nil
 
@@ -163,16 +165,16 @@ class PodemosImportCollaborations2017
     c.set_non_user info
     c.status = 2
     case params[:donation_type]
-    when 'CCM'
-      c.for_town_cc = true
-    when 'CCA'
-      c.for_autonomy_cc = true
-    when 'CCE'
-      c.for_town_cc = false
-      c.for_island_cc = false
-      c.for_autonomy_cc = false
-    when 'CCI'
-      c.for_island_cc = true
+      when 'CCM'
+        c.for_town_cc = true
+      when 'CCA'
+        c.for_autonomy_cc = true
+      when 'CCE'
+        c.for_town_cc = false
+        c.for_island_cc = false
+        c.for_autonomy_cc = false
+      when 'CCI'
+        c.for_island_cc = true
     end
 
     if c.valid?
@@ -192,9 +194,10 @@ class PodemosImportCollaborations2017
     CSV.foreach(csv_file, {:headers=> true , :col_sep=> "\t"}) do |row|
       begin
         process_row row
-      #rescue
+        #rescue
         #self.log_to_file "#{Rails.root}/log/collaboration/exception.txt", row
       end
     end
   end
 end
+
