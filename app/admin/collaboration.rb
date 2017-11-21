@@ -493,6 +493,12 @@ ActiveAdmin.register Collaboration do
         0
       end
     end
+    column :for_country_cc do |collaboration|
+      !(collaboration.for_autonomy_cc || collaboration.for_island_cc || collaboration.for_town_cc)
+    end
+    column :for_autonomy_cc
+    column :for_island_cc
+    column :for_town_cc
   end
 
   collection_action :download_for_autonomy, :method => :get do
