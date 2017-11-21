@@ -145,7 +145,8 @@ class PodemosImportCollaborations2017
       province: params[:province],
       phone: params[:phone],
       gender: params[:gender],
-      country: "ES"
+      country: "ES",
+      ine_town: params[:ine_town]
       }
     c = Collaboration.new
     c.user = nil
