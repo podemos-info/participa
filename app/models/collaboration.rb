@@ -250,9 +250,9 @@ class Collaboration < ActiveRecord::Base
       o.payment_type = self.is_credit_card? ? 1 : 3
       o.payment_identifier = self.payment_identifier
       if self.user && !self.user.vote_autonomy_code.empty?
-        o.autonomy_code = self.user.vote_autonomy_code if self.for_autonomy_cc
-        o.town_code = self.user.vote_town if self.for_town_cc
-        o.island_code = self.user.vote_island_code if self.for_island_cc
+        o.autonomy_code = self.get_vote_autonomy_code if self.for_autonomy_cc
+        o.town_code = self.get_vote_town if self.for_town_cc
+        o.island_code = self.get_vote_island_code if self.for_island_cc
       end
     end
     order
@@ -497,6 +497,30 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
+  def get_vote_town
+    if self.user
+      self.user.vote_town
+    else
+      self.get_non_user.ine_town
+    end
+  end
+
+  def get_vote_autonomy_code
+    if self.user
+      self.user.vote_autonomy_code
+    else
+      vote_province_code = "p_" % + self.get_non_user.ine_town.slice(2,2)
+      Podemos::GeoExtra::AUTONOMIES[vote_province_code][0]
+    end
+  end
+
+  def get_vote_island_code
+    if self.user
+      self.user.vote_island_code
+    else
+      Podemos::GeoExtra::ISLANDS[self.get_non_user.ine_town][0]
+    end
+  end
   def get_non_user
     @non_user
   end
