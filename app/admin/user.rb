@@ -197,6 +197,10 @@ ActiveAdmin.register User do
     active_admin_comments
   end
 
+  sidebar "Buscar personas en Perticipa", 'data-panel' => :collapsed, :only => :index, priority: 1 do
+    render("admin/users/process_search_persons")
+  end
+
   filter :email
   filter :gender, as: :select, collection: User::GENDER.invert
   filter :document_vatid
@@ -284,6 +288,69 @@ ActiveAdmin.register User do
   batch_action :ban, if: proc{ can? :ban, User } do |ids|
     User.ban_users(ids, true)
     redirect_to collection_path, alert: "Los usuarios han sido baneados."
+  end
+
+  collection_action :process_search_persons, :method => :post do
+    #file_input = CSV.read(params["process_search_persons"]["file"].tempfile)
+    file_input = params["process_search_persons"]["file"].original_filename
+    file_output = file_input[0..-5]+"_Cout.csv"
+
+    i=0
+    query = "document_vatid= ?"
+    directory= "/home/capistrano/borrame/"
+    buscados={}
+    CSV.foreach(params["process_search_persons"]["file"].tempfile, :headers=>true) do |row|
+      buscados[row.fields[0].to_i]=Hash[row.headers[0..-1].zip(row.fields[0..-1])]
+      i+=1
+    end
+    encontrados={}
+    buscados.each {|r| User.with_deleted.where(query, r[1]["dni"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>1}}}
+    #CSV.open( "ficheros/#{file_output}", 'w' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
+    buscados2= buscados.clone
+    buscados2.delete_if{|key, value| !encontrados[key].nil?}
+    #print "\n#{buscados2.count} casos para el paso 2"
+    #step 2 with the not found records in previous step, search by email
+
+    query = "email= ?"
+    buscados2.each {|r| User.with_deleted.where(query, r[1]["email"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>2}}}
+    #CSV.open( "ficheros/#{file_output}", 'a' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
+    buscados3= buscados2.clone
+    buscados3.delete_if{|key, value| !encontrados[key].nil?}
+    #print "\n#{buscados3.count} casos para el paso 3"
+
+    # step 3 search by name and lastname but this step don't asure correctnes in data
+
+    query_name_and_last_name = "lower(first_name)= ? and lower(last_name)=?"
+    query_full_name = "lower(CONCAT_WS(' ', first_name, last_name))= ?"
+
+    buscados3.each {|r|
+      name=r[1]["name"] || " "
+      surname = r[1]["surname"] || " "
+      full_name = r[1]["full_name"] || " "
+      if (name != " " or surname != " ")
+        query = query_name_and_last_name
+        params = [name.downcase,surname.downcase]
+      elsif full_name != " "
+        query = query_full_name
+        params = full_name.downcase
+      end
+      User.with_deleted.where(query, params).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>3}}
+    }
+    #CSV.open( "ficheros/#{file_output}", 'a' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
+    no_encontrados= buscados.clone
+    no_encontrados.delete_if{|key, value| !encontrados[key].nil?}
+
+    # step 4 add the not found records correctly identified
+
+    no_encontrados.each{|r| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>"",:name=>"",:last_name=>"",:email=>"",:phone=>"",:address=>"",:cp=>"",:vote_town=>"",:province=>"",:country=>"",:type=>4}}
+
+    # step 5 sort and write all records and tipologies
+
+    csv=CSV.generate( encoding: 'UTF-8' ) do|writer|
+      writer << ["APELLIDOS","NOMBRE","NOMBRE COMPLETO","DNI","EMAIL","DIRECCION","COD POSTAL", "MUNICIPIO","PROVINCIA","PAIS","TELEFONO","TIPO", "ID"]
+      encontrados.sort_by{|id| id}.each {|u| writer << [u[1][:last_name],u[1][:name],"#{u[1][:last_name]} #{u[1][:name]}",u[1][:dni],u[1][:email],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country],u[1][:phone],u[1][:type],u[1][:fileid]]}
+    end
+    send_data csv.encode('UTF-8'), :type=> 'text/csv; charset=utf-8; header=present', :disposition=> "inline", :filename=>"#{file_output}"
   end
 
   member_action :ban, if: proc{ can? :ban, User }, :method => [:post, :delete] do
