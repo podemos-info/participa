@@ -299,11 +299,14 @@ ActiveAdmin.register User do
     query = "document_vatid= ?"
     directory= "/home/capistrano/borrame/"
     buscados={}
-    CSV.foreach(params["process_search_persons"]["file"].tempfile, :headers=>true) do |row|
-      buscados[row.fields[0].to_i]=Hash[row.headers[0..-1].zip(row.fields[0..-1])]
+    encode="windows-1252" #"UTF-8"
+    sep=";" #","
+    CSV.foreach(params["process_search_persons"]["file"].tempfile, {:encoding=>encode, :headers=>true, :col_sep=>sep}) do |row|
+      buscados[row.fields[0].to_i]=Hash[row.headers[0..-1].zip(row.fields[0..-1].map!{|x| x.downcase.strip if x.respond_to?("strip")})]
       i+=1
     end
     encontrados={}
+
     buscados.each {|r| User.with_deleted.where(query, r[1]["dni"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>1}}}
     #CSV.open( "ficheros/#{file_output}", 'w' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
     buscados2= buscados.clone
@@ -324,17 +327,20 @@ ActiveAdmin.register User do
     query_full_name = "lower(CONCAT_WS(' ', first_name, last_name))= ?"
 
     buscados3.each {|r|
-      name=r[1]["name"] || " "
-      surname = r[1]["surname"] || " "
-      full_name = r[1]["full_name"] || " "
-      if (name != " " or surname != " ")
+      name=r[1]["name"] || ""
+      surname = r[1]["surname"] || ""
+      full_name = r[1]["full_name"] || ""
+      params=[]
+      if (name != "" or surname != "")
         query = query_name_and_last_name
-        params = [name.downcase,surname.downcase]
-      elsif full_name != " "
+        params = [name.downcase.strip,surname.downcase.strip]
+      elsif full_name != ""
         query = query_full_name
-        params = full_name.downcase
+        params = full_name.downcase.strip
+      else
+        query = nil
       end
-      User.with_deleted.where(query, params).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>3}}
+      User.with_deleted.where(query, *params).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>3}} if query
     }
     #CSV.open( "ficheros/#{file_output}", 'a' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
     no_encontrados= buscados.clone
