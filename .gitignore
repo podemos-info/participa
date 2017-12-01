@@ -34,3 +34,5 @@ db/openid-store/nonces/
 db/openid-store/temp/
 dump.rdb
 non-public/
+
+config/secrets-local.yml

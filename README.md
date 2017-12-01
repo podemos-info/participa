@@ -1,7 +1,7 @@
 # Participa
 
 El objetivo de esta aplicación es ofrecer el siguiente conjunto de herramientas:
-Votaciones (integración con Agora Voting), Colaboraciones económicas (donaciones periódicas), Microcréditos (sistema de prestamos distribuidos), Notificaciones móviles (para dispositivos Android), entre otras funcionalidades.
+Votaciones (integración con [Agora Voting](http://agoravoting.org/)), Colaboraciones económicas (donaciones periódicas), Microcréditos (sistema de prestamos distribuidos), Notificaciones móviles (para dispositivos Android), entre otras funcionalidades.
 
 ![Pantallazo de Participa](doc/images/participa01.png)
 
@@ -37,7 +37,6 @@ Sistema de llegada de propuestas filtradas por votaciones con +1 bottom-up toman
 ### Equipos de Participación
 
 Permite a los inscritos darse de alta como interesado en formar parte de equipos localizados geográficamente para fomentar la participación presencial y la formación sobre la participación digital.
-
 
 ### Verificación por SMS
 
@@ -153,8 +152,7 @@ Para agregar uno nuevo se deben seguir los siguientes pasos:
 
 Para la forma de pago "Suscripción con Tarjeta de Crédito/Débito" hemos hecho una integración con Redsys.
 
-Para esto hace falta tener una cuenta bancaria dada de alta en Redsys, tener acceso a su (entorno de pruebas)[https://sis-t.redsys.es:25443/canales/] y configurar los parámetros necesarios en config/secrets.yml
-
+Para esto hace falta tener una cuenta bancaria dada de alta en Redsys, tener acceso a su [entorno de pruebas](https://sis-t.redsys.es:25443/canales/) y configurar los parámetros necesarios en config/secrets.yml
 
 Se pueden ver los documentos desde los que se han partido para su implementación en `doc/redsys`.
 
