@@ -296,7 +296,7 @@ ActiveAdmin.register User do
     file_output = file_input[0..-5]+"_Cout.csv"
 
     i=0
-    query = "document_vatid= ?"
+    query = "lower(document_vatid)= ?"
     directory= "/home/capistrano/borrame/"
     buscados={}
     encode="windows-1252" #"UTF-8"
