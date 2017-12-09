@@ -12,13 +12,13 @@ Accederás a la votación de<% case election.scope
 
 <div class="box-poll">
   <% if !election.requires_vatid_check? %>
-    <div>
+    <!--div>
       <p class="poll-q">
         Recuerda que a partir del año que viene para votar deberás verificar tu identidad.
         Puedes hacerlo ahora pulsando en el siguiente botón.
       </p>
-    </div>
-    <span><%= link_to "Verifícate aquí", new_user_verification_path, class: "button" %></span>
+    </div -->
+    <!--span><%= link_to "Verifícate aquí", new_user_verification_path, class: "button" %></span -->
   <% end %>
   <div>
     <p class="poll-q"><%= election.full_title_for current_user %></p>
