@@ -25,7 +25,11 @@
                 <%= image_tag("user_verifications/#{current_user.document_type_name.downcase}-sample2.png", alt: t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample2_description")) %>
                 <div class="button"><%= content_tag(:span, t("podemos.user_verification.upload")) %> <%= t("podemos.user_verification.#{current_user.document_type_name.downcase}.sample2_description") %></div>
               </label>
-              <%= f.input :back_vatid, label: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
+              <% if current_user.document_type_name.downcase == "pasaporte" %>
+                <%= f.input :back_vatid, label: false, required: false, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
+              <% else %>
+                <%= f.input :back_vatid, label: false, required: true, wrapper_html: { class: :hidden }, input_html: { accept: "image/*" } %>
+              <% end %>
             </div>
           </fieldset>
           <fieldset>
