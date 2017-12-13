@@ -27,9 +27,9 @@ class ActiveRecord::Base
 
   def self.unique_day field
     case self.connection.adapter_name
-      when 'SQLite' then "strftime('%Y', #{field})*366+(strftime('%m', #{field})-1)*31+strftime('%d', #{field})"
-      when 'PostgreSQL' then "extract(year from #{field})*366+(extract(month from #{field})-1)*31+extract(day from #{field})"
-      else "year(#{field})*366+(month(#{field})-1)*31+day(#{field})" # MySQL, SQL Server, ...
+      when 'SQLite' then "strftime('%Y', #{field})*366+(strftime('%m', #{field})-1)*32+strftime('%d', #{field})"
+      when 'PostgreSQL' then "extract(year from #{field})*366+(extract(month from #{field})-1)*32+extract(day from #{field})"
+      else "year(#{field})*366+(month(#{field})-1)*32+day(#{field})" # MySQL, SQL Server, ...
     end
   end
 end
