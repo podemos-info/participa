@@ -1,13 +1,15 @@
 <div style="margin:auto;width:<%=width%>"><canvas class="js-graph js-line" data-scope="microcredits-count" width="100" height="40"></canvas></div>
 <%
 parent = params[:id] ? Microcredit.find(params[:id]) : nil
-query = parent ? { microcredit: parent.id } : {}
-created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
-confirmed = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:confirmed_at)).count
-confirmed_created = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
-counted = MicrocreditLoan.where(query).joins(:microcredit).merge(Microcredit.upcoming_finished).unscope(:order).where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).count
+base = parent ? MicrocreditLoan.where(microcredit: parent).joins(:microcredit) : MicrocreditLoan.joins(:microcredit).merge(Microcredit.upcoming_finished)
+base = base.unscope(:order)
 
-days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%31}/#{i.to_i%366/31}/#{i.to_i/366}"] }
+created = base.group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
+confirmed = base.where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:confirmed_at)).count
+confirmed_created = base.where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).count
+counted = base.where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).count
+
+days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%384%32}/#{i.to_i%384/32+1}/#{i.to_i/384}"] }
 %>    
 
 <table class="js-microcredits-count data_table">

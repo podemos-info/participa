@@ -9,7 +9,7 @@ confirmed = base.where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day(:c
 confirmed_created = base.where.not(confirmed_at:nil).group(MicrocreditLoan.unique_day("microcredit_loans.created_at")).sum(:amount)
 counted = base.where.not(counted_at:nil).group(MicrocreditLoan.unique_day(:counted_at)).sum(:amount)
 
-days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%366%32}/#{i.to_i%366/32+1}/#{i.to_i/366}"] }
+days = [ created, confirmed, confirmed_created, counted ].flat_map(&:keys).uniq.sort.map {|i| [i, "#{i.to_i%384%32}/#{i.to_i%384/32+1}/#{i.to_i/384}"] }
 %>    
 
 <table class="js-microcredits-amounts data_table">
