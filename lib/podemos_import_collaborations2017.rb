@@ -46,6 +46,7 @@ class PodemosImportCollaborations2017
       created_at: row[fields[:created_at]] ? DateTime.parse(row[fields[:created_at]]) : DateTime.now,
       address: row[fields[:address]] || "",
       town_name: row[fields[:town_name]],
+      ine_town: row[fields[:ine_town]],
       postal_code: row[fields[:postal_code]],
       province: row[fields[:province]],
       phone: row[fields[:phone]],
