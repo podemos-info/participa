@@ -5,13 +5,14 @@
     <div class="col-b-4a12">
 
       <%= content_tag(:h2, t("podemos.user_verification.title")) %>
-      <%= render partial: "multimedia" %>
-      <%= content_tag(:span, t("podemos.user_verification.full_directions").html_safe) %>
-      <%= content_tag(:p, t("podemos.user_verification.pending"), style: "font-weight:bold") if @user_verification.persisted? and @user_verification.status !=1 and @user_verification.status !=3 %>
-      <%= errors_in_form @user_verification %>
-      
+      <% if current_user.photos_necessary? %>
+        <%= render partial: "multimedia" %>
+        <%= content_tag(:span, t("podemos.user_verification.full_directions").html_safe) %>
+        <%= content_tag(:p, t("podemos.user_verification.pending"), style: "font-weight:bold") if @user_verification.persisted? and @user_verification.status !=1 and @user_verification.status !=3 %>
+        <%= errors_in_form @user_verification %>
+      <% end %>
       <%= semantic_form_for @user_verification, url: create_user_verification_path, html: {method: :post, autocomplete: 'off'} do |f| %>
-
+        <% if current_user.photos_necessary? %>
           <fieldset >
             <div class="js-user-verification">
               <label for="user_verification_front_vatid" class="vatid_sample user_verification_front_vatid">
@@ -32,17 +33,18 @@
               <% end %>
             </div>
           </fieldset>
-          <fieldset>
-            <%= content_tag(:h3, t("podemos.user_verification.get_card")) %>
-            <%= content_tag(:p , t("podemos.user_verification.get_card_text")) %>
-            <p> </p>
+        <% end %>
+          <!--fieldset -->
+            <!--%= content_tag(:h3, t("podemos.user_verification.get_card")) % -->
+            <!--%= content_tag(:p , t("podemos.user_verification.get_card_text")) % -->
+            <!--p> </p>
             <div class="inputlabel-box">
-              <div class="input-box" style="width: initial">
-                <%= f.check_box :wants_card, class: 'checkbox' %>
-                <%= content_tag(:p, t('podemos.user_verification.wants_card')) %>
-              </div>
+              <div class="input-box" style="width: initial" -->
+                <!-- %= f.check_box :wants_card, class: 'checkbox' % -->
+                <!-- %= content_tag(:p, t('podemos.user_verification.wants_card')) % -->
+              <!--/div>
             </div>
-          </fieldset>
+          </fieldset -->
           <fieldset class="with-tos">
             <h3>Consentimiento</h3>
             <div class="inputlabel-box">
