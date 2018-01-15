@@ -369,7 +369,7 @@ ActiveAdmin.register User do
 
     csv=CSV.generate( encoding: 'UTF-8' ) do|writer|
       writer << ["APELLIDOS","NOMBRE","NOMBRE COMPLETO","DNI","EMAIL","DIRECCION","COD POSTAL", "MUNICIPIO","PROVINCIA","PAIS","TELEFONO","TIPO","ES_USUARIO" "ID"]
-      encontrados.sort_by{|id| id}.each {|u| writer << [u[1][:last_name],u[1][:name],"#{u[1][:last_name]} #{u[1][:name]}",u[1][:dni],u[1][:email],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country],u[1][:phone],u[1][:type],u[1][is_user],u[1][:fileid]]}
+      encontrados.sort_by{|id| id}.each {|u| writer << [u[1][:last_name],u[1][:name],"#{u[1][:last_name]} #{u[1][:name]}",u[1][:dni],u[1][:email],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country],u[1][:phone],u[1][:type],u[1][:is_user],u[1][:fileid]]}
     end
     send_data csv.encode('UTF-8'), :type=> 'text/csv; charset=utf-8; header=present', :disposition=> "inline", :filename=>"#{file_output}"
   end
