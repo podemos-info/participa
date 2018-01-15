@@ -311,7 +311,7 @@ ActiveAdmin.register User do
 
     #Step 1 search persons by DNI in Users
     encontrados={}
-    buscados.each {|r| User.with_deleted.where(query, r[1]["dni"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>1}}}
+    buscados.each {|r| User.with_deleted.where(query, r[1]["dni"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>1,:is_user=>"SI"}}}
     #CSV.open( "ficheros/#{file_output}", 'w' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
     buscados1b= buscados.clone
     buscados1b.delete_if{|key, value| !encontrados[key].nil?}
@@ -330,7 +330,7 @@ ActiveAdmin.register User do
     #print "\n#{buscados2.count} casos para el paso 2"
     #step 2 with the not found records in previous step, search by email
     query = "email= ?"
-    buscados2.each {|r| User.with_deleted.where(query, r[1]["email"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>2}}}
+    buscados2.each {|r| User.with_deleted.where(query, r[1]["email"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>2,:is_user=>"SI"}}}
     #CSV.open( "ficheros/#{file_output}", 'a' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
     buscados3= buscados2.clone
     buscados3.delete_if{|key, value| !encontrados[key].nil?}
@@ -355,7 +355,7 @@ ActiveAdmin.register User do
       else
         query = nil
       end
-      User.with_deleted.where(query, *params).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>3}} if query
+      User.with_deleted.where(query, *params).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>3,:is_user=>"SI"}} if query
     }
     #CSV.open( "ficheros/#{file_output}", 'a' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
     no_encontrados= buscados.clone
@@ -363,13 +363,13 @@ ActiveAdmin.register User do
 
     # step 4 add the not found records correctly identified
 
-    no_encontrados.each{|r| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>"",:name=>"",:last_name=>"",:email=>"",:phone=>"",:address=>"",:cp=>"",:vote_town=>"",:province=>"",:country=>"",:type=>4}}
+    no_encontrados.each{|r| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>"",:name=>"",:last_name=>"",:email=>"",:phone=>"",:address=>"",:cp=>"",:vote_town=>"",:province=>"",:country=>"",:type=>4,:is_user=>"SI"}}
 
     # step 5 sort and write all records and tipologies
 
     csv=CSV.generate( encoding: 'UTF-8' ) do|writer|
       writer << ["APELLIDOS","NOMBRE","NOMBRE COMPLETO","DNI","EMAIL","DIRECCION","COD POSTAL", "MUNICIPIO","PROVINCIA","PAIS","TELEFONO","TIPO","ES_USUARIO" "ID"]
-      encontrados.sort_by{|id| id}.each {|u| writer << [u[1][:last_name],u[1][:name],"#{u[1][:last_name]} #{u[1][:name]}",u[1][:dni],u[1][:email],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country],u[1][:phone],u[1][:type],u[1][is_user] ? u[1][is_user] : "SI",u[1][:fileid]]}
+      encontrados.sort_by{|id| id}.each {|u| writer << [u[1][:last_name],u[1][:name],"#{u[1][:last_name]} #{u[1][:name]}",u[1][:dni],u[1][:email],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country],u[1][:phone],u[1][:type],u[1][is_user],u[1][:fileid]]}
     end
     send_data csv.encode('UTF-8'), :type=> 'text/csv; charset=utf-8; header=present', :disposition=> "inline", :filename=>"#{file_output}"
   end
