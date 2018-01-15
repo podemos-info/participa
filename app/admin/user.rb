@@ -297,23 +297,38 @@ ActiveAdmin.register User do
 
     i=0
     query = "lower(document_vatid)= ?"
+    non_user_query = "lower(non_user_document_vatid)= ?"
     directory= "/home/capistrano/borrame/"
     buscados={}
     encode="windows-1252" #"UTF-8"
     sep=";" #","
+
+    #Step 0 read the persons to search
     CSV.foreach(params["process_search_persons"]["file"].tempfile, {:encoding=>encode, :headers=>true, :col_sep=>sep}) do |row|
       buscados[row.fields[0].to_i]=Hash[row.headers[0..-1].zip(row.fields[0..-1].map!{|x| x.downcase.strip if x.respond_to?("strip")})]
       i+=1
     end
-    encontrados={}
 
+    #Step 1 search persons by DNI in Users
+    encontrados={}
     buscados.each {|r| User.with_deleted.where(query, r[1]["dni"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>1}}}
     #CSV.open( "ficheros/#{file_output}", 'w' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
-    buscados2= buscados.clone
+    buscados1b= buscados.clone
+    buscados1b.delete_if{|key, value| !encontrados[key].nil?}
+
+    #Step 1B search persons non_users in collaborations
+    # where("non_user_document_vatid is not null")
+    buscados1b.each do |r|
+      Collaboration.non_user.where(non_user_query, r[1]["dni"]).each do |f|
+        non_user = f.parse_non_user
+        encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>non_user.document_vatid,:name=>non_user.full_name,:last_name=>"",:email=>non_user.email,:phone=>non_user.phone,:address=>non_user.address,:cp=>non_user.postal_code,:vote_town=>non_user.town_name,:province=>non_user.province,:country=>non_user.country_name,:type=>1,:is_user=>"NO"}}
+      end
+    end
+
+    buscados2= buscados1b.clone
     buscados2.delete_if{|key, value| !encontrados[key].nil?}
     #print "\n#{buscados2.count} casos para el paso 2"
     #step 2 with the not found records in previous step, search by email
-
     query = "email= ?"
     buscados2.each {|r| User.with_deleted.where(query, r[1]["email"]).each {|f| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>f.document_vatid,:name=>f.first_name,:last_name=>f.last_name,:email=>f.email,:phone=>f.phone,:address=>f.address,:cp=>f.postal_code,:vote_town=>f.vote_town_name,:province=>f.province_name,:country=>f.country_name,:type=>2}}}
     #CSV.open( "ficheros/#{file_output}", 'a' ) {|writer| encontrados.each {|u| writer << [u[1][:fileid],u[1][:file_name],u[1][:file_last_name],u[1][:file_dni],u[1][:name],u[1][:last_name],u[1][:email],u[1][:phone],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country]]}}
@@ -353,8 +368,8 @@ ActiveAdmin.register User do
     # step 5 sort and write all records and tipologies
 
     csv=CSV.generate( encoding: 'UTF-8' ) do|writer|
-      writer << ["APELLIDOS","NOMBRE","NOMBRE COMPLETO","DNI","EMAIL","DIRECCION","COD POSTAL", "MUNICIPIO","PROVINCIA","PAIS","TELEFONO","TIPO", "ID"]
-      encontrados.sort_by{|id| id}.each {|u| writer << [u[1][:last_name],u[1][:name],"#{u[1][:last_name]} #{u[1][:name]}",u[1][:dni],u[1][:email],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country],u[1][:phone],u[1][:type],u[1][:fileid]]}
+      writer << ["APELLIDOS","NOMBRE","NOMBRE COMPLETO","DNI","EMAIL","DIRECCION","COD POSTAL", "MUNICIPIO","PROVINCIA","PAIS","TELEFONO","TIPO","ES_USUARIO" "ID"]
+      encontrados.sort_by{|id| id}.each {|u| writer << [u[1][:last_name],u[1][:name],"#{u[1][:last_name]} #{u[1][:name]}",u[1][:dni],u[1][:email],u[1][:address],u[1][:cp],u[1][:vote_town],u[1][:province],u[1][:country],u[1][:phone],u[1][:type],u[1][is_user]?u[1][is_user]: "SI",u[1][:fileid]]}
     end
     send_data csv.encode('UTF-8'), :type=> 'text/csv; charset=utf-8; header=present', :disposition=> "inline", :filename=>"#{file_output}"
   end
