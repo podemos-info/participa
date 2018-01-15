@@ -321,7 +321,7 @@ ActiveAdmin.register User do
     buscados1b.each do |r|
       Collaboration.non_user.where(non_user_query, r[1]["dni"]).each do |f|
         non_user = f.parse_non_user
-        encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>non_user.document_vatid,:name=>non_user.full_name,:last_name=>"",:email=>non_user.email,:phone=>non_user.phone,:address=>non_user.address,:cp=>non_user.postal_code,:vote_town=>non_user.town_name,:province=>non_user.province,:country=>non_user.country_name,:type=>1,:is_user=>"NO"}
+        encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>non_user.document_vatid,:name=>non_user.full_name,:last_name=>"",:email=>non_user.email,:phone=>non_user.phone,:address=>non_user.address,:cp=>non_user.postal_code,:vote_town=>non_user.town_name,:province=>non_user.province,:country=>non_user.country,:type=>1,:is_user=>"NO"}
       end
     end
 
