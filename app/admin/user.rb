@@ -363,7 +363,7 @@ ActiveAdmin.register User do
 
     # step 4 add the not found records correctly identified
 
-    no_encontrados.each{|r| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>"",:name=>"",:last_name=>"",:email=>"",:phone=>"",:address=>"",:cp=>"",:vote_town=>"",:province=>"",:country=>"",:type=>4,:is_user=>"SI"}}
+    no_encontrados.each{|r| encontrados[r[0].to_i]={:fileid=>r[0],:file_name=>r[1]["name"],:file_last_name=>r[1]["surname"],:dni=>"",:name=>"",:last_name=>"",:email=>"",:phone=>"",:address=>"",:cp=>"",:vote_town=>"",:province=>"",:country=>"",:type=>4,:is_user=>""}}
 
     # step 5 sort and write all records and tipologies
 
