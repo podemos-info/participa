@@ -670,12 +670,5 @@ ActiveRecord::Schema.define(version: 20171003100903) do
 
   add_index "votes", ["deleted_at"], name: "index_votes_on_deleted_at", using: :btree
 
-  add_foreign_key "impulsa_edition_categories", "impulsa_editions"
-  add_foreign_key "impulsa_edition_topics", "impulsa_editions"
-  add_foreign_key "impulsa_project_state_transitions", "impulsa_projects"
-  add_foreign_key "impulsa_project_topics", "impulsa_edition_topics"
-  add_foreign_key "impulsa_project_topics", "impulsa_projects"
-  add_foreign_key "impulsa_projects", "impulsa_edition_categories"
-  add_foreign_key "impulsa_projects", "users"
   add_foreign_key "user_verifications", "users", column: "author_id"
 end
