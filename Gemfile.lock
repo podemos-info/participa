@@ -286,10 +286,10 @@ GEM
     paper_trail (3.0.8)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
-    paperclip (2.8.0)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
+    paperclip (4.2.4)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
       mime-types
     pg (0.18.2)
     phonelib (0.6.6)
@@ -521,7 +521,7 @@ DEPENDENCIES
   newrelic_rpm
   norma43!
   paper_trail
-  paperclip
+  paperclip (~> 4.2.2)
   paranoia!
   pg
   phonelib
