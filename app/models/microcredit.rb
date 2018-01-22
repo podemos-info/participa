@@ -12,8 +12,8 @@ class Microcredit < ActiveRecord::Base
 
   has_attached_file :renewal_terms
 
-  validates_attachment :renewal_terms, content_type: { content_type: ["application/pdf", "application/x-pdf"]}, size: { less_than: 2.megabyte }
-  
+  validates_attachment_content_type :renewal_terms, content_type: ["application/pdf", "application/x-pdf"]
+  validates_attachment_size :renewal_terms, less_than: 2.megabyte
  
   # example: "100€: 100\r500€: 22\r1000€: 10"
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
