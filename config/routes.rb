@@ -33,7 +33,6 @@ Rails.application.routes.draw do
 
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
-    get '/circulos/validacion', to: 'page#circles_validation', as: 'circles_validation'
 
     get '/comision-de-garantias-democraticas', to: 'page#guarantees', as: 'guarantees'
     get '/comision-de-garantias-democraticas/comunicacion', to: 'page#guarantees_form', as: 'guarantees_form'

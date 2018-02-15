@@ -11,6 +11,18 @@ ActiveAdmin.register Page do
     redirect_to collection_path, alert: "Las rutas han sido recargadas."
   end
 
+  index do
+    selectable_column
+    id_column
+    column :title
+    column :id_form
+    column :slug do |page|
+      link_to page.slug, "/#{page.slug}"
+    end
+    column :require_login
+    actions
+  end
+
   form do |f|
     f.semantic_errors
     f.inputs 'Formulario de gravity' do
