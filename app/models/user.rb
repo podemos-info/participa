@@ -774,4 +774,17 @@ class User < ActiveRecord::Base
   def photos_necessary?
     self.has_future_verified_elections? && !self.verified  || (UserVerification.where(user_id: self.id).any? && UserVerification.accepted_by_email.where(user_id: self.id).none?)
   end
+
+  def vote_town_since
+    return unless vote_town
+    @vote_town_since ||= begin
+      ret = updated_at
+      versions.reverse.each do |v|
+        old_vote_town = v.object && v.object.scan(/^vote_town\: (.*)$/).flatten.first
+        ret = v.created_at
+        break unless old_vote_town && old_vote_town.casecmp(vote_town).zero?
+      end
+      ret
+    end
+  end
 end
