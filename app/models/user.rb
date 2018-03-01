@@ -42,8 +42,7 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nif: true, if: :is_document_dni?
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, date: true, allow_blank: true # gem date_validator
-  validates :born_at, inclusion: { in: Date.civil(1900, 1, 1)..Date.today-18.years,
-    message: "debes ser mayor de 18 años" }, allow_blank: true
+  validate :validate_born_at
 
   validates :email, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
@@ -54,6 +53,12 @@ class User < ActiveRecord::Base
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
   validate :validates_unconfirmed_phone_uniqueness
+
+  def validate_born_at
+    if born_at > Date.today-18.years
+      errors.add(:born_at, "debes ser mayor de 18 años")
+    end
+  end
 
   def validates_postal_code
     if self.country == "ES"
