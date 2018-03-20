@@ -55,24 +55,26 @@ ActiveAdmin.register Election do
     end
 
     panel "Lugares donde se vota" do
-      table_for election.election_locations.order(:location) do
-        column :territory
-        column :link do |el|
-          span link_to el.link, el.link
-          br
-          span link_to el.new_link, el.new_link if el.new_version_pending
-        end if !election.external?
-        column :votes do |el|
-          span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_hash)
-        end if !election.external?
-        column :actions do |el|
-          span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
-          span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
-          span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info && !election.external?
-          status_tag("VERSION NUEVA", :error) if el.new_version_pending
+      paginated_collection(election.election_locations.page(params[:page]).per(15), download_links: false) do
+        table_for election.election_locations.order(:location) do
+          column :territory
+          column :link do |el|
+            span link_to el.link, el.link
+            br
+            span link_to el.new_link, el.new_link if el.new_version_pending
+          end if !election.external?
+          column :votes do |el|
+            span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_hash)
+          end if !election.external?
+          column :actions do |el|
+            span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
+            span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
+            span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info && !election.external?
+            status_tag("VERSION NUEVA", :error) if el.new_version_pending
+          end
         end
+
       end
-      
       span link_to "Añadir ubicación", new_admin_election_election_location_path(election)
     end
 
