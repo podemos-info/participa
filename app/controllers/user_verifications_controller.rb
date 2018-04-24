@@ -126,7 +126,7 @@ class UserVerificationsController < ApplicationController
         autonomias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
     }
 
-    base_query = User.confirmed.where("vote_town in ?", towns)
+    base_query = User.confirmed.where("vote_town in (?)", towns)
 
     # get totals by prov and status
     data = Hash[
