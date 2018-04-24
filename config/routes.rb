@@ -144,6 +144,7 @@ Rails.application.routes.draw do
       post 'verificacion-identidad(/:election_id)', to: 'user_verifications#create', as: 'create_user_verification'
       get 'report/(:report_code)', to: 'user_verifications#report', as: 'report_user_verification'
       get 'report_exterior/(:report_code)', to: 'user_verifications#report_exterior', as: 'report_exterior_user_verification'
+      get 'report_town/(:report_code)', to: 'user_verifications#report_town', as: 'report_town_user_verification'
     end
 
     scope :impulsa do
