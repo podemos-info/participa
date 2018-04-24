@@ -24,7 +24,7 @@
             <th>% verificados</th>
           </thead>
           <% sum_pending = sum_accepted = sum_issues = sum_rejected = sum_total = sum_users = sum_verified = sum_active = sum_active_verified = 0 %>
-          <% @report[level].each do |territory, info|
+          <% @report_town[level].each do |territory, info|
                accepted = info[:accepted] + info[:accepted_by_email]
                sum_pending += info[:pending]
                sum_accepted += accepted
