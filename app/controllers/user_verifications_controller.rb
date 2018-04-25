@@ -165,7 +165,7 @@ class UserVerificationsController < ApplicationController
 
     provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "%02d" % + p.index, p.name ] }
     provinces.each do |province_num, province_name|
-      town_ids.each do |vote_town_num|
+      towns_ids.each do |vote_town_num|
         autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].first
         autonomy_name = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].last
         vote_town_name = Carmen::Country.coded("ES").subregions[province_num -1].subregions.coded(vote_town_num).name
