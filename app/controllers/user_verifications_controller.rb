@@ -87,7 +87,7 @@ class UserVerificationsController < ApplicationController
 
   def report_town
     aacc_code = Rails.application.secrets.user_verifications[params[:report_code]]
-    towns = ['m_04_066_9', 'm_04_100_2', 'm_11_015_9', 'm_11_022_3', 'm_11_008_6', 'm_11_028_2', 'm_11_031_6',
+    towns_ids = ['m_04_066_9', 'm_04_100_2', 'm_11_015_9', 'm_11_022_3', 'm_11_008_6', 'm_11_028_2', 'm_11_031_6',
              'm_11_035_5', 'm_11_032_1', 'm_11_012_5', 'm_18_089_6', 'm_18_101_5', 'm_18_911_5', 'm_18_140_0',
              'm_18_087_7', 'm_21_072_0', 'm_21_041_2', 'm_23_009_8', 'm_23_053_1', 'm_23_055_9', 'm_23_044_9',
              'm_29_069_1', 'm_29_082_5', 'm_29_901_8', 'm_29_025_2', 'm_29_070_5', 'm_41_004_2', 'm_41_038_4',
@@ -124,9 +124,10 @@ class UserVerificationsController < ApplicationController
     @report_town = {
         provincias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
         autonomias: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
+        municipios: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
     }
 
-    base_query = User.confirmed.where("vote_town in (?)", towns)
+    base_query = User.confirmed.where("vote_town in (?)", towns_ids)
 
     # get totals by prov and status
     data = Hash[
@@ -145,15 +146,52 @@ class UserVerificationsController < ApplicationController
       data[[prov, active, verified]] = count
     end
 
-    provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "%02d" % + p.index, p.name ] }
+    # get totals by town and status
+    data_town = Hash[
+        base_query.joins(:user_verifications).group(:town, :status)
+            .pluck("vote_town", "status", "count(distinct users.id)").map { |town, status, count| [[town, status], count] }
+    ]
 
+    # add users totals by town
+    active_date = Date.today - eval(Rails.application.secrets.users["active_census_range"])
+    base_query.group(:vote_town, :active, :verified).pluck(
+        "vote_town",
+        "(current_sign_in_at IS NOT NULL AND current_sign_in_at > '#{active_date.to_datetime.iso8601 }') as active",
+        "#{User.verified_condition} as verified",
+        "count(distinct users.id)"
+    ).each do |town, active, verified, count|
+      data_town[[town, active, verified]] = count
+    end
+
+    provinces = Carmen::Country.coded("ES").subregions.map {|p| [ "%02d" % + p.index, p.name ] }
     provinces.each do |province_num, province_name|
-      autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].first
-      autonomy_name = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].last
+      town_ids.each do |vote_town_num|
+        autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].first
+        autonomy_name = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].last
+        vote_town_name = Carmen::Country.coded("ES").subregions[province_num -1].subregions.coded(vote_town_num).name
+        if aacc_code == 'c_00' or autonomy_code == aacc_code
+          UserVerification.statuses.each do |name, status|
+            count = data_town[[vote_town_num, status]] || 0
+            @report_town[:municipios][vote_town_name][name.to_sym] = count
+          end
+          @report_town[:municipios][vote_town_name][:total] = total_sum
+
+          town_active_verified = data_town[[vote_town_num, true, true]] || 0
+          town_active = town_active_verified + (data_town[[vote_town_num, true, false]] || 0)
+          town_inactive_verified = data_town[[vote_town_num, false, true]] || 0
+          town_inactive = town_inactive_verified + (data_town[[vote_town_num, false, false]] || 0)
+
+          @report_town[:municipios][vote_town_name][:users] = town_active + town_inactive
+          @report_town[:municipios][vote_town_name][:verified] = town_active_verified + town_inactive_verified
+          @report_town[:provincias][vote_town_name][:active] = town_active
+          @report_town[:provincias][vote_town_name][:active_verified] = town_active_verified
+        end
+      end
+
       total_sum = 0
       if aacc_code == 'c_00' or autonomy_code == aacc_code
         UserVerification.statuses.each do |name, status|
-          count = data[[province_num, status]] || 0
+          count = data[[vote_town_num, status]] || 0
           @report_town[:provincias][province_name][name.to_sym] = count
           @report_town[:autonomias][autonomy_name][name.to_sym] += count
           total_sum += count
@@ -176,7 +214,6 @@ class UserVerificationsController < ApplicationController
         @report_town[:autonomias][autonomy_name][:active_verified] += active_verified
       end
     end
-
     @report_town
   end
 
