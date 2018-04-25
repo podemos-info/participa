@@ -180,7 +180,7 @@ class UserVerificationsController < ApplicationController
         municipios: Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = 0 } },
     }
 
-    base_query = User.confirmed.with_deleted.where("vote_town in (?)", towns_ids)
+    base_query = User.confirmed.where("vote_town in (?)", towns_ids)
 
     # get totals by prov and status
     data = Hash[
