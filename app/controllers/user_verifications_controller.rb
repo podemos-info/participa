@@ -191,7 +191,7 @@ class UserVerificationsController < ApplicationController
       total_sum = 0
       if aacc_code == 'c_00' or autonomy_code == aacc_code
         UserVerification.statuses.each do |name, status|
-          count = data[[vote_town_num, status]] || 0
+          count = data[[province_num, status]] || 0
           @report_town[:provincias][province_name][name.to_sym] = count
           @report_town[:autonomias][autonomy_name][name.to_sym] += count
           total_sum += count
