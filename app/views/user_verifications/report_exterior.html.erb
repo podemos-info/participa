@@ -29,7 +29,7 @@
                sum_pending += info[:pending]
                sum_accepted += accepted
                sum_issues += info[:issues]
-               sum_rejected += info[:rejected]
+               sum_rejected += info[:rejected] + info[:discarded]
                sum_total += info[:total]
                sum_users += info[:users]
                sum_verified += info[:verified]
@@ -40,7 +40,7 @@
                 <th><%= territory %></th>
                 <td class="table-column"><%=info[:pending] %></td>
                 <td><%=info[:issues] %></td>
-                <td><%=info[:rejected] %></td>
+                <td><%=info[:rejected] + info[:discarded] %></td>
                 <td><%=info[:accepted]  + info[:accepted_by_email]%></td>
                 <td><%=info[:total] %></td>
                 <td class="good-column table-column"><%= info[:verified] %></td>
