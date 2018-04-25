@@ -148,7 +148,7 @@ class UserVerificationsController < ApplicationController
 
     # get totals by town and status
     data_town = Hash[
-        base_query.joins(:user_verifications).group(:town, :status)
+        base_query.joins(:user_verifications).group(:vote_town, :status)
             .pluck("vote_town", "status", "count(distinct users.id)").map { |town, status, count| [[town, status], count] }
     ]
 
