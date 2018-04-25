@@ -221,7 +221,6 @@ class UserVerificationsController < ApplicationController
       towns_hash["p_#{province_num}"].each do |vote_town_num|
         autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].first
         autonomy_name = Podemos::GeoExtra::AUTONOMIES["p_#{province_num}"].last
-        puts("#{province_num}  #{vote_town_num}")
         vote_town_name = Carmen::Country.coded("ES").subregions[province_num.to_i - 1].subregions.coded(vote_town_num).name
         total_mun_sum = 0
         if aacc_code == 'c_00' or autonomy_code == aacc_code
@@ -239,8 +238,8 @@ class UserVerificationsController < ApplicationController
 
           @report_town[:municipios][vote_town_name][:users] = town_active + town_inactive
           @report_town[:municipios][vote_town_name][:verified] = town_active_verified + town_inactive_verified
-          @report_town[:provincias][vote_town_name][:active] = town_active
-          @report_town[:provincias][vote_town_name][:active_verified] = town_active_verified
+          @report_town[:municipios][vote_town_name][:active] = town_active
+          @report_town[:municipios][vote_town_name][:active_verified] = town_active_verified
         end
       end
 
