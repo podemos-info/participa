@@ -30,8 +30,8 @@
                sum_accepted += accepted
                sum_issues += info[:issues]
                sum_rejected += info[:rejected]
-               sum_total += info[:total]
-               sum_users += info[:users]
+                 sum_total += info[:total]
+                 sum_users += info[:users]
                sum_verified += info[:verified]
                sum_active += info[:active]
                sum_active_verified += info[:active_verified]
@@ -42,7 +42,7 @@
 
                 <td><%=info[:issues] %></td>
                 <td><%=info[:rejected] %></td>
-                <td><%=info[:accepted] %></td>
+                <td><%=info[:accepted]  + info[:accepted_by_email] %></td>
                 <td><%=info[:total] %></td>
                 <td class="good-column table-column"><%= info[:verified] %></td>
                 <td><%= info[:users] %></td>
