@@ -43,7 +43,14 @@ ActiveAdmin.register UserVerification do
       $redis.hset(:processing,verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
       redirect_to(edit_admin_user_verification_path(verification.id),data: {confirm: "Parece ser que ya tienes abierto el registro en otra pestaña, ¿realmente deseas editarlo en esta?"})
     else
-      verification = UserVerification.pending.where.not(id: ids).first
+      loop do
+        verification = UserVerification.pending.where.not(id: ids).first
+        if verification
+          user_exist = User.where(id: verification.user_id).exists?
+          verification.update(status:5) if !user_exist
+        end
+        break if !verification or user_exist
+      end
       if verification
         $redis.hset(:processing,verification.id,{author_id: current_user.id,locked_at: DateTime.now.utc.strftime("%d/%m/%Y %H|%M")})
         redirect_to edit_admin_user_verification_path(verification.id)
