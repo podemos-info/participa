@@ -138,70 +138,6 @@ ActiveAdmin.register Election do
       disposition: "attachment; filename=voter_ids.#{election_id}.tsv"
   end
 
-  member_action :get_phones_to_sms do
-    #options[:id_election] = 90               #  Id del proceso Electoral (Opcional)
-    #options[:foreign] = false                # si es true, sólo cargara los datos de personas que vivan fuera de españa
-    #options[:cccaa]="c_13"                   # CCAA Si se elíge este campo, Anula
-    #options[:province]="28"
-    #options[:town]="m_28_079_6"                        # Municipio del que se quieren los eléfonos, o se pone algo en este campo o en el anterior
-    #options[:filename] = "phones-navarra"    # Nombre de fichero a crear
-    #options[:active] = false                 # si sólo se quieren telefonos de usuarios activos se pondria "true", en caso contrario "false"
-    #options[:with_date] = false              # este campo indica si aparece un campo fecha en el fichero a exportar
-    #options[:with_phone_validation] = false  # Este campo indica si se quiere que la aplicación extraiga unicamente los telefonos con un determinado patrón de validación
-    #options[:closed_census] = true           # Este campo indica si quiere que se saquen los telefonos unicamente de las personas que tienen derecho a participar en el proceso seleccionado
-    #options[:still_unverified] = false        # Este campo indica si se quiere que se saquen sólo los teléfonos de las personas que aún no han solicitado la verificación de sus datos
-    #options[:generate_ids]
-    options = params
-    ids=[]
-    i = 0
-    if options[:id_election]
-      e = Election.find(options[:id_election])
-      ends = e.user_created_at_max || Date.today
-      ids = e.votes.pluck(:user_id)
-    else
-      ends = Date.today
-    end
-    year_ago = (Date.today - 1.year).to_date
-
-    data =User.confirmed.not_banned
-
-    data = data.where("current_sign_in_at >= ? and created_at <= ?",year_ago, ends) if options[:active]
-    if options[:foreign]
-      data = data.where("country <> 'ES'")
-    elsif options[:cccaa] and options[:cccaa] != ""
-      spain = Carmen::Country.coded("ES")
-      towns = Podemos::GeoExtra::AUTONOMIES.map { |k,v| spain.subregions[k[2..3].to_i-1].subregions.map {|r| r.code } if v[0]==options[:cccaa] } .compact.flatten
-      data = data.where(vote_town:towns)
-    elsif options[:province] and options[:province] != ""
-      data = data.where("vote_town ilike ?",'m_'+options[:province]+"%")
-    elsif options[:town] and options[:town] != ""
-      data = data.where(vote_town:options[:town])
-    end
-
-    export_data options[:filename],data  do |u|
-      i+=1
-      print("\r#{i}") if i%100==0
-      next if ids.include? u.id or (options[:still_unverified] and u.verified)
-      line=""
-      if options[:with_phone_validation]
-        phone,correct = validate_phone(u.phone)
-      else
-        phone= u.phone
-        correct = true
-      end
-
-      mi_date = 0
-      mi_date = u.current_sign_in_at.strftime("%d/%m/%Y") if u.current_sign_in_at
-      result = options[:with_date] ? [mi_date, phone] : [phone] if correct
-      if (options[:closed_census])
-        u10 = u.version_at(ends)
-        result = result if (u10 && u10.vote_autonomy_code!="" && u10.vote_autonomy_code == options[:cccaa]) || (u10 && u10.vote_town !="" && u10.vote_town == options[:town])
-      end
-      result
-    end
-    puts i
-  end
-
   sidebar "Progreso", only: :show, priority: 0 do
     ul do
       li do
@@ -211,20 +147,6 @@ ActiveAdmin.register Election do
       li "Censo actual: #{election.current_total_census}"
       li "Votos de usuarios baneados: #{election.votes.joins(:user).merge(User.banned).count}"
       li do 
-        a 'Descargar voter ids', href: download_voter_ids_admin_election_path(election)
-      end
-    end
-  end
-
-  sidebar "Envío SMS", only: :show, priority: 0 do
-    ul do
-      li do
-        a "Votos totales: #{election.valid_votes_count}", href: election_votes_count_path(election, election.counter_hash)
-      end
-      li "Censo activos: #{election.current_active_census}"
-      li "Censo actual: #{election.current_total_census}"
-      li "Votos de usuarios baneados: #{election.votes.joins(:user).merge(User.banned).count}"
-      li do
         a 'Descargar voter ids', href: download_voter_ids_admin_election_path(election)
       end
     end
