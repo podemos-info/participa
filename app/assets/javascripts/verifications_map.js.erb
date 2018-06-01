@@ -39,8 +39,8 @@ function get_coords(district) {
 }
 
 function verification_map_show(district) {
-
-  var map = L.map('js-verification-map').setView(get_coords(district), 13);
+  var zoom_level = 12;
+  var map = L.map('js-verification-map').setView(get_coords(district), zoom_level);
 
   // marker icon with color red
   var IconOn = L.icon({
@@ -102,7 +102,8 @@ function verification_list_show(district){
 }
 
 function init_verification_map() {
-  var district = $('.js-verification-map-centers').data('user-district'); 
+  // var district = $('.js-verification-map-centers').data('user-district');
+  var district = 13;
   verification_map_show(district);
   verification_list_show(district);
 }

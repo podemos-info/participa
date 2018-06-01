@@ -689,7 +689,7 @@ Amb tres passos molt senzills:
     pending5_html: i també
     pending6_html: "<li><b>empadronament</b>,</li><li><b>targeta censal</b></li><li> o qualsevol <b>rebut</b></li><li> (llum, aigua o gas)</li><li> de l'últim any.</li>"
     pending7_html: "Porta la documentació a:"
-    pending8_html: "Actualment les verificacions estan tancades, es reactivaran el dilluns 13 de novembre.<br>La verificació presencial pot fer-se al local de Barcelona En Comú (carrer Marina 131-133 baixos) de 10 h a 19 h."
+    pending8_html: ""
     title: Verificació
     step1: Documents
     step2: Cerca

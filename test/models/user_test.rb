@@ -404,7 +404,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should be over 18 on born_at" do 
-    user = FactoryGirl.build(:user, born_at: Date.civil(2000, 1, 1))
+    user = FactoryGirl.build(:user, born_at: Date.today-17.years)
     user.valid?
     assert_not user.valid?
     assert user.errors[:born_at].include? "debes ser mayor de 18 años"
