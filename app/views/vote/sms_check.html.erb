@@ -11,7 +11,7 @@
         <h3>Confirmar código recibido</h3>
         <%= form_tag(create_vote_path(@election_id), method: :get) do |f| %>
             <fieldset>
-              <p>Por favor, introduce el código que has recibido en tu teléfono móvil. Te recomendamos que conserves este código, pues te permitirá volver a acceder a la cabina de votación en un futuro cercano.</p>
+              <p>Por favor, introduce el código que has recibido en tu teléfono móvil.</p>
               <div class="inputlabel-box">
               <%= label_tag(:sms_check_token, "Código:") %>
               <%= text_field_tag(:sms_check_token, "", autocomplete: "off", required: true, class: "input-s form-control") %>

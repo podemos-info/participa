@@ -223,24 +223,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def previous_user(force_refresh=false)
-    remove_instance_variable :@previous_user if force_refresh and @previous_user
-    @previous_user ||= User.with_deleted.where("lower(email) = ?", self.email.downcase).where("deleted_at > ?", 3.months.ago).last || 
-                      User.with_deleted.where("lower(document_vatid) = ?", self.document_vatid.downcase).where("deleted_at > ?", 3.months.ago).last
-                      User.with_deleted.where("phone = ?", self.phone).where("deleted_at > ?", 3.months.ago).last
-    @previous_user
-  end
-
-  def apply_previous_user_vote_location
-    if self.previous_user(true) and self.previous_user.has_verified_vote_town? and (self.vote_town != self.previous_user.vote_town)
-      self.vote_town = self.previous_user.vote_town
-      self.save
-      true
-    else
-      false
-    end
-  end
-
   def document_vatid=(val)
     self[:document_vatid] = val.upcase.strip
   end
