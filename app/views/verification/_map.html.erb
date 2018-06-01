@@ -13,9 +13,9 @@
           <%= center.address %>
         </div>
         <div>
-          <% center.verification_slots.each do |slot| %>
-            <%= l slot.starts_at, format: :short %> <%= t('verification.to') %> <%= l slot.ends_at, format: :time %>.
-          <% end %>
+          <%# center.verification_slots.each do |slot| %>
+            <%# l slot.starts_at, format: :short %> <%# t('verification.to') %> <%# l slot.ends_at, format: :time %>.
+          <%# end %>
         </div>
       </li>
     <% end %>

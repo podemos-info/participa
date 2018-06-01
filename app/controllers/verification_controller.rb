@@ -7,7 +7,7 @@ class VerificationController < ApplicationController
   # GET /verificaciones
   def show
     authorize! :show, :verification
-    @centers = Verification::Center.where( id: 57 )
+    @centers = Verification::Center.all
   end
 
   # GET /verificadores
