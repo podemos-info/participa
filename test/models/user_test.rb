@@ -529,13 +529,4 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert @user.in_participation_team? p.id
   end
-
-  test "should not change vote location to a user without old user" do
-    with_blocked_change_location do
-      new_user = FactoryGirl.create(:user, town: "m_03_003_6" )
-      new_user.apply_previous_user_vote_location
-      assert_equal "m_03_003_6", new_user.vote_town, "New user vote location should not be changed"
-    end
-  end
-
 end

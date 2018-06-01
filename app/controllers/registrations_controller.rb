@@ -41,13 +41,6 @@ class RegistrationsController < Devise::RegistrationsController
           redirect_to(root_path, notice: t("devise.registrations.signed_up_but_unconfirmed"))
           return
         end
-
-        # If the user already had a location but deleted itslet, he should have
-        # his previous location
-        #
-        if resource.apply_previous_user_vote_location
-          flash[:alert] = t("podemos.registration.message.existing_user_location")
-        end
       end
     else
       clean_up_passwords(resource)
