@@ -77,7 +77,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "should errors_in_form work" do 
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     user.born_at = DateTime.now
     result = errors_in_form user
     assert_equal "", result

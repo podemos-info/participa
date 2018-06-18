@@ -8,19 +8,19 @@ feature "Collaborations" do
     page.must_have_content "Necesitas iniciar sesión o registrarte para continuar."
 
     # logged in user (no collaboration)
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     login_as(user)
     visit new_collaboration_path
     page.must_have_content "Declaro ser mayor de 18 años."
 
     # logged in user (with unconfirmed collaboration)
-    collaboration = FactoryGirl.create(:collaboration, user: user)
+    collaboration = FactoryBot.create(:collaboration, user: user)
     visit new_collaboration_path
     page.must_have_content "Revisa y confirma todos los datos para activar la colaboración."
   end
 
   scenario "a user should be able to add and destroy a new collaboration" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     assert_equal 0, Collaboration.all.count 
 
     # logged in user, fill collaboration
@@ -54,7 +54,7 @@ feature "Collaborations" do
   end
 
   scenario "a user should be able to add and destroy a new collaboration with orders" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     assert_equal 0, Collaboration.all.count 
 
     login_as(user)

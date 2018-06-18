@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :impulsa_project do
     impulsa_edition_category nil
 user nil

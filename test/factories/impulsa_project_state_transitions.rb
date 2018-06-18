@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :impulsa_project_state_transition do
     impulsa_project nil
 namespace "MyString"

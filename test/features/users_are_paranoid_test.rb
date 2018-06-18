@@ -26,7 +26,7 @@ end
 feature "UsersAreParanoid" do
 
   scenario "create a user", js: true do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
 
     # first creation attempt, receive OK message and create it
     assert_equal 0, User.all.count

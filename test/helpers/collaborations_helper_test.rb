@@ -5,7 +5,7 @@ class CollaborationsHelperTest < ActionView::TestCase
   test "should new_or_edit_collaboration_path work" do
     collaboration = nil
     assert_equal "/colabora", new_or_edit_collaboration_path(collaboration)
-    collaboration = FactoryGirl.create(:collaboration)
+    collaboration = FactoryBot.create(:collaboration)
     assert_equal "/colabora/ver", new_or_edit_collaboration_path(collaboration)
   end
 

@@ -3,7 +3,7 @@ require "test_helper"
 feature "ParticipationTeams" do
   
   scenario "can't access as anon, can join, can delete itself", js: true do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
   
     visit participation_teams_path
     page.must_have_content "Necesitas iniciar sesión o registrarte para continuar."
