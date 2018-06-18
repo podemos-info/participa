@@ -68,7 +68,7 @@ gem 'rubypress'
 gem 'digest-crc'
 gem 'xmlrpc'
 group :development, :test do
-  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano', '~> 3.10.2'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
