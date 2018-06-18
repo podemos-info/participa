@@ -26,7 +26,7 @@
           <% sum_pending = sum_accepted = sum_issues = sum_rejected = sum_total = sum_users = sum_verified = sum_active = sum_active_verified = 0 %>
           <% @report_town[level].each do |territory, info|
                accepted = info[:accepted] + info[:accepted_by_email]
-               sum_pending += info[:pending]
+               sum_pending += info[:pending]+ info[:paused]
                sum_accepted += accepted
                sum_issues += info[:issues]
                sum_rejected += info[:rejected] + info[:discarded]
@@ -38,7 +38,7 @@
                next if info[:total]==0 %>
               <tr>
                 <th><%= territory %></th>
-                <td class="table-column"><%=info[:pending] %></td>
+                <td class="table-column"><%=info[:pending]+ info[:paused] %></td>
 
                 <td><%=info[:issues] %></td>
                 <td><%=info[:rejected]  + info[:discarded]%></td>
