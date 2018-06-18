@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.4.2'
 
 gem 'rails', '~> 4.2.10'
 gem 'sqlite3'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer', git: 'https://github.com/cowboyd/therubyracer.git',  platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
@@ -66,7 +66,7 @@ gem 'state_machines-activerecord'
 gem 'state_machines-audit_trail'
 gem 'rubypress'
 gem 'digest-crc'
-
+gem 'xmlrpc'
 group :development, :test do
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rvm'
