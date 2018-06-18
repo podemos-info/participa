@@ -389,7 +389,7 @@ class Order < ActiveRecord::Base
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
       #http.ssl_options = OpenSSL::SSL::OP_NO_SSLv2 + OpenSSL::SSL::OP_NO_SSLv3 + OpenSSL::SSL::OP_NO_COMPRESSION
-      http.ssl_version = :TLSv1
+      http.ssl_version = :TLSv1_2
     end
 
     self.save
