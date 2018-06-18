@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.4.0
-lock '3.4.0'
+lock '3.10.2'
 
 set :application, 'participa.podemos.info'
 set :repo_url, 'git@github.com:podemos-info/podemos.git'

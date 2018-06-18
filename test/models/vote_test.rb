@@ -9,14 +9,14 @@ class VoteTest < ActiveSupport::TestCase
     assert(v.errors[:election_id].include? "no puede estar en blanco")
     assert(v.errors[:voter_id].include? "no puede estar en blanco")
     assert(v.errors[:voter_id].include? "No se pudo generar")
-    v1 = FactoryGirl.build(:vote)
+    v1 = FactoryBot.build(:vote)
     assert v1.valid?
   end
 
   test "should validate uniqueness on vote" do
-    e1 = FactoryGirl.create(:election)
-    e2 = FactoryGirl.create(:election)
-    u = FactoryGirl.create(:user)
+    e1 = FactoryBot.create(:election)
+    e2 = FactoryBot.create(:election)
+    u = FactoryBot.create(:user)
     v1 = Vote.create(user_id: u.id, election_id: e1.id)
     v2 = Vote.create(user_id: u.id, election_id: e1.id)
     v3 = Vote.create(user_id: u.id, election_id: e2.id)
@@ -27,10 +27,10 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   test "should validate voter_id uniqueness on vote" do
-    e1 = FactoryGirl.create(:election)
-    e2 = FactoryGirl.create(:election)
-    u1 = FactoryGirl.create(:user)
-    u2 = FactoryGirl.create(:user)
+    e1 = FactoryBot.create(:election)
+    e2 = FactoryBot.create(:election)
+    u1 = FactoryBot.create(:user)
+    u2 = FactoryBot.create(:user)
     v1 = Vote.create(user_id: u1.id, election_id: e1.id)
     v2 = Vote.create(user_id: u1.id, election_id: e2.id)
     v3 = Vote.create(user_id: u2.id, election_id: e1.id)
@@ -40,18 +40,18 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   test "should generate and save voter_id on creation" do
-    v = FactoryGirl.create(:vote)
+    v = FactoryBot.create(:vote)
     assert v.voter_id?
   end
 
   test "should .generate_voter_id work" do
-    v = FactoryGirl.create(:vote)
+    v = FactoryBot.create(:vote)
     voter_id = v.generate_voter_id
     assert_equal(voter_id.length, 64)
   end
 
   test "sould .generate_message work" do
-    v = FactoryGirl.create(:vote)
+    v = FactoryBot.create(:vote)
     message = v.generate_message
     assert_equal(message.split(':')[0], v.voter_id)
     assert_equal(message.split(':')[2], v.scoped_agora_election_id.to_s)
@@ -61,19 +61,19 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   test "should .generate_hash work" do
-    v = FactoryGirl.create(:vote)
+    v = FactoryBot.create(:vote)
     assert_equal(v.generate_hash("test").length, 64)
   end
 
   test "should .url work" do
-    v = FactoryGirl.create(:vote)
+    v = FactoryBot.create(:vote)
     assert(v.url.starts_with? "https://")
     assert(v.url.length > 64)
   end
 
   test "should .test_url work" do
     WebMock.allow_net_connect!
-    v = FactoryGirl.create(:vote)
+    v = FactoryBot.create(:vote)
     assert(v.test_url.starts_with? "https://")
     assert(v.test_url.length > 64)
     result = Net::HTTP.get(URI.parse(v.test_url))

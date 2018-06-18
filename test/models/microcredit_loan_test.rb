@@ -4,10 +4,10 @@ require 'test_helper'
 class MicrocreditLoanTest < ActiveSupport::TestCase
 
   setup do
-    @user1 = FactoryGirl.create(:user)
-    @user2 = FactoryGirl.create(:user)
-    @loan = FactoryGirl.create(:microcredit_loan)
-    @microcredit = FactoryGirl.create(:microcredit)
+    @user1 = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user)
+    @loan = FactoryBot.create(:microcredit_loan)
+    @microcredit = FactoryBot.create(:microcredit)
   end
 
   def create_loans( microcredit, number, data, update_counted=true )
@@ -63,7 +63,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
   end
 
   test "should after_initialize user work" do
-    loan = FactoryGirl.create(:microcredit_loan, user: @user1)
+    loan = FactoryBot.create(:microcredit_loan, user: @user1)
     assert_equal loan.user, @user1
     #assert_equal loan.document_vatid, @user1.document_vatid
     # TODO: set_user_data on after_initialize
@@ -93,7 +93,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
   test "should validates not passport on loans work" do
     @user1.document_type = 3
     @user1.save
-    microcredit_loan = FactoryGirl.build(:microcredit_loan, user: @user1)
+    microcredit_loan = FactoryBot.build(:microcredit_loan, user: @user1)
     assert_not microcredit_loan.valid?
     error = "No puedes suscribir un microcrédito si no dispones de DNI o NIE."
     assert_equal error, microcredit_loan.errors.messages[:user].first
@@ -102,7 +102,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
   test "should validates age over on loans work" do
     @user1.born_at = DateTime.now-17.years
     @user1.save
-    microcredit_loan = FactoryGirl.build(:microcredit_loan, user: @user1)
+    microcredit_loan = FactoryBot.build(:microcredit_loan, user: @user1)
     assert_not microcredit_loan.valid?
     error = "No puedes suscribir un microcrédito si eres menor de edad."
     assert_equal error, microcredit_loan.errors.messages[:user].first
@@ -146,7 +146,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
     # - confirm an uncounted loan with the phase out of stock of the loan amount, that should not do anything else
 
     # Ending campaign
-    microcredit = FactoryGirl.create(:microcredit)
+    microcredit = FactoryBot.create(:microcredit)
     microcredit.starts_at = DateTime.now-3.month
     microcredit.ends_at = DateTime.now+10.minute
     microcredit.save

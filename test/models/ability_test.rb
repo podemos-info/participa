@@ -3,11 +3,11 @@ require 'test_helper'
 class AbilityTest < ActiveSupport::TestCase
 
   setup do 
-    @user1 = FactoryGirl.create(:user)
-    @user2 = FactoryGirl.create(:user, document_type: 3, document_vatid: "22222D")
-    @admin = FactoryGirl.create(:user, :admin)
-    @superadmin = FactoryGirl.create(:user, :admin, :superadmin)
-    @notice = FactoryGirl.create(:notice)
+    @user1 = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user, document_type: 3, document_vatid: "22222D")
+    @admin = FactoryBot.create(:user, :admin)
+    @superadmin = FactoryBot.create(:user, :admin, :superadmin)
+    @notice = FactoryBot.create(:notice)
   end
 
   test "should not an anon user read any user data" do

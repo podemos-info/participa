@@ -3,7 +3,7 @@ require 'test_helper'
 class SmsValidatorControllerTest < ActionController::TestCase
 
   setup do 
-    @user = FactoryGirl.create(:user, :sms_non_confirmed_user)
+    @user = FactoryBot.create(:user, :sms_non_confirmed_user)
   end
 
   test "should not get steps as anonimous" do
@@ -19,7 +19,7 @@ class SmsValidatorControllerTest < ActionController::TestCase
   end
 
   test "should not get steps as sms_confirmed user if already confirmed" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     user.update_attribute(:sms_confirmed_at, DateTime.now-1.week)
     sign_in user
     get :step1
@@ -29,13 +29,13 @@ class SmsValidatorControllerTest < ActionController::TestCase
   end
 
   test "should get steps as user" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     user.update_attribute(:sms_confirmed_at, nil)
     sign_in user
     get :step1
     assert_response :success
 
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     user.update_attribute(:sms_confirmed_at, DateTime.now-1.month)
     sign_in user
     get :step1
@@ -121,12 +121,12 @@ class SmsValidatorControllerTest < ActionController::TestCase
 
   test "should change vote location from previous user when sms token if user give it OK" do
     with_blocked_change_location do
-      old_user = FactoryGirl.create(:user)
+      old_user = FactoryBot.create(:user)
       old_user.confirm
       old_user.delete
       
       token = 'AAA123'
-      new_user = FactoryGirl.create(:user, :sms_non_confirmed_user, town: "m_03_003_6", document_vatid: old_user.document_vatid, 
+      new_user = FactoryBot.create(:user, :sms_non_confirmed_user, town: "m_03_003_6", document_vatid: old_user.document_vatid,
                                                                     sms_confirmation_token: token, unconfirmed_phone: old_user.phone)
       sign_in new_user
       post :valid, user: { sms_user_token_given: token }

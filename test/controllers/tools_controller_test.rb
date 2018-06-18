@@ -8,7 +8,7 @@ class ToolsControllerTest < ActionController::TestCase
   end
 
   test "should get index as user" do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     sign_in @user
     get :index
     assert_response :success
