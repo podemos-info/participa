@@ -19,7 +19,7 @@ ActiveAdmin.register Election do
   filter :agora_election_id
   filter :user_created_at_max
 
-  show do 
+  show do
     attributes_table do
       row :requires_sms_check do
         status_tag("SMS CHECK", :ok)
@@ -46,7 +46,7 @@ ActiveAdmin.register Election do
       row :starts_at
       row :ends_at
       row :user_created_at_max
-      row :close_message do 
+      row :close_message do
         raw election.close_message
       end
       row "Crear Aviso" do
@@ -89,7 +89,7 @@ ActiveAdmin.register Election do
   member_action :download_voting_definition do
     election_location = ElectionLocation.find(params[:id])
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"#{election_location.new_vote_id}.tsv\"" 
+    headers["Content-Disposition"] = "attachment; filename=\"#{election_location.new_vote_id}.tsv\""
     render "election_location.tsv", layout: false, locals: { election_location: election_location }
   end
 
@@ -126,10 +126,14 @@ ActiveAdmin.register Election do
 
   member_action :download_voter_ids do
     election_id = params[:id]
+    vatid_check = Election.find(election_id).requires_vatid_check?
+    verifying_ids = UserVerification.verifying.pluck(:user_id).uniq.to_set.freeze if vatid_check
+
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       prev_user_id = nil
-      Vote.joins(:user).merge!(User.confirmed.not_banned).where(election_id: election_id).select(:user_id, :voter_id).order(user_id: :asc, created_at: :desc).each do |vote| 
-        csv << [ vote.voter_id ] if prev_user_id != vote.user_id
+      Vote.joins(:user).merge!(User.confirmed.not_banned).where(election_id: election_id).select(:user_id, :voter_id).order(user_id: :asc, created_at: :desc).each do |vote|
+        next if vatid_check && !verifying_ids.include?(vote.user_id) && vote.user.not_verified?
+        csv << [vote.voter_id] if prev_user_id != vote.user_id
         prev_user_id = vote.user_id
       end
     end
@@ -146,7 +150,7 @@ ActiveAdmin.register Election do
       li "Censo activos: #{election.current_active_census}"
       li "Censo actual: #{election.current_total_census}"
       li "Votos de usuarios baneados: #{election.votes.joins(:user).merge(User.banned).count}"
-      li do 
+      li do
         a 'Descargar voter ids', href: download_voter_ids_admin_election_path(election)
       end
     end
@@ -157,7 +161,7 @@ ActiveAdmin.register ElectionLocation do
   menu false
   belongs_to :election
   navigation_menu :default
-    
+
   permit_params :election_id, :location, :agora_version, :new_agora_version, :override, :title, :layout, :description, :share_text, :theme, :has_voting_info,
                 election_location_questions_attributes: [ :id, :_destroy, :title, :description, :voting_system, :layout, :winners, :minimum, :maximum, :random_order, :totals, :options, options_headers: [] ]
 
