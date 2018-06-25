@@ -1,10 +1,11 @@
 class CollaborationsController < ApplicationController
+  helper_method :payment_types
 
   before_action :authenticate_user!
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
- 
+
   def new
-    redirect_to edit_collaboration_path and return if current_user.collaboration 
+    redirect_to edit_collaboration_path and return if current_user.collaboration
     @collaboration = Collaboration.new
     @collaboration.for_town_cc = true
   end
@@ -75,6 +76,15 @@ class CollaborationsController < ApplicationController
   end
 
   private
+
+  def payment_types
+    @payment_types ||= begin
+      ret = Order::PAYMENT_TYPES.to_a
+      ret.reject! { |_, value| value == 1 } unless @collaboration.is_credit_card?
+      ret
+    end
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_collaboration
     @collaboration = current_user.collaboration
@@ -88,10 +98,6 @@ class CollaborationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
-    if current_user.collaboration and current_user.collaboration.has_payment?
-      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :territorial_assignment)
-    else
-      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :territorial_assignment)
-    end
+    params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :territorial_assignment)
   end
 end
