@@ -10,6 +10,16 @@
           <p><%= t("podemos.collaboration.p1") %></p>
       <% end %>
 
+      <% if @collaboration.has_payment? %>
+          <%= error_box "Cambios en la colaboración", false do %>
+            <p>Nos hemos visto en la obligación de desactivar el pago con tarjetas de crédito o débito, dado que realizar las aportaciones de esta forma le acarrea a la entidad financiera muchos problemas a la hora de poder cumplir con las exigencias legales en cuanto a identificación de las entradas ante el Tribunal de Cuentas.
+              <% if @collaboration.is_credit_card? %>
+            Te rogamos que, a fin de evitar este tipo de inconvenientes, modifiques la forma de pago de tu aportación para que pueda ser cobrada a través de recibo domiciliado.
+              <% end %>
+            </p>
+          <% end %>
+      <% end %>
+
       <p> Ya tienes una colaboración. Es la siguiente: </p>
       <%= errors_in_form @collaboration %>
 
@@ -17,17 +27,12 @@
 
       <%= render partial: "form", locals: { f: f } %>
       <%= render partial: "frequency_table" %>
-      <% if @collaboration.has_payment? %>
-          <%= error_box "Cambios en la colaboración", false do %>
-            <p>Si deseas cambiar el método de pago de tu colaboración debes cancelar tu colaboración actual y crear una nueva. </p>
-          <% end %>
-      <% end %>
 
       <div class="js-collaboration-confirm-buttons buttonbox">
         <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?"} %>
         <%= f.action :submit, :label=>"Guardar cambios", :as => :input, button_html: {class: 'button'} %>
       </div>
-      <% end %> 
+      <% end %>
     </div>
   </div>
 </div>
