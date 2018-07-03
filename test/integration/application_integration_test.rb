@@ -3,8 +3,8 @@ require 'test_helper'
 class ApplicationIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
-    @user = FactoryGirl.create(:user)
-    @user_foreign = FactoryGirl.create(:user, :foreign_address)
+    @user = FactoryBot.create(:user)
+    @user_foreign = FactoryBot.create(:user, :foreign_address)
   end
 
   def login user

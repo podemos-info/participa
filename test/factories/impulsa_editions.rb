@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :impulsa_edition do
     name "MyString"
     start_at "2015-09-02"

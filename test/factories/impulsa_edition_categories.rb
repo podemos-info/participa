@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :impulsa_edition_category do
     impulsa_edition nil
     name "MyString"

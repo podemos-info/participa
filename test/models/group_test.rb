@@ -3,7 +3,7 @@ require 'test_helper'
 class GroupTest < ActiveSupport::TestCase
 
   setup do 
-    @group = FactoryGirl.create(:group)
+    @group = FactoryBot.create(:group)
   end
 
   test "should validate presence on name" do
@@ -15,7 +15,7 @@ class GroupTest < ActiveSupport::TestCase
 
   test "a group should have users" do 
     assert_equal @group.users.count, 1
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     @group.users += [ user ]
     assert_equal @group.users.count, 2
   end

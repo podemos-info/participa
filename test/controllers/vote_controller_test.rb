@@ -3,8 +3,8 @@ require 'test_helper'
 class VoteControllerTest < ActionController::TestCase
 
   setup do
-    @user = FactoryGirl.create(:user)
-    @election = FactoryGirl.create(:election)
+    @user = FactoryBot.create(:user)
+    @election = FactoryBot.create(:election)
   end
 
   test "should not get create as anon" do

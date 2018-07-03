@@ -10,7 +10,7 @@ class Collaboration < ActiveRecord::Base
   # FIXME: this should be orders for the inflextions
   # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
   # should have a solid test base before doing this change and review where .order
-  # is called. 
+  # is called.
   #
   # has_many :orders, as: :parent
   has_many :order, as: :parent
@@ -23,7 +23,7 @@ class Collaboration < ActiveRecord::Base
   validates :non_user_email, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
   validates :non_user_document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
   validates :non_user_email, :non_user_document_vatid, :non_user_data, presence: true, if: Proc.new { |c| c.user.nil? }
-    
+
   validate :validates_not_passport
   validate :validates_age_over
   validate :validates_has_user
@@ -36,7 +36,7 @@ class Collaboration < ActiveRecord::Base
   validate :validates_iban, if: :has_iban_account?
 
   AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
-  FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
+  #FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
 
   scope :created, -> { where(deleted_at: nil)  }
@@ -77,13 +77,13 @@ class Collaboration < ActiveRecord::Base
   def has_payment?
     self.status>0
   end
-  
+
   def check_spanish_bic
     self.set_warning! "Marcada como alerta porque el número de cuenta indica un código de entidad inválido o no encontrado en la base de datos de BICs españoles." if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
   end
 
   def validates_not_passport
-    if self.user and self.user.is_passport? 
+    if self.user and self.user.is_passport?
       self.errors.add(:user, "No puedes colaborar si no dispones de DNI o NIE.")
     end
   end
@@ -94,7 +94,7 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def validates_ccc 
+  def validates_ccc
     if self.ccc_entity and self.ccc_office and self.ccc_dc and self.ccc_account
       unless BankCccValidator.validate("#{self.ccc_full}")
         self.errors.add(:ccc_dc, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
@@ -147,11 +147,11 @@ class Collaboration < ActiveRecord::Base
     Collaboration::STATUS.invert[self.status]
   end
 
-  def ccc_full 
+  def ccc_full
     "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}" if ccc_account
   end
 
-  def pretty_ccc_full 
+  def pretty_ccc_full
     "#{"%04d" % ccc_entity} #{"%04d" % ccc_office} #{"%02d" % ccc_dc} #{"%010d" % ccc_account}" if ccc_account
   end
 
@@ -226,7 +226,7 @@ class Collaboration < ActiveRecord::Base
       o.payment_identifier = self.payment_identifier
       if self.for_autonomy_cc && self.user && !self.user.vote_autonomy_code.empty?
         o.autonomy_code = self.user.vote_autonomy_code
-        o.town_code = self.user.vote_town if self.for_town_cc || self.for_island_cc 
+        o.town_code = self.user.vote_town if self.for_town_cc || self.for_island_cc
         o.island_code = self.user.vote_island_code if self.for_island_cc
       end
     end
@@ -264,7 +264,7 @@ class Collaboration < ActiveRecord::Base
     # FIXME: this should be orders for the inflextions
     # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
     # should have a solid test base before doing this change and review where .order
-    # is called. 
+    # is called.
 
     if self.is_payable?
       if error
@@ -274,7 +274,7 @@ class Collaboration < ActiveRecord::Base
       elsif self.order.count >= MAX_RETURNED_ORDERS
         last_order = self.last_order_for(Date.today)
         if last_order
-          last_month = last_order.payable_at.unique_month 
+          last_month = last_order.payable_at.unique_month
         else
           last_month = self.created_at.unique_month
         end
@@ -351,7 +351,7 @@ class Collaboration < ActiveRecord::Base
 
       # valid orders without errors
       valid_orders = month_orders.select {|o| not o.has_errors? }
-      
+
       # if collaboration is active, should create orders, this month should have an order and it doesn't have a valid saved order, create it (not persistent)
       if self.deleted_at.nil? and create_orders and self.must_have_order? current and valid_orders.empty?
         order = self.create_order current, orders.empty?
@@ -399,25 +399,25 @@ class Collaboration < ActiveRecord::Base
     order = self.last_order_for date
     if order and order.payable_at.unique_month == date.unique_month and order.is_chargeable?
       col_user = self.get_user
-      [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ], 
-          col_user.full_name.mb_chars.upcase.to_s, 
-          col_user.document_vatid.upcase, 
-          col_user.email, 
-          col_user.address.mb_chars.upcase.to_s, 
-          col_user.town_name.mb_chars.upcase.to_s, 
-          col_user.postal_code, 
-          col_user.country.upcase, 
-          self.calculate_iban, 
-          self.ccc_full, 
-          self.calculate_bic, 
-          order.amount/100, 
-          order.due_code, 
+      [ "%02d%02d%06d" % [ date.year%100, date.month, order.id%1000000 ],
+          col_user.full_name.mb_chars.upcase.to_s,
+          col_user.document_vatid.upcase,
+          col_user.email,
+          col_user.address.mb_chars.upcase.to_s,
+          col_user.town_name.mb_chars.upcase.to_s,
+          col_user.postal_code,
+          col_user.country.upcase,
+          self.calculate_iban,
+          self.ccc_full,
+          self.calculate_bic,
+          order.amount/100,
+          order.due_code,
           order.url_source,
-          self.id, 
-          self.created_at.strftime("%d-%m-%Y"), 
-          order.reference, 
-          order.payable_at.strftime("%d-%m-%Y"), 
-          self.frequency_name, 
+          self.id,
+          self.created_at.strftime("%d-%m-%Y"),
+          order.reference,
+          order.payable_at.strftime("%d-%m-%Y"),
+          self.frequency_name,
           col_user.full_name.mb_chars.upcase.to_s ]
     end
   end
@@ -482,18 +482,18 @@ class Collaboration < ActiveRecord::Base
       "#{Rails.root}/db/podemos/#{filename}.csv"
     else
       filename
-    end      
+    end
   end
 
   BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.#{Rails.env}.lock"
   def self.bank_file_lock status
-    if status 
+    if status
       folder = File.dirname BANK_FILE_LOCK
       FileUtils.mkdir_p(folder) unless File.directory?(folder)
       FileUtils.touch BANK_FILE_LOCK
     else
       File.delete(BANK_FILE_LOCK) if File.exists? BANK_FILE_LOCK
-    end    
+    end
   end
 
   def self.has_bank_file? date

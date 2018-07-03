@@ -4,8 +4,8 @@ feature "Microcredits" do
 
   scenario "new loan - anonymous user" do
     skip
-    #microcredit = FactoryGirl.create(:microcredit)
-    #user = FactoryGirl.build(:user)
+    #microcredit = FactoryBot.create(:microcredit)
+    #user = FactoryBot.build(:user)
 
     #visit microcredit_path
     #page.must_have_content "Ayúdanos a financiar las campañas electorales"
@@ -36,8 +36,8 @@ feature "Microcredits" do
 
   scenario "new loan - logged in user" do
     skip 
-    #microcredit = FactoryGirl.create(:microcredit)
-    #user = FactoryGirl.create(:user)
+    #microcredit = FactoryBot.create(:microcredit)
+    #user = FactoryBot.create(:user)
 
     #login_as(user)
     #visit microcredit_path

@@ -27,9 +27,9 @@ class Api::V2::UsersControllerTest < ActionController::TestCase
   end
 
   test "GET #me returns user data as json" do
-    application = FactoryGirl.create(:application, scopes: 'public')
-    user = FactoryGirl.create(:user)
-    token = FactoryGirl.create(:access_token, application: application, resource_owner_id: user.id, scopes: 'public')
+    application = FactoryBot.create(:application, scopes: 'public')
+    user = FactoryBot.create(:user)
+    token = FactoryBot.create(:access_token, application: application, resource_owner_id: user.id, scopes: 'public')
 
     get :show, format: :json, access_token: token.token
     assert_equal user.to_json(only: [:id, :admin, :email], methods: [:username, :full_name, :list_groups]), @response.body
