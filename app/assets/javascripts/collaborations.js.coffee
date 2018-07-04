@@ -20,6 +20,14 @@ calculate_collaboration = () ->
   else
     $('.js-collaboration-alert').hide()
 
+change_type_frequency = (type_amount) ->
+    if (type_amount > 0)
+        $('.js-collaboration-type-form-0').show('slide')
+      else
+        $('.js-collaboration-type-form-0').hide()
+
+
+
 change_payment_type = (type) ->
   switch type
     when "2"
@@ -31,6 +39,7 @@ change_payment_type = (type) ->
     else
       $('.js-collaboration-type-form-2').hide()
       $('.js-collaboration-type-form-3').hide()
+
 
 show_assignments = false
 update_assigments = () ->
@@ -44,7 +53,7 @@ update_assigments = () ->
 init_collaborations = () ->
 
   must_reload = $('#js-must-reload')
-  
+
   if (must_reload)
     if (must_reload.val()!="1")
       $("form").on 'submit', (event) ->
@@ -54,7 +63,7 @@ init_collaborations = () ->
       must_reload.val("0")
       $("#js-confirm-button").hide()
       location.reload()
-  
+
   change_payment_type($('.js-collaboration-type').val() || $('.js-collaboration-type').select2('val'))
 
   $('.js-collaboration-type').on 'change', (event) ->
@@ -67,7 +76,7 @@ init_collaborations = () ->
 
   if ($('.js-collaboration-assignment-toggle').length==0)
     show_assignments = true;
-    
+
   update_assigments()
   $('.js-collaboration-assignment-autonomy').on 'change', () ->
     update_assigments()
@@ -82,7 +91,7 @@ init_collaborations = () ->
       $('.js-collaboration-assignment-autonomy input').prop('checked', true)
     else
       $('.js-collaboration-assignment-island input').prop('checked', false)
-      
+
   $('.js-collaboration-assignment-autonomy input').on 'click', () ->
     if (!$(this).prop('checked'))
       $('.js-collaboration-assignment-town input').prop('checked', false)
@@ -92,10 +101,9 @@ init_collaborations = () ->
     if ($(this).prop('checked'))
       $('.js-collaboration-assignment-town input').prop('checked', true)
       $('.js-collaboration-assignment-autonomy input').prop('checked', true)
-      
+
 $(window).bind 'page:change', ->
   init_collaborations()
 
 $ ->
   init_collaborations()
-

@@ -16,7 +16,7 @@ class Collaboration < ActiveRecord::Base
   has_many :order, as: :parent
 
   attr_accessor :skip_queries_validations
-  validates :payment_type, :amount, :frequency, presence: true
+  validates :payment_type, :type_amount, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
   validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
@@ -35,6 +35,7 @@ class Collaboration < ActiveRecord::Base
   validates :iban_account, :iban_bic, presence: true, if: :has_iban_account?
   validate :validates_iban, if: :has_iban_account?
 
+  TYPE_AMOUNT = {"Mensual" => 1, "Puntual" => 0}
   AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
   #FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
