@@ -25,7 +25,14 @@ class CollaborationsControllerTest < ActionController::TestCase
     user = FactoryBot.create(:user)
     sign_in user
     assert_difference('Collaboration.count') do
-      post :create, collaboration: { amount: 500, frequency: 12, payment_type: 1, terms_of_service: 1, minimal_year_old: 1 }
+      post :create, collaboration: {
+        amount: 500,
+        frequency: 12,
+        payment_type: 1,
+        terms_of_service: 1,
+        minimal_year_old: 1,
+        type_amount: :recursive
+      }
     end
     assert_redirected_to confirm_collaboration_path
   end

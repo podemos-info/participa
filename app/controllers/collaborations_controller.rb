@@ -80,7 +80,7 @@ class CollaborationsController < ApplicationController
 
     if @collaboration
       start_date = [@collaboration.created_at, Date.today - 6.months].max
-      @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
+      @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12 / (@collaboration.frequency || 12) - 1)]
       @order = @orders[0][-1]
     end
   end

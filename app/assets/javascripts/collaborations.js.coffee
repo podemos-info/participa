@@ -20,11 +20,12 @@ calculate_collaboration = () ->
   else
     $('.js-collaboration-alert').hide()
 
-change_type_frequency = (type_amount) ->
-    if (type_amount > 0)
-        $('.js-collaboration-type-form-0').show('slide')
-      else
-        $('.js-collaboration-type-form-0').hide()
+change_type_frequency = (type) ->
+  switch type
+    when "recursive"
+      $('.frequency').show('slide')
+    else
+      $('.frequency').hide()
 
 
 
@@ -101,6 +102,12 @@ init_collaborations = () ->
     if ($(this).prop('checked'))
       $('.js-collaboration-assignment-town input').prop('checked', true)
       $('.js-collaboration-assignment-autonomy input').prop('checked', true)
+
+  change_type_frequency($('.js-collaboration-type-amount').val() || "single")
+
+  $('.js-collaboration-type-amount').on 'change', () ->
+    type = $(this).val()
+    change_type_frequency(type)
 
 $(window).bind 'page:change', ->
   init_collaborations()
