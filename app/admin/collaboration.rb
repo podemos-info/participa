@@ -202,7 +202,7 @@ if Rails.application.secrets.features["collaborations"]
   filter :status, :as => :select, :collection => Collaboration::STATUS.to_a
   filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
-  filter :type_amount, :as => :select, :collection => Collaboration::TYPE_AMOUNT.to_a
+  filter :type_amount, :as => :select
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
   filter :created_at
   filter :for_autonomy_cc

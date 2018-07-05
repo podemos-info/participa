@@ -19,21 +19,20 @@
      <%= f.input :type_amount,
                  required: true,
                  as: :select,
-                 collection: Collaboration::TYPE_AMOUNT.to_a,
-                 input_html: {required: true, class: 'js-collaboration-amount'}%>
+		 collection: enum_options_for_select(Collaboration, :type_amount),
+                 input_html: {required: true, class: 'js-collaboration-type-amount'}%>
    </div>
 
-  <div class="inputlabel-box js-collaboration-type-form-0">
+  <div class="inputlabel-box js-collaboration-type-form-0 frequency" style="display: none;">
       <div class="input required form-group">
         <div class="inputlabel-box">
           <% if @collaboration.errors.include?(:frequency) %>
               <%= field_notice_box %>
           <% end %>
           <%= f.input :frequency,
-                      required: true,
                       as: :select,
                       collection: Collaboration::FREQUENCIES.to_a,
-                      input_html: {required: true, class: 'js-collaboration-frequency'} %>
+                      input_html: {class: 'js-collaboration-frequency'} %>
         </div>
       </div>
   </div>

@@ -99,7 +99,7 @@ ActiveAdmin.register Order do
 
   filter :status, :as => :select, :collection => Order::STATUS.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
-  filter :type_amount, :as => :select, :collection => Collaboration::TYPE_AMOUNT.to_a
+  filter :type_amount, :as => :select
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
   filter :first
   filter :payable_at

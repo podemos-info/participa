@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require 'fileutils'
+
 class Collaboration < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
@@ -16,7 +19,10 @@ class Collaboration < ActiveRecord::Base
   has_many :order, as: :parent
 
   attr_accessor :skip_queries_validations
-  validates :payment_type, :type_amount, :amount, :frequency, presence: true
+  validates :payment_type, :amount, :type_amount, presence: true
+  validates :frequency,
+            presence: true,
+            if: ->(collaboration) { collaboration.type_amount == :recursive }
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
   validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
@@ -35,7 +41,8 @@ class Collaboration < ActiveRecord::Base
   validates :iban_account, :iban_bic, presence: true, if: :has_iban_account?
   validate :validates_iban, if: :has_iban_account?
 
-  TYPE_AMOUNT = {"Mensual" => 1, "Puntual" => 0}
+  enum type_amount: %i[single recursive]
+  # TYPE_AMOUNT = {"Mensual" => 1, "Puntual" => 0}
   AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
   #FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4}
@@ -178,7 +185,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_recurrent?
-    true
+    type_amount == :recursive
   end
 
   def is_payable?
@@ -221,7 +228,7 @@ class Collaboration < ActiveRecord::Base
       o.parent = self
       o.reference = "Colaboración " + I18n.localize(date, :format => "%B %Y")
       o.first = is_first
-      o.amount = self.amount*self.frequency
+      o.amount = amount * (frequency || 1)
       o.payable_at = date
       o.payment_type = self.is_credit_card? ? 1 : 3
       o.payment_identifier = self.payment_identifier
@@ -332,7 +339,7 @@ class Collaboration < ActiveRecord::Base
       next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
     end
 
-    (date.unique_month >= next_order) and (date.unique_month-next_order) % self.frequency == 0
+    (date.unique_month >= next_order) && ((date.unique_month - next_order) % (frequency || 1)).zero?
   end
 
   def get_orders date_start=Date.today, date_end=Date.today, create_orders = true
