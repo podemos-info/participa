@@ -16,7 +16,7 @@ include Warden::Test::Helpers
 Warden.test_mode!
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
   include FactoryBot::Syntax::Methods
 end
 

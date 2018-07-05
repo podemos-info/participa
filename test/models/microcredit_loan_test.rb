@@ -161,7 +161,7 @@ class MicrocreditLoanTest < ActiveSupport::TestCase
     # reload l1 from database
     l1 = MicrocreditLoan.find(l1.id)
 
-    assert_not_equal l2.counted_at, nil, "Confirmed loans should be counted now"
-    assert_equal l1.counted_at, nil, "Unconfirmed loans should not be counted now"
+    assert_not_nil l2.counted_at, "Confirmed loans should be counted now"
+    assert_nil l1.counted_at, "Unconfirmed loans should not be counted now"
   end
 end

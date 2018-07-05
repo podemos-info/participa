@@ -49,7 +49,7 @@ class User
     self.verified_at = DateTime.now
     self.verified_by = user
     self.save
-    VerificationMailer.verified(self).deliver
+    VerificationMailer.verified(self).deliver_later
   end
 
   def list_groups

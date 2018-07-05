@@ -290,7 +290,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_response work" do
     @order.save
-    assert_equal nil, @order.redsys_response
+    assert_nil @order.redsys_response
 
     resp = {"Ds_Response" => 0}
     @order.payment_response = resp.to_json
@@ -325,7 +325,7 @@ class OrderTest < ActiveSupport::TestCase
   test "should .redsys_send_request work" do
     # webmock for mock requests
     @order.save
-    assert_equal nil, @order.payment_response
+    assert_nil @order.payment_response
     stub_request(:post, @order.redsys_post_url).to_return(:status => 200, :body => "<!-- +(RSisReciboOK)+ -->", :headers => {})
     @order.redsys_send_request
     assert_equal "[\"RSisReciboOK\"]", @order.payment_response
