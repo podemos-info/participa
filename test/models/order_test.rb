@@ -9,7 +9,7 @@ end
 class OrderTest < ActiveSupport::TestCase
 
   setup do
-    @collaboration = FactoryGirl.create(:collaboration, :ccc)
+    @collaboration = FactoryBot.create(:collaboration, :ccc)
     @order = @collaboration.create_order Date.today, true
   end
 
@@ -198,7 +198,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "should .mark_bank_orders_as_charged! work" do
-    collaboration1 = FactoryGirl.create(:collaboration, :credit_card)
+    collaboration1 = FactoryBot.create(:collaboration, :credit_card)
     order1 = collaboration1.create_order Date.today, true
     order1.save
     Order.mark_bank_orders_as_charged! Date.today
@@ -207,7 +207,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal(0, order1.status)
 
     # shouldnt mark as charged iban type collaboration order
-    collaboration2 = FactoryGirl.create(:collaboration, :iban)
+    collaboration2 = FactoryBot.create(:collaboration, :iban)
     order2 = collaboration2.create_order Date.today, true
     order2.save
     Order.mark_bank_orders_as_charged! Date.today+1.hour
@@ -222,7 +222,7 @@ class OrderTest < ActiveSupport::TestCase
     # shouldnt mark as charged ccc type collaboration order
     assert_equal(0, @order.status)
 
-    collaboration2 = FactoryGirl.create(:collaboration, :iban)
+    collaboration2 = FactoryBot.create(:collaboration, :iban)
     order2 = collaboration2.create_order Date.today, true
     order2.save
 
@@ -290,7 +290,7 @@ class OrderTest < ActiveSupport::TestCase
 
   test "should .redsys_response work" do
     @order.save
-    assert_equal nil, @order.redsys_response
+    assert_nil @order.redsys_response
 
     resp = {"Ds_Response" => 0}
     @order.payment_response = resp.to_json
@@ -325,7 +325,7 @@ class OrderTest < ActiveSupport::TestCase
   test "should .redsys_send_request work" do
     # webmock for mock requests
     @order.save
-    assert_equal nil, @order.payment_response
+    assert_nil @order.payment_response
     stub_request(:post, @order.redsys_post_url).to_return(:status => 200, :body => "<!-- +(RSisReciboOK)+ -->", :headers => {})
     @order.redsys_send_request
     assert_equal "[\"RSisReciboOK\"]", @order.payment_response

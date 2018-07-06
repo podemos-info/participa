@@ -3,8 +3,8 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   setup do 
-    @user = FactoryGirl.create(:user)
-    @admin = FactoryGirl.create(:user, :admin)
+    @user = FactoryBot.create(:user)
+    @admin = FactoryBot.create(:user, :admin)
   end
 
   test "should validate presence:true" do
@@ -39,56 +39,56 @@ class UserTest < ActiveSupport::TestCase
 
   test "should email be unique" do
     error_message = I18n.t "activerecord.errors.models.user.attributes.email.taken"
-    user2 = FactoryGirl.build(:user, email: @user.email)
+    user2 = FactoryBot.build(:user, email: @user.email)
     user2.valid?
     assert(user2.errors[:email].include? error_message)
 
-    user2 = FactoryGirl.build(:user, email: "newuniqueemail@example.com")
+    user2 = FactoryBot.build(:user, email: "newuniqueemail@example.com")
     assert(user2.errors[:email] == [])
   end
 
   test "should validate email format" do
-    user = FactoryGirl.build :user, email: "right_format@example.com"
+    user = FactoryBot.build :user, email: "right_format@example.com"
     user.valid?
     assert_equal [], user.errors[:email], "Right format detected as invalid"
 
-    user = FactoryGirl.build :user, email: "Right.Format.2@example.com"
+    user = FactoryBot.build :user, email: "Right.Format.2@example.com"
     user.valid?
     assert_equal [], user.errors[:email], "Right format detected as invalid"
 
-    user = FactoryGirl.build :user, email: "stránge_chars@example.com"
+    user = FactoryBot.build :user, email: "stránge_chars@example.com"
     user.valid?
     assert_equal ["La dirección de correo no puede contener acentos, eñes u otros caracteres especiales"], user.errors[:email], "Strange chars not detected"
 
-    user = FactoryGirl.build :user, email: "STRÁNGE_CHARS@EXAMPLE.COM"
+    user = FactoryBot.build :user, email: "STRÁNGE_CHARS@EXAMPLE.COM"
     user.valid?
     assert_equal ["La dirección de correo no puede contener acentos, eñes u otros caracteres especiales"], user.errors[:email], "Strange chars not detected"
 
-    user = FactoryGirl.build :user, email: "double..dot@example.com"
+    user = FactoryBot.build :user, email: "double..dot@example.com"
     user.valid?
     assert_equal ["La dirección de correo no puede contener dos puntos seguidos"], user.errors[:email], "Dot-dot not detected"
 
-    user = FactoryGirl.build :user, email: ".firstchar@example.com"
+    user = FactoryBot.build :user, email: ".firstchar@example.com"
     user.valid?
     assert_equal ["La dirección de correo debe comenzar con un número o una letra"], user.errors[:email], "First letter invalid not detected"
 
-    user = FactoryGirl.build :user, email: "lastchar@example.com."
+    user = FactoryBot.build :user, email: "lastchar@example.com."
     user.valid?
     assert_equal ["La dirección de correo debe acabar con una letra"], user.errors[:email], "Wrong domain not detected"
 
-    user = FactoryGirl.build :user, email: "lastchar@example,com"
+    user = FactoryBot.build :user, email: "lastchar@example,com"
     user.valid?
     assert_equal ["La dirección de correo contiene caracteres inválidos"], user.errors[:email], "Comma in domain not detected"
 
-    user = FactoryGirl.build :user, email: "last,char@example.com"
+    user = FactoryBot.build :user, email: "last,char@example.com"
     user.valid?
     assert_equal ["La dirección de correo contiene caracteres inválidos"], user.errors[:email], "Unescaped comma in local not detected"
 
-    user = FactoryGirl.build :user, email: "\"last,char\"@example.com"
+    user = FactoryBot.build :user, email: "\"last,char\"@example.com"
     user.valid?
     assert_equal [], user.errors[:email], "Quoted comma in local detected as invalid"
 
-    user = FactoryGirl.build :user, email: "wrong_domain@examplecom"
+    user = FactoryBot.build :user, email: "wrong_domain@examplecom"
     user.valid?
     assert_equal ["La dirección de correo es incorrecta"], user.errors[:email], "Wrong domain (no dots) not detected"
   end
@@ -97,22 +97,22 @@ class UserTest < ActiveSupport::TestCase
     error_message = I18n.t "activerecord.errors.models.user.attributes.document_vatid.taken"
 
     # try to save with the same document
-    user1 = FactoryGirl.create(:user)
-    user2 = FactoryGirl.build(:user, document_vatid: user1.document_vatid)
+    user1 = FactoryBot.create(:user)
+    user2 = FactoryBot.build(:user, document_vatid: user1.document_vatid)
     user2.valid?
     assert(user2.errors[:document_vatid].include? error_message)
 
     # downcase ( minusculas )
-    user3 = FactoryGirl.build(:user, document_vatid: user1.document_vatid.downcase)
+    user3 = FactoryBot.build(:user, document_vatid: user1.document_vatid.downcase)
     user3.valid?
     assert(user3.errors[:document_vatid].include? error_message)
 
     # spaces
-    user4 = FactoryGirl.build(:user, document_vatid: " #{user1.document_vatid.downcase} ")
+    user4 = FactoryBot.build(:user, document_vatid: " #{user1.document_vatid.downcase} ")
     user4.valid?
     assert(user4.errors[:document_vatid].include? error_message)
 
-    user5 = FactoryGirl.build(:user)
+    user5 = FactoryBot.build(:user)
     assert(user5.valid?)
   end
 
@@ -172,7 +172,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not u.is_admin?
     assert_not @user.is_admin?
     assert @admin.is_admin?
-    new_admin = FactoryGirl.create(:user, document_type: 3, document_vatid: '2222222')
+    new_admin = FactoryBot.create(:user, document_type: 3, document_vatid: '2222222')
     assert_not new_admin.is_admin?
     new_admin.update_attribute(:admin, true)
     assert new_admin.is_admin?
@@ -220,7 +220,7 @@ class UserTest < ActiveSupport::TestCase
     test "should validates_unconfirmed_phone_phone_uniqueness work" do
       phone = "0034612345678"
       @user.update_attribute(:phone, phone)
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       user.unconfirmed_phone = phone
       assert_not user.valid?
       assert user.errors[:phone].include?("Ya hay alguien con ese número de teléfono")
@@ -303,7 +303,7 @@ class UserTest < ActiveSupport::TestCase
   test "should .check_sms_token work ban user with spam data" do
     u = User.new
     u.set_sms_token!
-    spam = FactoryGirl.create(:spam_filter)
+    spam = FactoryBot.create(:spam_filter)
     u.unconfirmed_phone = "0034661234567"
     u.phone = nil
     u.set_sms_token!
@@ -345,9 +345,9 @@ class UserTest < ActiveSupport::TestCase
 
   test "should scope .wants_newsletter work" do 
     assert_equal 2, User.wants_newsletter.count
-    FactoryGirl.create(:user, :no_newsletter_user)
+    FactoryBot.create(:user, :no_newsletter_user)
     assert_equal 2, User.wants_newsletter.count
-    FactoryGirl.create(:user, :newsletter_user)
+    FactoryBot.create(:user, :newsletter_user)
     assert_equal 3, User.wants_newsletter.count
   end
 
@@ -362,79 +362,79 @@ class UserTest < ActiveSupport::TestCase
   test "should scope uniqueness with paranoia" do 
     @user.destroy
     # allow save after the @user is destroyed but is with deleted_at
-    user1 = FactoryGirl.build(:user, email: @user.email, email_confirmation: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    user1 = FactoryBot.build(:user, email: @user.email, email_confirmation: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
     user1.valid?
     assert user1.valid?
     user1.save
 
 
     # don't allow save after the @user is created again (uniqueness is working)
-    user2 = FactoryGirl.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    user2 = FactoryBot.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
     assert_not user2.valid?
   end
 
   test "should uniqueness work" do 
-    user = FactoryGirl.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
+    user = FactoryBot.build(:user, email: @user.email, document_vatid: @user.document_vatid, phone: @user.phone)
     assert_not user.valid?
     assert_not_nil user.errors.include? :email
     assert_not_nil user.errors.include? :document_vatid
     assert_not_nil user.errors.include? :phone
 
-    user = FactoryGirl.build(:user, email: "testwithnewmail@example.com", phone: "0034661234567")
+    user = FactoryBot.build(:user, email: "testwithnewmail@example.com", phone: "0034661234567")
     assert user.valid?
   end
 
   test "should uniqueness not be case sensitive" do 
-    user = FactoryGirl.build(:user, document_vatid: @user.document_vatid.downcase)
+    user = FactoryBot.build(:user, document_vatid: @user.document_vatid.downcase)
     assert_not user.valid?
-    user = FactoryGirl.build(:user, document_vatid: @user.document_vatid.upcase)
+    user = FactoryBot.build(:user, document_vatid: @user.document_vatid.upcase)
     assert_not user.valid?
   end
 
   test "should email confirmation work" do 
-    user = FactoryGirl.build(:user, email_confirmation: nil)
+    user = FactoryBot.build(:user, email_confirmation: nil)
     user.valid?
     assert_not user.valid?
     assert user.errors[:email_confirmation].include? "no puede estar en blanco"
 
-    user = FactoryGirl.build(:user, email_confirmation: "notthesameemail@gmail.com")
+    user = FactoryBot.build(:user, email_confirmation: "notthesameemail@gmail.com")
     user.valid?
     assert_not user.valid?
     assert user.errors[:email_confirmation].include? "no coincide con la confirmación"
   end
 
   test "should be over 18 on born_at" do 
-    user = FactoryGirl.build(:user, born_at: Date.today-17.years)
+    user = FactoryBot.build(:user, born_at: Date.today-17.years)
     user.valid?
     assert_not user.valid?
     assert user.errors[:born_at].include? "debes ser mayor de 18 años"
   end 
 
   test "should province_name work with all kind of profile data" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     assert_equal("Madrid", user.province_name)
-    user = FactoryGirl.build(:user, country: "FR", province: "A")
+    user = FactoryBot.build(:user, country: "FR", province: "A")
     assert_equal("Alsace", user.province_name)
-    user = FactoryGirl.build(:user, country: "España", province: "Madrid")
+    user = FactoryBot.build(:user, country: "España", province: "Madrid")
     assert_equal("Madrid", user.province_name)
-    user = FactoryGirl.build(:user, town: "Patata")
+    user = FactoryBot.build(:user, town: "Patata")
     assert_equal("Madrid", user.province_name)
-    user = FactoryGirl.build(:user, province: "Patata")
+    user = FactoryBot.build(:user, province: "Patata")
     assert_equal("Madrid", user.province_name)
   end
 
   test "should province_code work with invalid data" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     user.update_attributes(town: "Prueba", province: "tt")
     assert_equal("", user.province_code)    
   end
 
   test "should vote_town_name, vote_province_name and vote_autonomy_name work" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     assert_equal("Madrid", user.vote_town_name)
     assert_equal("Madrid", user.vote_province_name)
     assert_equal("Comunidad de Madrid", user.vote_autonomy_name)
-    user = FactoryGirl.create(:user, town: "m_01_001_4")
+    user = FactoryBot.create(:user, town: "m_01_001_4")
     assert_equal("Alegría-Dulantzi", user.vote_town_name)
     assert_equal("Araba/Álava", user.vote_province_name)
     #assert_equal("", user.vote_ca_name)
@@ -459,7 +459,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should update vote_town when changes the town, from foreign country to Spain" do 
-    user = FactoryGirl.build(:user, :foreign_address)
+    user = FactoryBot.build(:user, :foreign_address)
     user.save
     user.country = "ES"
     user.province = "SA"
@@ -495,7 +495,7 @@ class UserTest < ActiveSupport::TestCase
   #
 
   test "should get_or_create_vote for elections work" do 
-    e1 = FactoryGirl.create(:election)
+    e1 = FactoryBot.create(:election)
     v1 = @user.get_or_create_vote(e1.id)
     sleep(2)
     v2 = @user.get_or_create_vote(e1.id)
@@ -503,7 +503,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal( v1.voter_id, v2.voter_id )
    
     # same election id, different scope, different voter_id
-    e2 = FactoryGirl.create(:election, :town)
+    e2 = FactoryBot.create(:election, :town)
     v3 = @user.get_or_create_vote(e2.id)
     sleep(2)
     v4 = @user.get_or_create_vote(e2.id)
@@ -524,14 +524,14 @@ class UserTest < ActiveSupport::TestCase
 
   test "should not change vote location to a user without old user" do
     with_blocked_change_location do
-      new_user = FactoryGirl.create(:user, town: "m_03_003_6" )
+      new_user = FactoryBot.create(:user, town: "m_03_003_6" )
       new_user.apply_previous_user_vote_location
       assert_equal "m_03_003_6", new_user.vote_town, "New user vote location should not be changed"
     end
   end
 
   test "should list_groups work correctly" do 
-    group = FactoryGirl.create(:group, name: "new WORLD ORDER!!")
+    group = FactoryBot.create(:group, name: "new WORLD ORDER!!")
     u = group.users.first
     assert_equal ["new-world-order"], u.list_groups
   end

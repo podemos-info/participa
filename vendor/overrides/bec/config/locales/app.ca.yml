@@ -66,7 +66,8 @@ ca:
         user: "Usuari/ària"
         created_at: "Creada el"
         updated_at: "Actualitzada el"
-        amount: "Import mensual"
+        type_amount: "Tipus d'import"
+        amount: "Import"
         frequency: "Freqüència de pagament"
         frequency_name: "Freqüència de pagament"
         minimal_year_old: "Edat mínima requerida"
@@ -191,7 +192,10 @@ La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona 
       freq:
         first: "Mensual"
         second: "Trimestral"
-        third: "Annual"
+        third: "Anual"
+      freq2:
+        first: "Mensual"
+        third: "Puntual"
       order:
         cc: "Suscripción con Tarjeta de Crédito/Débito"
         ccc: Domiciliació amb compte bancari (format CCC)
@@ -689,7 +693,7 @@ Amb tres passos molt senzills:
     pending5_html: i també
     pending6_html: "<li><b>empadronament</b>,</li><li><b>targeta censal</b></li><li> o qualsevol <b>rebut</b></li><li> (llum, aigua o gas)</li><li> de l'últim any.</li>"
     pending7_html: "Porta la documentació a:"
-    pending8_html: ""
+    pending8_html: "Actualment les verificacions estan tancades, es reactivaran el dilluns 13 de novembre.<br>La verificació presencial pot fer-se al local de Barcelona En Comú (carrer Marina 131-133 baixos) de 10 h a 19 h."
     title: Verificació
     step1: Documents
     step2: Cerca
@@ -730,7 +734,7 @@ Amb tres passos molt senzills:
       age: "L'inscrit/a és major de 16 anys - nascut abans de %{date}"
       town: "He verificat un document (DNI/NIE/Passaport, rebut d'un subministrament) que acredita que l'inscrit/a viu a Barcelona."
   tools:
-    index: 
+    index:
       title: "Eines de participació ciutadana"
     tool_box:
       box1:

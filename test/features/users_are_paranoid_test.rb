@@ -28,7 +28,7 @@ end
 feature "UsersAreParanoid" do
 
   scenario "create a user", js: true do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
     # XXX pasca - comento validaciones de momento, investigar porqué no se
     # guarda el user, puede ser por el captcha??
     skip

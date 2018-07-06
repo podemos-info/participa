@@ -159,10 +159,10 @@ GEM
       nokogiri (>= 1.4.4.1)
     eventmachine (1.0.9.1)
     execjs (2.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.10.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.10.0)
+      factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
     ffi (1.9.18)
     ffi-icu (0.1.10)
@@ -272,6 +272,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     pg (0.21.0)
+    phantomjs (2.1.1.0)
     phone (1.2.3)
     poltergeist (1.16.0)
       capybara (~> 2.1)
@@ -453,7 +454,7 @@ DEPENDENCIES
   devise
   doorkeeper
   esendex
-  factory_girl_rails
+  factory_bot_rails
   ffi-icu
   flag_shih_tzu
   font-awesome-rails
@@ -463,7 +464,7 @@ DEPENDENCIES
   iban-tools
   jbuilder (~> 2.0)
   jquery-rails
-  kaminari
+  kaminari (~> 0.15)
   launchy
   mailcatcher
   minitest-rails
@@ -475,6 +476,7 @@ DEPENDENCIES
   paperclip
   paranoia!
   pg
+  phantomjs
   phone
   poltergeist
   pushmeup

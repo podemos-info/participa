@@ -2,9 +2,9 @@ class CollaborationsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
- 
+
   def new
-    redirect_to edit_collaboration_path and return if current_user.collaboration 
+    redirect_to edit_collaboration_path and return if current_user.collaboration
     @collaboration = Collaboration.new
   end
 
@@ -80,7 +80,7 @@ class CollaborationsController < ApplicationController
 
     if @collaboration
       start_date = [@collaboration.created_at, Date.today - 6.months].max
-      @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
+      @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12 / (@collaboration.frequency || 12) - 1)]
       @order = @orders[0][-1]
     end
   end
@@ -88,9 +88,9 @@ class CollaborationsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def collaboration_params
     if current_user.collaboration and current_user.collaboration.has_payment?
-      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc, :for_island_cc)
+      params.require(:collaboration).permit(:amount, :type_amount, :frequency, :terms_of_service, :minimal_year_old, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc, :for_island_cc)
     else
-      params.require(:collaboration).permit(:amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc, :for_island_cc)
+      params.require(:collaboration).permit(:amount, :type_amount, :frequency, :terms_of_service, :minimal_year_old, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic, :for_autonomy_cc, :for_town_cc, :for_island_cc)
     end
   end
 end
