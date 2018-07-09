@@ -17,7 +17,7 @@ class PageController < ApplicationController
     @current_elections = Election.active
     election = @current_elections.select {|election| election.meta_description if !election.meta_description.blank? } .first
 
-    
+
     @meta_description = Rails.application.secrets.metas["description"] if @meta_description.nil?
     @meta_image = Rails.application.secrets.metas["image"] if @meta_description.nil?
   end
@@ -29,10 +29,10 @@ class PageController < ApplicationController
     @meta_image = @page.meta_image if !@page.meta_image.blank?
     if @page.require_login && !user_signed_in?
       flash[:metas] = { description: @meta_description, image: @meta_image }
-      authenticate_user! 
+      authenticate_user!
     end
 
-    if /https:\/\/[a-z]*\.podemos.info\/.*/.match(@page.link)
+    if /https:\/\/[^\/]*\.podemos.info\/.*/.match(@page.link)
       render :formview_iframe, locals: { title: @page.title, url: add_user_params(@page.link) }
     else
       render :form_iframe, locals: { title: @page.title, url: form_url(@page.id_form) }
