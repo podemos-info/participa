@@ -1,61 +1,59 @@
 <%= content_for :title, t("bec.user.personal_data") %>
 
-<div class="content">
-  <div class="content-content cols">
-    <div class="row">
-      <div class="col-b-4a12">
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
 
-        <nav id="personal-data-submenu" class="submenu">
-          <ul>
-            <li class="active">
-              <a href="#personal-data" class="js-change-tab">
-                <span><%= t("bec.user.personal_data")%></span>
-              </a>
-            </li>
-            <li>
-              <a href="#change-password" class="js-change-tab">
-                <span><%=t("bec.user.change_password") %></span>
-              </a>
-            </li>
-            <li>
-              <a href="#change-email" class="js-change-tab">
-                <span><%=t("bec.user.change_email") %></span>
-              </a>
-            </li>
-            <% if Rails.application.secrets.features["verification_sms"] %>
-              <li>
-                <a href="#change-phone" class="js-change-tab">
-                  <span><%=t("bec.user.change_phone") %></span>
-                </a>
-              </li>
-            <% end %>
-            <li>
-              <a href="#cancel-account" class="js-change-tab">
-                <span><%= t("bec.user.cancel_account") %></span>
-              </a>
-            </li>
-          </ul>
-        </nav><%#!--.submenu--%>
-
-
-        <div id="personal-data-content">
-          <div class="js-personal-content" id="personal-data">
-            <%= render partial: 'personal_data' %>
-          </div>
-          <div id="change-password" class="invisible js-personal-content">
-            <%= render partial: 'change_password' %>
-          </div>
-          <div id="change-email" class="invisible js-personal-content">
-            <%= render partial: 'change_email' %>
-          </div>
+      <nav id="personal-data-submenu" class="submenu">
+        <ul>
+          <li class="active">
+            <a href="#personal-data" class="js-change-tab">
+              <span><%= t("bec.user.personal_data")%></span>
+            </a>
+          </li>
+          <li>
+            <a href="#change-password" class="js-change-tab">
+              <span><%=t("bec.user.change_password") %></span>
+            </a>
+          </li>
+          <li>
+            <a href="#change-email" class="js-change-tab">
+              <span><%=t("bec.user.change_email") %></span>
+            </a>
+          </li>
           <% if Rails.application.secrets.features["verification_sms"] %>
-            <div id="change-phone" class="invisible js-personal-content">
-              <%= render partial: 'change_phone' %>
-            </div>
+            <li>
+              <a href="#change-phone" class="js-change-tab">
+                <span><%=t("bec.user.change_phone") %></span>
+              </a>
+            </li>
           <% end %>
-          <div id="cancel-account" class="invisible js-personal-content">
-            <%= render partial: 'cancel_account' %>
+          <li>
+            <a href="#cancel-account" class="js-change-tab">
+              <span><%= t("bec.user.cancel_account") %></span>
+            </a>
+          </li>
+        </ul>
+      </nav><%#!--.submenu--%>
+
+
+      <div id="personal-data-content">
+        <div class="js-personal-content" id="personal-data">
+          <%= render partial: 'personal_data' %>
+        </div>
+        <div id="change-password" class="invisible js-personal-content">
+          <%= render partial: 'change_password' %>
+        </div>
+        <div id="change-email" class="invisible js-personal-content">
+          <%= render partial: 'change_email' %>
+        </div>
+        <% if Rails.application.secrets.features["verification_sms"] %>
+          <div id="change-phone" class="invisible js-personal-content">
+            <%= render partial: 'change_phone' %>
           </div>
+        <% end %>
+        <div id="cancel-account" class="invisible js-personal-content">
+          <%= render partial: 'cancel_account' %>
         </div>
       </div>
     </div>
