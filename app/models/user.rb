@@ -754,4 +754,7 @@ class User < ActiveRecord::Base
     VerificationMailer.verified(self).deliver_later
   end
 
+  def age
+    ((Time.zone.now - born_at.to_time) / 1.year.seconds).floor
+  end
 end
