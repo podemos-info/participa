@@ -12,7 +12,7 @@ def show_order o, html_output = true
             else
               "~"
             end
-  otext = link_to(otext, admin_order_path(o)).html_safe if o.persisted? and html_output
+  otext = link_to(otext, admin_order_path(o)).html_safe if o.id && html_output
   otext
 end
 
@@ -28,7 +28,7 @@ def show_collaboration_orders(collaboration, html_output = true)
     else
       month + month_orders
     end
-  end) .join(" ")
+  end) .join(' ')
 
   html_output ? output.html_safe : output
 end
@@ -82,9 +82,7 @@ if Rails.application.secrets.features["collaborations"]
         collaboration.get_user.full_name
       end
     end
-    column :type_amount, sortable: :type_amount do |collaboration|
-      collaboration.type_amount==1 ? "Mensual" : "Puntual"
-    end
+    column :type_amount, sortable: :type_amount
     column :amount, sortable: :amount do |collaboration|
       number_to_euro collaboration.amount
     end
@@ -202,7 +200,7 @@ if Rails.application.secrets.features["collaborations"]
   filter :status, :as => :select, :collection => Collaboration::STATUS.to_a
   filter :frequency, :as => :select, :collection => Collaboration::FREQUENCIES.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
-  filter :type_amount, :as => :select
+  filter :type_amount, as: :select, collection: Collaboration.type_amounts
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
   filter :created_at
   filter :for_autonomy_cc
@@ -215,9 +213,7 @@ if Rails.application.secrets.features["collaborations"]
         collaboration.get_user
       end
       row :payment_type_name
-      row :type_amount do
-        collaboration.type_amount==1 ? "Mensual" : "Puntual"
-      end
+      row :type_amount
       row :amount do
         number_to_euro collaboration.amount
       end
@@ -290,9 +286,7 @@ if Rails.application.secrets.features["collaborations"]
         column :status do |order|
           order.status_name
         end
-        column :type_amount do |order|
-          order.type_amount
-        end
+        column :type_amount
         column :amount do |order|
           number_to_euro order.amount
         end
@@ -307,7 +301,7 @@ if Rails.application.secrets.features["collaborations"]
     f.inputs "Colaboración" do
       f.input :user_id
       f.input :status, as: :select, collection: Collaboration::STATUS.to_a
-      f.input :type_amount, as: :radio, collection: Collaboration::TYPE_AMOUNT.to_a
+      f.input :type_amount
       f.input :amount, as: :radio, collection: Collaboration::AMOUNTS.to_a #, input_html: {disabled: true}
       f.input :frequency, as: :radio, collection: Collaboration::FREQUENCIES.to_a #, input_html: {disabled: true}
       f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a #, input_html: {disabled: true}
