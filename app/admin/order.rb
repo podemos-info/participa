@@ -50,9 +50,6 @@ ActiveAdmin.register Order do
         order.parent.get_user
       end
     end
-    column :type_amount, sortable: :type_amount do |order|
-      order.type_amount==1 ? "Mensual" : "Puntual"
-    end
     column :amount do |order|
       number_to_euro order.amount
     end
@@ -74,9 +71,6 @@ ActiveAdmin.register Order do
       end
       row :parent
       row :parent_type
-      row :type_amount do
-        order.type_amount==1 ? "Mensual" : "Puntual"
-      end
       row :amount do |order|
         number_to_euro order.amount
       end
@@ -99,7 +93,6 @@ ActiveAdmin.register Order do
 
   filter :status, :as => :select, :collection => Order::STATUS.to_a
   filter :payment_type, :as => :select, :collection => Order::PAYMENT_TYPES.to_a
-  filter :type_amount, :as => :select
   filter :amount, :as => :select, :collection => Collaboration::AMOUNTS.to_a
   filter :first
   filter :payable_at
@@ -112,7 +105,6 @@ ActiveAdmin.register Order do
     f.inputs "Order" do
       f.input :status, as: :select, collection: Order::STATUS.to_a
       f.input :reference
-      f.input :type_amount
       f.input :amount
       f.input :first
       f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a
@@ -171,7 +163,6 @@ ActiveAdmin.register Order do
     column :deleted_at
     column :created_at
     column :reference
-    column :type_amount
     column :amount
     column :first
     column :payment_type_name
