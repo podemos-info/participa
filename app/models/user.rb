@@ -755,6 +755,7 @@ class User < ActiveRecord::Base
   end
 
   def age
-    ((Time.zone.now - born_at.to_time) / 1.year.seconds).floor
+    18 if born_at.nil?
+    ((Time.zone.now - born_at.to_time) / 1.year.seconds).floor if born_at
   end
 end
