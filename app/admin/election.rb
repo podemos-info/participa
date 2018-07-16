@@ -126,13 +126,10 @@ ActiveAdmin.register Election do
 
   member_action :download_voter_ids do
     election_id = params[:id]
-    vatid_check = Election.find(election_id).requires_vatid_check?
-    verifying_ids = UserVerification.verifying.pluck(:user_id).uniq.to_set.freeze if vatid_check
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       prev_user_id = nil
       Vote.joins(:user).merge!(User.confirmed.not_banned).where(election_id: election_id).select(:user_id, :voter_id).order(user_id: :asc, created_at: :desc).each do |vote|
-        next if vatid_check && !verifying_ids.include?(vote.user_id) && vote.user.not_verified?
         csv << [vote.voter_id] if prev_user_id != vote.user_id
         prev_user_id = vote.user_id
       end
