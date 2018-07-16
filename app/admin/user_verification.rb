@@ -239,30 +239,29 @@ end
       ids = $redis.hkeys :processing
       ids.each do |i|
         verification = UserVerification.find(i)
-        $redis.hdel(:processing, i) if verification and !verification.active?
+        $redis.hdel(:processing, i) if verification && !verification.active?
       end
     end
 
     def update
       verification = resource
       current_verifier = verification.get_current_verifier
-      if (current_user.verifier? or current_user.is_admin?) and verification.active? and current_user == current_verifier
+      if (current_user.verifier? || current_user.is_admin?) && verification.active? && current_user == current_verifier
         super do |format|
           # UserVerification.discardable.where('user_id = ?',resource.user.id).each do |verification|
           #   verification.status = :discarded
           #   verification.save!
           # end
           case UserVerification.statuses[verification.status]
-            when UserVerification.statuses[:accepted]
-              if current_user.is_admin? or current_user.verifier?
-                u = User.find( verification.user_id )
-                u.verified = true
-                u.banned = false
-                u.save
-                UserVerificationMailer.on_accepted(verification.user_id).deliver_now
-              end
-            when UserVerification.statuses[:rejected]
-              UserVerificationMailer.on_rejected(verification.user_id).deliver_now if current_user.is_admin?
+          when UserVerification.statuses[:accepted]
+            if current_user.is_admin? || current_user.verifier?
+              u = User.find(verification.user_id)
+              u.update_flag!(:verified, true, true)
+              u.update_flag!(:banned, false, true)
+              UserVerificationMailer.on_accepted(verification.user_id).deliver_now
+            end
+          when UserVerification.statuses[:rejected]
+            UserVerificationMailer.on_rejected(verification.user_id).deliver_now if current_user.is_admin?
           end
           verification.author_id = current_user.id
           verification.save!
