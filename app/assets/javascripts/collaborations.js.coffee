@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
-#= require jquery-maskmoney/dist/jquery.maskMoney
+#= require jquery.maskMoney
 
 calculate_collaboration = () ->
   $freq = $('.js-collaboration-frequency option:selected')
