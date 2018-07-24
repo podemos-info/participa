@@ -252,6 +252,8 @@ es:
         created_at: "Creada el"
         updated_at: "Actualizada el"
         amount: "Importe mensual"
+        amount_collector: "Importe"
+        amount_holder: "Importe personalizado"
         single: "Puntual"
         recursive: "Recurrente"
         frequency: "Frecuencia de pago"

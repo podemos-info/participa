@@ -1,17 +1,12 @@
-def show_order o, html_output = true
-  otext  = if o.has_errors?
-              "x"
-            elsif o.has_warnings?
-              "!"
-            elsif o.is_paid?
-              "o"
-            elsif o.was_returned?
-              "d"
-            elsif o.is_chargeable? or not o.persisted?
-              "_"
-            else
-              "~"
-            end
+# frozen_string_literal: true 
+
+def show_order(o, html_output = true)
+  otext = '~'
+  otext = '_' if o.is_chargeable?
+  otext = 'x' if o.has_errors?
+  otext = '!' if o.has_warnings?
+  otext = 'o' if o.is_paid?
+  otext = 'd' if o.was_returned?
   otext = link_to(otext, admin_order_path(o)).html_safe if o.id && html_output
   otext
 end
@@ -34,13 +29,12 @@ def show_collaboration_orders(collaboration, html_output = true)
 end
 
 def use_resque
-  return Rails.application.secrets.features["use_resque"]
+  Rails.application.secrets.features['use_resque']
 end
 
-
 ActiveAdmin.register Collaboration do
-if Rails.application.secrets.features["collaborations"]
-    menu :parent => "Colaboraciones"
+  if Rails.application.secrets.features['collaborations']
+    menu parent: 'Colaboraciones'
   else
     menu false
   end
@@ -48,29 +42,45 @@ if Rails.application.secrets.features["collaborations"]
   scope_to Collaboration, association_method: :full_view
   config.sort_order = 'updated_at_desc'
 
-  menu :parent => "Colaboraciones"
+  menu parent: 'Colaboraciones'
 
-  permit_params  :user_id, :status, :type_amount, :amount, :frequency, :payment_type, :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, :iban_account, :iban_bic,
-    :redsys_identifier, :redsys_expiration, :for_autonomy_cc, :for_town_cc, :for_island_cc
+  permit_params %i[
+    amount
+    ccc_account
+    ccc_dc
+    ccc_entity
+    ccc_office
+    for_autonomy_cc
+    for_island_cc
+    for_town_cc
+    frequency
+    iban_account
+    iban_bic
+    payment_type
+    redsys_expiration
+    redsys_identifier
+    status
+    type_amount
+    user_id
+  ]
+  actions :all, except: %i[new]
 
-  actions :all, :except => [:new]
-
+  scope :active
+  scope :autonomy_cc
+  scope :bank_internationals
+  scope :bank_nationals
   scope :created, default: true
   scope :credit_cards
-  scope :bank_nationals
-  scope :bank_internationals
-  scope :incomplete
-  scope :unconfirmed
-  scope :active
-  scope :warnings
+  scope :deleted
   scope :errors
-  scope :suspects
+  scope :incomplete
+  scope :island_cc
   scope :legacy
   scope :non_user
-  scope :deleted
-  scope :autonomy_cc
+  scope :suspects
   scope :town_cc
-  scope :island_cc
+  scope :unconfirmed
+  scope :warnings
 
   index download_links: -> { current_user.is_admin? && current_user.finances_admin? } do
     selectable_column
@@ -90,34 +100,34 @@ if Rails.application.secrets.features["collaborations"]
       show_collaboration_orders collaboration
     end
     column :created_at, sortable: :created_at do |collaboration|
-      collaboration.created_at.strftime "%d-%m-%y %H-%M"
+      collaboration.created_at.strftime '%d-%m-%y %H-%M'
     end
     column :method, sortable: 'payment_type' do |collaboration|
-      collaboration.payment_type==1 ? "Tarjeta" : "Recibo"
+      collaboration.payment_type == 1 ? 'Tarjeta' : 'Recibo'
     end
     column :territorial do |collaboration|
-      status_tag("Cca") if collaboration.for_autonomy_cc
-      status_tag("Ccm") if collaboration.for_town_cc
-      status_tag("Cci") if collaboration.for_island_cc
+      status_tag('Cca') if collaboration.for_autonomy_cc
+      status_tag('Ccm') if collaboration.for_town_cc
+      status_tag('Cci') if collaboration.for_island_cc
     end
     column :info do |collaboration|
-      status_tag("BIC", :error) if collaboration.is_bank? && collaboration.calculate_bic.nil?
-      status_tag("Activo", :ok) if collaboration.is_active?
-      status_tag("Alertas", :warn) if collaboration.has_warnings?
-      status_tag("Errores", :error) if collaboration.has_errors?
-      collaboration.deleted? ? status_tag("Borrado", :error) : ""
+      status_tag('BIC', :error) if collaboration.is_bank? && collaboration.calculate_bic.nil?
+      status_tag('Activo', :ok) if collaboration.is_active?
+      status_tag('Alertas', :warn) if collaboration.has_warnings?
+      status_tag('Errores', :error) if collaboration.has_errors?
+      collaboration.deleted? ? status_tag('Borrado', :error) : ''
       if collaboration.redsys_expiration
-        if collaboration.redsys_expiration<Date.today
-          status_tag("Caducada", :error)
+        if collaboration.redsys_expiration < Date.today
+          status_tag('Caducada', :error)
         elsif collaboration.redsys_expiration<Date.today+1.month
-          status_tag("Caducará", :warn)
+          status_tag('Caducará', :warn)
         end
       end
     end
     actions
   end
 
-  sidebar "Acciones", 'data-panel' => :collapsed, only: :index, priority: 0 do
+  sidebar 'Acciones', 'data-panel' => :collapsed, only: :index, priority: 0 do
     status = Collaboration.has_bank_file? Date.today
 
     h4 "Pagos con tarjeta"
@@ -168,27 +178,26 @@ if Rails.application.secrets.features["collaborations"]
         """.html_safe
       end
       li do
-        """Insular:
-        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
-        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today-1.month) }
-        """.html_safe
+        'Insular:'\
+        "#{link_to Date.today.strftime('%b').downcase, params.merge(action: :download_for_island, date: Date.today) }"\
+        "#{link_to (Date.today - 1.month).strftime('%b').downcase, params.merge(action: :download_for_island, date: Date.today - 1.month) }".html_safe
       end
     end
   end
 
-  sidebar "Procesar respuestas del banco", 'data-panel' => :collapsed, :only => :index, priority: 1 do
-    render("admin/process_bank_response")
+  sidebar 'Procesar respuestas del banco', 'data-panel' => :collapsed, :only => :index, priority: 1 do
+    render('admin/process_bank_response')
   end
 
-  sidebar "Ayuda", 'data-panel' => :collapsed, only: :index, priority: 2 do
-    h4 "Nomenclatura de las órdenes"
+  sidebar 'Ayuda', 'data-panel' => :collapsed, only: :index, priority: 2 do
+    h4 'Nomenclatura de las órdenes'
     ul do
-      li "_ = pendiente"
-      li "~ = enviada"
-      li "o = cobrada"
-      li "! = alerta"
-      li "x = error"
-      li "d = devuelta"
+      li '_ = pendiente'
+      li '~ = enviada'
+      li 'o = cobrada'
+      li '! = alerta'
+      li 'x = error'
+      li 'd = devuelta'
     end
   end
 
@@ -227,7 +236,7 @@ if Rails.application.secrets.features["collaborations"]
         if collaboration.has_iban_account?
           row :iban_account
           row :iban_bic do
-            status_tag(t("active_admin.empty"), :error) if collaboration.calculate_bic.nil?
+            status_tag(t('active_admin.empty'), :error) if collaboration.calculate_bic.nil?
             collaboration.calculate_bic
           end
         else
@@ -237,33 +246,33 @@ if Rails.application.secrets.features["collaborations"]
       if collaboration.is_credit_card?
         row :redsys_identifier
         row :redsys_expiration do
-          collaboration.redsys_expiration.strftime "%m/%y" if collaboration.redsys_expiration
+          collaboration.redsys_expiration&.strftime '%m/%y'
         end
       end
       row :territorial do
-        status_tag("Cc autonómico") if collaboration.for_autonomy_cc
-        status_tag("Cc municipal") if collaboration.for_town_cc
-        status_tag("Cc insular") if collaboration.for_town_cc
+        status_tag('Cc autonómico') if collaboration.for_autonomy_cc
+        status_tag('Cc municipal') if collaboration.for_town_cc
+        status_tag('Cc insular') if collaboration.for_town_cc
       end
       row :info do
-        status_tag("Cca", :ok) if collaboration.for_autonomy_cc
-        status_tag("Ccm", :ok) if collaboration.for_town_cc
-        status_tag("Cci", :ok) if collaboration.for_island_cc
-        status_tag("Activo", :ok) if collaboration.is_active?
-        status_tag("Alertas", :warn) if collaboration.has_warnings?
-        status_tag("Errores", :error) if collaboration.has_errors?
-        collaboration.deleted? ? status_tag("Borrado", :error) : ""
+        status_tag('Cca', :ok) if collaboration.for_autonomy_cc
+        status_tag('Ccm', :ok) if collaboration.for_town_cc
+        status_tag('Cci', :ok) if collaboration.for_island_cc
+        status_tag('Activo', :ok) if collaboration.is_active?
+        status_tag('Alertas', :warn) if collaboration.has_warnings?
+        status_tag('Errores', :error) if collaboration.has_errors?
+        collaboration.deleted? ? status_tag('Borrado', :error) : ''
         if collaboration.redsys_expiration
-          if collaboration.redsys_expiration<Date.today
-            status_tag("Caducada", :error)
-          elsif collaboration.redsys_expiration<Date.today+1.month
-            status_tag("Caducará", :warn)
+          if collaboration.redsys_expiration < Date.today
+            status_tag('Caducada', :error)
+          elsif collaboration.redsys_expiration < Date.today + 1.month
+            status_tag('Caducará', :warn)
           end
         end
       end
     end
     if collaboration.get_non_user
-      panel "Colaboración antigua" do
+      panel 'Colaboración antigua' do
         attributes_table_for collaboration.get_non_user do
           row :legacy_id
           row :full_name
@@ -278,8 +287,8 @@ if Rails.application.secrets.features["collaborations"]
         end
       end
     end
-    panel "Órdenes de pago" do
-      table_for collaboration.order.sort { |a,b| b.payable_at <=> a.payable_at } do
+    panel 'Órdenes de pago' do
+      table_for(collaboration.order.sort { |a, b| b.payable_at <=> a.payable_at }) do
         column :id do |order|
           link_to order.id, admin_order_path(order.id)
         end
@@ -298,13 +307,13 @@ if Rails.application.secrets.features["collaborations"]
   end
 
   form do |f|
-    f.inputs "Colaboración" do
+    f.inputs 'Colaboración' do
       f.input :user_id
       f.input :status, as: :select, collection: Collaboration::STATUS.to_a
       f.input :type_amount
-      f.input :amount, as: :radio, collection: Collaboration::AMOUNTS.to_a #, input_html: {disabled: true}
-      f.input :frequency, as: :radio, collection: Collaboration::FREQUENCIES.to_a #, input_html: {disabled: true}
-      f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a #, input_html: {disabled: true}
+      f.input :amount, as: :radio, collection: Collaboration::AMOUNTS.to_a # input_html: {disabled: true}
+      f.input :frequency, as: :radio, collection: Collaboration::FREQUENCIES.to_a # input_html: {disabled: true}
+      f.input :payment_type, as: :radio, collection: Order::PAYMENT_TYPES.to_a # input_html: {disabled: true}
       f.input :ccc_entity
       f.input :ccc_office
       f.input :ccc_dc
@@ -320,8 +329,7 @@ if Rails.application.secrets.features["collaborations"]
     f.actions
   end
 
-
-  collection_action :charge, :method => :get do
+  collection_action :charge, method: :get do
     Collaboration.credit_cards.pluck(:id).each do |cid|
       if use_resque
         Resque.enqueue(PodemosCollaborationWorker, cid)
@@ -332,7 +340,7 @@ if Rails.application.secrets.features["collaborations"]
     redirect_to :admin_collaborations
   end
 
-  collection_action :generate_orders, :method => :get do
+  collection_action :generate_orders, method: :get do
     Collaboration.banks.pluck(:id).each do |cid|
       if use_resque
         Resque.enqueue(PodemosCollaborationWorker, cid)
@@ -344,7 +352,7 @@ if Rails.application.secrets.features["collaborations"]
     redirect_to :admin_collaborations
   end
 
-  collection_action :generate_csv, :method => :get do
+  collection_action :generate_csv, method: :get do
     Collaboration.bank_file_lock true
     if use_resque
       Resque.enqueue(PodemosCollaborationWorker, -1)
@@ -354,71 +362,71 @@ if Rails.application.secrets.features["collaborations"]
     redirect_to :admin_collaborations
   end
 
-  collection_action :generate_sepa, :method => :get do
+  collection_action :generate_sepa, method: :get do
     # FIXME No me queda claro el motivo de este lock
     #Collaboration.bank_file_lock true
     Rails.logger.info "=================================\n generate_sepa\n=================================\n"
-    filename = "triodos_orders"
+    filename = 'triodos_orders'
 
     respond_to do |format|
-        format.xml {
-          response.headers['Content-Disposition'] = 'attachment; filename="' + filename + '.xml"'
-          s = PodemosCollaborationSepaWorker.perform
-          render text: s
-        }
-        format.xls {
-          response.headers['Content-Disposition'] = 'attachment; filename="' + filename + '.xls"'
-          render "collaborations/generate_sepa.xls.erb"
-        }
+      format.xml do
+        response.headers['Content-Disposition'] = 'attachment; filename="' + filename + '.xml"'
+        s = PodemosCollaborationSepaWorker.perform
+        render text: s
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="' + filename + '.xls"'
+        render 'collaborations/generate_sepa.xls.erb'
+      end
     end
-    #redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }
+    # redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }
   end
 
-  collection_action :generate_sepa_xls, :method => :get do
-    redirect_to "/admin/collaborations/generate_sepa.xls"
+  collection_action :generate_sepa_xls, method: :get do
+    redirect_to '/admin/collaborations/generate_sepa.xls'
   end
 
-  collection_action :generate_sepa_xml, :method => :get do
-    redirect_to "/admin/collaborations/generate_sepa.xml"
+  collection_action :generate_sepa_xml, method: :get do
+    redirect_to '/admin/collaborations/generate_sepa.xml'
   end
 
-  collection_action :download_csv, :method => :get do
+  collection_action :download_csv, method: :get do
     status = Collaboration.has_bank_file? Date.today
     if status[1]
       send_file Collaboration.bank_filename Date.today
     else
-      flash[:notice] = "El fichero no existe aún"
+      flash[:notice] = 'El fichero no existe aún'
       redirect_to :admin_collaborations
     end
   end
 
-  collection_action :mark_as_charged, :method => :get do
+  collection_action :mark_as_charged, method: :get do
     date = Date.parse params[:date]
     Order.mark_bank_orders_as_charged! date
     redirect_to :admin_collaborations
   end
 
-  collection_action :mark_as_paid, :method => :get do
+  collection_action :mark_as_paid, method: :get do
     date = Date.parse params[:date]
     Order.mark_bank_orders_as_paid! date
     redirect_to :admin_collaborations
   end
 
-  collection_action :process_bank_response, :method => :post do
+  collection_action :process_bank_response, method: :post do
     messages = []
-    xml = Nokogiri::XML(params["process_bank_response"]["file"])
+    xml = Nokogiri::XML(params['process_bank_response']['file'])
     xml.remove_namespaces!
     items = xml.xpath('/Document/CstmrPmtStsRpt/OrgnlPmtInfAndSts/TxInfAndSts')
     items.each do |item|
       begin
-        code = item.at_xpath("StsRsnInf/Rsn/Cd").text
-        order_id = item.at_xpath("OrgnlTxRef/MndtRltdInf/MndtId").text[4..-1].to_i
+        code = item.at_xpath('StsRsnInf/Rsn/Cd').text
+        order_id = item.at_xpath('OrgnlTxRef/MndtRltdInf/MndtId').text[4..-1].to_i
         #date = item.at_xpath("OrgnlTxRef/MndtRltdInf/DtOfSgntr").text.to_date
-        iban = item.at_xpath("OrgnlTxRef/DbtrAcct/Id/IBAN").text.upcase
-        bic = item.at_xpath("OrgnlTxRef/DbtrAgt/FinInstnId/BIC").text.upcase
-        fullname = item.at_xpath("OrgnlTxRef/Dbtr/Nm").text
+        iban = item.at_xpath('OrgnlTxRef/DbtrAcct/Id/IBAN').text.upcase
+        bic = item.at_xpath('OrgnlTxRef/DbtrAgt/FinInstnId/BIC').text.upcase
+        fullname = item.at_xpath('OrgnlTxRef/Dbtr/Nm').text
 
-        order= Order.find(order_id)
+        order = Order.find(order_id)
         if order
           if order.payment_identifier.upcase == "#{iban}/#{bic}"
             if order.is_paid?

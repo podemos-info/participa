@@ -70,6 +70,9 @@ class Collaboration < ActiveRecord::Base
 
   enum type_amount: %i[single recursive]
   # TYPE_AMOUNT = {"Mensual" => 1, "Puntual" => 0}
+
+  attr_accessor :amount_collector
+  attr_accessor :amount_holder
   AMOUNTS = {
     '5 €' => 500,
     '10 €' => 1000,
@@ -78,7 +81,8 @@ class Collaboration < ActiveRecord::Base
     '50 €' => 5000,
     '100 €' => 10_000,
     '200 €' => 20_000,
-    '500 €' => 50_000
+    '500 €' => 50_000,
+    'Personalizado' => 0
   }.freeze
   # FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {
@@ -140,7 +144,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def check_spanish_bic
-    self.set_warning! "Marcada como alerta porque el número de cuenta indica un código de entidad inválido o no encontrado en la base de datos de BICs españoles." if [2,3].include? self.status and self.is_bank_national? and calculate_bic.nil?
+    self.set_warning! "Marcada como alerta porque el número de cuenta indica un código de entidad inválido o no encontrado en la base de datos de BICs españoles." if [2,3].include? status && is_bank_national? && calculate_bic.nil?
   end
 
   def validates_not_passport
@@ -187,7 +191,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def is_bank_international?
-    has_iban_account? && !iban_account.start_with?('ES')
+    has_iban_account? && !iban_account&.start_with?('ES')
   end
 
   def has_ccc_account?
@@ -290,7 +294,7 @@ class Collaboration < ActiveRecord::Base
       o.parent = self
       o.reference = 'Colaboración ' + I18n.localize(date, format: '%B %Y')
       o.first = is_first
-      o.amount = amount * (frequency || 1)
+      o.amount = amount
       o.payable_at = date
       o.payment_type = is_credit_card? ? 1 : 3
       o.payment_identifier = payment_identifier
@@ -354,11 +358,11 @@ class Collaboration < ActiveRecord::Base
   end
 
   def has_warnings?
-    status==4
+    status == 4
   end
 
   def has_errors?
-    status==1
+    status == 1
   end
 
   def set_error! reason
@@ -399,7 +403,7 @@ class Collaboration < ActiveRecord::Base
       next_order = Date.today.unique_month if next_order < Date.today.unique_month  # update next order when a payment was missed
     end
 
-    (date.unique_month >= next_order) && ((date.unique_month - next_order) % (frequency || 1)).zero?
+    (date.unique_month >= next_order) && ((date.unique_month - next_order) % (frequency || 12)).zero?
   end
 
   def get_orders(date_start = Date.today, date_end = Date.today, create_orders = true)
@@ -492,12 +496,31 @@ class Collaboration < ActiveRecord::Base
 
   class NonUser
     def initialize(args)
-      [:legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone].each do |var|
+      %i[
+        country
+        document_vatid
+        email address
+        full_name
+        legacy_id
+        phone
+        postal_code
+        province
+        town_name
+      ].each do |var|
         instance_variable_set("@#{var}", args[var]) if args.member? var
       end
     end
 
-    attr_accessor :legacy_id, :full_name, :document_vatid, :email, :address, :town_name, :postal_code, :country, :province, :phone
+    attr_accessor :address,
+                  :country,
+                  :document_vatid,
+                  :email,
+                  :full_name,
+                  :legacy_id,
+                  :phone,
+                  :postal_code,
+                  :province,
+                  :town_name
 
     def to_s
       "#{full_name} (#{document_vatid} - #{email})"
@@ -505,11 +528,11 @@ class Collaboration < ActiveRecord::Base
   end
 
   def parse_non_user
-    @non_user = if self.non_user_data then YAML.load(self.non_user_data) else nil end
+    @non_user = non_user_data ? YAML.safe_load(non_user_data, [NonUser]) : nil
   end
 
   def format_non_user
-    if @non_user then
+    if @non_user
       self.non_user_data = YAML.dump(@non_user)
       self.non_user_document_vatid = @non_user.document_vatid
       self.non_user_email = @non_user.email
@@ -518,14 +541,14 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def set_non_user info
-    @non_user = if info.nil? then nil else NonUser.new(info) end
+  def set_non_user(info)
+    @non_user = info.nil? ? nil : NonUser.new(info)
     format_non_user
   end
 
   def get_user
-    if self.user
-      self.user
+    if user
+      user
     else
       @non_user
     end
@@ -536,13 +559,13 @@ class Collaboration < ActiveRecord::Base
   end
 
   def validates_has_user
-    if self.get_user.nil?
-      self.errors.add(:user, "La colaboración debe tener un usuario asociado.")
+    if get_user.nil?
+      errors.add(:user, 'La colaboración debe tener un usuario asociado.')
     end
   end
 
-  def self.bank_filename date, full_path=true
-    filename = "podemos.orders.#{date.year.to_s}.#{date.month.to_s}"
+  def self.bank_filename(date, full_path = true)
+    filename = "podemos.orders.#{date.year}.#{date.month}"
     if full_path
       "#{Rails.root}/db/podemos/#{filename}.csv"
     else
@@ -551,7 +574,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   BANK_FILE_LOCK = "#{Rails.root}/db/podemos/podemos.orders.#{Rails.env}.lock"
-  def self.bank_file_lock status
+  def self.bank_file_lock(status)
     if status
       folder = File.dirname BANK_FILE_LOCK
       FileUtils.mkdir_p(folder) unless File.directory?(folder)
@@ -561,11 +584,11 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
-  def self.has_bank_file? date
-    [ File.exists?(BANK_FILE_LOCK), File.exists?(self.bank_filename(date)) ]
+  def self.has_bank_file?(date)
+    [File.exist?(BANK_FILE_LOCK), File.exist?(bank_filename(date))]
   end
 
-  def self.update_paid_unconfirmed_bank_collaborations orders
+  def self.update_paid_unconfirmed_bank_collaborations(orders)
     Collaboration.unconfirmed.joins(:order).merge(orders).update_all(status: 3)
   end
 end
