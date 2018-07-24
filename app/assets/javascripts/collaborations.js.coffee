@@ -2,12 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #
+#= require jquery.maskMoney
 
 calculate_collaboration = () ->
-  $amount = $('.js-collaboration-amount option:selected')
   $freq = $('.js-collaboration-frequency option:selected')
-  if (($amount.index() > 0) && ($freq.index() > 0))
-    total = $amount.val() / 100.0 * $freq.val()
+  if $freq.index() > 0
+    amount = $('#collaboration_amount').val()
+    total = amount / 100.0
     switch $freq.val()
       when "1"
         message = total + " € cada mes, en total " + total * 12 + " € al año"
@@ -72,7 +73,7 @@ init_collaborations = () ->
     change_payment_type(type)
 
   calculate_collaboration()
-  $('.js-collaboration-amount, .js-collaboration-frequency').on 'change', () ->
+  $('#collaboration_amount, #collaboration_frequency').on 'change', () ->
     calculate_collaboration()
 
   if ($('.js-collaboration-assignment-toggle').length==0)
@@ -81,6 +82,18 @@ init_collaborations = () ->
   update_assigments()
   $('.js-collaboration-assignment-autonomy').on 'change', () ->
     update_assigments()
+
+  $('#collaboration_amount_holder').maskMoney({thousands: '.', decimal: ',', suffix: ' €'})
+  $('#collaboration_amount_collector').on 'change', (e) ->
+    if this.value == '0'
+       $('.amount').show()
+    else
+       $('.amount').hide()
+    $('#collaboration_amount').val(this.value)
+  $('#collaboration_amount_holder').on 'change', (e) ->
+    amount = this.value.replace(' €', '').replace('.', '').replace(',','')
+    console.log amount
+    $('#collaboration_amount').val(amount)
 
   $('.js-collaboration-assignment-toggle').on 'click', (e) ->
     e.preventDefault()

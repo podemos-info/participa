@@ -5,11 +5,24 @@
     <% if @collaboration.errors.include?(:amount) %>
         <%= field_notice_box %>
     <% end %>
-    <%= f.input :amount,
+    <%= f.input :amount_collector,
                 required: true,
                 as: :select,
                 collection: Collaboration::AMOUNTS.to_a,
                 input_html: {required: true, class: 'js-collaboration-amount'} %>
+  </div>
+
+  <div class="inputlabel-box amount" style="display:none;">
+    <% if @collaboration.errors.include?(:amount) %>
+        <%= field_notice_box %>
+    <% end %>
+    <%= f.input :amount_holder,
+                as: :string,
+                input_html: {} %>
+    <%= f.input :amount,
+                as: :hidden,
+                required: true,
+                input_html: {required: true} %>
   </div>
 
   <div class="inputlabel-box">

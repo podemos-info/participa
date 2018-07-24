@@ -26,3 +26,6 @@ config/secrets.yml
 
 # Ignore backup files
 *~
+node_modules/
+yarn-error.log
+.byebug_history
