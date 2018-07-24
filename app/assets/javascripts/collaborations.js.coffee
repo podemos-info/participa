@@ -6,9 +6,9 @@
 
 calculate_collaboration = () ->
   $freq = $('.js-collaboration-frequency option:selected')
+  amount = $('#collaboration_amount').val()
+  total = amount / 100.0
   if $freq.index() > 0
-    amount = $('#collaboration_amount').val()
-    total = amount / 100.0
     switch $freq.val()
       when "1"
         message = total + " € cada mes, en total " + total * 12 + " € al año"
@@ -19,7 +19,12 @@ calculate_collaboration = () ->
     $('.js-collaboration-alert').show()
     $('#js-collaboration-alert-amount').text(message)
   else
-    $('.js-collaboration-alert').hide()
+    if $('#collaboration_type_amount option:selected').val() == 'single'
+      message = total + " € en un único pago"
+      $('.js-collaboration-alert').show()
+      $('#js-collaboration-alert-amount').text(message)
+    else
+      $('.js-collaboration-alert').hide()
 
 change_type_frequency = (type) ->
   switch type
@@ -73,11 +78,19 @@ init_collaborations = () ->
     change_payment_type(type)
 
   calculate_collaboration()
-  $('#collaboration_amount, #collaboration_frequency').on 'change', () ->
+
+  $('#collaboration_amount').on 'change', () ->
+    calculate_collaboration()
+
+  $('#collaboration_frequency').on 'change', () ->
+    calculate_collaboration()
+
+  $('#collaboration_type_amount').on 'change', () ->
+    $('#collaboration_frequency').val('')
     calculate_collaboration()
 
   if ($('.js-collaboration-assignment-toggle').length==0)
-    show_assignments = true;
+    show_assignments = true
 
   update_assigments()
   $('.js-collaboration-assignment-autonomy').on 'change', () ->
@@ -89,11 +102,11 @@ init_collaborations = () ->
        $('.amount').show()
     else
        $('.amount').hide()
-    $('#collaboration_amount').val(this.value)
+    $('#collaboration_amount').val(this.value).trigger('change')
   $('#collaboration_amount_holder').on 'change', (e) ->
     amount = this.value.replace(' €', '').replace('.', '').replace(',','')
     console.log amount
-    $('#collaboration_amount').val(amount)
+    $('#collaboration_amount').val(amount).trigger('change')
 
   $('.js-collaboration-assignment-toggle').on 'click', (e) ->
     e.preventDefault()

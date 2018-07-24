@@ -6,6 +6,8 @@ require 'fileutils'
 class Collaboration < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
+  before_update :check_frequency,
+                if: ->(collaboration) { collaboration.type_amount == 'single' }
   acts_as_paranoid
   has_paper_trail
 
@@ -74,6 +76,7 @@ class Collaboration < ActiveRecord::Base
   attr_accessor :amount_collector
   attr_accessor :amount_holder
   AMOUNTS = {
+    'Personalizado' => 0,
     '5 €' => 500,
     '10 €' => 1000,
     '20 €' => 2000,
@@ -81,8 +84,7 @@ class Collaboration < ActiveRecord::Base
     '50 €' => 5000,
     '100 €' => 10_000,
     '200 €' => 20_000,
-    '500 €' => 50_000,
-    'Personalizado' => 0
+    '500 €' => 50_000
   }.freeze
   # FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {
@@ -590,5 +592,11 @@ class Collaboration < ActiveRecord::Base
 
   def self.update_paid_unconfirmed_bank_collaborations(orders)
     Collaboration.unconfirmed.joins(:order).merge(orders).update_all(status: 3)
+  end
+
+  private
+
+  def check_frequency
+    self.frequency = nil
   end
 end
