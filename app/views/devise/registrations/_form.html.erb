@@ -4,6 +4,70 @@
       <span>Completar perfil</span>
     </legend>
 
+    <% if action == "edit" && current_user.verified? %>
+      <div class="inputlabel-box">
+        <p>
+        Tu usuario ya está verificado por lo que los Datos personales no pueden ser modificados.
+        </p>
+        <p>
+        Si necesitas modificarlos envía un email a  <a href='mailto:lopd@podemos.info'>lopd@podemos.info</a>
+        adjuntando el nuevo documento de identidad escaneado  indicando los motivos
+        de la nueva modificación de dichos datos.
+        </p>
+      </div>
+
+      <div class="inputlabel-box">
+        <% if resource.errors.include?(:first_name) %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :first_name, required: true, input_html: {required: true, disabled: true, class: 'input-xl'} %>
+      </div><%#--.inputlabel-box--%>
+
+      <div class="inputlabel-box">
+        <% if resource.errors.include?(:last_name) %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :last_name, required: true, input_html: {required: true, disabled: true, class: 'input-xl'} %>
+      </div><%#--.inputlabel-box--%>
+
+      <div class="inputlabel-box">
+        <% if resource.errors.include?(:gender) %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :gender,
+                    required: true,
+                    as: :select,
+                    collection: User::GENDER.invert.to_a,
+                    input_html: {required: true, disabled: true} %>
+      </div>
+
+      <div class="inputlabel-box inputlabel-box-hint">
+        <% if resource.errors.include?(:document_type) %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :document_type,
+                    required: true,
+                    as: :select,
+                    collection: User::DOCUMENTS_TYPE,
+                    input_html: {required: true, disabled: true, class: 'js-registration-document'} %>
+      </div>
+
+      <div class="inputlabel-box" >
+      <% if resource.errors.include?(:document_vatid) %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :document_vatid, required: true, input_html: {disabled: true, required: true, class: 'input-s'} %>
+      </div>
+
+      <div class="inputlabel-box">
+
+        <%= f.input :born_at,
+                    required: true,
+                    input_html: { required: true, disabled: true, class: 'input-s' },
+                    start_year: (Date.today - 18.years).year,
+                    end_year: 1900 %>
+      </div>
+    <% else %>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:first_name) %>
         <%= field_notice_box %>
@@ -88,6 +152,7 @@
                   start_year: (Date.today - 18.years).year,
                   end_year: 1900 %>
     </div>
+    <% end %>
   </fieldset>
   <fieldset>
     <legend><span>Domicilio</span></legend>
@@ -170,9 +235,9 @@
     <% end %>
     <% if action == "new" %>
 
-      </fieldset>
+  </fieldset>
 
-      <fieldset class="with-tos">
+  <fieldset class="with-tos">
 
         <legend><span>Consentimiento</span></legend>
         <div class="inputlabel-box">
