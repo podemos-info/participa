@@ -2,6 +2,7 @@ require 'podemos_export'
 
 UNKNOWN = "Desconocido"
 FOREIGN = "Extranjeros"
+NATIVE = "Españoles"
 
 namespace :podemos do
 
@@ -22,7 +23,7 @@ namespace :podemos do
 
     total = users.count
 
-    progress = RakeProgressbar.new(total + 14)
+    progress = RakeProgressbar.new(total + 15)
 
     spain = Carmen::Country.coded("ES").subregions
     provinces_coded = spain.map do |r| r.code end
@@ -55,6 +56,10 @@ namespace :podemos do
 
     postal_codes = Hash.new [0]*4
 
+    users_verified = Hash.new
+    users_verified[NATIVE] = [0]*4
+    users_verified[FOREIGN] = [0]*4
+
     progress.inc
 
     users.find_each do |u|
@@ -70,9 +75,11 @@ namespace :podemos do
         provinces[if provinces.include? u.province_name then u.province_name else UNKNOWN end][0] += 1
         towns[if towns.include? u.town then u.town else UNKNOWN end][0] += 1
         islands[u.island_name][0] += 1 if not u.island_name.empty?
-        postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][0] += 1 
+        postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][0] += 1
+        users_verified[NATIVE][0] += 1 if u.verified?
       else
         autonomies[FOREIGN][0] +=1
+        users_verified[FOREIGN][0] += 1 if u.verified?
       end
 
       if u.current_sign_in_at.present? && u.current_sign_in_at > active_date then
@@ -82,9 +89,11 @@ namespace :podemos do
           provinces[if provinces.include? u.province_name then u.province_name else UNKNOWN end][1] += 1
           towns[if towns.include? u.town then u.town else UNKNOWN end][1] += 1
           islands[u.island_name][1] += 1 if not u.island_name.empty?
-          postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][1] += 1 
+          postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][1] += 1
+          users_verified[NATIVE][1] += 1 if u.verified?
         else
           autonomies[FOREIGN][1] +=1
+          users_verified[FOREIGN][1] += 1 if u.verified?
         end
       end
 
@@ -93,12 +102,14 @@ namespace :podemos do
         provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][2] += 1
         towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][2] += 1
         islands[u.vote_island_name][2] += 1 if not u.vote_island_name.empty?
+        users_verified[NATIVE][2] += 1 if u.verified?
 
         if u.current_sign_in_at.present? && u.current_sign_in_at > active_date then
           autonomies[u.vote_autonomy_name][3] += 1 if not u.vote_autonomy_name.empty?
           provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][3] += 1
           towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][3] += 1
           islands[u.vote_island_name][3] += 1 if not u.vote_island_name.empty?
+          users_verified[NATIVE][3] += 1 if u.verified?
         end      
       end
 
@@ -118,6 +129,8 @@ namespace :podemos do
     export_raw_data "towns.#{suffix}", towns.sort, headers: [ "Municipio", suffix ], folder:"tmp/census" do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
     progress.inc
     export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal", suffix ], folder: "tmp/census" do |d| d.flatten end
+    progress.inc
+    export_raw_data "users_verified.#{suffix}", users_verified.sort, headers: [ "Usuarios verificados", suffix ], folder: "tmp/census" do |d| d.flatten end
     progress.finished
   end
 end
