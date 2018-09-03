@@ -113,11 +113,11 @@ namespace :podemos do
       end
 
       if u.verified?
-        autonomies[u.vote_autonomy_name][5] += 1 if not u.vote_autonomy_name.empty?
-        provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][5] += 1
-        towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][5] += 1
-        islands[u.vote_island_name][5] += 1 if not u.vote_island_name.empty?
-        users_verified[NATIVE][5] += 1 if u.verified?
+        autonomies[u.vote_autonomy_name][4] += 1 if not u.vote_autonomy_name.empty?
+        provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][4] += 1
+        towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][4] += 1
+        islands[u.vote_island_name][4] += 1 if not u.vote_island_name.empty?
+        users_verified[NATIVE][4] += 1 if u.verified?
       end
 
       progress.inc
