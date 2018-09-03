@@ -5,8 +5,6 @@ FOREIGN = "Extranjeros"
 NATIVE = "Españoles"
 
 namespace :podemos do
-
-    
   desc "[podemos] Dump counters for users attributes"
   task :daily_census, [:year,:month,:day] => :environment do |t, args|
     args.with_defaults(:year => nil, :month=>nil, :day=>nil)
@@ -19,6 +17,7 @@ namespace :podemos do
         date = Date.civil args.year.to_i, args.month.to_i, args.day.to_i
     end
     
+    num_columns = 5
     active_date = date - eval(Rails.application.secrets.users["active_census_range"])
 
     total = users.count
@@ -29,36 +28,36 @@ namespace :podemos do
     provinces_coded = spain.map do |r| r.code end
     progress.inc
 
-    countries = Hash[ Carmen::Country.all.map do |c| [ c.name, [0]*4 ] end ]
-    countries[UNKNOWN] = [0]*4
+    countries = Hash[ Carmen::Country.all.map do |c| [ c.name, [0]* num_columns ] end ]
+    countries[UNKNOWN] = [0]* num_columns
     progress.inc
 
-    autonomies = Hash[ Podemos::GeoExtra::AUTONOMIES.map do |k, v| [ v[1], [0]*4] end ]
-    autonomies[FOREIGN] = [0]*4
+    autonomies = Hash[ Podemos::GeoExtra::AUTONOMIES.map do |k, v| [ v[1], [0]* num_columns] end ]
+    autonomies[FOREIGN] = [0]* num_columns
     progress.inc
 
-    provinces = Hash[ spain.map do |p| [ p.name, [0]*4 ] end ]
-    provinces[UNKNOWN] = [0]*4
+    provinces = Hash[ spain.map do |p| [ p.name, [0]* num_columns ] end ]
+    provinces[UNKNOWN] = [0]* num_columns
     progress.inc
 
-    islands = Hash[ Podemos::GeoExtra::ISLANDS.map do |k, v| [ v[1], [0]*4 ] end ]
+    islands = Hash[ Podemos::GeoExtra::ISLANDS.map do |k, v| [ v[1], [0]* num_columns ] end ]
     progress.inc
 
     towns = Hash[ provinces_coded.map do |p|
-                    spain.coded(p).subregions.map do |t| [ t.code, [0]*4 ] end
+                    spain.coded(p).subregions.map do |t| [ t.code, [0]* num_columns ] end
                   end.flatten(1) ]
-    towns[UNKNOWN] = [0]*4
+    towns[UNKNOWN] = [0]* num_columns
     towns_names = Hash[ *provinces_coded.map do |p|
                     spain.coded(p).subregions.map do |t| [ t.code, t.name] end
                   end.flatten ]
     towns_names[UNKNOWN] = UNKNOWN
     progress.inc
 
-    postal_codes = Hash.new [0]*4
+    postal_codes = Hash.new [0]* num_columns
 
     users_verified = Hash.new
-    users_verified[NATIVE] = [0]*4
-    users_verified[FOREIGN] = [0]*4
+    users_verified[NATIVE] = [0]* num_columns
+    users_verified[FOREIGN] = [0]* num_columns
 
     progress.inc
 
@@ -111,6 +110,14 @@ namespace :podemos do
           islands[u.vote_island_name][3] += 1 if not u.vote_island_name.empty?
           users_verified[NATIVE][3] += 1 if u.verified?
         end      
+      end
+
+      if u.verified?
+        autonomies[u.vote_autonomy_name][5] += 1 if not u.vote_autonomy_name.empty?
+        provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][5] += 1
+        towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][5] += 1
+        islands[u.vote_island_name][5] += 1 if not u.vote_island_name.empty?
+        users_verified[NATIVE][5] += 1 if u.verified?
       end
 
       progress.inc
