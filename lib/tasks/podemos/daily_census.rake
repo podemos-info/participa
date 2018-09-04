@@ -53,7 +53,7 @@ namespace :podemos do
     towns_names[UNKNOWN] = UNKNOWN
     progress.inc
 
-    postal_codes = Hash.new [0]* num_columns
+    postal_codes = Hash.new { |h,k| h[k] = [0]* num_columns }
 
     users_verified = Hash.new
     users_verified[NATIVE] = [0]* num_columns
@@ -133,20 +133,20 @@ namespace :podemos do
 
  
     suffix = date.strftime
-    headers = [suffix,"I","IA","V","VA","VV","VVA"]
-    export_raw_data "countries.#{suffix}", countries.sort, headers: ["País"] + headers, folder: "tmp/census" do |d| d.flatten end
+    headers = ["I","IA","V","VA","VV","VVA"]
+    export_raw_data "countries.#{suffix}", countries.sort, headers: ["País | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "autonomies.#{suffix}", autonomies.sort, headers: ["Comunidad autonoma"] + headers, folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "autonomies.#{suffix}", autonomies.sort, headers: ["Comunidad autonoma | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "provinces.#{suffix}", provinces.sort, headers: ["Provincia"] + headers, folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "provinces.#{suffix}", provinces.sort, headers: ["Provincia | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "islands.#{suffix}", islands.sort, headers: ["Isla"] + headers, folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "islands.#{suffix}", islands.sort, headers: ["Isla | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "towns.#{suffix}", towns.sort, headers: ["Cod Municipio","Municipio"] + headers, folder:"tmp/census" do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
+    export_raw_data "towns.#{suffix}", towns.sort, headers: ["Cod Municipio","Municipio | #{suffix}"] + headers, folder:"tmp/census" do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
     progress.inc
-    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal"] + headers, folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "users_verified.#{suffix}", users_verified.sort, headers: [ "Usuarios verificados"] + headers, folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "users_verified.#{suffix}", users_verified.sort, headers: [ "Usuarios verificados | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.finished
   end
 end
