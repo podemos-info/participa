@@ -118,6 +118,7 @@ namespace :podemos do
         towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][4] += 1
         islands[u.vote_island_name][4] += 1 if not u.vote_island_name.empty?
         users_verified[NATIVE][4] += 1 if u.verified?
+        postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][4] += 1 if u.country=="ES"
 
         if u.current_sign_in_at.present? && u.current_sign_in_at > active_date then
           autonomies[u.vote_autonomy_name][5] += 1 if not u.vote_autonomy_name.empty?
@@ -125,6 +126,7 @@ namespace :podemos do
           towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][5] += 1
           islands[u.vote_island_name][5] += 1 if not u.vote_island_name.empty?
           users_verified[NATIVE][5] += 1 if u.verified?
+          postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][5] += 1 if u.country=="ES"
         end
       end
 
