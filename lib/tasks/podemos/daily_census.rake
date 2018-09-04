@@ -112,7 +112,7 @@ namespace :podemos do
         end      
       end
 
-      if u.verified?
+      if u.verified? && u.not_banned?
         if u.country=="ES"
           autonomies[u.vote_autonomy_name][4] += 1 if not u.vote_autonomy_name.empty?
           provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][4] += 1
