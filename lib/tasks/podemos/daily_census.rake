@@ -74,7 +74,7 @@ namespace :podemos do
         provinces[if provinces.include? u.province_name then u.province_name else UNKNOWN end][0] += 1
         towns[if towns.include? u.town then u.town else UNKNOWN end][0] += 1
         islands[u.island_name][0] += 1 if not u.island_name.empty?
-        postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][0] += 1
+        postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][0] += 1
         users_verified[NATIVE][0] += 1 if u.verified?
       else
         autonomies[FOREIGN][0] +=1
@@ -88,7 +88,7 @@ namespace :podemos do
           provinces[if provinces.include? u.province_name then u.province_name else UNKNOWN end][1] += 1
           towns[if towns.include? u.town then u.town else UNKNOWN end][1] += 1
           islands[u.island_name][1] += 1 if not u.island_name.empty?
-          postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][1] += 1
+          postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][1] += 1
           users_verified[NATIVE][1] += 1 if u.verified?
         else
           autonomies[FOREIGN][1] +=1
@@ -133,19 +133,20 @@ namespace :podemos do
 
  
     suffix = date.strftime
-    export_raw_data "countries.#{suffix}", countries.sort, headers: [ "País", suffix ], folder: "tmp/census" do |d| d.flatten end
+    headers = [suffix,"I","IA","V","VA","VV","VVA"]
+    export_raw_data "countries.#{suffix}", countries.sort, headers: ["País"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "autonomies.#{suffix}", autonomies.sort, headers: [ "Comunidad autonoma", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "autonomies.#{suffix}", autonomies.sort, headers: ["Comunidad autonoma"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "provinces.#{suffix}", provinces.sort, headers: [ "Provincia", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "provinces.#{suffix}", provinces.sort, headers: ["Provincia"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "islands.#{suffix}", islands.sort, headers: [ "Isla", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "islands.#{suffix}", islands.sort, headers: ["Isla"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "towns.#{suffix}", towns.sort, headers: [ "Municipio", suffix ], folder:"tmp/census" do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
+    export_raw_data "towns.#{suffix}", towns.sort, headers: ["Cod Municipio","Municipio"] + headers, folder:"tmp/census" do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
     progress.inc
-    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "users_verified.#{suffix}", users_verified.sort, headers: [ "Usuarios verificados", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "users_verified.#{suffix}", users_verified.sort, headers: [ "Usuarios verificados"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.finished
   end
 end
