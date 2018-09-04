@@ -5,8 +5,6 @@ FOREIGN = "Extranjeros"
 NATIVE = "Españoles"
 
 namespace :podemos do
-
-    
   desc "[podemos] Dump counters for users attributes"
   task :daily_census, [:year,:month,:day] => :environment do |t, args|
     args.with_defaults(:year => nil, :month=>nil, :day=>nil)
@@ -19,6 +17,7 @@ namespace :podemos do
         date = Date.civil args.year.to_i, args.month.to_i, args.day.to_i
     end
     
+    num_columns = 6
     active_date = date - eval(Rails.application.secrets.users["active_census_range"])
 
     total = users.count
@@ -29,36 +28,36 @@ namespace :podemos do
     provinces_coded = spain.map do |r| r.code end
     progress.inc
 
-    countries = Hash[ Carmen::Country.all.map do |c| [ c.name, [0]*4 ] end ]
-    countries[UNKNOWN] = [0]*4
+    countries = Hash[ Carmen::Country.all.map do |c| [ c.name, [0]* num_columns ] end ]
+    countries[UNKNOWN] = [0]* num_columns
     progress.inc
 
-    autonomies = Hash[ Podemos::GeoExtra::AUTONOMIES.map do |k, v| [ v[1], [0]*4] end ]
-    autonomies[FOREIGN] = [0]*4
+    autonomies = Hash[ Podemos::GeoExtra::AUTONOMIES.map do |k, v| [ v[1], [0]* num_columns] end ]
+    autonomies[FOREIGN] = [0]* num_columns
     progress.inc
 
-    provinces = Hash[ spain.map do |p| [ p.name, [0]*4 ] end ]
-    provinces[UNKNOWN] = [0]*4
+    provinces = Hash[ spain.map do |p| [ p.name, [0]* num_columns ] end ]
+    provinces[UNKNOWN] = [0]* num_columns
     progress.inc
 
-    islands = Hash[ Podemos::GeoExtra::ISLANDS.map do |k, v| [ v[1], [0]*4 ] end ]
+    islands = Hash[ Podemos::GeoExtra::ISLANDS.map do |k, v| [ v[1], [0]* num_columns ] end ]
     progress.inc
 
     towns = Hash[ provinces_coded.map do |p|
-                    spain.coded(p).subregions.map do |t| [ t.code, [0]*4 ] end
+                    spain.coded(p).subregions.map do |t| [ t.code, [0]* num_columns ] end
                   end.flatten(1) ]
-    towns[UNKNOWN] = [0]*4
+    towns[UNKNOWN] = [0]* num_columns
     towns_names = Hash[ *provinces_coded.map do |p|
                     spain.coded(p).subregions.map do |t| [ t.code, t.name] end
                   end.flatten ]
     towns_names[UNKNOWN] = UNKNOWN
     progress.inc
 
-    postal_codes = Hash.new [0]*4
+    postal_codes = Hash.new { |h,k| h[k] = [0]* num_columns }
 
     users_verified = Hash.new
-    users_verified[NATIVE] = [0]*4
-    users_verified[FOREIGN] = [0]*4
+    users_verified[NATIVE] = [0]* num_columns
+    users_verified[FOREIGN] = [0]* num_columns
 
     progress.inc
 
@@ -75,7 +74,7 @@ namespace :podemos do
         provinces[if provinces.include? u.province_name then u.province_name else UNKNOWN end][0] += 1
         towns[if towns.include? u.town then u.town else UNKNOWN end][0] += 1
         islands[u.island_name][0] += 1 if not u.island_name.empty?
-        postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][0] += 1
+        postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][0] += 1
         users_verified[NATIVE][0] += 1 if u.verified?
       else
         autonomies[FOREIGN][0] +=1
@@ -89,7 +88,7 @@ namespace :podemos do
           provinces[if provinces.include? u.province_name then u.province_name else UNKNOWN end][1] += 1
           towns[if towns.include? u.town then u.town else UNKNOWN end][1] += 1
           islands[u.island_name][1] += 1 if not u.island_name.empty?
-          postal_codes[if u.postal_code =~ /^\d{5}$/ then u.postal_code else UNKNOWN end][1] += 1
+          postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][1] += 1
           users_verified[NATIVE][1] += 1 if u.verified?
         else
           autonomies[FOREIGN][1] +=1
@@ -113,24 +112,43 @@ namespace :podemos do
         end      
       end
 
+      if u.verified?
+        autonomies[u.vote_autonomy_name][4] += 1 if not u.vote_autonomy_name.empty?
+        provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][4] += 1
+        towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][4] += 1
+        islands[u.vote_island_name][4] += 1 if not u.vote_island_name.empty?
+        users_verified[NATIVE][4] += 1 if u.verified?
+        postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][4] += 1 if u.country=="ES"
+
+        if u.current_sign_in_at.present? && u.current_sign_in_at > active_date then
+          autonomies[u.vote_autonomy_name][5] += 1 if not u.vote_autonomy_name.empty?
+          provinces[if provinces.include? u.vote_province_name then u.vote_province_name else UNKNOWN end][5] += 1
+          towns[if towns.include? u.vote_town then u.vote_town else UNKNOWN end][5] += 1
+          islands[u.vote_island_name][5] += 1 if not u.vote_island_name.empty?
+          users_verified[NATIVE][5] += 1 if u.verified?
+          postal_codes[if u.postal_code.match?(/^\d{5}$/) then u.postal_code else UNKNOWN end][5] += 1 if u.country=="ES"
+        end
+      end
+
       progress.inc
     end
 
  
     suffix = date.strftime
-    export_raw_data "countries.#{suffix}", countries.sort, headers: [ "País", suffix ], folder: "tmp/census" do |d| d.flatten end
+    headers = ["I","IA","V","VA","VV","VVA"]
+    export_raw_data "countries.#{suffix}", countries.sort, headers: ["País | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "autonomies.#{suffix}", autonomies.sort, headers: [ "Comunidad autonoma", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "autonomies.#{suffix}", autonomies.sort, headers: ["Comunidad autonoma | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "provinces.#{suffix}", provinces.sort, headers: [ "Provincia", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "provinces.#{suffix}", provinces.sort, headers: ["Provincia | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "islands.#{suffix}", islands.sort, headers: [ "Isla", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "islands.#{suffix}", islands.sort, headers: ["Isla | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "towns.#{suffix}", towns.sort, headers: [ "Municipio", suffix ], folder:"tmp/census" do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
+    export_raw_data "towns.#{suffix}", towns.sort, headers: ["Cod Municipio","Municipio | #{suffix}"] + headers, folder:"tmp/census" do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
     progress.inc
-    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "postal_codes.#{suffix}", postal_codes.sort, headers: [ "Código postal | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.inc
-    export_raw_data "users_verified.#{suffix}", users_verified.sort, headers: [ "Usuarios verificados", suffix ], folder: "tmp/census" do |d| d.flatten end
+    export_raw_data "users_verified.#{suffix}", users_verified.sort, headers: [ "Usuarios verificados | #{suffix}"] + headers, folder: "tmp/census" do |d| d.flatten end
     progress.finished
   end
 end
