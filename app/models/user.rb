@@ -751,7 +751,11 @@ class User < ActiveRecord::Base
     self.verified_at = DateTime.now
     self.verified_by = user
     self.save
-    VerificationMailer.verified(self).deliver
+    VerificationMailer.verified(self).deliver_later
   end
 
+  def age
+    18 if born_at.nil?
+    ((Time.zone.now - born_at.to_time) / 1.year.seconds).floor if born_at
+  end
 end

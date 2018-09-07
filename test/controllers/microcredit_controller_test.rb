@@ -3,8 +3,8 @@ require 'test_helper'
 class MicrocreditControllerTest < ActionController::TestCase
 
   setup do
-    @microcredit = FactoryGirl.create(:microcredit)
-    @user = FactoryGirl.create(:user)
+    @microcredit = FactoryBot.create(:microcredit)
+    @user = FactoryBot.create(:user)
   end
 
   test "should get provinces" do
@@ -61,7 +61,7 @@ class MicrocreditControllerTest < ActionController::TestCase
   #   #  assert flash[:errors] && flash[:errors].include?("ya no quedan préstamos por esa cantidad")
   #   #end
   #
-  #   user2 = FactoryGirl.create(:user)
+  #   user2 = FactoryBot.create(:user)
   #   params = { amount: 100, terms_of_service: 1, minimal_year_old: 1 }
   #   assert_difference('MicrocreditLoan.count') do
   #     post :create_loan, id: @microcredit.id, microcredit_loan: params

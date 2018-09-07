@@ -33,7 +33,7 @@ gem 'activeadmin', '1.0.0.pre1'
 gem 'active_skin'
 gem 'mailcatcher' # for staging too
 #gem 'resque', github: 'resque/resque', branch: '1-x-stable', require: 'resque/server'
-gem 'kaminari'
+gem 'kaminari', ' ~> 0.15 '
 gem 'pushmeup'
 gem 'date_validator'
 gem 'phone'
@@ -65,7 +65,7 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
   gem 'capistrano-rvm'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'byebug'
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -80,4 +80,5 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'minitest-rails-capybara'
   gem 'mocha'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 end

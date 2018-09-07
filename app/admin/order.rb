@@ -4,15 +4,15 @@ ActiveAdmin.register Order do
 
   menu :parent => "Colaboraciones"
 
-  permit_params :status, :reference, :amount, :first, :payment_type, :payment_identifier, :payment_response, :payable_at, :payed_at, :created_at
+  permit_params :status, :reference,  :amount, :first, :payment_type, :payment_identifier, :payment_response, :payable_at, :payed_at, :created_at
 
   # Nº RECIBO Es el identificador del cargo a todos los efectos y no se ha de repetir en la remesa y en las remesas sucesivas. Es un nº correlativo
-  # NOMBRE  
-  # DNI/NIE/PASAPORTE 
-  # EMAIL 
-  # DIRECCIÓN 
-  # CIUDAD  
-  # CÓDIGO POSTAL 
+  # NOMBRE
+  # DNI/NIE/PASAPORTE
+  # EMAIL
+  # DIRECCIÓN
+  # CIUDAD
+  # CÓDIGO POSTAL
   # CODIGO PAIS Codigo ISO 3166-1 del Pais. Este campo tambien tendria que ser validado en el registro. Hay muchos errores al respecto. Incluso de puede hacer un desplegable con los codigos de cada pais
   # IBAN  Campo imprescindible cuando son cuentas en el extranjero
   # CCC los 20 digitos sin espacios
@@ -23,14 +23,14 @@ ActiveAdmin.register Order do
   # "
   # ID - ENTRADA  Codigo del colaborador en la base de datos
   # FECHA DE LA ENTRADA Fecha de alta en la base de datos
-  # COMPROBACIÓN  Es el texto que aparecefrá en el recibo. Sera "Colaboracion "mes x"
+  # COMPROBACIÓN  Es el texto que aparecerá en el recibo. Sera "Colaboracion "mes x"
   # FECHA TRIODOS Fecha de la remesa de recibos
-  # FRECUENCIA  Perioricidad 
-  # TITULAR Titular de la cuenta. Si no indican nada en contra se pondra el mismo que en "nombre". 
+  # FRECUENCIA  Perioricidad
+  # TITULAR Titular de la cuenta. Si no indican nada en contra se pondra el mismo que en "nombre".
   #
   #"Nº RECIBO", "NOMBRE", "DNI/NIE/PASAPORTE", "EMAIL", "DIRECCIÓN", "CIUDAD", "CÓDIGO POSTAL", "CODIGO PAIS", "IBAN", "CCC", "BIC/SWIFT", "TOTAL", "CÓDIGO DE ADEUDO", "URL FUENTE", "ID - ENTRADA", "FECHA DE LA ENTRADA", "COMPROBACIÓN", "FECHA TRIODOS", "FRECUENCIA", "TITULAR"
   #
-  
+
   scope :to_be_paid
   scope :paid
   scope :warnings
@@ -58,7 +58,7 @@ ActiveAdmin.register Order do
     actions
   end
 
-  show do
+  show do |order|
     attributes_table do
       row :id
       row :status_name
@@ -100,7 +100,7 @@ ActiveAdmin.register Order do
   filter :created_at
   filter :town_code
   filter :autonomy_code
-  
+
   form do |f|
     f.inputs "Order" do
       f.input :status, as: :select, collection: Order::STATUS.to_a
@@ -140,7 +140,7 @@ ActiveAdmin.register Order do
     flash[:notice] = "Ya se ha recuperado la orden"
     redirect_to action: :show
   end
-  
+
   csv do
     column :id
     column :colaboracion do |order|

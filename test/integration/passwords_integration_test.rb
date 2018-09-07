@@ -3,8 +3,8 @@ require 'test_helper'
 class PasswordsIntegrationTest < ActionDispatch::IntegrationTest
 
   setup do
-    @user = FactoryGirl.create(:user)
-    @legacy_password_user = FactoryGirl.create(:user, :legacy_password_user)
+    @user = FactoryBot.create(:user)
+    @legacy_password_user = FactoryBot.create(:user, :legacy_password_user)
   end
 
   def login user

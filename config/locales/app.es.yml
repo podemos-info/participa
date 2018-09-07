@@ -9,10 +9,10 @@ es:
   errors:
     show:
       "404":
-        title: "Página no encontrada" 
+        title: "Página no encontrada"
         message_html: "No pudimos encontrar esa página. Vuelvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a>."
       "500":
-        title: "Error en el servidor" 
+        title: "Error en el servidor"
         message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='mailto:soportevotaciones@podemos.info'>soportevotaciones@podemos.info</a>"
     messages:
       not_valid_spanish_vat: El número de identificación fiscal no es válido
@@ -21,6 +21,11 @@ es:
       not_valid_nie: El NIE no es válido
       url: "no es una dirección web válida (debe comenzar con http:// o https://)"
   activerecord:
+    enums:
+      collaboration:
+        type_amounts:
+          single: Puntual
+          recursive: Recurrente
     models:
       user: Usuario
       users: Usuarios
@@ -59,40 +64,40 @@ es:
       impulsa_project: Proyecto de Impulsa
       impulsa_projects: Proyectos de Impulsa
     errors:
-      models: 
+      models:
         user:
-          attributes: 
+          attributes:
             first_name:
               blank: "Tu nombre no puede estar en blanco"
-            last_name: 
-              blank: "Tu apellido no puede estar en blanco" 
-            document_type: 
+            last_name:
+              blank: "Tu apellido no puede estar en blanco"
+            document_type:
               blank: "Tu tipo de documento no puede estar en blanco"
-            document_vatid: 
+            document_vatid:
               blank: "Tu documento no puede estar en blanco"
-              taken: "Hubo un error al guardar este dato. Inténtalo de nuevo" 
-            born_at: 
+              taken: "Hubo un error al guardar este dato. Inténtalo de nuevo"
+            born_at:
               blank: "Tu fecha de nacimiento no puede estar en blanco"
-              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto" 
+              not_a_date: "No es una fecha válida. Comprueba que el formato con el que estás poniendo la fecha sea el correcto"
             address:
               blank: "Tu dirección no puede estar en blanco"
             town:
               blank: "Tu municipio no puede estar en blanco"
             postal_code:
               blank: "Tu código postal no puede estar en blanco"
-            province: 
+            province:
               blank: "Tu provincia no puede estar en blanco"
-            country: 
+            country:
               blank: "Tu país no puede estar en blanco"
-            email: 
+            email:
               blank: "Tu correo electrónico no puede estar en blanco"
               taken: "Hubo un error al guardar este dato. Inténtalo de nuevo"
-            password: 
+            password:
               blank: "Tu contraseña no puede estar en blanco"
-            current_password: 
+            current_password:
               blank: "Debes indicar tu contraseña para validar los cambios."
             password_confirmation: "Contraseña (repetir)"
-            wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante." 
+            wants_newsletter: "Desmarca esta casilla si no quieres recibir nuestra newsletter. Sólo enviamos información importante."
         impulsa_edition:
           attributes:
             terms_of_service: "Acepto las condiciones generales"
@@ -190,7 +195,7 @@ es:
         last_fiscal_year_annual_accounts: "Cuentas anuales del último ejercicio"
         home_certificate: "Certificado de inscripción en el Consulado español del país de su residencia actual"
         bank_certificate: "Certificado bancario de titularidad de una cuenta en una entidad financiera resi­dente en España en la que se abonará la ayuda"
-        schedule: "Cronograma y fases" 
+        schedule: "Cronograma y fases"
         activities_resources: "Actividades y Recursos"
         total_budget: "Presupuesto total"
         requested_budget: "Presupuesto solicitado"
@@ -222,7 +227,7 @@ es:
         document_vatid: "DNI o NIE"
         address: "Dirección"
         postal_code: "Código postal"
-        minimal_year_old: "Edad mínima requerida" 
+        minimal_year_old: "Edad mínima requerida"
         terms_of_service: "Acuerdo legal"
         amount: "Importe"
         microcredit: "Microcrédito"
@@ -242,14 +247,18 @@ es:
         loan_renewals: "Microcréditos suscritos"
         renewal_terms: "Condiciones generales de extinción del anterior microcrédito y renovación de la suscripción"
         terms_of_service: "Condiciones generales de la suscripción del nuevo microcrédito"
-      collaboration: 
+      collaboration:
         user: "Usuario"
         created_at: "Creada el"
         updated_at: "Actualizada el"
         amount: "Importe mensual"
-        frequency: "Frecuencia de pago" 
-        frequency_name: "Frecuencia de pago" 
-        minimal_year_old: "Edad mínima requerida" 
+        amount_collector: "Importe"
+        amount_holder: "Importe personalizado"
+        single: "Puntual"
+        recursive: "Recurrente"
+        frequency: "Frecuencia de pago"
+        frequency_name: "Frecuencia de pago"
+        minimal_year_old: "Edad mínima requerida"
         terms_of_service: "Acuerdo legal"
         order_id: "Número de orden en Redsys"
         payment_type: "Método de pago"
@@ -265,24 +274,24 @@ es:
         status_name: "Estado"
         collaboration: "Colaboración"
         user: "Usuario"
-        payable_at: "A cobrarse el" 
+        payable_at: "A cobrarse el"
         payed_at: "Cobrada el"
         created_at: "Creada el"
         deleted_at: "Borrada el"
         updated_at: "Actualizada el"
-      election: 
+      election:
         title: "Título"
         agora_election_id: "ID en AgoraVoting"
         starts_at: "Empieza"
         ends_at: "Termina"
         close_message: "Mensaje de cierre"
-      proposal: 
+      proposal:
         title: "Título"
         description: "Descripción"
         image_url: "URL de la imagen"
       notice:
         title: "Título"
-        body: "Mensaje" 
+        body: "Mensaje"
       user:
         login: "Correo electrónico o Nº de documento"
         first_name: "Nombre"
@@ -342,27 +351,27 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
       mailer:
         hello: "Hola"
         welcome: "Bienvenida"
-        lock: 
+        lock:
           p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de soportevotaciones@podemos.info."
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
-          p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
+          p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador."
         confirm:
           p1: "Te has dado de alta o has cambiado tu correo electrónico en el entorno PODEMOS. Si no es ese el caso, ignora este correo. Puedes confirmar que esta es tu dirección de correo a través del siguiente enlace:"
-          p2: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
-        password: 
+          p2: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador."
+        password:
           p1: "Alguien ha pedido que cambies tu contraseña. Puedes hacerlo a través del siguiente enlace:"
           p2: "Si no has sido tú, por favor ignora este correo."
-          p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador." 
+          p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador."
           p4: "Tu contraseña no cambiará hasta que accedas a este enlace y crees una nueva."
-    navbar: 
+    navbar:
       tools: "Herramientas"
       profile: "Perfil"
       notice: "Avisos"
-    home: 
+    home:
       button: "¿No estás inscripto? ¡Inscríbete!"
       p1: "Podemos nace con la voluntad de construir una forma nueva de hacer política, y para ello necesitamos desarrollar estructuras organizativas diferentes de las tradicionales, para no repetir errores del pasado, para avanzar hacia una sociedad más democrática. Estamos construyendo una estructura transparente, ciudadana, abierta, democrática, eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos. "
       p2: "Pasar a formar parte del censo de inscritos de Podemos, desde el que se realizarán a partir de ahora todas las votaciones. Es un procedimiento sencillo y rápido que te permitirá ser parte activa de la comunidad Podemos. Juntos Podemos, claro que podemos."
-    valid: 
+    valid:
       phone:
         p1: "Introduce tu nuevo número de teléfono móvil."
         p2: "Recibirás el código de verificación para validar el nuevo número en unos segundos."
@@ -376,9 +385,9 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         button: "Comprobar"
         captcha_invalid: "Captcha invalido"
     collaboration:
-      title: "Colaboración económica" 
+      title: "Colaboración económica"
       p1: "Colaborando con Podemos conseguirás que este proyecto siga creciendo mes a mes y garantizarás la independencia necesaria para un proyecto cuyas únicas lealtades van a estar del lado de la gente. Convirtamos la indignación en cambio. Es el momento, estamos preparados: Hagámoslo posible."
-      ok: 
+      ok:
         p1: Tu donación se ha dado de alta correctamente.
         p2: Gracias por colaborar con Podemos.
       ko:
@@ -389,7 +398,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         p1_title: "Relación entre PODEMOS y el colaborador."
         p1: '
 La realización de aportaciones económicas es totalmente voluntaria, no implica la vinculación
-del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o 
+del colaborador con el partido político PODEMOS ni le confiere la condición legal de afiliado o
 simpatizante, ni de derechos frente al partido, ni queda obligado por sus estatutos y demás normas internas.
 
 Para colaborar económicamente con PODEMOS y poder cumplimentar el formulario de alta como colaborador es
@@ -426,7 +435,7 @@ y con la frecuencia de pago que ha indicado en el formulario.
 Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 15 de cada
 mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
     registration:
-      message: 
+      message:
         dni: "El formato deben ser 8 números y una letra, sin guiones ni espacios."
         nie: "El formato deben ser una letra, 7 números y una letra, sin guiones ni espacios."
         passport: "Envía una copia de tu pasaporte a partido@podemos.info para validar la inscripción."
@@ -437,7 +446,7 @@ mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
 <p> Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.  </p>
 <p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>
 <p><a href='/es/preguntas-frecuentes'>¿Problemas con la inscripción?</a></p>
-<p><strong>Si no recibes el correo electrónico para completar la inscripción, recuerda comprobar 
+<p><strong>Si no recibes el correo electrónico para completar la inscripción, recuerda comprobar
 si ha llegado a la carpeta de <em>correo electrónico no deseado</em>, <em>promociones</em> o <em>spam</em>.</strong></p>
 "
       terms_of_service:
@@ -483,19 +492,19 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO
         changed: "Has cambiado tu contraseña"
     guarantees:
       title: "Comisión de Garantías"
-    legal: 
+    legal:
       title1: "WEB PARTICIPA.PODEMOS.INFO"
       title2: "Aviso legal"
       title3: "CONDICIONES GENERALES DE ACCESO, EMPLEO DE COOKIES Y POLÍTICA DE PRIVACIDAD"
       p1:
         title: "Información general"
-        p1: 
+        p1:
           subtitle: "Identificación del propietario de la web"
           text_html: "PODEMOS PARTIDO POLÍTICO (en adelante PODEMOS) <br> CIF G86976941 <br> Calle Zurita, núm. 21 <br> 28012 Madrid"
-        p2: 
+        p2:
           subtitle: "Contacto"
           text_html: "Información general: contacto@podemos.info <br> Incidencias inscripciones: partido@podemos.info <br> Protección de datos: lopd@podemos.info <br>"
-      p2: 
+      p2:
         title: "Condiciones generales de acceso y uso de la web participa.podemos.info"
         p1:
           subtitle: "Usuarios y derecho de acceso"
@@ -512,10 +521,10 @@ Al marcar la casilla “He leído y acepto las condiciones generales" el USUARIO
   PODEMOS denegará y retirará el acceso y uso de la web en cualquier momento y sin previo aviso a toda persona que incumpla las condiciones generales o particulares que se publiquen en este sitio web o que haga un mal uso de las herramientas y servicios que se facilitan a los usuarios.
   </p>
   "
-        p2: 
+        p2:
           subtitle: "Modificaciones del sitio y de los servicios"
           text_html: "<p>
-PODEMOS se reserva el derecho de modificar unilateralmente en cualquier momento y sin previo aviso las presentes condiciones generales, las condiciones particulares y las condiciones de uso y los servicios que se prestan en esta página web. 
+PODEMOS se reserva el derecho de modificar unilateralmente en cualquier momento y sin previo aviso las presentes condiciones generales, las condiciones particulares y las condiciones de uso y los servicios que se prestan en esta página web.
 </p>
 
 <p>
@@ -536,7 +545,7 @@ El acceso y uso de la web tiene carácter gratuito para los USUARIOS y está res
 </p>
 
 <p>
-Para acceder a los servicios es necesario estar inscrito previamente como miembro de PODEMOS y registrarse posteriormente en la web con el nombre de usuario y la contraseña que sean requeridos y facilitados por PODEMOS. 
+Para acceder a los servicios es necesario estar inscrito previamente como miembro de PODEMOS y registrarse posteriormente en la web con el nombre de usuario y la contraseña que sean requeridos y facilitados por PODEMOS.
 </p>
 <p>
 Para el acceso deberán seguirse las instrucciones de registro que particularmente se establezcan en la página de inicio.
@@ -576,7 +585,7 @@ Toda la información contenida en esta web, incluyendo imágenes, diseños gráf
 PODEMOS no cede total ni parcialmente, ni concede licencia o autorización alguna a los usuarios sobre los derechos de propiedad intelectual o industrial o de cualquier otra forma relativa a la web.
 </p>
 <p>
-Supone una infracción de los derechos de propiedad intelectual e industrial protegidos por la ley copiar, reproducir, comunicar, distribuir, modificar o ceder la información contenida en la web, a menos que se cuente con la autorización del titular de los correspondientes derechos o que resulte legalmente permitido. 
+Supone una infracción de los derechos de propiedad intelectual e industrial protegidos por la ley copiar, reproducir, comunicar, distribuir, modificar o ceder la información contenida en la web, a menos que se cuente con la autorización del titular de los correspondientes derechos o que resulte legalmente permitido.
 </p>"
         p7:
           subtitle: "Traducción a los idiomas oficiales"
@@ -619,7 +628,7 @@ PODEMOS no responderá ante los USUARIOS por los daños y perjuicios de cualquie
   <li>La duración de la cookie, que puede ir de escasos minutos a varios años.</li>
   <li>El contenido de la cookie.</li>
 </ul>
- 
+
 <p> En todo momento puedes configurar tu programa de navegación para impedir (bloquear) el uso de cookies por parte de determinadas webs, así como borrar las cookies almacenadas previamente.</p>
 
 <h5>¿Para qué se usan las cookies?</h5>
@@ -639,7 +648,7 @@ PODEMOS no responderá ante los USUARIOS por los daños y perjuicios de cualquie
 <li><b>Piwik (cookies que empiezan con los prefijos _pk_id, _pk_ref, _pk_ses)</b>: Estas cookies son servidas por Piwik para recoger diversa información sobre la navegación del usuario por el site. Por ejemplo, la ubicación del visitante, detalles de la visita realizada (tiempo, páginas vistas, etc.). </li>
 <li><b>Ruby On Rails (_podemos-juntos_session, cookie_law, cookiepolicy, request_method)</b>: estas cookies son para la sesión de usuario de la herramienta y comprobar si el visitante ha aceptado o no la política de cookies.</li>
 <li><b>Recaptcha (AID, APISID, CAL, GAPS, HSID, I4SUserLocale, NID, OGPC, OTZ, PREF, PREF, SAPISID, SID, SNID, SSID)</b> Estas cookies son servidas por Google, para el correcto funcionamiento de su servicio de <a href="https://www.google.com/recaptcha/">Recaptcha</a>.</li>
-  </li>
+ </li>
 
 </ul>
  
@@ -665,7 +674,7 @@ Puedes encontrar información en las webs de los principales navegadores:
 '
         p10:
           subtitle: "Legislación aplicable y jurisdicción"
-          text_html: "<p> Las condiciones generales y particulares de uso, empleo de cookies y política de privacidad de esta página web se regirán por la legislación española.  </p> 
+          text_html: "<p> Las condiciones generales y particulares de uso, empleo de cookies y política de privacidad de esta página web se regirán por la legislación española.  </p>
 <p> PODEMOS y el USUARIO, con renuncia expresa al fuero que pudiera corresponderles, se someten a los juzgados y tribunales del domicilio del usuario, para cualquier controversia que pudiera surgir de la prestación de los servicios objeto de estas condiciones generales. En el supuesto de que el usuario tuviera su domicilio fuera del territorio español, PODEMOS y el USUARIO se someten, con renuncia expresa al fuero que pudiera corresponderles, a los juzgados y tribunales de Madrid (España).
 </p>"
       p3:
@@ -692,7 +701,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
           text_html: "Para ejercer los derechos de acceso, rectificación, cancelación y posición el USUARIO puede utilizar los formularios disponibles en la página web del perfil de usuario o dirigirse por correo electrónico a lopd@podemos.info indicando su nombre y apellidos y adjuntando copia de su DNI o documento legal de identificación."
       p4:
         title: "Aceptación de las presentes condiciones generales"
-        p1: 
+        p1:
           subtitle: "Protección de datos personales"
           text_html: '
 <p> Al marcar la casilla “He leído y acepto las condiciones de uso, empleo de cookies y política de privacidad" el USUARIO declara haber leído este aviso legal y estar conforme con su contenido.
@@ -729,7 +738,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       metodology_extra: "Describe cómo se va a desarrollar el proyecto y qué estrategias se pondrían en marcha para fomentar la participación dentro del mismo."
       population_segment_extra: "Especifica si el proyecto se dirige a un grupo concreto de población, cuáles son las razones de dicha elección y qué tipo de estrategias se utilizarán para asegurar la comunicación con ese grupo (o grupos)."
       schedule_extra: "Indica las fechas de inicio y finalización del proyecto, sus fases y duración, y los principales hitos a cumplir, mediante un cuadro o cronograma. Recuerda que el periodo de ejecución del proyecto es de %{limit} meses, aunque en casos excepcionales y justificados se podrá alargar el periodo de duración de un proyecto."
-      activities_resources_extra: "Según la planificación presentada en el cronograma, detalla las actividades que prevéis desarrollar durante el periodo de ejecución del proyecto. Para cada actividad, indica los recursos materiales y humanos que serán necesarios para llevarla a cabo."      
+      activities_resources_extra: "Según la planificación presentada en el cronograma, detalla las actividades que prevéis desarrollar durante el periodo de ejecución del proyecto. Para cada actividad, indica los recursos materiales y humanos que serán necesarios para llevarla a cabo."
       requested_budget_extra: "Basándote en el cuadro de actividades y recursos, establece el presupuesto de gastos e ingresos utilizando la plantilla adjunta. Asegúrate de rellenar las dos pestañas de la hoja de cálculo: Gastos e Ingresos. Recuerda que el presupuesto máximo son %{limit}."
       monitoring_evaluation_extra: "Detalla los indicadores que se utilizarán para la evaluación, especificando el objetivo al que responden, el tiempo estimado para alcanzarlo, el valor esperado al final del proyecto para cada indicador y la fuente de verificación que se utilizará para su medición."
       coofficial_translation_extra: "Si quieres que, para la fase de votaciones, tu proyecto se pueda ver en %{lang} marca esta casilla y rellena los siguientes campos en ese idioma."
@@ -783,10 +792,10 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
         organization: "NIF de la persona que representa a la entidad en la gestión de proyectos o, en el caso de que no exista, del representante legal de la entidad"
         people: "DNI/NIE de la persona solicitante del proyecto"
         foreign_people: "DNI o pasaporte español en vigor de la persona solicitante"
-      fiscal_obligations_certificate: 
+      fiscal_obligations_certificate:
         local: "Certificado de la Agencia Tributaria de obligaciones fiscales al corriente en el momento de la presentación del proyecto"
         foreign: "Certificado de la Agencia Tributaria española según el cual la persona solicitante está al corriente de las obligaciones fiscales en el momento de la presentación del proyecto"
-      labor_obligations_certificate: 
+      labor_obligations_certificate:
         local: "Certificado de la Seguridad Social de obligaciones laborales al corriente en el momento de la presentación del proyecto"
         foreign: "Certificado de la Seguridad Social española de obligaciones laborales al corriente en el momento de la presentación del proyecto"
       career:

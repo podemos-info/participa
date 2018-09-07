@@ -4,11 +4,11 @@ require 'test_helper'
 class MicrocreditTest < ActiveSupport::TestCase
 
   setup do
-    @user1 = FactoryGirl.create(:user)
-    @user2 = FactoryGirl.create(:user)
-    @user3 = FactoryGirl.create(:user)
-    @user4 = FactoryGirl.create(:user)
-    @microcredit = FactoryGirl.create(:microcredit)
+    @user1 = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user)
+    @user3 = FactoryBot.create(:user)
+    @user4 = FactoryBot.create(:user)
+    @microcredit = FactoryBot.create(:microcredit)
   end
 
   def create_loans( microcredit, number, data, update_counted=true )
@@ -28,13 +28,13 @@ class MicrocreditTest < ActiveSupport::TestCase
   end
 
   test "should active scope work" do
-    FactoryGirl.create(:microcredit, :expired)
-    FactoryGirl.create(:microcredit, :expired)
-    FactoryGirl.create(:microcredit, :expired)
+    FactoryBot.create(:microcredit, :expired)
+    FactoryBot.create(:microcredit, :expired)
+    FactoryBot.create(:microcredit, :expired)
     assert_equal 1, Microcredit.active.count
-    FactoryGirl.create(:microcredit)
-    FactoryGirl.create(:microcredit)
-    FactoryGirl.create(:microcredit)
+    FactoryBot.create(:microcredit)
+    FactoryBot.create(:microcredit)
+    FactoryBot.create(:microcredit)
     assert_equal 4, Microcredit.active.count
   end
 
@@ -214,13 +214,13 @@ class MicrocreditTest < ActiveSupport::TestCase
 
   test "friendly id slug candidates work" do
     now = DateTime.now
-    microcredit1 = FactoryGirl.create(:microcredit, title: "Barna")
+    microcredit1 = FactoryBot.create(:microcredit, title: "Barna")
     assert_equal("barna", microcredit1.slug)
-    microcredit2 = FactoryGirl.create(:microcredit, title: "Barna")
+    microcredit2 = FactoryBot.create(:microcredit, title: "Barna")
     assert_equal("barna-#{now.year}", microcredit2.slug)
-    microcredit3 = FactoryGirl.create(:microcredit, title: "Barna")
+    microcredit3 = FactoryBot.create(:microcredit, title: "Barna")
     assert_equal("barna-#{now.year}-#{now.month}", microcredit3.slug)
-    microcredit4 = FactoryGirl.create(:microcredit, title: "Barna")
+    microcredit4 = FactoryBot.create(:microcredit, title: "Barna")
     assert_equal("barna-#{now.year}-#{now.month}-#{now.day}", microcredit4.slug)
   end
 

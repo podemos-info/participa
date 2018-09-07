@@ -13,7 +13,7 @@ class LegacyPasswordControllerTest < ActionController::TestCase
   end
 
   test "should redirect to root as user if user has not legacy password" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     sign_in user
     get :new
     assert_response :redirect
@@ -21,14 +21,14 @@ class LegacyPasswordControllerTest < ActionController::TestCase
   end
 
   test "should redirect as user with legacy password" do
-    user = FactoryGirl.create(:user, :legacy_password_user)
+    user = FactoryBot.create(:user, :legacy_password_user)
     sign_in user
     get :new
     assert_response :success
   end
 
   test "should test if both passwords are equal" do
-    user = FactoryGirl.create(:user, :legacy_password_user)
+    user = FactoryBot.create(:user, :legacy_password_user)
     sign_in user
     post :update, user: { password: "lalalilo", password_confirmation: "error" }
     assert_response :success

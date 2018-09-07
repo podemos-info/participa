@@ -16,8 +16,8 @@ include Warden::Test::Helpers
 Warden.test_mode!
 
 class ActionController::TestCase
-  include Devise::TestHelpers
-  include FactoryGirl::Syntax::Methods
+  include Devise::Test::ControllerHelpers
+  include FactoryBot::Syntax::Methods
 end
 
 def with_blocked_change_location
