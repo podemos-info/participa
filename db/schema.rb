@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003100903) do
+ActiveRecord::Schema.define(version: 20180914153505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20171003100903) do
     t.string   "meta_image"
     t.string   "counter_key"
     t.string   "external_link"
+    t.string   "voter_id_template"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

@@ -1,7 +1,9 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations, :user_created_at_max, :priority, :info_text, :requires_vatid_check, :requires_sms_check, :show_on_index, :ignore_multiple_territories, :meta_description, :meta_image, :external_link
+  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations,
+                :user_created_at_max, :priority, :info_text, :requires_vatid_check, :requires_sms_check, :show_on_index,
+                :ignore_multiple_territories, :meta_description, :meta_image, :external_link, :voter_id_template
 
   index do
     selectable_column
@@ -42,6 +44,7 @@ ActiveAdmin.register Election do
       row :external_link if election.external?
       row :server if !election.external?
       row :agora_election_id if !election.external?
+      row :voter_id_template
       row :scope_name
       row :starts_at
       row :ends_at
@@ -110,6 +113,7 @@ ActiveAdmin.register Election do
       f.input :external_link
       f.input :server, as: :select, collection: Election.available_servers
       f.input :agora_election_id
+      f.input :voter_id_template
       f.input :scope, as: :select, collection: Election::SCOPE
       f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  } if !resource.persisted?
       f.input :starts_at
@@ -177,5 +181,4 @@ ActiveAdmin.register ElectionLocation do
       end
     end
   end
-
 end
