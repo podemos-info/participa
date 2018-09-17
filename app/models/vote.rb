@@ -62,7 +62,7 @@ class Vote < ActiveRecord::Base
     @voter_id_template_values ||= Hash.new do |hash, key|
       hash[key] = case key
                   when :shared_secret then election.server_shared_key
-                  when :document_vatid then normalized_vatid(!user.is_passport?, user.document_vatid)
+                  when :normalized_vatid then normalized_vatid(!user.is_passport?, user.document_vatid)
                   when :secret_key_base then Rails.application.secrets.secret_key_base
                   when :user_id then user_id
                   when :election_id then election_id
@@ -82,7 +82,7 @@ class Vote < ActiveRecord::Base
               .each_char
               .chunk_while { |i, j| number?(i) == number?(j) }
               .map(&:join)
-              .map { |part| number?(part.first) ? part.to_i.to_s : part }
+              .map { |part| part.gsub(/^0*/, '') }
               .join
   end
 
