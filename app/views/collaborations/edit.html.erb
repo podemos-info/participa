@@ -13,9 +13,7 @@
       <p> Ya tienes una colaboración. Es la siguiente: </p>
       <%= errors_in_form @collaboration %>
 
-      <%= semantic_form_for @collaboration, url: modify_collaboration_path, html: {method: :post, autocomplete: 'off'} do |f| %>
 
-      <%= render partial: "form", locals: { f: f } %>
       <%= render partial: "frequency_table" %>
       <% if @collaboration.has_payment? %>
           <%= error_box "Cambios en la colaboración", false do %>
@@ -25,9 +23,7 @@
 
       <div class="js-collaboration-confirm-buttons buttonbox">
         <%= link_to "Dar de baja colaboración", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que quieres dar de baja esta colaboración?"} %>
-        <%= f.action :submit, :label=>"Guardar cambios", :as => :input, button_html: {class: 'button'} %>
       </div>
-      <% end %> 
     </div>
   </div>
 </div>
