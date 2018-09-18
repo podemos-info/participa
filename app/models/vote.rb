@@ -1,18 +1,23 @@
-class Vote < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Vote < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :user
   belongs_to :election
 
   validates :user_id, :election_id, :voter_id, presence: true
-  #validates :user_id, uniqueness: {scope: :election_id}
-  validates :voter_id, uniqueness: {scope: :user_id}
+  validates :voter_id, uniqueness: { scope: :user_id }
 
   before_validation :save_voter_id, on: :create
 
   def generate_voter_id
-    Digest::SHA256.hexdigest("#{Rails.application.secrets.secret_key_base}:#{self.user_id}:#{self.election_id}:#{self.scoped_agora_election_id}")
+    Digest::SHA256.hexdigest(
+      (
+        election.voter_id_template.presence ||
+        '%{secret_key_base}:%{user_id}:%{election_id}:%{scoped_agora_election_id}'
+      ) % voter_id_template_values
+    )
   end
 
   def generate_message
@@ -49,8 +54,40 @@ class Vote < ActiveRecord::Base
       self.update_attribute(:agora_id, scoped_agora_election_id)
       self.update_attribute(:voter_id, generate_voter_id)
     else
-      self.errors.add(:voter_id, "No se pudo generar")
+      self.errors.add(:voter_id, 'No se pudo generar')
     end
   end
 
+  def voter_id_template_values
+    @voter_id_template_values ||= Hash.new do |hash, key|
+      hash[key] = case key
+                  when :shared_secret then election.server_shared_key
+                  when :normalized_vatid then normalized_vatid(!user.is_passport?, user.document_vatid)
+                  when :secret_key_base then Rails.application.secrets.secret_key_base
+                  when :user_id then user_id
+                  when :election_id then election_id
+                  when :scoped_agora_election_id then scoped_agora_election_id
+                  else '%{key}'
+                  end
+    end
+  end
+
+  def normalized_vatid(spanish_nif, document_vatid)
+    (spanish_nif ? 'DNI' : 'PASS') + normalize_identifier(document_vatid)
+  end
+
+  def normalize_identifier(identifier)
+    identifier.gsub(/[^a-zA-Z0-9]/, '')
+              .upcase
+              .each_char
+              .chunk_while { |i, j| number?(i) == number?(j) }
+              .map(&:join)
+              .map { |part| part.gsub(/^0*/, '') }
+              .join
+  end
+
+  NUMBERS = ('0'..'9').to_set
+  def number?(char)
+    NUMBERS.include?(char)
+  end
 end

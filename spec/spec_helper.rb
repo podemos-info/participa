@@ -16,6 +16,9 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'webmock/rspec'
+require 'support/test_redsys'
+
 RSpec.configure do |config|
   config.before(:each) do
     stub_request(:any, /sis-t.redsys.es/).to_rack(TestRedsys)
