@@ -5,7 +5,7 @@
 	<%= f.input :unconfirmed_phone, label: 'Teléfono móvil (sin confirmar)' %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
-    <%= f.input :gender, as: :radio, collection: User::GENDER %>
+    <%= f.input :gender, as: :radio, collection: User::GENDER.invert.to_a %>
     <%= f.input :document_type, as: :radio, collection: User::DOCUMENTS_TYPE %>
     <%= f.input :document_vatid %>
     <%= f.input :born_at,
