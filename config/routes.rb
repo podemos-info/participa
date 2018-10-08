@@ -175,13 +175,13 @@ Rails.application.routes.draw do
       get '/registrations/vote/municipies', to: 'registrations#vote_municipies'
 
       authenticated :user do
-        root 'tools#index', as: :authenticated_root
+        root to: 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
         delete 'password/recover', to: 'registrations#recover_and_logout'
       end
       unauthenticated do
-        root 'sessions#new', as: :root
+        root to: 'sessions#new', as: :root
       end
     end
 
