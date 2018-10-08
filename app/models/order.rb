@@ -56,8 +56,8 @@ class Order < ActiveRecord::Base
   end
 
   def type_amount
-    due_code if collaboration.type_amount == "recursive"
-    "OOFF" if collaboration.type_amount == "single"
+    return due_code if collaboration.type_amount == "recursive"
+    return "OOFF" if collaboration.type_amount == "single"
   end
 
   def is_payable?
