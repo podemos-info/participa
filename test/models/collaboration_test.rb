@@ -504,7 +504,7 @@ class CollaborationTest < ActiveSupport::TestCase
                 'http://localhost/colabora', 
                 @collaboration.id, 
                 order.created_at.strftime('%d-%m-%Y'), 
-                'Colaboración marzo 2015', 
+                'Donacions marzo 2015', 
                 '10-03-2015', 
                 'Mensual', 
                 'PEREZ PEPITO']

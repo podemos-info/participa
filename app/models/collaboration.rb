@@ -294,7 +294,7 @@ class Collaboration < ActiveRecord::Base
     order = Order.new do |o|
       o.user = user
       o.parent = self
-      o.reference = 'Colaboración ' + I18n.localize(date, format: '%B %Y')
+      o.reference = 'Donacions ' + I18n.localize(date, format: '%B %Y')
       o.first = is_first
       o.amount = amount
       o.payable_at = date

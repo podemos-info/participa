@@ -251,6 +251,14 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def full_name_invert
+    "#{last_name}, #{first_name}"
+  end
+
+  def reference
+    format('%04dBC%030d', Date.today.year, id) 
+  end
+
   def username
     self.full_name.parameterize()
   end

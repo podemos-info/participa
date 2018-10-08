@@ -143,7 +143,7 @@ ActiveAdmin.register Collaboration do
       #  active = status[0] ? " (en progreso)" : ""
       #  li link_to("Descargar fichero para el banco#{active}", params.merge(:action => :download_csv))
       #end
-      li link_to 'Generar fichero en formato SEPA (xml)', params.merge(:action => :generate_sepa_xml)
+      # li link_to 'Generar fichero en formato SEPA (xml)', params.merge(:action => :generate_sepa_xml)
       li link_to 'Generar fichero en formato SEPA (xls)', params.merge(:action => :generate_sepa_xls)
       li do
         this_month = Order.banks.by_date(Date.today, Date.today).to_be_charged.count
