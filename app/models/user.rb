@@ -762,15 +762,56 @@ class User < ActiveRecord::Base
     self.has_future_verified_elections? && !self.verified  || (UserVerification.where(user_id: self.id).any? && UserVerification.accepted_by_email.where(user_id: self.id).none?)
   end
 
+  def vote_autonomy_since
+    last_vote_location_change[:autonomy]
+  end
+
+  def vote_province_since
+    last_vote_location_change[:province]
+  end
+
+  def vote_island_since
+    last_vote_location_change[:island]
+  end
+
   def vote_town_since
-    return unless vote_town
-    @vote_town_since ||= begin
-      ret = updated_at
-      versions.reverse.each do |v|
-        old_vote_town = v.object && v.object.scan(/^vote_town\: (.*)$/).flatten.first
-        ret = v.created_at
-        break unless old_vote_town && old_vote_town.casecmp(vote_town).zero?
+    last_vote_location_change[:town]
+  end
+
+  private
+
+  def last_vote_location_change
+    @last_vote_location_change ||= begin
+      ret = {
+        autonomy: updated_at,
+        province: updated_at,
+        island: updated_at,
+        town: updated_at
+      }
+
+      if vote_town
+        changed_autonomy = changed_province = changed_town = false
+        changed_island = !in_spanish_island?
+
+        versions.reverse_each do |v|
+          old_user = v.reify
+
+          break unless old_user
+
+          ret[:autonomy] = v.created_at unless changed_autonomy
+          ret[:province] = v.created_at unless changed_province
+          ret[:island] = v.created_at unless changed_island
+          ret[:town] = v.created_at unless changed_town
+
+          changed_autonomy ||= old_user.vote_autonomy_code != vote_autonomy_code
+          changed_province ||= old_user.vote_province_code != vote_province_code
+          changed_island ||= old_user.vote_island_code != vote_island_code
+          changed_town ||= !old_user.vote_town.casecmp(vote_town).zero?
+
+          break if changed_autonomy && changed_province && changed_town && changed_island
+        end
       end
+
       ret
     end
   end
