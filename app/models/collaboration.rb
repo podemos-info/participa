@@ -294,7 +294,7 @@ class Collaboration < ActiveRecord::Base
     order = Order.new do |o|
       o.user = user
       o.parent = self
-      o.reference = 'Colaboración ' + I18n.localize(date, format: '%B %Y')
+      o.reference = 'Donacions ' + I18n.localize(date, format: '%B %Y')
       o.first = is_first
       o.amount = amount
       o.payable_at = date
@@ -400,9 +400,11 @@ class Collaboration < ActiveRecord::Base
     elsif first_order.payable_at.unique_month > date.unique_month
       return false
     # calculate next order month based on last paid order
-    else
+    elsif frequency
       next_order = last_order_for(date - 1.month).payable_at.unique_month + frequency
       next_order = Date.today.unique_month if next_order < Date.today.unique_month  # update next order when a payment was missed
+    else
+      return false
     end
 
     (date.unique_month >= next_order) && ((date.unique_month - next_order) % (frequency || 12)).zero?

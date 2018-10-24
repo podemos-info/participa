@@ -7,23 +7,27 @@
   <Worksheet ss:Name="Sheet1">
     <Table>
       <Row>
-        <Cell><Data ss:Type="String"></Data></Cell>
-        <Cell><Data ss:Type="String">Nombre del Deudor</Data></Cell>
-        <Cell><Data ss:Type="String">Referencia Mandato</Data></Cell>
-        <Cell><Data ss:Type="String">Cuenta de cargo</Data></Cell>
-        <Cell><Data ss:Type="String">Concepto</Data></Cell>
-        <Cell><Data ss:Type="String">Importe</Data></Cell>
+        <Cell><Data ss:Type="String">REFERENCIA DEL CLIENTE</Data></Cell>
+        <Cell><Data ss:Type="String">NOMBRE DEL CLIENTE</Data></Cell>
+        <Cell><Data ss:Type="String">CUENTA DEL DEUDOR</Data></Cell>
+        <Cell><Data ss:Type="String">IMPORTE</Data></Cell>
+        <Cell><Data ss:Type="String">REFERENCIA DEL RECIBO</Data></Cell>
+        <Cell><Data ss:Type="String">TIPO DE ADEUDO</Data></Cell>
+        <Cell><Data ss:Type="String">REFERENCIA DEL MANDATO</Data></Cell>
+        <Cell><Data ss:Type="String">FIRMA DEL MANDATO</Data></Cell>
+        <Cell><Data ss:Type="String">CONCEPTO</Data></Cell>
       </Row>
-      <% year=Time.now.year %>
       <% PodemosCollaborationSepaWorker.read_orders.each do |order| %>
-      <% id = order.id.to_s.rjust(7, '0') %>
       <Row>
-        <Cell><Data ss:Type="String"></Data></Cell>
-        <Cell><Data ss:Type="String"><%= order.collaboration.user.full_name %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= "#{year}#{id}" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.collaboration.user.reference %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.collaboration.user.full_name_invert.upcase %></Data></Cell>
         <Cell><Data ss:Type="String"><%= order.collaboration.calculate_iban%></Data></Cell>
+        <Cell><Data ss:Type="String"><%= number_with_delimiter((order.amount / 100.0), separator: ",") %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= format('%04d%07d', Date.today.year, order.collaboration.id) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.type_amount %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.reference_order %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.collaboration.created_at.strftime("%d/%m/%Y") %></Data></Cell>
         <Cell><Data ss:Type="String"><%= order.reference %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= order.amount / 100 %></Data></Cell>
       </Row>
       <% end %>
     </Table>

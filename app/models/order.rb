@@ -51,6 +51,15 @@ class Order < ActiveRecord::Base
     o.status = 0 if o.status.nil?
   end
 
+  def reference_order
+    format('%04dBC%028d', created_at.year, id)
+  end
+
+  def type_amount
+    return due_code if collaboration.type_amount == "recursive"
+    return "OOFF" if collaboration.type_amount == "single"
+  end
+
   def is_payable?
     self.status<2
   end
