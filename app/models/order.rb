@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
   end
 
   def reference_order
-    format('%04dBC%030d', created_at.year, id)
+    format('%04dBC%028d', created_at.year, id)
   end
 
   def type_amount
