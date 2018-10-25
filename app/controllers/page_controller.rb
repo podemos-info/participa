@@ -207,6 +207,9 @@ class PageController < ApplicationController
       created_at: current_user.created_at,
       gender: current_user.gender,
       vote_town: current_user.vote_town,
+      vote_autonomy_since: current_user.vote_autonomy_since.to_i,
+      vote_province_since: current_user.vote_province_since.to_i,
+      vote_island_since: current_user.vote_island_since.to_i,
       vote_town_since: current_user.vote_town_since.to_i
     }
 

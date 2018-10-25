@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
   apply_simple_captcha
-  
+
   include FlagShihTzu
 
   include Rails.application.routes.url_helpers
-  
+
   has_flags 1 => :banned,
             2 => :superadmin,
             3 => :verified,
@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
   end
 
   def validates_unconfirmed_phone_uniqueness
-    if self.unconfirmed_phone.present? 
-      if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists? 
+    if self.unconfirmed_phone.present?
+      if User.confirmed_phone.where(phone: self.unconfirmed_phone).exists?
         self.errors.add(:phone, "Ya hay alguien con ese número de teléfono")
       end
     end
@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
       if _phone.invalid? || _phone.impossible?
         self.errors.add(:phone, "Revisa el formato de tu teléfono")
       elsif (_phone.possible_types & [:fixed_line, :mobile, :fixed_or_mobile]).none?
-        self.errors.add(:phone, "Debes utilizar un teléfono móvil") 
+        self.errors.add(:phone, "Debes utilizar un teléfono móvil")
       else
         self.phone = "00"+_phone.international(false)
       end
@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   end
 
   def validates_unconfirmed_phone_format
-    if self.unconfirmed_phone.present? 
+    if self.unconfirmed_phone.present?
       _phone = Phonelib.parse self.unconfirmed_phone.sub(/^00+/, '+')
 
       if _phone.invalid? || _phone.impossible?
@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
     # User don't have a legacy password, verify if profile is valid before request to change it
     if self.has_legacy_password?
       issue ||= check_issue self.invalid?, :edit_user_registration, nil, "registrations"
-      
+
       issue ||= check_issue true, :new_legacy_password, { alert: "legacy_password" }, "legacy_password"
     end
 
@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
   scope :confirmed, -> { where.not(confirmed_at: nil).where.not(sms_confirmed_at: nil) }
   scope :signed_in, -> { where.not(sign_in_count: nil) }
   scope :has_collaboration, -> { joins(:collaboration).where("collaborations.user_id IS NOT NULL") }
-  scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) } 
+  scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) }
   scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
   scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
   GENDER = { "F" => "Femenino", "M" => "Masculino", "O" => "Otro", "N" => "No contesta" }
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
-  # Based on 
+  # Based on
   # https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
   # Check if login is email or document_vatid to use the DB indexes
   #
@@ -216,7 +216,7 @@ class User < ActiveRecord::Base
   def get_or_create_vote election_id
     v = Vote.new({election_id: election_id, user_id: self.id})
     if Vote.find_by_voter_id( v.generate_message )
-      return v 
+      return v
     else
       v.save
       return v
@@ -265,7 +265,7 @@ class User < ActiveRecord::Base
 
   def can_change_vote_location?
     # use database version if vote_town has changed
-    !self.has_verified_vote_town? or !self.persisted? or 
+    !self.has_verified_vote_town? or !self.persisted? or
       (Rails.application.secrets.users["allows_location_change"] and !User.blocked_provinces.member?(vote_province_persisted))
   end
 
@@ -286,7 +286,7 @@ class User < ActiveRecord::Base
   def check_sms_token(token)
     if token == self.sms_confirmation_token
       self.update_attribute(:sms_confirmed_at, DateTime.now)
-      if self.unconfirmed_phone? 
+      if self.unconfirmed_phone?
         self.update_attribute(:phone, self.unconfirmed_phone)
         self.update_attribute(:unconfirmed_phone, nil)
 
@@ -299,7 +299,7 @@ class User < ActiveRecord::Base
         end
       end
       true
-    else 
+    else
       false
     end
   end
@@ -346,8 +346,8 @@ class User < ActiveRecord::Base
 
     if _country
       _country.name
-    else  
-      "País desconocido"    
+    else
+      "País desconocido"
     end
   end
 
@@ -381,7 +381,7 @@ class User < ActiveRecord::Base
 
   def province_code
     if self.in_spain? and _province
-      "p_%02d" % + _province.index 
+      "p_%02d" % + _province.index
     else
       ""
     end
@@ -481,7 +481,7 @@ class User < ActiveRecord::Base
       prov.code
     else
       ""
-    end  
+    end
   end
 
   def vote_province
@@ -505,7 +505,7 @@ class User < ActiveRecord::Base
 
   def vote_province_code
     if _vote_province
-      "p_%02d" % + _vote_province.index 
+      "p_%02d" % + _vote_province.index
     else
       ""
     end
@@ -543,7 +543,7 @@ class User < ActiveRecord::Base
       "-"
     end
   end
-  
+
   def vote_province_numeric
     if _vote_province
       "%02d" % + _vote_province.index
@@ -551,7 +551,7 @@ class User < ActiveRecord::Base
       ""
     end
   end
-  
+
   def vote_town_numeric
     if _vote_town
       _vote_town.code.split("_")[1,3].join
@@ -573,7 +573,7 @@ class User < ActiveRecord::Base
     return "province" if not _country.subregions.empty? and not _country.subregions.coded(self.province)
     return "town" if self.in_spain? and not _town
   end
-  
+
   def vote_town_notice()
     self.vote_town == "NOTICE"
   end
@@ -622,7 +622,7 @@ class User < ActiveRecord::Base
       # Spanish users can't set a different town for vote, except when blocked
       if self.in_spain? and self.can_change_vote_location?
         self.vote_town = self.town
-        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district 
+        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
     end
   end
@@ -685,7 +685,7 @@ class User < ActiveRecord::Base
     @vote_town_cache = begin
       town = nil
       if self.has_vote_town? && _vote_province
-        town = _vote_province.subregions.coded(self.vote_town) 
+        town = _vote_province.subregions.coded(self.vote_town)
       elsif self.country=="ES"
         town = _town
       else
@@ -699,7 +699,7 @@ class User < ActiveRecord::Base
   def can_request_sms_check?
     DateTime.now > next_sms_check_request_at
   end
-  
+
   def can_check_sms_check?
     sms_check_at.present? && (DateTime.now < (sms_check_at + eval(Rails.application.secrets.users["sms_check_valid_interval"])))
   end
@@ -711,7 +711,7 @@ class User < ActiveRecord::Base
       DateTime.now - 1.second
     end
   end
-  
+
   def send_sms_check!
     require 'sms'
     if can_request_sms_check?
@@ -762,15 +762,56 @@ class User < ActiveRecord::Base
     self.has_future_verified_elections? && !self.verified  || (UserVerification.where(user_id: self.id).any? && UserVerification.accepted_by_email.where(user_id: self.id).none?)
   end
 
+  def vote_autonomy_since
+    last_vote_location_change[:autonomy]
+  end
+
+  def vote_province_since
+    last_vote_location_change[:province]
+  end
+
+  def vote_island_since
+    last_vote_location_change[:island]
+  end
+
   def vote_town_since
-    return unless vote_town
-    @vote_town_since ||= begin
-      ret = updated_at
-      versions.reverse.each do |v|
-        old_vote_town = v.object && v.object.scan(/^vote_town\: (.*)$/).flatten.first
-        ret = v.created_at
-        break unless old_vote_town && old_vote_town.casecmp(vote_town).zero?
+    last_vote_location_change[:town]
+  end
+
+  private
+
+  def last_vote_location_change
+    @last_vote_location_change ||= begin
+      ret = {
+        autonomy: updated_at,
+        province: updated_at,
+        island: updated_at,
+        town: updated_at
+      }
+
+      if vote_town
+        changed_autonomy = changed_province = changed_town = false
+        changed_island = !in_spanish_island?
+
+        versions.reverse_each do |v|
+          old_user = v.reify
+
+          break unless old_user
+
+          ret[:autonomy] = v.created_at unless changed_autonomy
+          ret[:province] = v.created_at unless changed_province
+          ret[:island] = v.created_at unless changed_island
+          ret[:town] = v.created_at unless changed_town
+
+          changed_autonomy ||= old_user.vote_autonomy_code != vote_autonomy_code
+          changed_province ||= old_user.vote_province_code != vote_province_code
+          changed_island ||= old_user.vote_island_code != vote_island_code
+          changed_town ||= !old_user.vote_town.casecmp(vote_town).zero?
+
+          break if changed_autonomy && changed_province && changed_town && changed_island
+        end
       end
+
       ret
     end
   end
