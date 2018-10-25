@@ -806,7 +806,7 @@ class User < ActiveRecord::Base
           changed_autonomy ||= old_user.vote_autonomy_code != vote_autonomy_code
           changed_province ||= old_user.vote_province_code != vote_province_code
           changed_island ||= old_user.vote_island_code != vote_island_code
-          changed_town ||= !old_user.vote_town.casecmp(vote_town).zero?
+          changed_town ||= old_user.vote_town.blank? || !old_user.vote_town.casecmp(vote_town).zero?
 
           break if changed_autonomy && changed_province && changed_town && changed_island
         end
