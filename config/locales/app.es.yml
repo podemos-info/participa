@@ -242,6 +242,8 @@ es:
         transferred_to_id: "Transferido a"
         all: "Todos"
         id: "Identificador"
+        iban_account: "IBAN"
+        iban_bic: "BIC/SWIFT"
       renewals:
         loan_renewals: "Microcréditos suscritos"
         renewal_terms: "Condiciones generales de extinción del anterior microcrédito y renovación de la suscripción"
