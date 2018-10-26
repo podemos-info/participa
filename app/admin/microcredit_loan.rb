@@ -2,7 +2,7 @@ ActiveAdmin.register MicrocreditLoan do
   actions :all, :except => [:destroy]
   config.per_page = 100
 
-  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :returned_at, :transferred_to_id
+  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :returned_at, :transferred_to_id, :iban_account, :iban_bic
 
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
