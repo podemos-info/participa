@@ -136,6 +136,10 @@ fieldset .inputlabel-box{
   padding-bottom:1em;
   position:relative;
 }
+
+.with-border{
+  border: 1px solid #d3d8dc;
+}
 fieldset .inputlabel-box {
   input, label, select, textarea, p {
     font-family:"Helvetica Neue",Helvetica,Arial,sans-sefif;
