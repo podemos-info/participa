@@ -138,11 +138,24 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
       </div>
 
       <div class="inputlabel-box">
-        <% if @loan.errors.include?(:iban_account) %>
+        <p>Cuenta en la que deseas te sea devuelto el microcrédito</p>
+      </div>
+      <div class="inputlabel-box">
+        <% if @microcredit.errors.include? :iban_account %>
+          <%= field_notice_box %>
+        <% end %>
+        <%= f.input :iban_account, input_html: { class: 'input-m form-control' } %>
+
+      </div>
+      <div class="inputlabel-box">
+        <p>Sólo necesario en el caso de que tu cuenta bancaria no sea española</p>
+      </div>
+      <div class="inputlabel-box">
+        <% if @microcredit.errors.include? :iban_bic %>
           <%= field_notice_box %>
         <% end %>
 
-        <%= f.input :iban_account, input_html: { class: 'input-m form-control' } %>
+        <%= f.input :iban_bic %>
       </div>
 
     <% if !current_user %>

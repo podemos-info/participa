@@ -115,9 +115,9 @@ class MicrocreditController < ApplicationController
 
   def loan_params
     if current_user
-      params.require(:microcredit_loan).permit(:amount, :terms_of_service, :minimal_year_old, :iban_account)
+      params.require(:microcredit_loan).permit(:amount, :terms_of_service, :minimal_year_old, :iban_account, :iban_bic)
     else
-      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old, :captcha, :captcha_key, :iban_account)
+      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old, :captcha, :captcha_key, :iban_account, :iban_bic)
     end
   end
 

@@ -388,6 +388,7 @@ ActiveRecord::Schema.define(version: 20181024121106) do
     t.datetime "returned_at"
     t.integer  "transferred_to_id"
     t.string   "iban_account"
+    t.string   "iban_bic"
   end
 
   add_index "microcredit_loans", ["document_vatid"], name: "index_microcredit_loans_on_document_vatid", using: :btree

@@ -26,7 +26,9 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_age_over
 
   validates :iban_account, presence: true
+  validates :iban_bic, presence: true, if: :is_bank_international?
   validate :validates_iban
+  validate :validates_bic
 
   scope :not_counted, -> { where(counted_at:nil) }
   scope :counted, -> { where.not(counted_at:nil) }
@@ -162,12 +164,27 @@ class MicrocreditLoan < ActiveRecord::Base
     end
   end
 
+  def is_bank_international?
+    self.iban_account && !self.iban_account.start_with?("ES")
+  end
+
   def validates_iban
     iban_validation = IBANTools::IBAN.valid?(self.iban_account)
     ccc_validation = self.iban_account&.start_with?("ES") ? BankCccValidator.validate(self.iban_account[4..-1]) : true
     unless iban_validation and ccc_validation
       self.errors.add(:iban_account, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
     end
+  end
+
+  def calculate_bic
+    bic = Podemos::SpanishBIC[iban_account[4..7].to_i] if iban_account and !iban_account.empty? and iban_account[0..1]=="ES"
+    bic = iban_bic.gsub(" ","") if not bic and iban_bic and !iban_bic.empty?
+    bic
+  end
+
+  def validates_bic
+    self.iban_bic =  calculate_bic if self.iban_account.start_with?("ES")
+    true
   end
 
   def check_amount

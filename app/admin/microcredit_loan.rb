@@ -100,6 +100,8 @@ ActiveAdmin.register MicrocreditLoan do
           row :town_name
         end
       end
+      row :iban_account
+      row :iban_bic
       row :ip if can? :admin, MicrocreditLoan
       row :created_at
       row :confirmed_at
@@ -136,6 +138,8 @@ ActiveAdmin.register MicrocreditLoan do
       f.input :microcredit
       f.input :user_id
       f.input :amount
+      f.input :iban_account
+      f.input :iban_bic
       f.input :document_vatid
       f.input :user_data
       f.input :confirmed_at
@@ -288,6 +292,8 @@ ActiveAdmin.register MicrocreditLoan do
     column :created_at
     column :counted_at
     column :confirmed_at
+    column :iban_account
+    column :iban_bic
 
     column :phone do |loan|
       loan.user.phone if loan.user
