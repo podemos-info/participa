@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :supports, dependent: :destroy
   has_one :collaboration, dependent: :destroy
+  has_many :orders, through: :collaboration
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
   belongs_to :verified_by, class_name: "User", foreign_key: "verified_by_id" #, counter_cache: :verified_by_id
