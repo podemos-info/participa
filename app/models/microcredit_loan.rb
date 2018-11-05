@@ -183,7 +183,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def validates_bic
-    self.iban_bic =  calculate_bic if self.iban_account.start_with?("ES")
+    self.iban_bic =  calculate_bic if self.iban_account && self.iban_account.start_with?("ES")
     true
   end
 
