@@ -25,8 +25,8 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
-  validates :iban_account, presence: true
-  validates :iban_bic, presence: true, if: :is_bank_international?
+  validates :iban_account, presence: true, on: :create
+  validates :iban_bic, presence: true, on: :create, if: :is_bank_international?
   validate :validates_iban
   validate :validates_bic
 
