@@ -18,6 +18,7 @@ class OpenIdController < ApplicationController
   def discover
     types = [
              OpenID::OPENID_IDP_2_0_TYPE,
+             OpenID::OPENID_2_0_TYPE
             ]
 
     render_xrds(types)

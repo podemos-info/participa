@@ -25,10 +25,10 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
-  validates :iban_account, presence: true
-  validates :iban_bic, presence: true, if: :is_bank_international?
-  validate :validates_iban
-  validate :validates_bic
+  validates :iban_account, presence: true, on: :create
+  validates :iban_bic, presence: true, on: :create, if: :is_bank_international?
+  validate :validates_iban , if: :iban_account
+  validate :validates_bic, if: :iban_bic
 
   scope :not_counted, -> { where(counted_at:nil) }
   scope :counted, -> { where.not(counted_at:nil) }
@@ -183,7 +183,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def validates_bic
-    self.iban_bic =  calculate_bic if self.iban_account.start_with?("ES")
+    self.iban_bic =  calculate_bic if self.iban_account && self.iban_account.start_with?("ES")
     true
   end
 
