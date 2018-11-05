@@ -169,6 +169,8 @@ ActiveAdmin.register MicrocreditLoan do
   filter :user_last_name_or_user_data_cont, label: "Apellido"
   filter :microcredit
   filter :document_vatid
+  filter :user_email_or_user_data_cont, label: "Email"
+  filter :user_email_in, as: :string, label: "Lista de Emails"
   filter :created_at
   filter :counted_at
   filter :amount
