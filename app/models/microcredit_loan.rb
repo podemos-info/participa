@@ -27,8 +27,8 @@ class MicrocreditLoan < ActiveRecord::Base
 
   validates :iban_account, presence: true, on: :create
   validates :iban_bic, presence: true, on: :create, if: :is_bank_international?
-  validate :validates_iban
-  validate :validates_bic
+  validate :validates_iban , if: :iban_account
+  validate :validates_bic, if: :iban_bic
 
   scope :not_counted, -> { where(counted_at:nil) }
   scope :counted, -> { where.not(counted_at:nil) }
