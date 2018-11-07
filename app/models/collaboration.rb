@@ -32,7 +32,7 @@ class Collaboration < ActiveRecord::Base
   validates :ccc_entity, :ccc_office, :ccc_dc, :ccc_account, presence: true, if: :has_ccc_account?
   validate :validates_ccc, if: :has_ccc_account?
 
-  validates :iban_account, :iban_bic, presence: true, if: :has_iban_account?
+  validates :iban_account, presence: true, if: :has_iban_account?
   validate :validates_iban, if: :has_iban_account?
 
   AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
