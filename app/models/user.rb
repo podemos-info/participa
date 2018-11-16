@@ -55,9 +55,7 @@ class User < ActiveRecord::Base
   validate :validates_unconfirmed_phone_uniqueness
 
   def validate_born_at
-    if born_at > Date.today-18.years
-      errors.add(:born_at, "debes ser mayor de 18 años")
-    end
+    errors.add(:born_at, "debes ser mayor de 18 años") if born_at && born_at > Date.today - 18.years
   end
 
   def validates_postal_code
