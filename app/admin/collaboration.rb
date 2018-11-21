@@ -1,3 +1,4 @@
+require 'collaborations_on_paper'
 def show_order o, html_output = true
   otext  = if o.has_errors?
               "x"
@@ -186,6 +187,10 @@ ActiveAdmin.register Collaboration do
       li "x = error"
       li "d = devuelta"
     end
+  end
+
+  sidebar "Añadir Colaboraciones en formato papel", 'data-panel' => :collapsed, :only => :index, priority: 1 do
+    render('process_collaborations_on_paper')
   end
 
   filter :user_first_name, as: :string
@@ -390,6 +395,26 @@ ActiveAdmin.register Collaboration do
     end
     render "admin/process_bank_response_results", locals: {messages: messages}
   end  
+
+  collection_action :process_collaborations_on_paper, :method => :post do
+    file_input = params["process_collaborations_on_paper"]["file"].tempfile
+    @collaborations_on_paper = CollaborationsOnPaper.new(file_input)
+    if @collaborations_on_paper.all_ok?
+    if @collaborations_on_paper.has_errors_on_save?
+      flash_type = :error
+      message = "Ha habido algún error al guardar las colaboraciones en papel. Por favor, intentelo de nuevo y avise a Informática"
+    else
+      flash_type = :notice
+      message = "Todas las colaboraciones en papel han sido dadas de alta satisfactoriamente"
+    end
+    else
+      flash_type = :error
+      message = "Ha habido algún error en el fichero de las colaboraciones en papel. Por favor, corrijalo e intentelo de nuevo"
+    end
+    flash[flash_type] = message
+    render("admin/collaborations/collaborations_on_paper")
+
+  end
 
   member_action :charge_order do
     resource.charge!
