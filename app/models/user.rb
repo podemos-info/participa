@@ -753,6 +753,20 @@ class User < ActiveRecord::Base
     Election.future.requires_vatid_check.any? { |e| e.has_valid_location_for? self}
   end
 
+  def has_not_verification_accepted?
+     UserVerification.where(
+       user_id: self.id,
+       status: [UserVerification::statuses[:accepted],UserVerification::statuses[:accepted_by_email]]
+     ).blank?
+  end
+  def verification_to_be_prioritized
+    user_verification_to_manage = UserVerification.where(
+      user_id: self.id,
+      status: [UserVerification::statuses[:pending],UserVerification::statuses[:issues],UserVerification::statuses[:paused]]
+    ).first if has_not_verification_accepted?
+    user_verification_to_manage if self.has_future_verified_elections? && user_verification_to_manage
+  end
+
   def photos_unnecessary?
     self.has_future_verified_elections? && self.verified && (UserVerification.where(user_id:self.id).none? || UserVerification.accepted_by_email.where(user_id: self.id).any?)
   end
