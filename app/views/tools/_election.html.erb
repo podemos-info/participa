@@ -27,7 +27,11 @@ Accederás a la votación de<% case election.scope
   <% if election.has_valid_location_for?(current_user) && election.has_valid_user_created_at?(current_user) %>
     <% if election.external_link.blank? %>
       <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
-        <span>Votar</span>
+        <% if current_user.has_already_voted_in election.id %>
+          <span>Cambiar el voto</span>
+        <% else %>
+          <span>Votar</span>
+        <% end %>
       <% end %>
     <% else %>
       <%= link_to election.external_link, class: 'button button-vote' do %>

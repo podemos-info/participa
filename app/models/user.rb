@@ -221,6 +221,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_already_voted_in election_id
+    Vote.where(election_id: election_id).where(user_id:self.id).present?
+  end
+
   def document_vatid=(val)
     self[:document_vatid] = val.upcase.strip
   end
