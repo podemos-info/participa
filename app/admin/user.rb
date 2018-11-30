@@ -198,7 +198,7 @@ ActiveAdmin.register User do
     active_admin_comments
   end
 
-  sidebar "Buscar personas en Perticipa", 'data-panel' => :collapsed, :only => :index, priority: 1 do
+  sidebar "Buscar personas en Participa", 'data-panel' => :collapsed, :only => :index, priority: 1 do
     render("admin/users/process_search_persons")
   end
 
