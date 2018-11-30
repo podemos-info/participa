@@ -1,0 +1,9 @@
+
+<tr class="js-row <%= status == :ok || status == :ok_non_user ? '' : 'row error' %>">
+  <td><%=row[:full_name] %></td>
+  <td><%=row[:document_vatid] %></td>
+  <td><%=row[:phone] %></td>
+  <td><%=row[:email] %></td>
+  <td><%=row[:donation_type] %></td>
+  <td><%= status %></td>
+</tr>

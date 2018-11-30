@@ -354,7 +354,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
-    rb-readline (0.5.3)
+    rb-readline (0.5.5)
     rdoc (4.3.0)
     redcarpet (3.3.2)
     redis (3.3.1)
@@ -415,8 +415,8 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    sinatra (1.4.6)
-      rack (~> 1.4)
+    sinatra (1.4.8)
+      rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     skinny (0.2.3)
@@ -567,9 +567,6 @@ DEPENDENCIES
   webmock
   wicked_pdf
   xmlrpc
-
-RUBY VERSION
-   ruby 2.4.2p198
 
 BUNDLED WITH
    1.17.1
