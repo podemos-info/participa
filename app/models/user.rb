@@ -759,12 +759,14 @@ class User < ActiveRecord::Base
        status: [UserVerification::statuses[:accepted],UserVerification::statuses[:accepted_by_email]]
      ).blank?
   end
-  def verification_to_be_prioritized
-    user_verification_to_manage = UserVerification.where(
+
+  def imperative_verification
+    return if verified? || !has_future_verified_elections?
+
+    UserVerification.find_by(
       user_id: self.id,
-      status: [UserVerification::statuses[:pending],UserVerification::statuses[:issues],UserVerification::statuses[:paused]]
-    ).first if has_not_verification_accepted?
-    user_verification_to_manage if self.has_future_verified_elections? && user_verification_to_manage
+      status: %w(pending issues paused).map {|status| UserVerification::statuses[status] }
+    )
   end
 
   def photos_unnecessary?
