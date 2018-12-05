@@ -1,0 +1,17 @@
+<% if !@collaborations_on_paper.collaborations_processed.empty? %>
+  <table class="js-collaboration-evolution data_table">
+    <thead>
+    <th>NOMBRE COMPLETO</th>
+    <th>DNI</th>
+    <th>TELEFONO MOVIL</th>
+    <th>EMAIL</th>
+    <th>FINANCIACION TERRITORIAL</th>
+    <th>RESULTADO DE LA VALIDACIÓN</th>
+    </thead>
+    <tbody>
+    <% @collaborations_on_paper.results.each do |r| %>
+      <%= render "row_collaboration_on_paper", row: r[0], status: r[1] %>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
