@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Reporte Anual">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">NOMBRE Y APELLIDO</Data></Cell>
+        <Cell><Data ss:Type="String">IMPORTE PAGADO</Data></Cell>
+        <Cell><Data ss:Type="String">DNI</Data></Cell>
+        <Cell><Data ss:Type="String">EMAIL</Data></Cell>
+      </Row>
+      <% CollaborationAnnualReportWorker.get_users.each do |user| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= user.full_name %></Data></Cell>
+        <Cell><Data ss:Type="String">
+          <%= number_with_delimiter((user.orders.sum(:amount) / 100.0), separator: ",") %>
+        </Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.document_vatid %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.email %></Data></Cell>
+      </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
+

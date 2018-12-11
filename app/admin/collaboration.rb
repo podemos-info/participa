@@ -145,6 +145,7 @@ ActiveAdmin.register Collaboration do
       #end
       # li link_to 'Generar fichero en formato SEPA (xml)', params.merge(:action => :generate_sepa_xml)
       li link_to 'Generar fichero en formato SEPA (xls)', params.merge(:action => :generate_sepa_xls)
+      li link_to 'Generar fichero reporte anual (xls)', params.merge(:action => :generate_annual_report, format: :xls)
       li do
         this_month = Order.banks.by_date(Date.today, Date.today).to_be_charged.count
         prev_month = Order.banks.by_date(Date.today-1.month, Date.today-1.month).to_be_charged.count
@@ -380,6 +381,16 @@ ActiveAdmin.register Collaboration do
       end
     end
     # redirect_to :admin_collaborations, flash: { notice: 'Generado fichero xml para Triodos' }
+  end
+
+  collection_action :generate_annual_report, method: :get do
+    filename = 'annual_report'
+    respond_to do |format|
+      format.xls do
+        response.headers['Content-Disposition'] = "attachment; filename=#{filename}.xls"
+        render 'collaborations/generate_annual_report'
+      end
+    end
   end
 
   collection_action :generate_sepa_xls, method: :get do
