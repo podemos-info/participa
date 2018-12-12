@@ -60,9 +60,6 @@
           <li class="menu-tools">
             <%= nav_menu_link_to "Portada", "home", root_path, [root_path], title: "Portada" %>
           </li>
-          <% unless Rails.env.production? %>
-          <li><%= link_to "BETA", "#", class: "js-header-others-show" %></li>
-          <% end %>
           <% if can? :step1, :verification %>
             <% if Rails.application.secrets.features["verification_presencial"] %>
               <li class="menu-verif">
