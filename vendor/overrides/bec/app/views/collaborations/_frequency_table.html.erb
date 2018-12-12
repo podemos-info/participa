@@ -1,0 +1,24 @@
+<% if (@collaboration.frequency || 1) > 0 %>
+<table class="table-collaborations">
+  <caption class="invisible">Colaboraciones</caption>
+  <thead>
+    <th><%= t("podemos.collaboration.freq_table.title") %></th>
+    <th><%= t("podemos.collaboration.freq_table.amount") %></th>
+  </thead>
+  <tbody>
+  <% @orders.each do |orders| %>
+    <tr>
+      <td> <%= l(orders[-1].payable_at, format: :date) %><% if orders[-1].was_returned? %> (devuelta)<%elsif orders[-1].is_paid?%> (pagada el <%=l(orders[-1].payed_at, format: :date)%>)<% end %></td>
+      <td> <%= number_to_euro orders[-1].amount %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>Total</th>
+      <th><%= number_to_euro(@orders.map {|o| o[-1].amount} .sum) %></th>
+    </tr>
+  </tfoot>
+</table>
+<% end %>
+
