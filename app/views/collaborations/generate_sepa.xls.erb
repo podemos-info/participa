@@ -7,24 +7,20 @@
   <Worksheet ss:Name="Sheet1">
     <Table>
       <Row>
-        <Cell><Data ss:Type="String">REFERENCIA DEL CLIENTE</Data></Cell>
-        <Cell><Data ss:Type="String">NOMBRE DEL CLIENTE</Data></Cell>
-        <Cell><Data ss:Type="String">CUENTA DEL DEUDOR</Data></Cell>
+        <Cell><Data ss:Type="String">NOMBRE</Data></Cell>
+        <Cell><Data ss:Type="String">IBAN</Data></Cell>
         <Cell><Data ss:Type="String">IMPORTE</Data></Cell>
-        <Cell><Data ss:Type="String">REFERENCIA DEL RECIBO</Data></Cell>
-        <Cell><Data ss:Type="String">TIPO DE ADEUDO</Data></Cell>
-        <Cell><Data ss:Type="String">REFERENCIA DEL MANDATO</Data></Cell>
-        <Cell><Data ss:Type="String">FIRMA DEL MANDATO</Data></Cell>
-        <Cell><Data ss:Type="String">CONCEPTO</Data></Cell>
+        <Cell><Data ss:Type="String">REF_NORMA</Data></Cell>
+        <Cell><Data ss:Type="String">REF_MANDATO</Data></Cell>
+        <Cell><Data ss:Type="String">FECHA_MANDATO</Data></Cell>
+        <Cell><Data ss:Type="String">CONCEPTO_NORMA</Data></Cell>
       </Row>
       <% PodemosCollaborationSepaWorker.read_orders.each do |order| %>
       <Row>
-        <Cell><Data ss:Type="String"><%= order.collaboration.user.reference %></Data></Cell>
         <Cell><Data ss:Type="String"><%= order.collaboration.user.full_name_invert.upcase %></Data></Cell>
         <Cell><Data ss:Type="String"><%= order.collaboration.calculate_iban%></Data></Cell>
         <Cell><Data ss:Type="String"><%= number_with_delimiter((order.amount / 100.0), separator: ",") %></Data></Cell>
         <Cell><Data ss:Type="String"><%= format('%04d%07d', Date.today.year, order.collaboration.id) %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= order.type_amount %></Data></Cell>
         <Cell><Data ss:Type="String"><%= order.reference_order %></Data></Cell>
         <Cell><Data ss:Type="String"><%= order.collaboration.created_at.strftime("%d/%m/%Y") %></Data></Cell>
         <Cell><Data ss:Type="String"><%= order.reference %></Data></Cell>

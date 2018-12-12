@@ -156,7 +156,7 @@ ca:
       ko:
         title: Hi ha hagut un error amb la teva col·laboració.
         contact: "Sisplau intenta realitzar el pagament un altre cop. Si tornes a tenir problemes contacta tresoreria@bcnencomu.cat "
-      passport_message_html: "<p>Segons la nostra base de dades estàs inscrit amb un nombre de passaport. Atès que la Llei Orgànica 8/2007, de 4 de juliol, sobre finançament dels  partits polítics, exigeix la identificació fiscal dels donants, per poder col·laborar econòmicament amb Barcelona En Comú i poder emplenar el formulari d'alta com a col·laborador és imprescindible disposar de DNI o NIE.</p><p>Si ets espanyol o estranger amb NIE envia'ns una còpia del teu DNI o document on consti el teu nombre d'identificació d'estranger a l'adreça xxxxx@xxxx.xxx perquè puguem actualitzar les dades de la teva inscripció.</p>"
+      passport_message_html: "<p>Segons la nostra base de dades estàs inscrit amb un nombre de passaport. Atès que la Llei Orgànica 8/2007, de 4 de juliol, sobre finançament dels  partits polítics, exigeix la identificació fiscal dels donants, per poder col·laborar econòmicament amb Barcelona En Comú i poder emplenar el formulari d'alta com a col·laborador és imprescindible disposar de DNI o NIE.</p><p>Si ets espanyol o estranger amb NIE envia'ns una còpia del teu DNI o document on consti el teu nombre d'identificació d'estranger a l'adreça tresoreria@bcnencomu.cat perquè puguem actualitzar les dades de la teva inscripció.</p>"
       over: Declaro ser major de 18 anys.
       total_amount: Aportació económica
       next: "Ja tens una col·laboració. És la següent:"

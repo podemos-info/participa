@@ -67,7 +67,7 @@ class Collaboration < ActiveRecord::Base
             if: :has_ccc_account?
   validate :validates_ccc, if: :has_ccc_account?
 
-  validates :iban_account, :iban_bic, presence: true, if: :has_iban_account?
+  validates :iban_account, presence: true, if: :has_iban_account?
   validate :validates_iban, if: :has_iban_account?
 
   enum type_amount: %i[single recursive]

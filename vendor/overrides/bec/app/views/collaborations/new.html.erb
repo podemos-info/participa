@@ -1,0 +1,76 @@
+<% content_for :title, t("podemos.collaboration.title") %>
+
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+
+      <%= content_tag(:h2, t("podemos.collaboration.title")) %>
+
+      <% if current_user.is_passport? %>
+        <%= info_box do %>
+          <%= t("podemos.collaboration.passport_message_html") %>
+        <% end %>
+      <% else %>
+
+        <%= render partial: 'steps', locals: {step: 1} %>
+
+        <%= info_box do %>
+            <p><%= t("podemos.collaboration.p1") %></p>
+        <% end %>
+
+        <%= errors_in_form @collaboration %>
+
+        <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post, autocomplete: 'off'} do |f| %>
+
+            <%= render partial: "form", locals: { f: f } %>
+
+            <fieldset class="with-tos">
+
+              <legend><span>Consentimiento</span></legend>
+
+              <div class="inputlabel-box">
+                <span class="no-label"><%= t('podemos.collaboration.terms_of_service.title') %></span>
+                <span class="no-input">
+                  <div class="tos">
+                    <p>1. <%= t('podemos.collaboration.terms_of_service.p1_title') %> </p>
+                    <%= simple_format t('podemos.collaboration.terms_of_service.p1') %>
+                    <p>2. <%= t('podemos.collaboration.terms_of_service.p2_title') %> </p>
+                    <%= simple_format t('podemos.collaboration.terms_of_service.p2') %>
+                    <p>3. <%= t('podemos.collaboration.terms_of_service.p3_title') %> </p>
+                    <%= simple_format t('podemos.collaboration.terms_of_service.p3') %>
+                  </div>
+                </span>
+              </div>
+
+              <div class="inputlabel-box">
+                <% if @collaboration.errors.include?(:terms_of_service) %>
+                    <%= field_notice_box %>
+                <% end %>
+
+                <%= f.label :terms_of_service %>
+                <div class="input-box">
+                  <%= f.check_box :terms_of_service, class: 'checkbox' %>
+                  <p class="text-xl"><%= t("podemos.collaboration.terms_of_service.accept") %></p>
+                </div>
+              </div>
+
+              <div class="inputlabel-box">
+                <% if @collaboration.errors.include?(:minimal_year_old) %>
+                    <%= field_notice_box %>
+                <% end %>
+                <%= f.label :minimal_year_old %>
+                <div class="input-box">
+                  <%= f.check_box :minimal_year_old, class: 'checkbox' %>
+                  <p class="text-xl"><%= t("podemos.collaboration.over") %></p>
+                </div>
+              </div>
+
+              <%= f.actions class: 'enter' do %>
+                <%= f.action :submit, label: t('podemos.collaboration.submit'), as: :input, button_html: {class: 'button'} %>
+              <% end %>
+            </fieldset>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

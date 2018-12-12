@@ -32,7 +32,6 @@ feature 'Collaborations' do
     select('Puntual', from: 'Tipo de importe')
     select('Domiciliación en cuenta bancaria (formato IBAN)', from: 'Método de pago') 
     fill_in('collaboration_iban_account', with: 'ES0690000001210123456789')
-    fill_in('collaboration_iban_bic', with: 'ESPBESMMXXX')
     check('collaboration_terms_of_service')
     check('collaboration_minimal_year_old')
 
@@ -70,7 +69,6 @@ feature 'Collaborations' do
       from: 'Método de pago'
     )
     fill_in('collaboration_iban_account', with: 'ES0690000001210123456789')
-    fill_in('collaboration_iban_bic', with: 'ESPBESMMXXX')
     check('collaboration_terms_of_service')
     check('collaboration_minimal_year_old')
 
