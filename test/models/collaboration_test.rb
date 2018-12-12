@@ -207,8 +207,6 @@ class CollaborationTest < ActiveSupport::TestCase
       @collaboration.update_attribute(:payment_type, 1)
       assert_equal('Suscripción con Tarjeta de Crédito/Débito', @collaboration.payment_type_name )
     end
-    @collaboration.update_attribute(:payment_type, 2)
-    assert_equal('Domiciliación en cuenta bancaria (formato CCC)', @collaboration.payment_type_name )
     @collaboration.update_attribute(:payment_type, 3)
     assert_equal('Domiciliación en cuenta bancaria (formato IBAN)', @collaboration.payment_type_name )
   end
@@ -338,12 +336,10 @@ class CollaborationTest < ActiveSupport::TestCase
     assert order1.save
     assert_equal(order1, @collaboration.first_order)
     assert_equal 'Domiciliación en cuenta bancaria (formato IBAN)', order1.payment_type_name
-    assert_equal 'Domiciliación en cuenta bancaria (formato CCC)', @collaboration.payment_type_name
     assert_equal(order1.amount, @collaboration.amount)
     order2 = @collaboration.create_order DateTime.now
     assert order2.save
     assert_equal 'Domiciliación en cuenta bancaria (formato IBAN)', order2.payment_type_name
-    assert_equal 'Domiciliación en cuenta bancaria (formato CCC)', @collaboration.payment_type_name
     assert_equal(order2.amount, @collaboration.amount)
   end
 
