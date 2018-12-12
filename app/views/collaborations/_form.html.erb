@@ -89,9 +89,9 @@
           <%= field_notice_box %>
       <% end %>
 
-      <%= f.input :iban_account %>
+      <%= f.input :iban_account, input_html: { class: "input-m", maxlength: 24 } %>
     </div>
-    <div class="inputlabel-box">
+    <div class="inputlabel-box hide">
       <% if @collaboration.errors.include? :iban_bic %>
           <%= field_notice_box %>
       <% end %>
