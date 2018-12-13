@@ -186,9 +186,9 @@ Aquesta donació no es fa des de governs, organismes, entitats o empreses públi
 
 La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona o entitat amb l’objectiu que aquesta donació es pugui fer."
         p2_title: "Protecció de dades de caràcter personal"
-        p2: "Barcelona En Comú, d’acord amb la Llei orgànica 15/1999, de protecció de dades de caràcter personal, us informa que les vostres dades seran incorporades al fitxer “donacions”, del qual és responsable Barcelona En Comú, que les emprarà per tramitar la vostra col·laboració, gestionar els càrrecs bancaris i complir amb la normativa de finançament de partits polítics, així com amb finalitats estadístiques i fer-vos arribar periòdicament informació de les seves activitats. Concediu el consentiment exprés perquè aquestes dades passin a formar part de Barcelona En Comú. Per exercir els vostres drets d’accés, rectificació, cancel·lació o oposició, com ara cancel·lar la subscripció, modificar les dades bancàries o l’import i freqüència de la vostra donació, podeu enviar un correu electrònic a tresoreria@bcnencomu.cat, indicant la referència “modificació de la donació” o per correu postal a la seu social sítia al carrer Castillejos, 233, baixos, de Barcelona, adjuntant còpia del vostre document nacional d’identitat."
+        p2: "Barcelona En Comú, d’acord amb la Llei Orgànica 3/2018, de 5 de desembre, de Protecció de Dades Personals i Garantia dels Drets Digitals, us informa que les vostres dades seran incorporades al fitxer “donacions”, del qual és responsable Barcelona En Comú, que les emprarà per tramitar la vostra col·laboració, gestionar els càrrecs bancaris i complir amb la normativa de finançament de partits polítics, així com amb finalitats estadístiques i fer-vos arribar periòdicament informació de les seves activitats. Concediu el consentiment exprés perquè aquestes dades passin a formar part de Barcelona En Comú. Per exercir els vostres drets d’accés, rectificació, cancel·lació o oposició, com ara cancel·lar la subscripció, modificar les dades bancàries o l’import i freqüència de la vostra donació, podeu enviar un correu electrònic a tresoreria@bcnencomu.cat, indicant la referència “modificació de la donació” o per correu postal a la seu social sítia al Carrer Marina 131, bis baixos (CP 08013), de Barcelona, adjuntant còpia del vostre document nacional d’identitat."
         p3_title: "Consentiment de l'ordre de domiciliació"
-        p3: "Autoritzeu a Barcelona En Comú i a la vostra entitat bancària a efectuar les operacions de cobrament mitjançant càrrecs al compte bancari que ens heu facilitat, per l’import i amb la freqüència que ens heu indicat al formulari. Els càrrecs domiciliats es realitzaran entre els dies 10 i 15 de cada mes."
+        p3: "Autoritzeu a Barcelona En Comú i a la vostra entitat bancària a efectuar les operacions de cobrament mitjançant càrrecs al compte bancari que ens heu facilitat, per l’import i amb la freqüència que ens heu indicat al formulari. Els càrrecs domiciliats es realitzaran entre els dies 5 i 10 de cada mes."
       freq:
         first: "Mensual"
         second: "Trimestral"
@@ -219,10 +219,10 @@ La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona 
       change_phone_explain_html: "Ara mateix tens el mòbil <b> %{phone} </b>"
       change_password: "Canvia contrasenya"
       cancel_account: "Dóna'm de baixa"
-      cancel_account_explain_html: "<p>Si cliques ‘Dóna'm de baixa’ deixaràs de ser membre de Barcelona En Comú i cancel·larem les teves dades personals conforme a allò convingut a la Llei Orgànica 15/1999 de Protecció de Dades de Caràcter Personal.</p>
+      cancel_account_explain_html: "<p>Si cliques ‘Dóna'm de baixa’ deixaràs de ser membre de Barcelona En Comú i cancel·larem les teves dades personals conforme a allò convingut a la Llei Orgànica 3/2018, de 5 de desembre, de Protecció de Dades Personals i Garantia dels Drets Digitals.</p>
 <p> A partir d'aquest moment el teu compte d'accés al portal de participació de Barcelona En Comú quedarà eliminat.</p>
 </p><p>
-En clicar el botó ‘Dóna'm de baixa’ deixaràs de pertànyer a Barcelona En Comú i cancel•larem les teves dades personals, conforme a allò convingut a la Llei Orgànica 15/1999 de Protecció de Dades de Caràcter Personal.
+En clicar el botó ‘Dóna'm de baixa’ deixaràs de pertànyer a Barcelona En Comú i cancel•larem les teves dades personals, conforme a allò convingut a la Llei Orgànica 3/2018, de 5 de desembre, de Protecció de Dades Personals i Garantia dels Drets Digitals.
 </p><p>
 Des d'aquell moment, el teu compte d'accés al portal de participació de Barcelona En Comú serà eliminat.
 </p><p>
@@ -299,7 +299,7 @@ La inscripció suposa l'acceptació expressa dels estatuts del partit i dels aco
 </p>
 <p><b>2. Protecció de dades personals</b></p>
 <p>
-Barcelona En Comú, d'acord amb la Llei Orgànica 15/1999 de Protecció de Dades de Caràcter Personal, informa les persones que vulguin inscriure's que les dades personals que facilitin en el formulari d'inscripció seran incorporades al fitxer d'afiliats del qual és responsable Barcelona En Comú Partit Polític, amb CIF G66476136, que els utilitzarà per gestionar els perfils dels inscrits, contactar-hi per gestionar-ne el registre i fer-los arribar tota la informació necessària sobre la inscripció.
+Barcelona En Comú, d'acord amb la Llei Orgànica 3/2018, de 5 de desembre, de Protecció de Dades Personals i Garantia dels Drets Digitals, informa les persones que vulguin inscriure's que les dades personals que facilitin en el formulari d'inscripció seran incorporades al fitxer d'afiliats del qual és responsable Barcelona En Comú Partit Polític, amb CIF G66476136, que els utilitzarà per gestionar els perfils dels inscrits, contactar-hi per gestionar-ne el registre i fer-los arribar tota la informació necessària sobre la inscripció.
 </p>
 <p>
 L'inscrit/a accepta i consent expressament el tractament de les seves dades personals i la recepció de comunicacions electròniques per als fins indicats.
@@ -308,7 +308,7 @@ L'inscrit/a accepta i consent expressament el tractament de les seves dades pers
 Exceptuant un imperatiu legal, les dades personals dels inscrits no seran cedits a terceres persones sense el seu consentiment exprés.
 </p>
 <p>
-Barcelona En Comú compleix amb totes les mesures de seguretat per a la protecció de dades personals exigides pel Reial Decret 1720/2007, de 21 de desembre, pel qual s'aprova el Reglament de desenvolupament de la Llei Orgànica 15/1999, de 13 de desembre, de protecció de dades de caràcter personal.
+Barcelona En Comú compleix amb totes les mesures de seguretat per a la protecció de dades personals exigides pel Reial Decret 1720/2007, de 21 de desembre, pel qual s'aprova el Reglament de desenvolupament de la Llei Orgànica 15/1999, de 13 de desembre, de Protecció de Dades Personals.
 </p>
 <p>
 <p><b>3. Exercicis dels drets d'accés, rectificació, cancel·lació i oposició</b></p>
@@ -334,7 +334,7 @@ Quan es marca la casella 'He llegit i accepto les condicions generals' l'USUARI/
         title: "Informació general"
         p1:
           subtitle: "Identificació del propietari del web"
-          text_html: "Barcelona en Comú PARTIT POLÍTIC (endavant Barcelona en Comú) <br> CIF G66476136 <br> Carrer Castillejos, 233 <br> 08013 Barcelona"
+          text_html: "Barcelona en Comú PARTIT POLÍTIC (endavant Barcelona en Comú) <br> CIF G66476136 <br> Carrer Marina 131, bis baixos <br> 08013 Barcelona"
         p2:
           subtitle: "Contacte"
           text_html: "Informació general: eleccions@bcnencomu.cat <br> Incidències d'inscripcions: eleccions@bcnencomu.cat <br> Protecció de dades: eleccions@bcnencomu.cat <br>"
