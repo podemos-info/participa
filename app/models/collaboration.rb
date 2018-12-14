@@ -182,12 +182,12 @@ class Collaboration < ActiveRecord::Base
 
   def calculate_iban
     iban = nil
-    if ccc_account and (not iban_account or is_bank_national?)
+    if iban_account.empty? and ccc_account.present?
       ccc = self.ccc_full
       iban = 98-("#{ccc}142800".to_i % 97)
       iban = "ES#{iban.to_s.rjust(2,"0")}#{ccc}"
     end
-    iban = iban_account.gsub(" ","") if not iban and iban_account and !iban_account.empty?
+    iban = iban_account.gsub(" ","") if iban.nil? and iban_account.present?
     iban
   end
   def calculate_bic
