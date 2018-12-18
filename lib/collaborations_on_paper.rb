@@ -1,7 +1,5 @@
 class CollaborationsOnPaper
   include ActiveModel::Validations::SpanishVatValidatorsHelpers
-  ActiveRecord::Base.after_commit  :display_all_ok
-  ActiveRecord::Base.after_rollback :display_error
 
   DEFAULT_STATUS = 2
   DEFAULT_COUNTRY = 'ES'
@@ -207,6 +205,4 @@ class CollaborationsOnPaper
   def has_invalid_fullname(user)
     !validate_collaboration_full_name user
   end
-
-
 end
