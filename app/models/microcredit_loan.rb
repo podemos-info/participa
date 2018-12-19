@@ -4,6 +4,7 @@ class MicrocreditLoan < ActiveRecord::Base
 
   belongs_to :microcredit
   belongs_to :user, -> { with_deleted }
+  belongs_to :microcredit_option
 
   belongs_to :transferred_to, inverse_of: :original_loans, class_name: "MicrocreditLoan"
   has_many :original_loans, inverse_of: :transferred_to, class_name: "MicrocreditLoan", foreign_key: :transferred_to_id

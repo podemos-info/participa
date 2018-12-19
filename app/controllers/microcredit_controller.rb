@@ -52,7 +52,6 @@ class MicrocreditController < ApplicationController
   def new_loan
     @microcredit = Microcredit.find(params[:id])
     redirect_to microcredit_path(brand:@brand) and return unless @microcredit and @microcredit.is_active?
-
     @loan = MicrocreditLoan.new
     @user_loans = current_user ? @microcredit.loans.where(user:current_user) : []
   end
@@ -66,8 +65,8 @@ class MicrocreditController < ApplicationController
       loan.microcredit = @microcredit
       loan.user = current_user if current_user
       loan.ip = request.remote_ip
+      loan.microcredit_option_id = parmas[:microcredit_option_id]
     end
-
     if not current_user
       @loan.set_user_data loan_params
     end 
@@ -115,9 +114,9 @@ class MicrocreditController < ApplicationController
 
   def loan_params
     if current_user
-      params.require(:microcredit_loan).permit(:amount, :terms_of_service, :minimal_year_old, :iban_account, :iban_bic)
+      params.require(:microcredit_loan).permit(:amount, :terms_of_service, :minimal_year_old, :iban_account, :iban_bic, :microcredit_option_id)
     else
-      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old, :captcha, :captcha_key, :iban_account, :iban_bic)
+      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old, :captcha, :captcha_key, :iban_account, :iban_bic, :microcredit_option_id)
     end
   end
 

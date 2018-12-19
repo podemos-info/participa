@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181128145108) do
+ActiveRecord::Schema.define(version: 20181219100130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -389,11 +389,20 @@ ActiveRecord::Schema.define(version: 20181128145108) do
     t.integer  "transferred_to_id"
     t.string   "iban_account"
     t.string   "iban_bic"
+    t.integer  "microcredit_option_id"
   end
 
   add_index "microcredit_loans", ["document_vatid"], name: "index_microcredit_loans_on_document_vatid", using: :btree
   add_index "microcredit_loans", ["ip"], name: "index_microcredit_loans_on_ip", using: :btree
   add_index "microcredit_loans", ["microcredit_id"], name: "index_microcredit_loans_on_microcredit_id", using: :btree
+
+  create_table "microcredit_options", force: :cascade do |t|
+    t.integer "microcredit_id"
+    t.string  "name"
+    t.integer "parent"
+  end
+
+  add_index "microcredit_options", ["microcredit_id"], name: "index_microcredit_options_on_microcredit_id", using: :btree
 
   create_table "microcredits", force: :cascade do |t|
     t.string   "title"
@@ -674,5 +683,6 @@ ActiveRecord::Schema.define(version: 20181128145108) do
 
   add_index "votes", ["deleted_at"], name: "index_votes_on_deleted_at", using: :btree
 
+  add_foreign_key "microcredit_loans", "microcredit_options"
   add_foreign_key "user_verifications", "users", column: "author_id"
 end

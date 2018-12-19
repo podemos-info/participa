@@ -1,0 +1,7 @@
+<%= semantic_form_for [:admin, @microcredit_option.microcredit, @microcredit_option], builder: Formtastic::FormBuilder do |f| %>
+  <%= f.inputs "Identificación" do %>
+    <%= f.input :microcredit, as: :string, input_html: { disabled: true } %>
+    <%= f.input :parent %>
+    <%= f.input :name %>
+  <% end %>
+<% end %>

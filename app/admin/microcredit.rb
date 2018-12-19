@@ -66,6 +66,7 @@ ActiveAdmin.register Microcredit do
         end
       end
       f.input :contact_phone
+      f.input :options, as: :text, :input_html => { :class => 'autogrow', :rows =>10, :cols => 10} if !resource.persisted?
     end
     f.actions
   end
@@ -241,4 +242,28 @@ ActiveAdmin.register Microcredit do
     render "admin/process_bank_history_results", locals: { loans: loans }
   end  
 
+end
+
+ActiveAdmin.register MicrocreditOption do
+  menu false
+  belongs_to :microcredit
+  navigation_menu :default
+
+  permit_params :microcredit_id, :location, :parent
+
+  form partial: "microcredit_option", locals: { spain: Carmen::Country.coded("ES") }
+
+  controller do
+    def create
+      super do |format|
+        redirect_to admin_microcredit_path(resource.microcredit) and return if resource.valid?
+      end
+    end
+
+    def update
+      super do |format|
+        redirect_to admin_microcredit_path(resource.microcredit) and return if resource.valid?
+      end
+    end
+  end
 end
