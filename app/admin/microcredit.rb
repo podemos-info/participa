@@ -119,6 +119,22 @@ ActiveAdmin.register Microcredit do
       row :created_at
       row :updated_at
     end
+
+    panel "Lugares donde se aporta" do
+      paginated_collection(microcredit.microcredit_options.page(params[:page]).per(15), download_links: false) do
+        table_for collection.order(:name) do
+          column :microcredit_id
+          column :parent
+          column :name
+          column :actions do |op|
+            span link_to "Modificar", edit_admin_microcredit_microcredit_option_path(op.microcredit, op)
+            span link_to "Borrar", admin_microcredit_microcredit_option_path(op.microcredit, op), method: :delete, data: { confirm: "¿Estas segura de borrar esta opción?" }
+          end
+        end
+      end if microcredit.microcredit_options.any?
+      span link_to "Añadir opción", new_admin_microcredit_microcredit_option_path(microcredit)
+    end
+
     panel "Evolución" do
       columns do
         column do 
@@ -249,7 +265,7 @@ ActiveAdmin.register MicrocreditOption do
   belongs_to :microcredit
   navigation_menu :default
 
-  permit_params :microcredit_id, :location, :parent
+  permit_params :microcredit_id, :name, :parent
 
   form partial: "microcredit_option", locals: { spain: Carmen::Country.coded("ES") }
 

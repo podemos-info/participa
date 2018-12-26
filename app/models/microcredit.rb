@@ -9,7 +9,7 @@ class Microcredit < ActiveRecord::Base
 
   acts_as_paranoid
   has_many :loans, class_name: "MicrocreditLoan"
-  has_many :options, class_name: "MicrocreditOption"
+  has_many :microcredit_options, dependent: :destroy
 
   has_attached_file :renewal_terms
 
