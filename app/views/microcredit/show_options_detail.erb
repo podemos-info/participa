@@ -1,0 +1,21 @@
+<h2> Detalle de Microcrédito</h2>
+<% if @microcredit.microcredit_options.any? && @microcredit.loans.any? %>
+  <table class="js-collaboration-evolution data_table">
+    <thead>
+    <th>NOMBRE COMPLETO</th>
+    <th>DNI</th>
+    <th>TELEFONO MOVIL</th>
+    <th>EMAIL</th>
+    <th>FINANCIACION TERRITORIAL</th>
+    <th>CANTIDAD</th>
+    </thead>
+    <tbody>
+    <% @microcredit.loans.each do |r| %>
+      <%=r.as_json %>
+      <!--%= render "row_option_detail", row: r[0], status: r[1] % -->
+    <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  No Tengo Opciones que mostrar
+<% end %>

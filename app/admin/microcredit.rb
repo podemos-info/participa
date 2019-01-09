@@ -123,8 +123,8 @@ ActiveAdmin.register Microcredit do
     panel "Lugares donde se aporta" do
       paginated_collection(microcredit.microcredit_options.page(params[:page]).per(15), download_links: false) do
         table_for collection.order(:name) do
-          column :microcredit_id
-          column :parent
+          column :id
+          column :parent_id
           column :name
           column :actions do |op|
             span link_to "Modificar", edit_admin_microcredit_microcredit_option_path(op.microcredit, op)
@@ -265,7 +265,7 @@ ActiveAdmin.register MicrocreditOption do
   belongs_to :microcredit
   navigation_menu :default
 
-  permit_params :microcredit_id, :name, :parent
+  permit_params :microcredit_id, :name, :parent_id
 
   form partial: "microcredit_option", locals: { spain: Carmen::Country.coded("ES") }
 

@@ -65,7 +65,8 @@ class MicrocreditController < ApplicationController
       loan.microcredit = @microcredit
       loan.user = current_user if current_user
       loan.ip = request.remote_ip
-      loan.microcredit_option_id = parmas[:microcredit_option_id]
+      puts "Aqui #{params[:microcredit_option_id]}"
+      loan.microcredit_option_id = params[:microcredit_option_id]
     end
     if not current_user
       @loan.set_user_data loan_params
@@ -110,6 +111,11 @@ class MicrocreditController < ApplicationController
     render :loans_renewal
   end
 
+  def show_options_detail
+    @microcredit = Microcredit.find(params[:id])
+
+  end
+
   private
 
   def loan_params
@@ -152,7 +158,6 @@ class MicrocreditController < ApplicationController
     renewal.valid = renewal.errors.length==0
     renewal
   end
-
 end
 
 class OpenStruct                                                                                                                    
