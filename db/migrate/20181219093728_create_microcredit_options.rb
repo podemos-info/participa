@@ -3,7 +3,9 @@ class CreateMicrocreditOptions < ActiveRecord::Migration
     create_table :microcredit_options do |t|
       t.belongs_to :microcredit, index: true
       t.string :name
-      t.integer :parent
+      t.integer :parent_id
     end
+
+    add_reference :microcredit_loans, :microcredit_option, foreign_key: true
   end
 end
