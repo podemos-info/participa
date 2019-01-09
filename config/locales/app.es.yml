@@ -948,6 +948,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       current_phase: "Fase actual:"
       accumulated: "Acumulado:"
       want_to_collaborate: "Quiero colaborar"
+      Detail: "Detalle"
     new_loan:
       user_access: "Te recomendamos que %{link} para que no tengas que rellenar nuevamente estos datos y para que puedas consultar el estado del préstamo en el futuro."
       user_access_link: "accedas con tu usuario del Portal de Participación"
