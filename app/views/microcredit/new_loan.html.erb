@@ -145,10 +145,9 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
           <% if @microcredit.errors.include? :microcredit_option %>
             <%= field_notice_box %>
           <% end %>
-          <!-- %= f.input :microcredit_option_id, input_html: { class: 'input-m form-control' } % -->
-          <%=f.collection_radio_buttons :microcredit_option_id,@microcredit.microcredit_options.where(parent_id: nil), :id, :name %>
-          <% @microcredit.microcredit_options.select(:parent_id).where.not(parent_id: nil).group(:parent_id).pluck(:parent_id).each do|op| %>
-          <%=f.collection_select :microcredit_option_id,@microcredit.microcredit_options.where(parent_id: op), :id, :name %>
+          <%=f.collection_radio_buttons :microcredit_option_id,@microcredit.microcredit_options.where(parent_id: nil), :id, :name do |op|%>
+            <%=op.label { op.radio_button + op.text}  %>
+            <%=f.collection_select :microcredit_option_id,@microcredit.microcredit_options.where(parent_id: op.value), :id, :name %>
           <% end %>
         </div>
       <% end %>
