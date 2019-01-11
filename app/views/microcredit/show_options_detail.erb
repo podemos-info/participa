@@ -1,18 +1,13 @@
 <h2> Detalle de Microcrédito</h2>
-<% if @microcredit.microcredit_options.any? && @microcredit.loans.any? %>
+<% if(@microcredit.microcredit_options.any? && @microcredit.loans.any?) %>
   <table class="js-collaboration-evolution data_table">
     <thead>
-    <th>NOMBRE COMPLETO</th>
-    <th>DNI</th>
-    <th>TELEFONO MOVIL</th>
-    <th>EMAIL</th>
-    <th>FINANCIACION TERRITORIAL</th>
-    <th>CANTIDAD</th>
+    <th>Territorio</th>
+    <th>Total recadudado</th>
     </thead>
     <tbody>
-    <% @microcredit.loans.each do |r| %>
-      <%=r.as_json %>
-      <!--%= render "row_option_detail", row: r[0], status: r[1] % -->
+    <% @microcredit.loans.group(:microcredit_option_id).sum(:amount).each do |r| %>
+      <%= render "row_option_detail", territory_id: r[0], total: r[1] %>
     <% end %>
     </tbody>
   </table>

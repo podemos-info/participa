@@ -1,8 +1,4 @@
 <tr class="js-row">
-  <td><%=row[:full_name] %></td>
-  <td><%=row[:document_vatid] %></td>
-  <td><%=row[:phone] %></td>
-  <td><%=row[:email] %></td>
-  <td><%=row[:donation_type] %></td>
-  <td><%= status %></td>
+  <td><%=MicrocreditOption.find(territory_id).name %></td>
+  <td><%=total %></td>
 </tr>
