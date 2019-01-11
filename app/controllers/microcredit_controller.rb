@@ -65,8 +65,8 @@ class MicrocreditController < ApplicationController
       loan.microcredit = @microcredit
       loan.user = current_user if current_user
       loan.ip = request.remote_ip
-      puts "Aqui #{params[:microcredit_option_id]}"
-      loan.microcredit_option_id = params[:microcredit_option_id]
+      child_id = params[:microcredit_loan]["microcredit_option_id_#{loan.microcredit_option_id}"] if params[:microcredit_loan].key?("microcredit_option_id_#{loan.microcredit_option_id}") && params[:microcredit_loan]["microcredit_option_id_#{loan.microcredit_option_id}"].present?
+      loan.microcredit_option_id = child_id if child_id
     end
     if not current_user
       @loan.set_user_data loan_params
