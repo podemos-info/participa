@@ -856,6 +856,11 @@ microcredits
   }
 }
 
+#microcredit-options input:not(:checked) + label + div, #microcredit-options input:not(:checked) + label + div + select
+{
+  display: none;
+}
+
 /* -----------------------------------
 proposals
 ----------------------------------- */
