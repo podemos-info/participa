@@ -26,6 +26,8 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
+  validate :microcredit_option_without_children, if: :microcredit_option
+
   validates :iban_account, presence: true, on: :create
   validates :iban_bic, presence: true, on: :create, if: :is_bank_international?
   validate :validates_iban , if: :iban_account
@@ -163,6 +165,10 @@ class MicrocreditLoan < ActiveRecord::Base
     if self.user and self.user.born_at > Date.today-18.years
       self.errors.add(:user, "No puedes suscribir un microcrédito si eres menor de edad.")
     end
+  end
+
+  def microcredit_option_without_children
+    errors.add(:microcredit_option_id, "Debes elegir algún elemento") if microcredit_option.children.any?
   end
 
   def is_bank_international?
