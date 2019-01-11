@@ -66,7 +66,6 @@ ActiveAdmin.register Microcredit do
         end
       end
       f.input :contact_phone
-      f.input :options, as: :text, :input_html => { :class => 'autogrow', :rows =>10, :cols => 10} if !resource.persisted?
     end
     f.actions
   end
