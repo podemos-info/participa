@@ -111,7 +111,7 @@ class MicrocreditController < ApplicationController
     render :loans_renewal
   end
 
-  def show_options_detail
+  def show_options
     @microcredit = Microcredit.find(params[:id])
   end
 

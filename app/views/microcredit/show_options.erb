@@ -7,7 +7,7 @@
     </thead>
     <tbody>
     <% @microcredit.loans.group(:microcredit_option_id).sum(:amount).each do |r| %>
-      <%= render "row_option_detail", territory_id: r[0], total: r[1] %>
+      <%= render "row_option", territory_id: r[0], total: r[1] %>
     <% end %>
     </tbody>
   </table>
