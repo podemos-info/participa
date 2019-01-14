@@ -113,7 +113,6 @@ class MicrocreditController < ApplicationController
 
   def show_options_detail
     @microcredit = Microcredit.find(params[:id])
-
   end
 
   private
