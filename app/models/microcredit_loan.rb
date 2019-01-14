@@ -26,7 +26,7 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :validates_not_passport
   validate :validates_age_over
 
-  validate :microcredit_option_without_children, if: :microcredit_option
+  validate :microcredit_option_without_children
 
   validates :iban_account, presence: true, on: :create
   validates :iban_bic, presence: true, on: :create, if: :is_bank_international?
@@ -168,7 +168,9 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def microcredit_option_without_children
-    errors.add(:microcredit_option_id, "Debes elegir algún elemento") if microcredit_option.children.any?
+    if self.microcredit.microcredit_options.any?
+      errors.add(:microcredit_option_id, "Debes elegir algún elemento") if microcredit_option.blank? || microcredit_option.children.any?
+    end
   end
 
   def is_bank_international?
