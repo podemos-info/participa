@@ -1003,3 +1003,5 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     refresh_button_text: "Regenerar"
     message:
       default: "El texto introducido no corresponde con el de la imagen"
+  microcredit_options_detail:
+    title: "Desglose del Microcrédito"
