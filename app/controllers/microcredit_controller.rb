@@ -112,7 +112,36 @@ class MicrocreditController < ApplicationController
   end
 
   def show_options
+    class_parent = "microcredit_option_detail_parent"
+    class_child = "microcredit_option_detail_child"
     @microcredit = Microcredit.find(params[:id])
+    data_temp = {}
+    @microcredit.loans.group(:microcredit_option_id).sum(:amount).each do |r|
+      data_temp[r[0]]={ option_name:MicrocreditOption.find(r[0]).name, total:r[1]}
+    end
+
+    @data_detail = []
+    no_children=[]
+    with_children=[]
+    MicrocreditOption.root_parents.each do |parent|
+      if parent.children.none?
+        data_temp[parent.id][:class_name] = class_parent
+        no_children.push(data_temp[parent.id])
+      else
+        parent_data={option_name:parent.name,total:0,class_name:class_parent}
+        children_data = []
+        parent.children.each do |child|
+          if data_temp[child.id].present?
+            parent_data[:total] += data_temp[child.id][:total]
+            data_temp[child.id][:class_name] = class_child
+            children_data.push(data_temp[child.id])
+          end
+        end
+        with_children.push (parent_data)
+        with_children += (children_data)
+      end
+    end
+    @data_detail = no_children + with_children
   end
 
   private
