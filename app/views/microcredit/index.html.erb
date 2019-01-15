@@ -34,9 +34,6 @@
         <section class="<%= m.completed ? 'completed' : 'active' %>">
           <div>
             <h2><%= m.title %></h2>
-            <% if m.microcredit_options.any? %>
-              <div class="buttonbox"><%= link_to t('.Detail'), @external ? show_microcredit_options_detail_path(m, brand: @brand) : show_microcredit_options_detail_path(m), class: 'button' %></div>
-            <% end %>
             <% if m.completed %>
               <%= fa_icon "check-circle" %>
               <div class="info">
@@ -79,7 +76,11 @@
                       end %></ul>
                 <%
                   end %>
-                <div class="buttonbox"><%= link_to t('.want_to_collaborate'), @external ? new_microcredit_loan_path(m, brand: @brand) : new_microcredit_loan_path(m), class: 'button' %></div>
+                <div class="buttonbox"><%= link_to t('.want_to_collaborate'), @external ? new_microcredit_loan_path(m, brand: @brand) : new_microcredit_loan_path(m), class: 'button' %>
+                <% if m.microcredit_options.any? %>
+                  <%= link_to "Ver desglose", @external ? show_microcredit_options_detail_path(m, brand: @brand) : show_microcredit_options_detail_path(m), class: 'microcredit_link_detail' %>
+                <% end %>
+                </div>
               </div>
             <% end %>
           </div>
