@@ -856,11 +856,30 @@ microcredits
   }
 }
 
+.microcredit_link_detail {
+  font-size: 12px;
+  top: -10px;
+  position: relative;
+}
+
 #microcredit-options input:not(:checked) + label + div, #microcredit-options input:not(:checked) + label + div + select
 {
   display: none;
 }
 
+.microcredit-options-radio-button
+{
+  color: #612D62;
+}
+
+.microcredit_option_detail_parent
+{
+
+}
+.microcredit_option_detail_child
+{
+  padding-left: 1em;
+}
 /* -----------------------------------
 proposals
 ----------------------------------- */
