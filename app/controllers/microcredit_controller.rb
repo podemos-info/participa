@@ -138,7 +138,6 @@ class MicrocreditController < ApplicationController
           parent_data[:total] += data_temp[child.id][:total]
           data_temp[child.id][:class_name] = class_child
           children_data.push(data_temp[child.id])
-
         end
         with_children.push (parent_data)
         with_children += (children_data)
@@ -146,6 +145,7 @@ class MicrocreditController < ApplicationController
       end
     end
     @data_detail = no_children + with_children
+    @grand_total = 1 if @grand_total.zero?
     i = 0
     @data_detail.each do |e|
       e[:width] = (e[:total] * 65/@grand_total) +10
