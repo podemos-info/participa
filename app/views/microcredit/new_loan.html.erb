@@ -148,10 +148,10 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
             <% end %>
           </div>
           <%=f.collection_radio_buttons :microcredit_option_id, @microcredit.microcredit_options.where(parent: nil), :id, :name do |op|%>
-            <div >
+            <div>
               <%= op.radio_button %>
               <%= op.label({:class =>"microcredit-options-radio-button"}) { op.text } %>
-              <%= select_tag "microcredit_loan[microcredit_option_id_#{op.value}]", options_from_collection_for_select(op.object.children, :id, :name), prompt: "Elige una opcion"  if op.object.children.any? %>
+              <%= select_tag "microcredit_loan[microcredit_option_id_#{op.value}]", options_from_collection_for_select(op.object.children, :id, :name), {prompt: "Elige una opcion", class: "microcredit-options-select2"}  if op.object.children.any? %>
             </div>
           <% end %>
         </div>
