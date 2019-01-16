@@ -123,19 +123,19 @@ class MicrocreditController < ApplicationController
     @data_detail = []
     no_children=[]
     with_children=[]
-    MicrocreditOption.root_parents.each do |parent|
-      if parent.children.none?
-        data_temp[parent.id][:class_name] = class_parent
-        no_children.push(data_temp[parent.id])
+    MicrocreditOption.root_parents.each do |pa|
+      if data_temp[pa.id].present? && pa.children.none?
+        data_temp[pa.id][:class_name] = class_parent
+        no_children.push(data_temp[pa.id])
       else
-        parent_data={option_name:parent.name,total:0,class_name:class_parent}
+        parent_data={option_name:pa.name,total:0,class_name:class_parent}
         children_data = []
-        parent.children.each do |child|
-          if data_temp[child.id].present?
-            parent_data[:total] += data_temp[child.id][:total]
-            data_temp[child.id][:class_name] = class_child
-            children_data.push(data_temp[child.id])
-          end
+        pa.children.each do |child|
+          next if data_temp[child.id].blank?
+          parent_data[:total] += data_temp[child.id][:total]
+          data_temp[child.id][:class_name] = class_child
+          children_data.push(data_temp[child.id])
+
         end
         with_children.push (parent_data)
         with_children += (children_data)
