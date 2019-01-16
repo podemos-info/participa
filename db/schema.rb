@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181219093728) do
+ActiveRecord::Schema.define(version: 20190115162401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -400,6 +400,7 @@ ActiveRecord::Schema.define(version: 20181219093728) do
     t.integer "microcredit_id"
     t.string  "name"
     t.integer "parent_id"
+    t.string  "intern_code"
   end
 
   add_index "microcredit_options", ["microcredit_id"], name: "index_microcredit_options_on_microcredit_id", using: :btree
@@ -425,6 +426,7 @@ ActiveRecord::Schema.define(version: 20181219093728) do
     t.datetime "renewal_terms_updated_at"
     t.string   "budget_link"
     t.integer  "flags",                      default: 0
+    t.integer  "priority",                   default: 0
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true, using: :btree
