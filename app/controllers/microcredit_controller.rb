@@ -139,6 +139,7 @@ class MicrocreditController < ApplicationController
           data_temp[child.id][:class_name] = class_child
           children_data.push(data_temp[child.id])
         end
+        children_data.sort_by! {|h| h[:option_name]} if children_data.any?
         with_children.push (parent_data)
         with_children += (children_data)
         @grand_total += parent_data[:total]
