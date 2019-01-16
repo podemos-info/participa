@@ -28,7 +28,7 @@ class MicrocreditController < ApplicationController
   end
 
   def index
-    @all_microcredits = Microcredit.upcoming_finished
+    @all_microcredits = Microcredit.upcoming_finished_by_priority
 
     #@microcredits = @all_microcredits.select { |m| m.is_active? }
     @microcredits_standard = @all_microcredits.select { |m| m.is_standard? and m.is_active? }
@@ -52,7 +52,6 @@ class MicrocreditController < ApplicationController
   def new_loan
     @microcredit = Microcredit.find(params[:id])
     redirect_to microcredit_path(brand:@brand) and return unless @microcredit and @microcredit.is_active?
-
     @loan = MicrocreditLoan.new
     @user_loans = current_user ? @microcredit.loans.where(user:current_user) : []
   end
@@ -66,8 +65,9 @@ class MicrocreditController < ApplicationController
       loan.microcredit = @microcredit
       loan.user = current_user if current_user
       loan.ip = request.remote_ip
+      child_id = params[:microcredit_loan]["microcredit_option_id_#{loan.microcredit_option_id}"] if params[:microcredit_loan].key?("microcredit_option_id_#{loan.microcredit_option_id}") && params[:microcredit_loan]["microcredit_option_id_#{loan.microcredit_option_id}"].present?
+      loan.microcredit_option_id = child_id if child_id
     end
-
     if not current_user
       @loan.set_user_data loan_params
     end 
@@ -111,13 +111,57 @@ class MicrocreditController < ApplicationController
     render :loans_renewal
   end
 
+  def show_options
+    class_parent = "microcredit_option_detail_parent"
+    class_child = "microcredit_option_detail_child"
+    @colors =["#683064","#6b478e","#b052a9","#c4a0d8"]
+    @grand_total = 0
+    @microcredit = Microcredit.find(params[:id])
+    data_temp = {}
+    @microcredit.loans.confirmed.group(:microcredit_option_id).sum(:amount).each do |r|
+      data_temp[r[0]]={ option_name:MicrocreditOption.find(r[0]).name, total:r[1]}
+    end
+
+    @data_detail = []
+    no_children=[]
+    with_children=[]
+    MicrocreditOption.root_parents.each do |pa|
+      if data_temp[pa.id].present? && pa.children.none?
+        data_temp[pa.id][:class_name] = class_parent
+        no_children.push(data_temp[pa.id])
+        @grand_total += data_temp[pa.id][:total]
+      else
+        parent_data={option_name:pa.name,total:0,class_name:class_parent}
+        children_data = []
+        pa.children.each do |child|
+          next if data_temp[child.id].blank?
+          parent_data[:total] += data_temp[child.id][:total]
+          data_temp[child.id][:class_name] = class_child
+          children_data.push(data_temp[child.id])
+        end
+        children_data.sort_by! {|h| h[:option_name]} if children_data.any?
+        with_children.push (parent_data)
+        with_children += (children_data)
+        @grand_total += parent_data[:total]
+      end
+    end
+    @data_detail = no_children + with_children
+    @grand_total = 1 if @grand_total.zero?
+    i = 0
+    @data_detail.each do |e|
+      e[:width] = (e[:total] * 65/@grand_total) +10
+      e[:index] = i
+      i+=1
+    end
+  end
+
   private
 
   def loan_params
     if current_user
-      params.require(:microcredit_loan).permit(:amount, :terms_of_service, :minimal_year_old, :iban_account, :iban_bic)
+      params.require(:microcredit_loan).permit(:amount, :terms_of_service, :minimal_year_old, :iban_account, :iban_bic, :microcredit_option_id)
     else
-      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old, :captcha, :captcha_key, :iban_account, :iban_bic)
+      params.require(:microcredit_loan).permit(:first_name, :last_name, :document_vatid, :email, :address, :postal_code, :town, :province, :country, :amount, :terms_of_service, :minimal_year_old, :captcha, :captcha_key, :iban_account, :iban_bic, :microcredit_option_id)
     end
   end
 
@@ -153,7 +197,6 @@ class MicrocreditController < ApplicationController
     renewal.valid = renewal.errors.length==0
     renewal
   end
-
 end
 
 class OpenStruct                                                                                                                    
