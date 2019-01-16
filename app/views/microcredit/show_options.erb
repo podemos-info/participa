@@ -1,0 +1,35 @@
+<% content_for :title, t('microcredit_options_detail.title', name: @microcredit.title) %>
+<% if @brand_config["color1"] %>
+  <style>
+    h2 {
+      color: <%=@brand_config["color1"]%> !important;
+    }
+
+    label a, p a {
+      color: <%=@brand_config["color2"]%> !important;
+    }
+
+    input.button, a.button {
+      background-color: <%=@brand_config["color2"]%> !important;
+    }
+  </style>
+<% end %>
+<div class="content-content">
+  <h2>Desglose de la campaña de microcréditos <%=@microcredit.title %></h2>
+  <p> Datos sobre los ingresos completados vía bancaria. </p>
+  <% if(@microcredit.microcredit_options.any? && @microcredit.loans.any?) %>
+    <table class="js-collaboration-evolution data_table" width="100%">
+      <thead>
+      <th><label><strong>Destino</strong></label></th>
+      <th width="75%"><label><strong>Total recaudado</strong></label></th>
+      </thead>
+      <tbody>
+      <% @data_detail.each do |r| %>
+        <%= render "row_option", r %>
+      <% end %>
+      </tbody>
+    </table>
+    <% else %>
+    No Tengo Opciones que mostrar
+  <% end %>
+</div>

@@ -4,6 +4,7 @@ class MicrocreditLoan < ActiveRecord::Base
 
   belongs_to :microcredit
   belongs_to :user, -> { with_deleted }
+  belongs_to :microcredit_option
 
   belongs_to :transferred_to, inverse_of: :original_loans, class_name: "MicrocreditLoan"
   has_many :original_loans, inverse_of: :transferred_to, class_name: "MicrocreditLoan", foreign_key: :transferred_to_id
@@ -24,6 +25,8 @@ class MicrocreditLoan < ActiveRecord::Base
   validate :microcredit, :check_microcredit_active, on: :create
   validate :validates_not_passport
   validate :validates_age_over
+
+  validate :microcredit_option_without_children
 
   validates :iban_account, presence: true, on: :create
   validates :iban_bic, presence: true, on: :create, if: :is_bank_international?
@@ -161,6 +164,12 @@ class MicrocreditLoan < ActiveRecord::Base
   def validates_age_over
     if self.user and self.user.born_at > Date.today-18.years
       self.errors.add(:user, "No puedes suscribir un microcrédito si eres menor de edad.")
+    end
+  end
+
+  def microcredit_option_without_children
+    if self.microcredit.microcredit_options.any?
+      errors.add(:microcredit_option_id, "Debes elegir algún elemento") if microcredit_option.blank? || microcredit_option.children.any?
     end
   end
 

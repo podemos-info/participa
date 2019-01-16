@@ -129,6 +129,9 @@ ActiveAdmin.register MicrocreditLoan do
         end
       end
       row :updated_at
+      row :microcredit_option_id, as: "asignar a" do |loan|
+        MicrocreditOption.find(loan.microcredit_option_id).intern_code.to_s + MicrocreditOption.find(loan.microcredit_option_id).name
+      end if microcredit_loan.microcredit_option_id.present?
     end
     active_admin_comments
   end
@@ -176,6 +179,8 @@ ActiveAdmin.register MicrocreditLoan do
   filter :amount
   filter :transferred_to_microcredit_id_eq, as: :select, collection: Microcredit.all
   filter :original_loans_microcredit_id_eq, as: :select, collection: Microcredit.all
+  filter :microcredit_option_name, as: :string
+  filter :microcredit_option_intern_code, as: :string
 
   action_item(:confirm_loan, only: :show) do
     if microcredit_loan.confirmed_at.nil?
@@ -306,6 +311,12 @@ ActiveAdmin.register MicrocreditLoan do
         next_campaign = Microcredit.non_finished.first
         loans_renewal_microcredit_loan_url(next_campaign.id, loan.id, loan.unique_hash) if next_campaign
       end
+    end
+    column :microcredit_option_name do |loan|
+      loan.microcredit_option.name if loan.microcredit_option_id.present?
+    end
+    column :microcredit_option_intern_code do |loan|
+      loan.microcredit_option.intern_code if loan.microcredit_option_id.present?
     end
   end
 

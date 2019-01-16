@@ -47,6 +47,7 @@ ActiveAdmin.register Microcredit do
       f.semantic_errors *f.object.errors.keys
       if can? :admin, Microcredit
         f.input :title
+        f.input :priority
         f.input :starts_at
         f.input :ends_at
         f.input :limits
@@ -74,6 +75,7 @@ ActiveAdmin.register Microcredit do
     attributes_table do
       row :id
       row :title
+      row :priority
       row :slug
       row :starts_at
       row :ends_at
@@ -118,6 +120,22 @@ ActiveAdmin.register Microcredit do
       row :created_at
       row :updated_at
     end
+
+    panel "Lugares donde se aporta" do
+      paginated_collection(microcredit.microcredit_options.page(params[:page]).per(15), download_links: false) do
+        table_for collection.order(:name) do
+          column :id
+          column :parent_id
+          column :name
+          column :actions do |op|
+            span link_to "Modificar", edit_admin_microcredit_microcredit_option_path(op.microcredit, op)
+            span link_to "Borrar", admin_microcredit_microcredit_option_path(op.microcredit, op), method: :delete, data: { confirm: "¿Estas segura de borrar esta opción?" }
+          end
+        end
+      end if microcredit.microcredit_options.any?
+      span link_to "Añadir opción", new_admin_microcredit_microcredit_option_path(microcredit)
+    end
+
     panel "Evolución" do
       columns do
         column do 
@@ -195,7 +213,7 @@ ActiveAdmin.register Microcredit do
 
   permit_params do
     if can? :admin, Microcredit
-      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link, :budget_link, :renewal_terms, :mailing]
+      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link, :budget_link, :renewal_terms, :mailing, :priority]
     else
       [:contact_phone]
     end
@@ -241,4 +259,28 @@ ActiveAdmin.register Microcredit do
     render "admin/process_bank_history_results", locals: { loans: loans }
   end  
 
+end
+
+ActiveAdmin.register MicrocreditOption do
+  menu false
+  belongs_to :microcredit
+  navigation_menu :default
+
+  permit_params :microcredit_id, :name, :parent_id, :intern_code
+
+  form partial: "microcredit_option", locals: { spain: Carmen::Country.coded("ES") }
+
+  controller do
+    def create
+      super do |format|
+        redirect_to admin_microcredit_path(resource.microcredit) and return if resource.valid?
+      end
+    end
+
+    def update
+      super do |format|
+        redirect_to admin_microcredit_path(resource.microcredit) and return if resource.valid?
+      end
+    end
+  end
 end

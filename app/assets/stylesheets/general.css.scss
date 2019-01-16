@@ -856,6 +856,42 @@ microcredits
   }
 }
 
+.microcredit_link_detail {
+  font-size: 12px;
+  top: -10px;
+  position: relative;
+}
+
+.microcredit_box_header {
+    font-family: Montserrat,Arial,sans-serif;
+    text-transform: uppercase;
+    color: #612d62;
+    margin-bottom: 1em;
+    font-size: 2.6em !important;
+}
+
+#microcredit-options input:not(:checked) + label + div, #microcredit-options input:not(:checked) + label + div + select
+{
+  display: none;
+}
+
+.microcredit-options-radio-button
+{
+  color: #612D62;
+}
+.microcredit-options-select2
+{
+  float: right !important;
+}
+
+.microcredit_option_detail_parent
+{
+
+}
+.microcredit_option_detail_child
+{
+  padding-left: 1em;
+}
 /* -----------------------------------
 proposals
 ----------------------------------- */
