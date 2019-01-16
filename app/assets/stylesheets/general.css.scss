@@ -862,6 +862,14 @@ microcredits
   position: relative;
 }
 
+.microcredit_box_header {
+    font-family: Montserrat,Arial,sans-serif;
+    text-transform: uppercase;
+    color: #97c2b8;
+    margin-bottom: 1em;
+    font-size: 2.6em !important;
+}
+
 #microcredit-options input:not(:checked) + label + div, #microcredit-options input:not(:checked) + label + div + select
 {
   display: none;

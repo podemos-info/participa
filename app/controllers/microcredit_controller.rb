@@ -28,7 +28,7 @@ class MicrocreditController < ApplicationController
   end
 
   def index
-    @all_microcredits = Microcredit.upcoming_finished
+    @all_microcredits = Microcredit.upcoming_finished_by_priority
 
     #@microcredits = @all_microcredits.select { |m| m.is_active? }
     @microcredits_standard = @all_microcredits.select { |m| m.is_standard? and m.is_active? }
@@ -114,6 +114,8 @@ class MicrocreditController < ApplicationController
   def show_options
     class_parent = "microcredit_option_detail_parent"
     class_child = "microcredit_option_detail_child"
+    @colors =["#683064","#6b478e","#b052a9","#c4a0d8"]
+    @grand_total = 0
     @microcredit = Microcredit.find(params[:id])
     data_temp = {}
     @microcredit.loans.confirmed.group(:microcredit_option_id).sum(:amount).each do |r|
@@ -127,6 +129,7 @@ class MicrocreditController < ApplicationController
       if data_temp[pa.id].present? && pa.children.none?
         data_temp[pa.id][:class_name] = class_parent
         no_children.push(data_temp[pa.id])
+        @grand_total += data_temp[pa.id][:total]
       else
         parent_data={option_name:pa.name,total:0,class_name:class_parent}
         children_data = []
@@ -139,9 +142,16 @@ class MicrocreditController < ApplicationController
         end
         with_children.push (parent_data)
         with_children += (children_data)
+        @grand_total += parent_data[:total]
       end
     end
     @data_detail = no_children + with_children
+    i = 0
+    @data_detail.each do |e|
+      e[:width] = (e[:total] * 65/@grand_total) +10
+      e[:index] = i
+      i+=1
+    end
   end
 
   private

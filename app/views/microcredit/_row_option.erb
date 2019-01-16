@@ -1,5 +1,10 @@
 
 <tr class="js-row ">
-  <td class="<%=class_name %>"><%=option_name %></td>
-  <td><%=total %></td>
+  <td class="<%=class_name %>"><label><%=option_name %></label></td>
+
+  <td>
+    <div style="width:<%=width %>%;color:white; background-color: <%=@colors[index%3] %> ">
+      <label><%=number_to_currency total %></label>
+    </div>
+  </td>
 </tr>

@@ -18,10 +18,10 @@
   <h2>Desglose de la campaña de microcréditos <%=@microcredit.title %></h2>
   <p> Datos sobre los ingresos completados vía bancaria. </p>
   <% if(@microcredit.microcredit_options.any? && @microcredit.loans.any?) %>
-    <table class="js-collaboration-evolution data_table">
+    <table class="js-collaboration-evolution data_table" width="100%">
       <thead>
-      <th>Destino</th>
-      <th>Total recaudado</th>
+      <th><label><strong>Destino</strong></label></th>
+      <th width="75%"><label><strong>Total recaudado</strong></label></th>
       </thead>
       <tbody>
       <% @data_detail.each do |r| %>
