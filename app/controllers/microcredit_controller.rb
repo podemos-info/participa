@@ -116,7 +116,7 @@ class MicrocreditController < ApplicationController
     class_child = "microcredit_option_detail_child"
     @microcredit = Microcredit.find(params[:id])
     data_temp = {}
-    @microcredit.loans.group(:microcredit_option_id).sum(:amount).each do |r|
+    @microcredit.loans.confirmed.group(:microcredit_option_id).sum(:amount).each do |r|
       data_temp[r[0]]={ option_name:MicrocreditOption.find(r[0]).name, total:r[1]}
     end
 
