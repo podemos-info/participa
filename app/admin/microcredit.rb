@@ -47,6 +47,7 @@ ActiveAdmin.register Microcredit do
       f.semantic_errors *f.object.errors.keys
       if can? :admin, Microcredit
         f.input :title
+        f.input :priority
         f.input :starts_at
         f.input :ends_at
         f.input :limits
@@ -74,6 +75,7 @@ ActiveAdmin.register Microcredit do
     attributes_table do
       row :id
       row :title
+      row :priority
       row :slug
       row :starts_at
       row :ends_at
@@ -211,7 +213,7 @@ ActiveAdmin.register Microcredit do
 
   permit_params do
     if can? :admin, Microcredit
-      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link, :budget_link, :renewal_terms, :mailing]
+      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :contact_phone, :agreement_link, :budget_link, :renewal_terms, :mailing, :priority]
     else
       [:contact_phone]
     end
@@ -264,7 +266,7 @@ ActiveAdmin.register MicrocreditOption do
   belongs_to :microcredit
   navigation_menu :default
 
-  permit_params :microcredit_id, :name, :parent_id
+  permit_params :microcredit_id, :name, :parent_id, :intern_code
 
   form partial: "microcredit_option", locals: { spain: Carmen::Country.coded("ES") }
 
