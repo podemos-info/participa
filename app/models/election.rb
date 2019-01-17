@@ -39,7 +39,7 @@ class Election < ActiveRecord::Base
   end
 
   def recently_finished?
-    self.ends_at > 2.days.ago and self.ends_at < DateTime.now 
+    self.ends_at > 2.days.ago && self.ends_at < DateTime.now
   end
 
   def scope_name
@@ -50,7 +50,7 @@ class Election < ActiveRecord::Base
     if self.user_created_at_max.nil?
       _user
     else
-      prev_user = _user.version_at(self.user_created_at_max) 
+      prev_user = _user.version_at(self.user_created_at_max)
       if prev_user && prev_user.has_vote_town?
         prev_user
       else
@@ -66,7 +66,7 @@ class Election < ActiveRecord::Base
                   when 1 then " en #{user.vote_autonomy_name}"
                   when 2 then " en #{user.vote_province_name}"
                   when 3 then " en #{user.vote_town_name}"
-                  when 4 then " en #{user.vote_island_name}"      
+                  when 4 then " en #{user.vote_island_name}"
                 end
       if not has_valid_location_for? user, false
         suffix = " (no hay votación#{suffix})"
@@ -151,7 +151,7 @@ class Election < ActiveRecord::Base
     !self.ignore_multiple_territories && self.scope.in?([1,2,3,4])
   end
 
-  def scoped_agora_election_id _user
+  def scoped_agora_election_id(_user)
     user = self.user_version(_user)
     user_location = case self.scope
       when 1

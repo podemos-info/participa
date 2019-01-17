@@ -1,5 +1,5 @@
 class ToolsController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
   before_action :user_elections
 
   def index

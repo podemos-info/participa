@@ -6,14 +6,14 @@ class ElectionLocation < ActiveRecord::Base
 
   validates :title, :layout, :theme, presence: true, if: -> { self.has_voting_info }
 
-  LAYOUTS = { "simple" => "Listado de respuestas simple", 
+  LAYOUTS = { "simple" => "Listado de respuestas simple",
               "accordion" => "Listado de respuestas agrupadas por categoría",
               "pcandidates-election" => "Listado respuestas agrupadas por categoría y pregunta",
               "simultaneous-questions" => "Listado de preguntas con 2 respuestas",
               "2questions-conditional" => "Pregunta con 2 respuestas, si se elige la segunda puede aparecer otra con hasta 4 respuestas"
             }
   ELECTION_LAYOUTS = [ "pcandidates-election", "2questions-conditional" ]
-  
+
   def self.themes
     @@themes ||= Rails.application.secrets.agora["themes"]
   end
@@ -53,21 +53,21 @@ class ElectionLocation < ActiveRecord::Base
     begin
       spain = Carmen::Country.coded("ES")
       case election.scope
-        when 0 then 
+        when 0 then
           "Estatal"
-        when 1 then 
+        when 1 then
           autonomy = Podemos::GeoExtra::AUTONOMIES.values.uniq.select {|a| a[0][2..-1]==location } .first
           autonomy[1]
-        when 2 then 
+        when 2 then
           province = spain.subregions[location.to_i-1]
           province.name
         when 3 then
-          town = spain.subregions[location[0..1].to_i-1].subregions.coded("m_%s_%s_%s" % [location[0..1], location[2..4], location[5]]) 
+          town = spain.subregions[location[0..1].to_i-1].subregions.coded("m_%s_%s_%s" % [location[0..1], location[2..4], location[5]])
           town.name
         when 4 then
           island = Podemos::GeoExtra::ISLANDS.values.uniq.select {|i| i[0][2..-1]==location } .first
           island[1]
-        when 5 then 
+        when 5 then
           "Exterior"
       end + " (#{location})"
     rescue
@@ -86,7 +86,7 @@ class ElectionLocation < ActiveRecord::Base
       location
     end
   end
-  
+
   def vote_id
     "#{election.agora_election_id}#{override.blank? ? vote_location : override}#{agora_version}".to_i
   end
