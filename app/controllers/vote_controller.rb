@@ -2,7 +2,7 @@ class VoteController < ApplicationController
   layout "full", only: [:create]
   before_action :authenticate_user!, except: [:election_votes_count, :election_location_votes_count]
 
-  helper_method :election, :election_location
+  helper_method :election, :election_location, :paper_vote_user, :validation_token_for_paper_vote_user
 
   def send_sms_check
     if current_user.send_sms_check!
@@ -56,33 +56,20 @@ class VoteController < ApplicationController
   end
 
   def paper_vote
-    return back_to_home unless election&.paper? && election_location&.paper_token == params[:token]
-    return back_to_home unless check_open_election
+    return back_to_home unless check_open_election && election&.paper? && election_location&.paper_token == params[:token]
 
     can_vote = false
     if params[:validation_token]
-      user = paper_voters.find(params[:user_id])
-      return redirect_to(:back) unless check_validation_token(user, params[:validation_token])
+      return redirect_to(:back) unless paper_vote_user? && check_validation_token(params[:validation_token])
 
-      if election.votes.create(user_id: user.id, paper_authority: current_user)
-        flash.now[:notice] = "El voto ha sido registrado."
-      else
-        flash.now[:error] = "No se ha podido registrar el voto. Inténtalo nuevamente o consulta con la persona que administra el sistema."
-      end
+      save_paper_vote_for_user(paper_vote_user)
+      return redirect_to(:back)
     elsif params[:document_vatid] && params[:document_type]
-      user = paper_voters.where("lower(document_vatid) = ?", params[:document_vatid].downcase).find_by(document_type: params[:document_type])
-      if user
-        can_vote = check_valid_user(user) && check_valid_location(user, [election_location]) && check_verification(user) && check_not_voted(user)
-        validation_token = validation_token_for(user)
-
-        flash.each { |type, message| flash.now[:error] = message }
-        flash.discard
-      else
-        flash.now[:error] = "No se han encontrado usuarios con el documento dado."
-      end
+      return redirect_to(:back) unless paper_vote_user? && check_valid_user(paper_vote_user) &&
+                                       check_valid_location(paper_vote_user, [election_location]) && check_verification(paper_vote_user) && check_not_voted(paper_vote_user)
     end
 
-    render 'paper_vote', locals: { election: election, user: user, can_vote: can_vote, validation_token: validation_token }
+    render 'paper_vote', locals: { can_vote: can_vote }
   end
 
   private
@@ -95,6 +82,18 @@ class VoteController < ApplicationController
     @election_location ||= election.election_locations.find(params[:election_location_id])
   end
 
+  def paper_vote_user
+    @paper_vote_user ||= if params[:validation_token]
+                           paper_voters.find(params[:user_id])
+                         elsif params[:document_vatid] && params[:document_type]
+                           paper_voters.where("lower(document_vatid) = ?", params[:document_vatid].downcase).find_by(document_type: params[:document_type])
+                         end
+  end
+
+  def validation_token_for_paper_vote_user
+    @validation_token_for_paper_vote_user ||= election.generate_access_token("#{paper_vote_user.id} #{election_location.id} #{Date.today.iso8601}")
+  end
+
   def paper_voters
     User.confirmed.not_banned
   end
@@ -105,6 +104,21 @@ class VoteController < ApplicationController
 
   def send_to_home
     render content_type: 'text/plain', status: :gone, text: root_url
+  end
+
+  def save_paper_vote_for_user(user)
+    if election.votes.create(user_id: user.id, paper_authority: current_user)
+      flash[:notice] = "El voto ha sido registrado."
+    else
+      flash[:error] = "No se ha podido registrar el voto. Inténtalo nuevamente o consulta con la persona que administra el sistema."
+    end
+  end
+
+  def paper_vote_user?
+    return true if paper_vote_user
+
+    flash[:error] = "No se han encontrado usuarios con el documento dado."
+    false
   end
 
   def check_open_election
@@ -142,14 +156,10 @@ class VoteController < ApplicationController
     false
   end
 
-  def check_validation_token(user, received_token)
-    return true if validation_token_for(user) == received_token
+  def check_validation_token(received_token)
+    return true if validation_token_for_paper_vote_user == received_token
 
     flash[:error] = "Ha ocurrido un error al comprobar que el usuario puede votar, inténtalo nuevamente."
     false
-  end
-
-  def validation_token_for(user)
-    election.generate_access_token("#{user.id} #{election_location.id} #{Date.today.iso8601}")
   end
 end

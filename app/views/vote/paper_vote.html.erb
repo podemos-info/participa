@@ -4,15 +4,15 @@
   <h2>Mesa de votación presencial</h2>
   <p><strong>Territorio:</strong> <%= election_location.territory %></p>
 
-  <% if can_vote %>
+  <% if paper_vote_user %>
     <h3>Registrar voto</h3>
-    <p><%= user.first_name %>, con <%= user.document_type_name %> <%= user.document_vatid %>, puede emitir su voto.</p>
+    <p><%= paper_vote_user.first_name %>, con <%= paper_vote_user.document_type_name %> <%= paper_vote_user.document_vatid %>, puede emitir su voto.</p>
     <center>
     <%= form_tag do |f| %>
-      <%= hidden_field_tag 'validation_token', validation_token %>
-      <%= hidden_field_tag 'user_id', user.id %>
-      <%= link_to "Cancelar", "" %>
+      <%= hidden_field_tag 'validation_token', validation_token_for_paper_vote_user %>
+      <%= hidden_field_tag 'user_id', paper_vote_user.id %>
       <%= submit_tag("Vota", class: "button") %>
+      <p><%= link_to "Cancelar", "" %></p>
     <% end %>
     </center>
   <% else %>
