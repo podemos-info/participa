@@ -94,6 +94,7 @@ Rails.application.routes.draw do
 
     get '/votos/:election_id/:token', to: 'vote#election_votes_count', as: 'election_votes_count'
     get '/votos/:election_id/:election_location_id/:token', to: 'vote#election_location_votes_count', as: 'election_location_votes_count'
+    match '/paper_vote/:election_id/:election_location_id/:token', to: 'vote#paper_vote', as: 'election_location_paper_vote', via: %w(get post)
 
     devise_for :users, controllers: {
       registrations: 'registrations',

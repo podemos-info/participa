@@ -1,0 +1,37 @@
+<% content_for :title, "Mesa de votación presencial" %>
+
+<div class="content-content">
+  <h2>Mesa de votación presencial</h2>
+  <p><strong>Territorio:</strong> <%= election_location.territory %></p>
+
+  <% if can_vote %>
+    <h3>Registrar voto</h3>
+    <p><%= user.first_name %>, con <%= user.document_type_name %> <%= user.document_vatid %>, puede emitir su voto.</p>
+    <center>
+    <%= form_tag do |f| %>
+      <%= hidden_field_tag 'validation_token', validation_token %>
+      <%= hidden_field_tag 'user_id', user.id %>
+      <%= link_to "Cancelar", "" %>
+      <%= submit_tag("Vota", class: "button") %>
+    <% end %>
+    </center>
+  <% else %>
+    <h3>Localizar votante</h3>
+    <%= form_tag do |f| %>
+      <fieldset>
+        <div>
+          <%= content_tag(:span, "", class: "no-label", style: "display:inline-block") %>
+          <% User::DOCUMENTS_TYPE.each do |name, id| %>
+            <%= radio_button_tag(:document_type, id, name == "DNI", required: true, class: "input-s form-control") %>
+            <%= label_tag("document_type_#{id}", name) %>
+          <% end %>
+        </div>
+        <div class="inputlabel-box">
+          <%= label_tag(:document_vatid, "Documento") %>
+          <%= text_field_tag(:document_vatid, "", autocomplete: "off", required: true, class: "input-s form-control") %>
+        </div>
+      </fieldset>
+      <%= submit_tag("Buscar", class: "button") %>
+    <% end %>
+  <% end %>
+</div>

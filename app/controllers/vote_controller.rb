@@ -55,6 +55,36 @@ class VoteController < ApplicationController
     render 'votes_count', layout: 'minimal', locals: { votes: election_location.valid_votes_count }
   end
 
+  def paper_vote
+    return back_to_home unless election&.paper? && election_location&.paper_token == params[:token]
+    return back_to_home unless check_open_election
+
+    can_vote = false
+    if params[:validation_token]
+      user = paper_voters.find(params[:user_id])
+      return redirect_to(:back) unless check_validation_token(user, params[:validation_token])
+
+      if election.votes.create(user_id: user.id)
+        flash.now[:notice] = "El voto ha sido registrado."
+      else
+        flash.now[:error] = "No se ha podido registrar el voto. Inténtalo nuevamente o consulta con la persona que administra el sistema."
+      end
+    elsif params[:document_vatid] && params[:document_type]
+      user = paper_voters.where("lower(document_vatid) = ?", params[:document_vatid].downcase).find_by(document_type: params[:document_type])
+      if user
+        can_vote = check_valid_user(user) && check_valid_location(user, [election_location]) && check_verification(user) && check_not_voted(user)
+        validation_token = validation_token_for(user)
+
+        flash.each { |type, message| flash.now[:error] = message }
+        flash.discard
+      else
+        flash.now[:error] = "No se han encontrado usuarios con el documento dado."
+      end
+    end
+
+    render 'paper_vote', locals: { election: election, user: user, can_vote: can_vote, validation_token: validation_token }
+  end
+
   private
 
   def election
@@ -63,6 +93,10 @@ class VoteController < ApplicationController
 
   def election_location
     @election_location ||= election.election_locations.find(params[:election_location_id])
+  end
+
+  def paper_voters
+    User.confirmed.not_banned
   end
 
   def back_to_home
@@ -98,6 +132,20 @@ class VoteController < ApplicationController
     return true unless election.requires_vatid_check? && !user.pass_vatid_check?
 
     flash[:notice] = "Para esta votación es necesario que verifiques tu identidad"
+    false
+  end
+
+  def check_not_voted(user = current_user)
+    return true unless user.has_already_voted_in(election.id)
+
+    flash[:error] = "Esta persona ya ha emitido su voto en esta votación."
+    false
+  end
+
+  def check_validation_token(user, received_token)
+    return true if validation_token_for(user) == received_token
+
+    flash[:error] = "Ha ocurrido un error al comprobar que el usuario puede votar, inténtalo nuevamente."
     false
   end
 
