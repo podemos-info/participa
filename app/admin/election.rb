@@ -61,7 +61,6 @@ ActiveAdmin.register Election do
 
     panel "Lugares donde se vota" do
       paginated_collection(election.election_locations.page(params[:page]).per(15), download_links: false) do
-        #table_for election.election_locations.order(:location) do
         table_for collection.order(:location) do
           column :territory
           column :link do |el|
