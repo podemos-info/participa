@@ -124,7 +124,7 @@ class VoteController < ApplicationController
   def check_valid_location(user = current_user, valid_locations = nil)
     return true if election.has_valid_location_for?(user, valid_locations: valid_locations)
 
-    flash[:error] = "No puedes participar en esta votación."
+    flash[:error] = I18n.t('podemos.election.no_location')
     false
   end
 
