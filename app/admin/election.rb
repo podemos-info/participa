@@ -70,7 +70,7 @@ ActiveAdmin.register Election do
             span link_to el.new_link, el.new_link if el.new_version_pending
           end if !election.external?
           column :votes do |el|
-            span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_hash)
+            span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_token)
           end if !election.external?
           column :actions do |el|
             span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
@@ -79,7 +79,6 @@ ActiveAdmin.register Election do
             status_tag("VERSION NUEVA", :error) if el.new_version_pending
           end
         end
-
       end
       span link_to "Añadir ubicación", new_admin_election_election_location_path(election)
     end
@@ -151,7 +150,7 @@ ActiveAdmin.register Election do
   sidebar "Progreso", only: :show, priority: 0 do
     ul do
       li do
-        a "Votos totales: #{election.valid_votes_count}", href: election_votes_count_path(election, election.counter_hash)
+        a "Votos totales: #{election.valid_votes_count}", href: election_votes_count_path(election, election.counter_token)
       end
       li "Censo activos: #{election.current_active_census}"
       li "Censo actual: #{election.current_total_census}"

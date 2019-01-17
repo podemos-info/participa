@@ -115,11 +115,8 @@ class ElectionLocation < ActiveRecord::Base
     election.votes.with_deleted.where(agora_id: vote_id).where("deleted_at is null or deleted_at>?", election.ends_at).select(:user_id).distinct.count
   end
 
-  def counter_hash
-    Base64::strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new('sha256'), election.counter_key, "#{created_at.to_i} #{election.id} #{id}"))[0..16]
+  def counter_token
+    @counter_token ||= election.generate_access_token("#{created_at.to_i} #{id}")
   end
 
-  def validate_hash _hash
-    counter_hash == _hash
-  end
 end

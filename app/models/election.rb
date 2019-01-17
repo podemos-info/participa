@@ -217,15 +217,11 @@ class Election < ActiveRecord::Base
     votes.with_deleted.where("deleted_at is null or deleted_at>?", ends_at).select(:user_id).distinct.count
   end
 
-  def counter_hash
-    Base64::strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new('sha256'), counter_key, "#{created_at.to_i} #{id}"))[0..16]
+  def counter_token
+    @counter_token ||= generate_access_token("#{created_at.to_i} #{id}")
   end
 
-  def validate_hash _hash
-    counter_hash == _hash
-  end
-
-  def external?
-    external_link.present?
+  def generate_access_token(info)
+    Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new('sha256'), counter_key, info))[0..16]
   end
 end
