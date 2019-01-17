@@ -68,7 +68,7 @@ class Election < ActiveRecord::Base
                   when 3 then " en #{user.vote_town_name}"
                   when 4 then " en #{user.vote_island_name}"
                 end
-      if not has_valid_location_for? user, false
+      if not has_valid_location_for? user, check_created_at: false
         suffix = " (no hay votación#{suffix})"
       end
     end
@@ -80,8 +80,9 @@ class Election < ActiveRecord::Base
     not ((self.scope==5 and user.country=="ES") or (self.scope==4 and not user.vote_in_spanish_island?))
   end
 
-  def has_valid_location_for? _user, check_created_at = true
+  def has_valid_location_for?(_user, check_created_at: true, valid_locations: nil)
     users = []
+    valid_locations ||= election_locations
     return false if check_created_at && !has_valid_user_created_at?(_user)
 
     users << self.user_version(_user)
@@ -89,12 +90,12 @@ class Election < ActiveRecord::Base
 
     users.any? do |user|
       case self.scope
-        when 0 then self.election_locations.any?
-        when 1 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_autonomy_numeric}
-        when 2 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_province_numeric}
-        when 3 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_town_numeric}
-        when 4 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_island_numeric}
-        when 5 then user.country!="ES" and self.election_locations.any?
+        when 0 then valid_locations.any?
+        when 1 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_autonomy_numeric}
+        when 2 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_province_numeric}
+        when 3 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_town_numeric}
+        when 4 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_island_numeric}
+        when 5 then user.country!="ES" && valid_locations.any?
       end
     end
   end
