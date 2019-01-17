@@ -2,7 +2,7 @@
 <p class="sub-h3">Recuerda que para participar en la votación debes haberte inscrito en este portal antes del <%= l election.user_created_at_max, format: "%-d de %B de %Y a las %H:%M" %></p>
 <% end %>
 <p class="sub-h3">
-<% if current_user.can_change_vote_location? and election.multiple_territories?%>
+<% if !election.paper? && current_user.can_change_vote_location? and election.multiple_territories?%>
 Accederás a la votación de<% case election.scope
      when 1 %> la comunidad autónoma en la
   <% when 2 %> la provincia en la
@@ -25,7 +25,11 @@ Accederás a la votación de<% case election.scope
     <p class="date"><%= l election.starts_at, format: :short %> - <%= l election.ends_at, format: :short %></p>
   </div>
   <% if election.has_valid_location_for?(current_user) && election.has_valid_user_created_at?(current_user) %>
-    <% if election.external_link.blank? %>
+    <% if election.paper? %>
+      <%= link_to election.info_url, class: 'button button-vote' do %>
+        <span><%= election.info_text %></span>
+      <% end %>
+    <% elsif election.nvotes? %>
       <%= link_to create_vote_path(election_id: election.id), class: 'button button-vote' do %>
         <% if current_user.has_already_voted_in election.id %>
           <span>Cambiar el voto</span>
