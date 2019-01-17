@@ -2,7 +2,7 @@ class Election < ActiveRecord::Base
   include FlagShihTzu
 
   SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
-  
+
   has_flags 1 => :requires_sms_check,
             2 => :show_on_index,
             3 => :ignore_multiple_territories,
@@ -11,8 +11,10 @@ class Election < ActiveRecord::Base
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
   has_many :election_locations, dependent: :destroy
- 
-  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc)}
+
+  enum election_type: [:nvotes, :external, :paper ]
+
+  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc) }
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}
   scope :future, -> { where("ends_at > ?", DateTime.now).order(priority: :asc)}
 

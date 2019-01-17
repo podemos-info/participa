@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations,
+  permit_params :title, :info_url, :election_type, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations,
                 :user_created_at_max, :priority, :info_text, :requires_vatid_check, :requires_sms_check, :show_on_index,
                 :ignore_multiple_territories, :meta_description, :meta_image, :external_link, :voter_id_template
 
@@ -10,6 +10,7 @@ ActiveAdmin.register Election do
     id_column
     column :title
     column :server
+    column :election_type
     column :agora_election_id
     column :scope_name
     column :starts_at
@@ -41,6 +42,7 @@ ActiveAdmin.register Election do
       row :meta_description
       row :meta_image
       row :priority
+      row :election_type
       row :external_link if election.external?
       row :server if !election.external?
       row :agora_election_id if !election.external?
@@ -110,10 +112,13 @@ ActiveAdmin.register Election do
       f.input :meta_description, label: "Descripción del sitio para redes sociales durante la votación"
       f.input :meta_image, label: "URL de la imagen del sitio para redes sociales durante la votación"
       f.input :priority
-      f.input :external_link
-      f.input :server, as: :select, collection: Election.available_servers
-      f.input :agora_election_id
+
+      f.input :agora_election_id, label: "Prefijo del identificador"
+      f.input :election_type, as: :radio, collection: Election.election_types.keys, label: "Tipo de elección"
+      f.input :server, as: :select, collection: Election.available_servers, label: "Servidor de nVotes"
       f.input :voter_id_template
+      f.input :external_link
+
       f.input :scope, as: :select, collection: Election::SCOPE
       f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  } if !resource.persisted?
       f.input :starts_at
