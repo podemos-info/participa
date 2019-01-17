@@ -64,7 +64,7 @@ class VoteController < ApplicationController
       user = paper_voters.find(params[:user_id])
       return redirect_to(:back) unless check_validation_token(user, params[:validation_token])
 
-      if election.votes.create(user_id: user.id)
+      if election.votes.create(user_id: user.id, paper_authority: current_user)
         flash.now[:notice] = "El voto ha sido registrado."
       else
         flash.now[:error] = "No se ha podido registrar el voto. Inténtalo nuevamente o consulta con la persona que administra el sistema."
