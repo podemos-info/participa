@@ -120,6 +120,6 @@ class ElectionLocation < ActiveRecord::Base
   end
 
   def paper_token
-    @paper_token ||= election.generate_access_token("#{created_at.to_i} #{id} #{Date.today.iso8601}")
+    @paper_token ||= election.generate_access_token("#{created_at.to_i} #{id}")
   end
 end
