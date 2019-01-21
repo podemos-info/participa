@@ -19,7 +19,7 @@ class Election < ActiveRecord::Base
   scope :future, -> { where("ends_at > ?", DateTime.now).order(priority: :asc)}
 
   before_create do
-    @counter_key ||= SecureRandom.base64(20)
+    self[:counter_key] ||= SecureRandom.base64(20)
   end
 
   def to_s
