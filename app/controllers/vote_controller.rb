@@ -58,14 +58,19 @@ class VoteController < ApplicationController
   def paper_vote
     return back_to_home unless check_open_election && check_paper_authority? && election&.paper? &&
                                election_location&.paper_token == params[:token]
+    tracking = Logger.new(File.join(Rails.root, "log", "paper_authorities.log"))
 
     can_vote = false
     if params[:validation_token]
       return redirect_to(:back) unless paper_vote_user? && check_validation_token(params[:validation_token])
 
+      tracking.info "** #{current_user.id} #{current_user.full_name} ** VOTE: #{paper_vote_user.id}"
+
       save_paper_vote_for_user(paper_vote_user)
       return redirect_to(:back)
     elsif params[:document_vatid] && params[:document_type]
+      tracking.info "** #{current_user.id} #{current_user.full_name} ** QUERY: #{params[:document_type]} #{params[:document_vatid]}"
+
       return redirect_to(:back) unless paper_vote_user? && check_valid_user(paper_vote_user) &&
                                        check_valid_location(paper_vote_user, [election_location]) &&
                                        check_verification(paper_vote_user) && check_not_voted(paper_vote_user)
