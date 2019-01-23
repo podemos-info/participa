@@ -56,7 +56,8 @@ class VoteController < ApplicationController
   end
 
   def paper_vote
-    return back_to_home unless check_open_election && election&.paper? && election_location&.paper_token == params[:token]
+    return back_to_home unless check_open_election && check_paper_authority? && election&.paper? &&
+                               election_location&.paper_token == params[:token]
 
     can_vote = false
     if params[:validation_token]
@@ -66,7 +67,8 @@ class VoteController < ApplicationController
       return redirect_to(:back)
     elsif params[:document_vatid] && params[:document_type]
       return redirect_to(:back) unless paper_vote_user? && check_valid_user(paper_vote_user) &&
-                                       check_valid_location(paper_vote_user, [election_location]) && check_verification(paper_vote_user) && check_not_voted(paper_vote_user)
+                                       check_valid_location(paper_vote_user, [election_location]) &&
+                                       check_verification(paper_vote_user) && check_not_voted(paper_vote_user)
     end
 
     render 'paper_vote', locals: { can_vote: can_vote }
@@ -147,6 +149,10 @@ class VoteController < ApplicationController
 
     flash[:notice] = "Para esta votación es necesario que verifiques tu identidad"
     false
+  end
+
+  def check_paper_authority?
+    current_user.admin? || current_user.paper_authority?
   end
 
   def check_not_voted(user = current_user)

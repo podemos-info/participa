@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
             4 => :finances_admin,
             5 => :impulsa_author,
             6 => :impulsa_admin,
-            7 => :verifier
+            7 => :verifier,
+            8 => :paper_authority
 
   # Include default devise modules. Others available are:
   # :omniauthable
