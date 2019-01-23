@@ -2,7 +2,7 @@ class VoteController < ApplicationController
   layout "full", only: [:create]
   before_action :authenticate_user!, except: [:election_votes_count, :election_location_votes_count]
 
-  helper_method :election, :election_location, :paper_vote_user, :validation_token_for_paper_vote_user
+  helper_method :election, :election_location, :paper_vote_user, :validation_token_for_paper_vote_user, :paper_authority_votes_count
 
   def send_sms_check
     if current_user.send_sms_check!
@@ -87,6 +87,10 @@ class VoteController < ApplicationController
 
   def election_location
     @election_location ||= election.election_locations.find(params[:election_location_id])
+  end
+
+  def paper_authority_votes_count
+    @paper_authority_votes_count ||= current_user.paper_authority_votes.where(election: election).count
   end
 
   def paper_vote_user

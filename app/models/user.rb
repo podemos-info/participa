@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   has_paper_trail
 
   has_many :votes, dependent: :destroy
+  has_many :paper_authority_votes, dependent: :nullify, class_name: "Vote", inverse_of: :paper_authority
+
   has_many :supports, dependent: :destroy
   has_one :collaboration, dependent: :destroy
   has_and_belongs_to_many :participation_team
