@@ -18,7 +18,8 @@ module OpenID
       'remote_id' => 'Remote identifier',
       'address' => 'Address',
       'town' => 'Town',
-      'district' => 'District'
+      'district' => 'District',
+      'verified' => 'Verified'
     })
   end
 end
