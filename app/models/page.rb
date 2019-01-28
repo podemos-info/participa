@@ -6,5 +6,4 @@ class Page < ActiveRecord::Base
   validates :title, presence: true
 
   acts_as_paranoid
-
 end

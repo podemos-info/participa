@@ -2,7 +2,7 @@ class Election < ActiveRecord::Base
   include FlagShihTzu
 
   SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
-  
+
   has_flags 1 => :requires_sms_check,
             2 => :show_on_index,
             3 => :ignore_multiple_territories,
@@ -11,17 +11,15 @@ class Election < ActiveRecord::Base
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
   has_many :election_locations, dependent: :destroy
- 
-  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc)}
+
+  enum election_type: [:nvotes, :external, :paper ]
+
+  scope :active, -> { where("? BETWEEN starts_at AND ends_at", Time.now).order(priority: :asc) }
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 2.days.ago, 12.hours.from_now).order(priority: :asc)}
   scope :future, -> { where("ends_at > ?", DateTime.now).order(priority: :asc)}
 
-  before_create do |election|
-    election[:counter_key] = SecureRandom.base64(20)
-  end
-
-  def counter_key
-    self[:counter_key] || created_at.to_s
+  before_create do
+    self[:counter_key] ||= SecureRandom.base64(20)
   end
 
   def to_s
@@ -37,7 +35,7 @@ class Election < ActiveRecord::Base
   end
 
   def recently_finished?
-    self.ends_at > 2.days.ago and self.ends_at < DateTime.now 
+    self.ends_at > 2.days.ago && self.ends_at < DateTime.now
   end
 
   def scope_name
@@ -48,7 +46,7 @@ class Election < ActiveRecord::Base
     if self.user_created_at_max.nil?
       _user
     else
-      prev_user = _user.version_at(self.user_created_at_max) 
+      prev_user = _user.version_at(self.user_created_at_max)
       if prev_user && prev_user.has_vote_town?
         prev_user
       else
@@ -64,9 +62,9 @@ class Election < ActiveRecord::Base
                   when 1 then " en #{user.vote_autonomy_name}"
                   when 2 then " en #{user.vote_province_name}"
                   when 3 then " en #{user.vote_town_name}"
-                  when 4 then " en #{user.vote_island_name}"      
+                  when 4 then " en #{user.vote_island_name}"
                 end
-      if not has_valid_location_for? user, false
+      if not has_valid_location_for? user, check_created_at: false
         suffix = " (no hay votación#{suffix})"
       end
     end
@@ -78,8 +76,9 @@ class Election < ActiveRecord::Base
     not ((self.scope==5 and user.country=="ES") or (self.scope==4 and not user.vote_in_spanish_island?))
   end
 
-  def has_valid_location_for? _user, check_created_at = true
+  def has_valid_location_for?(_user, check_created_at: true, valid_locations: nil)
     users = []
+    valid_locations ||= election_locations
     return false if check_created_at && !has_valid_user_created_at?(_user)
 
     users << self.user_version(_user)
@@ -87,12 +86,12 @@ class Election < ActiveRecord::Base
 
     users.any? do |user|
       case self.scope
-        when 0 then self.election_locations.any?
-        when 1 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_autonomy_numeric}
-        when 2 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_province_numeric}
-        when 3 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_town_numeric}
-        when 4 then user.has_vote_town? and self.election_locations.any? {|l| l.location == user.vote_island_numeric}
-        when 5 then user.country!="ES" and self.election_locations.any?
+        when 0 then valid_locations.any?
+        when 1 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_autonomy_numeric}
+        when 2 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_province_numeric}
+        when 3 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_town_numeric}
+        when 4 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_island_numeric}
+        when 5 then user.country!="ES" && valid_locations.any?
       end
     end
   end
@@ -149,7 +148,7 @@ class Election < ActiveRecord::Base
     !self.ignore_multiple_territories && self.scope.in?([1,2,3,4])
   end
 
-  def scoped_agora_election_id _user
+  def scoped_agora_election_id(_user)
     user = self.user_version(_user)
     user_location = case self.scope
       when 1
@@ -215,15 +214,11 @@ class Election < ActiveRecord::Base
     votes.with_deleted.where("deleted_at is null or deleted_at>?", ends_at).select(:user_id).distinct.count
   end
 
-  def counter_hash
-    Base64::strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new('sha256'), counter_key, "#{created_at.to_i} #{id}"))[0..16]
+  def counter_token
+    @counter_token ||= generate_access_token("#{created_at.to_i} #{id}")
   end
 
-  def validate_hash _hash
-    counter_hash == _hash
-  end
-
-  def external?
-    external_link.present?
+  def generate_access_token(info)
+    Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new('sha256'), counter_key, info))[0..16]
   end
 end

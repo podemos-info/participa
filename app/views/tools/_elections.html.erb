@@ -6,8 +6,8 @@
       <p><strong>Por favor, indica tu lugar de participación en tu perfil.</strong></p>
     <% end %>
     <h3><strong>Hay <% if @elections.length==1%>una votación<%else%>votaciones<%end%> en curso. ¡Participa!</strong></h3>
-    <% if @elections.none? {|el| el.external? } %>
-      <p class="sub-h3"><% if @elections.length==1%>La votación utiliza<%else%>Las votaciones utilizan<%end%> el sistema seguro de <a href="http://agoravoting.org" target="_blank"><b>Agora Voting</b></a>.</p>
+    <% if @elections.any? {|el| el.nvotes? } %>
+      <p class="sub-h3"><% if @elections.length==1%>La votación utiliza<%else%>Las votaciones utilizan<%end%> el sistema seguro de <a href="https://nvotes.org" target="_blank"><b>nVotes</b></a>.</p>
     <% end %>
     <% @elections.each do |election| %>
       <%= render partial: "election", locals: { election: election } %>
