@@ -5,6 +5,7 @@ class Vote < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :election
+  belongs_to :paper_authority, class_name: "User"
 
   validates :user_id, :election_id, :voter_id, presence: true
   validates :voter_id, uniqueness: { scope: :user_id }

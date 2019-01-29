@@ -228,7 +228,8 @@ EOS
 
     sreg_data = { 'email' => current_user.email, 'fullname' => current_user.full_name, 'remote_id' => current_user.id.to_s,
                   'first_name' => current_user.first_name, 'last_name' => current_user.last_name, 'dob'=> current_user.born_at.to_s,
-                  'guid' => current_user.document_vatid, 'address' => current_user.address, 'postcode' => current_user.postal_code }
+                  'guid' => current_user.document_vatid, 'address' => current_user.address, 'postcode' => current_user.postal_code,
+                  'verified' => current_user.verified? }
 
     sreg_data["phone"] = current_user.phone if current_user.phone
 

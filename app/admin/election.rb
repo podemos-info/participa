@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations,
+  permit_params :title, :info_url, :election_type, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations,
                 :user_created_at_max, :priority, :info_text, :requires_vatid_check, :requires_sms_check, :show_on_index,
                 :ignore_multiple_territories, :meta_description, :meta_image, :external_link, :voter_id_template
 
@@ -10,6 +10,7 @@ ActiveAdmin.register Election do
     id_column
     column :title
     column :server
+    column :election_type
     column :agora_election_id
     column :scope_name
     column :starts_at
@@ -41,6 +42,7 @@ ActiveAdmin.register Election do
       row :meta_description
       row :meta_image
       row :priority
+      row :election_type
       row :external_link if election.external?
       row :server if !election.external?
       row :agora_election_id if !election.external?
@@ -59,25 +61,28 @@ ActiveAdmin.register Election do
 
     panel "Lugares donde se vota" do
       paginated_collection(election.election_locations.page(params[:page]).per(15), download_links: false) do
-        #table_for election.election_locations.order(:location) do
         table_for collection.order(:location) do
-          column :territory
-          column :link do |el|
+          column "Territorio" do |el|
+            el.territory
+          end
+          column "Cabina de votación" do |el|
             span link_to el.link, el.link
             br
             span link_to el.new_link, el.new_link if el.new_version_pending
+          end if election.nvotes?
+          column "Votos" do |el|
+            span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_token)
           end if !election.external?
-          column :votes do |el|
-            span link_to "#{el.valid_votes_count}", election_location_votes_count_path(el.election, el, el.counter_hash)
-          end if !election.external?
-          column :actions do |el|
+          column "Voto presencial" do |el|
+            span link_to "Votar", election_location_paper_vote_path(el.election, el, el.paper_token)
+          end if election.paper?
+          column "Acciones" do |el|
             span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
             span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
             span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info && !election.external?
             status_tag("VERSION NUEVA", :error) if el.new_version_pending
           end
         end
-
       end
       span link_to "Añadir ubicación", new_admin_election_election_location_path(election)
     end
@@ -110,10 +115,13 @@ ActiveAdmin.register Election do
       f.input :meta_description, label: "Descripción del sitio para redes sociales durante la votación"
       f.input :meta_image, label: "URL de la imagen del sitio para redes sociales durante la votación"
       f.input :priority
-      f.input :external_link
-      f.input :server, as: :select, collection: Election.available_servers
-      f.input :agora_election_id
+
+      f.input :agora_election_id, label: "Prefijo del identificador"
+      f.input :election_type, as: :radio, collection: Election.election_types.keys, label: "Tipo de elección"
+      f.input :server, as: :select, collection: Election.available_servers, label: "Servidor de nVotes"
       f.input :voter_id_template
+      f.input :external_link
+
       f.input :scope, as: :select, collection: Election::SCOPE
       f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  } if !resource.persisted?
       f.input :starts_at
@@ -146,7 +154,7 @@ ActiveAdmin.register Election do
   sidebar "Progreso", only: :show, priority: 0 do
     ul do
       li do
-        a "Votos totales: #{election.valid_votes_count}", href: election_votes_count_path(election, election.counter_hash)
+        a "Votos totales: #{election.valid_votes_count}", href: election_votes_count_path(election, election.counter_token)
       end
       li "Censo activos: #{election.current_active_census}"
       li "Censo actual: #{election.current_total_census}"

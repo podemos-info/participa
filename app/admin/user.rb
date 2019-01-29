@@ -390,6 +390,22 @@ ActiveAdmin.register User do
     redirect_to action: :show
   end
 
+  action_item(:paper_authority, only: :show) do
+    if user.paper_authority?
+      link_to('Desmarcar como autoridad', paper_authority_admin_user_path(user), method: :delete, data: { confirm: "¿Quieres que esta persona deje de ser autoridad en votaciones presenciales?" })
+    else
+      link_to('Marcar como autoridad', paper_authority_admin_user_path(user), method: :post, data: { confirm: "¿Quieres que esta persona pueda ser autoridad en votaciones presenciales?" })
+    end
+  end
+
+  member_action :paper_authority, method: %w[post delete] do
+    u = User.find(params[:id])
+    u.paper_authority = request.post?
+    u.save
+    flash[:notice] = "El usuario ya #{'no' if request.delete?} puede ejercer de autoridad en votaciones presenciales"
+    redirect_to action: :show
+  end
+
   action_item(:impulsa_author, only: :show) do
     if user.impulsa_author?
       link_to('Quitar autor Impulsa', impulsa_author_admin_user_path(user), method: :delete, data: { confirm: "¿Estas segura de que este usuario ya no puede crear proyectos especiales en Impulsa?" })

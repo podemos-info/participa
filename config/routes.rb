@@ -4,12 +4,12 @@ require 'resque/server'
 Rails.application.routes.draw do
   get '', to: redirect("/#{I18n.locale}")
 
-  # redsys MerchantURL 
+  # redsys MerchantURL
   post '/orders/callback/redsys', to: 'orders#callback_redsys', as: 'orders_callback_redsys'
 
   namespace :api do
-    scope :v1 do 
-      scope :gcm do 
+    scope :v1 do
+      scope :gcm do
         post 'registrars', to: 'v1#gcm_registrate'
         delete 'registrars/:registrar_id', to: 'v1#gcm_unregister'
       end
@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     get '/responsables-areas-cc-autonomicos', to: 'page#responsables_areas_cc_autonomicos', as:"responsables_areas_cc_autonomicos"
     get '/boletin-correo-electronico', to: 'page#boletin_correo_electronico', as:"boletin_correo_electronico"
     get '/responsable-web-autonomico', to: 'page#responsable_web_autonomico', as: 'responsable_web_autonomico'
-    
+
     get '/comparte-el-cambio/compartir-casa', to: 'page#offer_hospitality', as: 'offer_hospitality'
     get '/comparte-el-cambio/encuentra-casa', to: 'page#find_hospitality', as: 'find_hospitality'
     get '/comparte-el-cambio/compartir-coche-sevilla', to: 'page#share_car_sevilla', as: 'share_car_sevilla'
@@ -88,20 +88,20 @@ Rails.application.routes.draw do
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
     get '/vote/create_token/:election_id', to: 'vote#create_token', as: :create_token_vote
     get '/vote/check/:election_id', to: 'vote#check', as: :check_vote
-    
+
     get '/vote/sms_check/:election_id', to: 'vote#sms_check', as: :sms_check_vote
     get '/vote/send_sms_check/:election_id', to: 'vote#send_sms_check', as: :send_sms_check_vote
-    
 
-    get '/votos/:election_id/:hash', to: 'vote#election_votes_count', as: 'election_votes_count'
-    get '/votos/:election_id/:election_location_id/:hash', to: 'vote#election_location_votes_count', as: 'election_location_votes_count'
+    get '/votos/:election_id/:token', to: 'vote#election_votes_count', as: 'election_votes_count'
+    get '/votos/:election_id/:election_location_id/:token', to: 'vote#election_location_votes_count', as: 'election_location_votes_count'
+    match '/paper_vote/:election_id/:election_location_id/:token', to: 'vote#paper_vote', as: 'election_location_paper_vote', via: %w(get post)
 
-    devise_for :users, controllers: { 
-      registrations: 'registrations', 
-      passwords:     'passwords', 
+    devise_for :users, controllers: {
+      registrations: 'registrations',
+      passwords:     'passwords',
       confirmations: 'confirmations',
       sessions:      'sessions'
-    } 
+    }
 
     get '/financiacion', to: 'page#funding', as: 'funding'
     get '/microcreditos', to: 'microcredit#index', as: 'microcredit'
@@ -120,7 +120,7 @@ Rails.application.routes.draw do
 
     authenticate :user do
       scope :validator do
-        scope :sms do 
+        scope :sms do
           get :step1, to: 'sms_validator#step1', as: 'sms_validator_step1'
           get :step2, to: 'sms_validator#step2', as: 'sms_validator_step2'
           get :step3, to: 'sms_validator#step3', as: 'sms_validator_step3'
@@ -129,7 +129,7 @@ Rails.application.routes.draw do
           post :valid, to: 'sms_validator#valid', as: 'sms_validator_valid'
         end
       end
-      
+
       scope :colabora do
         delete 'baja', to: 'collaborations#destroy', as: 'destroy_collaboration'
         get 'ver', to: 'collaborations#edit', as: 'edit_collaboration'
@@ -168,8 +168,8 @@ Rails.application.routes.draw do
       get ':id', to: 'blog#post', as: 'post'
       get 'categoria/:id', to: 'blog#category', as: 'category'
     end
-    
-    # http://stackoverflow.com/a/8884605/319241 
+
+    # http://stackoverflow.com/a/8884605/319241
     devise_scope :user do
       get '/registrations/regions/provinces', to: 'registrations#regions_provinces'
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
