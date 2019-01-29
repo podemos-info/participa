@@ -25,7 +25,7 @@ es:
       collaboration:
         type_amounts:
           single: Puntual
-          recursive: Recurrente
+          recursive: Periódica
     models:
       user: Usuario
       users: Usuarios
@@ -255,7 +255,7 @@ es:
         amount_collector: "Importe"
         amount_holder: "Importe personalizado"
         single: "Puntual"
-        recursive: "Recurrente"
+        recursive: "Periódica"
         frequency: "Frecuencia de pago"
         frequency_name: "Frecuencia de pago"
         minimal_year_old: "Edad mínima requerida"
