@@ -68,6 +68,7 @@ ca:
         updated_at: "Actualitzada el"
         type_amount: "Tipus d'import"
         amount: "Import"
+        amount_collector: "Import"
         frequency: "Freqüència de pagament"
         frequency_name: "Freqüència de pagament"
         minimal_year_old: "Edat mínima requerida"
