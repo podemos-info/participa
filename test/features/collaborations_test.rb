@@ -62,7 +62,7 @@ feature 'Collaborations' do
     page.must_have_content 'Apúntate a las donaciones periódicas de BComú'
 
     select('500', from: 'Importe')
-    select('Recurrente', from: 'Tipo de importe')
+    select('Periódica', from: 'Tipo de importe')
     select('Mensual', from: 'Frecuencia de pago')
     select(
       'Domiciliación en cuenta bancaria (formato IBAN)',
