@@ -68,6 +68,7 @@ ca:
         updated_at: "Actualitzada el"
         type_amount: "Tipus d'import"
         amount: "Import"
+        amount_collector: "Import"
         frequency: "Freqüència de pagament"
         frequency_name: "Freqüència de pagament"
         minimal_year_old: "Edat mínima requerida"
@@ -149,7 +150,7 @@ ca:
         age_over: "No pots col·laborar si ets menor d'edat."
         valid: "Ccompte corrent invàlid. Dígit de control erroni. Sisplau revisa'l."
       title: "Col·labora econòmicament"
-      p1: "BComú és una plataforma ciutadana que, per garantir la seva autonomia financera, necessita d’una petita aportació econòmica de cadascú de nosaltres ajudant així a garantir la independència i coherència del projecte. Fem-ho possible entre tots i totes! Apunta’t a les donacions periódiques de BComú!"
+      p1: "BComú és una plataforma ciutadana que, per garantir la seva autonomia financera, necessita d’una petita aportació econòmica de cadascú de nosaltres per garantir la independència i la coherència del projecte. Fem-ho possible entre tots i totes! Apunta’t a les donacions periódiques de BComú!"
       ok:
         p1: "La teva donació s'ha donat d'alta correctament."
         p2: "Gràcies per col·laborar amb Barcelona En Comú."
@@ -198,13 +199,13 @@ La quantitat que vós doneu no us ha sigut lliurada per part d’alguna persona 
         third: "Puntual"
       order:
         cc: "Suscripción con Tarjeta de Crédito/Débito"
-        ccc: Domiciliació amb compte bancari (format CCC)
-        iban: Domiciliació amb compte bancari (format IBAN)
+        ccc: "Domiciliació amb compte bancari (format CCC)"
+        iban: "Domiciliació amb compte bancari (format IBAN)"
       steps:
-        first: Quant i com vols col·laborar
-        second: Confirmació
-        third: Resultat
-      submit: Guardar
+        first: "Quant i com vols col·laborar"
+        second: "Confirmació"
+        third: "Resultat"
+      submit: "Guardar"
   bec:
     other_locales: "Altres idiomes"
     home_address: "Adreça"
