@@ -27,7 +27,7 @@ feature 'Collaborations' do
     # logged in user, fill collaboration
     login_as(user)
     visit new_collaboration_path
-    page.must_have_content 'Apúntate a las donaciones periódiques de BComú'
+    page.must_have_content 'Apúntate a las donaciones periódicas de BComú'
     select('500', from: 'Importe')
     select('Puntual', from: 'Tipo de importe')
     select('Domiciliación en cuenta bancaria (formato IBAN)', from: 'Método de pago') 
@@ -59,7 +59,7 @@ feature 'Collaborations' do
 
     login_as(user)
     visit new_collaboration_path
-    page.must_have_content 'Apúntate a las donaciones periódiques de BComú'
+    page.must_have_content 'Apúntate a las donaciones periódicas de BComú'
 
     select('500', from: 'Importe')
     select('Recurrente', from: 'Tipo de importe')
