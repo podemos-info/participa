@@ -986,6 +986,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       account_number: "Número de cuenta"
       concept: "Concepto del ingreso"
       thanks: "Muchas gracias por colaborar. El cambio empieza gracias a ti."
+    show_options:
+      back: "Volver"
   formtastic:
     labels:
       first_name: "Nombre"
