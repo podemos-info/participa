@@ -869,6 +869,9 @@ microcredits
     margin-bottom: 1em;
     font-size: 2.6em !important;
 }
+.padding04 {
+  padding-left: 0.4em;
+}
 
 #microcredit-options input:not(:checked) + label + div, #microcredit-options input:not(:checked) + label + div + select
 {
@@ -891,6 +894,10 @@ microcredits
 .microcredit_option_detail_child
 {
   padding-left: 1em;
+}
+img[id^="simple_captcha"]
+{
+  height: 10em;
 }
 /* -----------------------------------
 proposals
@@ -1403,6 +1410,9 @@ input.button-danger:hover{
   border:0;
   clear:both;
   padding:1em 0;
+}
+.center{
+  text-align: center;
 }
 
 .content-content h2{
