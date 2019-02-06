@@ -174,13 +174,16 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def is_bank_international?
-    self.iban_account && !self.iban_account.start_with?("ES")
+    self.iban_account && self.iban_valid? && !self.iban_account.start_with?("ES")
   end
 
-  def validates_iban
+  def iban_valid?
     iban_validation = IBANTools::IBAN.valid?(self.iban_account)
     ccc_validation = self.iban_account&.start_with?("ES") ? BankCccValidator.validate(self.iban_account[4..-1]) : true
-    unless iban_validation and ccc_validation
+    iban_validation && ccc_validation
+  end
+  def validates_iban
+    unless iban_valid?
       self.errors.add(:iban_account, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
     end
   end
