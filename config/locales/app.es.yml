@@ -13,7 +13,7 @@ es:
         message_html: "No pudimos encontrar esa página. Vuelvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a>."
       "500":
         title: "Error en el servidor"
-        message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='mailto:soportevotaciones@podemos.info'>soportevotaciones@podemos.info</a>"
+        message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='https://participa.podemos.info/soporte-votaciones/'>el formulario de soporte</a>."
     messages:
       not_valid_spanish_vat: El número de identificación fiscal no es válido
       not_valid_nif: El DNI no es válido
@@ -354,7 +354,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         hello: "Hola"
         welcome: "Bienvenida"
         lock:
-          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, avísanos a través de soportevotaciones@podemos.info."
+          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, <a href='https://participa.podemos.info/soporte-votaciones/'>reporta la incidencia</a> para recibir ayuda."
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
           p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador."
         confirm:
@@ -986,6 +986,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       account_number: "Número de cuenta"
       concept: "Concepto del ingreso"
       thanks: "Muchas gracias por colaborar. El cambio empieza gracias a ti."
+    show_options:
+      back: "Volver"
   formtastic:
     labels:
       first_name: "Nombre"

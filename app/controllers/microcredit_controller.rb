@@ -125,7 +125,7 @@ class MicrocreditController < ApplicationController
     @data_detail = []
     no_children=[]
     with_children=[]
-    MicrocreditOption.root_parents.each do |pa|
+    MicrocreditOption.root_parents.where(microcredit_id: @microcredit.id).each do |pa|
       if data_temp[pa.id].present? && pa.children.none?
         data_temp[pa.id][:class_name] = class_parent
         no_children.push(data_temp[pa.id])
