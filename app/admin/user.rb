@@ -51,10 +51,7 @@ ActiveAdmin.register User do
   show do
     authorize! :admin, user
     attributes_table do
-      row :id do
-        span user.id
-        span link_to 'Ver Verificación de usuario', edit_admin_user_verification_path(UserVerification.find_by_user_id(user.id)), :target => "_blank" if user.verified?
-      end
+      row :id
       row :status do
         status_tag("Verificado", :ok) if user.verified?
         status_tag("Baneado", :error) if user.banned?
@@ -203,6 +200,19 @@ ActiveAdmin.register User do
 
   sidebar "Buscar personas en Participa", 'data-panel' => :collapsed, :only => :index, priority: 1 do
     render("admin/users/process_search_persons")
+  end
+
+  sidebar "Verificaciones", only: :show, priority: 2 do
+    div class: "attributes_table collaboration" do
+    table do
+      user.user_verifications.order(:created_at).each do |user_verification|
+        tr class: "row row-link" do
+          th user_verification.created_at.to_date
+          td link_to(t("podemos.user_verification.status.#{user_verification.status}"), edit_admin_user_verification_path(user_verification))
+        end
+      end
+    end if user.user_verifications.any?
+    end
   end
 
   filter :email
