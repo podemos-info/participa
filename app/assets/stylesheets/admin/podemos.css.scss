@@ -1,5 +1,10 @@
 //= require font-awesome
 
+.attributes_table table th {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .panel[data-panel] {
   table {
     tr td div {
@@ -84,7 +89,7 @@ li.small_input, li.small_inputs ol li {
   label {
     font-weight: normal;
     font-size: 10px;
-    text-align: left;   
+    text-align: left;
   }
 }
 li.small_inputs {
