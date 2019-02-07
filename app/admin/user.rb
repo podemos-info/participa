@@ -53,7 +53,7 @@ ActiveAdmin.register User do
     attributes_table do
       row :id do
         span user.id
-        span link_to 'Ver Verificación de usuario', edit_admin_user_verification_path(UserVerification.find_by_user_id(user.id)), :target => "_blank"
+        span link_to 'Ver Verificación de usuario', edit_admin_user_verification_path(UserVerification.find_by_user_id(user.id)), :target => "_blank" if user.verified?
       end
       row :status do
         status_tag("Verificado", :ok) if user.verified?
