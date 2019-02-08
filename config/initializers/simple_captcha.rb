@@ -1,6 +1,6 @@
 SimpleCaptcha.setup do |sc|
   # default: 100x28
-  sc.image_size = '300x40'
+  sc.image_size = '150x40'
 
   # default: 5
   sc.length = 6
