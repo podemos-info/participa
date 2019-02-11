@@ -147,7 +147,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
               <%= field_notice_box %>
             <% end %>
           </div>
-          <%=f.collection_radio_buttons :microcredit_option_id, @microcredit.microcredit_options.where(parent: nil), :id, :name do |op|%>
+          <%=f.collection_radio_buttons :microcredit_option_id, @microcredit.microcredit_options.where(parent: nil).order('id ASC'), :id, :name do |op|%>
             <div>
               <%= op.radio_button %>
               <%= op.label({:class =>"microcredit-options-radio-button"}) { op.text } %>
