@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :banned_user
   before_filter :unresolved_issues
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :store_user_location!, if: :storable_location?
   before_action :set_locale
   before_filter :allow_iframe_requests
   before_filter :admin_logger
@@ -81,7 +82,7 @@ class ApplicationController < ActionController::Base
     # no issues, don't check it again
     session[:no_unresolved_issues] = true
 
-    super    
+    stored_location_for(user) || super
   end
   
   def banned_user
@@ -141,6 +142,16 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :document_vatid, :email, :password, :remember_me) }
+  end
+
+  private
+
+  def storable_location?
+    request.get? && is_navigational_format? && !:devise_controller? && !request.xhr?
+  end
+
+  def store_user_location!
+    store_location_for(:user,request.fullpath)
   end
 
 end
