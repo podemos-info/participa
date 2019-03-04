@@ -231,4 +231,21 @@ class Microcredit < ActiveRecord::Base
   def clear_cache
     @subgoals = @phase_status = @campaign_status = nil
   end
+
+  def get_microcredit_index_upcoming_text
+    date = self.starts_at
+    now = Time.zone.now
+    date_diff = date - now
+    days_diff = (date_diff / 1.day).round
+    hours_diff = (date_diff / 1.hour).round
+    minutes_diff = (date_diff / 1.minute).round
+    seconds_diff = (date_diff).round
+    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.no_campaigns')}" if days_diff > 15
+    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.few_days')}" if days_diff.between?(2,15)
+    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.tomorrow')}" if days_diff == 1 || days_diff == 0 && (date.day - now.day).positive?
+    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.few_hours')}" if hours_diff.between?(1,23)
+    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.few_hours')}" if minutes_diff.between?(1,59)
+    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.immediatly')}" if seconds_diff.between?(1,59)
+  end
+
 end

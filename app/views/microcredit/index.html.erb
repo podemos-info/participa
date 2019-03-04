@@ -19,7 +19,7 @@
   <p><%= t 'microcredit.common.help_us', name: @brand_config["name"] %> <%= link_to t('microcredit.common.more_info'), (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
   <% if @microcredits_standard.length == 0 %>
     <% if @upcoming_microcredits_standard.count > 0 %>
-      <h3><%= t '.will_start' %></h3>
+      <h3><%= @microcredit_index_upcoming_text %></h3>
       <p><%= t '.will_start_at', name: @brand_config["name"], hour: @upcoming_microcredits_standard.first.starts_at.strftime("%H:%M"), date: @upcoming_microcredits_standard.first.starts_at.strftime("%d/%m") %></p>
     <% elsif @finished_microcredits_standard.count > 0 %>
       <h3><%= t 'microcredit.common.has_finished' %></h3>

@@ -939,7 +939,12 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       title: 'Campaña "Papeletas con futuro"'
       help_us: "Para este 26J abrimos esta campaña dirigida especialmente a financiar el  envío de papeletas en todas las provincias. Elige la tuya y colabora para que los sobres con el voto de Podemos llegue al mayor número de hogares.  Cuando nos ingresen la subvención electoral te devolveremos la cantidad aportada."
     index:
-      will_start: "La próxima campaña de microcréditos comenzará en unos momentos"
+      will_start: "La próxima campaña de microcréditos comenzará"
+      few_minutes: "en unos minutos."
+      few_hours: "en unas horas."
+      few_days: "en unos días."
+      tomorrow: "mañana."
+      immediatly: "en breves instantes."
       will_start_at: "Podrás suscribir un microcrédito %{name} a partir de las %{hour} del día %{date}."
       no_campaigns: "En este momento no hay campañas de microcréditos activas."
       no_campaigns_message: "No te preocupes, te avisaremos cuando abramos la próxima campaña."
