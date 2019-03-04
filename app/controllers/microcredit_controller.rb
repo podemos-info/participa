@@ -36,11 +36,13 @@ class MicrocreditController < ApplicationController
     if @microcredits_standard.length == 0
       @upcoming_microcredits_standard = @all_microcredits.select { |m| m.is_standard? and m.is_upcoming? } .sort_by(&:starts_at)
       @finished_microcredits_standard = @all_microcredits.select { |m| m.is_standard? and m.recently_finished? } .sort_by(&:ends_at).reverse
+      @microcredit_index_upcoming_text = @upcoming_microcredits_standard.first.get_microcredit_index_upcoming_text if @upcoming_microcredits_standard.any?
     end
 
     if @microcredits_mailing.length == 0
       @upcoming_microcredits_mailing = @all_microcredits.select { |m| m.is_mailing? and m.is_upcoming? } .sort_by(&:starts_at)
       @finished_microcredits_mailing = @all_microcredits.select { |m| m.is_mailing? and m.recently_finished? } .sort_by(&:ends_at).reverse
+      @microcredit_index_upcoming_text = get_microcredit_index_upcoming_text @upcoming_microcredits_mailing.first if @upcoming_microcredits_mailing.any?
     end
   end
 
