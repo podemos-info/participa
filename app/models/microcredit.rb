@@ -244,7 +244,7 @@ class Microcredit < ActiveRecord::Base
     return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.few_days')}" if days_diff.between?(2,15)
     return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.tomorrow')}" if days_diff == 1 || days_diff == 0 && (date.day - now.day).positive?
     return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.few_hours')}" if hours_diff.between?(1,23)
-    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.few_hours')}" if minutes_diff.between?(1,59)
+    return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.few_minutes')}" if minutes_diff.between?(1,59)
     return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.immediatly')}" if seconds_diff.between?(1,59)
   end
 
