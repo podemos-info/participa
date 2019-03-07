@@ -24,9 +24,9 @@
             <% end %>
             <div><strong><%=t 'microcredit.email.account_number'%></strong><br><%=@microcredit.account_number%></div>
             <div><strong><%=t 'microcredit.email.bank'%></strong><br>Fiare Banca Ética</div>
-            <div class="grey"><strong>SWIFT</strong><br>ETICES21 Solo para <tran></tran>sferencias transnacionales</div>
-            <div class="grey"><strong><%=t 'microcredit.email.recipient'%></strong><br><%=@brand_config["name"].upcase%></div>
-            <div class="grey"><strong><%=t 'microcredit.common.amount'%></strong><br><%=@loan.amount%>€</div>
+            <div class="grey"><strong>SWIFT</strong><br>ETICES21 Solo para transferencias transnacionales</div>
+            <div><strong><%=t 'microcredit.email.recipient'%></strong><br><%=@brand_config["name"].upcase%></div>
+            <div><strong><%=t 'microcredit.common.amount'%></strong><br><%=@loan.amount%>€</div>
 
             <br>
             <p><br><%=t 'microcredit.email.thanks'%></p>
