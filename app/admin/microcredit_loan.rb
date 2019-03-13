@@ -290,6 +290,12 @@ ActiveAdmin.register MicrocreditLoan do
     column :email
     column :first_name
     column :last_name
+    column :born_at do |loan|
+      loan.user.born_at if loan.user
+    end
+    column :gender do |loan|
+      loan.user.gender if loan.user
+    end
     column :address
     column :postal_code
     column :town_name
