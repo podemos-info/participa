@@ -88,8 +88,10 @@ class Microcredit < ActiveRecord::Base
   end
 
   def remaining_percent
+    amount_to_count = self.campaign_counted_amount
+    amount_to_count = self.bank_counted_amount if self.bank_counted_amount > self.campaign_counted_amount
     time = 1-[ [(DateTime.now.to_f-starts_at.to_f) / (ends_at.to_f-starts_at.to_f), 0.0].max, 1.0].min
-    progress = 1-[ [1.0*self.campaign_counted_amount / self.total_goal, 0.0].max, 1.0].min
+    progress = 1-[ [1.0*amount_to_count / self.total_goal, 0.0].max, 1.0].min
     progress*time
   end
 
