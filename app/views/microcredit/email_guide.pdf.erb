@@ -18,9 +18,9 @@
             </div>
             <p style="clear:both"><%=t 'microcredit.email.intro'%></p>
             <%if @loan.microcredit_option.present? %>
-            <div><strong><%=t 'microcredit.email.concept'%></strong><br><%=@loan.id%>-<%=@loan.microcredit_option.name%></div>
+            <div><strong><%=t 'microcredit.email.concept'%></strong><br><%=@loan.id%> <%=@loan.microcredit_option.name%></div>
             <% else %>
-            <div><strong><%=t 'microcredit.email.concept'%></strong><br><%=@loan.id%>-<%=@microcredit.title%></div>
+            <div><strong><%=t 'microcredit.email.concept'%></strong><br><%=@loan.id%> <%=@microcredit.title%></div>
             <% end %>
             <div><strong><%=t 'microcredit.email.account_number'%></strong><br><%=@microcredit.account_number%></div>
             <div><strong><%=t 'microcredit.email.bank'%></strong><br>Fiare Banca Ética</div>
