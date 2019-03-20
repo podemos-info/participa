@@ -4,87 +4,77 @@
       <span>Completar perfil</span>
     </legend>
 
-    <% if action == "edit" && current_user.verified? %>
+    <% if locked_personal_data? %>
       <div class="inputlabel-box">
         <p>
-        Tu usuario ya está verificado por lo que los Datos personales no pueden ser modificados.
+        No puedes modificar los datos personales que ya han sido verificados.
         </p>
         <p>
-        Si necesitas modificarlos envía un email a  <a href='mailto:lopd@podemos.info'>lopd@podemos.info</a>
-        adjuntando el nuevo documento de identidad escaneado  indicando los motivos
-        de la nueva modificación de dichos datos.
+        Si necesitas modificarlos envía un email a <a href='mailto:lopd@podemos.info'>lopd@podemos.info</a>
+        adjuntando el nuevo documento de identidad escaneado e indicando los motivos de la modificación de dichos datos.
         </p>
       </div>
+    <% end %>
 
-      <div class="inputlabel-box">
-        <% if resource.errors.include?(:first_name) %>
-          <%= field_notice_box %>
-        <% end %>
-        <%= f.input :first_name, required: true, input_html: {required: true, disabled: true, class: 'input-xl'} %>
-      </div><%#--.inputlabel-box--%>
-
-      <div class="inputlabel-box">
-        <% if resource.errors.include?(:last_name) %>
-          <%= field_notice_box %>
-        <% end %>
-        <%= f.input :last_name, required: true, input_html: {required: true, disabled: true, class: 'input-xl'} %>
-      </div><%#--.inputlabel-box--%>
-
-      <div class="inputlabel-box">
-        <% if resource.errors.include?(:gender) %>
-          <%= field_notice_box %>
-        <% end %>
-        <%= f.input :gender,
-                    required: true,
-                    as: :select,
-                    collection: User::GENDER.invert.to_a,
-                    input_html: {required: true, disabled: true} %>
-      </div>
-
-      <div class="inputlabel-box inputlabel-box-hint">
-        <% if resource.errors.include?(:document_type) %>
-          <%= field_notice_box %>
-        <% end %>
-        <%= f.input :document_type,
-                    required: true,
-                    as: :select,
-                    collection: User::DOCUMENTS_TYPE,
-                    input_html: {required: true, disabled: true, class: 'js-registration-document'} %>
-      </div>
-
-      <div class="inputlabel-box" >
-      <% if resource.errors.include?(:document_vatid) %>
-          <%= field_notice_box %>
-        <% end %>
-        <%= f.input :document_vatid, required: true, input_html: {disabled: true, required: true, class: 'input-s'} %>
-      </div>
-
-      <div class="inputlabel-box">
-
-        <%= f.input :born_at,
-                    required: true,
-                    input_html: { required: true, disabled: true, class: 'input-s' },
-                    start_year: (Date.today - 18.years).year,
-                    end_year: 1900 %>
-      </div>
-    <% else %>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:first_name) %>
         <%= field_notice_box %>
       <% end %>
-      <%= f.input :first_name, required: true, input_html: {autofocus: true, required: true, class: 'input-xl'} %>
+      <%= f.input :first_name, required: true, input_html: {required: true, autofocus: !locked_personal_data?, disabled: locked_personal_data?, class: 'input-xl'} %>
     </div><%#--.inputlabel-box--%>
+
 
     <div class="inputlabel-box">
       <% if resource.errors.include?(:last_name) %>
-          <%= field_notice_box %>
+        <%= field_notice_box %>
       <% end %>
-      <%= f.input :last_name, required: true, input_html: {required: true, class: 'input-xl'} %>
+      <%= f.input :last_name, required: true, input_html: {required: true, disabled: locked_personal_data?, class: 'input-xl'} %>
     </div><%#--.inputlabel-box--%>
+
+
+    <div class="inputlabel-box inputlabel-box-hint">
+      <% if resource.errors.include?(:document_type) %>
+        <%= field_notice_box %>
+      <% end %>
+      <%= f.input :document_type,
+                  required: true,
+                  as: :select,
+                  collection: User::DOCUMENTS_TYPE,
+                  input_html: {required: true, disabled: action != "new", class: 'js-registration-document'} %>
+    </div>
+
+    <div class="inputlabel-box" >
+      <% if resource.errors.include?(:document_vatid) %>
+        <%= field_notice_box %>
+      <% end %>
+      <%= f.input :document_vatid, required: true, input_html: {disabled: action != "new", required: true, class: 'input-s'} %>
+      <p class="js-registration-document-dni text-m invisible">
+        <%= t('podemos.registration.message.dni') %>
+      </p>
+
+      <p class="js-registration-document-nie text-m invisible">
+        <%= t('podemos.registration.message.nie') %>
+      </p>
+
+      <p class="js-registration-document-passport text-m invisible">
+        <%= t('podemos.registration.message.passport') %>
+      </p>
+    </div>
+
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:born_at) %>
+        <%= field_notice_box %>
+      <% end %>
+      <%= f.input :born_at,
+                  required: true,
+                  input_html: { required: true, disabled: locked_personal_data?, class: 'input-s' },
+                  start_year: (Date.today - 18.years).year,
+                  end_year: 1900 %>
+    </div>
 
     <div class="inputlabel-box">
       <% if resource.errors.include?(:gender) %>
-          <%= field_notice_box %>
+        <%= field_notice_box %>
       <% end %>
       <%= f.input :gender,
                   required: true,
@@ -92,67 +82,6 @@
                   collection: User::GENDER.invert.to_a,
                   input_html: {required: true} %>
     </div>
-    
-    <% if action == "new" %>
-
-
-      <div class="inputlabel-box">
-        <% if resource.errors.include?(:document_type) %>
-            <%= field_notice_box %>
-        <% end %>
-        <%= f.input :document_type,
-                    required: true,
-                    as: :select,
-                    collection: User::DOCUMENTS_TYPE,
-                    input_html: {required: true, class: 'js-registration-document'} %>
-      </div>
-
-      <div class="inputlabel-box">
-        <% if resource.errors.include?(:document_vatid) %>
-            <%= field_notice_box %>
-        <% end %>
-        <%= f.input :document_vatid, required: true, input_html: {required: true, class: 'input-s'} %>
-
-        <p class="js-registration-document-dni text-m invisible">
-          <%= t('podemos.registration.message.dni') %>
-        </p>
-
-        <p class="js-registration-document-nie text-m invisible">
-          <%= t('podemos.registration.message.nie') %>
-        </p>
-
-        <p class="js-registration-document-passport text-m invisible">
-          <%= t('podemos.registration.message.passport') %>
-        </p>
-      </div>
-    <% end %>
-
-    <% if action == "edit" %>
-      <div class="inputlabel-box inputlabel-box-hint">
-        <%= f.input :document_type,
-                    required: true,
-                    as: :select,
-                    hint: t("devise.hints.locked"),
-                    collection: User::DOCUMENTS_TYPE,
-                    input_html: {required: true, disabled: true, class: 'js-registration-document'} %>
-      </div>
-
-      <div class="inputlabel-box inputlabel-box-hint">
-        <%= f.input :document_vatid, required: true, hint: t("devise.hints.locked"), input_html: {disabled: true, required: true, class: 'input-s'} %>
-      </div>
-    <% end %>
-
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:born_at) %>
-          <%= field_notice_box %>
-      <% end %>
-      <%= f.input :born_at,
-                  required: true,
-                  input_html: { required: true, class: 'input-s' },
-                  start_year: (Date.today - 18.years).year,
-                  end_year: 1900 %>
-    </div>
-    <% end %>
   </fieldset>
   <fieldset>
     <legend><span>Domicilio</span></legend>

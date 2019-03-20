@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   prepend_before_filter :load_user_location
+  helper_method :locked_personal_data?
 
   def load_user_location
     @user_location = User.get_location(current_user, params)
@@ -64,6 +65,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def locked_personal_data?
+    @locked_personal_data ||= current_user && current_user.verified?
+  end
+
   def user_already_exists?(resource, type)
     # FIX for https://github.com/plataformatec/devise/issues/3540
     # Devise paranoid only works for passwords resets.
@@ -96,14 +101,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def account_update_params
     # NEVER allow setting admin, flags, sms or verification fields here
-    #
-    # We only allow changing location when the user can change it :P
-    #
-    if current_user.can_change_vote_location?
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :gender, :address, :postal_code, :country, :province, :town, :vote_province, :vote_town)
-    else
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :born_at, :wants_newsletter, :gender, :address, :postal_code, :country, :province, :town)
-    end
+
+    fields = %w[email password password_confirmation current_password gender address postal_code country province town]
+    fields += %w[vote_province vote_town] if current_user.can_change_vote_location?
+    fields += %w[first_name last_name born_at] unless locked_personal_data?
+
+    params.require(:user).permit(*fields)
   end
 
 end
