@@ -30,7 +30,7 @@ class MicrocreditLoan < ActiveRecord::Base
 
   validates :iban_account, presence: true, on: :create
   validates :iban_bic, presence: true, on: :create, if: :is_bank_international?
-  validate :validates_iban , if: :iban_account
+  validate :validates_iban, :validates_non_brand_account , if: :iban_account
   validate :validates_bic, if: :iban_bic
 
   scope :not_counted, -> { where(counted_at:nil) }
@@ -185,6 +185,7 @@ class MicrocreditLoan < ActiveRecord::Base
   def validates_iban
     unless iban_valid?
       self.errors.add(:iban_account, "Cuenta corriente inválida. Dígito de control erroneo. Por favor revísala.")
+      self.iban_bic = nil
     end
   end
 
@@ -197,6 +198,14 @@ class MicrocreditLoan < ActiveRecord::Base
   def validates_bic
     self.iban_bic =  calculate_bic if self.iban_account && self.iban_account.start_with?("ES")
     true
+  end
+
+  def validates_non_brand_account
+     unless self.iban_account.upcase.strip.gsub(' ','') != self.microcredit.account_number.upcase.strip.gsub(' ','')
+       brand_name = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]["name"]
+       self.errors.add(:iban_account, "Cuenta corriente inválida. Debes de consignar tu cuenta corriente, no la de #{brand_name}.")
+       self.iban_bic = nil
+     end
   end
 
   def check_amount
