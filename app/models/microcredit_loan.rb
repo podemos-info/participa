@@ -202,7 +202,8 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def validates_non_brand_account
      unless self.iban_account.upcase.strip.gsub(' ','') != self.microcredit.account_number.upcase.strip.gsub(' ','')
-       self.errors.add(:iban_account, "Cuenta corriente inválida. Debes de consignar tu cuenta corriente, no la nuestra.")
+       brand_name = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]["name"]
+       self.errors.add(:iban_account, "Cuenta corriente inválida. Debes de consignar tu cuenta corriente, no la de #{brand_name}.")
        self.iban_bic = nil
      end
   end
