@@ -2,7 +2,7 @@ ActiveAdmin.register Microcredit do
   config.sort_order = 'title_asc'
   
   scope :all
-  scope :active
+  scope :active, default:true
   scope :upcoming_finished
   
   index do
@@ -123,6 +123,13 @@ ActiveAdmin.register Microcredit do
       row :updated_at
     end
 
+    panel "Estadísticas de la campaña #{resource.title}" do
+      ids =resource.id
+      ul do
+        render "admin/microcredits_stats", width: "80%", height: "100", ids: ids
+      end
+    end
+
     panel "Lugares donde se aporta" do
       paginated_collection(microcredit.microcredit_options.page(params[:page]).per(15), download_links: false) do
         table_for collection.order(:name) do
@@ -170,14 +177,9 @@ ActiveAdmin.register Microcredit do
     end
   end
 
-  sidebar "Estadísticas últimas campañas", only: :index, priority: 0 do
-    ul do
-      li "Objetivo: #{number_to_euro Microcredit.total_current_amount*100,2}"
-      li "Suscrito: #{number_to_euro MicrocreditLoan.amount_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_current}<br/>Donantes: #{MicrocreditLoan.unique_current}".html_safe
-      li "Visibles: #{number_to_euro MicrocreditLoan.amount_counted_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_counted_current}<br/>Donantes: #{MicrocreditLoan.unique_counted_current}".html_safe
-      li "Confirmados: #{number_to_euro MicrocreditLoan.amount_confirmed_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_confirmed_current}<br/>Donantes: #{MicrocreditLoan.unique_confirmed_current}".html_safe
-      li "Descartados: #{number_to_euro MicrocreditLoan.amount_discarded_current*100,2}<br/>Visibles: #{number_to_euro MicrocreditLoan.amount_discarded_counted_current*100,2}<br/>Microcréditos: #{MicrocreditLoan.count_discarded_current}".html_safe
-    end
+  sidebar "Estadísticas de las campañas seleccionadas", only: :index, priority: 0 do
+    ids = collection.except(:limit,:offset).pluck(:id)
+    render "admin/microcredits_stats", width: "80%", height: "100", ids: ids
   end
 
   sidebar "Procesar movimientos del banco", 'data-panel' => :collapsed, :only => :show, priority: 1 do  

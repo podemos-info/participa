@@ -218,8 +218,8 @@ class Microcredit < ActiveRecord::Base
     ]
   end
 
-  def self.total_current_amount
-    Microcredit.upcoming_finished.sum(:total_goal)
+  def self.total_current_amount(ids)
+    Microcredit.where(id:ids).sum(:total_goal)
   end
 
   def subgoals
