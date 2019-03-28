@@ -178,7 +178,7 @@ ActiveAdmin.register Microcredit do
   end
 
   sidebar "Estadísticas de las campañas seleccionadas", only: :index, priority: 0 do
-    ids = collection.pluck(:id)
+    ids = collection.except(:limit,:offset).pluck(:id)
     render "admin/microcredits_stats", width: "80%", height: "100", ids: ids
   end
 
