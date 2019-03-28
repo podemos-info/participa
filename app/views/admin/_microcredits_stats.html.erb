@@ -1,0 +1,19 @@
+<ul>
+  <li> Objetivo: <%= (number_to_euro Microcredit.total_current_amount(ids)*100,2).html_safe %> </li>
+<li> Suscrito: <%=(number_to_euro MicrocreditLoan.amount_current(ids)*100,2).html_safe %>
+  <br/>Microcréditos: <%=MicrocreditLoan.count_current(ids)%>
+  <br/>Donantes: <%=MicrocreditLoan.unique_current(ids)%>
+</li>
+  <li> Visibles: <%=(number_to_euro MicrocreditLoan.amount_counted_current(ids)*100,2).html_safe%>
+    <br/>Microcréditos: <%=MicrocreditLoan.count_counted_current(ids)%>
+    <br/>Donantes: <%=MicrocreditLoan.unique_counted_current(ids)%>
+  </li>
+  <li> Confirmados: <%=(number_to_euro MicrocreditLoan.amount_confirmed_current(ids)*100,2).html_safe%>
+    <br/>Microcréditos: <%=MicrocreditLoan.count_confirmed_current(ids)%>
+    <br/>Donantes: <%=MicrocreditLoan.unique_confirmed_current(ids)%>
+  </li>
+  <li> Descartados: <%=(number_to_euro MicrocreditLoan.amount_discarded_current(ids)*100,2).html_safe%>
+    <br/>Visibles: <%=(number_to_euro MicrocreditLoan.amount_discarded_counted_current(ids)*100,2).html_safe%>
+    <br/>Microcréditos: <%=MicrocreditLoan.count_discarded_current(ids)%>
+  </li>
+</ul>
