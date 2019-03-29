@@ -1,0 +1,19 @@
+<section class="tools">
+  <ul>
+    <% @promoted_forms.each do |f| %>
+      <li class="box-tool-large">
+        <div class="box-tool-large">
+          <h3><%=f.title %></h3>
+
+          <div class="tool-text" style="padding-bottom: 1em;">
+            <p><%=f.meta_description %></p>
+          </div>
+
+          <div class="buttonbox">
+            <%= link_to "#{f.text_button.strip.empty? ? "Apuntate aquí" : f.text_button}", "f.link", class: "button" %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</section>

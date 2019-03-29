@@ -1,6 +1,6 @@
 ActiveAdmin.register Page do
 
-  permit_params :id_form, :title, :slug, :link, :require_login, :meta_description, :meta_image
+  permit_params :id_form, :title, :slug, :link, :require_login, :meta_description, :meta_image, :promoted, :priority, :text_button
 
   action_item(:reload_routes, only: :show) do
     link_to('Recargar rutas', reload_admin_pages_path, data: { confirm: "¿Estas segura de querer recargar las rutas?" })
@@ -20,7 +20,24 @@ ActiveAdmin.register Page do
       link_to page.slug, "/#{page.slug}"
     end
     column :require_login
+    column :promoted
+    column :priority
     actions
+  end
+
+  show do
+    attributes_table do
+      row :title
+      row :slug
+      row :id_form
+      row :link
+      row :require_login
+      row :meta_description
+      row :meta_image
+      row :promoted
+      row :priority
+      row :text_button
+    end
   end
 
   form do |f|
@@ -34,6 +51,9 @@ ActiveAdmin.register Page do
       f.input :require_login, :as => :boolean, label: "Requerir que el usuario se autentifique"
       f.input :meta_description, label: "Descripción de la página para redes sociales"
       f.input :meta_image, label: "URL de la imagen para redes sociales"
+      f.input :promoted, :as => :boolean, label: "Visualizar en la página inicial de Participa"
+      f.input :priority, label: "Nivel de importancia dentro de la lista. Cuanto mayor es más arriba aparece"
+      f.input :text_button, label:"Texto del botón para invitar a entrar al usuario.", default: "Apuntate Aquí"
     end
     f.actions
   end
