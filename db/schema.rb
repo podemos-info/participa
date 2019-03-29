@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190314092529) do
+ActiveRecord::Schema.define(version: 20190329150558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -484,6 +484,9 @@ ActiveRecord::Schema.define(version: 20190314092529) do
     t.string   "link"
     t.string   "meta_description"
     t.string   "meta_image"
+    t.boolean  "promoted",         default: false
+    t.string   "text_button"
+    t.integer  "priority",         default: 0,     null: false
   end
 
   add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at", using: :btree
