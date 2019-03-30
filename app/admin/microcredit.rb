@@ -124,9 +124,11 @@ ActiveAdmin.register Microcredit do
     end
 
     panel "Estadísticas de la campaña #{resource.title}" do
-      ids =resource.id
+      ids = resource.id
+      total = Microcredit.total_current_amount(ids)
+      stats = MicrocreditLoan.get_loans_stats ids
       ul do
-        render "admin/microcredits_stats", width: "80%", height: "100", ids: ids
+        render "admin/microcredits_stats", width: "80%", height: "100",campaign_total: total, stats: stats
       end
     end
 
@@ -179,7 +181,9 @@ ActiveAdmin.register Microcredit do
 
   sidebar "Estadísticas de las campañas seleccionadas", only: :index, priority: 0 do
     ids = collection.except(:limit,:offset).pluck(:id)
-    render "admin/microcredits_stats", width: "80%", height: "100", ids: ids
+    total = Microcredit.total_current_amount(ids)
+    stats = MicrocreditLoan.get_loans_stats ids
+    render "admin/microcredits_stats", width: "80%", height: "100",campaign_total: total, stats: stats
   end
 
   sidebar "Procesar movimientos del banco", 'data-panel' => :collapsed, :only => :show, priority: 1 do  

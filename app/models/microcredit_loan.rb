@@ -230,52 +230,24 @@ class MicrocreditLoan < ActiveRecord::Base
     end
   end
 
-  def self.count_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.count
-  end
-
-  def self.count_confirmed_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.confirmed.count
-  end
-
-  def self.count_counted_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.counted.count
-  end
-
-  def self.count_discarded_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).discarded.count
-  end
-
-  def self.amount_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.sum(:amount)
-  end
-
-  def self.amount_confirmed_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.confirmed.sum(:amount)
-  end
-
-  def self.amount_counted_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.counted.sum(:amount)
-  end
-
-  def self.amount_discarded_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).discarded.sum(:amount)
-  end
-
-  def self.amount_discarded_counted_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).discarded.counted.sum(:amount)
-  end
-
-  def self.unique_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.distinct(:document_vatid).count(:document_vatid)
-  end
-
-  def self.unique_confirmed_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.confirmed.distinct(:document_vatid).count(:document_vatid)
-  end
-
-  def self.unique_counted_current(ids)
-    MicrocreditLoan.where(microcredit_id: ids).ignore_discarded.counted.distinct(:document_vatid).count(:document_vatid)
+  def self.get_loans_stats(ids)
+    base = MicrocreditLoan.where(microcredit_id: ids)
+    query = base.ignore_discarded
+    query_discarded = base.discarded
+    stats = {
+      count: query.count,
+      count_confirmed: query.confirmed.count,
+      count_counted: query.counted.count,
+      count_discarded: query_discarded.count,
+      amount: query.sum(:amount),
+      amount_confirmed: query.confirmed.sum(:amount),
+      amount_counted: query.counted.sum(:amount),
+      amount_discarded: query_discarded.sum(:amount),
+      amount_discarded_counted: query_discarded.counted.sum(:amount),
+      unique: query.distinct(:document_vatid).count(:document_vatid),
+      unique_confirmed: query.confirmed.distinct(:document_vatid).count(:document_vatid),
+      unique_counted: query.counted.distinct(:document_vatid).count(:document_vatid)
+    }
   end
 
   def possible_user
