@@ -1,19 +1,19 @@
 <ul>
-  <li> Objetivo: <%= (number_to_euro Microcredit.total_current_amount(ids)*100,2).html_safe %> </li>
-<li> Suscrito: <%=(number_to_euro MicrocreditLoan.amount_current(ids)*100,2).html_safe %>
-  <br/>Microcréditos: <%=MicrocreditLoan.count_current(ids)%>
-  <br/>Donantes: <%=MicrocreditLoan.unique_current(ids)%>
+  <li> Objetivo: <%= (number_to_euro campaign_total*100,2).html_safe %> </li>
+<li> Suscrito: <%=(number_to_euro stats[:amount]*100,2).html_safe %>
+  <br/>Microcréditos: <%=stats[:count]%>
+  <br/>Donantes: <%=stats[:unique]%>
 </li>
-  <li> Visibles: <%=(number_to_euro MicrocreditLoan.amount_counted_current(ids)*100,2).html_safe%>
-    <br/>Microcréditos: <%=MicrocreditLoan.count_counted_current(ids)%>
-    <br/>Donantes: <%=MicrocreditLoan.unique_counted_current(ids)%>
+  <li> Visibles: <%=(number_to_euro stats[:amount_counted]*100,2).html_safe%>
+    <br/>Microcréditos: <%=stats[:count_counted]%>
+    <br/>Donantes: <%=stats[:unique_counted]%>
   </li>
-  <li> Confirmados: <%=(number_to_euro MicrocreditLoan.amount_confirmed_current(ids)*100,2).html_safe%>
-    <br/>Microcréditos: <%=MicrocreditLoan.count_confirmed_current(ids)%>
-    <br/>Donantes: <%=MicrocreditLoan.unique_confirmed_current(ids)%>
+  <li> Confirmados: <%=(number_to_euro stats[:amount_confirmed]*100,2).html_safe%>
+    <br/>Microcréditos: <%=stats[:count_confirmed]%>
+    <br/>Donantes: <%=stats[:unique_confirmed]%>
   </li>
-  <li> Descartados: <%=(number_to_euro MicrocreditLoan.amount_discarded_current(ids)*100,2).html_safe%>
-    <br/>Visibles: <%=(number_to_euro MicrocreditLoan.amount_discarded_counted_current(ids)*100,2).html_safe%>
-    <br/>Microcréditos: <%=MicrocreditLoan.count_discarded_current(ids)%>
+  <li> Descartados: <%=(number_to_euro stats[:amount_discarded]*100,2).html_safe%>
+    <br/>Visibles: <%=(number_to_euro stats[:amount_discarded_counted]*100,2).html_safe%>
+    <br/>Microcréditos: <%=stats[:count_discarded]%>
   </li>
 </ul>
