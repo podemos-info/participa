@@ -33,7 +33,7 @@
       <% @microcredits_standard.each do |m| %>
         <section class="<%= m.completed ? 'completed' : 'active' %>">
           <div>
-            <% if m.priority > 99 %>
+            <% if m.remarked %>
               <p class="microcredit_box_header"><strong><%= m.title %></strong></p>
             <% else %>
             <h2><%= m.title %></h2>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190329150558) do
+ActiveRecord::Schema.define(version: 20190401091418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -429,6 +429,7 @@ ActiveRecord::Schema.define(version: 20190329150558) do
     t.integer  "flags",                      default: 0
     t.integer  "priority",                   default: 0
     t.integer  "bank_counted_amount",        default: 0
+    t.boolean  "remarked",                   default: false
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true, using: :btree

@@ -1,5 +1,6 @@
 <% content_for :title, "Herramientas de participación ciudadana" %>
 <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
+<%= render partial: "promoted_forms" %>
 <section class="tools">
   <ul>
     <% user_verification = UserVerification.where(user_id: current_user.id) %>
