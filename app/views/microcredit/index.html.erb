@@ -3,6 +3,7 @@
   <style>
     h2 {
       color: <%=@brand_config["color1"]%> !important;
+      height: 4.5em;
     }
 
     label a, p a {
@@ -33,7 +34,7 @@
       <% @microcredits_standard.each do |m| %>
         <section class="<%= m.completed ? 'completed' : 'active' %>">
           <div>
-            <% if m.priority > 99 %>
+            <% if m.remarked %>
               <p class="microcredit_box_header"><strong><%= m.title %></strong></p>
             <% else %>
             <h2><%= m.title %></h2>

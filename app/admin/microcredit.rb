@@ -48,6 +48,7 @@ ActiveAdmin.register Microcredit do
       if can? :admin, Microcredit
         f.input :title
         f.input :priority
+        f.input :remarked
         f.input :starts_at
         f.input :ends_at
         f.input :limits
@@ -77,6 +78,7 @@ ActiveAdmin.register Microcredit do
       row :id
       row :title
       row :priority
+      row :remarked
       row :slug
       row :starts_at
       row :ends_at
@@ -221,7 +223,7 @@ ActiveAdmin.register Microcredit do
 
   permit_params do
     if can? :admin, Microcredit
-      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :bank_counted_amount, :contact_phone, :agreement_link, :budget_link, :renewal_terms, :mailing, :priority]
+      [:title, :starts_at, :ends_at, :limits, :subgoals, :account_number, :total_goal, :bank_counted_amount, :contact_phone, :agreement_link, :budget_link, :renewal_terms, :mailing, :priority, :remarked]
     else
       [:contact_phone]
     end
