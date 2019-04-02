@@ -178,6 +178,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def iban_valid?
+    self.iban_account.strip!
     iban_validation = IBANTools::IBAN.valid?(self.iban_account)
     ccc_validation = self.iban_account&.start_with?("ES") ? BankCccValidator.validate(self.iban_account[4..-1]) : true
     iban_validation && ccc_validation
