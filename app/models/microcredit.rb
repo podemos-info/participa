@@ -22,7 +22,7 @@ class Microcredit < ActiveRecord::Base
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
-  scope :upcoming_finished_by_priority, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(priority: :desc)}
+  scope :upcoming_finished_by_priority, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(priority: :desc, title: :asc)}
   scope :non_finished, -> { where("ends_at > ?", DateTime.now) }
   scope :renewables, -> { where.not( renewal_terms_file_name: nil ) }
   scope :standard, ->{where("flags = 0")}
