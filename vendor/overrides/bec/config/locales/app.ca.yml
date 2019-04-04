@@ -669,9 +669,9 @@ Amb tres passos molt senzills:
   <a target="_blank" href="https://barcelonaencomu.cat/ca/politica-de-privacitat">Mira la política de privacitat</a><br>
 <a target="_blank" href="https://barcelonaencomu.cat/ca/avis-legal">Mira avís legal</a><br>
 <a target="_blank" href="https://barcelonaencomu.cat/ca/politica-de-cookies">Mira la política de galetes</a></p>'
-  welcome_html: "<p><strong>Et donem la benvinguda al portal de participació de Barcelona En Comú ! </Strong> </ p>
-<p> Som una plataforma ciutadana amb un projecte col•lectiu per transformar Barcelona. Una comunitat àmplia i diversa que treballa per convertir Barcelona en un referent de la democràcia, la participació, la transparència, els drets socials, la defensa del bé comú i la lluita contra la desigualtat i la corrupció.</p>
-<p> Inscriu-t'hi i participa-hi! Construïm en comú la ciutat on volem viure."
+  welcome_html: "<p><strong>Et donem la benvinguda a Barcelona En Comú!</strong> Som una plataforma ciutadana amb un projecte col·lectiu per transformar Barcelona. Una comunitat àmplia i diversa que treballa per convertir Barcelona en un referent de la democràcia, la participació, la transparència, els drets socials, la defensa del bé comú i la lluita contra la desigualtat i la corrupció.</p>
+<p>A Barcelona En Comú pots <a href='http://ada2019.barcelona/' target='_blank'>implicar-te com activista</a>, i també pots prendre part de les decisions més important de l’organització i de la ciutat, com ara: la votació de les mesures més rellevants del programa electoral per les municipals 2019.</p>
+<p>Inscriu-t'hi i participa-hi!</p>"
   voting:
     title: "Benvingut a Participa!"
     election_one: Hi ha una votació en curs.
