@@ -283,6 +283,16 @@ Conforme a allò convingut a l'article 16.3 de la Llei Orgànica de Protecció d
       </ol>"
         dni: "El format ha de ser de 8 números i una lletra, sense guions ni espais."
         nie: "El format ha de ser de 7 números i una lletra, sense guions ni espais."
+  registration:
+    message:
+      welcome_html: " <span>
+            Per formar part de Barcelona en Comú has de seguir els següents passos:
+          </span>
+          <ol>
+            <li><span class='welcome-number'>1</span><span class='welcome-thumb'>%{logo_inscription}</span><span class='welcome-text'><b>Inscripció per Internet</b>: Omple aquest formulari. Revisa el teu correo i confirma amb l’enllaç que t’enviem.</span></li>
+            <li><span class='welcome-number'>2</span><span class='welcome-thumb'>%{logo_verification}</span><span class='welcome-text'><b>Verificació presencial</b>: Hauràs de portar documentació que acrediti la teva identitat i residència a Barcelona al carrer Marina 131, de dilluns a divendres de 10 a 20h.</span></li>
+            <li><span class='welcome-number'>3</span><span class='welcome-thumb'>%{logo_voting}</span><span class='welcome-text'><b>Participació i votacions</b>: T’avisarem per correu quan puguis participar en alguns dels següents processos: Aprovar els programes electorals, després d'un procés d'elaboració participativa; Participar en els processos de confecció i elecció de les llistes electorals per optar a càrrecs públics per a les institucions de representació; Participar en les consultes sobre pactes electorals amb altres forces polítiques; Sol·licitar l'inici de processos revocatoris dels càrrecs electes públics; Aprovar els canvis i modificacions dels estatuts de l'organització; Participar en consultes consultat amb caràcter vinculant respecte a qualsevol assumpte d'especial rellevància per la ciutadania.</span></li>
+          </ol>"
   legacy:
     password:
       title: "Canviar contrasenya antiga"
