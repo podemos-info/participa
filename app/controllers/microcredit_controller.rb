@@ -91,7 +91,7 @@ class MicrocreditController < ApplicationController
 
   def renewal
     @microcredits_active = Microcredit.active
-    @renewal = any_renewable?
+    @renewable = any_renewable?
   end
 
   def loans_renewal
