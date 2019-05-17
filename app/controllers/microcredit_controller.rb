@@ -89,6 +89,11 @@ class MicrocreditController < ApplicationController
     render :new_loan
   end
 
+  def renewal
+    @microcredits_active = Microcredit.active
+    @renewable = any_renewable?
+  end
+
   def loans_renewal
     @microcredit = Microcredit.find(params[:id])
     @renewal = get_renewal
@@ -171,7 +176,7 @@ class MicrocreditController < ApplicationController
     if params[:loan_id]
       loan = MicrocreditLoan.find_by(id: params[:loan_id])
     else
-      loan = MicrocreditLoan.where(document_vatid: current_user.document_vatid).first
+      loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first
     end
     return nil unless @microcredit && !@microcredit.has_finished? && loan && loan.microcredit.renewable? && (current_user || loan.unique_hash==params[:hash])
 
@@ -198,6 +203,17 @@ class MicrocreditController < ApplicationController
     end
     renewal.valid = renewal.errors.length==0
     renewal
+  end
+
+  def any_renewable?
+    return false unless @microcredits_active
+
+    if params[:loan_id]
+      loan = MicrocreditLoan.find_by(id: params[:loan_id])
+      loan && loan.unique_hash==params[:hash] && loan.microcredit.renewable?
+    else
+      current_user && MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).exists?
+    end
   end
 end
 
