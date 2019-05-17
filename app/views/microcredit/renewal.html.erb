@@ -1,0 +1,18 @@
+<% content_for :title, t('microcredit.common.title', name: @brand_config["name"]) %>
+<div class="content-content microcredits-wrapper">
+
+  <h2><%= t 'microcredit.common.title', name: @brand_config["name"]%></h2>
+  <% if @renewal.nil? %>
+    <p>No hemos encontrado microcréditos para renovar.</p>
+  <% else %>
+    <p>Gracias a tu confianza y por ayudarnos a financiar nuestras campañas lejos de bancos y entidades financiera, sino de gente como tú.</p>
+    <p>Para renovar tus suscripciones elige a que campaña deseas aportar:
+    <ol>
+      <% @microcredits_active.each do |m| %>
+        <li>
+          <%= link_to( m.title, loans_renewal_microcredit_loan_path(m.id, @loan.id, @loan.unique_hash))%>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+</div>

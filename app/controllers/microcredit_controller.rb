@@ -89,6 +89,11 @@ class MicrocreditController < ApplicationController
     render :new_loan
   end
 
+  def renewal
+    @microcredits_active = Microcredit.active
+    @renewal = get_all_renewal
+  end
+
   def loans_renewal
     @microcredit = Microcredit.find(params[:id])
     @renewal = get_renewal
@@ -171,7 +176,7 @@ class MicrocreditController < ApplicationController
     if params[:loan_id]
       loan = MicrocreditLoan.find_by(id: params[:loan_id])
     else
-      loan = MicrocreditLoan.where(document_vatid: current_user.document_vatid).first
+      loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first
     end
     return nil unless @microcredit && !@microcredit.has_finished? && loan && loan.microcredit.renewable? && (current_user || loan.unique_hash==params[:hash])
 
@@ -197,6 +202,17 @@ class MicrocreditController < ApplicationController
       renewal.errors[:loan_renewals] = t("microcredit.loans_renewal.none_selected") if renewal.loan_renewals.length==0
     end
     renewal.valid = renewal.errors.length==0
+    renewal
+  end
+
+  def get_all_renewal
+    if params[:loan_id]
+      @loan = MicrocreditLoan.find_by(id: params[:loan_id])
+    else
+      @loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first
+    end
+    return nil unless @microcredits_active && @loan && @loan.microcredit.renewable? && (current_user || @loan.unique_hash==params[:hash])
+    renewal = OpenStruct.new( )
     renewal
   end
 end
