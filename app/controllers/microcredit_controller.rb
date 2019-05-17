@@ -176,7 +176,7 @@ class MicrocreditController < ApplicationController
     if params[:loan_id]
       loan = MicrocreditLoan.find_by(id: params[:loan_id])
     else
-      loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first
+      loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first if current_user
     end
     return nil unless @microcredit && !@microcredit.has_finished? && loan && loan.microcredit.renewable? && (current_user || loan.unique_hash==params[:hash])
 
