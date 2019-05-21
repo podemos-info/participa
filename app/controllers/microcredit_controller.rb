@@ -1,6 +1,9 @@
 class MicrocreditController < ApplicationController
   include CollaborationsHelper
   before_action :init_env
+  before_action(only: [:renewal, :loans_renewal, :loans_renew]) do |controller|
+    authenticate_user! unless params[:loan_id]
+  end
   layout :external_layout
 
   def provinces
@@ -90,19 +93,11 @@ class MicrocreditController < ApplicationController
   end
 
   def renewal
-    unless params[:loan_id] || current_user
-      authenticate_user!
-      redirect_to microcredit_renewal_path(params[:id], brand:@brand)
-    end
     @microcredits_active = Microcredit.active
     @renewable = any_renewable?
   end
 
   def loans_renewal
-    unless params[:loan_id] || current_user
-      authenticate_user!
-      redirect_to microcredit_renewal_path(params[:id], brand:@brand)
-    end
     @microcredit = Microcredit.find(params[:id])
     @renewal = get_renewal
   end
