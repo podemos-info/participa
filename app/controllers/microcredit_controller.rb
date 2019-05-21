@@ -179,13 +179,13 @@ class MicrocreditController < ApplicationController
     if params[:loan_id]
       loan = MicrocreditLoan.find_by(id: params[:loan_id])
     else
-      loan = MicrocreditLoan.renewables.not_renewed.where(document_vatid: current_user.document_vatid).first
+      loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first
       loan ||= MicrocreditLoan.recently_renewed.where(document_vatid: current_user.document_vatid).first
     end
     return nil unless @microcredit && !@microcredit.has_finished? && loan && loan.microcredit.renewable? && (current_user || loan.unique_hash==params[:hash])
 
-    loans = MicrocreditLoan.renewables.not_renewed.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
-    other_loans = MicrocreditLoan.renewables.not_renewed.where.not(microcredit_id:loan.microcredit_id).where(document_vatid: loan.document_vatid).to_a.uniq(&:microcredit_id)
+    loans = MicrocreditLoan.renewables.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
+    other_loans = MicrocreditLoan.renewables.where.not(microcredit_id:loan.microcredit_id).where(document_vatid: loan.document_vatid).to_a.uniq(&:microcredit_id)
     recently_renewed_loans = MicrocreditLoan.recently_renewed.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
 
     require 'ostruct'
