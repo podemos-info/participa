@@ -99,7 +99,7 @@ class MicrocreditController < ApplicationController
   end
 
   def loans_renewal
-    unless params[:id] || current_user
+    unless params[:loan_id] || current_user
       authenticate_user!
       redirect_to microcredit_renewal_path(params[:id], brand:@brand)
     end
