@@ -324,6 +324,10 @@ ActiveAdmin.register MicrocreditLoan do
     column :microcredit_option_intern_code do |loan|
       loan.microcredit_option.intern_code if loan.microcredit_option_id.present?
     end
+
+    column :transferred_to do |loan|
+        loan.transferred_to.microcredit.title if loan.transferred_to
+    end
   end
 
   member_action :download_pdf do
