@@ -177,7 +177,7 @@ ActiveAdmin.register MicrocreditLoan do
   filter :created_at
   filter :counted_at
   filter :amount
-  filter :transferred_to_microcredit_id_eq, as: :select, collection: Microcredit.all
+  filter :transferred_to_id_equals, as: :select, collection: Microcredit.all
   filter :original_loans_microcredit_id_eq, as: :select, collection: Microcredit.all
   filter :microcredit_option_name, as: :string
   filter :microcredit_option_intern_code, as: :string
