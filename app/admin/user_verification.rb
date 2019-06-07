@@ -44,7 +44,7 @@ ActiveAdmin.register UserVerification do
       redirect_to(edit_admin_user_verification_path(verification.id),data: {confirm: "Parece ser que ya tienes abierto el registro en otra pestaña, ¿realmente deseas editarlo en esta?"})
     else
       loop do
-        verification = UserVerification.pending.where.not(id: ids).order(priority: :desc).first
+        verification = UserVerification.pending.where.not(id: ids).order(priority: :desc, created_at: :asc).first
         if verification
           user_exist = User.where(id: verification.user_id).exists?
           verification.update(status:5) if !user_exist
