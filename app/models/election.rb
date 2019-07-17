@@ -195,7 +195,7 @@ class Election < ActiveRecord::Base
   def server_url
     server = Rails.application.secrets.agora["default"]
     server = self.server if self.server and !self.server.empty?
-    Rails.application.secrets.agora["servers"][server]["url"]
+    Rails.application.secrets.agora.dig("servers", server, "url") || ""
   end
 
   def duration
