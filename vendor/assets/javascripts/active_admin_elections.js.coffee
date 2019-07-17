@@ -47,10 +47,10 @@ $ ->
       svg.attr("width", width).attr("height", height)
       svg.append("g").attr("transform", "translate("+padding+",0)").call(d3.axisLeft(y))
       svg.append("g").attr("transform", "translate(0, "+(height-padding)+")").call(d3.axisBottom(x))
-      svg.append("g").selectAll("circle").data(data["data"]).enter().append("circle").attr("r", 2)
+      svg.append("g").selectAll("circle").data(data["data"]).enter().append("circle").attr("r", 1)
         .attr "cx", (d)->
           x(new Date(d[0]*1000))
         .attr "cy", (d)->
           y(new Date(d[1]*1000))
         .attr "fill", (d)->
-          z(d[2])
+          z(1.0*d[2]/(d[2]+7))
