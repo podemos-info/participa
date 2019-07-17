@@ -1,6 +1,9 @@
 class MicrocreditController < ApplicationController
   include CollaborationsHelper
   before_action :init_env
+  before_action(only: [:renewal, :loans_renewal, :loans_renew]) do |controller|
+    authenticate_user! unless params[:loan_id]
+  end
   layout :external_layout
 
   def provinces
@@ -90,10 +93,6 @@ class MicrocreditController < ApplicationController
   end
 
   def renewal
-    unless params[:loan_id] || current_user
-      authenticate_user!
-      redirect_to microcredit_renewal_path(params[:id], brand:@brand)
-    end
     @microcredits_active = Microcredit.active
     @renewable = any_renewable?
   end
@@ -180,11 +179,12 @@ class MicrocreditController < ApplicationController
     if params[:loan_id]
       loan = MicrocreditLoan.find_by(id: params[:loan_id])
     else
-      loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first if current_user
+      loan = MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).first
+      loan ||= MicrocreditLoan.recently_renewed.where(document_vatid: current_user.document_vatid).first
     end
     return nil unless @microcredit && !@microcredit.has_finished? && loan && loan.microcredit.renewable? && (current_user || loan.unique_hash==params[:hash])
 
-    loans = MicrocreditLoan.renewables.not_renewed.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
+    loans = MicrocreditLoan.renewables.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
     other_loans = MicrocreditLoan.renewables.where.not(microcredit_id:loan.microcredit_id).where(document_vatid: loan.document_vatid).to_a.uniq(&:microcredit_id)
     recently_renewed_loans = MicrocreditLoan.recently_renewed.where(microcredit_id:loan.microcredit_id, document_vatid: loan.document_vatid)
 

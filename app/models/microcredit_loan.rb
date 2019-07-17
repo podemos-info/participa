@@ -44,8 +44,7 @@ class MicrocreditLoan < ActiveRecord::Base
   scope :transferred, -> { where.not(transferred_to_id:nil)}
   scope :renewal, -> { joins(:original_loans).distinct(:microcredit_id)}
 
-  scope :renewables, -> { confirmed.joins(:microcredit).merge(Microcredit.renewables).distinct }
-  scope :not_renewed, -> { renewables.not_returned }
+  scope :renewables, -> { confirmed.not_discarded.not_returned.joins(:microcredit).merge(Microcredit.renewables).distinct }
 
   scope :recently_renewed, -> { confirmed.where.not(transferred_to:nil).where("returned_at>?",30.days.ago) }
   scope :ignore_discarded, -> { where("discarded_at is null or counted_at is not null") }
