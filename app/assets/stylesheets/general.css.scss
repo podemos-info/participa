@@ -360,43 +360,42 @@ header & menu
 }
 
 .menu {
-  min-width:90%;
-  float: right;
   font-family: Montserrat,Arial,sans-serif;
-}
-.menu ul li{
-  font-size: 10px;
-  margin-top: 8px;
-  width:12.22%;
-  float:left;
-  text-align: center;
-  position: relative;
+  text-align: right;
 
-  a {
-    display:block;
-    margin:0em auto;
-    color: white;
-    width: 8em;
-    opacity: 0.7;
+  ul li {
+    display: inline-block;
+    font-size: 10px;
+    margin-top: 8px;
+    text-align: center;
+    position: relative;
 
-    .fa {
-      display: block;
-      font-size: 2em;
+    a {
+      display:block;
+      margin:0em auto;
       color: white;
-      width: 4em;
-      margin-bottom: 2px;
-    }
-    span {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
-      height: 25px;
       width: 8em;
-      font-size: 1.1em;
-      line-height: 1.05em;
-    }
-    &:hover {
-      opacity: 1;
+      opacity: 0.7;
+
+      .fa {
+        display: block;
+        font-size: 2em;
+        color: white;
+        width: 4em;
+        margin-bottom: 2px;
+      }
+      span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        height: 25px;
+        width: 8em;
+        font-size: 1.1em;
+        line-height: 1.05em;
+      }
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
@@ -686,7 +685,7 @@ tools
   @extend div.box-tool:before;
 }
 .box-tool-large .buttonbox{
-  
+
 }
 .tools li h3{
   position: absolute;
@@ -720,13 +719,13 @@ tools
 /* Agora booth */
 .booth_container {
   position:absolute;
-  display: block; 
+  display: block;
   top: 65px;
-  bottom: 23px; 
-  scroll: none; 
-  padding: 0; 
-  margin: 0; 
-  width:100%; 
+  bottom: 23px;
+  scroll: none;
+  padding: 0;
+  margin: 0;
+  width:100%;
 }
 .view_candidates {
   color: white;
@@ -846,7 +845,7 @@ microcredits
         i {
           visibility: hidden;
           position: absolute;
-          left: 2em;          
+          left: 2em;
           top: 10px;
         }
         span {
@@ -925,28 +924,28 @@ proposals
     font-family: Montserrat,Arial,sans-serif;
     font-size: 3em;
     padding: 20px;
-    text-transform: uppercase;  
+    text-transform: uppercase;
   }
 
   nav {
     border-bottom: 1px solid #b5b5b5;
     padding-bottom: 20px;
     padding-left: 20px;
-    
+
     a {
       color: rgba(51,51,51,.6);
-      font-size: 1.4em;      
+      font-size: 1.4em;
       text-transform: uppercase;
       margin-right: 20px;
 
       &.active {
         border-bottom: 3px solid #612d62;
-        color: #612d62;      
-        padding-bottom: 20px;  
+        color: #612d62;
+        padding-bottom: 20px;
       }
     }
   }
-  
+
   .container {
     display: inline-block;
     margin-right: 1%;
@@ -958,9 +957,9 @@ proposals
     .back {
       color: rgba(51,51,51,.6);
       display: inline-block;
-      font-size: 1.4em;      
+      font-size: 1.4em;
       margin: 20px 0 0 20px;
-      text-transform: uppercase;  
+      text-transform: uppercase;
     }
   }
 
@@ -968,12 +967,12 @@ proposals
     float: right;
     font-size: 1.3em;
     padding: 30px 20px 0 20px;
-  
+
     a {
       border-bottom: 1px solid #269283;
       color: #269283;
       padding-bottom: 2px;
-      text-decoration: none; 
+      text-decoration: none;
     }
   }
 
@@ -990,7 +989,7 @@ proposals
       border-top: 3px solid #612d62;
       color: #612d62;
       display: inline-block;
-      font-size: 1.4em;   
+      font-size: 1.4em;
       margin-top: -2px;
       text-transform: uppercase;
       padding: 10px 0 0 10px;
@@ -1050,7 +1049,7 @@ proposals
     font-style: italic;
     text-align: center;
   }
-  
+
   .info-circles {
     display: inherit;
     font-size: 1.1em;
@@ -1065,7 +1064,7 @@ proposals
     vertical-align: top;
 
     strong, span {
-      vertical-align: top;      
+      vertical-align: top;
     }
   }
 
@@ -1076,7 +1075,7 @@ proposals
   .soon {
     display: none;
   }
-  
+
   h3 {
     font-size: 1.4em;
   }
@@ -1086,12 +1085,12 @@ proposals
     font-size: 1.4em;
     margin-top: 10px;
   }
-  
+
   .finish:before {
     content:image-url("ico.proposal-time.png");
     padding-right: 5px;
   }
-  
+
   .support:before {
     content:image-url("ico.proposal-clipboard.png");
     padding-right: 5px;
@@ -1126,7 +1125,7 @@ proposals
     text-transform: uppercase;
     width: 90%;
     margin: 0 auto;
-    border: 0; 
+    border: 0;
   }
 
   .supported, .thanks, .discarded {
@@ -1135,11 +1134,11 @@ proposals
     color: #3c763d;
     display: block;
     font-size: 1.7em;
-    font-weight: bold;   
+    font-weight: bold;
     margin-top: 20px;
     padding: 20px;
-    text-align: center;    
-    border-radius: 3px;    
+    text-align: center;
+    border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -o-border-radius: 3px;
@@ -1164,7 +1163,7 @@ proposals
     font-size: 1.4em;
     text-align: justify;
   }
-  
+
   img {
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1181,7 +1180,7 @@ proposals
       color: #954e99;
       padding-left: 50px;
     }
-    
+
     .date {
       color: #858585;
     }
@@ -1219,7 +1218,7 @@ proposals
     -o-border-radius: 3px;
     color: white;
     display: inline-block;
-    margin: 10px 0;    
+    margin: 10px 0;
     padding: 5px 10px;
     text-transform: uppercase;
     border: 0;
@@ -1279,7 +1278,7 @@ info page
     font-family: Montserrat,Arial,sans-serif;
     font-size: 2.6em;
     padding: 20px;
-    text-transform: uppercase;  
+    text-transform: uppercase;
     text-align: left;
   }
 
@@ -1294,10 +1293,10 @@ info page
 
   h3 {
     color: #612d62;
-    font-size: 1.4em;   
+    font-size: 1.4em;
     padding: 10px 20px;
   }
-  
+
   p {
     color: #333;
     font-size: 1.4em;
@@ -1305,12 +1304,12 @@ info page
     padding: 0 20px;
     line-height: 26px;
   }
-  
+
   a {
     border-bottom: 1px solid #269283;
     color: #269283;
     padding-bottom: 2px;
-    text-decoration: none; 
+    text-decoration: none;
   }
 }
 
@@ -1358,7 +1357,7 @@ info page
   }
   .categories {
     margin-right: 5px;
-    a { 
+    a {
       font-size:1.2em; text-transform: uppercase; font-weight: bold;
       & + a:before {
         content: " | ";
@@ -1618,15 +1617,15 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
     display: inline-block;
 
     &.active{
-      padding-bottom: 0;  
+      padding-bottom: 0;
     }
   }
-  
+
   .proposal {
     .support {
       width: 100%;
     }
-  } 
+  }
 
   .menu {
     min-width: 0px;
@@ -1641,7 +1640,7 @@ layout 1b: 0- max 459 (simple) # # # # # # # # # # # # # # # # # # # # # # # # #
     .sidebar {
       width: 100%;
     }
-  
+
     .how-info {
       float: left;
     }
@@ -1689,7 +1688,7 @@ layout 2: 460-600 (intermedia 1) # # # # # # # # # # # # # # # # # # # # # # # #
     max-width: 96em;
     position:relative;
     overflow:hidden;
-  }  
+  }
 
   /*
   elementos
@@ -1866,7 +1865,7 @@ layout 3: 600-768 (intermedia 2) # # # # # # # # # # # # # # # # # # # # # # # #
     padding:1em 4%;
   }
   .menu ul li{
-    display:block;
+    display: inline-block;
     font-size: 8px;
   }
   .menu ul li.menu-hamb{
@@ -2013,7 +2012,7 @@ layout 4: 769-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     padding:1em 0;
   }
   .menu ul li{
-    display:block;
+    display: inline-block;
   }
   .menu ul li.menu-hamb{
     display:none;
@@ -2125,7 +2124,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
   .col-f-6a7,
   .col-f-8a9{
     display:block;
-    width:16.5%;
+    width:25%;
   }
   .col-f-10a12{
     width:25%;
@@ -2167,7 +2166,7 @@ layout 4+: 978-...+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
     padding:1em 0;
   }
   .menu ul li{
-    display:block;
+    display: inline-block;
   }
   .menu ul li.menu-hamb{
     display:none;
@@ -2288,7 +2287,7 @@ div.help {
     font-size:14px;
     line-height: 17px;
     font-family: Montserrat,Arial,sans-serif;
-    font-weight: bold;  
+    font-weight: bold;
     color: #612D62;
     background: white;
     border-radius: 100%;
