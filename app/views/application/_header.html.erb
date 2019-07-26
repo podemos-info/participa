@@ -29,13 +29,10 @@
             <%= nav_menu_link_to "Datos personales", "user", edit_user_registration_path, [edit_user_registration_path], title: "Datos personales" %>
           </li>
           <li>
-            <%= nav_menu_link_to "Financiación", "euro", funding_path, [funding_path], title: "Financiación"  %>
+            <%= nav_menu_link_to "Colabora", "euro", new_collaboration_path, [new_collaboration_path], title: "Colabora"  %>
           </li>
           <li>
-            <%= nav_menu_link_to "Iniciativas ciudadanas", "lightbulb-o", proposals_path, [proposals_path], title: "Iniciativas ciudadanas " %>
-          </li>
-          <li>
-            <%= nav_menu_link_to "IMPULSA", "rocket", impulsa_path, [impulsa_path], title: "IMPULSA" %>
+            <%= nav_menu_link_to "Microcréditos", "leaf", microcredit_path, [microcredit_path], title: "Microcréditos"  %>
           </li>
           <li>
             <%= nav_menu_link_to "Salir", "sign-out", destroy_user_session_path, [destroy_user_session_path], method: :delete, title: "Cerrar sesión" %>
