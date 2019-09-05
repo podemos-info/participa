@@ -301,7 +301,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     pg (0.18.2)
-    phonelib (0.6.6)
+    phonelib (0.6.37)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     pushmeup (0.3.0)

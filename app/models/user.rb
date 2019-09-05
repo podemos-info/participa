@@ -320,12 +320,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def unconfirmed_phone_national
-    Phonelib.parse(self.unconfirmed_phone.sub(/^00+/, '+')).national(false) if self.unconfirmed_phone
+  def unconfirmed_phone_national_part
+    extract_national_part(self.unconfirmed_phone) if self.unconfirmed_phone
   end
 
-  def phone_national
-    Phonelib.parse(self.phone.sub(/^00+/, '+')).national(false) if self.phone
+  def phone_national_part
+    extract_national_part(self.phone) if self.phone
   end
 
   def country_phone_prefix
@@ -835,5 +835,10 @@ class User < ActiveRecord::Base
 
       ret
     end
+  end
+
+  def extract_national_part(the_phone)
+    phone_obj = Phonelib.parse(the_phone)
+    phone_obj.international(false).sub(/^#{phone_obj.country_code}/, "")
   end
 end
