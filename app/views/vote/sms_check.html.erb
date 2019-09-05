@@ -25,7 +25,7 @@
       <% if current_user.can_request_sms_check? %>
         <%= form_tag(send_sms_check_vote_path(election.id), method: :get) do |f| %>
             <fieldset>
-                <p><% if current_user.can_check_sms_check? %>Si has perdido tu código, te enviaremos un nuevo código<%else%>Utiliza el botón para solicitar que te enviemos el código de validación<%end%> al teléfono móvil (+<%= current_user.phone_prefix %>) <%= current_user.phone_national %>. Si este número no es correcto, puedes cambiarlo en tu <a href="<%=edit_user_registration_path%>#change-phone">página del perfil</a>.</p>
+                <p><% if current_user.can_check_sms_check? %>Si has perdido tu código, te enviaremos un nuevo código<%else%>Utiliza el botón para solicitar que te enviemos el código de validación<%end%> al teléfono móvil (+<%= current_user.phone_prefix %>) <%= current_user.phone_national_part %>. Si este número no es correcto, puedes cambiarlo en tu <a href="<%=edit_user_registration_path%>#change-phone">página del perfil</a>.</p>
                 <%= submit_tag("Solicitar código", class: "button") %>
             </fieldset>
         <% end %>
