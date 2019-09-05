@@ -321,11 +321,11 @@ class User < ActiveRecord::Base
   end
 
   def unconfirmed_phone_national_part
-    extract_national_part(self.unconfirmed_phone) if self.unconfirmed_phone
+    extract_national_part(self.unconfirmed_phone) if self.unconfirmed_phone.present?
   end
 
   def phone_national_part
-    extract_national_part(self.phone) if self.phone
+    extract_national_part(self.phone) if self.phone.present?
   end
 
   def country_phone_prefix
