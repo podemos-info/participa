@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   before_update :_clear_caches
-  before_validation :before_validation
+  before_validation :check_unconfirmed_phone
   before_save :before_save
 
   acts_as_paranoid
@@ -843,7 +843,7 @@ class User < ActiveRecord::Base
     phone_obj.international(false).sub(/^#{phone_obj.country_code}/, "")
   end
   
-  def before_validation
+  def check_unconfirmed_phone
     self.unconfirmed_phone = nil if self.unconfirmed_phone.present? && self.country_changed?
   end
 end
