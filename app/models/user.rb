@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
+  before_validation :check_unconfirmed_phone
   before_update :_clear_caches
   before_save :before_save
 
@@ -840,5 +841,9 @@ class User < ActiveRecord::Base
   def extract_national_part(the_phone)
     phone_obj = Phonelib.parse(the_phone)
     phone_obj.international(false).sub(/^#{phone_obj.country_code}/, "")
+  end
+  
+  def check_unconfirmed_phone
+    self[:unconfirmed_phone] = nil if self.unconfirmed_phone.present? && self.country_changed?
   end
 end
