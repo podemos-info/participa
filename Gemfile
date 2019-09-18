@@ -19,7 +19,7 @@ gem 'pg'
 gem 'rb-readline'
 gem 'airbrake'
 
-gem 'devise', '~> 4.6.1'
+gem 'devise', '~> 4.7.1'
 gem 'cancancan', '~> 1.9'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'formtastic'
