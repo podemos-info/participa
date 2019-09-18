@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  
+
   ensure_security_headers
 
   # Prevent CSRF attacks by raising an exception.
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       @meta_description = election.meta_description
       @meta_image = election.meta_image if !election.meta_image.blank?
     end
-    
+
     @meta_description = Rails.application.secrets.metas["description"] if @meta_description.nil?
     @meta_image = Rails.application.secrets.metas["image"] if @meta_image.nil?
 
@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
 
     stored_location_for(user) || super
   end
-  
+
   def banned_user
     if current_user and current_user.banned?
       name = current_user.full_name
@@ -132,7 +132,7 @@ class ApplicationController < ActionController::Base
     unless signed_in? && (current_user.is_admin? || current_user.finances_admin? || current_user.impulsa_admin? ||current_user.verifier?)
       redirect_to root_url, flash: { error: t('podemos.unauthorized') }
     end
-  end 
+  end
 
   def user_for_papertrail
     user_signed_in? ? current_user : "Unknown user"
@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :document_vatid, :email, :password, :remember_me) }
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:login, :document_vatid, :email, :password, :remember_me])
   end
 
   private

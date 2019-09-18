@@ -102,9 +102,9 @@ class Election < ActiveRecord::Base
 
   def current_total_census
     if self.user_created_at_max.nil?
-      base = User.confirmed
+      base = User.confirmed.not_banned
     else
-      base = User.with_deleted.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where.not(sms_confirmed_at:nil).where("created_at < ?", self.user_created_at_max)
+      base = User.with_deleted.not_banned.where("deleted_at is null or deleted_at > ?", self.user_created_at_max).where.not(sms_confirmed_at:nil).where("created_at < ?", self.user_created_at_max)
     end
     if self.ignore_multiple_territories
       base.count
@@ -195,7 +195,7 @@ class Election < ActiveRecord::Base
   def server_url
     server = Rails.application.secrets.agora["default"]
     server = self.server if self.server and !self.server.empty?
-    Rails.application.secrets.agora["servers"][server]["url"]
+    Rails.application.secrets.agora.dig("servers", server, "url") || ""
   end
 
   def duration
