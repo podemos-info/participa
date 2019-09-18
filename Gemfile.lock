@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/leio10/spanish_vat_validators.git
-  revision: 14a73bdd124153b8f5311d866ccfdb77d064bd8d
+  remote: git://github.com/podemos-info/norma43.git
+  revision: 98e537e2e5a60394e53b7447221187d0e497cf2c
   specs:
-    spanish_vat_validators (0.0.5)
+    norma43 (0.3.2)
 
 GIT
   remote: https://github.com/cowboyd/therubyracer.git
@@ -270,7 +270,6 @@ GEM
     net-ssh (5.0.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
-    norma43 (0.3)
     orm_adapter (0.5.0)
     paper_trail (3.0.8)
       activerecord (>= 3.0, < 5.0)
@@ -409,6 +408,8 @@ GEM
     skinny (0.2.3)
       eventmachine (~> 1.0.0)
       thin (~> 1.5.0)
+    spanish_vat_validators (0.0.6)
+      activemodel (>= 3.2.0)
     spring (1.3.6)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
@@ -513,7 +514,7 @@ DEPENDENCIES
   minitest-rails
   minitest-rails-capybara
   minitest-reporters
-  norma43
+  norma43!
   paper_trail
   paperclip (~> 5.2.1)
   paranoia (~> 2.2)
@@ -537,7 +538,7 @@ DEPENDENCIES
   secure_headers
   simple_captcha2
   simplecov
-  spanish_vat_validators!
+  spanish_vat_validators (= 0.0.6)
   spring
   sqlite3
   state_machines
