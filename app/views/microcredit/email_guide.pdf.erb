@@ -10,7 +10,6 @@
         div {padding:10px; line-height:2;}
         .microcreditos {font-size:17px;padding:30px;}
     </style>
-</head>
   <body>
         <div class="microcreditos">
             <div style="width:100%;">
@@ -23,8 +22,8 @@
             <div><strong><%=t 'microcredit.email.concept'%></strong><br><%=@loan.id%> <%=@microcredit.title%></div>
             <% end %>
             <div><strong><%=t 'microcredit.email.account_number'%></strong><br><%=@microcredit.account_number%></div>
-            <div><strong><%=t 'microcredit.email.bank'%></strong><br>Fiare Banca Ética</div>
-            <div class="grey"><strong>SWIFT</strong><br>ETICES21 Solo para transferencias transnacionales</div>
+            <div><strong><%=t 'microcredit.email.bank'%></strong><br>Caja de Ingenieros</div>
+            <div class="grey"><strong>SWIFT</strong><br>CDENESBBXXX Solo para transferencias transnacionales</div>
             <div><strong><%=t 'microcredit.email.recipient'%></strong><br><%=@brand_config["name"].upcase%></div>
             <div><strong><%=t 'microcredit.common.amount'%></strong><br><%=@loan.amount%>€</div>
 
