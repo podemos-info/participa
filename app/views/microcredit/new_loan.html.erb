@@ -20,7 +20,7 @@ input.button, a.button { background-color: <%=@brand_config["color2"]%> !importa
 <% end %>
 
 <h2><%= t 'microcredit.common.title', name: @brand_config["name"]%> - <%=@microcredit.title%></h2>
-<p><%= t 'microcredit.common.help_us', name: @brand_config["name"]%> </p>
+<p><%= t 'microcredit.common.help_us', name: @brand_config["name"]%> <%= link_to t('microcredit.common.more_info'), (@brand_config["info_link"] || microcredits_info_path), target: "_top" %></p>
 <% if @microcredit.completed %>
   <div>
     <%=fa_icon "check-circle"%>
