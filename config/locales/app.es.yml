@@ -988,8 +988,8 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       intro: "Para formalizar el microcrédito es necesario efectuar la siguiente transferencia en las próximas 48 horas con los siguientes datos:"
       recipient: "Beneficiario"
       bank: "Banco"
-      account_number: "Número de cuenta (IBAN):"
-      concept: "Concepto del ingreso (Número de Microcrédito):"
+      account_number: "Número de cuenta (IBAN)"
+      concept: "Concepto del ingreso (Número de Microcrédito)"
       thanks: "Muchas gracias por colaborar. El cambio empieza gracias a ti."
     show_options:
       back: "Volver"
