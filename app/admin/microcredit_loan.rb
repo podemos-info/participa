@@ -313,15 +313,11 @@ ActiveAdmin.register MicrocreditLoan do
     end
 
     column :original_loans do |loan|
-      loan.original_loans.map do |l|
-        l.microcredit.title.first
-      end
+      loan.original_loans.first.title
     end
 
     column :original_loan_id do |loan|
-      loan.original_loans.map do |l|
-        l.id.first
-      end
+      loan.original_loans.first.id
     end
 
     column :renewal_link do |loan|
