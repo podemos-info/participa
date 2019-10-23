@@ -312,6 +312,18 @@ ActiveAdmin.register MicrocreditLoan do
       loan.user.phone if loan.user
     end
 
+    column :original_loans do |loan|
+      loan.original_loans.map do |l|
+        l.microcredit.title
+      end
+    end
+
+    column :original_loan_id do |loan|
+      loan.original_loans.map do |l|
+        l.id
+      end
+    end
+
     column :renewal_link do |loan|
       if loan.renewable?
         next_campaign = Microcredit.non_finished.first
