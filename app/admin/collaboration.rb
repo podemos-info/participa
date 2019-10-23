@@ -528,7 +528,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_autonomy, :method => :get do
     date = Date.parse params[:date]
-    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
     autonomies["~"] = "Sin asignación"
