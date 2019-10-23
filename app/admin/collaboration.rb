@@ -558,7 +558,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_island, :method => :get do
     date = Date.parse params[:date]
-    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     islands = Hash.new {|h,k| h[k] = [] }
     Podemos::GeoExtra::ISLANDS.each do |town, info|
@@ -609,7 +609,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_town, :method => :get do
     date = Date.parse params[:date]
-    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
@@ -651,7 +651,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_cp, :method => :get do
     date =Date.parse params[:date]
-    months = Hash[(0..3).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
 
