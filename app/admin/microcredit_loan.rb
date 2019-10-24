@@ -314,7 +314,7 @@ ActiveAdmin.register MicrocreditLoan do
 
     column :original_loans do |loan|
       loan.original_loans.map do |l|
-        l.title
+        l.microcredit.title
       end
     end
 
