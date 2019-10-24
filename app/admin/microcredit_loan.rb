@@ -313,11 +313,11 @@ ActiveAdmin.register MicrocreditLoan do
     end
 
     column :original_loans do |loan|
-      loan.original_loans.first.title
+      loan.original_loans.first.title if loan.original_loans.first.present?
     end
 
     column :original_loan_id do |loan|
-      loan.original_loans.first.id
+      loan.original_loans.first.id if loan.original_loans.first.present?
     end
 
     column :renewal_link do |loan|
