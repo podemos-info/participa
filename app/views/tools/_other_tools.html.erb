@@ -1,5 +1,8 @@
 <% content_for :title, "Herramientas de participación ciudadana" %>
 <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
+<% if current_user.any_microcredit_renewable? %>
+<%=render partial: "microcredit_renewal" %>
+<%end%>
 <%= render partial: "promoted_forms" %>
 <section class="tools">
   <ul>

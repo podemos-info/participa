@@ -800,6 +800,10 @@ class User < ActiveRecord::Base
     last_vote_location_change[:town]
   end
 
+  def any_microcredit_renewable?
+    MicrocreditLoan.renewables.where(document_vatid: self.document_vatid).exists?
+  end
+
   private
 
   def last_vote_location_change
