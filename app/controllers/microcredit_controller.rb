@@ -216,7 +216,7 @@ class MicrocreditController < ApplicationController
       loan = MicrocreditLoan.find_by(id: params[:loan_id])
       loan && loan.unique_hash==params[:hash] && loan.microcredit.renewable?
     else
-      current_user && MicrocreditLoan.renewables.where(document_vatid: current_user.document_vatid).exists?
+      current_user && current_user.any_microcredit_renewable?
     end
   end
 end
