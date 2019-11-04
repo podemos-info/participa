@@ -215,9 +215,9 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def check_user_limits
-    limit = self.microcredit.loans.where(ip:self.ip).count>Rails.application.secrets.microcredit_loans["max_loans_per_ip"]
+    limit = self.microcredit.loans.not_returned.where(ip:self.ip).count>Rails.application.secrets.microcredit_loans["max_loans_per_ip"]
     if not limit
-      loans = self.microcredit.loans.where(document_vatid:self.document_vatid).pluck(:amount)
+      loans = self.microcredit.loans.not_returned.where(document_vatid:self.document_vatid).pluck(:amount)
       limit = ((loans.length>=Rails.application.secrets.microcredit_loans["max_loans_per_user"]) or (loans.sum + self.amount>Rails.application.secrets.microcredit_loans["max_loans_sum_amount"])) if not limit and self.amount
     end
 
@@ -259,13 +259,15 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def renew! new_campaign
-    new_loan = self.dup
-    new_loan.microcredit = new_campaign
-    new_loan.counted_at = DateTime.now
-    new_loan.save!
-    self.transferred_to = new_loan
-    self.returned_at = DateTime.now
-    save!
+    ActiveRecord::Base.transaction do
+      new_loan = self.dup
+      new_loan.microcredit = new_campaign
+      new_loan.counted_at = DateTime.now
+      self.transferred_to = new_loan
+      self.returned_at = DateTime.now
+      save!
+      new_loan.save!
+    end
   end
 
   def renewable?
