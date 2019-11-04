@@ -215,9 +215,9 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def check_user_limits
-    limit = self.microcredit.loans.not_returned.where(ip:self.ip).count>Rails.application.secrets.microcredit_loans["max_loans_per_ip"]
+    limit = self.microcredit.loans.not_discarded.not_returned.where(ip:self.ip).count>Rails.application.secrets.microcredit_loans["max_loans_per_ip"]
     if not limit
-      loans = self.microcredit.loans.not_returned.where(document_vatid:self.document_vatid).pluck(:amount)
+      loans = self.microcredit.loans.not_discarded.not_returned.where(document_vatid:self.document_vatid).pluck(:amount)
       limit = ((loans.length>=Rails.application.secrets.microcredit_loans["max_loans_per_user"]) or (loans.sum + self.amount>Rails.application.secrets.microcredit_loans["max_loans_sum_amount"])) if not limit and self.amount
     end
 
