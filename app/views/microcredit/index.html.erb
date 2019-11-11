@@ -23,7 +23,7 @@
       <p><%= t '.will_start_at', name: @brand_config["name"], hour: @upcoming_microcredits_standard.first.starts_at.strftime("%H:%M"), date: @upcoming_microcredits_standard.first.starts_at.strftime("%d/%m") %></p>
     <% elsif @finished_microcredits_standard.count > 0 %>
       <h3><%= t 'microcredit.common.has_finished' %></h3>
-      <p><%= t('microcredit.common.campaign_results', total: number_to_euro(@finished_microcredits_standard.map {|m| m.campaign_confirmed_amount * 100}.sum, 0)).html_safe %></p>
+      <!--p><%= t('microcredit.common.campaign_results', total: number_to_euro(@finished_microcredits_standard.map {|m| m.campaign_confirmed_amount * 100}.sum, 0)).html_safe %></p -->
     <% else %>
       <h3><%= t '.no_campaigns' %></h3>
       <p><%= t '.no_campaigns_message' %></p>
