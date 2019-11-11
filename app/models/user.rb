@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   has_many :paper_authority_votes, dependent: :nullify, class_name: "Vote", inverse_of: :paper_authority
 
   has_many :supports, dependent: :destroy
-  has_one :collaboration, dependent: :destroy
+  has_many :collaboration, dependent: :destroy
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
   has_many :user_verifications
