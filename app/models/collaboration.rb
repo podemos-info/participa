@@ -195,10 +195,11 @@ class Collaboration < ActiveRecord::Base
     iban = iban_account.gsub(" ","") if iban.nil? && iban_account.present?
     iban
   end
+
   def calculate_bic
-    bic = Podemos::SpanishBIC[ccc_entity] if ccc_account and (not iban_account or is_bank_national?)
-    bic = Podemos::SpanishBIC[iban_account[4..7].to_i] if not bic and iban_account and !iban_account.empty? and iban_account[0..1]=="ES"
-    bic = iban_bic.gsub(" ","") if not bic and iban_bic and !iban_bic.empty?
+    clean_iban = calculate_iban
+    bic = Podemos::SpanishBIC[clean_iban[4..7].to_i] if !bic && clean_iban.present? and clean_iban[0..1]=="ES"
+    bic = iban_bic.gsub(" ","") if !bic && iban_bic.present?
     bic
   end
 
