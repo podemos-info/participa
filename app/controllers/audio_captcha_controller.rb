@@ -1,6 +1,6 @@
 class AudioCaptchaController < ApplicationController
   LETTERS = {
-    "A"=>"A", "B"=>"Be", "C"=>"Ce", "D"=>"De", "E"=>"Efe", "G"=>"Ge", "H"=>"Hache", "I"=>"I", "J"=>"Jota", "K"=>"Ka", "L"=>"Ele", "M"=>"Eme", "N"=>"Ene",
+    "A"=>"A", "B"=>"Be", "C"=>"Ce", "D"=>"De", "E"=>"E", "F"=>"Efe", "G"=>"Ge", "H"=>"Hache", "I"=>"I", "J"=>"Jota", "K"=>"Ka", "L"=>"Ele", "M"=>"Eme", "N"=>"Ene",
     "O"=>"O", "P"=>"Pe", "Q"=>"Cu", "R"=>"Erre", "S"=>"Ese", "T"=>"Te", "U"=>"U", "V"=>"Uve", "W"=>"Uve doble", "X"=>"Equis", "Y"=>"Y griega", "Z"=>"Zeta"
   }.freeze
 
@@ -17,15 +17,15 @@ class AudioCaptchaController < ApplicationController
   def speech
     @speech ||= ESpeak::Speech.new(
       captcha_value_spelling,
-      voice: "es+#{Random.rand(2) > 0 ? 'f' : 'm'}#{Random.rand(4)}",
-      speed: 80 + Random.rand(40),
+      voice: "es+#{Random.rand(2) > 0 ? 'f' : 'm'}#{Random.rand(4)+1}",
+      speed: 90 + Random.rand(40),
       pitch: Random.rand(30),
-      capital: Random.rand(20)
+      capital: Random.rand(30) + 3
     )
   end
 
   def captcha_value_spelling
-    @captcha_value_spelling ||= captcha_value.chars.map {|letter| LETTERS[letter]} .join " "
+    @captcha_value_spelling ||= captcha_value.chars.map {|letter| I18n.t("simple_captcha.letters.#{letter}")} .join " "
   end
 
   def captcha_value

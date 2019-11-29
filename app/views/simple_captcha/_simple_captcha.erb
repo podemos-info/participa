@@ -1,17 +1,21 @@
 <span class="form-wrapper simple_captcha">
   <%= content_tag(:div, simple_captcha_options[:image]) %>
-  <%= simple_captcha_options[:field] %>
-  <div class="help-block">
+  <div class="help-block" style="margin: 5px;">
     <%= simple_captcha_options[:label] %>
     <div>
-      <%= fa_icon(:refresh) %>
-      <%= simple_captcha_options[:refresh_button].html_safe %>
-      <audio id="player" data-src="<%=audio_captcha_url(captcha_key: "KEY")%>"></audio>
+      <span>
+        <%= fa_icon(:refresh) %>
+        <%= simple_captcha_options[:refresh_button].html_safe %>
+      </span>
       &nbsp;&nbsp;
-      <%= fa_icon("volume-up") %>
-      <%= link_to t("simple_captcha.listen_button_text"), "javascript:listen()" %>
+      <span>
+        <audio id="player" data-src="<%=audio_captcha_url(captcha_key: "KEY")%>"></audio>
+        <%= fa_icon("volume-up") %>
+        <%= link_to t("simple_captcha.listen_button_text"), "javascript:listen()" %>
+      </span>
     </div>
   </div>
+  <%= simple_captcha_options[:field] %>
 </span>
 
 <script>
