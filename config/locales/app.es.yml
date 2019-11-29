@@ -1008,7 +1008,35 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     placeholder: "texto"
     label: "Introduce el texto que se ve en la imagen"
     refresh_button_text: "Regenerar"
+    listen_button_text: "Escuchar"
     message:
       default: "El texto introducido no corresponde con el de la imagen"
+    letters:
+      A: A
+      B: Be
+      C: Ce
+      D: De
+      E: E
+      F: Efe
+      G: Ge
+      H: Hache
+      I: I
+      J: Jota
+      K: Ka
+      L: Ele
+      M: Eme
+      N: Ene
+      O: O
+      P: Pe
+      Q: Cu
+      R: Erre
+      S: Ese
+      T: Te
+      U: U
+      V: Uve
+      W: Uve doble
+      X: Equis
+      Y: Y griega
+      Z: Zeta
   microcredit_options_detail:
     title: "Desglose del Microcrédito"
