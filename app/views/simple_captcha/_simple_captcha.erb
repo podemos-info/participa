@@ -1,6 +1,29 @@
-<span class="form-wrapper">
+<span class="form-wrapper simple_captcha">
   <%= content_tag(:div, simple_captcha_options[:image]) %>
+  <div class="help-block" style="margin: 5px;">
+    <%= simple_captcha_options[:label] %>
+    <div>
+      <span>
+        <%= fa_icon(:refresh) %>
+        <%= simple_captcha_options[:refresh_button].html_safe %>
+      </span>
+      &nbsp;&nbsp;
+      <span>
+        <audio id="player" data-src="<%=audio_captcha_url(captcha_key: "KEY")%>"></audio>
+        <%= fa_icon("volume-up") %>
+        <%= link_to t("simple_captcha.listen_button_text"), "javascript:listen()" %>
+      </span>
+    </div>
+  </div>
   <%= simple_captcha_options[:field] %>
-  <%= content_tag(:span, simple_captcha_options[:label], class: "help-block") %>
-  <%= content_tag(:span, simple_captcha_options[:refresh_button].html_safe, class: "help-block") %>
 </span>
+
+<script>
+  function listen() {
+    var player = document.getElementById("player");
+    player.pause();
+    player.currentTime = 0;
+    player.src = player.dataset["src"].replace("KEY", $(".simple_captcha input:hidden").val());
+    player.play();
+  }
+</script>

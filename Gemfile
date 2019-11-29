@@ -66,6 +66,7 @@ gem 'state_machines-audit_trail'
 gem 'rubypress'
 gem 'digest-crc'
 gem 'xmlrpc'
+gem "espeak-ruby", require: "espeak"
 
 group :development, :test do
   gem 'capistrano', '~> 3.10.2'
