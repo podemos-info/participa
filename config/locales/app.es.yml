@@ -1008,6 +1008,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     placeholder: "texto"
     label: "Introduce el texto que se ve en la imagen"
     refresh_button_text: "Regenerar"
+    listen_button_text: "Escuchar"
     message:
       default: "El texto introducido no corresponde con el de la imagen"
   microcredit_options_detail:

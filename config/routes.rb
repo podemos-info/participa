@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       get '/user/xrds', to: 'open_id#xrds', as: "open_id_xrds"
     end
 
+    get '/audio_captcha', to: 'audio_captcha#index', as: 'audio_captcha'
+
     get '/privacy-policy', to: 'page#privacy_policy', as: 'page_privacy_policy'
     get '/preguntas-frecuentes', to: 'page#faq', as: 'faq'
 

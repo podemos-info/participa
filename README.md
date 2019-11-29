@@ -1,7 +1,7 @@
 # Participa
 
 El objetivo de esta aplicación es ofrecer el siguiente conjunto de herramientas:
-Votaciones (integración con [Agora Voting](http://agoravoting.org/)), Colaboraciones económicas (donaciones periódicas), Microcréditos (sistema de prestamos distribuidos), Notificaciones móviles (para dispositivos Android), entre otras funcionalidades.
+Votaciones (integración con Agora Voting), Colaboraciones económicas (donaciones periódicas), Microcréditos (sistema de prestamos distribuidos), Notificaciones móviles (para dispositivos Android), entre otras funcionalidades.
 
 ![Pantallazo de Participa](doc/images/participa01.png)
 
@@ -19,28 +19,29 @@ Permite integrado un censo con Agora Voting: *Agora Voting es un software libre 
 
 ### Colaboraciones económicas
 
-Permite que los usuarios inscritos puedan suscribir donaciones de forma periódica (mensual, trimestral o anual) por el importe que deseen. Permite que esta colaboración se produzca a través de transferencia bancaria o con tarjeta de crédito (conexión con Redsys). 
+Permite que los usuarios inscritos puedan suscribir donaciones de forma periódica (mensual, trimestral o anual) por el importe que deseen. Permite que esta colaboración se produzca a través de transferencia bancaria o con tarjeta de crédito (conexión con Redsys).
 
 * http://transparencia.podemos.info/cuentas-claras/partido/ingresos
 * http://transparencia.podemos.info/preguntas-frecuentes
 
 ### Microcréditos
 
-Permite que usuarios (inscritos o no) den de alta microcréditos a la organización de forma puntual. 
+Permite que usuarios (inscritos o no) den de alta microcréditos a la organización de forma puntual.
 
 * http://transparencia.podemos.info/preguntas-frecuentes
 
 ### Iniciativas Ciudadanas
 
-Sistema de llegada de propuestas filtradas por votaciones con +1 bottom-up tomando como modelo el sistema planteado en el documento Organizativo de Podemos. Toma iniciativas de una categoría ("Propuestas") en la Plaza Podemos (subreddit de Podemos). 
+Sistema de llegada de propuestas filtradas por votaciones con +1 bottom-up tomando como modelo el sistema planteado en el documento Organizativo de Podemos. Toma iniciativas de una categoría ("Propuestas") en la Plaza Podemos (subreddit de Podemos).
 
 ### Equipos de Participación
 
 Permite a los inscritos darse de alta como interesado en formar parte de equipos localizados geográficamente para fomentar la participación presencial y la formación sobre la participación digital.
 
+
 ### Verificación por SMS
 
-Método de verificación utilizado por Podemos. Cuando un usuario se inscribe debe confirmar su correo electrónico y su teléfono móvil con un código que se le envía. 
+Método de verificación utilizado por Podemos. Cuando un usuario se inscribe debe confirmar su correo electrónico y su teléfono móvil con un código que se le envía.
 
 ### Blog (Brújula)
 
@@ -127,6 +128,7 @@ sudo apt-get install redis-server                   # para la gestión de las co
 sudo apt-get install libpq-dev                      # para la gema pg
 sudo apt-get install qt5-default libqt5webkit5-dev  # para capybara (tests)
 sudo apt-get install wkhtmltopdf                    # para generación de PDFs (microcreditos)
+sudo apt-get install espeak lame                    # para audio captchas
 ```
 
 ## Configuraciones
@@ -152,7 +154,8 @@ Para agregar uno nuevo se deben seguir los siguientes pasos:
 
 Para la forma de pago "Suscripción con Tarjeta de Crédito/Débito" hemos hecho una integración con Redsys.
 
-Para esto hace falta tener una cuenta bancaria dada de alta en Redsys, tener acceso a su [entorno de pruebas](https://sis-t.redsys.es:25443/canales/) y configurar los parámetros necesarios en config/secrets.yml
+Para esto hace falta tener una cuenta bancaria dada de alta en Redsys, tener acceso a su (entorno de pruebas)[https://sis-t.redsys.es:25443/canales/] y configurar los parámetros necesarios en config/secrets.yml
+
 
 Se pueden ver los documentos desde los que se han partido para su implementación en `doc/redsys`.
 
