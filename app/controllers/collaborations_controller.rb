@@ -5,7 +5,7 @@ class CollaborationsController < ApplicationController
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
 
   def new
-    redirect_to edit_collaboration_path and return if (current_user.collaboration && current_user.collaboration.where("frequency >0 ").present?) && !(params["force_single"].present? && params["force_single"] == "true")
+    redirect_to edit_collaboration_path and return if current_user.recurrent_collaboration && !(params["force_single"].present? && params["force_single"] == "true")
     @collaboration = Collaboration.new
     @collaboration.for_town_cc = true
     @collaboration.frequency = 0 if (params["force_single"].present? && params["force_single"] == "true")
@@ -91,8 +91,8 @@ class CollaborationsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_collaboration
-    return unless current_user.collaboration
-    @collaboration = params[:force_single] == "true" ? current_user.collaboration.where(frequency:0).last : current_user.collaboration.where("frequency >0").last
+    return unless current_user.collaborations
+    @collaboration = params[:force_single] == "true" ? current_user.single_collaboration : current_user.recurrent_collaboration
     start_date = [@collaboration.created_at.to_date, Date.today - 6.months].max
     if @collaboration.frequency >0
       @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
