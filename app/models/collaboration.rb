@@ -76,7 +76,6 @@ class Collaboration < ActiveRecord::Base
   end
 
   def only_have_single_collaborations?
-    #current_user.collaboration.where("frequency >0 ").empty? || :skip_queries_validations
     (self.frequency == 0) || :skip_queries_validations
   end
   def territorial_assignment= value
