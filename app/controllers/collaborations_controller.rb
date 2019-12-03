@@ -1,14 +1,15 @@
 class CollaborationsController < ApplicationController
   helper_method :payment_types
+  helper_method :force_single?
 
   before_action :authenticate_user!
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
 
   def new
-    redirect_to edit_collaboration_path and return if current_user.recurrent_collaboration && !(params["force_single"].present? && params["force_single"] == "true")
+    redirect_to edit_collaboration_path and return if current_user.recurrent_collaboration && !force_single?
     @collaboration = Collaboration.new
     @collaboration.for_town_cc = true
-    @collaboration.frequency = 0 if (params["force_single"].present? && params["force_single"] == "true")
+    @collaboration.frequency = 0 if force_single?
   end
 
   def modify
@@ -27,17 +28,17 @@ class CollaborationsController < ApplicationController
   end
 
   def create
-      @collaboration = Collaboration.new(create_params)
-      @collaboration.user = current_user
+    @collaboration = Collaboration.new(create_params)
+    @collaboration.user = current_user
 
-      respond_to do |format|
-        if @collaboration.save
-          format.html { redirect_to confirm_collaboration_url(force_single:@collaboration.frequency == 0), notice: 'Por favor revisa y confirma tu colaboración.' }
-          format.json { render :confirm, status: :created, location: confirm_collaboration_path }
-        else
-          format.html { render :new }
-          format.json { render json: @collaboration.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @collaboration.save
+        format.html { redirect_to confirm_collaboration_url(force_single:@collaboration.frequency == 0), notice: 'Por favor revisa y confirma tu colaboración.' }
+        format.json { render :confirm, status: :created, location: confirm_collaboration_path }
+      else
+        format.html { render :new }
+        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -57,7 +58,7 @@ class CollaborationsController < ApplicationController
 
   def confirm
     redirect_to new_collaboration_path and return unless @collaboration
-    redirect_to edit_collaboration_path if @collaboration.has_payment?
+    redirect_to edit_collaboration_path if @collaboration.frequency >0 && @collaboration.has_payment?
     # ensure credit card order is not persisted, to allow create a new id for each payment try
     @order = @collaboration.create_order Time.now, true if @collaboration.is_credit_card?
   end
@@ -66,7 +67,7 @@ class CollaborationsController < ApplicationController
   end
 
   def OK
-    redirect_to new_collaboration_path and return unless @collaboration
+    redirect_to new_collaboration_path and return unless @collaboration || force_single?
     if not @collaboration.is_active?
       if @collaboration.is_credit_card?
         @collaboration.set_warning! "Marcada como alerta porque se ha visitado la página de que la colaboración está pagada pero no consta el pago."
@@ -89,10 +90,14 @@ class CollaborationsController < ApplicationController
     end
   end
 
+  def force_single?
+    params["force_single"].present? && params["force_single"] == "true"
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_collaboration
-    return unless current_user.collaborations
-    @collaboration = params[:force_single] == "true" ? current_user.single_collaboration : current_user.recurrent_collaboration
+    @collaboration = force_single? ? current_user.single_collaboration : current_user.recurrent_collaboration
+    return unless @collaboration
     start_date = [@collaboration.created_at.to_date, Date.today - 6.months].max
     if @collaboration.frequency >0
       @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
