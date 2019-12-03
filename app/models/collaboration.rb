@@ -377,7 +377,7 @@ class Collaboration < ActiveRecord::Base
 
     # calculate next order month based on last paid order
     else
-      if self.frecuency > 0
+      if self.frequency > 0
         next_order = self.last_order_for(date-1.month).payable_at.unique_month + self.frequency
         next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
       end
