@@ -241,26 +241,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.create_order params
-    order = Order.new do |o|
-      o.user = params[:user]
-      o.parent = params[:parent]
-      o.reference = params[:reference_text]
-      o.first = params[:is_first]
-      o.amount = params[:amount]
-      o.payable_at = params[:payable_at]
-      o.payment_type = params[:payment_type]
-      o.payment_identifier = params[:payment_identifier]
-      if params[:user] && !params[:user].vote_autonomy_code.empty?
-        o.autonomy_code = params[:autonomy_code] if params[:for_autonomy_cc]
-        o.town_code = params[:town_code] if params[:for_town_cc]
-        o.island_code = params[:island_code] if params[:for_island_cc]
-      end
-    end
-    order.save if params[:save]
-    order
-  end
-
   #### REDSYS CC PAYMENTS ####
 
   def redsys_secret(key)
