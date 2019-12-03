@@ -102,7 +102,7 @@ class CollaborationsController < ApplicationController
     if @collaboration.frequency >0
       @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
     else
-      @orders  = @collaboration.get_orders(start_date)[0]
+      @orders  =[ @collaboration.get_orders(start_date)[0]]
     end
     @order = @orders[0][-1]
   end
