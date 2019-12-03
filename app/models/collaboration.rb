@@ -36,7 +36,7 @@ class Collaboration < ActiveRecord::Base
   validate :validates_iban, if: :has_iban_account?
 
   AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
-  FREQUENCIES = {"Ocasional" => 0,"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
+  FREQUENCIES = {"Puntual" => 0,"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4,"Migración" =>9}
 
   scope :created, -> { all }
@@ -252,37 +252,18 @@ class Collaboration < ActiveRecord::Base
     reference_text ="Colaboración "
     reference_text += "Puntual " if self.frequency == 0
     amount = self.frequency == 0 ? self.amount : self.amount * self.frequency
-    params ={user: self.user,
+    order = Order.new user: self.user,
              parent:self,
-             reference_text: reference_text + I18n.localize(date, :format => "%B %Y"),
-             date: date,
-             is_first: is_first,
+             reference: reference_text + I18n.localize(date, :format => "%B %Y"),
+             first: is_first,
              amount: amount,
              payable_at: date,
              payment_type:self.is_credit_card? ? 1 : 3,
              payment_identifier: self.payment_identifier,
              autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_autonomy_code : nil,
              town_code:  self.for_town_cc.present? ? self.get_vote_town : nil,
-             island_code: self.for_island_cc ? self.get_vote_island_code : nil,
-             save: self.frequency == 0
-    }
-    Order.create_order params
-    #order = Order.new do |o|
-    #  o.user = self.user
-    #  o.parent = self
-    #  o.reference = "Colaboración " + I18n.localize(date, :format => "%B %Y")
-    #  o.first = is_first
-    #  o.amount = self.amount*self.frequency
-    #  o.payable_at = date
-    #  o.payment_type = self.is_credit_card? ? 1 : 3
-    #  o.payment_identifier = self.payment_identifier
-    #  if self.user && !self.user.vote_autonomy_code.empty?
-    #    o.autonomy_code = self.get_vote_autonomy_code if self.for_autonomy_cc
-    #    o.town_code = self.get_vote_town if self.for_town_cc
-    #    o.island_code = self.get_vote_island_code if self.for_island_cc
-    #  end
-    #end
-    #order
+             island_code: self.for_island_cc ? self.get_vote_island_code : nil
+    order
   end
 
   def payment_identifier
