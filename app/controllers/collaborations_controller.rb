@@ -1,6 +1,7 @@
 class CollaborationsController < ApplicationController
   helper_method :payment_types
   helper_method :force_single?
+  helper_method :active_frequencies
 
   before_action :authenticate_user!
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
@@ -30,6 +31,12 @@ class CollaborationsController < ApplicationController
   def create
     @collaboration = Collaboration.new(create_params)
     @collaboration.user = current_user
+
+    if current_user.recurrent_collaboration && create_params[:frequency].to_i > 0
+      flash[:alert] = "Ya tienes una colaboración recurrente, solo puedes añadir colaboraciones puntuales"
+      render :new
+      return
+    end
 
     respond_to do |format|
       if @collaboration.save
@@ -79,7 +86,6 @@ class CollaborationsController < ApplicationController
 
   def KO
   end
-
   private
 
   def payment_types
@@ -92,6 +98,12 @@ class CollaborationsController < ApplicationController
 
   def force_single?
     params["force_single"].present? && params["force_single"] == "true"
+  end
+
+  def active_frequencies
+    return Collaboration::FREQUENCIES.to_a.select {|k, v| k == "Puntual" } if force_single?
+    return Collaboration::FREQUENCIES.to_a.select {|k, v| k != "Puntual" } if current_user.recurrent_collaboration
+    Collaboration::FREQUENCIES.to_a
   end
 
   # Use callbacks to share common setup or constraints between actions.
