@@ -5,7 +5,7 @@
     <div class="col-b-4a12">
 
       <%= content_tag(:h2, t("podemos.collaboration.title")) %>
-
+      <%= link_to "Colaboración puntual", new_collaboration_path(force_single:true), class: 'button' %>
       <%= info_box do %>
           <p><%= t("podemos.collaboration.p1") %></p>
       <% end %>
