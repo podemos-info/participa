@@ -10,7 +10,7 @@
           <p><%= t("podemos.collaboration.p1") %></p>
       <% end %>
 
-      <% if @collaboration.has_payment? %>
+      <% if @collaboration.has_payment? && @collaboration.payment_type == 1 %>
           <%= error_box "Cambios en la colaboración", false do %>
             <p>Nos hemos visto en la obligación de desactivar el pago con tarjetas de crédito o débito, dado que realizar las aportaciones de esta forma le acarrea a la entidad financiera muchos problemas a la hora de poder cumplir con las exigencias legales en cuanto a identificación de las entradas ante el Tribunal de Cuentas.
               <% if @collaboration.is_credit_card? %>
