@@ -361,25 +361,31 @@ class Collaboration < ActiveRecord::Base
   end
 
   def must_have_order? date
-    return (self.first_order.nil? && frequency == 0)
-    
     this_month = Date.today.unique_month
+
     # first order not created yet, must have order this month, or next if its paid by bank and was created this month after payment day
     if self.first_order.nil?
       next_order = this_month
       next_order += 1 if self.is_bank? and self.created_at.unique_month==next_order and self.created_at.day >= Order.payment_day
 
-    # first order created on asked date
+      return date.unique_month == next_order if self.frequency==0
+
+      # first order created on asked date
     elsif self.first_order.payable_at.unique_month == date.unique_month
       return true
 
-    # mustn't have order on months before it first order
+      # mustn't have order on months before it first order
     elsif self.first_order.payable_at.unique_month > date.unique_month
       return false
-    # calculate next order month based on last paid order
+
+      # don't create more orders for single collaborations
+    elsif self.frequency == 0
+      return false
+
+      # calculate next order month based on last paid order
     else
-        next_order = self.last_order_for(date-1.month).payable_at.unique_month + self.frequency
-        next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
+      next_order = self.last_order_for(date-1.month).payable_at.unique_month + self.frequency
+      next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
     end
 
     (date.unique_month >= next_order) && ((date.unique_month-next_order) % self.frequency) == 0
