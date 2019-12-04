@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-b-4a12">
 
-      <%= content_tag(:h2, t("podemos.collaboration.title")) %>
+      <%= content_tag(:h2, force_single? ? t("podemos.collaboration.single") : t("podemos.collaboration.title")) %>
 
       <% if current_user.is_passport? %>
         <%= info_box do %>
