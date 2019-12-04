@@ -89,11 +89,7 @@ class CollaborationsController < ApplicationController
   private
 
   def payment_types
-    @payment_types ||= begin
-      ret = Order::PAYMENT_TYPES.to_a
-      ret.reject! { |_, value| value == 1 } unless @collaboration.is_credit_card?
-      ret
-    end
+    Order::PAYMENT_TYPES.to_a.select { |k, v| [3, @collaboration.payment_type].member? v }
   end
 
   def force_single?
