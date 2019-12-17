@@ -1,7 +1,6 @@
 class CollaborationsController < ApplicationController
-  helper_method :payment_types
-  helper_method :force_single?
-  helper_method :active_frequencies
+  helper_method :force_single?, :active_frequencies, :payment_types
+  helper_method :pending_single_orders
 
   before_action :authenticate_user!
   before_action :set_collaboration, only: [:confirm, :confirm_bank, :edit, :modify, :destroy, :OK, :KO]
@@ -55,10 +54,14 @@ class CollaborationsController < ApplicationController
   end
 
   def destroy
+    @collaboration = Collaboration.find(params["single_collaboration_id"].to_i) if params["single_collaboration_id"].present?
     redirect_to new_collaboration_path and return unless @collaboration
     @collaboration.destroy
     respond_to do |format|
-      format.html { redirect_to new_collaboration_path, notice: 'Hemos dado de baja tu colaboración.' }
+      notice_text = 'Hemos dado de baja tu colaboración'
+      notice_text +=" puntual" if params["single_collaboration_id"].present?
+      notice_text +="."
+      format.html { redirect_to new_collaboration_path, notice: notice_text }
       format.json { head :no_content }
     end
   end
@@ -110,10 +113,28 @@ class CollaborationsController < ApplicationController
     if @collaboration.frequency >0
       @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
     else
-      @orders  =[ @collaboration.get_orders(start_date)[0]]
+      @orders  =[@collaboration.get_orders(start_date)[0]]
     end
     @order = @orders[0][-1]
   end
+
+  def pending_single_orders
+    @pending_single_orders ||= current_user.pending_single_collaborations.map do |c|
+      c.get_orders(Date.today).first
+    end
+  end
+
+  # def set_pending_single_orders
+  #   @collaboration = force_single? ? current_user.single_collaboration : current_user.recurrent_collaboration
+  #   return unless @collaboration
+  #   start_date = [@collaboration.created_at.to_date, Date.today - 6.months].max
+  #
+  #   @pending_single_orders = []
+  #   current_user.pending_single_collaborations.each do |c|
+  #     @orders += [ c.get_orders(start_date)[0]]
+  #   end
+  #   byebug
+  # end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def create_params

@@ -1,0 +1,24 @@
+<% if pending_single_orders.any? %>
+<table class="table-collaborations">
+  <caption class="invisible">Colaboraciones Puntuales Pendientes</caption>
+  <thead>
+    <th>Fecha estimada de pago</th>
+    <th>Importe</th>
+  </thead>
+  <tbody>
+  <% pending_single_orders.each do |orders| %>
+    <tr>
+      <td> <%= l(orders[-1].payable_at, format: :date) %><% if orders[-1].was_returned? %> (devuelta)<%elsif orders[-1].is_paid?%> (pagada el <%=l(orders[-1].payed_at, format: :date)%>)<% end %></td>
+      <td> <%= number_to_euro orders[-1].amount %> </td>
+      <td> <%= link_to "Borrar", destroy_collaboration_path(single_collaboration_id: orders[-1].parent), method: :delete, data: { confirm: "Confirmas que deseas borrar esta colaboración puntual." } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>Total</th>
+      <th><%= number_to_euro(pending_single_orders.map {|o| o[-1].amount} .sum) %></th>
+    </tr>
+  </tfoot>
+</table>
+<% end %>

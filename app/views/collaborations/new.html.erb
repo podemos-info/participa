@@ -23,7 +23,7 @@
         <%= errors_in_form @collaboration %>
 
         <%= semantic_form_for @collaboration, url: create_collaboration_path, html: {method: :post, autocomplete: 'off'} do |f| %>
-
+            <%= render partial:'single_collaborations_table' %>
             <%= render partial: "form", locals: { f: f } %>
 
             <fieldset class="with-tos">
