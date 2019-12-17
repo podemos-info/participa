@@ -366,9 +366,8 @@ class Collaboration < ActiveRecord::Base
     # first order not created yet, must have order this month, or next if its paid by bank and was created this month after payment day
     if self.first_order.nil?
       next_order = this_month
-      return date.unique_month == next_order if self.frequency==0
-
       next_order += 1 if self.is_bank? and self.created_at.unique_month==next_order and self.created_at.day >= Order.payment_day
+      return date.unique_month == next_order if self.frequency==0
 
       # first order created on asked date
     elsif self.first_order.payable_at.unique_month == date.unique_month

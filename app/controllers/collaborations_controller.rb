@@ -110,11 +110,7 @@ class CollaborationsController < ApplicationController
     @collaboration = force_single? ? current_user.single_collaboration : current_user.recurrent_collaboration
     return unless @collaboration
     start_date = [@collaboration.created_at.to_date, Date.today - 6.months].max
-    if @collaboration.frequency >0
-      @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(12/@collaboration.frequency-1)]
-    else
-      @orders  =[@collaboration.get_orders(start_date)[0]]
-    end
+    @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..(@collaboration.frequency == 0 ? 0 : 12/(@collaboration.frequency-1))]
     @order = @orders[0][-1]
   end
 
