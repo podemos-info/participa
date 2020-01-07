@@ -110,8 +110,8 @@ class CollaborationsController < ApplicationController
     @collaboration = force_single? ? current_user.single_collaboration : current_user.recurrent_collaboration
     return unless @collaboration
     start_date = [@collaboration.created_at.to_date, Date.today - 6.months].max
-    @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..@collaboration.frequency == 0? 0 : (12/@collaboration.frequency) - 1]
-    @order = @orders[0][-1]
+    max_element = (@collaboration.frequency == 0? 1 : (12/@collaboration.frequency) - 1)
+    @orders = @collaboration.get_orders(start_date, start_date + 12.months)[0..max_element]
   end
 
   def pending_single_orders
@@ -119,18 +119,6 @@ class CollaborationsController < ApplicationController
       c.get_orders(Date.today).first
     end
   end
-
-  # def set_pending_single_orders
-  #   @collaboration = force_single? ? current_user.single_collaboration : current_user.recurrent_collaboration
-  #   return unless @collaboration
-  #   start_date = [@collaboration.created_at.to_date, Date.today - 6.months].max
-  #
-  #   @pending_single_orders = []
-  #   current_user.pending_single_collaborations.each do |c|
-  #     @orders += [ c.get_orders(start_date)[0]]
-  #   end
-  #   byebug
-  # end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def create_params
