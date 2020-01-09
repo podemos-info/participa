@@ -11,7 +11,9 @@
       <tr>
         <td> <%= l(orders[-1].payable_at, format: :date) %><% if orders[-1].was_returned? %> (devuelta)<%elsif orders[-1].is_paid?%> (pagada el <%=l(orders[-1].payed_at, format: :date)%>)<% end %></td>
         <td> <%= number_to_euro orders[-1].amount %> </td>
-        <td> <%= link_to "Borrar", destroy_collaboration_path(single_collaboration_id: orders[-1].parent), method: :delete, data: { confirm: "Confirmas que deseas borrar esta colaboración puntual." } %></td>
+        <% if orders[-1].payed_at.nil? %>
+          <td> <%= link_to "Borrar", destroy_collaboration_path(single_collaboration_id: orders[-1].parent), method: :delete, data: { confirm: "Confirmas que deseas borrar esta colaboración puntual." } %></td>
+        <% end %>
       </tr>
     <% end %>
     </tbody>
