@@ -3,12 +3,14 @@
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
-      <%= link_to "Realizar una Colaboración puntual", new_collaboration_path(force_single:true), class: 'button' %>
-      <%= render partial:'single_collaborations_table' %>
-      <%= content_tag(:h2, t("podemos.collaboration.recurrent")) %>
       <%= info_box do %>
-          <p><%= t("podemos.collaboration.p1") %></p>
+        <p><%= t("podemos.collaboration.p1") %></p>
       <% end %>
+      <%= render partial:'single_collaborations_table' %>
+      <%= link_to "Realizar una Colaboración puntual", new_collaboration_path(force_single:true), class: 'button' %>
+
+      <%= content_tag(:h2, pending_single_orders.any? ? t("podemos.collaboration.recurrent") : t("podemos.collaboration.title")) %>
+
 
       <% if @collaboration.has_payment? && @collaboration.payment_type == 1 %>
           <%= error_box "Cambios en la colaboración", false do %>
