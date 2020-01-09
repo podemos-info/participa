@@ -9,7 +9,7 @@
       <%= render partial:'single_collaborations_table' %>
       <%= link_to "Realizar una Colaboración puntual", new_collaboration_path(force_single:true), class: 'button' %>
 
-      <%= content_tag(:h2, pending_single_orders.any? ? t("podemos.collaboration.recurrent") : t("podemos.collaboration.title")) %>
+      <%=  pending_single_orders.any? ? content_tag(:h3, t("podemos.collaboration.recurrent")) : content_tag(:h2, t("podemos.collaboration.title")) %>
 
 
       <% if @collaboration.has_payment? && @collaboration.payment_type == 1 %>
