@@ -28,5 +28,4 @@ class OrdersController < ApplicationController
       render text: order.is_paid? ? "OK" : "KO"
     end
   end
-
 end

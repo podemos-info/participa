@@ -1,4 +1,4 @@
   <div class="js-collaboration-confirm-buttons buttonbox">
-  <%= link_to "Cancelar", destroy_collaboration_path, class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
-  <%= link_to "Confirmar", ok_collaboration_path, class: 'button' %>
+  <%= link_to "Cancelar", destroy_collaboration_path(single_collaboration_id:@collaboration.id), class: 'button button-danger', method: :delete, data: {confirm: "¿Estás seguro que no quieres confirmar esta colaboración?"} %>
+  <%= link_to "Confirmar", ok_collaboration_path(force_single:@collaboration.frequency == 0), class: 'button' %>
   </div>

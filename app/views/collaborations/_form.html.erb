@@ -19,7 +19,7 @@
     <%= f.input :frequency,
                 required: true,
                 as: :select,
-                collection: Collaboration::FREQUENCIES.to_a,
+                collection: active_frequencies,
                 input_html: {required: true, class: 'js-collaboration-frequency'} %>
   </div>
 

@@ -140,6 +140,7 @@ Rails.application.routes.draw do
         get 'confirmar', to: 'collaborations#confirm', as: 'confirm_collaboration'
         post 'crear', to: 'collaborations#create', as: 'create_collaboration'
         post 'modificar', to: 'collaborations#modify', as: 'modify_collaboration'
+        get 'puntual', to: 'collaborations#single', as: 'single_collaboration'
         get 'OK', to: 'collaborations#OK', as: 'ok_collaboration'
         get 'KO', to: 'collaborations#KO', as: 'ko_collaboration'
       end
