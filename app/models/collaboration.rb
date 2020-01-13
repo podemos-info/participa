@@ -19,7 +19,7 @@ class Collaboration < ActiveRecord::Base
   validates :payment_type, :amount, :frequency, presence: true
   validates :terms_of_service, acceptance: true
   validates :minimal_year_old, acceptance: true
-  validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
+  validates :user_id, uniqueness: { scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :only_have_single_collaborations?
   validates :non_user_email, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
   validates :non_user_document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }, allow_nil: true, allow_blank: true, unless: :skip_queries_validations
   validates :non_user_email, :non_user_document_vatid, :non_user_data, presence: true, if: Proc.new { |c| c.user.nil? }
@@ -36,7 +36,7 @@ class Collaboration < ActiveRecord::Base
   validate :validates_iban, if: :has_iban_account?
 
   AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
-  FREQUENCIES = {"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
+  FREQUENCIES = {"Puntual" => 0,"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4,"Migración" =>9}
 
   scope :created, -> { all }
@@ -45,6 +45,7 @@ class Collaboration < ActiveRecord::Base
   scope :banks, -> { live.where.not(payment_type: 1)}
   scope :bank_nationals, -> { live.where.not(payment_type: 1).where.not("collaborations.payment_type = 3 and iban_account NOT LIKE ?", "ES%") }
   scope :bank_internationals, -> { live.where(payment_type: 3).where("iban_account NOT LIKE ?", "ES%") }
+  scope :frequency_single, -> { live.where(frequency: 0)}
   scope :frequency_month, -> { live.where(frequency: 1)}
   scope :frequency_quarterly, -> { live.where(frequency: 3)}
   scope :frequency_anual, -> { live.where(frequency: 12) }
@@ -74,6 +75,9 @@ class Collaboration < ActiveRecord::Base
     self.iban_account.upcase! if self.iban_account.present?
   end
 
+  def only_have_single_collaborations?
+    (self.frequency == 0) || :skip_queries_validations
+  end
   def territorial_assignment= value
     self.for_town_cc = self.for_island_cc = self.for_autonomy_cc = false
     case value.to_sym
@@ -244,23 +248,21 @@ class Collaboration < ActiveRecord::Base
         return self.first_order
       end
     end
-
     date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
-    order = Order.new do |o|
-      o.user = self.user
-      o.parent = self
-      o.reference = "Colaboración " + I18n.localize(date, :format => "%B %Y")
-      o.first = is_first
-      o.amount = self.amount*self.frequency
-      o.payable_at = date
-      o.payment_type = self.is_credit_card? ? 1 : 3
-      o.payment_identifier = self.payment_identifier
-      if self.user && !self.user.vote_autonomy_code.empty?
-        o.autonomy_code = self.get_vote_autonomy_code if self.for_autonomy_cc
-        o.town_code = self.get_vote_town if self.for_town_cc
-        o.island_code = self.get_vote_island_code if self.for_island_cc
-      end
-    end
+    reference_text ="Colaboración "
+    reference_text += "Puntual " if self.frequency == 0
+    amount = self.frequency == 0 ? self.amount : self.amount * self.frequency
+    order = Order.new user: self.user,
+             parent:self,
+             reference: reference_text + I18n.localize(date, :format => "%B %Y"),
+             first: is_first,
+             amount: amount,
+             payable_at: date,
+             payment_type:self.is_credit_card? ? 1 : 3,
+             payment_identifier: self.payment_identifier,
+             autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_autonomy_code : nil,
+             town_code:  self.for_town_cc.present? ? self.get_vote_town : nil,
+             island_code: self.for_island_cc ? self.get_vote_island_code : nil
     order
   end
 
@@ -365,35 +367,38 @@ class Collaboration < ActiveRecord::Base
     if self.first_order.nil?
       next_order = this_month
       next_order += 1 if self.is_bank? and self.created_at.unique_month==next_order and self.created_at.day >= Order.payment_day
+      return date.unique_month == next_order if self.frequency==0
 
-    # first order created on asked date
+      # first order created on asked date
     elsif self.first_order.payable_at.unique_month == date.unique_month
       return true
 
-    # mustn't have order on months before it first order
+      # mustn't have order on months before it first order
     elsif self.first_order.payable_at.unique_month > date.unique_month
       return false
 
-    # calculate next order month based on last paid order
+      # don't create more orders for single collaborations
+    elsif self.frequency == 0
+      return false
+
+      # calculate next order month based on last paid order
     else
       next_order = self.last_order_for(date-1.month).payable_at.unique_month + self.frequency
       next_order = Date.today.unique_month if next_order<Date.today.unique_month  # update next order when a payment was missed
     end
 
-    (date.unique_month >= next_order) and (date.unique_month-next_order) % self.frequency == 0
+    (date.unique_month >= next_order) && ((date.unique_month-next_order) % self.frequency) == 0
   end
 
   def get_orders date_start=Date.today, date_end=Date.today, create_orders = true
     saved_orders = Hash.new {|h,k| h[k] = [] }
-
-    self.order.select {|o| o.payable_at > date_start.beginning_of_month and o.payable_at < date_end.end_of_month} .each do |o|
+    self.order.select {|o| o.payable_at > date_start.beginning_of_month and o.payable_at < date_end.end_of_month and !o.parent.nil?} .each do |o|
       saved_orders[o.payable_at.unique_month] << o
     end
 
     current = date_start
 
     orders = []
-
     while current<=date_end
       # month orders sorted by creation date
       month_orders = saved_orders[current.unique_month].sort_by { |o| o.created_at }
@@ -402,11 +407,11 @@ class Collaboration < ActiveRecord::Base
       valid_orders = month_orders.select {|o| not o.has_errors? }
       
       # if collaboration is active, should create orders, this month should have an order and it doesn't have a valid saved order, create it (not persistent)
+
       if self.deleted_at.nil? and create_orders and self.must_have_order? current and valid_orders.empty?
         order = self.create_order current, orders.empty?
         month_orders << order if order
       end
-
       orders << month_orders if month_orders.length>0
       current += 1.month
     end

@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   has_many :paper_authority_votes, dependent: :nullify, class_name: "Vote", inverse_of: :paper_authority
 
   has_many :supports, dependent: :destroy
-  has_one :collaboration, dependent: :destroy
+  has_many :collaborations, dependent: :destroy
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
   has_many :user_verifications
@@ -169,10 +169,10 @@ class User < ActiveRecord::Base
   scope :legacy_password, -> { where(has_legacy_password: true) }
   scope :confirmed, -> { where.not(confirmed_at: nil).where.not(sms_confirmed_at: nil) }
   scope :signed_in, -> { where.not(sign_in_count: nil) }
-  scope :has_collaboration, -> { joins(:collaboration).where("collaborations.user_id IS NOT NULL") }
-  scope :has_collaboration_credit_card, -> { joins(:collaboration).where('collaborations.payment_type' => 1) }
-  scope :has_collaboration_bank_national, -> { joins(:collaboration).where('collaborations.payment_type' => 2) }
-  scope :has_collaboration_bank_international, -> { joins(:collaboration).where('collaborations.payment_type' => 3) }
+  scope :has_collaboration, -> { joins(:collaborations).where("collaborations.user_id IS NOT NULL") }
+  scope :has_collaboration_credit_card, -> { joins(:collaborations).where('collaborations.payment_type' => 1) }
+  scope :has_collaboration_bank_national, -> { joins(:collaborations).where('collaborations.payment_type' => 2) }
+  scope :has_collaboration_bank_international, -> { joins(:collaborations).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
 
@@ -802,6 +802,18 @@ class User < ActiveRecord::Base
 
   def any_microcredit_renewable?
     MicrocreditLoan.renewables.where(document_vatid: self.document_vatid).exists?
+  end
+
+  def recurrent_collaboration
+    collaborations.where.not(frequency: 0).last
+  end
+
+  def single_collaboration
+    collaborations.where(frequency: 0).last
+  end
+
+  def pending_single_collaborations
+    collaborations.where(frequency: 0).where(status:2)
   end
 
   private

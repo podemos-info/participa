@@ -443,10 +443,10 @@ ActiveAdmin.register User do
   end
 
   sidebar :collaborations, only: :show do
-    if user.collaboration
-      attributes_table_for user.collaboration do
+    if user.recurrent_collaboration
+      attributes_table_for user.recurrent_collaboration do
         row :link do
-          link_to "Ver ficha", admin_collaboration_path(user.collaboration)
+          link_to "Ver ficha", admin_collaboration_path(user.recurrent_collaboration)
         end
         row :amount do |collaboration|
           number_to_currency ( collaboration.amount / 100.0 )

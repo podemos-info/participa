@@ -248,7 +248,7 @@ ActiveAdmin.register MicrocreditLoan do
       if m.save
         flash[:notice] = "El microcrédito ha sido modificado y ahora se cuenta en la web."
       else
-        flash[:warning] = "El microcrédito no no ha sido modificado: #{m.errors.messages.to_s}"
+        flash[:alert] = "El microcrédito no ha sido modificado: #{m.errors.messages.to_s}"
       end
     end
     redirect_to :back
@@ -266,7 +266,7 @@ ActiveAdmin.register MicrocreditLoan do
     if res
       flash[:notice] = "La recepción del microcrédito ha sido confirmada."
     else
-      flash[:warning] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
+      flash[:alert] = "La recepción del microcrédito no ha sido confirmada: #{m.errors.messages.to_s}"
     end
     redirect_to :back
   end
@@ -276,7 +276,7 @@ ActiveAdmin.register MicrocreditLoan do
     if m.discard!
       flash[:notice] = "El microcrédito ha sido descartado."
     else
-      flash[:warning] = "El microcrédito no ha sido descartado: #{m.errors.messages.to_s}"
+      flash[:alert] = "El microcrédito no ha sido descartado: #{m.errors.messages.to_s}"
     end
     redirect_to :back
   end
