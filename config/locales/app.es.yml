@@ -349,6 +349,8 @@ es:
 De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Protección de Datos, la cancelación dará lugar al bloqueo de los datos, conservándose únicamente a disposición de las Administraciones públicas, Jueces y Tribunales, para la atención de las posibles responsabilidades nacidas del tratamiento, durante el plazo de prescripción de éstas. Cumplido el citado plazo se procederá a la supresión de los datos.
 </p>
 "
+      newsletters_suscription: "Suscripción a boletines"
+      newsletters_connection_not_active: "No hemos podido acceder a la información sobre su suscripción a nuestros boletines, vuelva a intentarlo más tarde."
     devise:
       mailer:
         hello: "Hola"

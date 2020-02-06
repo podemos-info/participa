@@ -36,6 +36,11 @@
                 <span><%= t("podemos.user.cancel_account") %></span>
               </a>
             </li>
+            <li>
+              <a href="#newsletters-suscription" class="js-change-tab">
+                <span><%= t("podemos.user.newsletters_suscription") %></span>
+              </a>
+            </li>
           </ul>
         </nav><%#!--.submenu--%>
 
@@ -60,6 +65,9 @@
           <% end %>
           <div id="cancel-account" class="invisible js-personal-content">
             <%= render partial: 'cancel_account' %>
+          </div>
+          <div id="newsletters-suscription" class="invisible js-personal-content">
+            <%= render partial: 'newsletters_suscription' %>
           </div>
         </div>
       </div>
