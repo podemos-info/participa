@@ -816,6 +816,10 @@ class User < ActiveRecord::Base
     collaborations.where(frequency: 0).where(status:2)
   end
 
+  def sendy_url
+    url = "#{Rails.application.secrets.users["sendy_page"]}?zaz="
+    url+= encrypt_data(email)
+  end
   private
 
   def last_vote_location_change
@@ -861,5 +865,19 @@ class User < ActiveRecord::Base
   
   def check_unconfirmed_phone
     self[:unconfirmed_phone] = nil if self.unconfirmed_phone.present? && self.country_changed?
+  end
+
+  def encrypt_data(data)
+    cipher_type = Rails.application.secrets.users["cipher_type"]
+    key = Rails.application.secrets.users["cipher_key"]
+    iv = Rails.application.secrets.users["cipher_iv"]
+
+    cipher = OpenSSL::Cipher.new(cipher_type)
+    cipher.encrypt
+    cipher.key=key
+    cipher.iv=iv
+
+    encrypted = cipher.update(data)+ cipher.final
+    Base64.encode64([encrypted].pack('m').chomp)
   end
 end
