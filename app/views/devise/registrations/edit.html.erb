@@ -37,6 +37,11 @@
               </a>
             </li>
             <li>
+              <a href="#wants-info-by-sms" class="js-change-tab">
+                <span><%= t("podemos.user.wants_info_by_sms") %></span>
+              </a>
+            </li>
+            <li>
               <a href="#cancel-account" class="js-change-tab">
                 <span><%= t("podemos.user.cancel_account") %></span>
               </a>
@@ -68,6 +73,9 @@
           </div>
           <div id="newsletters-suscription" class="invisible js-personal-content">
             <%= render partial: 'newsletters_suscription' %>
+          </div>
+          <div id="wants-info-by-sms" class="invisible js-personal-content">
+            <%= render partial: 'wants_info_by_sms' %>
           </div>
         </div>
       </div>
