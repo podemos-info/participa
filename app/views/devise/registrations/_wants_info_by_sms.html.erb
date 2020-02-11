@@ -1,0 +1,16 @@
+<%= content_tag(:h2, t("podemos.user.wants_info_by_sms"))%>
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)+"#wants-info-by-sms", html: {method: :put}) do |f| %>
+  <div class="inputlabel-box">
+    <% if resource.errors.include?(:born_at) %>
+      <%= field_notice_box %>
+    <% end %>
+    <%= f.check_box :wants_information_by_sms, class: 'checkbox' %>
+    <%= f.label :label_wants_information_by_sms, class: 'text-xl' do %>
+      <%= t 'podemos.user.wants_info_by_sms_text'%>
+    <% end %>
+    <p></p>
+    <p class="text-xl">(Si desactivas la casilla, dejarás de recibir SMS de tipo informativo, sobre votaciones en curso o sobre eventos de Podemos, pero seguirás recibiendo los SMS que utilizamos como medida de seguridad para acceder a las cabinas de votación)</p>
+  </div>
+<% end %>
+
+

@@ -351,6 +351,8 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
 "
       newsletters_suscription: "Suscripción a boletines"
       newsletters_connection_not_active: "No hemos podido acceder a la información sobre su suscripción a nuestros boletines, vuelva a intentarlo más tarde."
+      wants_info_by_sms: "Recepción de SMS"
+      wants_info_by_sms_text: "Deseo recibir notificaciones por SMS"
     devise:
       mailer:
         hello: "Hola"
