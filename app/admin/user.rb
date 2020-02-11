@@ -22,7 +22,7 @@ ActiveAdmin.register User do
   scope :verified
   scope :not_verified
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle, :wants_information_by_sms
 
   index download_links: -> { Rails.env.production? && current_user.is_admin? && current_user.superadmin? } do
     selectable_column
@@ -168,6 +168,7 @@ ActiveAdmin.register User do
       row :remember_created_at
       row :deleted_at
       row :participation_team_at
+      row :wants_information_by_sms
     end
 
     panel "Votos" do

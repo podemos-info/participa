@@ -175,6 +175,7 @@ class User < ActiveRecord::Base
   scope :has_collaboration_bank_international, -> { joins(:collaborations).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
   scope :has_circle, -> { where("circle IS NOT NULL") }
+  scope :wants_information_by_sms, -> {where(wants_information_by_sms: true)}
 
   ransacker :vote_province, formatter: proc { |value|
     values = value.split(",")

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190401091418) do
+ActiveRecord::Schema.define(version: 20200210095045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -608,12 +608,12 @@ ActiveRecord::Schema.define(version: 20190401091418) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                    default: "", null: false
-    t.string   "encrypted_password",       default: "", null: false
+    t.string   "email",                    default: "",   null: false
+    t.string   "encrypted_password",       default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",            default: 0,  null: false
+    t.integer  "sign_in_count",            default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -641,7 +641,7 @@ ActiveRecord::Schema.define(version: 20190401091418) do
     t.datetime "confirmation_sms_sent_at"
     t.datetime "sms_confirmed_at"
     t.boolean  "has_legacy_password"
-    t.integer  "failed_attempts",          default: 0,  null: false
+    t.integer  "failed_attempts",          default: 0,    null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "circle"
@@ -649,11 +649,12 @@ ActiveRecord::Schema.define(version: 20190401091418) do
     t.string   "unconfirmed_phone"
     t.boolean  "wants_participation"
     t.string   "vote_town"
-    t.integer  "flags",                    default: 0,  null: false
+    t.integer  "flags",                    default: 0,    null: false
     t.datetime "participation_team_at"
     t.datetime "sms_check_at"
     t.string   "vote_district"
     t.string   "gender"
+    t.boolean  "wants_information_by_sms", default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
