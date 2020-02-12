@@ -37,7 +37,7 @@ SecureHeaders::Configuration.default do |config|
     script_src: ["'self'", "'unsafe-inline'"],
     style_src: ["'self'", "'unsafe-inline'"],
     # upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
-    report_uri: %w(/csp-report)
+    #report_uri: %w(/csp-report)
   }
   # # This is available only from 3.5.0; use the `report_only: true` setting for 3.4.1 and below.
   # config.csp_report_only = config.csp.merge({
