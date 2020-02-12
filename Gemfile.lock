@@ -393,8 +393,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    secure_headers (2.2.1)
-      user_agent_parser
+    secure_headers (6.3.0)
     simple_captcha2 (0.3.4)
       rails (>= 4.1)
     simplecov (0.16.1)
@@ -450,7 +449,6 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    user_agent_parser (2.2.0)
     validate_url (1.0.2)
       activemodel (>= 3.0.0)
       addressable

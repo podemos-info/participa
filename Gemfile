@@ -44,7 +44,7 @@ gem 'ffi-icu'
 gem 'unicode'
 gem 'rack-openid'
 gem 'ruby-openid'
-gem 'secure_headers'
+gem "secure_headers"
 gem 'minitest-rails'
 gem 'rake-progressbar'
 gem 'rails_autolink'
