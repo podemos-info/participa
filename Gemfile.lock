@@ -24,7 +24,7 @@ GEM
     actionpack (4.2.11.1)
       actionview (= 4.2.11.1)
       activesupport (= 4.2.11.1)
-      rack (~> 1.6)
+      rack (>= 1.6.12)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
