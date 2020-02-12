@@ -371,7 +371,7 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.0)
-    ruby-openid (2.7.0)
+    ruby-openid (2.9.2)
     ruby-prof (0.15.8)
     ruby-progressbar (1.7.5)
     rubypress (1.2.0)
