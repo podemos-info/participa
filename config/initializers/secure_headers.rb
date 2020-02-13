@@ -26,7 +26,7 @@ SecureHeaders::Configuration.default do |config|
     # block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
     # child_src: %w('self'), # if child-src isn't supported, the value for frame-src will be set.
     # connect_src: %w(https: 'self'),
-    # font_src: %w('self' data:),
+    font_src: %w('self' data: 'fonts.googleapis.com'),
     # form_action: %w('self' github.com),
     # frame_ancestors: %w('none'),
     # img_src: %w(mycdn.com data:),
@@ -34,8 +34,8 @@ SecureHeaders::Configuration.default do |config|
     # media_src: %w(utoob.com),
     # object_src: %w('self'),
     # plugin_types: %w(),
-    script_src: ["'self'", "'unsafe-inline'"],
-    style_src: ["'self'", "'unsafe-inline'"],
+    script_src: ["'self'", "'unsafe-inline'", "'forms.podemos.info'", "'forms.podemos-dev.info'", "'sendy.podemos.info'"],
+    style_src: ["'self'", "'unsafe-inline'", "'forms.podemos.info'", "'forms.podemos-dev.info'", "'sendy.podemos.info'"],
     # upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
     #report_uri: %w(/csp-report)
   }
