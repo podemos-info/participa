@@ -34,8 +34,8 @@ SecureHeaders::Configuration.default do |config|
     # media_src: %w(utoob.com),
     # object_src: %w('self'),
     # plugin_types: %w(),
-    script_src: ["'self'", "'unsafe-inline'", Rails.application.secrets.forms['domain'], "agora.podemos.info", "*.nvotes.com"],
-    style_src: ["'self'", "'unsafe-inline'", Rails.application.secrets.forms['domain'], "agora.podemos.info", "*.nvotes.com"],
+    script_src: ["'self'", "'unsafe-inline'", Rails.application.secrets.forms['domain'], "agora.podemos.info", "pode-30.nvotes.com"],
+    style_src: ["'self'", "'unsafe-inline'", Rails.application.secrets.forms['domain'], "agora.podemos.info", "pode-30.nvotes.com"],
     # upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
     #report_uri: %w(/csp-report)
   }
