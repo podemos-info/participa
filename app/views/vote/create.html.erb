@@ -1,4 +1,10 @@
 <% content_for :title, "Votación de #{ election.full_title_for current_user }" %>
+<% if current_user.vote_autonomy_code == "c_10"
+    force_language = "gl"
+   else
+    force_language = "es"
+   end
+%>
 
 <script>
     function getCastHmac(auth_data, callback) {
@@ -15,7 +21,7 @@
 </script>
 
 <div class="booth_container">
-<a class="agoravoting-voting-booth" href="<%= election.server_url %>booth/<%= @scoped_agora_election_id %>/vote?lang=es" data-authorization-funcname="getCastHmac">Votar con Agora Voting</a>
+<a class="agoravoting-voting-booth" href="<%= election.server_url %>booth/<%= @scoped_agora_election_id %>/vote?lang=<%= force_language %>" data-authorization-funcname="getCastHmac">Votar con Agora Voting</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="<%= election.server_url %>admin/avWidgets.min.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","agoravoting-widgets-js");</script>
 </div>
 <% if election.info_url.present? && election.info_text.present? %>

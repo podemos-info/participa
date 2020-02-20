@@ -16,6 +16,13 @@ SecureHeaders::Configuration.default do |config|
   config.referrer_policy = "origin-when-cross-origin"
   config.clear_site_data = %w(storage) # cookies breaks login on mobile, cache seems to hang mobile chrome browser
 
+  trusted_src = ["'self'", "'unsafe-inline'"]
+  trusted_src.push Rails.application.secrets.forms['domain']
+  Rails.application.secrets.agora["servers"].each do |id, server|
+    trusted_src.push server['url'].gsub('https://', '').gsub('http://','').gsub('/','')
+  end
+  trusted_src.uniq!
+
   # TO-DO: review this
   config.csp = {
     # "meta" values. these will shape the header, but the values are not included in the header.
@@ -34,8 +41,8 @@ SecureHeaders::Configuration.default do |config|
     # media_src: %w(utoob.com),
     # object_src: %w('self'),
     # plugin_types: %w(),
-    script_src: ["'self'", "'unsafe-inline'", Rails.application.secrets.forms['domain']],
-    style_src: ["'self'", "'unsafe-inline'", Rails.application.secrets.forms['domain']],
+    script_src: trusted_src,
+    style_src: trusted_src
     # upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
     #report_uri: %w(/csp-report)
   }
