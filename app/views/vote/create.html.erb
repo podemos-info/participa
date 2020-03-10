@@ -1,6 +1,8 @@
 <% content_for :title, "Votación de #{ election.full_title_for current_user }" %>
 <% if current_user.vote_autonomy_code == "c_10"
     force_language = "gl"
+   elsif current_user.vote_autonomy_code == "c_07"
+    force_language = "ca"
    else
     force_language = "es"
    end
