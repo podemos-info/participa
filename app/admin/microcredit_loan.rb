@@ -2,7 +2,7 @@ ActiveAdmin.register MicrocreditLoan do
   actions :all, :except => [:destroy]
   config.per_page = 100
 
-  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :returned_at, :transferred_to_id, :iban_account, :iban_bic
+  permit_params :user_id, :microcredit_id, :document_vatid, :amount, :user_data, :created_at, :confirmed_at, :counted_at, :discarded_at, :returned_at, :transferred_to_id, :iban_account, :iban_bic, :wants_information_by_email
 
   config.sort_order = 'updated_at_desc'
   menu :parent => "Microcredits"
@@ -89,6 +89,7 @@ ActiveAdmin.register MicrocreditLoan do
         end
       end
       row :email
+      row :wants_information_by_email
       row :user_data do
         attributes_table_for microcredit_loan do
           row :first_name
@@ -144,6 +145,7 @@ ActiveAdmin.register MicrocreditLoan do
       f.input :iban_account
       f.input :iban_bic
       f.input :document_vatid
+      f.input :wants_information_by_email
       f.input :user_data
       f.input :confirmed_at
       f.input :counted_at
@@ -288,6 +290,7 @@ ActiveAdmin.register MicrocreditLoan do
     end
     column :document_vatid
     column :email
+    column :wants_information_by_email
     column :first_name
     column :last_name
     column :born_at do |loan|
