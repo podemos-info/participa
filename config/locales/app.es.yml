@@ -442,6 +442,8 @@ y con la frecuencia de pago que ha indicado en el formulario.
 
 Los adeudos domiciliados y los cargos en tarjeta se realizarán entre el día 1 y 15 de cada
 mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
+      save_changes: "Guardar cambios"
+      save_new_collaboration: "Guardar Colaboración económica"
     registration:
       message:
         dni: "El formato deben ser 8 números y una letra, sin guiones ni espacios."
