@@ -18,10 +18,12 @@ SecureHeaders::Configuration.default do |config|
 
   trusted_src = ["'self'", "'unsafe-inline'"]
   trusted_src.push Rails.application.secrets.forms['domain']
-  trusted_src.push ('www.googletagmanager.com')
+  Rails.application.secrets[:secure_sites].each do |site|
+    trusted_src.push site
+  end if Rails.application.secrets[:secure_sites].present?
   Rails.application.secrets.agora["servers"].each do |id, server|
     trusted_src.push server['url'].gsub('https://', '').gsub('http://','').gsub('/','')
-  end
+  end if Rails.application.secrets.agora["servers"].present?
   trusted_src.uniq!
 
   # TO-DO: review this
