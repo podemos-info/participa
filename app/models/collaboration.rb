@@ -191,7 +191,7 @@ class Collaboration < ActiveRecord::Base
 
   def calculate_iban
     iban = nil
-    if iban_account.empty? && ccc_account.present?
+    if iban_account.blank? && ccc_account.present?
       ccc = self.ccc_full
       iban = 98-("#{ccc}142800".to_i % 97)
       iban = "ES#{iban.to_s.rjust(2,"0")}#{ccc}"

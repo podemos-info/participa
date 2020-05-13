@@ -478,7 +478,7 @@ EOL
 
 private
   def _sign key, data
-    des3 = OpenSSL::Cipher::Cipher.new('des-ede3-cbc')
+    des3 = OpenSSL::Cipher.new('des-ede3-cbc')
     des3.encrypt
     des3.key = Base64.strict_decode64(self.redsys_secret("secret_key"))
     des3.iv = "\0"*8

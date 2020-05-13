@@ -15,7 +15,7 @@ module ActiveRecord
     end
   
     def build_cipher(type, password)
-      cipher = OpenSSL::Cipher::Cipher.new('DES-EDE3-CBC').send(type)
+      cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').send(type)
       cipher.pkcs5_keyivgen(password)
       cipher
     end
