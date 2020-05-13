@@ -18,6 +18,7 @@ SecureHeaders::Configuration.default do |config|
 
   trusted_src = ["'self'", "'unsafe-inline'"]
   trusted_src.push Rails.application.secrets.forms['domain']
+  trusted_src.push ('www.googletagmanager.com')
   Rails.application.secrets.agora["servers"].each do |id, server|
     trusted_src.push server['url'].gsub('https://', '').gsub('http://','').gsub('/','')
   end
@@ -33,7 +34,7 @@ SecureHeaders::Configuration.default do |config|
     # block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
     # child_src: %w('self'), # if child-src isn't supported, the value for frame-src will be set.
     # connect_src: %w(https: 'self'),
-    font_src: %w('self' data: 'fonts.googleapis.com'),
+    font_src: %w('self' data: 'https://fonts.googleapis.com'),
     # form_action: %w('self' github.com),
     # frame_ancestors: %w('none'),
     # img_src: %w(mycdn.com data:),
