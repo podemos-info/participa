@@ -110,12 +110,9 @@ ActiveAdmin.register MicrocreditLoan do
       row :discarded_at
       row :returned_at
       if microcredit_loan.renewable?
-        next_campaign = Microcredit.non_finished.first
-        if next_campaign
-          row :renewal_link do
-            link_to("Enlace a renovar microcrédito para campaña #{next_campaign.title}", loans_renewal_microcredit_loan_path(next_campaign.id, microcredit_loan.id, microcredit_loan.unique_hash))
-          end
-        end
+        row :renewal_link do
+            link_to("Enlace a renovar microcrédito para campañas activas", renewal_microcredit_loan_path(microcredit_loan.id, microcredit_loan.unique_hash))
+        end if Microcredit.non_finished.any?
       end
       if microcredit_loan.transferred_to
         row :transferred_to do |loan|
@@ -329,8 +326,8 @@ ActiveAdmin.register MicrocreditLoan do
 
     column :renewal_link do |loan|
       if loan.renewable?
-        next_campaign = Microcredit.non_finished.first
-        loans_renewal_microcredit_loan_url(next_campaign.id, loan.id, loan.unique_hash) if next_campaign
+        next_campaign = Microcredit.non_finished
+        renewal_microcredit_loan_url(loan.id, loan.unique_hash) if next_campaign
       end
     end
     column :microcredit_option_name do |loan|
