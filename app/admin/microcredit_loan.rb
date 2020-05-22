@@ -111,7 +111,7 @@ ActiveAdmin.register MicrocreditLoan do
       row :returned_at
       if microcredit_loan.renewable?
         row :renewal_link do
-            link_to("Enlace a renovar microcrédito para campañas activas}", renewal_microcredit_loan_path(microcredit_loan.id, microcredit_loan.unique_hash))
+            link_to("Enlace a renovar microcrédito para campañas activas", renewal_microcredit_loan_path(microcredit_loan.id, microcredit_loan.unique_hash))
         end if Microcredit.non_finished.any?
       end
       if microcredit_loan.transferred_to
