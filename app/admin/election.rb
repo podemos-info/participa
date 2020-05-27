@@ -18,6 +18,10 @@ ActiveAdmin.register Election do
     actions
   end
 
+  sidebar "Modificar la versión de todos los territorios implicados ", :only => :show do
+    render('set_election_location_versions')
+  end
+
   filter :title
   filter :agora_election_id
   filter :user_created_at_max
@@ -65,6 +69,12 @@ ActiveAdmin.register Election do
           column "Territorio" do |el|
             el.territory
           end
+          column "version" do |el|
+            el.agora_version
+          end
+          column "version nueva" do |el|
+            el.new_agora_version
+          end
           column "Cabina de votación" do |el|
             span link_to el.link, el.link
             br
@@ -92,6 +102,16 @@ ActiveAdmin.register Election do
     end
 
     active_admin_comments
+  end
+
+  member_action :set_election_location_versions, :method => :post do
+    version_locations = params["set_election_location_versions"]["version"]
+    @election = Election.find_by_id(params["id"].to_i)
+    @election.election_locations.each do |el|
+      el.update(agora_version: version_locations,new_agora_version: version_locations)
+    end
+
+    redirect_to(admin_election_path(@election.id),flash: {notice: "Se ha actualizado correctamente la versión en todos los territorios de la votación" })
   end
 
   member_action :download_voting_definition do
