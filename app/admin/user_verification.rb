@@ -238,8 +238,8 @@ end
       $redis = $redis || Redis::Namespace.new("podemos_queue_validator", :redis => Redis.new)
       ids = $redis.hkeys :processing
       ids.each do |i|
-        verification = UserVerification.find(i)
-        $redis.hdel(:processing, i) if verification && !verification.active?
+        verification = UserVerification.find_by_id(i)
+        $redis.hdel(:processing, i) if !verification || (verification && !verification.active?)
       end
     end
 
