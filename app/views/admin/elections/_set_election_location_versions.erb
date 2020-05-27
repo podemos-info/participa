@@ -1,0 +1,10 @@
+<%= semantic_form_for :set_election_location_versions, :url => { :action => "set_election_location_versions" } do |f| %>
+  <%= f.number_field(:version, value:0, in: 0..99, step: 1) %>
+  <p style="margin-top:10px;">Se asignará la versión introducida a todos los territorios de esta votación</p>
+
+  <div class="buttons">
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, label: "Modificar versión" %>
+    <% end %>
+  </div>
+<% end %>
