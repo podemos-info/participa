@@ -1,6 +1,8 @@
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
+      <% content_for :title, "Herramientas de participación ciudadana" %>
+      <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
       <% if @elections.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
