@@ -327,6 +327,9 @@ es:
     election:
       no_location: "No puedes participar en esta votación."
       close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
+    no_election:
+      header: "No hay votaciones activas en este momento"
+      message: "Gracias por tu confianza."
     other_locales: "Otros idiomas"
     home_address: "Domicilio"
     unauthorized: "No tienes permisos para acceder a esa sección"
@@ -984,6 +987,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       tweet_campaign: "Si quieres ayudarnos a difundir esta campaña, <a href='http://twitter.com/intent/tweet?text=He%20suscrito%20un%20microcr%C3%A9dito%20%{twitter_account}%20para%20financiar%20la%20campa%C3%B1a.%20Apoya%20el%20cambio%20en%20%{main_url}%20%23YoInviertoEnUnFuturoMejor'>compártelo en Twitter</a>."
       subscribe: "Suscribir"
     loans_renewal:
+      renew_button: "Renueva tu microcrédito"
       renew: "Renovar"
       renewal_terms_message: "He leído y acepto las condiciones particulares de extinción del anterior microcrédito y la renovación de la suscripción."
       renewal_terms_link: "Condiciones particulares sobre extinción de microcréditos y depósito para nueva suscripción."

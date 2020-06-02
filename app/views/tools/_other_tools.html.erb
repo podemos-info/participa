@@ -1,5 +1,3 @@
-<% content_for :title, "Herramientas de participación ciudadana" %>
-<%= content_tag(:h2, "Herramientas de participación ciudadana") %>
 <% if current_user.any_microcredit_renewable? %>
 <%=render partial: "microcredit_renewal" %>
 <%end%>
@@ -23,19 +21,19 @@
         </div><!--.box-tool-->
       </li>
     <%end%>
-    <li class="box-tool-large">
+    <!--li class="box-tool-large">
       <div class="box-tool-large">
         <h3>CENSO DE MILITANTES</h3>
         <div class="tool-text" style="padding-bottom: 1em;">
             <p>Si además de ser simpatizante militas en algún espacio de Podemos, regístrate aquí.
             <br/> Para más información dirígete a la Secretaría de Organización de tu comunidad autónoma.</p>
 
-        </div><!--.tool-text-->
+        </div--><!--.tool-text-->
 
-        <div class="buttonbox">
-            <%= link_to "Regístrate aquí", "https://participa.podemos.info/registro-censo-militantes", class: "button" %>
+        <!--div class="buttonbox">
+            < %= link_to "Regístrate aquí", "https://participa.podemos.info/registro-censo-militantes", class: "button" %>
         </div>
-      </div><!--.box-tool-->
-    </li>
+      </div--><!--.box-tool-->
+    <!--/li-->
   </ul>
 </section><!--.tools-->

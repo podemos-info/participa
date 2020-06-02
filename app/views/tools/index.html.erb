@@ -1,6 +1,8 @@
 <div class="content-content cols">
   <div class="row">
     <div class="col-b-4a12">
+      <% content_for :title, "Herramientas de participación ciudadana" %>
+      <%= content_tag(:h2, "Herramientas de participación ciudadana") %>
       <% if @elections.count > 0 %>
         <%= render partial: 'elections' %>
       <% else %>
@@ -8,12 +10,12 @@
           <%= render partial: 'election_upcoming', locals: { election: @upcoming_elections[-1] } %>
         <% elsif @finished_elections.count > 0 %>
           <%= render partial: 'election_finished', locals: { election: @finished_elections[-1] } %>
-        <% elsif Rails.env.development? %>
+        <!--% elsif Rails.env.development? %-->
           <!-- %= render partial: "other_tools" % -->
         <% elsif Date.today < Date.civil(2015,03,20) %>
           <%= render partial: 'demo' %>
         <% else %>
-
+          <%= render partial: 'no_elections' %>
         <% end %>
         <%= render partial: "other_tools" %>
       <% end %>
