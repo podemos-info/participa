@@ -190,7 +190,7 @@ end
             a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
               image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
             end
-            f.input "#{attachment}_vatid".to_sym, :as => :file , required: false if resource.status != 1
+            f.input "#{attachment}_vatid".to_sym, :as => :file , required: false unless UserVerification.statuses[resource.status] == UserVerification.statuses[:accepted]
             div class: "rotate" do
               span "ROTAR"
               [0, 90, 180, 270].reverse.each do |degrees|
