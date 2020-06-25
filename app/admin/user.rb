@@ -22,7 +22,7 @@ ActiveAdmin.register User do
   scope :verified
   scope :not_verified
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle, :wants_information_by_sms
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle_original_code, :wants_information_by_sms
 
   index download_links: -> { Rails.env.production? && current_user.is_admin? && current_user.superadmin? } do
     selectable_column
@@ -139,7 +139,9 @@ ActiveAdmin.register User do
         end
       end
       row :admin
-      row :circle
+      row "Círculo" do #row "#{t('activerecord.attributes.user.circle')}" do
+        :circle_original_code
+      end
       row :created_at
       row :updated_at
       row :confirmation_sent_at
@@ -233,7 +235,7 @@ ActiveAdmin.register User do
   filter :postal_code
   filter :province
   filter :country
-  filter :circle
+  filter :circle_original_code
   filter :vote_autonomy_in, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse), label: "Vote autonomy"
   filter :vote_province_in, as: :select, collection: Carmen::Country.coded("ES").subregions.map{|x|[x.name, "p_#{(x.index).to_s.rjust(2,"0")}"]}, label: "Vote province"
   filter :vote_island_in, as: :select, collection: Podemos::GeoExtra::ISLANDS.values.uniq.map(&:reverse), label: "Vote island"
@@ -275,7 +277,7 @@ ActiveAdmin.register User do
     column :vote_town
     column :current_sign_in_ip
     column :last_sign_in_ip
-    column :circle
+    column :circle_original_code
     column :created_at
     column :deleted_at
   end
@@ -541,7 +543,7 @@ ActiveAdmin.register User do
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Círculo", "Email", "Equipos"]
       User.participation_team.where("participation_team_at>?", date).each do |user|
-        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle, user.email, user.participation_team.map { |team| team.name }.join(",") ]
+        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle_original_code, user.email, user.participation_team.map { |team| team.name }.join(",") ]
       end
     end
 

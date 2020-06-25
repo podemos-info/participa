@@ -136,7 +136,7 @@
 
   <fieldset>
     <div class="inputlabel-box">
-      <% if resource.errors.include?(:circle) %>
+      <% if resource.errors.include?(:circle_original_code) %>
         <%= field_notice_box %>
       <% end %>
       <%= label :user, :circle_original_code, class: "control-label", required: false do %>

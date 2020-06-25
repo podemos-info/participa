@@ -104,7 +104,7 @@ class PodemosImport
     u.sms_confirmed_at = now
     u.has_legacy_password = true
     u.created_at = row[22][1].to_datetime
-    u.circle = row[15][1].nil? ? row[14][1] : row[15][1]
+    u.old_circle_data = row[15][1].nil? ? row[14][1] : row[15][1]
     u.save
     unless u.valid?
       PodemosImport.invalid_record(u, row)
