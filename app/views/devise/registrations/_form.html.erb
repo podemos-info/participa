@@ -135,6 +135,18 @@
   </fieldset>
 
   <fieldset>
+    <div class="inputlabel-box">
+      <% if resource.errors.include?(:circle) %>
+        <%= field_notice_box %>
+      <% end %>
+      <%= label :user, :circle_original_code, class: "control-label", required: false do %>
+        <%=t("activerecord.attributes.user.circle") %>
+      <% end %>
+      <%= select_tag "user[circle_original_code]", options_from_collection_for_select(get_circles, "original_code", "original_name", @user[:circle_original_code]), { disabled: !resource.can_change_circle? && !@user.is_admin?, required: false, data: {allowClear: true},include_blank:true } %>
+    </div>
+  </fieldset>
+
+  <fieldset>
 
     <% if action == "new" %>
     <div class="inputlabel-box">

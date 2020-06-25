@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200416090947) do
+ActiveRecord::Schema.define(version: 20200625113025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 20200416090947) do
 
   add_index "categories_posts", ["category_id"], name: "index_categories_posts_on_category_id", using: :btree
   add_index "categories_posts", ["post_id"], name: "index_categories_posts_on_post_id", using: :btree
+
+  create_table "circles", force: :cascade do |t|
+    t.string   "original_name"
+    t.string   "original_code"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "collaborations", force: :cascade do |t|
     t.integer  "user_id"
@@ -645,7 +652,7 @@ ActiveRecord::Schema.define(version: 20200416090947) do
     t.integer  "failed_attempts",          default: 0,    null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "circle"
+    t.string   "old_circle_data"
     t.datetime "deleted_at"
     t.string   "unconfirmed_phone"
     t.boolean  "wants_participation"
@@ -656,6 +663,8 @@ ActiveRecord::Schema.define(version: 20200416090947) do
     t.string   "vote_district"
     t.string   "gender"
     t.boolean  "wants_information_by_sms", default: true
+    t.string   "circle_original_code"
+    t.datetime "circle_changed_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

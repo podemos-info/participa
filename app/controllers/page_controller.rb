@@ -3,7 +3,7 @@ class PageController < ApplicationController
   include ERB::Util
 
   before_action :authenticate_user!, except: [ :privacy_policy, :faq, :guarantees, :funding, :guarantees_form, :show_form,
-                                              :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
+                                              :old_circles_data_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :count_votes,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
@@ -55,7 +55,7 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Comunicación a Comisiones de Garantías Democráticas", url: form_url(77), return_path: guarantees_path }
   end
 
-  def circles_validation
+  def old_circles_data_validation
     render :form_iframe, locals: { title: "Validación de Círculos", url: form_url(45) }
   end
 

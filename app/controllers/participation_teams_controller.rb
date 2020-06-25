@@ -34,7 +34,7 @@ class ParticipationTeamsController < InheritedResources::Base
 	end
 
 	def update_user
-		current_user.update_attribute :circle, params[:user][:circle]
+		current_user.update_attribute :old_circle_data, params[:user][:old_circle_data]
 		redirect_to participation_teams_path
 	end
 end

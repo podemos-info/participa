@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 
   acts_as_paranoid
   has_paper_trail
-
+  has_one :circle
   has_many :votes, dependent: :destroy
   has_many :paper_authority_votes, dependent: :nullify, class_name: "Vote", inverse_of: :paper_authority
 
@@ -631,6 +631,7 @@ class User < ActiveRecord::Base
         self.vote_town = self.town
         self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
+      self.circle_changed_at = Time.now if self.circle_original_code_changed?
     end
   end
 
@@ -821,6 +822,14 @@ class User < ActiveRecord::Base
     url = "#{Rails.application.secrets.users["sendy_page"]}?zaz="
     url+= encrypt_data(email)
   end
+
+  def can_change_circle?
+    # use database version if vote_town has changed
+    return true unless self.circle_changed_at.present?
+    max_days = Rails.application.secrets.users["allow_circle_changed_at_days"].present? ? Rails.application.secrets.users["allow_circle_changed_at_days"].to_i.days: 365
+    self.circle_changed_at <= (Time.now - max_days) or !self.persisted?
+  end
+
   private
 
   def last_vote_location_change

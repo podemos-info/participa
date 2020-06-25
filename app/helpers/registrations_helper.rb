@@ -31,4 +31,8 @@ module RegistrationsHelper
       p.subregions.sort &RegistrationsHelper.region_comparer
     end
   end
+
+  def get_circles
+    Circle.all.sort
+  end
 end
