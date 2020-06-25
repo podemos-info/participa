@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
   attr_accessor :skip_before_save
 
-  scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
+  scope :all_with_deleted, -> { where "deleted_at IS null OR deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
   scope :created, -> { where(deleted_at: nil)  }
   scope :deleted, -> { where.not(deleted_at: nil) }
