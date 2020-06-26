@@ -35,7 +35,7 @@ class Collaboration < ActiveRecord::Base
   validates :iban_account, presence: true, if: :has_iban_account?
   validate :validates_iban, if: :has_iban_account?
 
-  AMOUNTS = {"5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
+  AMOUNTS = {"3 €" => 300, "5 €" => 500, "10 €" => 1000, "20 €" => 2000, "30 €" => 3000, "50 €" => 5000, "100 €" => 10000, "200 €" => 20000, "500 €" => 50000}
   FREQUENCIES = {"Puntual" => 0,"Mensual" => 1, "Trimestral" => 3, "Anual" => 12}
   STATUS = {"Sin pago" => 0, "Error" => 1, "Sin confirmar" => 2, "OK" => 3, "Alerta" => 4,"Migración" =>9}
 
@@ -74,6 +74,7 @@ class Collaboration < ActiveRecord::Base
   before_save do
     self.iban_account.upcase! if self.iban_account.present?
   end
+  after_commit :verify_user_militant_status
 
   def only_have_single_collaborations?
     (self.frequency == 0) || :skip_queries_validations
@@ -588,5 +589,10 @@ class Collaboration < ActiveRecord::Base
 
   def self.update_paid_unconfirmed_bank_collaborations orders
     Collaboration.unconfirmed.joins(:order).merge(orders).update_all(status: 3)
+  end
+
+  def verify_user_militant_status
+    u = self.user
+    u.update(militant: u.still_militant?)
   end
 end
