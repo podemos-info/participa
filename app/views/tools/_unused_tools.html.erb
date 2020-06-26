@@ -1,0 +1,35 @@
+<section class="tools">
+  <ul>
+    <% user_verification = UserVerification.where(user_id: current_user.id) %>
+    <% if (current_user && current_user.has_future_verified_elections? && (!current_user.verified || user_verification.none? || (user_verification && !user_verification.accepted))) %>
+      <li class="box-tool-large">
+        <div class="box-tool-large">
+          <h3>VERIFÍCATE AQUÍ</h3>
+          <div class="tool-text" style="padding-bottom: 1em;">
+            <p>Recuerda que para tomar parte en las votaciones de Podemos antes tienes que haber verificado tu identidad.
+              <br/>Puedes hacerlo ahora, solo te llevará 2 minutos. ¿A qué esperas? ¡Identifícate con Podemos y participa!</p>
+
+          </div><!--.tool-text-->
+
+          <div class="buttonbox">
+            <%= link_to "Verifícate aquí", new_user_verification_path, class: "button" %>
+          </div>
+        </div><!--.box-tool-->
+      </li>
+    <%end%>
+    <!--li class="box-tool-large">
+      <div class="box-tool-large">
+        <h3>CENSO DE MILITANTES</h3>
+        <div class="tool-text" style="padding-bottom: 1em;">
+            <p>Si además de ser simpatizante militas en algún espacio de Podemos, regístrate aquí.
+            <br/> Para más información dirígete a la Secretaría de Organización de tu comunidad autónoma.</p>
+
+        </div--><!--.tool-text-->
+
+    <!--div class="buttonbox">
+        < %= link_to "Regístrate aquí", "https://participa.podemos.info/registro-censo-militantes", class: "button" %>
+    </div>
+  </div--><!--.box-tool-->
+    <!--/li-->
+  </ul>
+</section><!--.tools-->
