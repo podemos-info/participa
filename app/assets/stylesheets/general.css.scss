@@ -185,11 +185,11 @@ home
   background-position: center;
 }
 .intro{
-  background:image-url("bg.333-op55.png") 0 0 repeat;
+  background-repeat: repeat;
+  background-position: 0 0;
   width:auto;
   padding:1.5em 0 0.5em;
   color:#fff;
-  position:visible;
   display:block;
 }
 .intro p.total{
@@ -202,7 +202,8 @@ home
   font-size:1.25em;
 }
 .login-box{
-  background:image-url("bg.purple-op80.png") 0 0 repeat;
+  background-repeat: repeat;
+  background-position: 0 0;
   width:auto;
   padding:1.5em 4%;
   color:#fff;
@@ -313,7 +314,8 @@ footer
 .footer-contact .languages{
   width:auto;
   display:inline-block;
-  background:image-url("bg.purple-divide-h.png") 0 0 repeat-x;
+  background-repeat: repeat-x;
+  background-position: 0 0;
   margin-top:1em;
   padding-top:1em;
 }
@@ -331,7 +333,8 @@ footer
   color:#c3a6cf;
 }
 .disclaimer-links{
-  background:image-url("bg.purple-divide-h.png") 0 0 repeat-x;
+  background-repeat: repeat-x;
+  background-position: 0 0;
   padding:3em 0 0;
   margin:3em 0 0;
   clear:both;
@@ -586,7 +589,9 @@ tools
 
 .box-vote{
   overflow:hidden;
-  background:#eaeaea image-url("ico.vote-box.png") 2em 1.5em no-repeat;
+  background-repeat: no-repeat;
+  background-position: 2em 1.5em;
+  background-color: #eaeaea;
   padding:1.5em 3em 1.5em 9em;
   margin:0 0 1.5em;
   min-height: 5em;
@@ -2457,3 +2462,6 @@ fieldset .collaboration-assignment .inputlabel-box .input-box {
   height: 600px;
   overflow: hidden;
 }
+.text-green { color: #269283; }
+.text-orange { color: #f19e3c; }
+.text-purple { color: #612d62; }
