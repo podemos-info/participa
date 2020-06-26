@@ -28,31 +28,32 @@
           <ol>
           <li>Verificar tu inscripción en Podemos. Si aún no lo has hecho, puedes hacer clic <%= link_to "aquí", new_user_verification_path %> y seguir los pasos necesarios para verificar tu identidad.</li>
           <%if current_user.verified? %>
-            <p>Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
+            <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <%elsif current_user.user_verifications.last.status == "pending"%>
-            <p>Verificación en proceso de revisión...<%= fa_icon("hourglass") %> </p>
+            <p class="text-purple">Verificación en proceso de revisión...<%= fa_icon("hourglass") %> </p>
           <% else %>
-            <p>No cumples con esta condición <%= fa_icon("times-circle") %></p>
+            <p class="">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
           <li>Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello puedes hacer clic en tus <%= link_to "Datos personales", edit_user_registration_path %> y seleccionar el Círculo en el que militas en el campo correspondiente.</li>
           <% if current_user.in_circle? %>
-              <p>Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
+              <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
           <% else %>
-              <p>No cumples con esta condición <%= fa_icon("times-circle") %></p>
+              <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
           <li>Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3€ al mes. Si puedes pagar dicha cuota, haz clic <%= link_to "aquí", new_collaboration_path %> o en la sección "Colabora" del menú superior y rellena los campos para establecer una colaboración periódica.</li>
 
-          <p>Si debido a tu situación personal no puedes pagar la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores. Si ya has rellenado el formulario, por favor, espera a que contactemos contigo.</p>
+          <p>Si debido a tu situación personal no puedes pagar la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores.</p>
           <%if current_user.has_min_monthly_collaboration? %>
-              <p>Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
+              <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
           <% elsif current_user.collaborations.where.not(frequency:0).where(status:[0,2]).exists?%>
-              <p>Colaboración activa. Esperando el pago de la primera cuota... <%= fa_icon("hourglass") %> </p>
+              <p class="text-purple">Colaboración activa. Esperando el pago de la primera cuota... <%= fa_icon("hourglass") %> </p>
           <%elsif current_user.exempt_from_payment? %>
-              <p>Estás exento de pagar la cuota <%= fa_icon("check-circle") %>)</p>
+              <p class="text-purple">Estás exento de pagar la cuota <%= fa_icon("check-circle") %>)</p>
           <% else %>
-              <p>No cumples con esta condición <%= fa_icon("times-circle") %></p>
+              <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
+              <p class="text-orange">Si ya has rellenado el formulario, por favor, espera a que contactemos contigo.</p>
           <% end %>
           </ol>
       <% end %>
