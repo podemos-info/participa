@@ -6,27 +6,22 @@
         <h2>¡Hola, <%= current_user.first_name %>!</h2>
         <h3>¡Ya eres militante de Podemos!</h3>
           <p>Como militante, según los documentos de la Tercera Asamblea Ciudadana de Podemos, tienes los siguientes derechos:</p>
-          <ul>
-          <li>Elegir y conformar en exclusiva los órganos locales de Podemos en el municipio: la Portavocía Municipal y el Consejo de Coordinación o ejecutiva, el Plenario y, en su caso, el Consejo de Círculos.</li>
-          <li>Participar de forma directa, a través de tu Círculo, y en su caso del Plenario, en la toma de decisiones fundamentales para Podemos en tu municipio.</li>
-          <li>Elegir y también optar a ser enlace de tu Círculo, tanto para el Consejo de Círculos a nivel local, como para las nuevas Redes de Círculos provincial, insular, autonómica o de otro ámbito territorial que decida tu Asamblea Ciudadana Autonómica.</li>
-          <li>Ser, en su caso, responsable provincial de los enlaces de Círculos, dentro de la Red de la que formes parte.</li>
-          <li>Optar, desde esas Redes de Círculos, a ser integrante de tu Consejo Ciudadano Autonómico por periodo de un año</li>
-          </ul>
+          <p>- Elegir y conformar en exclusiva los órganos locales de Podemos en el municipio: la Portavocía Municipal y el Consejo de Coordinación o ejecutiva, el Plenario y, en su caso, el Consejo de Círculos.</p>
+          <p>- Participar de forma directa, a través de tu Círculo, y en su caso del Plenario, en la toma de decisiones fundamentales para Podemos en tu municipio.</p>
+          <p>- Elegir y también optar a ser enlace de tu Círculo, tanto para el Consejo de Círculos a nivel local, como para las nuevas Redes de Círculos provincial, insular, autonómica o de otro ámbito territorial que decida tu Asamblea Ciudadana Autonómica.</p>
+          <p>- Ser, en su caso, responsable provincial de los enlaces de Círculos, dentro de la Red de la que formes parte.</p>
+          <p>- Optar, desde esas Redes de Círculos, a ser integrante de tu Consejo Ciudadano Autonómico por periodo de un año</p>
           <p>Un partido no es nada sin sus militantes. Gracias por apoyar Podemos.</p>
       <% else %>
         <h2>¡Hola, <%= current_user.first_name %>!</h2>
           <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo Censo de Militantes. L<% if (current_user.gender == 'M')%>os<% elsif current_user.gender == 'F'%>as<% else %>os/as<%end%> militantes de Podemos, según los nuevos documentos, son ahora protagonistas exclusivos a la hora de:</p>
-          <ul>
-            <li>Elegir y conformar en exclusiva los órganos locales de Podemos en el municipio: la Portavocía Municipal y el Consejo de Coordinación o ejecutiva, el Plenario y, en su caso, el Consejo de Círculos.</li>
-            <li>Participar de forma directa, a través de su Círculo, y en su caso del Plenario, en la toma de decisiones fundamentales para Podemos en su municipio.</li>
-            <li>Elegir y también optar a ser enlace de su Círculo, tanto para el Consejo de Círculos a nivel local, como para las nuevas Redes de Círculos provincial, insular, autonómica o de otro ámbito territorial que decida su Asamblea Ciudadana Autonómica.</li>
-            <li>Ser, en su caso, responsable provincial de los enlaces de Círculos, dentro de la Red de la que forme parte.</li>
-            <li>Optar, desde esas Redes de Círculos, a ser integrante de su Consejo Ciudadano Autonómico por periodo de un año.</li>
-          </ul>
-          <p>Para ser militante de Podemos debes cumplir tres condiciones:</p>
-          <ol>
-          <li>Verificar tu inscripción en Podemos. Si aún no lo has hecho, puedes hacer clic <%= link_to "aquí", new_user_verification_path %> y seguir los pasos necesarios para verificar tu identidad.</li>
+            <p>- Elegir y conformar en exclusiva los órganos locales de Podemos en el municipio: la Portavocía Municipal y el Consejo de Coordinación o ejecutiva, el Plenario y, en su caso, el Consejo de Círculos.</p>
+            <p>- Participar de forma directa, a través de su Círculo, y en su caso del Plenario, en la toma de decisiones fundamentales para Podemos en su municipio.</p>
+            <p>- Elegir y también optar a ser enlace de su Círculo, tanto para el Consejo de Círculos a nivel local, como para las nuevas Redes de Círculos provincial, insular, autonómica o de otro ámbito territorial que decida su Asamblea Ciudadana Autonómica.</p>
+            <p>- Ser, en su caso, responsable provincial de los enlaces de Círculos, dentro de la Red de la que forme parte.</p>
+            <p>- Optar, desde esas Redes de Círculos, a ser integrante de su Consejo Ciudadano Autonómico por periodo de un año.</p>
+          <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
+          <p>1.- Verificar tu inscripción en Podemos. Si aún no lo has hecho, puedes hacer clic <%= link_to "aquí", new_user_verification_path %> y seguir los pasos necesarios para verificar tu identidad.</p>
           <%if current_user.verified? %>
             <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <%elsif current_user.user_verifications.last.status == "pending"%>
@@ -35,16 +30,16 @@
             <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-          <li>Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello puedes hacer clic en tus <%= link_to "Datos personales", edit_user_registration_path %> y seleccionar el Círculo en el que militas en el campo correspondiente.</li>
+          <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello puedes hacer clic en tus <%= link_to "Datos personales", edit_user_registration_path %> y seleccionar el Círculo en el que militas en el campo correspondiente.</p>
           <% if current_user.in_circle? %>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
           <% else %>
               <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-          <li>Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3€ al mes. Si puedes pagar dicha cuota, haz clic <%= link_to "aquí", new_collaboration_path %> o en la sección "Colabora" del menú superior y rellena los campos para establecer una colaboración periódica.</li>
+          <p> 3.- Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3€ al mes. Si puedes pagar dicha cuota, haz clic <%= link_to "aquí", new_collaboration_path %> o en la sección "Colabora" del menú superior y rellena los campos para establecer una colaboración periódica.</p>
 
-          <p>Si debido a tu situación personal no puedes pagar la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores.<span class="text-orange">Si ya has rellenado el formulario, por favor, espera a que contactemos contigo.</span></p>
+          <p>Si debido a tu situación personal no puedes pagar la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores. Si ya has rellenado el formulario, por favor, espera a que contactemos contigo.</p>
           <%if current_user.has_min_monthly_collaboration? %>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
           <% elsif current_user.collaborations.where.not(frequency:0).where(status:[0,2]).exists?%>
@@ -54,7 +49,6 @@
           <% else %>
               <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
-          </ol>
       <% end %>
     </div>
   </div>
