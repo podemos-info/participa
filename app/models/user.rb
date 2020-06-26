@@ -5,14 +5,16 @@ class User < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
 
-  has_flags 1 => :banned,
-            2 => :superadmin,
-            3 => :verified,
-            4 => :finances_admin,
-            5 => :impulsa_author,
-            6 => :impulsa_admin,
-            7 => :verifier,
-            8 => :paper_authority
+  has_flags  1 => :banned,
+             2 => :superadmin,
+             3 => :verified,
+             4 => :finances_admin,
+             5 => :impulsa_author,
+             6 => :impulsa_admin,
+             7 => :verifier,
+             8 => :paper_authority,
+             9 => :militant,
+            10 => :exempt_from_payment
 
   # Include default devise modules. Others available are:
   # :omniauthable
@@ -632,6 +634,7 @@ class User < ActiveRecord::Base
         self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
       self.circle_changed_at = Time.now if self.circle_original_code_changed?
+      self.militant = still_militant?
     end
   end
 
@@ -830,6 +833,17 @@ class User < ActiveRecord::Base
     self.circle_changed_at <= (Time.now - max_days) or !self.persisted?
   end
 
+  def in_circle?
+    self.circle_original_code.present?
+  end
+
+  def has_min_monthly_collaboration?
+    min_amount = Rails.application.secrets.users["min_militant_amount"].present? ? Rails.application.secrets.users["min_militant_amount"].to_i : 3
+    self.collaborations.where.not(frequency:0).where("amount >= ?",min_amount).where(status:3).exists?
+  end
+  def still_militant?
+    self.exempt_from_payment? || (self.verified? && self.in_circle? && self.has_min_monthly_collaboration?)
+  end
   private
 
   def last_vote_location_change
