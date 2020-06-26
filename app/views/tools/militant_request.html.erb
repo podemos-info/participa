@@ -44,7 +44,7 @@
 
           <li>Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3€ al mes. Si puedes pagar dicha cuota, haz clic <%= link_to "aquí", new_collaboration_path %> o en la sección "Colabora" del menú superior y rellena los campos para establecer una colaboración periódica.</li>
 
-          <p>Si debido a tu situación personal no puedes pagar la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores.</p>
+          <p>Si debido a tu situación personal no puedes pagar la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores. Si ya has rellenado el formulario, por favor, espera a que contactemos contigo.</p>
           <%if current_user.has_min_monthly_collaboration? %>
               <p>Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
           <% elsif current_user.collaborations.where.not(frequency:0).where(status:[0,2]).exists?%>
@@ -53,7 +53,6 @@
               <p>Estás exento de pagar la cuota <%= fa_icon("check-circle") %>)</p>
           <% else %>
               <p>No cumples con esta condición <%= fa_icon("times-circle") %></p>
-              <p>Si ya has rellenado el formulario, por favor, espera a que contactemos contigo.</p>
           <% end %>
           </ol>
       <% end %>
