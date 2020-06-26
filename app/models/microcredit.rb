@@ -118,7 +118,7 @@ class Microcredit < ActiveRecord::Base
     return false if (remaining.none? || remaining.first.last<=0)
     
     if confirmed
-      return true
+      true
     else
       next_percent(amount)<self.remaining_percent
     end
@@ -153,7 +153,7 @@ class Microcredit < ActiveRecord::Base
   end
 
   def campaign_unconfirmed_amount
-    campaign_status.collect {|x| x[0]*x[4] if not x[1] } .compact.sum
+    campaign_status.collect {|x| x[0] * x[4] unless x[1] } .compact.sum
   end
 
   def campaign_confirmed_amount
@@ -161,7 +161,7 @@ class Microcredit < ActiveRecord::Base
   end
 
   def campaign_not_counted_amount
-    campaign_status.collect {|x| x[0]*x[4] if not x[2] } .compact.sum
+    campaign_status.collect {|x| x[0] * x[4] unless x[2] } .compact.sum
   end
 
   def campaign_counted_amount
@@ -177,7 +177,7 @@ class Microcredit < ActiveRecord::Base
   end
 
   def campaign_unconfirmed_count
-    campaign_status.collect {|x| x[4] if not x[1] } .compact.sum
+    campaign_status.collect {|x| x[4] unless x[1] } .compact.sum
   end
 
   def campaign_confirmed_count
@@ -185,7 +185,7 @@ class Microcredit < ActiveRecord::Base
   end
 
   def campaign_not_counted_count
-    campaign_status.collect {|x| x[4] if not x[2] } .compact.sum
+    campaign_status.collect {|x| x[4] unless x[2] } .compact.sum
   end
 
   def campaign_counted_count
