@@ -47,8 +47,8 @@
           <p>Si debido a tu situación personal no puedes pagar la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores.</p>
           <%if current_user.has_min_monthly_collaboration? %>
               <p>Ya cumples con esta condición <%= fa_icon("check-circle") %></p>>
-          <% elsif current_user.collaborations.where.not(frecuency:0).where(status:[0,2])%>
-              <p>Colaboración activa. Esperando el pago de la primera cuota...<%= fa_icon("hourglass") %> </p>
+          <% elsif current_user.collaborations.where.not(frequency:0).where(status:[0,2]).exists?%>
+              <p>Colaboración activa. Esperando el pago de la primera cuota... <%= fa_icon("hourglass") %> </p>
           <%elsif current_user.exempt_from_payment? %>
               <p>Estás exento de pagar la cuota <%= fa_icon("check-circle") %>)</p>
           <% else %>
