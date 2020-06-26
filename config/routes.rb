@@ -181,6 +181,7 @@ Rails.application.routes.draw do
 
       authenticated :user do
         root to: 'tools#index', as: :authenticated_root
+        get '/tools/militant_request', to: 'tools#militant_request', as: 'tools_militant_request'
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
         delete 'password/recover', to: 'registrations#recover_and_logout'
