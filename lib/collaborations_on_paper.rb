@@ -134,7 +134,7 @@ class CollaborationsOnPaper
     c.ccc_office = @fields[:ccc_2]
     c.ccc_dc = @fields[:ccc_3]
     c.ccc_account = @fields[:ccc_4]
-    c.iban_account = @fields[:iban_1]
+    c.iban_account = c.calculate_iban
     c.iban_bic = c.calculate_bic
     c.status = DEFAULT_STATUS
 
