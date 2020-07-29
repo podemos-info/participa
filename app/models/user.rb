@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
   acts_as_paranoid
   has_paper_trail
-  has_one :circle
+
   has_many :votes, dependent: :destroy
   has_many :paper_authority_votes, dependent: :nullify, class_name: "Vote", inverse_of: :paper_authority
 
