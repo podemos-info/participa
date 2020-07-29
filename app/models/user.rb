@@ -634,7 +634,8 @@ class User < ActiveRecord::Base
         self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
       self.circle_changed_at = Time.now if self.circle_original_code_changed?
-      self.militant = still_militant?
+      self.militant = self.still_militant?
+      true
     end
   end
 
@@ -841,9 +842,11 @@ class User < ActiveRecord::Base
     min_amount = Rails.application.secrets.users["min_militant_amount"].present? ? Rails.application.secrets.users["min_militant_amount"].to_i : 3
     self.collaborations.where.not(frequency:0).where("amount >= ?",min_amount).where(status:3).exists?
   end
+
   def still_militant?
     self.exempt_from_payment? || (self.verified? && self.in_circle? && self.has_min_monthly_collaboration?)
   end
+
   private
 
   def last_vote_location_change
