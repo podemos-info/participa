@@ -95,7 +95,7 @@ class CollaborationsOnPaper
     user1 = User.find_by_email @fields[:email]
     user2 = User.find_by_document_vatid @fields[:document_vatid] unless user1
     return add_error(:vatid_invalid) if user1 &&  has_invalid_vatid(user1)
-    return add_error(:email_invalid) if user2 && has_invalid_fullname(user2)
+    return add_error("#{:email_invalid} email preexistente: #{user2.email}") if user2 && has_invalid_fullname(user2)
     @fields[:document_vatid] = user1.document_vatid if user1 && vatid_invalid?(user1) && validate_collaboration_full_name(user1)
     @fields[:email] = user2.email if user2 && validate_collaboration_full_name(user2)
     @fields[:user] = user1 || user2
@@ -134,7 +134,7 @@ class CollaborationsOnPaper
     c.ccc_office = @fields[:ccc_2]
     c.ccc_dc = @fields[:ccc_3]
     c.ccc_account = @fields[:ccc_4]
-    c.iban_account = @fields[:iban_1]
+    c.iban_account = c.calculate_iban
     c.iban_bic = c.calculate_bic
     c.status = DEFAULT_STATUS
 
