@@ -521,7 +521,7 @@ class Collaboration < ActiveRecord::Base
       self.user.vote_autonomy_code
     else
       return nil unless self.get_non_user.respond_to?('ine_town')
-      vote_province_code = "p_" % + self.get_non_user.ine_town.slice(2,2)
+      vote_province_code = "p_" + self.get_non_user.ine_town.slice(2,2)
       Podemos::GeoExtra::AUTONOMIES[vote_province_code][0]
     end
   end
