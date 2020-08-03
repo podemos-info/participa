@@ -152,7 +152,7 @@ ActiveAdmin.register User do
       end
       row :admin
       row "Círculo" do #row "#{t('activerecord.attributes.user.circle')}" do
-        :circle_original_code
+      Circle.where(original_code: user.circle_original_code).first.original_name
       end
       row :created_at
       row :updated_at
