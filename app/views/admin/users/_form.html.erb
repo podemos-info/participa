@@ -15,6 +15,8 @@
                   start_year: 1900,
                   end_year: Date.today.year-18 %>
 
+    <%= f.input :exempt_from_payment, as: :boolean %>
+
     <%= f.input :address %>
 
     <li class="select input required" id="user_country_input"><label class="label" for="user_address">País<abbr title="requerido">*</abbr></label>

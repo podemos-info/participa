@@ -21,8 +21,10 @@ ActiveAdmin.register User do
   scope :banned
   scope :verified
   scope :not_verified
+  scope :militant
+  scope :exempt_from_payment
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle_original_code, :wants_information_by_sms
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle_original_code, :wants_information_by_sms, :exempt_from_payment
 
   index download_links: -> { Rails.env.production? && current_user.is_admin? && current_user.superadmin? } do
     selectable_column
@@ -40,6 +42,8 @@ ActiveAdmin.register User do
     column :validations do |user|
       status_tag("Verificado", :ok) + br if user.verified?
       status_tag("Baneado", :error) + br if user.banned?
+      status_tag("Militante", :ok) + br if user.militant?
+      status_tag("Exento de pago", :ok) + br if user.exempt_from_payment?
       user.confirmed_at? ? status_tag("Email", :ok) : status_tag("Email", :error)
       user.sms_confirmed_at? ? status_tag("Tel", :ok) : status_tag("Tel", :error)
       user.valid? ? status_tag("Val", :ok) : status_tag("Val", :error)
@@ -104,6 +108,14 @@ ActiveAdmin.register User do
       row :document_vatid
       row :born_at
       row :email
+      row :militant do
+        if user.militant?
+          status_tag("El usuario cumple todas las condiciones para ser militante", :ok)
+        else
+          status_tag("El usuario no cumple las siguientes condiciones para ser militante: #{user.get_not_militant_detail}", :no)
+        end
+      end
+      row :exempt_from_payment
       row :vote_town_name
       row :address
       row :postal_code
