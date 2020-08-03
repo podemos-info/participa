@@ -847,6 +847,16 @@ class User < ActiveRecord::Base
      self.verified? && self.in_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration?)
   end
 
+  def get_not_militant_detail
+    return if self.militant?
+    result =[]
+
+    result.push("No esta verificado") unless self.verified?
+    result.push("No esta inscrito en un circulo") unless self.in_circle?
+    result.push("No tiene colaboración económica periódica suscrita, no está exento de pago") unless self.exempt_from_payment? || self.has_min_monthly_collaboration?
+    result.compact.flatten.join(", ").sub(/.*\K, /, ' y ')
+  end
+
   private
 
   def last_vote_location_change
