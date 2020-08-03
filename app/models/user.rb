@@ -844,7 +844,7 @@ class User < ActiveRecord::Base
   end
 
   def still_militant?
-    self.exempt_from_payment? || (self.verified? && self.in_circle? && self.has_min_monthly_collaboration?)
+     self.verified? && self.in_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration?)
   end
 
   private
