@@ -14,7 +14,6 @@
                   input_html: {  required: true, class: 'input-m', value: f.object.born_at ? I18n.l(f.object.born_at) : f.object.born_at || "" },
                   start_year: 1900,
                   end_year: Date.today.year-18 %>
-
     <%= f.input :exempt_from_payment, as: :boolean %>
 
     <%= f.input :address %>
@@ -29,7 +28,7 @@
 
     <%= f.input :vote_district %>
     <%= f.input :postal_code %>
-    <%= f.input :circle_original_code %>
+    <%= f.input :circle_original_code, :as=> :select, :collection=> Circle.all.order('original_code ASC').pluck( :original_name, :original_code),:input_html=> { disabled: !@user.can_change_circle? && !@user.is_admin?, required: false}, data: {allowClear: true, placeholder: "Selecciona tu círculo (Listado de Círculos que estaban activos hasta la entrada en vigor de los nuevos documentos.)"} %>
     <%= f.input :wants_newsletter %>
   <% end %>
   <%= f.actions %>
