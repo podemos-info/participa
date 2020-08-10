@@ -11,7 +11,7 @@
         <p>Un partido no es nada sin sus militantes. Gracias por apoyar Podemos.</p>
       <% else %>
         <h2>¡Hola, <%= current_user.first_name %>!</h2>
-          <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo Censo de Militantes. L<% if (current_user.gender == 'M')%>os<% elsif current_user.gender == 'F'%>as<% else %>os/as<%end%> militantes de Podemos, según los nuevos documentos y a través de su Círculo activo, son ahora protagonistas exclusivos a la hora de:</p>
+          <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo Censo de Militantes. Los y las militantes de Podemos, siempre según los nuevos documentos y a través de su Círculo activo, son ahora protagonistas exclusivos a la hora de:</p>
           <%= raw t('militant.features') %>
 
           <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
