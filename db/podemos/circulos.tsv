@@ -1,913 +1,990 @@
-original_name	original_code
-Mi Círculo no está en la lista	IP000000001
-En mi municipio no hay Círculo, pero estoy dispuesto/a a constituirlo	IP000000002
-Andalucía - Córdoba - Centro	TB011402101
-Andalucía - Córdoba - Santa Cruz	TB011402102
-Andalucía - Córdoba - Poniente	TB011402103
-Andalucía - Córdoba - Este	TB011402104
-Andalucía - Granada - Círculo Granada Norte	TB011808701
-Andalucía - Granada - Podemos Zaidín	TB011808702
-Andalucía - Granada - Podemos Albayzín	TB011808703
-Andalucía - Granada - Granada Centro Ronda	TB011808704
-Andalucía - Granada - Granada Realejo	TB011808705
-Andalucía - Jaén - Círculo Podemos Peñamefécit (Jaén)	TB012305002
-Andalucía - Jaén - Círculo Barrial Casco Antiguo de Jaén	TB012305003
-Andalucía - Málaga - Círculo Distrito 6 Cruz de Humilladero - Carranque	TB012906701
-Andalucía - Málaga - Círculo Podemos Distrito 3-Ciudad Jardín	TB012906702
-Andalucía - Málaga - Círculo Podemos Distrito 1-Centro	TB012906703
-Andalucía - Málaga - Círculo Podemos Málaga Este - El Palo	TB012906704
-Andalucía - Málaga - Círculo Distrito 7- Avenida Velázquez	TB012906705
-Andalucía - Málaga - Círculo Distrito 9 - Campanillas	TB012906706
-Andalucía - Málaga - Círculo Distrito 5	TB012906707
-Andalucía - Málaga - Círculo Distrito 4-Bailén Miraflores	TB012906708
-Andalucía - Málaga - Círculo Distrito 10	TB012906709
-Andalucía - Málaga - Círculo Distrito 8 - Churriana	TB012906710
-Andalucía - Marbella - Círculo Podemos San Pedro de Alcántara	TB012906901
-Andalucía - Mijas - Círculo Podemos Cala Mijas	TB012907001
-Andalucía - Dos Hermanas - Centro	TB014103801
-Andalucía - Dos Hermanas - Cantalgallo	TB014103802
-Andalucía - Dos Hermanas - Sur	TB014103803
-Andalucía - Dos Hermanas - Montequinto	TB014103804
-Andalucía - Dos Hermanas - Las Portadas La Motilla	TB014103805
-Andalucía - Dos Hermanas - La Moneda	TB014103806
-Andalucía - Dos Hermanas - Vistazul	TB014103807
-Andalucía - Sevilla - Sevilla Este	TB014109101
-Andalucía - Sevilla - Bermejales	TB014109102
-Andalucía - Sevilla - Bellavista	TB014109103
-Andalucía - Sevilla - Cerro-Amate	TB014109104
-Andalucía - Sevilla - Nervión San Pablo-Santa Justa	TB014109105
-Andalucía - Sevilla - Macarena	TB014109106
-Andalucía - Sevilla - Parque Alcosa	TB014109107
-Andalucía - Sevilla - Distrito Sur	TB014109108
-Andalucía - Sevilla - Distrito Norte	TB014109109
-Andalucía - Sevilla - Triana-Los Remedios	TB014109110
-Andalucía - Sevilla - Casco Antiguo	TB014109111
-Andalucía - Sevilla - San Jerónimo	TB014109112
-Andalucía - Macael - Podemos Valle del Almanzora	TC010400001
-Andalucía - El Bosque - Círculo Sierra de Cádiz	TC011101101
-Andalucía - Almería - Podemos Almería	TM010401301
-Andalucía - Carboneras - Podemos Carboneras	TM010403201
-Andalucía - Huércal de Almería - Huércal de Almería	TM010405201
-Andalucía - Mojácar - Podemos Mojacar	TM010406401
-Andalucía - Níjar - Podemos Níjar	TM010406601
-Andalucía - Pechina - Podemos Pechina	TM010407401
-Andalucía - Roquetas de Mar - Podemos Roquetas de Mar	TM010407901
-Andalucía - Vélez-Rubio - Podemos Vélez-Rubio	TM010409901
-Andalucía - Vera - Podemos Vera	TM010410001
-Andalucía - Vícar - Podemos Vícar	TM010410201
-Andalucía - El Ejido - Podemos El-Ejido	TM010490201
-Andalucía - El Puerto de Santa María - Círculo de El Puerto de Santa María	TM011100001
-Andalucía - Algeciras - Círculo de Algeciras	TM011100401
-Andalucía - Arcos de la Frontera - Círculo de Arcos de la Frontera	TM011100601
-Andalucía - Los Barrios - Círculo Los Barrios	TM011100802
-Andalucía - Cádiz - Círculo de Cádiz	TM011101201
-Andalucía - Conil de la Frontera - Círculo de Conil de la Frontera	TM011101401
-Andalucía - Chiclana de la Frontera - Círculo de Chiclana de la Frontera	TM011101501
-Andalucía - Espera - Círculo de Espera	TM011101701
-Andalucía - Jerez - Círculo de Jerez	TM011102002
-Andalucía - Jimena de la Frontera - Círculo de Jimena	TM011102101
-Andalucía - La Línea de la Concepción - Círculo La Línea de la Concepción	TM011102201
-Andalucía - Puerto Real - Círculo de Puerto Real	TM011102801
-Andalucía - Rota - Círculo de Rota	TM011103001
-Andalucía - San Fernando - Círculo de San Fernando	TM011103101
-Andalucía - Sanlúcar de Barrameda - Círculo de Sanlúcar de Barrameda	TM011103202
-Andalucía - San Roque - Círculo de San Roque	TM011103301
-Andalucía - Tarifa - Círculo de Tarifa	TM011103501
-Andalucía - Trebujena - Círculo de Trebujena	TM011103701
-Andalucía - Vejer de la Frontera - Podemos Vejer	TM011103901
-Andalucía - Almodóvar del Río - Almodóvar del Río	TM011400501
-Andalucía - La Carlota - La Carlota	TM011401701
-Andalucía - Castro del Río - Castro del Río	TM011401901
-Andalucía - Córdoba - Norte	TM011402101
-Andalucía - Córdoba - Sur	TM011402102
-Andalucía - Espejo - Espejo	TM011402501
-Andalucía - Fernán-Núñez - Fernán Núñez	TM011402701
-Andalucía - Fuente Palmera - Fuente Palmera	TM011403001
-Andalucía - Lucena - Lucena	TM011403801
-Andalucía - Montilla - Montilla	TM011404201
-Andalucía - Palma del Río - Palma del Río	TM011404901
-Andalucía - Priego de Córdoba - Priego de Córdoba	TM011405501
-Andalucía - Puente Genil - Puente Genil	TM011405601
-Andalucía - Rute - Rute	TM011405801
-Andalucía - Albolote - Círculo Albolote	TM011800301
-Andalucía - Alfacar - Podemos Alfacar	TM011801101
-Andalucía - Armilla - Podemos Armilla	TM011802101
-Andalucía - Atarfe - Podemos Atarfe	TM011802201
-Andalucía - Cájar - Círculo de Cájar	TM011803601
-Andalucía - Cenes de la Vega - Podemos Cenes de la Vega	TM011804701
-Andalucía - Cijuela - Podemos Cijuela	TM011804801
-Andalucía - Cogollos de la Vega - Círculo Cogollos Vega	TM011805001
-Andalucía - Chauchina - Círculo de Chauchina	TM011805901
-Andalucía - Churriana de la Vega - Churriana de la Vega	TM011806201
-Andalucía - Fuente Vaqueros - Podemos Fuente Vaqueros	TM011807901
-Andalucía - Gójar - Podemos Gójar	TM011808401
-Andalucía - Guadix - Podemos Guadix	TM011808901
-Andalucía - Huéscar - Podemos Huéscar	TM011809801
-Andalucía - Huétor Tájar - Círculo Podemos de Huétor Tájar	TM011810001
-Andalucía - Huétor Vega - Podemos Huétor Vega	TM011810101
-Andalucía - Iznalloz - Podemos Iznalloz	TM011810501
-Andalucía - Maracena - Podemos Maracena	TM011812701
-Andalucía - Motril - Podemos Motril	TM011814001
-Andalucía - Nívar - Podemos Nívar	TM011814401
-Andalucía - Ogíjares - Círculo Ogíjares	TM011814501
-Andalucía - Otura - Podemos Otura	TM011814901
-Andalucía - Padul - Podemos Padul	TM011815001
-Andalucía - Pulianas - Podemos Pulianas	TM011816501
-Andalucía - Salobreña - Salobreña	TM011817301
-Andalucía - Las Gabias - Podemos Las Gabias	TM011890501
-Andalucía - Vegas del Genil - Círculo Vegas del Genil	TM011891101
-Andalucía - Almonte - Almonte	TM012100501
-Andalucía - Aracena - Aracena	TM012100701
-Andalucía - Ayamonte - Ayamonte	TM012101001
-Andalucía - Huelva - Huelva	TM012104101
-Andalucía - Isla Cristina - Isla Cristina	TM012104201
-Andalucía - San Juan del Puerto - San Juan del Puerto	TM012106401
-Andalucía - Valverde del Camino - Valverde del Camino	TM012107201
-Andalucía - Zalamea la Real - Zalamea	TM012107801
-Andalucía - Andújar - Círculo Municipal Podemos Andújar	TM012300501
-Andalucía - Baeza - Círculo Municipal Podemos Baeza	TM012300901
-Andalucía - Bailén - Círculo Municipal Podemos Bailén	TM012301001
-Andalucía - La Carolina - Círculo Municipal Podemos La Carolina	TM012302401
-Andalucía - Huelma - Círculo Municipal Podemos Huelma-Solera	TM012304401
-Andalucía - Jaén - Círculo Municipal Podemos Jaén	TM012305001
-Andalucía - Jódar - Círculo Municipal Podemos Jódar	TM012305301
-Andalucía - Linares - Círculo Municipal Podemos Linares	TM012305501
-Andalucía - Mancha Real - Círculo Municipal Podemos Mancha Real	TM012305801
-Andalucía - Martos - Círculo Municipal Podemos Martos	TM012306001
-Andalucía - Navas de San Juan - Círculo Municipal Podemos Navas de San Juan	TM012306301
-Andalucía - Pegalajar - Círculo Municipal Podemos Pegalajar	TM012306701
-Andalucía - Quesada - Círculo Municipal Podemos Quesada	TM012307301
-Andalucía - Rus - Círculo Municipal Podemos Rus	TM012307401
-Andalucía - Torredonjimeno - Círculo Podemos de Torredonjimeno	TM012308701
-Andalucía - Torreperogil - Círculo Podemos Torreperogil	TM012308801
-Andalucía - Úbeda - Círculo Municipal Podemos Úbeda	TM012309201
-Andalucía - Villacarrillo - Círculo Municipal Podemos Villacarrillo	TM012309501
-Andalucía - Alhaurín de la Torre - Podemos Alhaurín de la Torre	TM012900701
-Andalucía - Alhaurín el Grande - Círculo Podemos Alhaurín el Grande	TM012900801
-Andalucía - Arriate - Podemos Arriate en común	TM012902001
-Andalucía - Benalmádena - Podemos Benalmádena	TM012902501
-Andalucía - Estepona - Círculo Podemos Estepona	TM012905102
-Andalucía - Fuengirola - Círculo Podemos Fuengirola	TM012905401
-Andalucía - Torremolinos - Círculo Podemos Torremolinos	TM012906703
-Andalucía - Cártama - Podemos Cártama	TM012906704
-Andalucía - Marbella - Círculo Podemos Marbella	TM012906901
-Andalucía - Nerja - Podemos Nerja-Maro	TM012907501
-Andalucía - Rincón de la Victoria - Círculo Podemos Rincón de la Victoria	TM012908201
-Andalucía - Ronda - Círculo Podemos Ronda	TM012908401
-Andalucía - Vélez-Málaga - Podemos Vélez-Málaga	TM012909401
-Andalucía - Alcalá de Guadaíra - Alcalá de Guadaíra	TM014100401
-Andalucía - Alcalá del Río - Alcalá del Río	TM014100501
-Andalucía - La Algaba - La Algaba	TM014100701
-Andalucía - Almensilla - Almensilla	TM014101001
-Andalucía - Bormujos - Bormujos	TM014101701
-Andalucía - Brenes - Brenes	TM014101801
-Andalucía - Las Cabezas de San Juan - Las Cabezas de San Juan	TM014102001
-Andalucía - Camas - Camas	TM014102101
-Andalucía - Carmona - Carmona	TM014102401
-Andalucía - Castilleja de la Cuesta - Castilleja de la Cuesta	TM014102901
-Andalucía - Coria del Río - Coria del Río	TM014103401
-Andalucía - Écija - Écija	TM014103901
-Andalucía - Espartinas - Espartinas	TM014104001
-Andalucía - Estepa - Estepa	TM014104101
-Andalucía - Gelves - Gelves	TM014104401
-Andalucía - Gerena - Gerena	TM014104501
-Andalucía - Gines - Gines	TM014104701
-Andalucía - Guillena - Guillena	TM014104901
-Andalucía - Mairena del Alcor - Mairena del Alcor	TM014105801
-Andalucía - Mairena del Aljarafe - Mairena del Aljarafe	TM014105901
-Andalucía - Marchena - Marchena	TM014106001
-Andalucía - Morón de la Frontera - Morón de la Frontera	TM014106501
-Andalucía - Osuna - Osuna	TM014106801
-Andalucía - Los Palacios y Villafranca - Los Palacios y Villafranca	TM014106901
-Andalucía - Palomares del Río - Palomares del Río	TM014107001
-Andalucía - Pedrera - Pedrera	TM014107201
-Andalucía - La Puebla de Cazalla - La Puebla de Cazalla	TM014107701
-Andalucía - La Puebla del Río - La Puebla del Río	TM014107901
-Andalucía - La Rinconada - La Rinconada	TM014108101
-Andalucía - Salteras - Salteras	TM014108501
-Andalucía - San Juan de Aznalfarache - San Juan de Aznalfarache	TM014108601
-Andalucía - Tomares - Tomares	TM014109301
-Andalucía - Umbrete - Umbrete	TM014109401
-Andalucía - Utrera - Utrera	TM014109501
-Andalucía - Valencina de la Concepción - Valencina de la Concepción	TM014109601
-Andalucía - El Viso del Alcor - El Viso del Alcor	TM014110201
-Aragón - Bajo Cinca - Bajo Cinca / Baix Cinca	TC022211201
-Aragón - Cinca Medio - Cinca Medio	TC022215801
-Aragón - Jacetania - Jacetania	TC022213001
-Aragón - Ribagorza - Ribagorza	TC022211701
-Aragón - Sabiñánigo - Sabiñánigo	TM022219901
-Aragón - Barbastro - Barbastro	TM022204801
-Aragón - Alcañiz - Alcañiz	TM024401301
-Aragón - Andorra - Andorra	TM024402501
-Aragón - Gúdar-Javalambre - Gúdar-Javalambre	TC024415801
-Aragón - Jiloca - Jiloca	TC024405001
-Aragón - Teruel - Teruel	TM024421601
-Aragón - Calatayud - Calatayud	TC025006701
-Aragón - Bajo Aragón-Caspe - Caspe y comarca	TC025007401
-Aragón - Cinco Villas - Cinco Villas	TC025009501
-Aragón - La Puebla de Alfindén - La Puebla de Alfindén	TM025021901
-Aragón - Pedrola - Pedrola	TM025020401
-Aragón - Tarazona - Tarazona	TM025025101
-Aragón - Tarazona y Moncayo - Tarazona y Moncayo	TC025025101
-Aragón - Utebo - Utebo	TM025027201
-Aragón - Valdejalón - Valdejalón	TC025002501
-Aragón - Zaragoza - Zaragoza	TM025029701
-Aragón - Zaragoza - Barrios del Sur de Zaragoza	TB025029701
-Aragón - Zaragoza - Casco Histórico de Zaragoza	TB025029702
-Aragón - Zaragoza - Casetas	TB025029703
-Aragón - Zaragoza - Distrito Universidad de Zaragoza	TB025029704
-Aragón - Zaragoza - Margen Izquierda de Zaragoza	TB025029705
-Aragón - Zaragoza - Miralbueno	TB025029706
-Aragón - Zaragoza - Torrero-La Paz	TB025029707
-Aragón - Zaragoza - Zaragoza Oeste	TB025029708
-Asturias - Cangas del Narcea - Círculo Cangas del Narcea	TM033301101
-Asturias - Cangues d'Onís - Círculo Cangues d'Onís	TM033301201
-Asturias - Castrillón - Círculo Castrillón	TM033301601
-Asturias - Cuideiru - Círculo Cuideiru	TM033302101
-Asturias - Llangréu - Círculo Llangréu	TM033303101
-Asturias - Llaviana - Círculo Llaviana	TM033303201
-Asturias - Navia-Coaña - Círculo Navia-Coaña	TC033300001
-Asturias - Parres - Círculo Parres	TM033304501
-Asturias - Pravia - Círculo Pravia	TM033305101
-Asturias - Siero - Círculo Siero	TM033306601
-Asturias - Uviéu - Círculo Uviéu/Oviedo Oeste	TB033304401
-Asturias - Uviéu - Círculo Otero	TB033304402
-Asturias - Uviéu - Círculo Uviéu	TM033304403
-Asturias - Villaviciosa - Círculo Villaviciosa	TM033307601
-Asturias - Xixón - Círculo Xixón	TM033302401
-Illes Balears - Son Servera - Círculo Son Servera	TM040706201
-Illes Balears - Sóller - Círculo Sóller	TM040706101
-Illes Balears - Pollença - Círculo Pollença	TM040704201
-Illes Balears - Palma - Palma Aragón	TB040704003
-Illes Balears - Bunyola - Círculo Bunyola	TM040701001
-Illes Balears - Binissalem - Círculo Binissalem	TM040700801
-Illes Balears - Manacor - Círculo Manacor	TM040703301
-Illes Balears - Santa Eulalia del Río - Santa Eularia	TM040705401
-Illes Balears - Palma - Palma Arxiduc	TB040704001
-Illes Balears - Llucmajor - Círculo Llucmajor	TM040703101
-Illes Balears - Maó - Círculo Maó	TM040703201
-Illes Balears - Llubí - Círculo Llubí	TM040703001
-Illes Balears - Marratxí - Círculo Marratxí	TM040703601
-Illes Balears - Palma - Palma Centre	TB040704002
-Illes Balears - Santa María - Círculo Santa María	TM040705601
-Illes Balears - Palma - Círculo Ponent	TB040704004
-Illes Balears - Calvià - Círculo Calvià	TM040701101
-Illes Balears - Eivissa - Circulo Vila Eivissa	TM040702601
-Illes Balears - Sant Antoni de Portmany - Circulo Sant Antoni	TM040704601
-Illes Balears - Ciutadella de Menorca - Círculo Ciutadella	TM040701501
-Illes Balears - Sant Lluís - Círculo Sant Lluís	TM040705201
-Illes Balears - Sineu - Circulo Sineu	TM040706001
-Illes Balears - Alcudia - Círculo Alcudia	TM040700301
-Illes Balears - Lluseta - Círculo Lloseta	TM040702901
-Canarias - Agüimes - Círculo Podemos Agüimes	TM0535202
-Canarias - Antigua - Círculo Podemos Antigua	TM0535103
-Canarias - Arrecife - Círculo Podemos Arrecife	TM0535304
-Canarias - Arucas - Círculo Podemos Arucas	TM0535206
-Canarias - Gáldar - Círculo Podemos Gáldar	TM0535209
-Canarias - Ingenio - Círculo Podemos Ingenio	TM0535211
-Canarias - Pájara - Círculo Podemos Pájara	TM0535115
-Canarias - Palmas de Gran Canaria, Las - Círculo Podemos Las Palmas de Gran Canaria	TM0535216
-Canarias - Puerto del Rosario - Círculo Podemos Puerto del Rosario	TM0535117
-Canarias - San Bartolomé - Círculo Podemos San Bartolomé	TM0535318
-Canarias - San Bartolomé de Tirajana - Círculo Podemos San Bartolomé de Tirajana	TM0535219
-Canarias - Santa Brígida - Círculo Podemos Santa Brígida	TM0535221
-Canarias - Santa Lucía de Tirajana - Círculo Podemos Santa Lucía de Tirajana	TM0535222
-Canarias - Telde - Círculo Podemos Telde	TM0535226
-Canarias - Teror - Círculo Podemos Teror	TM0535227
-Canarias - Tías - Círculo Podemos Tías	TM0535128
-Canarias - Adeje - Círculo Podemos Adeje	TM0538401
-Canarias - Arona - Círculo Podemos Arona	TM0538406
-Canarias - Buenavista del Norte - Círculo Podemos Buenavista del Norte	TM0538410
-Canarias - Granadilla de Abona - Círculo Podemos Granadilla de Abona	TM0538417
-Canarias - Icod de los Vinos - Círculo Podemos Icod de los Vinos	TM0538422
-Canarias - Orotava, La - Círculo Podemos La Orotava	TM0538426
-Canarias - Puerto de la Cruz - Círculo Podemos Puerto de la Cruz	TM0538428
-Canarias - Realejo, El - Círculo Podemos El Realejo	TM0538431
-Canarias - Rosario, El - Círculo Podemos El Rosario	TM0538432
-Canarias - San Cristóbal de La Laguna - Círculo Podemos La Laguna	TM0538423
-Canarias - San Cristóbal de La Laguna - Círculo Podemos Taco	TB0538423
-Canarias - San Miguel de Abona - Círculo Podemos San Miguel de Abona	TM0538435
-Canarias - Santa Cruz de Tenerife - Círculo Podemos Santa Cruz de Tenerife	TM0538438
-Canarias - Silos, Los - Círculo Podemos Los Silos	TM0538442
-Canarias - Tegueste - Círculo Podemos Tegueste	TM0538446
-Canarias - Valverde-Frontera-El Pinar - Círculo Podemos Valverde-Frontera-El Pinar	TC0538248
-Canarias - Valsequillo - Círculo Podemos Valsequillo	TM0535231
-Canarias - Firgas - Circulo Podemos Firgas	TM0535232
-Canarias - Tacoronte - Ciruclo Podemos Tacoronte	TM0538447
-Cantabria - Torrelavega - Círculo Podemos Torrelavega	TM063908706
-Cantabria - Reocín - Círculo Podemos Reocín	TM063906004
-Cantabria - Besaya, Costa Occidental, Saja-Nansa, Liébana, Campoo-Los Valles - Círculo Podemos Cantabria Occidental	TC063908701
-Cantabria - Santa Cruz de Bezana - Círculo Podemos Bezana	TM063907301
-Cantabria - Santoña - Círculo Podemos Santoña	TM063907902
-Cantabria - Los Corrales de Buelna - Círculo Podemos Valle de Buelna	TM063902503
-Cantabria - Laredo - Círculo Podemos Laredo	TM063903505
-Cantabria - Santander - Círculo Podemos Santander	TM063907507
-Cantabria - Castro-Urdiales - Círculo Podemos Castro-Urdiales	TM063902008
-Cantabria - Medio Cudeyo y Entrambasaguas - Circulo Podemos Medio Cudeyo-Entrambasaguas	TM063904211
-Cantabria - Piélagos - Círculo Podemos Piélagos	TM063905210
-Cantabria - Santa María de Cayón - Círculo Podemos Santa María de Cayón	TM063907412
-Cantabria - Ruiloba - Círculo Podemos Ruiloba	TM063906813
-Cantabria - Astillero - Círculo Podemos Astillero	TM063900814
-Cantabria - Camargo - Círculo Podemos Camargo	TM063901615
-Castilla-La Mancha - Molina de Aragón - Círculo Podemos Comarca de Molina de Aragón	TC081919000
-Castilla-La Mancha - Albacete - Círculo Podemos Albacete	TM080200300
-Castilla-La Mancha - Almansa - Círculo Podemos Almansa	TM080200900
-Castilla-La Mancha - Madrigueras - Círculo Podemos Madrigueras	TM080204500
-Castilla-La Mancha - La Roda - Círculo Podemos La Roda	TM080206900
-Castilla-La Mancha - Villalgordo del Júcar - Círculo Podemos Villalgordo del Júcar	TM080207800
-Castilla-La Mancha - Villarrobledo - Círculo Podemos Villarrobledo	TM080208100
-Castilla-La Mancha - Alcázar de San Juan - Círculo Podemos Alcázar de San Juan	TM081300500
-Castilla-La Mancha - Almagro - Círculo Podemos Almagro	TM081301300
-Castilla-La Mancha - Calzada de Calatrava - Círculo Calzada de Calatrava	TM081302700
-Castilla-La Mancha - Ciudad Real - Círculo Podemos Ciudad Real	TM081303400
-Castilla-La Mancha - Daimiel - Círculo Podemos Daimiel	TM081303900
-Castilla-La Mancha - Malagón - Círculo Podemos Malagón	TM081305200
-Castilla-La Mancha - Manzanares - Círculo Podemos Manzanares	TM081305300
-Castilla-La Mancha - Piedrabuena - Círculo Podemos Piedrabuena	TM081306300
-Castilla-La Mancha - Puertollano - Círculo Podemos Puertollano	TM081307100
-Castilla-La Mancha - Socuéllamos - Círculo Podemos Socuéllamos	TM081307800
-Castilla-La Mancha - Tomelloso - Círculo Podemos Tomelloso	TM081308200
-Castilla-La Mancha - Valdepeñas - Círculo Podemos Valdepeñas	TM081308700
-Castilla-La Mancha - Casasimarro - Círculo Podemos Casasimarro	TM081606600
-Castilla-La Mancha - Cuenca - Círculo Podemos Cuenca	TM081607800
-Castilla-La Mancha - Mota del Cuervo - Círculo Podemos Mota del Cuervo	TM081613300
-Castilla-La Mancha - Alovera - Círculo Podemos Alovera	TM081902400
-Castilla-La Mancha - Azuqueca de Henares - Círculo Podemos Azuqueca de Henares	TM081904600
-Castilla-La Mancha - Cabanillas del Campo - Círculo Podemos Cabanillas del Campo	TM081905800
-Castilla-La Mancha - Guadalajara - Círculo Podemos Guadalajara	TM081913000
-Castilla-La Mancha - Loranca de Tajuña - Círculo Podemos Loranca de Tajuña	TM081916000
-Castilla-La Mancha - Pioz - Círculo Podemos Pioz AB (Alcarria Baja)	TM081922000
-Castilla-La Mancha - Uceda - Círculo Podemos Uceda	TM081929300
-Castilla-La Mancha - Yebes - Círculo Podemos Valdeluz-Yebes	TM081932600
-Castilla-La Mancha - Añover de Tajo - Círculo Podemos Añover de Tajo	TM084501400
-Castilla-La Mancha - Burguillos de Toledo - Círculo Podemos Burguillos de Toledo	TM084502300
-Castilla-La Mancha - Camuñas - Círculo Podemos Camuñas	TM084503400
-Castilla-La Mancha - Carranque - Círculo Podemos Carranque	TM084503800
-Castilla-La Mancha - Casarrubios del Monte - Círculo Podemos Casarrubios-Calypo	TM084504100
-Castilla-La Mancha - Chozas de Canales - Círculo Podemos Chozas de Canales	TM084505600
-Castilla-La Mancha - Esquivias - Círculo Podemos Esquivias	TM084506400
-Castilla-La Mancha - La Guardia - Círculo Podemos La Guardia	TM084507100
-Castilla-La Mancha - Illescas - Círculo Podemos Illescas	TM084508100
-Castilla-La Mancha - Lominchar - Círculo Podemos Lominchar	TM084508500
-Castilla-La Mancha - Méntrida - Círculo Podemos Méntrida	TM084509900
-Castilla-La Mancha - Numancia de la Sagra - Círculo Podemos Numancia de la Sagra-Azaña	TM084511900
-Castilla-La Mancha - Ocaña - Círculo Podemos Ocaña	TM084512100
-Castilla-La Mancha - Palomeque - Círculo Podemos Palomeque	TM084512700
-Castilla-La Mancha - Quismondo - Círculo Podemos Quismondo	TM084514300
-Castilla-La Mancha - Seseña - Círculo Podemos Seseña	TM084516100
-Castilla-La Mancha - Sonseca - Círculo Podemos Sonseca	TM084516300
-Castilla-La Mancha - Talavera de la Reina - Círculo Podemos Talavera de la Reina	TM084516500
-Castilla-La Mancha - Toledo - Círculo Podemos Toledo	TM084516800
-Castilla-La Mancha - Torrijos - Círculo Podemos Torrijos	TM084517300
-Castilla-La Mancha - Ugena - Círculo Podemos Ugena	TM084517600
-Castilla-La Mancha - Las Ventas de Retamosa - Círculo Podemos Las Ventas de Retamosa	TM084518300
-Castilla-La Mancha - El Viso de San Juan - Círculo Podemos El Viso de San Juan	TM084519900
-Castilla-La Mancha - Yuncos - Círculo Podemos Yuncos	TM084520500
-Castilla y León - Miranda de Ebro - Círculo Podemos Miranda de Ebro	TM070921901
-Castilla y León - Ribera del Torío - Círculo Podemos Ribera del Torío	TM072409802
-Castilla y León - Riaza - Círculo Podemos Riaza	TM074017003
-Castilla y León - Palencia - Círculo Podemos Palencia	TM073412004
-Castilla y León - Villaquilambre - Círculo Podemos Villaquilambre	TM072422205
-Castilla y León - Laguna de Duero - Círculo Podemos Laguna de Duero	TM074707606
-Castilla y León - Medina de Pomar - Círculo Podemos Medina de Pomar	TM070920907
-Castilla y León - León - Círculo Podemos León	TM072408908
-Castilla y León - Laciana - Círculo Podemos Laciana	TC072420209
-Castilla y León - La Bañeza - Círculo Podemos La Bañeza	TM072401010
-Castilla y León - Santa Marta de Tormes - Círculo Podemos Santa Marta de Tormes	TM073729411
-Castilla y León - Briviesca - Círculo Podemos Miranda Briviesca	TM070905612
-Castilla y León - Ciudad Rodrigo - Círculo Podemos Ciudad Rodrigo	TC073710713
-Castilla y León - Zamora - Círculo Podemos Zamora Centro	TM074927514
-Castilla y León - Valladolid - Círculo Podemos Valladolid	TM074718615
-Castilla y León - Sanabria - Círculo Podemos Sanabria	TM074914316
-Castilla y León - Valle del Tiétar - Círculo Podemos Valle del Tiétar	TC070522717
-Castilla y León - El Espinar - Círculo Podemos El Espinar	TM074007618
-Castilla y León - Cabrerizos - Círculo Podemos Cabrerizos	TM073706719
-Castilla y León - Arenas de San Pedro - Círculo Podemos Arenas de San Pedro	TM070501420
-Castilla y León - Ávila - Círculo Podemos Ávila	TM070501921
-Castilla y León - La Cepeda - Círculo Podemos La Cepeda	TM072409822
-Castilla y León - Carracedelo - Círculo Podemos Carracedelo	TM072403823
-Castilla y León - Burgos - Círculo Podemos Burgos	TM070905924
-Castilla y León - La Alberca - Círculo Podemos Sierra de Francia	TC073701025
-Castilla y León - Cantalejo - Círculo Podemos Cantalejo	TM074004026
-Castilla y León - Salamanca - Círculo Podemos Salamanca	TM073727427
-Castilla y León - Villasana de Mena - Círculo Podemos Valle de Mena	TM070941029
-Castilla y León - Segovia - Círculo Podemos Segovia	TM074019430
-Castilla y León - Béjar - Círculo Podemos Béjar y Comarca	TC073704631
-Castilla y León - Soria - Círculo Podemos Soria	TM074217332
-Castilla y León - Aranda de Duero - Círculo Podemos Aranda de Duero y Comarca	TC070901833
-Castilla y León - Cacabelos - Círculo Podemos Cacabelos	TM072403034
-Castilla y León - Venta de Baños - Círculo Podemos Venta de Baños	TM073402335
-Castilla y León - San Andrés de Rabanedo - Círculo Podemos San Andrés de Rabanedo	TM072414236
-Castilla y León - Ponferrada - Círculo Podemos Ponferrada	TM072411537
-Castilla y León - Alar, Herrera, Osorno - Círculo Podemos Canal de Castilla Norte	TC073412338
-Castilla y León - Valverde de la Virgen - Círculo Podemos Valverde de la Virgen	TM072439139
-Castilla y León - Matallana de Torío - Círculo Podemos Matallana de Torío	TM072409840
-Castilla y León - Toro - Círculo Podemos Comarca de Toro	TC074921941
-Castilla y León - Gredos, Barco, Piedrahita - Círculo Gredos, Barco, Piedrahita	TC070560042
-Castilla y León - Olvega-Moncayo - Círculo Podemos Moncayo	TC074211043
-Castilla y León - Aguilar de Campoo - Círculo Podemos Aguilar de Campoo	TM073480044
-Castilla y León - Arroyo de la Encomienda - Círculo Podemos Arroyo de la Encomienda	TM074701045
-Catalunya - Barcelona - Cercle Podem Sant Martí Districte Bcn	TB090801901
-Catalunya - Barcelona - Cercle Podem Poble Sec Sant Antoni Districte Bcn	TB090801903
-Catalunya - Barcelona - Cercle Podem Sant Andreu Districe Bcn	TB090801904
-Catalunya - Barcelona - Cercle Podem Horta-Guinardó Districte Bcn	TB090801905
-Catalunya - Barcelona - Cercle Podem Les Corts Districte Bcn	TB090801906
-Catalunya - Barcelona - Cercle Podem Sarrià - Sant Gervasi Districte Bcn	TB090801907
-Catalunya - Barcelona - Cercle Podem Gràcia Districte Bcn	TB090801909
-Catalunya - Barcelona - Cercle Podem Nou Barris Districte Bcn	TB090801910
-Catalunya - Barcelona - Cercle Podem Eixample Districte Barcelona	TB090801911
-Catalunya - Barcelona - Cercle Podem Barcelona districte Ciutat Vella	TB090801913
-Catalunya - Sabadell - Cercle Podem La Concordia - Sabadell	TB090818712
-Catalunya - Sabadell - Cercle Podem Sabadell - Decano	TB090818715
-Catalunya - Barcelona - Cercle Podem Sants de Barcelona	TB090901914
-Catalunya - Tarragona - Cercle Podem Tarragona Centre	TB094314802
-Catalunya - Tarragona - Cercle Podem Tarragona Barris Ponent	TB094314808
-Catalunya - Berguedà - Cercle Podem Berguedà	TC090802201
-Catalunya - Pla d'Urgell - Cercle Podem El Pla d'Urgell	TC092513703
-Catalunya - Ribagorça - Cercle Podem Ribagorça	TC092517302
-Catalunya - Vielha - Cercle Podem Aran	TC092524304
-Catalunya - Altafulla - Cercle Podem Altafulla	TC094301292
-Catalunya - Ametlla del Vallès - Cercle Podem Ametlla del Vallès	TM090800580
-Catalunya - Arenys de Mar - Cercle Podem Arenys de Mar	TM090800679
-Catalunya - Badalona - Cercle Podem Badalona	TM090801502
-Catalunya - Cabrera d'Anoia - Cercle Podem Cabrera d'Anoia	TM090802893
-Catalunya - Calella - Cercle Podem Calella	TM090803504
-Catalunya - Canet de Mar - Cercle Podem Canet de Mar	TM090804075
-Catalunya - Canovelles - Cercle Podem Canovelles	TM0908041104
-Catalunya - Canyelles - Cercle Podem Canyelles	TM0908043103
-Catalunya - Cardedeu - Cercle Podem Cardedeu	TM090804605
-Catalunya - Castellbisbal - Cercle Podem Castellbisbal	TM090805406
-Catalunya - Castelldefels - Cercle Podem Castelldefels	TM090805674
-Catalunya - Cervelló - Cercle Podem Cervellò	TM090806807
-Catalunya - Cornellà de Llobregat - Cercle Podem Cornellà de Llobregat	TM090807308
-Catalunya - Cubelles - Cercle Podem Cubelles	TM090807409
-Catalunya - Esparreguera - Cercle Podem Esparreguera	TM090807669
-Catalunya - Esplugues de Llobregat - Cercle Podem Esplugues de Llobregat	TM090807711
-Catalunya - Les Franqueses del Vallès - Cercle Podem Les Franqueses del Vallès	TM090808666
-Catalunya - Gavà - Cercle Podem Gavà	TM0908089100
-Catalunya - Granollers - Cercle Podem Granollers	TM090809612
-Catalunya - Sant Salvador de Guardiola - Cercle Podem Sant Salvador de Guadiola	TM090809830
-Catalunya - L'Hospitalet de Llobregat - Cercle Podem L'Hospitalet de Llobregat	TM090810113
-Catalunya - Igualada - Cercle Podem Igualada	TM090810268
-Catalunya - La Llagosta - Cercle Podem La Llagosta	TM090810567
-Catalunya - Lliçà d'Amunt - Cercle Podem Lliçà d'Amunt	TM090810714
-Catalunya - Lliça de Vall - Cercle Podem Lliça de Vall	TM090810865
-Catalunya - Malgrat de Mar - Cercle Podem Malgrat de Mar	TM090811064
-Catalunya - Manlleu - Cercle Podem Manlleu	TM090811263
-Catalunya - Manresa - Cercle Podem Manresa	TM090811301
-Catalunya - Martorell - Cercle Podem Martorell	TM090811415
-Catalunya - Mataró - Cercle Podem Mataró	TM090812116
-Catalunya - Molins - Cercle Podem Molins de Rei	TM090812362
-Catalunya - Mollet del Vallès - Cercle Podem Mollet del Vallès	TM090812461
-Catalunya - Montcada i Reixac - Cercle Podem Montcada i Reixac	TM0908125110
-Catalunya - Montgat - Cercle Podem Montgat	TM090812617
-Catalunya - Olesa de Montserrat - Cercle Podem Olesa de Montserrat	TM090814718
-Catalunya - Palafolls - Cercle Podem Palafolls	TM090815560
-Catalunya - Palau-solità i Plegamans - Cercle Podem Palau-solità i Plegamans	TM090815659
-Catalunya - Parets dels Vallès - Cercle Podem Parets dels Vallès	TM090815919
-Catalunya - Pineda de Mar - Cercle Podem Pineda de Mar	TM090816357
-Catalunya - Polinyà - Cercle Podem Polinyà	TM090816756
-Catalunya - El Prat de Llobregat - Cercle Podem El Prat de Llobregat	TM090816910
-Catalunya - Premià de Mar - Cercle Podem Premià de Mar	TM090817294
-Catalunya - Ripollet - Cercle Podem Ripollet	TM090818055
-Catalunya - El Pont de Vilomara i Rocafort - Cercle Podem El Pont de Vilomara i Rocafort	TM090818270
-Catalunya - Rubí - Cercle Podem Rubí	TM090818422
-Catalunya - Sant Adrià del Besòs - Cercle Podem Sant Adrià del Besòs	TM090819495
-Catalunya - Sant Andreu de la Barca - Cercle Podem Sant Andreu de la Barca	TM090819623
-Catalunya - Sant Boi de Llobregat - Cercle Podem Sant Boi de Llobregat	TM090820024
-Catalunya - Sant Cugat del Vallés - Cercle Podem Sant Cugat del Vallés	TM090820525
-Catalunya - Sant Esteve de Sesrovires - Cercle Podem Sant Esteve Sesrovires	TM090820826
-Catalunya - Sant Fost de Campsentelles - Cercle Podem Sant Fost de Campsentelles	TM090820928
-Catalunya - Sant Feliu de Llobregat - Cercle Podem Sant Feliu de Llobregat	TM090821127
-Catalunya - Sant Joan Despí - Cercle Podem Sant Joan Despí	TM090821753
-Catalunya - Sant Joan de Vilatorrada - Cercle Podem Sant Joan de Vilatorrada	TM090821854
-Catalunya - Vilassar de Mar - Cercle Podem Vilassar de Mar	TM090821937
-Catalunya - Sant Just Desvern - Cercle Podem Sant Just Desvern	TM090822129
-Catalunya - Sant Pere de Ribes - Cercle Ribes-Les Roquetes	TM090823121
-Catalunya - Santa Coloma de Gramenet - Cercle Podem Santa Coloma de Gramenet	TM090824520
-Catalunya - Barberà del Vallès - Cercle Podem Barberà del Vallès	TM090825203
-Catalunya - Santa Perpetua de Mogoda - Cercle Podem Santa Perpetua de Mogoda	TM090826052
-Catalunya - Sant Vicenç dels Horts - Cercle Podem Sant Vicenç dels Horts	TM0908263107
-Catalunya - Cerdanyola del Vallès - Cercle Podem Cerdanyola del Vallès	TM090826673
-Catalunya - Sentmenat - Cercle Podem Sentmenat	TM090826799
-Catalunya - Sitges - Cercle Podem Sitges	TM090827091
-Catalunya - Terrassa - Cercle Podem Terrassa	TM090827951
-Catalunya - Tiana - Cercle Podem Tiana	TM090828250
-Catalunya - Tordera - Cercle Podem Tordera	TM090828431
-Catalunya - Vallirana - Cercle Podem Vallirana	TM090829532
-Catalunya - Viladecans - Cercle Podem Viladecans	TM090830133
-Catalunya - Vilanova del Camí - Cercle Podem Vilanova del Camí	TM090830235
-Catalunya - Vilafranca del Penedès - Cercle Podem Vilafranca del Penedès	TM090830534
-Catalunya - Vilanova i la Geltrú - Cercle Podem Vilanova i la Geltrú	TM090830736
-Catalunya - Badia del Vallès - Cercle Podem Badia del Vallès	TM090890478
-Catalunya - Blanes - Cercle Podem Blanes	TM091702390
-Catalunya - Figueres - Cercle Podem Figueres	TM091706689
-Catalunya - Girona - Cercle Podem Girona	TM091707938
-Catalunya - Lloret de Mar - Cercle Podem Lloret de Mar	TM091709539
-Catalunya - Riells i Viabrea - Cercle Podem Riells i Viabrea	TM091714698
-Catalunya - Roses - Cercle Podem Roses	TM0917152106
-Catalunya - Sils - Cercle Podem Sils	TM091719340
-Catalunya - Lleida - Cercle Podem Ciutat de Lleida	TM092512088
-Catalunya - Tàrrega - Cercle Podem Tàrrega	TM092521741
-Catalunya - Alcanar - Cercle Podem Alcanar	TM094300483
-Catalunya - Alforja - Cercle Podem Alforja	TM094300996
-Catalunya - Amposta - Cercle Podem Amposta	TM094301484
-Catalunya - La Bisbal del Panadés - Cercle Podem La Bisbal del Penedès	TM094302843
-Catalunya - Calafell - Cercle Podem Calafell	TM094303744
-Catalunya - Cunit - Cercle Podem Cunit	TM0943051108
-Catalunya - Montroig - Cercle Podem Miami Platja - Mont-roig del Camp	TM094309281
-Catalunya - Reus - Cercle Podem Reus	TM094312346
-Catalunya - Riba-Roja d'Ebre - Cercle Podem Riba-Roja d'Ebre	TM094312586
-Catalunya - Roda de Bera - Cercle Podem Roda de Bera	TM0943131109
-Catalunya - Sant Carles de la Ràpita - Cercle Podem La Ràpita	TM094313685
-Catalunya - La Selva del Camp - Cercle Podem La Selva del Camp	TM094314582
-Catalunya - Torredembarra - Cercle Podem Torredembarra	TM0943153102
-Catalunya - Tortosa - Cercle Podem Tortosa	TM0943155105
-Catalunya - Valls - Cercle Podem Valls	TM0943161101
-Catalunya - El Vendrell - Cercle Podem El Vendrell	TM094316342
-Catalunya - Deltebre - Cercle Podem Deltebre	TM094390197
-Catalunya - Aldea, L' - Cercle Podem L'Aldea	TM094390447
-Catalunya - Salou - Cercle Podem Salou	TM094390545
-Catalunya - Tarragona - Cercle Podem Tarragona Sant Pere I Sant Pau	TB094314816
-Catalunya - Castellar del Vallès - Cercle Podem Castellar del Vallès	TM0908051111
-Catalunya - Montornés del Vallès - Cercle Podem Montornés del Vallès	TM0908136113
-Catalunya - La Bisbal d'Empordà - Cercle Podem La Bisbal d'Empordà	TM091702200
-Comunitat Valenciana - Alicante - Círculo Podemos Alicante Partidas Rurales	TB100301403
-Comunitat Valenciana - Alicante - Podemos Playas Alicante	TB100301401
-Comunitat Valenciana - Alicante - Podemos Alicante Norte	TB100301402
-Comunitat Valenciana - Alicante - Podemos Pla-Carolinas	TB100301405
-Comunitat Valenciana - Alicante - Círculo Podemos Alicante Oeste	TB100301404
-Comunitat Valenciana - Alicante - Círculo Podemos Alicante Benacantil	TB100301406
-Comunitat Valenciana - Alicante - Círculo Lucentum (San Blas-Centro)	TB100301407
-Comunitat Valenciana - Elche - Círculo de Altabix	TB100306501
-Comunitat Valenciana - Elche - Círculo San Antón	TB100306502
-Comunitat Valenciana - Elche - Círculo Centro Podem Elx	TB100306503
-Comunitat Valenciana - Elche - Círculo Podemos La Marina Elche	TB100306504
-Comunitat Valenciana - Valencia - Podem Extramurs	TB104625006
-Comunitat Valenciana - Valencia - Monteolivete con Podemos	TB104625003
-Comunitat Valenciana - Valencia - Podem Benimaclet	TB104625005
-Comunitat Valenciana - Valencia - Podem Algirós	TB104625001
-Comunitat Valenciana - Valencia - Podem Russafa	TB104625004
-Comunitat Valenciana - Valencia - Podem La Malva-Rosa	TB104625002
-Comunitat Valenciana - Valencia - Podemos Patraix	TB104625007
-Comunitat Valenciana - Valencia - Podemos Olivereta	TB104625008
-Comunitat Valenciana - Valencia - Podem Orriols-Torrefiel	TB104625009
-Comunitat Valenciana - Valencia - Podemos Zaidia	TB104625010
-Comunitat Valenciana - Valencia - Podem Benicalap-Campanar	TB104625011
-Comunitat Valenciana - Valencia - Círculo Podem Malilla	TB104625012
-Comunitat Valenciana - Valencia - Podemos Benimamet	TB104625009
-Comunitat Valenciana - Valencia - Podemos Ciutat Vella	TB104625013
-Comunitat Valenciana - Comarca Utiel-Requena - Círculo Comarcal Utiel-Requena	TC1046213
-Comunitat Valenciana - Alaquàs - Podem Alaquàs	TM1046005
-Comunitat Valenciana - Albaida - Podemos Albaida	TM1046006
-Comunitat Valenciana - Albal - Podem Albal	TM1046007
-Comunitat Valenciana - Alberic - Podemos Alberic	TM1046011
-Comunitat Valenciana - Alboraya - Podemos Alboraya	TM1046013
-Comunitat Valenciana - Alcasser - Podem Alcasser	TM1046015
-Comunitat Valenciana - Alcoy - Podem Alcoy	TM1003009
-Comunitat Valenciana - Aldaia - Círculo Podem Aldaia	TM1046021
-Comunitat Valenciana - Algemesí - Podemos Algemesí	TM1046029
-Comunitat Valenciana - Alginet - Círculo Alginet	TM1046031
-Comunitat Valenciana - Almàssera - Podemos Almàssera	TM1046032
-Comunitat Valenciana - Almussafes - Círculo Almussafes	TM1046035
-Comunitat Valenciana - Altea - Círculo Podemos Altea	TM1003018
-Comunitat Valenciana - Aspe - Podemos Aspe	TM1003019
-Comunitat Valenciana - Beniarjó - Podem Beniarjó	TM1046055
-Comunitat Valenciana - Benicarló - Círculo Podemos Benicarló	TM1012027
-Comunitat Valenciana - Benidorm - Podemos Benidorm	TM1003031
-Comunitat Valenciana - Benissa - Podemos Benissa	TM1003041
-Comunitat Valenciana - Benissanó - Podem Benissanó	TM1046067
-Comunitat Valenciana - Bétera - Podem Bétera	TM1046070
-Comunitat Valenciana - Borriana - Podemos Borriana	TM1012032
-Comunitat Valenciana - Buñol - Podemos Buñol	TM1046077
-Comunitat Valenciana - Burjassot - Círculo Podemos Burjassot	TM1046078
-Comunitat Valenciana - Callosa de Segura - Círculo Podemos Callosa de Segura	TM1003049
-Comunitat Valenciana - Calp - Podemos Calp	TM1003047
-Comunitat Valenciana - Castellón de la Plana - Podemos Castellón	TM1012040
-Comunitat Valenciana - Catarroja - Podemos Catarroja	TM1046094
-Comunitat Valenciana - Caudiel - Círculo Podemos Caudiel	TM1012043
-Comunitat Valenciana - Cheste - Círculo Podem Cheste	TM1046109
-Comunitat Valenciana - Cocentaina - Podem Cocentaina	TM100356
-Comunitat Valenciana - Crevillente - Podemos Crevillente	TM1003059
-Comunitat Valenciana - Cullera - Podem Cullera	TM1046105
-Comunitat Valenciana - Denia - Círculo Podemos Denia	TM1003063
-Comunitat Valenciana - El Campello - Círculo Podemos El Campello	TM1003050
-Comunitat Valenciana - El Puig - Podem El Puig	TM1046204
-Comunitat Valenciana - Elda - Podemos Elda	TM1003066
-Comunitat Valenciana - Finestrat - Podemos Finestrat	TM1003069
-Comunitat Valenciana - Sant Joan d'Alacant - Círculo Sant Joan	TM1003119
-Comunitat Valenciana - Foios - Podem Foios	TM1046126
-Comunitat Valenciana - Gandía - Círculo Podemos Gandía	TM1046131
-Comunitat Valenciana - Gata de Gorgos - Podem Gata	TM1003071
-Comunitat Valenciana - Godella - Círculo Podem Godella	TM1046135
-Comunitat Valenciana - Godelleta - Círculo Podemos Godelleta	TM1046136
-Comunitat Valenciana - Guardamar del Segura - Podemos Guardamar del Segura	TM1003076
-Comunitat Valenciana - Ibi - Podemos Ibi	TM1003079
-Comunitat Valenciana - L'Alcora - Podem L'Alcora	TM1012005
-Comunitat Valenciana - l'Alfàs del Pi - Podemos Alfàs	TM1003011
-Comunitat Valenciana - La Nucia - Podemos la Nucia	TM1003094
-Comunitat Valenciana - La Pobla de Vallbona - Círculo La Pobla de Vallbona	TM1046202
-Comunitat Valenciana - La Vall d'Uixó - Círculo Podemos La Vall d'Uixó	TM1012126
-Comunitat Valenciana - La Vila Joiosa - Círculo Podem La Vila Joiosa	TM1003139
-Comunitat Valenciana - La Vilavella - Círculo Podem La Vilavella	TM1012136
-Comunitat Valenciana - Llaurí - Círculo Podemos Llaurí	TM1046155
-Comunitat Valenciana - Lliria - Podem Lliria	TM1046147
-Comunitat Valenciana - Manises - Círculo Podemos Manises	TM1046159
-Comunitat Valenciana - Massalfasar - Podem Massalfasar	TM1046163
-Comunitat Valenciana - Massamagrell - Podem Massamagrell	TM1046164
-Comunitat Valenciana - Massanasa - Podemos Massanasa	TM1046165
-Comunitat Valenciana - Meliana - Podemos Meliana	TM1046166
-Comunitat Valenciana - Mislata - Círculo Podem Mislata	TM1046169
-Comunitat Valenciana - Moncofa - Podem Moncofa	TM1012077
-Comunitat Valenciana - Montcada - Podem Montcada	TM1046171
-Comunitat Valenciana - Museros - Podem Museros	TM1046177
-Comunitat Valenciana - Mutxamel - Círculo Podemos Mutxamel	TM1003090
-Comunitat Valenciana - Náquera - Podemos Náquera	TM1046178
-Comunitat Valenciana - Nules - Círculo Podemos Nules	TM1012082
-Comunitat Valenciana - Onda - Podemos Onda	TM1012084
-Comunitat Valenciana - Onil - Podemos Onil	TM1003096
-Comunitat Valenciana - Ontinyent - Podem Ontinyent	TM1046184
-Comunitat Valenciana - Paterna - Podemos Paterna	TM1046190
-Comunitat Valenciana - Petrer - Círculo Podem Petrer	TM1003104
-Comunitat Valenciana - Pilar de la Horadada - Círculo Podemos Pilar de la Horadada	TM100390200
-Comunitat Valenciana - Puçol - Podem Puçol	TM1046205
-Comunitat Valenciana - Quart de Poblet - Podemos Quart de Poblet	TM1046102
-Comunitat Valenciana - Riba-Roja - Podem Riba-Roja	TM1046214
-Comunitat Valenciana - Rocafort - Podem Rocafort	TM1046216
-Comunitat Valenciana - Sagunto - Podem Morvedre	TM1046220
-Comunitat Valenciana - San Antonio de Benageber - Círculo Podemos San Antonio de Benagéber	TM1046903
-Comunitat Valenciana - San Vicente del Raspeig - Podemos San Vicente	TM1003122
-Comunitat Valenciana - Silla - Podemos Silla	TM1046230
-Comunitat Valenciana - Sollana - Podem Sollana	TM1046233
-Comunitat Valenciana - Sueca - Podem Sueca	TM1046235
-Comunitat Valenciana - Tavernes Blanques - Podemos Tabernes Blanques	TM1046237
-Comunitat Valenciana - Torrent - Círculo Podemos Torrent	TM1046244
-Comunitat Valenciana - Torrevieja - Podemos Torrevieja	TM1003133
-Comunitat Valenciana - Vila-Real - Podem Vilareal	TM1012135
-Comunitat Valenciana - Villamarxant - Podemos Villamarxant	TM1046256
-Comunitat Valenciana - Villar del Arzobispo - Círculo Villar del Arzobispo	TM1046258
-Comunitat Valenciana - Villena - Círculo Podemos Villena	TM1003140
-Comunitat Valenciana - Xàbia - Podemos Xàbia	TM1003082
-Comunitat Valenciana - Xàtiva - Círculo Podemos Xàtiva	TM1046145
-Comunitat Valenciana - Xirivella - Círculo Podem Xirivella	TM1046110
-Comunitat Valenciana - Orihuela - Podemos Orihuela	TM1003099
-Comunitat Valenciana - Vinarós - Podemos Vinarós	TM1012138
-Comunitat Valenciana - Paiporta  - Podemos Paiporta	TM1046186
-Comunitat Valenciana - Monovar - Podemos Monover	TM1003089
-Comunitat Valenciana - Alcasser - Círculo Podemos Alcasser	TM1046015
-Comunitat Valenciana - Picassent - Círculo Podemos Picassent	TM1046194
-Comunitat Valenciana - Alzira - Círculo Podemos Alzira	TM1046017
-Comunitat Valenciana - Silla - Podemos Silla	TM1046230
-Comunitat Valenciana - Villar del Arzobispo - Círculo Villar del Arzobispo	TM1046258
-Comunitat Valenciana - Almussafes - Círculo Almussafes	TM1046035
-Comunitat Valenciana - Massanasa - Podemos Massanasa	TM1046165
-Comunitat Valenciana - Orihuela - Podemos Orihuela	TM1003099
-Comunitat Valenciana - Vinarós - Podemos Vinarós	TM1012138
-Comunitat Valenciana - Valencia - Podemos Benimamet	TB10462509
-Comunitat Valenciana - Benicarló - Círculo Podemos Benicarló	TM1012027
-Comunitat Valenciana - Alcasser - Círculo Podemos Alcàsser	TM1046015
-Euskadi - Basauri - Basauri	TM164801501
-Euskadi - Arrasate - Arrasate	TM162005502
-Euskadi - Hernani - Hernani	TM162004003
-Euskadi - Erandio - Erandio	TM164890204
-Euskadi - Enkarterri/Encartaciones - Enkarterri	TC164809001
-Euskadi - Abanto y Ciérvana - Abanto y Ciérvana	TM164800205
-Euskadi - Amurrio - Amurrio	TM160100206
-Euskadi - Andoáin - Andoáin	TM162000907
-Euskadi - Vitoria-Gasteiz - Vitoria-Centro	TB160105901
-Euskadi - Vitoria-Gasteiz - Vitoria-Oeste	TB160105903
-Euskadi - Bilbao - Bilbao-Iparmendebalde	TB164802005
-Euskadi - Bilbao - Bilbao-Zorrotza	TB164802006
-Euskadi - Donostia - Donostia	TM162006912
-Euskadi - Durango - Durangaldea	TM164802703
-Euskadi - Eibar - Eibar	TM162003014
-Euskadi - Elorrio - Elorrio	TM164803216
-Euskadi - Galdakao - Galdakao	TM164803617
-Euskadi - Getxo - Getxo	TM164804418
-Euskadi - Irún - Irún	TM162004519
-Euskadi - Lasarte-Oria - Lasarte-Oria	TM162090220
-Euskadi - Laudio - Laudio	TM160103621
-Euskadi - Leioa - Leioa	TM164805422
-Euskadi - Llanada alavesa - Llanada alavesa	TC160100102
-Euskadi - Mungia - Mungia	TM164806923
-Euskadi - Muskiz - Muskiz	TM164807124
-Euskadi - Oion - Oion	TM160104326
-Euskadi - Ortuella - Ortuella	TM164808327
-Euskadi - Pasaia - Pasaia	TM162006428
-Euskadi - Santurtzi - Santurtzi	TM164808230
-Euskadi - Sestao - Sestao	TM164808431
-Euskadi - Sopela - Sopela	TM164808532
-Euskadi - Zarautz - Zarautz	TM162007933
-Euskadi - Amorebieta-Etxano - Zornotza	TM164800334
-Euskadi - Derio - Derio-Txorierri	TM164890103
-Euskadi - Bilbao - Bilbao-Bilbao centro	TB164802007
-Euskadi - Bilbao - Bilbao-Ibaiondo	TB164802008
-Euskadi - Portugalete - Portugalete	TM164807835
-Euskadi - Trapagaran - Trapagaran	TM164808036
-Euskadi - Urduliz - Urduliz	TM164808937
-Euskadi - Tolosa - Tolosa	TM162007138
-Euskadi - Bilbao - Bilbao-Hegoalde	TB164802009
-Euskadi - Ordizia - Ordizia	TM162007601
-Euskadi - Bilbao - Bilbao-Otxarkoaga y Txurdinaga	TB164802010
-Euskadi - Gernika - Gernika	TM164804601
-Euskadi - Güeñes - Güeñes	TM164804501
-Euskadi - Villabona - Villabona	TM162007501
-Euskadi - Zamudio - Zamudio	TM164890501
-Extremadura - Coria - Podemos Coria	TM101006701
-Extremadura - Sierra Suroeste - Sierra Suroeste	TC100605001
-Extremadura - Guareña - Podemos Guareña	TM100606001
-Extremadura - Mérida - Podemos Mérida	TM100608301
-Extremadura - Almendralejo - Podemos Almendralejo	TM100601101
-Extremadura - Badajoz - Podemos Badajoz	TM100601501
-Extremadura - Montijo - Podemos Montijo Asambleario	TM100608801
-Extremadura - Cañaveral - Podemos Cañaveral	TM101004501
-Extremadura - Valle del Jerte - Podemos Valle del Jerte	TC101003501
-Extremadura - Valle del Ambroz - Comarcal Valle del Ambroz	TC101009601
-Extremadura - Piornal - Podemos Piornal	TM101014701
-Extremadura - Cáceres - Podemos Cáceres	TM101003701
-Extremadura - La Serena - Comarcal la Serena	TC100603601
-Extremadura - Casas del Monte - Podemos Casas del Monte	TM101005501
-Extremadura - Campo Arañuelo - Podemos Campo Arañuelo	TC101018001
-Extremadura - Navalmoral de la Mata - Podemos Navalmoral de la Mata	TM101013101
-Extremadura - Villanueva del Fresno - Podemos Villanueva del Fresno	TM100615401
-Extremadura - La Vera - Comarcal de la Vera	TC101010501
-Extremadura - Villuercas-Ibores-Jara - Villuercas-Ibores-Jara	TC101002901
-Extremadura - Villanueva de la Serena - Villanueva de la Serena	TM100615301
-Extremadura - Jerez de los Caballeros - Jerez de los Caballeros	TM100607001
-Extremadura - Comarca de Trujillo - Trujillo y Pueblos	TC101019501
-Extremadura - Plasencia - Plasencia	TM101014801
-Galicia - Ames - Ames	TM1215002-01
-Galicia - Betanzos - Betanzos	TM1215009-01
-Galicia - Carballo - Carballo	TM1215019-01
-Galicia - Cedeira - Cedeira	TM1215022-01
-Galicia - A Coruña - A Coruña	TM1215030-01
-Galicia - Ferrol - Ferrol	TM1215036-01
-Galicia - Valdoviño - Valdoviño	TM1215087-01
-Galicia - Lugo - Círculo Lugo	TM1227028-01
-Galicia - Sarria - Sarria	TM1227057-01
-Galicia - O Barco de Valdeorras - O Barco de Valdeorras	TM1232009-01
-Galicia - Ribeira Sacra - Ribeira Sacra	TM1232052-01
-Galicia - Ourense - Ourense	TM1232054-01
-Galicia - Gondomar - Gondomar	TM1236021-01
-Galicia - Marín - Marín	TM1236026-01
-Galicia - Redondela - R+edondela	TM1236045-01
-Galicia - Sanxenxo - Sanxenxo	TM1236051-01
-Galicia - Vigo - Círculo Vigo	TM1236057-01
-Galicia - Vilagarcia de Arousa - Vilagarcia de Arousa	TM1236060-01
-La Rioja - Logroño - Círculo de Logroño	TM172608901
-La Rioja - Nájera - Círculo de Nájera y comarca	TC172610202
-La Rioja - Arnedillo, Herce, Santa Eulalia, Préjano, Enciso, Munilla - Círculo del Alto Cidacos	TC172605403
-La Rioja - Santo Domingo de la Calzada, Corporales, Morales, Grañón, Gallinero de Rioja, Manzanares de Rioja, Cirueña, Hervías, Bañares, San Torcuato, Villalobar de Rioja, Herramelluri, Leiva, Tormantos, Villarta Quintana - Círculo Calceatense y comarca	TC172613804
-La Rioja - Albelda, Villamediana, Alberite - Círculo Bajo Iregua	TC1726419705
-La Rioja - Arnedo - Círculo Arnedo	TM172601802
-La Rioja - Alfaro - Círculo Alfaro	TM172601100
-Comunidad de Madrid - Madrid - 3B	TB132807932
-Comunidad de Madrid - Alcala de Henares - Alcala de Henares	TM132800501
-Comunidad de Madrid - Alcorcón - Alcorcón	TM132800701
-Comunidad de Madrid - Algete - Algete	TM132800901
-Comunidad de Madrid - Alpedrete - Alpedrete	TM132801001
-Comunidad de Madrid - Aranjuez - Aranjuez	TM132801301
-Comunidad de Madrid - Madrid - Aravaca	TB132807914
-Comunidad de Madrid - Arganda del Rey - Arganda del Rey	TM132801401
-Comunidad de Madrid - Madrid - Arganzuela	TB132807905
-Comunidad de Madrid - Arroyomolinos - Arroyomolinos	TM132801501
-Comunidad de Madrid - Madrid - Barajas	TB132807929
-Comunidad de Madrid - Boalo-Cerceda-Mataelpino - Bocema	TC132802301
-Comunidad de Madrid - Camarma - Camarma	TM132803201
-Comunidad de Madrid - Campo Real - Campo Real	TM132803301
-Comunidad de Madrid - Madrid - Canillejas - La Peineta	TB132807931
-Comunidad de Madrid - Madrid - Carabanchel- Latina	TB132807930
-Comunidad de Madrid - Carabaña - Carabaña	TM132803501
-Comunidad de Madrid - Madrid - Centro	TB132807902
-Comunidad de Madrid - Madrid - Chamartín	TB132807910
-Comunidad de Madrid - Madrid - Chamberí	TB132807912
-Comunidad de Madrid - Chapinería - Chapinería	TM132805101
-Comunidad de Madrid - Ciempozuelos - Ciempozuelos	TM132804001
-Comunidad de Madrid - Madrid - Ciudad Lineal	TB132807927
-Comunidad de Madrid - Móstoles - Coímbra-Guadarrama	TB132809204
-Comunidad de Madrid - Collado Mediano - Collado Mediano	TM132804601
-Comunidad de Madrid - Collado Villalba - Collado Villalba	TM132804701
-Comunidad de Madrid - Colmenar de Oreja - Colmenar de Oreja	TM132804301
-Comunidad de Madrid - Colmenar Viejo - Colmenar Viejo	TM132804501
-Comunidad de Madrid - Colmenarejo - Colmenarejo	TM132804401
-Comunidad de Madrid - Madrid - Dehesa de la Villa	TB132807915
-Comunidad de Madrid - El Álamo - El Álamo	TM132800401
-Comunidad de Madrid - El Escorial - El Escorial	TM132805401
-Comunidad de Madrid - El Molar - El Molar	TM132808601
-Comunidad de Madrid - Fresnedillas de la Oliva - Fresnedillas de la Oliva	TM132805601
-Comunidad de Madrid - Madrid - Fuencarral- El Pardo	TB132807913
-Comunidad de Madrid - Fuenlabrada - Fuenlabrada	TM132805801
-Comunidad de Madrid - Galapagar - Galapagar	TM132806101
-Comunidad de Madrid - Getafe - Getafe	TM132806501
-Comunidad de Madrid - Griñón - Griñón	TM132806601
-Comunidad de Madrid - Guadarrama - Guadarrama	TM132806801
-Comunidad de Madrid - Madrid - Guindalera- Fuente del Berro	TB132807908
-Comunidad de Madrid - Madrid - Hortaleza	TB132807917
-Comunidad de Madrid - Madrid - La Bombilla	TB132807916
-Comunidad de Madrid - Madrid - La Cebada	TB132807904
-Comunidad de Madrid - Loeches - Loeches	TM132807501
-Comunidad de Madrid - Los Molinos - Los Molinos	TM132808701
-Comunidad de Madrid - Lozoyuela - Lozoyuela	TM132890101
-Comunidad de Madrid - Majadahonda - Majadahonda	TM132808001
-Comunidad de Madrid - Madrid - Malasaña	TB132807903
-Comunidad de Madrid - Manzanares El Real - Manzanares El Real	TM132808201
-Comunidad de Madrid - Meco - Meco	TM132808301
-Comunidad de Madrid - Moraleja de Enmedio - Moraleja de Enmedio	TM132808901
-Comunidad de Madrid - Moralzarzal - Moralzarzal	TM132809001
-Comunidad de Madrid - Madrid - Moratalaz	TB132807926
-Comunidad de Madrid - Móstoles - Móstoles Centro	TB132809201
-Comunidad de Madrid - Móstoles - Móstoles Sur-Este	TB132809202
-Comunidad de Madrid - Móstoles - Móstoles Sur-Oeste	TB132809203
-Comunidad de Madrid - Navalagamella - Navalagamella	TM132809501
-Comunidad de Madrid - Móstoles - Norte-Universidad	TB132809206
-Comunidad de Madrid - Madrid - Orcasitas	TB132807922
-Comunidad de Madrid - Paracuellos del Jarama - Paracuellos de Jarama	TM132810401
-Comunidad de Madrid - Parla - Parla	TM132810601
-Comunidad de Madrid - Móstoles - PAU-4	TB132809205
-Comunidad de Madrid - Pedrezuela - Pedrezuela	TM132810801
-Comunidad de Madrid - Pinto - Pinto	TM132811301
-Comunidad de Madrid - Pozuelo de Alarcón - Pozuelo de Alarcón	TM132811501
-Comunidad de Madrid - Madrid - Puente de Vallecas	TB132807924
-Comunidad de Madrid - Madrid - Puerta del Ángel	TB132807918
-Comunidad de Madrid - Madrid - Retiro	TB132807906
-Comunidad de Madrid - Madrid - Retiro Norte	TB132807907
-Comunidad de Madrid - Rivas Vaciamadrid - Rivas	TM132812301
-Comunidad de Madrid - San Agustín de Guadalix - San Agustín de Guadalix	TM132812901
-Comunidad de Madrid - Madrid - San Fermín	TB132807921
-Comunidad de Madrid - San Lorenzo del Escorial - San Lorenzo del Escorial	TB132813101
-Comunidad de Madrid - San Martín de la Vega - San Martín de la Vega	TM132813201
-Comunidad de Madrid - San Martín de Valdeiglesias - San Martin de Valdeiglesias	TM132813301
-Comunidad de Madrid - Santa Maria de la Alameda - Santa Maria de la Alameda	TM132813501
-Comunidad de Madrid - Senda de Valmores - Senda de Valmores	TC132810001
-Comunidad de Madrid - Pedania Serracines - Serracines	TM132805701
-Comunidad de Madrid - Sevilla la Nueva - Sevilla la Nueva	TM132814101
-Comunidad de Madrid - Soto del Real - Soto del Real	TM132814401
-Comunidad de Madrid - Talamanca de Jarama - Talamanca de Jarama	TM132814501
-Comunidad de Madrid - Madrid - Tetuán	TB132807911
-Comunidad de Madrid - Torrejón de Ardoz - Torrejon de Ardoz	TM132814801
-Comunidad de Madrid - Tres Cantos - Tres Cantos	TB132890301
-Comunidad de Madrid - Madrid - Usera	TB132807923
-Comunidad de Madrid - Valdemorillo - Valdemorillo	TM132816001
-Comunidad de Madrid - Valdemoro - Valdemoro	TM132816101
-Comunidad de Madrid - Valdetorres del Jarama - Valdetorres del Jarama	TM132816401
-Comunidad de Madrid - Velilla - Velilla	TM132816701
-Comunidad de Madrid - Madrid - Vicálvaro	TB132807925
-Comunidad de Madrid - Madrid - Villa de Vallecas	TB132807920
-Comunidad de Madrid - Villaconejos - Villaconejos	TM132817001
-Comunidad de Madrid - Villalbilla - Villalbilla	TM132817201
-Comunidad de Madrid - Villanueva de la Cañada - Villanueva de la Cañada	TM132817601
-Comunidad de Madrid - Villanueva de Perales - Villanueva de Perales	TM132817801
-Comunidad de Madrid - Villanueva del Pardillo - Villanueva del Pardillo	TM132817701
-Comunidad de Madrid - Villarejo de Salvanés - Villarejo de Salvanés	TM132818001
-Comunidad de Madrid - Madrid - Villaverde	TB132807919
-Comunidad de Madrid - Villaviciosa de Odón - Villaviciosa de Odón	TM132818101
-Navarra - Altsasu/Alsasua - Círculo de Alsasua	TM153110
-Navarra - Ansoáin/Antsoain - Círculo de Ansoáin	TM153116
-Navarra - Barañáin - Círculo de Barañáin	TM1531901
-Navarra - Berrioplano - Círculo de Berrioplano	TM1531902
-Navarra - Berriozar - Círculo de Berriozar	TM1531903
-Navarra - Burlada/Burlata - Círculo de Burlada	TM153160
-Navarra - Corella - Círculo de Corella	TM153177
-Navarra - Huarte/Uharte - Círculo de Huarte	TM1531122
-Navarra - Pamplona - Círculo de Pamplona	TM1531201
-Navarra - Tafalla - Círculo de Tafalla	TM1531227
-Navarra - Tudela - Círculo de Tudela	TM1531232
-Navarra - Villava/Atarrabia - Círculo de Villava	TM1531258
-Navarra - Zizur Mayor/Zizur Nagusia - Círculo de Zizur	TM1531907
-Navarra - Valle de Egüés - Círculo de Egüés	TM153186
-Navarra - Orkoien - Círculo de Orkoien	TM1531906
-Navarra - Noáin - Círculo de Noáin	TM153188
-Región de Murcia - Águilas - Podemos Águilas	TM143000301
-Región de Murcia - Alcantarilla - Podemos Alcantarilla	TM143000501
-Región de Murcia - Alhama de Murcia - Podemos Alhama	TM143000801
-Región de Murcia - Bullas - Podemos Bullas	TM143001201
-Región de Murcia - Calasparra - Podemos Calasparra	TM143001301
-Región de Murcia - Cartagena - Podemos Cartagena	TB143001601
-Región de Murcia - Cartagena - Podemos Cartagena Norte	TB143001603
-Región de Murcia - Cartagena - Podemos Cartagena Oeste	TB143001604
-Región de Murcia - Cartagena - Círculo de La Manga	TB143001602
-Región de Murcia - Cehegín - Podemos Cehegín	TM143001701
-Región de Murcia - Cieza - Podemos Cieza	TM143001901
-Región de Murcia - Jumilla - Podemos Jumilla	TM143002201
-Región de Murcia - Las Torres de Cotillas - Podemos Las Torres de Cotillas	TM143003801
-Región de Murcia - Lorca - Podemos Lorca	TM143002401
-Región de Murcia - Mazarrón - Podemos Mazarrón	TM143002601
-Región de Murcia - Molina de Segura - Podemos Molina	TM143004301
-Región de Murcia - Moratalla - Podemos Moratalla	TM143002801
-Región de Murcia - Murcia - Podemos Murcia Ciudad	TB143003001
-Región de Murcia - Murcia - Podemos Murcia Huerta Este	TB143003002
-Región de Murcia - Murcia - Podemos Murcia Sur	TB143003003
-Región de Murcia - Murcia - Podemos La Flota Vistalegre Zaraíche	TB143003004
-Región de Murcia - Murcia - Círculo Barrios RBG	TB143003005
-Región de Murcia - Murcia - Podemos Rincón de Seca	TB143003006
-Región de Murcia - San Javier - Círculo Podemos San Javier	TM143003501
-Región de Murcia - Murcia - Podemos Murcia Costera Sur	TB143003007
-Región de Murcia - Yecla - Podemos Yecla	TM143004301
-Región de Murcia - Murcia - Círculo Podemos El Palmar	TB143003008
-Región de Murcia - La Unión - Círculo Podemos La Unión	TM143004101
-Región de Murcia - Murcia - Círculo Podemos Betito (Beniaján, San José de la Vega, Torreagüera)	TB143003009
-Región de Murcia - Los Alcázares - Círculo Los Alcázares	TM143090201
-Región de Murcia - Fortuna - Círculo Podemos Fortuna	TM143002001
-Región de Murcia - Archena - Podemos Archena	TM143000901
-Ceuta - Ceuta - Círculo Podemos Ceuta	TM185100100
-"Melilla - Melilla - Círculo Podemos Melilla ""Sí se puede"""	TM195200100
+original_code	code	name	island_code	region_area_id	town	original_name
+TM1215002-01	TM101500201	Ames			m_15_002_6	A Coruña - Ames - Ames
+TM1215005-01	TM101500501	Arteixo			m_15_005_0	A Coruña - Arteixo - Arteixo
+TM1215006-01	TM101500601	Arzúa			m_15_006_3	A Coruña - Arzúa - Arzúa
+TM1215009-01	TM101500901	Betanzos			m_15_009_8	A Coruña - Betanzos - Betanzos
+TM1215011-01	TM101501101	Boiro			m_15_011_9	A Coruña - Boiro - Boiro
+TM1215017-01	TM101501701	Cambre			m_15_017_7	A Coruña - Cambre - Cambre
+TM1215019-01	TM101501901	Carballo			m_15_019_6	A Coruña - Carballo - Carballo
+TM1215021-01	TM101502101	Carral			m_15_021_7	A Coruña - Carral - Carral
+TM1215022-01	TM101502201	Cedeira			m_15_022_2	A Coruña - Cedeira - Cedeira
+TM1215023-01	TM101502301	Cee			m_15_023_8	A Coruña - Cee - Cee
+TM1215030-01	TM101503001	A Coruña			m_15_030_8	A Coruña - Coruña, A - A Coruña
+TM1215036-01	TM101503601	Ferrol			m_15_036_7	A Coruña - Ferrol - Ferrol
+TM1215037-01	TM101503701	Fisterra			m_15_037_3	A Coruña - Fisterra - Fisterra
+TM1215054-01	TM101505401	Narón			m_15_054_6	A Coruña - Narón - Narón
+TM1215058-01	TM101505801	Oleiros			m_15_058_4	A Coruña - Oleiros - Oleiros
+TM1215067-01	TM101506701	Pobra do Caramiñal, A			m_15_067_6	A Coruña - Pobra do Caramiñal, A - Pobra do Caramiñal, A
+TM1215078-01	TM101507801	Santiago de Compostela			m_15_078_0	A Coruña - Santiago de Compostela - Santiago de Compostela
+TM1215082-01	TM101508201	Teo			m_15_082_9	A Coruña - Teo - Teo
+TM1215087-01	TM101508701	Valdoviño			m_15_087_2	A Coruña - Valdoviño - Valdoviño
+TM080200300	TM050200301	Círculo Podemos Albacete			m_02_003_0	Albacete - Albacete - Círculo Podemos Albacete
+TM080200900	TM050200901	Círculo Podemos Almansa			m_02_009_6	Albacete - Almansa - Círculo Podemos Almansa
+TM080204500	TM050204501	Círculo Podemos Madrigueras			m_02_045_0	Albacete - Madrigueras - Círculo Podemos Madrigueras
+TM080206900	TM050206901	Círculo Podemos La Roda			m_02_069_3	Albacete - Roda, La - Círculo Podemos La Roda
+TM080207800	TM050207801	Círculo Podemos Villalgordo del Júcar			m_02_078_8	Albacete - Villalgordo del Júcar - Círculo Podemos Villalgordo del Júcar
+TM080208100	TM050208101	Círculo Podemos Villarrobledo			m_02_081_2	Albacete - Villarrobledo - Círculo Podemos Villarrobledo
+TM1003009	TM080300901	Podem Alcoy			m_03_009_2	Alicante - Alcoy/Alcoi - Podem Alcoy
+TM1003011	TM080301101	Podemos Alfàs			m_03_011_3	Alicante - Alfàs del Pi, l' - Podemos Alfàs
+TB100301407	TB080301407	Círculo Lucentum (San Blas-Centro)			m_03_014_9	Alicante - Alicante/Alacant - Círculo Lucentum (San Blas-Centro)
+TB100301406	TB080301406	Círculo Podemos Alicante Benacantil			m_03_014_9	Alicante - Alicante/Alacant - Círculo Podemos Alicante Benacantil
+TB100301404	TB080301404	Círculo Podemos Alicante Oeste			m_03_014_9	Alicante - Alicante/Alacant - Círculo Podemos Alicante Oeste
+TB100301403	TB080301403	Círculo Podemos Alicante Partidas Rurales			m_03_014_9	Alicante - Alicante/Alacant - Círculo Podemos Alicante Partidas Rurales
+TB100301402	TB080301402	Podemos Alicante Norte			m_03_014_9	Alicante - Alicante/Alacant - Podemos Alicante Norte
+TB100301405	TB080301405	Podemos Pla-Carolinas			m_03_014_9	Alicante - Alicante/Alacant - Podemos Pla-Carolinas
+TB100301401	TB080301401	Podemos Playas Alicante			m_03_014_9	Alicante - Alicante/Alacant - Podemos Playas Alicante
+TM1003018	TM080301801	Círculo Podemos Altea			m_03_018_7	Alicante - Altea - Círculo Podemos Altea
+TM1003019	TM080301901	Podemos Aspe			m_03_019_0	Alicante - Aspe - Podemos Aspe
+TM1003031	TM080303101	Podemos Benidorm			m_03_031_9	Alicante - Benidorm - Podemos Benidorm
+TM1003041	TM080304101	Podemos Benissa			m_03_041_7	Alicante - Benissa - Podemos Benissa
+TM1003049	TM080304901	Círculo Podemos Callosa de Segura			m_03_049_4	Alicante - Callosa de Segura - Círculo Podemos Callosa de Segura
+TM1003047	TM080304701	Podemos Calp			m_03_047_5	Alicante - Calp - Podemos Calp
+TM1003050	TM080305001	Círculo Podemos El Campello			m_03_050_7	Alicante - Campello, El - Círculo Podemos El Campello
+TM100356	TM080305601	Podem Cocentaina			m_03_056_6	Alicante - Cocentaina - Podem Cocentaina
+TM1003059	TM080305901	Podemos Crevillente			m_03_059_1	Alicante - Crevillent - Podemos Crevillente
+TM1003063	TM080306301	Círculo Podemos Denia			m_03_063_3	Alicante - Dénia - Círculo Podemos Denia
+TB100306503	TB080306503	Círculo Centro Podem Elx			m_03_065_1	Alicante - Elche/Elx - Círculo Centro Podem Elx
+TB100306501	TB080306501	Círculo de Altabix			m_03_065_1	Alicante - Elche/Elx - Círculo de Altabix
+TB100306504	TB080306504	Círculo Podemos La Marina Elche			m_03_065_1	Alicante - Elche/Elx - Círculo Podemos La Marina Elche
+TB100306502	TB080306502	Círculo San Antón			m_03_065_1	Alicante - Elche/Elx - Círculo San Antón
+TM1003066	TM080306601	Podemos Elda			m_03_066_4	Alicante - Elda - Podemos Elda
+TM1003069	TM080306901	Podemos Finestrat			m_03_069_9	Alicante - Finestrat - Podemos Finestrat
+TM1003071	TM080307101	Podem Gata			m_03_071_0	Alicante - Gata de Gorgos - Podem Gata
+TM1003076	TM080307601	Podemos Guardamar del Segura			m_03_076_2	Alicante - Guardamar del Segura - Podemos Guardamar del Segura
+TM1003079	TM080307901	Podemos Ibi			m_03_079_7	Alicante - Ibi - Podemos Ibi
+TM1003082	TM080308201	Podemos Xàbia			m_03_082_3	Alicante - Jávea/Xàbia - Podemos Xàbia
+TM1003089	TM080308901	Podemos Monover			m_03_089_5	Alicante - Monóvar/Monòver - Podemos Monover
+TM1003090	TM080309001	Círculo Podemos Mutxamel			m_03_090_9	Alicante - Mutxamel - Círculo Podemos Mutxamel
+TM1003094	TM080309401	Podemos la Nucia			m_03_094_2	Alicante - Nucia, La - Podemos la Nucia
+TM1003096	TM080309601	Podemos Onil			m_03_096_8	Alicante - Onil - Podemos Onil
+TM1003099	TM080309901	Podemos Orihuela			m_03_099_3	Alicante - Orihuela - Podemos Orihuela
+TM1003104	TM080310401	Círculo Podem Petrer			m_03_104_0	Alicante - Petrer - Círculo Podem Petrer
+TM100390200	TM080390201	Círculo Podemos Pilar de la Horadada			m_03_902_1	Alicante - Pilar de la Horadada - Círculo Podemos Pilar de la Horadada
+TM1003122	TM080312201	Podemos San Vicente			m_03_122_5	Alicante - San Vicente del Raspeig/Sant Vicent del Raspeig - Podemos San Vicente
+TM1003119	TM080311901	Círculo Sant Joan			m_03_119_9	Alicante - Sant Joan d'Alacant - Círculo Sant Joan
+TM100312301	TM080312301	Círculo Podemos Sax			m_03_123_1	Alicante - Sax - Círculo Podemos Sax
+TM1003133	TM080313301	Podemos Torrevieja			m_03_133_9	Alicante - Torrevieja - Podemos Torrevieja
+TM1003139	TM080313901	Círculo Podem La Vila Joiosa			m_03_139_5	Alicante - Villajoyosa/Vila Joiosa, la - Círculo Podem La Vila Joiosa
+TM1003140	TM080314001	Círculo Podemos Villena			m_03_140_9	Alicante - Villena - Círculo Podemos Villena
+TM010401301	TM010401301	Podemos Almería			m_04_013_9	Almería - Almería - Podemos Almería
+TM010403201	TM010403201	Podemos Carboneras			m_04_032_9	Almería - Carboneras - Podemos Carboneras
+TM010490201	TM010490201	Podemos El-Ejido			m_04_902_6	Almería - Ejido, El - Podemos El-Ejido
+TM010405201	TM010405201	Huércal de Almería			m_04_052_4	Almería - Huércal de Almería - Huércal de Almería
+TC010400001	TC010400001	Podemos Valle del Almanzora		38		Almería - Macael - Podemos Valle del Almanzora
+TM010406401	TM010406401	Podemos Mojacar			m_04_064_3	Almería - Mojácar - Podemos Mojacar
+TM010406601	TM010406601	Podemos Níjar			m_04_066_9	Almería - Níjar - Podemos Níjar
+TM010407401	TM010407401	Podemos Pechina			m_04_074_1	Almería - Pechina - Podemos Pechina
+TM010407901	TM010407901	Podemos Roquetas de Mar			m_04_079_2	Almería - Roquetas de Mar - Podemos Roquetas de Mar
+TM010409901	TM010409901	Podemos Vélez-Rubio			m_04_099_8	Almería - Vélez-Rubio - Podemos Vélez-Rubio
+TM010410001	TM010410001	Podemos Vera			m_04_100_2	Almería - Vera - Podemos Vera
+TM010410201	TM010410201	Podemos Vícar			m_04_102_4	Almería - Vícar - Podemos Vícar
+TM160100206	TM140100201	Amurrio			m_01_002_9	Araba - Amurrio - Amurrio
+TM160103621	TM140103601	Laudio			m_01_036_0	Araba - Laudio/Llodio - Laudio
+TC160100102	TC140100001	Llanada alavesa		37		Araba - Llanada alavesa - Llanada alavesa
+TM160104326	TM140104301	Oion			m_01_043_7	Araba - Oyón-Oion - Oion
+TB160105901	TB140105901	Vitoria-Centro			m_01_059_0	Araba - Vitoria-Gasteiz - Vitoria-Centro
+TB160105903	TB140105902	Vitoria-Oeste			m_01_059_0	Araba - Vitoria-Gasteiz - Vitoria-Oeste
+TM033300401	TM033300401	Círculo Avilés			m_33_004_5	Asturies - Avilés - Círculo Avilés
+TM033301201	TM033301201	Círculo Cangues d'Onís			m_33_012_2	Asturies - Cangas de Onís - Círculo Cangues d'Onís
+TM033301101	TM033301101	Círculo Cangas del Narcea			m_33_011_7	Asturies - Cangas del Narcea - Círculo Cangas del Narcea
+TM033301601	TM033301601	Círculo Castrillón			m_33_016_9	Asturies - Castrillón - Círculo Castrillón
+TM033302101	TM033302101	Círculo Cuideiru			m_33_021_5	Asturies - Cudillero - Círculo Cuideiru
+TM033302401	TM033302401	Círculo Xixón			m_33_024_1	Asturies - Gijón - Círculo Xixón
+TM033303101	TM033303101	Círculo Llangréu			m_33_031_3	Asturies - Langreo - Círculo Llangréu
+TM033303201	TM033303201	Círculo Llaviana			m_33_032_8	Asturies - Laviana - Círculo Llaviana
+TC033300001	TC033300001	Círculo Navia-Coaña		42		Asturies - Navia-Coaña - Círculo Navia-Coaña
+TB033304402	TB033304402	Círculo Otero			m_33_044_7	Asturies - Oviedo - Círculo Otero
+TM033304403	TM033304401	Círculo Uviéu			m_33_044_7	Asturies - Oviedo - Círculo Uviéu
+TB033304401	TB033304401	Círculo Uviéu/Oviedo Oeste			m_33_044_7	Asturies - Oviedo - Círculo Uviéu/Oviedo Oeste
+TM033304501	TM033304501	Círculo Parres			m_33_045_0	Asturies - Parres - Círculo Parres
+TM033305101	TM033305101	Círculo Pravia			m_33_051_8	Asturies - Pravia - Círculo Pravia
+TM033306601	TM033306601	Círculo Siero			m_33_066_8	Asturies - Siero - Círculo Siero
+TM033307601	TM033307601	Círculo Villaviciosa			m_33_076_6	Asturies - Villaviciosa - Círculo Villaviciosa
+TM070501420	TM060501401	Círculo Podemos Arenas de San Pedro			m_05_014_7	Ávila - Arenas de San Pedro - Círculo Podemos Arenas de San Pedro
+TM070501921	TM060501901	Círculo Podemos Ávila			m_05_019_8	Ávila - Ávila - Círculo Podemos Ávila
+TC070560042	TC060500002	Círculo Gredos, Barco, Piedrahita		25		Avila - Gredos, Barco, Piedrahita - Círculo Gredos, Barco, Piedrahita
+TC070522717	TC060500001	Círculo Podemos Valle del Tiétar		54		Ávila - Valle del Tiétar - Círculo Podemos Valle del Tiétar
+TM110600601	TM090600601	Podemos Alburquerque			m_06_006_8	Badajoz - Alburquerque - Podemos Alburquerque
+TM100601101	TM090601101	Podemos Almendralejo			m_06_011_4	Badajoz - Almendralejo - Podemos Almendralejo
+TM100601501	TM090601501	Podemos Badajoz			m_06_015_3	Badajoz - Badajoz - Podemos Badajoz
+TM110605401	TM090605401	Podemos Fuente Del Maestre			m_06_054_1	Badajoz - Fuente del Maestre - Podemos Fuente Del Maestre
+TM100606001	TM090606001	Podemos Guareña			m_06_060_6	Badajoz - Guareña - Podemos Guareña
+TM100607001	TM090607001	Jerez de los Caballeros			m_06_070_4	Badajoz - Jerez de los Caballeros - Jerez de los Caballeros
+TC100603601	TC090600001	Comarcal la Serena		32		Badajoz - La Serena - Comarcal la Serena
+TM110607401	TM090607401	Podemos Llerena			m_06_074_7	Badajoz - Llerena - Podemos Llerena
+TM100608301	TM090608301	Podemos Mérida			m_06_083_0	Badajoz - Mérida - Podemos Mérida
+TM100608801	TM090608801	Podemos Montijo Asambleario			m_06_088_3	Badajoz - Montijo - Podemos Montijo Asambleario
+TM110612301	TM090612301	Podemos San Vicente de Alcántara			m_06_123_2	Badajoz - San Vicente de Alcántara - Podemos San Vicente de Alcántara
+TC100605001	TC090600002	Sierra Suroeste		48		Badajoz - Sierra Suroeste - Sierra Suroeste
+TM100615301	TM090615301	Villanueva de la Serena			m_06_153_5	Badajoz - Villanueva de la Serena - Villanueva de la Serena
+TM100615401	TM090615401	Podemos Villanueva del Fresno			m_06_154_0	Badajoz - Villanueva del Fresno - Podemos Villanueva del Fresno
+TM090800580	TM070800501	Cercle Podem Ametlla del Vallès			m_08_005_7	Barcelona - Ametlla del Vallès, L' - Cercle Podem Ametlla del Vallès
+TM090800679	TM070800601	Cercle Podem Arenys de Mar			m_08_006_0	Barcelona - Arenys de Mar - Cercle Podem Arenys de Mar
+TM090801502	TM070801501	Cercle Podem Badalona			m_08_015_5	Barcelona - Badalona - Cercle Podem Badalona
+TM090890478	TM070890401	Cercle Podem Badia del Vallès			m_08_904_5	Barcelona - Badia del Vallès - Cercle Podem Badia del Vallès
+TM090825203	TM070825201	Cercle Podem Barberà del Vallès			m_08_252_0	Barcelona - Barberà del Vallès - Cercle Podem Barberà del Vallès
+TB090801913	TB070801910	Cercle Podem Barcelona districte Ciutat Vella			m_08_019_3	Barcelona - Barcelona - Cercle Podem Barcelona districte Ciutat Vella
+TB090801911	TB070801909	Cercle Podem Eixample Districte Barcelona			m_08_019_3	Barcelona - Barcelona - Cercle Podem Eixample Districte Barcelona
+TB090801909	TB070801907	Cercle Podem Gràcia Districte Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Gràcia Districte Bcn
+TB090801905	TB070801904	Cercle Podem Horta-Guinardó Districte Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Horta-Guinardó Districte Bcn
+TB090801906	TB070801905	Cercle Podem Les Corts Districte Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Les Corts Districte Bcn
+TB090801910	TB070801908	Cercle Podem Nou Barris Districte Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Nou Barris Districte Bcn
+TB090801903	TB070801902	Cercle Podem Poble Sec Sant Antoni Districte Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Poble Sec Sant Antoni Districte Bcn
+TB090801904	TB070801903	Cercle Podem Sant Andreu Districe Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Sant Andreu Districe Bcn
+TB090801901	TB070801901	Cercle Podem Sant Martí Districte Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Sant Martí Districte Bcn
+TB090901914	TB070801901	Cercle Podem Sants de Barcelona			m_08_019_3	Barcelona - Barcelona - Cercle Podem Sants de Barcelona
+TB090801907	TB070801906	Cercle Podem Sarrià - Sant Gervasi Districte Bcn			m_08_019_3	Barcelona - Barcelona - Cercle Podem Sarrià - Sant Gervasi Districte Bcn
+TC090802201	TC070800001	Cercle Podem Berguedà		12		Barcelona - Berguedà - Cercle Podem Berguedà
+TM090802893	TM070802801	Cercle Podem Cabrera d'Anoia			m_08_028_8	Barcelona - Cabrera d'Anoia - Cercle Podem Cabrera d'Anoia
+TM090803504	TM070803501	Cercle Podem Calella			m_08_035_1	Barcelona - Calella - Cercle Podem Calella
+TM090804075	TM070804001	Cercle Podem Canet de Mar			m_08_040_3	Barcelona - Canet de Mar - Cercle Podem Canet de Mar
+TM0908041104	TM070804101	Cercle Podem Canovelles			m_08_041_0	Barcelona - Canovelles - Cercle Podem Canovelles
+TM0908043103	TM070804301	Cercle Podem Canyelles			m_08_043_1	Barcelona - Canyelles - Cercle Podem Canyelles
+TM090804605	TM070804601	Cercle Podem Cardedeu			m_08_046_2	Barcelona - Cardedeu - Cercle Podem Cardedeu
+TM0908051111	TM070805101	Cercle Podem Castellar del Vallès			m_08_051_7	Barcelona - Castellar del Vallès - Cercle Podem Castellar del Vallès
+TM090805406	TM070805401	Cercle Podem Castellbisbal			m_08_054_3	Barcelona - Castellbisbal - Cercle Podem Castellbisbal
+TM090805674	TM070805601	Cercle Podem Castelldefels			m_08_056_9	Barcelona - Castelldefels - Cercle Podem Castelldefels
+TM090826673	TM070826601	Cercle Podem Cerdanyola del Vallès			m_08_266_5	Barcelona - Cerdanyola del Vallès - Cercle Podem Cerdanyola del Vallès
+TM090806807	TM070806801	Cercle Podem Cervellò			m_08_068_9	Barcelona - Cervelló - Cercle Podem Cervellò
+TM090807308	TM070807301	Cercle Podem Cornellà de Llobregat			m_08_073_4	Barcelona - Cornellà de Llobregat - Cercle Podem Cornellà de Llobregat
+TM090807409	TM070807401	Cercle Podem Cubelles			m_08_074_9	Barcelona - Cubelles - Cercle Podem Cubelles
+TM090807669	TM070807601	Cercle Podem Esparreguera			m_08_076_5	Barcelona - Esparreguera - Cercle Podem Esparreguera
+TM090807711	TM070807701	Cercle Podem Esplugues de Llobregat			m_08_077_1	Barcelona - Esplugues de Llobregat - Cercle Podem Esplugues de Llobregat
+TM090808666	TM070808601	Cercle Podem Les Franqueses del Vallès			m_08_086_3	Barcelona - Franqueses del Vallès, Les - Cercle Podem Les Franqueses del Vallès
+TM0908089100	TM070808901	Cercle Podem Gavà			m_08_089_8	Barcelona - Gavà - Cercle Podem Gavà
+TM090809612	TM070809601	Cercle Podem Granollers			m_08_096_1	Barcelona - Granollers - Cercle Podem Granollers
+TM090810113	TM070810101	Cercle Podem L'Hospitalet de Llobregat			m_08_101_7	Barcelona - Hospitalet de Llobregat, L' - Cercle Podem L'Hospitalet de Llobregat
+TM090810268	TM070810201	Cercle Podem Igualada			m_08_102_2	Barcelona - Igualada - Cercle Podem Igualada
+TM090810567	TM070810501	Cercle Podem La Llagosta			m_08_105_6	Barcelona - Llagosta, La - Cercle Podem La Llagosta
+TM090810714	TM070810701	Cercle Podem Lliçà d'Amunt			m_08_107_5	Barcelona - Lliçà d'Amunt - Cercle Podem Lliçà d'Amunt
+TM090810865	TM070810801	Cercle Podem Lliça de Vall			m_08_108_1	Barcelona - Lliçà de Vall - Cercle Podem Lliça de Vall
+TM090811064	TM070811001	Cercle Podem Malgrat de Mar			m_08_110_8	Barcelona - Malgrat de Mar - Cercle Podem Malgrat de Mar
+TM090811263	TM070811201	Cercle Podem Manlleu			m_08_112_0	Barcelona - Manlleu - Cercle Podem Manlleu
+TM090811301	TM070811301	Cercle Podem Manresa			m_08_113_6	Barcelona - Manresa - Cercle Podem Manresa
+TM090811415	TM070811401	Cercle Podem Martorell			m_08_114_1	Barcelona - Martorell - Cercle Podem Martorell
+TM090811871	TM070811801	Cercle Podem El Masnou			m_08_118_9	Barcelona - Masnou, El - Cercle Podem El Masnou
+TM090812116	TM070812101	Cercle Podem Mataró			m_08_121_3	Barcelona - Mataró - Cercle Podem Mataró
+TM090812362	TM070812301	Cercle Podem Molins de Rei			m_08_123_4	Barcelona - Molins de Rei - Cercle Podem Molins de Rei
+TM090812461	TM070812401	Cercle Podem Mollet del Vallès			m_08_124_9	Barcelona - Mollet del Vallès - Cercle Podem Mollet del Vallès
+TM0908125110	TM070812501	Cercle Podem Montcada i Reixac			m_08_125_2	Barcelona - Montcada i Reixac - Cercle Podem Montcada i Reixac
+TM090812617	TM070812601	Cercle Podem Montgat			m_08_126_5	Barcelona - Montgat - Cercle Podem Montgat
+TM0908136113	TM070813601	Cercle Podem Montornés del Vallès			m_08_136_3	Barcelona - Montornès del Vallès - Cercle Podem Montornés del Vallès
+TM090814718	TM070814701	Cercle Podem Olesa de Montserrat			m_08_147_7	Barcelona - Olesa de Montserrat - Cercle Podem Olesa de Montserrat
+TM090815560	TM070815501	Cercle Podem Palafolls			m_08_155_5	Barcelona - Palafolls - Cercle Podem Palafolls
+TM090815659	TM070815601	Cercle Podem Palau-solità i Plegamans			m_08_156_8	Barcelona - Palau-solità i Plegamans - Cercle Podem Palau-solità i Plegamans
+TM090815919	TM070815901	Cercle Podem Parets dels Vallès			m_08_159_3	Barcelona - Parets del Vallès - Cercle Podem Parets dels Vallès
+TM090816357	TM070816301	Cercle Podem Pineda de Mar			m_08_163_5	Barcelona - Pineda de Mar - Cercle Podem Pineda de Mar
+TM090816756	TM070816701	Cercle Podem Polinyà			m_08_167_2	Barcelona - Polinyà - Cercle Podem Polinyà
+TM090818270	TM070818201	Cercle Podem El Pont de Vilomara i Rocafort			m_08_182_5	Barcelona - Pont de Vilomara i Rocafort, El - Cercle Podem El Pont de Vilomara i Rocafort
+TM090816910	TM070816901	Cercle Podem El Prat de Llobregat			m_08_169_1	Barcelona - Prat de Llobregat, El - Cercle Podem El Prat de Llobregat
+TM090817294	TM070817201	Cercle Podem Premià de Mar			m_08_172_7	Barcelona - Premià de Mar - Cercle Podem Premià de Mar
+TM090818055	TM070818001	Cercle Podem Ripollet			m_08_180_3	Barcelona - Ripollet - Cercle Podem Ripollet
+TM090818422	TM070818401	Cercle Podem Rubí			m_08_184_6	Barcelona - Rubí - Cercle Podem Rubí
+TB090818712	TB070818701	Cercle Podem La Concordia - Sabadell			m_08_187_8	Barcelona - Sabadell - Cercle Podem La Concordia - Sabadell
+TB090818715	TB070818702	Cercle Podem Sabadell - Decano			m_08_187_8	Barcelona - Sabadell - Cercle Podem Sabadell - Decano
+TM090819495	TM070819401	Cercle Podem Sant Adrià del Besòs			m_08_194_4	Barcelona - Sant Adrià de Besòs - Cercle Podem Sant Adrià del Besòs
+TM090819623	TM070819601	Cercle Podem Sant Andreu de la Barca			m_08_196_0	Barcelona - Sant Andreu de la Barca - Cercle Podem Sant Andreu de la Barca
+TM090820024	TM070820001	Cercle Podem Sant Boi de Llobregat			m_08_200_9	Barcelona - Sant Boi de Llobregat - Cercle Podem Sant Boi de Llobregat
+TM090820525	TM070820501	Cercle Podem Sant Cugat del Vallés			m_08_205_5	Barcelona - Sant Cugat del Vallès - Cercle Podem Sant Cugat del Vallés
+TM090820826	TM070820801	Cercle Podem Sant Esteve Sesrovires			m_08_208_0	Barcelona - Sant Esteve Sesrovires - Cercle Podem Sant Esteve Sesrovires
+TM090821127	TM070821101	Cercle Podem Sant Feliu de Llobregat			m_08_211_4	Barcelona - Sant Feliu de Llobregat - Cercle Podem Sant Feliu de Llobregat
+TM090820928	TM070820901	Cercle Podem Sant Fost de Campsentelles			m_08_209_3	Barcelona - Sant Fost de Campsentelles - Cercle Podem Sant Fost de Campsentelles
+TM090821854	TM070821801	Cercle Podem Sant Joan de Vilatorrada			m_08_218_8	Barcelona - Sant Joan de Vilatorrada - Cercle Podem Sant Joan de Vilatorrada
+TM090821753	TM070821701	Cercle Podem Sant Joan Despí			m_08_217_2	Barcelona - Sant Joan Despí - Cercle Podem Sant Joan Despí
+TM090822129	TM070822101	Cercle Podem Sant Just Desvern			m_08_221_2	Barcelona - Sant Just Desvern - Cercle Podem Sant Just Desvern
+TM090823121	TM070823101	Cercle Ribes-Les Roquetes			m_08_231_0	Barcelona - Sant Pere de Ribes - Cercle Ribes-Les Roquetes
+TM090809830	TM070809801	Cercle Podem Sant Salvador de Guadiola			m_08_098_3	Barcelona - Sant Salvador de Guardiola - Cercle Podem Sant Salvador de Guadiola
+TM0908263107	TM070826301	Cercle Podem Sant Vicenç dels Horts			m_08_263_4	Barcelona - Sant Vicenç dels Horts - Cercle Podem Sant Vicenç dels Horts
+TM090824520	TM070824501	Cercle Podem Santa Coloma de Gramenet			m_08_245_7	Barcelona - Santa Coloma de Gramenet - Cercle Podem Santa Coloma de Gramenet
+TM090826052	TM070826001	Cercle Podem Santa Perpetua de Mogoda			m_08_260_6	Barcelona - Santa Perpètua de Mogoda - Cercle Podem Santa Perpetua de Mogoda
+TM090826799	TM070826701	Cercle Podem Sentmenat			m_08_267_1	Barcelona - Sentmenat - Cercle Podem Sentmenat
+TM090827091	TM070827001	Cercle Podem Sitges			m_08_270_4	Barcelona - Sitges - Cercle Podem Sitges
+TM090827951	TM070827901	Cercle Podem Terrassa			m_08_279_8	Barcelona - Terrassa - Cercle Podem Terrassa
+TM090828250	TM070828201	Cercle Podem Tiana			m_08_282_4	Barcelona - Tiana - Cercle Podem Tiana
+TM090828431	TM070828401	Cercle Podem Tordera			m_08_284_5	Barcelona - Tordera - Cercle Podem Tordera
+TM090829532	TM070829501	Cercle Podem Vallirana			m_08_295_6	Barcelona - Vallirana - Cercle Podem Vallirana
+TM090829849	TM070829801	Cercle Podem Vic			m_08_298_1	Barcelona - Vic - Cercle Podem Vic
+TM090830133	TM070830101	Cercle Podem Viladecans			m_08_301_5	Barcelona - Viladecans - Cercle Podem Viladecans
+TM090830534	TM070830501	Cercle Podem Vilafranca del Penedès			m_08_305_4	Barcelona - Vilafranca del Penedès - Cercle Podem Vilafranca del Penedès
+TM090830235	TM070830201	Cercle Podem Vilanova del Camí			m_08_302_0	Barcelona - Vilanova del Camí - Cercle Podem Vilanova del Camí
+TM090830736	TM070830701	Cercle Podem Vilanova i la Geltrú			m_08_307_3	Barcelona - Vilanova i la Geltrú - Cercle Podem Vilanova i la Geltrú
+TM090821937	TM070821901	Cercle Podem Vilassar de Mar			m_08_219_1	Barcelona - Vilassar de Mar - Cercle Podem Vilassar de Mar
+TM164800205	TM144800201	Abanto y Ciérvana			m_48_002_5	Bizkaia - Abanto y Ciérvana-Abanto Zierbena - Abanto y Ciérvana
+TM164800334	TM144800301	Zornotza			m_48_003_1	Bizkaia - Amorebieta-Etxano - Zornotza
+TM164801308	TM144801301	Barakaldo			m_48_013_9	Bizkaia - Barakaldo - Barakaldo
+TM164801501	TM144801501	Basauri			m_48_015_7	Bizkaia - Basauri - Basauri
+TB164802007	TB144802004	Bilbao-Bilbao centro			m_48_020_9	Bizkaia - Bilbao - Bilbao-Bilbao centro
+TB164802004	TB144802001	Bilbao-Ekialde			m_48_020_9	Bizkaia - Bilbao - Bilbao-Ekialde
+TB164802009	TB144802006	Bilbao-Hegoalde			m_48_020_9	Bizkaia - Bilbao - Bilbao-Hegoalde
+TB164802008	TB144802005	Bilbao-Ibaiondo			m_48_020_9	Bizkaia - Bilbao - Bilbao-Ibaiondo
+TB164802005	TB144802002	Bilbao-Iparmendebalde			m_48_020_9	Bizkaia - Bilbao - Bilbao-Iparmendebalde
+TB164802010	TB144802007	Bilbao-Otxarkoaga y Txurdinaga			m_48_020_9	Bizkaia - Bilbao - Bilbao-Otxarkoaga y Txurdinaga
+TB164802006	TB144802003	Bilbao-Zorrotza			m_48_020_9	Bizkaia - Bilbao - Bilbao-Zorrotza
+TM164890103	TM144890101	Derio-Txorierri			m_48_901_1	Bizkaia - Derio - Derio-Txorierri
+TM164802703	TM144802701	Durangaldea			m_48_027_4	Bizkaia - Durango - Durangaldea
+TM164803216	TM144803201	Elorrio			m_48_032_9	Bizkaia - Elorrio - Elorrio
+TC164809001	TC144800001	Enkarterri		23		Bizkaia - Enkarterri/Encartaciones - Enkarterri
+TM164890204	TM144890201	Erandio			m_48_902_6	Bizkaia - Erandio - Erandio
+TM164803617	TM144803601	Galdakao			m_48_036_6	Bizkaia - Galdakao - Galdakao
+TM164804601	TM144804601	Gernika			m_48_046_4	Bizkaia - Gernika-Lumo - Gernika
+TM164804418	TM144804401	Getxo			m_48_044_8	Bizkaia - Getxo - Getxo
+TM164804501	TM144804501	Güeñes			m_48_045_1	Bizkaia - Güeñes - Güeñes
+TM164805422	TM144805401	Leioa			m_48_054_5	Bizkaia - Leioa - Leioa
+TM164806923	TM144806901	Mungia			m_48_069_4	Bizkaia - Mungia - Mungia
+TM164807124	TM144807101	Muskiz			m_48_071_5	Bizkaia - Muskiz - Muskiz
+TM164808327	TM144808301	Ortuella			m_48_083_4	Bizkaia - Ortuella - Ortuella
+TM164807835	TM144807801	Portugalete			m_48_078_9	Bizkaia - Portugalete - Portugalete
+TM164808230	TM144808201	Santurtzi			m_48_082_8	Bizkaia - Santurtzi - Santurtzi
+TM164808431	TM144808401	Sestao			m_48_084_9	Bizkaia - Sestao - Sestao
+TM164808532	TM144808501	Sopela			m_48_085_2	Bizkaia - Sopelana - Sopela
+TM164808937	TM144808901	Urduliz			m_48_089_0	Bizkaia - Urduliz - Urduliz
+TM164808036	TM144808001	Trapagaran			m_48_080_6	Bizkaia - Valle de Trápaga-Trapagaran - Trapagaran
+TM164890501	TM144890501	Zamudio			m_48_905_0	Bizkaia - Zamudio - Zamudio
+TC070901833	TC060900001	Círculo Podemos Aranda de Duero y Comarca		6		Burgos - Aranda de Duero - Círculo Podemos Aranda de Duero y Comarca
+TM070905612	TM060905601	Círculo Podemos Miranda Briviesca			m_09_056_2	Burgos - Briviesca - Círculo Podemos Miranda Briviesca
+TM070905924	TM060905901	Círculo Podemos Burgos			m_09_059_7	Burgos - Burgos - Círculo Podemos Burgos
+TM070920907	TM060920901	Círculo Podemos Medina de Pomar			m_09_209_6	Burgos - Medina de Pomar - Círculo Podemos Medina de Pomar
+TM070921901	TM060921901	Círculo Podemos Miranda de Ebro			m_09_219_4	Burgos - Miranda de Ebro - Círculo Podemos Miranda de Ebro
+TM070941029	TM060941001	Círculo Podemos Valle de Mena			m_09_410_8	Burgos - Valle de Mena - Círculo Podemos Valle de Mena
+TM111003501	TM091003501	Podemos Cabezuela			m_10_035_8	Cáceres - Cabezuela del Valle - Podemos Cabezuela
+TM101003701	TM091003701	Podemos Cáceres			m_10_037_7	Cáceres - Cáceres - Podemos Cáceres
+TC101018001	TC091000005	Podemos Campo Arañuelo		16		Cáceres - Campo Arañuelo - Podemos Campo Arañuelo
+TM101004501	TM091004501	Podemos Cañaveral			m_10_045_6	Cáceres - Cañaveral - Podemos Cañaveral
+TM101005501	TM091005501	Podemos Casas del Monte			m_10_055_3	Cáceres - Casas del Monte - Podemos Casas del Monte
+TM101006701	TM091006701	Podemos Coria			m_10_067_0	Cáceres - Coria - Podemos Coria
+TM111010501	TM091010501	Podemos Jarandilla			m_10_105_3	Cáceres - Jarandilla de la Vera - Podemos Jarandilla
+TC101010501	TC091000004	Comarcal de la Vera		33		Cáceres - La Vera - Comarcal de la Vera
+TC101002901	TC091000001	Villuercas-Ibores-Jara		35		Cáceres - Las Villuercas - Villuercas-Ibores-Jara
+TC101019501	TC091000006	Trujillo y Pueblos		39		Cáceres - Miajadas-Trujillo - Trujillo y Pueblos
+TM111012701	TM091012701	Podemos Montehermoso			m_10_127_8	Cáceres - Montehermoso - Podemos Montehermoso
+TM101013101	TM091013101	Podemos Navalmoral de la Mata			m_10_131_8	Cáceres - Navalmoral de la Mata - Podemos Navalmoral de la Mata
+TM111014201	TM091014201	Podemos Perales del Puerto			m_10_142_1	Cáceres - Perales del Puerto - Podemos Perales del Puerto
+TM101014701	TM091014701	Podemos Piornal			m_10_147_4	Cáceres - Piornal - Podemos Piornal
+TM101014801	TM091014801	Plasencia			m_10_148_0	Cáceres - Plasencia - Plasencia
+TM111017501	TM091017501	Podemos Serradilla			m_10_175_8	Cáceres - Serradilla - Podemos Serradilla
+TC101009601	TC091000003	Comarcal Valle del Ambroz		52		Cáceres - Valle del Ambroz - Comarcal Valle del Ambroz
+TC101003501	TC091000002	Podemos Valle del Jerte		53		Cáceres - Valle del Jerte - Podemos Valle del Jerte
+TM111021201	TM091021201	Podemos Villanueva de la Vera			m_10_212_6	Cáceres - Villanueva de la Vera - Podemos Villanueva de la Vera
+TM011100401	TM011100401	Círculo de Algeciras			m_11_004_8	Cádiz - Algeciras - Círculo de Algeciras
+TM011100601	TM011100601	Círculo de Arcos de la Frontera			m_11_006_4	Cádiz - Arcos de la Frontera - Círculo de Arcos de la Frontera
+TC011100601	TC011100601	Podemos Sierra de Cádiz			m_11_006_4	Cádiz - Arcos de la Frontera - Podemos Sierra de Cádiz
+TM011100802	TM011100801	Círculo Los Barrios			m_11_008_6	Cádiz - Barrios, Los - Círculo Los Barrios
+TM011101201	TM011101201	Círculo de Cádiz			m_11_012_5	Cádiz - Cádiz - Círculo de Cádiz
+TM011101501	TM011101501	Círculo de Chiclana de la Frontera			m_11_015_9	Cádiz - Chiclana de la Frontera - Círculo de Chiclana de la Frontera
+TM011101401	TM011101401	Círculo de Conil de la Frontera			m_11_014_6	Cádiz - Conil de la Frontera - Círculo de Conil de la Frontera
+TC011101101	TC011100001	Círculo Sierra de Cádiz		22		Cádiz - El Bosque - Círculo Sierra de Cádiz
+TM011101701	TM011101701	Círculo de Espera			m_11_017_8	Cádiz - Espera - Círculo de Espera
+TC011100401	TC011100001	Círculo Comarcal Campo de Gibraltar		24		Cádiz - Gibraltar - Círculo Comarcal Campo de Gibraltar
+TM011102002	TM011102001	Círculo de Jerez			m_11_020_1	Cádiz - Jerez de la Frontera - Círculo de Jerez
+TM011102101	TM011102101	Círculo de Jimena			m_11_021_8	Cádiz - Jimena de la Frontera - Círculo de Jimena
+TC011102301	TC011100002	Círculo Comarcal Podemos  la Janda		30		Cádiz - La Janda - Círculo Comarcal Podemos  la Janda
+TM011102201	TM011102201	Círculo La Línea de la Concepción			m_11_022_3	Cádiz - Línea de la Concepción, La - Círculo La Línea de la Concepción
+TM011102401	TM011102401	Círculo Podemos Olvera			m_11_024_4	Cádiz - Olvera - Círculo Podemos Olvera
+TM11102601	TM011102601	Podemos Prado del Rey			m_11_026_0	Cádiz - Prado del Rey - Podemos Prado del Rey
+TM011100001	TM011102701	Círculo de El Puerto de Santa María			m_11_027_6	Cádiz - Puerto de Santa María, El - Círculo de El Puerto de Santa María
+TM011102801	TM011102801	Círculo de Puerto Real			m_11_028_2	Cádiz - Puerto Real - Círculo de Puerto Real
+TM011103001	TM011103001	Círculo de Rota			m_11_030_9	Cádiz - Rota - Círculo de Rota
+TM011103101	TM011103101	Círculo de San Fernando			m_11_031_6	Cádiz - San Fernando - Círculo de San Fernando
+TM011103301	TM011103301	Círculo de San Roque			m_11_033_7	Cádiz - San Roque - Círculo de San Roque
+TM011103202	TM011103201	Círculo de Sanlúcar de Barrameda			m_11_032_1	Cádiz - Sanlúcar de Barrameda - Círculo de Sanlúcar de Barrameda
+TM011103501	TM011103501	Círculo de Tarifa			m_11_035_5	Cádiz - Tarifa - Círculo de Tarifa
+TM011103701	TM011103701	Círculo de Trebujena			m_11_037_4	Cádiz - Trebujena - Círculo de Trebujena
+TM011103901	TM011103901	Podemos Vejer			m_11_039_3	Cádiz - Vejer de la Frontera - Podemos Vejer
+TM063900814	TM043900801	Círculo Podemos Astillero			m_39_008_9	Cantabria - Astillero, El - Círculo Podemos Astillero
+TC063908701	TC043900001	Círculo Podemos Cantabria Occidental		13		Cantabria - Besaya, Costa Occidental, Saja-Nansa, Liébana, Campoo-Los Valles - Círculo Podemos Cantabria Occidental
+TM063901615	TM043901601	Círculo Podemos Camargo			m_39_016_5	Cantabria - Camargo - Círculo Podemos Camargo
+TM063902008	TM043902001	Círculo Podemos Castro-Urdiales			m_39_020_4	Cantabria - Castro-Urdiales - Círculo Podemos Castro-Urdiales
+TM063902503	TM043902501	Círculo Podemos Valle de Buelna			m_39_025_0	Cantabria - Corrales de Buelna, Los - Círculo Podemos Valle de Buelna
+TM063904211	TC043902801	Circulo Podemos Medio Cudeyo-Entrambasaguas			m_39_028_5	Cantabria - Entrambasaguas - Circulo Podemos Medio Cudeyo-Entrambasaguas
+TM063903505	TM043903501	Círculo Podemos Laredo			m_39_035_8	Cantabria - Laredo - Círculo Podemos Laredo
+TM063905210	TM043905201	Círculo Podemos Piélagos			m_39_052_9	Cantabria - Piélagos - Círculo Podemos Piélagos
+TM063906004	TM043906001	Círculo Podemos Reocín			m_39_060_5	Cantabria - Reocín - Círculo Podemos Reocín
+TM063906813	TM043906801	Círculo Podemos Ruiloba			m_39_068_6	Cantabria - Ruiloba - Círculo Podemos Ruiloba
+TM063907301	TM043907301	Círculo Podemos Bezana			m_39_073_1	Cantabria - Santa Cruz de Bezana - Círculo Podemos Bezana
+TM063907412	TM043907401	Círculo Podemos Santa María de Cayón			m_39_074_6	Cantabria - Santa María de Cayón - Círculo Podemos Santa María de Cayón
+TM063907507	TM043907501	Círculo Podemos Santander			m_39_075_9	Cantabria - Santander - Círculo Podemos Santander
+TM063907902	TM043907901	Círculo Podemos Santoña			m_39_079_7	Cantabria - Santoña - Círculo Podemos Santoña
+TM063908706	TM043908701	Círculo Podemos Torrelavega			m_39_087_6	Cantabria - Torrelavega - Círculo Podemos Torrelavega
+TM1012005	TM081200501	Podem L'Alcora			m_12_005_6	Castellón - Alcora, L' - Podem L'Alcora
+TM1012027	TM081202701	Círculo Podemos Benicarló			m_12_027_1	Castellón - Benicarló - Círculo Podemos Benicarló
+TM1012021	TM081202101	podemos Betxi			m_12_021_3	Castellón - Betxí - podemos Betxi
+TM1012032	TM081203201	Podemos Borriana			m_12_032_6	Castellón - Borriana/Burriana - Podemos Borriana
+TM1012040	TM081204001	Podemos Castellón			m_12_040_2	Castellon - Castellón de la Plana/Castelló de la Plana - Podemos Castellón
+TM1012043	TM081204301	Círculo Podemos Caudiel			m_12_043_0	Castellón - Caudiel - Círculo Podemos Caudiel
+TM1012077	TM081207701	Podem Moncofa			m_12_077_0	Castellón - Moncofa - Podem Moncofa
+TM1012082	TM081208201	Círculo Podemos Nules			m_12_082_5	Castellón - Nules - Círculo Podemos Nules
+TM1012084	TM081208401	Podemos Onda			m_12_084_6	Castellón - Onda - Podemos Onda
+TM1012126	TM081212601	Círculo Podemos La Vall d'Uixó			m_12_126_4	Castellón - Vall d'Uixó, La - Círculo Podemos La Vall d'Uixó
+TM1012135	TM081213501	Podem Vilareal			m_12_135_9	Castellón - Vila-Real - Podem Vilareal
+TM1012136	TM081213601	Círculo Podem La Vilavella			m_12_136_2	Castellón - Vilavella, La - Círculo Podem La Vilavella
+TM1012138	TM081213801	Podemos Vinarós			m_12_138_4	Castellón - Vinaròs - Podemos Vinarós
+TM185100100	TM185100101	Círculo Podemos Ceuta			m_51_001_3	Ceuta - Ceuta - Círculo Podemos Ceuta
+TM081300500	TM051300501	Círculo Podemos Alcázar de San Juan			m_13_005_2	Ciudad Real - Alcázar de San Juan - Círculo Podemos Alcázar de San Juan
+TM081301300	TM051301301	Círculo Podemos Almagro			m_13_013_2	Ciudad Real - Almagro - Círculo Podemos Almagro
+TM081302700	TM051302701	Círculo Calzada de Calatrava			m_13_027_7	Ciudad Real - Calzada de Calatrava - Círculo Calzada de Calatrava
+TM081303400	TM051303401	Círculo Podemos Ciudad Real			m_13_034_3	Ciudad Real - Ciudad Real - Círculo Podemos Ciudad Real
+TM081303900	TM051303901	Círculo Podemos Daimiel			m_13_039_4	Ciudad Real - Daimiel - Círculo Podemos Daimiel
+TM081305200	TM051305201	Círculo Podemos Malagón			m_13_052_7	Ciudad Real - Malagón - Círculo Podemos Malagón
+TM081305300	TM051305301	Círculo Podemos Manzanares			m_13_053_3	Ciudad Real - Manzanares - Círculo Podemos Manzanares
+TM081305801	TM051305801	Círculo Podemos Moral de Calatrava			m_13_058_6	Ciudad Real - Moral de Calatrava - Círculo Podemos Moral de Calatrava
+TM081306300	TM051306301	Círculo Podemos Piedrabuena			m_13_063_1	Ciudad Real - Piedrabuena - Círculo Podemos Piedrabuena
+TM081307100	TM051307101	Círculo Podemos Puertollano			m_13_071_8	Ciudad Real - Puertollano - Círculo Podemos Puertollano
+TM081307800	TM051307801	Círculo Podemos Socuéllamos			m_13_078_2	Ciudad Real - Socuéllamos - Círculo Podemos Socuéllamos
+TM081308200	TM051308201	Círculo Podemos Tomelloso			m_13_082_1	Ciudad Real - Tomelloso - Círculo Podemos Tomelloso
+TM081308700	TM051308701	Círculo Podemos Valdepeñas			m_13_087_4	Ciudad Real - Valdepeñas - Círculo Podemos Valdepeñas
+TM011400501	TM011400501	Almodóvar del Río			m_14_005_7	Córdoba - Almodóvar del Río - Almodóvar del Río
+TM011401701	TM011401701	La Carlota			m_14_017_4	Córdoba - Carlota, La - La Carlota
+TM011401901	TM011401901	Castro del Río			m_14_019_3	Córdoba - Castro del Río - Castro del Río
+TB011402101	TB011402101	Córdoba Centro			m_14_021_4	Córdoba - Córdoba - Córdoba Centro
+TB011402104	TB011402104	Este			m_14_021_4	Córdoba - Córdoba - Este
+TM011402101	TM011402101	Norte			m_14_021_4	Córdoba - Córdoba - Norte
+TB011402103	TB011402103	Poniente			m_14_021_4	Córdoba - Córdoba - Poniente
+TB011402102	TB011402102	Santa Cruz			m_14_021_4	Córdoba - Córdoba - Santa Cruz
+TM011402102	TM011402102	Sur			m_14_021_4	Córdoba - Córdoba - Sur
+TM011402501	TM011402501	Espejo			m_14_025_3	Córdoba - Espejo - Espejo
+TM011402701	TM011402701	Fernán Núñez			m_14_027_2	Córdoba - Fernán-Núñez - Fernán Núñez
+TM011403001	TM011403001	Fuente Palmera			m_14_030_5	Córdoba - Fuente Palmera - Fuente Palmera
+TM011403801	TM011403801	Lucena			m_14_038_6	Córdoba - Lucena - Lucena
+TM011404201	TM011404201	Montilla			m_14_042_5	Córdoba - Montilla - Montilla
+TM011404901	TM011404901	Palma del Río			m_14_049_7	Córdoba - Palma del Río - Palma del Río
+TM011405501	TM011405501	Priego de Córdoba			m_14_055_6	Córdoba - Priego de Córdoba - Priego de Córdoba
+TM011405601	TM011405601	Puente Genil			m_14_056_9	Córdoba - Puente Genil - Puente Genil
+TM011405801	TM011405801	Rute			m_14_058_1	Córdoba - Rute - Rute
+TM011407301	TM013307301	Villaviciosa			m_14_073_4	Córdoba - Villaviciosa de Córdoba - Villaviciosa
+TM081606600	TM051606601	Círculo Podemos Casasimarro			m_16_066_3	Cuenca - Casasimarro - Círculo Podemos Casasimarro
+TM081607800	TM051607801	Círculo Podemos Cuenca			m_16_078_3	Cuenca - Cuenca - Círculo Podemos Cuenca
+TM081613300	TM051613301	Círculo Podemos Mota del Cuervo			m_16_133_8	Cuenca - Mota del Cuervo - Círculo Podemos Mota del Cuervo
+TM162000907	TM142000901	Andoáin			m_20_009_0	Gipuzkoa - Andoain - Andoáin
+TM162005502	TM142005501	Arrasate			m_20_055_1	Gipuzkoa - Arrasate/Mondragón - Arrasate
+TM162007411	TM142007401	Bergara			m_20_074_4	Gipuzkoa - Bergara - Bergara
+TM162006912	TM142006901	Donostia			m_20_069_7	Gipuzkoa - Donostia/San Sebastián - Donostia
+TM162003014	TM142003001	Eibar			m_20_030_0	Gipuzkoa - Eibar - Eibar
+TM162003215	TM142003201	Elgoibar			m_20_032_2	Gipuzkoa - Elgoibar - Elgoibar
+TM162006729	TM142006701	Rentería			m_20_067_8	Gipuzkoa - Errenteria - Rentería
+TM162004003	TM142004001	Hernani			m_20_040_8	Gipuzkoa - Hernani - Hernani
+TM162004519	TM142004501	Irún			m_20_045_4	Gipuzkoa - Irun - Irún
+TM162090220	TM142090201	Lasarte-Oria			m_20_902_9	Gipuzkoa - Lasarte-Oria - Lasarte-Oria
+TM162007601	TM142007601	Ordizia			m_20_076_0	Gipuzkoa - Ordizia - Ordizia
+TM162006428	TM142006401	Pasaia			m_20_064_6	Gipuzkoa - Pasaia - Pasaia
+TM162007138	TM142007101	Tolosa			m_20_071_8	Gipuzkoa - Tolosa - Tolosa
+TM162007501	TM142007501	Villabona			m_20_075_7	Gipuzkoa - Villabona - Villabona
+TM162007933	TM142007901	Zarautz			m_20_079_5	Gipuzkoa - Zarautz - Zarautz
+TC091706601	TC071700001	Cercle Podem Alt Empordà		2		Girona - Alt Empordà - Cercle Podem Alt Empordà
+TM091702200	TM071702201	Cercle Podem La Bisbal d'Empordà			m_17_022_1	Girona - Bisbal d'Empordà, La - Cercle Podem La Bisbal d'Empordà
+TM091702390	TM071702301	Cercle Podem Blanes			m_17_023_7	Girona - Blanes - Cercle Podem Blanes
+TM091706689	TM071706601	Cercle Podem Figueres			m_17_066_9	Girona - Figueres - Cercle Podem Figueres
+TM091707938	TM071707901	Cercle Podem Girona			m_17_079_2	Girona - Girona - Cercle Podem Girona
+TM091709539	TM071709501	Cercle Podem Lloret de Mar			m_17_095_0	Girona - Lloret de Mar - Cercle Podem Lloret de Mar
+TM091714698	TM071714601	Cercle Podem Riells i Viabrea			m_17_146_3	Girona - Riells i Viabrea - Cercle Podem Riells i Viabrea
+TM0917152106	TM071715201	Cercle Podem Roses			m_17_152_3	Girona - Roses - Cercle Podem Roses
+TM091719340	TM071719301	Cercle Podem Sils			m_17_193_1	Girona - Sils - Cercle Podem Sils
+TM011800301	TM011800301	Círculo Albolote			m_18_003_7	Granada - Albolote - Círculo Albolote
+TM011801101	TM011801101	Podemos Alfacar			m_18_011_4	Granada - Alfacar - Podemos Alfacar
+TM011802101	TM011802101	Podemos Armilla			m_18_021_2	Granada - Armilla - Podemos Armilla
+TM011802201	TM011802201	Podemos Atarfe			m_18_022_7	Granada - Atarfe - Podemos Atarfe
+TM011803601	TM011803601	Círculo de Cájar			m_18_036_2	Granada - Cájar - Círculo de Cájar
+TM011804701	TM011804701	Podemos Cenes de la Vega			m_18_047_6	Granada - Cenes de la Vega - Podemos Cenes de la Vega
+TM011805901	TM011805901	Círculo de Chauchina			m_18_059_2	Granada - Chauchina - Círculo de Chauchina
+TM011806201	TM011806201	Churriana de la Vega			m_18_062_8	Granada - Churriana de la Vega - Churriana de la Vega
+TM011804801	TM011804801	Podemos Cijuela			m_18_048_2	Granada - Cijuela - Podemos Cijuela
+TM011805001	TM011805001	Círculo Cogollos Vega			m_18_050_8	Granada - Cogollos de la Vega - Círculo Cogollos Vega
+TM011807901	TM011807901	Podemos Fuente Vaqueros			m_18_079_8	Granada - Fuente Vaqueros - Podemos Fuente Vaqueros
+TM011890501	TM011890501	Podemos Las Gabias			m_18_905_6	Granada - Gabias, Las - Podemos Las Gabias
+TM011808401	TM011808401	Podemos Gójar			m_18_084_5	Granada - Gójar - Podemos Gójar
+TB011808701	TB011808701	Círculo Granada Norte			m_18_087_7	Granada - Granada - Círculo Granada Norte
+TB011808704	TB011808704	Granada Centro Ronda			m_18_087_7	Granada - Granada - Granada Centro Ronda
+TB011808705	TB011808705	Granada Realejo			m_18_087_7	Granada - Granada - Granada Realejo
+TB011808703	TB011808703	Podemos Albayzín			m_18_087_7	Granada - Granada - Podemos Albayzín
+TB011808702	TB011808702	Podemos Zaidín			m_18_087_7	Granada - Granada - Podemos Zaidín
+TM011808901	TM011808901	Podemos Guadix			m_18_089_6	Granada - Guadix - Podemos Guadix
+TM011809801	TM011809801	Podemos Huéscar			m_18_098_1	Granada - Huéscar - Podemos Huéscar
+TM011810001	TM011810001	Círculo Podemos de Huétor Tájar			m_18_100_8	Granada - Huétor Tájar - Círculo Podemos de Huétor Tájar
+TM011810101	TM011810101	Podemos Huétor Vega			m_18_101_5	Granada - Huétor Vega - Podemos Huétor Vega
+TM011810501	TM011810501	Podemos Iznalloz			m_18_105_4	Granada - Iznalloz - Podemos Iznalloz
+TM011812701	TM011812701	Podemos Maracena			m_18_127_9	Granada - Maracena - Podemos Maracena
+TM011814001	TM011814001	Podemos Motril			m_18_140_0	Granada - Motril - Podemos Motril
+TM011814401	TM011814401	Podemos Nívar			m_18_144_3	Granada - Nívar - Podemos Nívar
+TM011814501	TM011814501	Círculo Ogíjares			m_18_145_6	Granada - Ogíjares - Círculo Ogíjares
+TM011815001	TM011815001	Podemos Padul			m_18_150_7	Granada - Padul - Podemos Padul
+TM011815301	TM011815301	Podemos Peligros			m_18_153_5	Granada - Peligros - Podemos Peligros
+TM011816501	TM011816501	Podemos Pulianas			m_18_165_1	Granada - Pulianas - Podemos Pulianas
+TM011817301	TM011817301	Salobreña			m_18_173_1	Granada - Salobreña - Salobreña
+TM011817501	TM011817501	Podemos Santa Fe			m_18_175_9	Granada - Santa Fe - Podemos Santa Fe
+TM011891101	TM011891101	Círculo Vegas del Genil			m_18_911_5	Granada - Vegas del Genil - Círculo Vegas del Genil
+TM011814901	TM011814901	Podemos Otura			m_18_149_4	Granada - Villa de Otura - Podemos Otura
+TM081902400	TM051902401	Círculo Podemos Alovera			m_19_024_1	Guadalajara - Alovera - Círculo Podemos Alovera
+TM081904600	TM051904601	Círculo Podemos Azuqueca de Henares			m_19_046_3	Guadalajara - Azuqueca de Henares - Círculo Podemos Azuqueca de Henares
+TM081905800	TM051905801	Círculo Podemos Cabanillas del Campo			m_19_058_2	Guadalajara - Cabanillas del Campo - Círculo Podemos Cabanillas del Campo
+TM081913000	TM051913001	Círculo Podemos Guadalajara			m_19_130_5	Guadalajara - Guadalajara - Círculo Podemos Guadalajara
+TM081916000	TM051916001	Círculo Podemos Loranca de Tajuña			m_19_160_8	Guadalajara - Loranca de Tajuña - Círculo Podemos Loranca de Tajuña
+TC081919000	TC051900001	Círculo Podemos Comarca de Molina de Aragón		40		Guadalajara - Molina de Aragón - Círculo Podemos Comarca de Molina de Aragón
+TM081922000	TM051922001	Círculo Podemos Pioz AB (Alcarria Baja)			m_19_220_6	Guadalajara - Pioz - Círculo Podemos Pioz AB (Alcarria Baja)
+TM081929300	TM051929301	Círculo Podemos Uceda			m_19_293_9	Guadalajara - Uceda - Círculo Podemos Uceda
+TM081932600	TM051932601	Círculo Podemos Valdeluz-Yebes			m_19_326_4	Guadalajara - Yebes - Círculo Podemos Valdeluz-Yebes
+TM012100501	TM012100501	Almonte			m_21_005_9	Huelva - Almonte - Almonte
+TM012100701	TM012100701	Aracena			m_21_007_8	Huelva - Aracena - Aracena
+TM012101001	TM012101001	Ayamonte			m_21_010_1	Huelva - Ayamonte - Ayamonte
+TM014101601	TM012101601	Bollullos de la Mitación			m_41_016_6	Huelva - Bollullos de la Mitación - Bollullos de la Mitación
+TM012104101	TM012104101	Huelva			m_21_041_2	Huelva - Huelva - Huelva
+TM012104201	TM012104201	Isla Cristina			m_21_042_7	Huelva - Isla Cristina - Isla Cristina
+TM012106401	TM012106401	San Juan del Puerto			m_21_064_3	Huelva - San Juan del Puerto - San Juan del Puerto
+TM012107201	TM012107201	Valverde del Camino			m_21_072_0	Huelva - Valverde del Camino - Valverde del Camino
+TM012107801	TM012107801	Zalamea			m_21_078_9	Huelva - Zalamea la Real - Zalamea
+TC022219901	TC022200005	Alto Gállego – Sabiñanigo		5		Huesca - Alto Gállego - Alto Gállego – Sabiñanigo
+TC022211201	TC022200001	Bajo Cinca / Baix Cinca		8		Huesca - Bajo Cinca - Bajo Cinca / Baix Cinca
+TM022204801	TM022204801	Barbastro			m_22_048_1	Huesca - Barbastro - Barbastro
+TC022215801	TC022200004	Cinca Medio		17		Huesca - Cinca Medio - Cinca Medio
+TM022211601	TM022211601	Grañén			m_22_116_4	Huesca - Grañén - Grañén
+TM022212501	TM022212501	Huesca			m_22_125_9	Huesca - Huesca - Huesca
+TC022213001	TC022200003	Jacetania		27		Huesca - Jacetania - Jacetania
+TC022222501	TC022200006	La Litera – Binéfar		31		Huesca - La Litera - La Litera – Binéfar
+TC022211701	TC022200002	Ribagorza		46		Huesca - Ribagorza - Ribagorza
+TM022219901	TM022219901	Sabiñánigo			m_22_199_2	Huesca - Sabiñánigo - Sabiñánigo
+TM022290101	TM022290101	Val d'Echo / Valle de Hecho			m_22_901_6	Huesca - Valle de Hecho - Val d'Echo / Valle de Hecho
+TM040700301	TM160700301	Círculo Alcudia	i_73		m_07_003_3	Illes Balears - Alcúdia - Círculo Alcudia
+TM040700801	TM160700801	Círculo Binissalem	i_73		m_07_008_6	Illes Balears - Binissalem - Círculo Binissalem
+TM040701001	TM160701001	Círculo Bunyola	i_73		m_07_010_3	Illes Balears - Bunyola - Círculo Bunyola
+TM040701101	TM160701101	Círculo Calvià	i_73		m_07_011_0	Illes Balears - Calvià - Círculo Calvià
+TM040701501	TM160701501	Círculo Ciutadella	i_74		m_07_015_9	Illes Balears - Ciutadella de Menorca - Círculo Ciutadella
+TM040702601	TM160702601	Circulo Vila Eivissa	i_72		m_07_026_0	Illes Balears - Eivissa - Circulo Vila Eivissa
+TM040702901	TM160702901	Círculo Lloseta	i_73		m_07_029_5	Illes Balears - Lloseta - Círculo Lloseta
+TM040703001	TM160703001	Círculo Llubí	i_73		m_07_030_9	Illes Balears - Llubí - Círculo Llubí
+TM040703101	TM160703101	Círculo Llucmajor	i_73		m_07_031_6	Illes Balears - Llucmajor - Círculo Llucmajor
+TM040703301	TM160703301	Círculo Manacor	i_73		m_07_033_7	Illes Balears - Manacor - Círculo Manacor
+TM040703201	TM160703201	Círculo Maó	i_74		m_07_032_1	Illes Balears - Maó-Mahón - Círculo Maó
+TM040703601	TM160703601	Círculo Marratxí	i_73		m_07_036_8	Illes Balears - Marratxí - Círculo Marratxí
+TB040704004	TB160704004	Círculo Ponent	i_73		m_07_040_7	Illes Balears - Palma de Mallorca - Círculo Ponent
+TB040704003	TB160704003	Palma Aragón	i_73		m_07_040_7	Illes Balears - Palma de Mallorca - Palma Aragón
+TB040704001	TB160704001	Palma Arxiduc	i_73		m_07_040_7	Illes Balears - Palma de Mallorca - Palma Arxiduc
+TB040704002	TB160704002	Palma Centre	i_73		m_07_040_7	Illes Balears - Palma de Mallorca - Palma Centre
+TM040704201	TM160704201	Círculo Pollença	i_73		m_07_042_9	Illes Balears - Pollença - Círculo Pollença
+TM040704601	TM160704601	Circulo Sant Antoni	i_72		m_07_046_6	Illes Balears - Sant Antoni de Portmany - Circulo Sant Antoni
+TM040705201	TM160705201	Círculo Sant Lluís	i_74		m_07_052_6	Illes Balears - Sant Lluís - Círculo Sant Lluís
+TM040705401	TM160705401	Santa Eularia	i_72		m_07_054_7	Illes Balears - Santa Eulalia del Río - Santa Eularia
+TM040705601	TM160705601	Círculo Santa María	i_73		m_07_056_3	Illes Balears - Santa María del Camí - Círculo Santa María
+TM040706001	TM160706001	Circulo Sineu	i_73		m_07_060_2	Illes Balears - Sineu - Circulo Sineu
+TM040706101	TM160706101	Círculo Sóller	i_73		m_07_061_9	Illes Balears - Sóller - Círculo Sóller
+TM040706201	TM160706201	Círculo Son Servera	i_73		m_07_062_4	Illes Balears - Son Servera - Círculo Son Servera
+TM012300501	TM012300501	Círculo Municipal Podemos Andújar			m_23_005_0	Jaén - Andújar - Círculo Municipal Podemos Andújar
+TM012300901	TM012300901	Círculo Municipal Podemos Baeza			m_23_009_8	Jaén - Baeza - Círculo Municipal Podemos Baeza
+TM012301001	TM012301001	Círculo Municipal Podemos Bailén			m_23_010_2	Jaén - Bailén - Círculo Municipal Podemos Bailén
+TM012302401	TM012302401	Círculo Municipal Podemos La Carolina			m_23_024_3	Jaén - Carolina, La - Círculo Municipal Podemos La Carolina
+TM012304401	TM012304401	Círculo Municipal Podemos Huelma-Solera			m_23_044_9	Jaén - Huelma - Círculo Municipal Podemos Huelma-Solera
+TB012305003	TB012305002	Círculo Barrial Casco Antiguo de Jaén			m_23_050_3	Jaén - Jaén - Círculo Barrial Casco Antiguo de Jaén
+TM012305001	TM012305001	Círculo Municipal Podemos Jaén			m_23_050_3	Jaén - Jaén - Círculo Municipal Podemos Jaén
+TB012305002	TB012305001	Círculo Podemos Peñamefécit (Jaén)			m_23_050_3	Jaén - Jaén - Círculo Podemos Peñamefécit (Jaén)
+TM012305301	TM012305301	Círculo Municipal Podemos Jódar			m_23_053_1	Jaén - Jódar - Círculo Municipal Podemos Jódar
+TM012305501	TM012305501	Círculo Municipal Podemos Linares			m_23_055_9	Jaén - Linares - Círculo Municipal Podemos Linares
+TM012305801	TM012305801	Círculo Municipal Podemos Mancha Real			m_23_058_4	Jaén - Mancha Real - Círculo Municipal Podemos Mancha Real
+TM012306001	TM012306001	Círculo Municipal Podemos Martos			m_23_060_1	Jaén - Martos - Círculo Municipal Podemos Martos
+TM012306301	TM012306301	Círculo Municipal Podemos Navas de San Juan			m_23_063_9	Jaén - Navas de San Juan - Círculo Municipal Podemos Navas de San Juan
+TM012306701	TM012306701	Círculo Municipal Podemos Pegalajar			m_23_067_6	Jaén - Pegalajar - Círculo Municipal Podemos Pegalajar
+TM012307301	TM012307301	Círculo Municipal Podemos Quesada			m_23_073_7	Jaén - Quesada - Círculo Municipal Podemos Quesada
+TM012307401	TM012307401	Círculo Municipal Podemos Rus			m_23_074_2	Jaén - Rus - Círculo Municipal Podemos Rus
+TM012308701	TM012308701	Círculo Podemos de Torredonjimeno			m_23_087_2	Jaén - Torredonjimeno - Círculo Podemos de Torredonjimeno
+TM012308801	TM012308801	Círculo Podemos Torreperogil			m_23_088_8	Jaén - Torreperogil - Círculo Podemos Torreperogil
+TM012309201	TM012309201	Círculo Municipal Podemos Úbeda			m_23_092_7	Jaén - Úbeda - Círculo Municipal Podemos Úbeda
+TM012309501	TM012309501	Círculo Municipal Podemos Villacarrillo			m_23_095_1	Jaén - Villacarrillo - Círculo Municipal Podemos Villacarrillo
+TM172601100	TM152601101	Círculo Alfaro			m_26_011_0	La Rioja - Alfaro - Círculo Alfaro
+TC172605403	TC152600001	Círculo del Alto Cidacos		4		La Rioja - Alto Cidacos - Círculo del Alto Cidacos
+TM172601802	TM152601801	Círculo Arnedo			m_26_018_4	La Rioja - Arnedo - Círculo Arnedo
+TC1726419705	TC152600004	Círculo Bajo Iregua		10		La Rioja - Bajo Iregua - Círculo Bajo Iregua
+TC172613804	TC152600003	Círculo Calceatense y comarca		15		La Rioja - Calceatense - Círculo Calceatense y comarca
+TM172608901	TM152608901	Círculo de Logroño			m_26_089_2	La Rioja - Logroño - Círculo de Logroño
+TC172610202	TC152600002	Círculo de Nájera y comarca		41		La Rioja - Nájera - Círculo de Nájera y comarca
+TM0535202	TM173500201	Círculo Podemos Agüimes	i_352		m_35_002_2	Las Palmas - Agüimes - Círculo Podemos Agüimes
+TM0535103	TM173500301	Círculo Podemos Antigua	i_351		m_35_003_8	Las Palmas - Antigua - Círculo Podemos Antigua
+TM0535304	TM173500401	Círculo Podemos Arrecife	i_353		m_35_004_3	Las Palmas - Arrecife - Círculo Podemos Arrecife
+TM0535206	TM173500601	Círculo Podemos Arucas	i_352		m_35_006_9	Las Palmas - Arucas - Círculo Podemos Arucas
+TM0535232	TM173500801	Circulo Podemos Firgas	i_352		m_35_008_1	Las Palmas - Firgas - Circulo Podemos Firgas
+TM0535209	TM173500901	Círculo Podemos Gáldar	i_352		m_35_009_4	Las Palmas - Gáldar - Círculo Podemos Gáldar
+TM0535211	TM173501101	Círculo Podemos Ingenio	i_352		m_35_011_5	Las Palmas - Ingenio - Círculo Podemos Ingenio
+TM0535115	TM173501501	Círculo Podemos Pájara	i_351		m_35_015_4	Las Palmas - Pájara - Círculo Podemos Pájara
+TM0535216	TM173501601	Círculo Podemos Las Palmas de Gran Canaria	i_352		m_35_016_7	Las Palmas - Palmas de Gran Canaria, Las - Círculo Podemos Las Palmas de Gran Canaria
+TM0535117	TM173501701	Círculo Podemos Puerto del Rosario	i_351		m_35_017_3	Las Palmas - Puerto del Rosario - Círculo Podemos Puerto del Rosario
+TM0535318	TM173501801	Círculo Podemos San Bartolomé	i_353		m_35_018_9	Las Palmas - San Bartolomé - Círculo Podemos San Bartolomé
+TM0535219	TM173501901	Círculo Podemos San Bartolomé de Tirajana	i_352		m_35_019_2	Las Palmas - San Bartolomé de Tirajana - Círculo Podemos San Bartolomé de Tirajana
+TM0535221	TM173502101	Círculo Podemos Santa Brígida	i_352		m_35_021_3	Las Palmas - Santa Brígida - Círculo Podemos Santa Brígida
+TM0535222	TM173502201	Círculo Podemos Santa Lucía de Tirajana	i_352		m_35_022_8	Las Palmas - Santa Lucía de Tirajana - Círculo Podemos Santa Lucía de Tirajana
+TM053502401	TM173502401	Círculo Podemos Teguise	i_353		m_35_024_9	Las Palmas - Teguise - Círculo Podemos Teguise
+TM0535226	TM173502601	Círculo Podemos Telde	i_352		m_35_026_5	Las Palmas - Telde - Círculo Podemos Telde
+TM0535227	TM173502701	Círculo Podemos Teror	i_352		m_35_027_1	Las Palmas - Teror - Círculo Podemos Teror
+TM0535128	TM173502801	Círculo Podemos Tías	i_353		m_35_028_7	Las Palmas - Tías - Círculo Podemos Tías
+TM0535231	TM171403101	Círculo Podemos Valsequillo	i_352		m_35_031_1	Las Palmas - Valsequillo de Gran Canaria - Círculo Podemos Valsequillo
+TM053503401	TM173503401	Círculo Podemos Yaiza	i_353		m_35_034_7	Las Palmas - Yaiza - Círculo Podemos Yaiza
+TM072401010	TM062401001	Círculo Podemos La Bañeza			m_24_010_7	León - Bañeza, La - Círculo Podemos La Bañeza
+TM072403034	TM062403001	Círculo Podemos Cacabelos			m_24_030_3	León - Cacabelos - Círculo Podemos Cacabelos
+TM072403823	TM062403801	Círculo Podemos Carracedelo			m_24_038_4	León - Carracedelo - Círculo Podemos Carracedelo
+TM072409822	TC062400001	Círculo Podemos La Cepeda		29		León - La Cepeda - Círculo Podemos La Cepeda
+TC072420209	TC062400001	Círculo Podemos Laciana		34		León - Laciana - Círculo Podemos Laciana
+TM072408908	TM062408901	Círculo Podemos León			m_24_089_6	León - León - Círculo Podemos León
+TM072409840	TM062409801	Círculo Podemos Matallana de Torío			m_24_098_1	León - Matallana de Torío - Círculo Podemos Matallana de Torío
+TM072409802	TM062409801	Círculo Podemos Ribera del Torío			m_24_098_1	León - Matallana de Torío - Círculo Podemos Ribera del Torío
+TM072411537	TM062411501	Círculo Podemos Ponferrada			m_24_115_2	León - Ponferrada - Círculo Podemos Ponferrada
+TM072414236	TM062414201	Círculo Podemos San Andrés de Rabanedo			m_24_142_2	León - San Andrés del Rabanedo - Círculo Podemos San Andrés de Rabanedo
+TM072416900	TM062416901	Círculo Podemos Toreno			m_24_169_9	León - Toreno - Círculo Podemos Toreno
+TM072439139	TM062418901	Círculo Podemos Valverde de la Virgen			m_24_189_5	León - Valverde de la Virgen - Círculo Podemos Valverde de la Virgen
+TM072422205	TM062422201	Círculo Podemos Villaquilambre			m_24_222_5	León - Villaquilambre - Círculo Podemos Villaquilambre
+TM092512088	TM072512001	Cercle Podem Ciutat de Lleida			m_25_120_7	Lleida - Lleida - Cercle Podem Ciutat de Lleida
+TC092513703	TC072500001	Cercle Podem El Pla d'Urgell		44		Lleida - Pla d'Urgell - Cercle Podem El Pla d'Urgell
+TC092517302	TC072500002	Cercle Podem Ribagorça		45		Lleida - Ribagorça - Cercle Podem Ribagorça
+TM092521741	TM072521701	Cercle Podem Tàrrega			m_25_217_3	Lleida - Tàrrega - Cercle Podem Tàrrega
+TC092524304	TC072500003	Cercle Podem Aran		56		Lleida - Vielha - Cercle Podem Aran
+TM1227016-01	TM102701601	Chantada			m_27_016_8	Lugo - Chantada - Chantada
+TM1227019-01	TM102701901	Foz			m_27_019_3	Lugo - Foz - Foz
+TM1227028-01	TM102702801	Círculo Lugo			m_27_028_8	Lugo - Lugo - Círculo Lugo
+TM1227031-01	TM102703101	Monforte de Lemos			m_27_031_2	Lugo - Monforte de Lemos - Monforte de Lemos
+TM1227057-01	TM102705701	Sarria			m_27_057_5	Lugo - Sarria - Sarria
+TM127066-01	TM102706601	Viveiro			m_27_066_7	Lugo - Viveiro - Viveiro
+TM132800401	TM112800401	El Álamo			m_28_004_0	Madrid - Álamo, El - El Álamo
+TM132800501	TM112800501	Alcala de Henares			m_28_005_3	Madrid - Alcalá de Henares - Alcala de Henares
+TM132800601	TM112800601	Alcobendas			m_28_006_6	Madrid - Alcobendas - Alcobendas
+TM132800701	TM112800701	Alcorcón			m_28_007_2	Madrid - Alcorcón - Alcorcón
+TM132800901	TM112800901	Algete			m_28_009_1	Madrid - Algete - Algete
+TM132801001	TM112801001	Alpedrete			m_28_010_5	Madrid - Alpedrete - Alpedrete
+TM132801301	TM112801301	Aranjuez			m_28_013_3	Madrid - Aranjuez - Aranjuez
+TM132801401	TM112801401	Arganda del Rey			m_28_014_8	Madrid - Arganda del Rey - Arganda del Rey
+TM132801501	TM112801501	Arroyomolinos			m_28_015_1	Madrid - Arroyomolinos - Arroyomolinos
+TM132801801	TM112801801	Becerril de la Sierra			m_28_018_6	Madrid - Becerril de la Sierra - Becerril de la Sierra
+TM132802201	TM112802201	Boadilla del Monte			m_28_022_5	Madrid - Boadilla del Monte - Boadilla del Monte
+TC132802301	TM112802301	Bocema			m_28_023_1	Madrid - Boalo, El - Bocema
+TM132803201	TM112803201	Camarma			m_28_032_3	Madrid - Camarma de Esteruelas - Camarma
+TM132803301	TM112803301	Campo Real			m_28_033_9	Madrid - Campo Real - Campo Real
+TM132803501	TM112803501	Carabaña			m_28_035_7	Madrid - Carabaña - Carabaña
+TM132805101	TM112805101	Chapinería			m_28_051_3	Madrid - Chapinería - Chapinería
+TM132804001	TM112804001	Ciempozuelos			m_28_040_9	Madrid - Ciempozuelos - Ciempozuelos
+TM132804601	TM112804601	Collado Mediano			m_28_046_8	Madrid - Collado Mediano - Collado Mediano
+TM132804701	TM112804701	Collado Villalba			m_28_047_4	Madrid - Collado Villalba - Collado Villalba
+TM132804301	TM112804301	Colmenar de Oreja			m_28_043_7	Madrid - Colmenar de Oreja - Colmenar de Oreja
+TM132804501	TM112804501	Colmenar Viejo			m_28_045_5	Madrid - Colmenar Viejo - Colmenar Viejo
+TM132804401	TM112804401	Colmenarejo			m_28_044_2	Madrid - Colmenarejo - Colmenarejo
+TM132804901	TM112804901	Coslada			m_28_049_3	Madrid - Coslada - Coslada
+TM132805001	TM112805001	Cubas de la Sagra			m_28_050_6	Madrid - Cubas de la Sagra - Cubas de la Sagra
+TM132805401	TM112805401	El Escorial			m_28_054_9	Madrid - Escorial, El - El Escorial
+TM132805601	TM112805601	Fresnedillas de la Oliva			m_28_056_5	Madrid - Fresnedillas de la Oliva - Fresnedillas de la Oliva
+TM132805701	TB112805701	Serracines			m_28_057_1	Madrid - Fresno de Torote - Serracines
+TM132805801	TM112805801	Fuenlabrada			m_28_058_7	Madrid - Fuenlabrada - Fuenlabrada
+TM132806101	TM112806101	Galapagar			m_28_061_1	Madrid - Galapagar - Galapagar
+TM132806501	TM112806501	Getafe			m_28_065_0	Madrid - Getafe - Getafe
+TM132806601	TM112806601	Griñón			m_28_066_3	Madrid - Griñón - Griñón
+TM132806801	TM112806801	Guadarrama			m_28_068_5	Madrid - Guadarrama - Guadarrama
+TM132807401	TM112807401	Leganés			m_28_074_5	Madrid - Leganés - Leganés
+TM132807501	TM112807501	Loeches			m_28_075_8	Madrid - Loeches - Loeches
+TM132890101	TM112890101	Lozoyuela			m_28_901_5	Madrid - Lozoyuela-Navas-Sieteiglesias - Lozoyuela
+TB132807932	TB112807924	3 Barrios (Pueblo Nuevo, La Elipa y Barrio Bilbao)			m_28_079_6	Madrid - Madrid - 3 Barrios (Pueblo Nuevo, La Elipa y Barrio Bilbao)
+TB132807914	TB112807909	Aravaca			m_28_079_6	Madrid - Madrid - Aravaca
+TB132807905	TB112807902	Arganzuela			m_28_079_6	Madrid - Madrid - Arganzuela
+TB132807929	TB112807921	Barajas			m_28_079_6	Madrid - Madrid - Barajas
+TB132807930	TB112807922	Carabanchel- Latina			m_28_079_6	Madrid - Madrid - Carabanchel- Latina
+TB132807902	TB112807901	Centro			m_28_079_6	Madrid - Madrid - Centro
+TB132807910	TB112807905	Chamartín			m_28_079_6	Madrid - Madrid - Chamartín
+TB132807912	TB112807907	Chamberí			m_28_079_6	Madrid - Madrid - Chamberí
+TB132807927	TB112807920	Ciudad Lineal			m_28_079_6	Madrid - Madrid - Ciudad Lineal
+TB132807915	TB112807910	Dehesa de la Villa			m_28_079_6	Madrid - Madrid - Dehesa de la Villa
+TB132807913	TB112807908	Fuencarral- El Pardo			m_28_079_6	Madrid - Madrid - Fuencarral- El Pardo
+TB132807917	TB112807912	Hortaleza			m_28_079_6	Madrid - Madrid - Hortaleza
+TB132807916	TB112807911	La Bombilla			m_28_079_6	Madrid - Madrid - La Bombilla
+TB132807926	TB112807919	Moratalaz			m_28_079_6	Madrid - Madrid - Moratalaz
+TB132807924	TB112807917	Puente de Vallecas			m_28_079_6	Madrid - Madrid - Puente de Vallecas
+TB132807918	TB112807913	Puerta del Ángel			m_28_079_6	Madrid - Madrid - Puerta del Ángel
+TB132807907	TB112807903	Retiro			m_28_079_6	Madrid - Madrid - Retiro
+TB132807908	TB112807904	Salamanca – Guindalera			m_28_079_6	Madrid - Madrid - Salamanca – Guindalera
+TB132807931	TB112807923	San Blas - Canillejas			m_28_079_6	Madrid - Madrid - San Blas - Canillejas
+TB132807911	TB112807906	Tetuán			m_28_079_6	Madrid - Madrid - Tetuán
+TB132807923	TB112807916	Usera			m_28_079_6	Madrid - Madrid - Usera
+TB132807925	TB112807918	Vicálvaro			m_28_079_6	Madrid - Madrid - Vicálvaro
+TB132807920	TB112807915	Villa de Vallecas			m_28_079_6	Madrid - Madrid - Villa de Vallecas
+TB132807919	TB112807914	Villaverde			m_28_079_6	Madrid - Madrid - Villaverde
+TM132808001	TM112808001	Majadahonda			m_28_080_0	Madrid - Majadahonda - Majadahonda
+TM132808201	TM112808201	Manzanares El Real			m_28_082_2	Madrid - Manzanares El Real - Manzanares El Real
+TM132808301	TM112808301	Meco			m_28_083_8	Madrid - Meco - Meco
+TM132808601	TM112808601	El Molar			m_28_086_9	Madrid - Molar, El - El Molar
+TM132808701	TM112808701	Los Molinos			m_28_087_5	Madrid - Molinos, Los - Los Molinos
+TM132808901	TM112808901	Moraleja de Enmedio			m_28_089_4	Madrid - Moraleja de Enmedio - Moraleja de Enmedio
+TM132809001	TM112809001	Moralzarzal			m_28_090_8	Madrid - Moralzarzal - Moralzarzal
+TB132809204	TB112809204	Coímbra-Guadarrama			m_28_092_0	Madrid - Móstoles - Coímbra-Guadarrama
+TB132809201	TB112809201	Móstoles Centro			m_28_092_0	Madrid - Móstoles - Móstoles Centro
+TB132809202	TB112809202	Móstoles Sur-Este			m_28_092_0	Madrid - Móstoles - Móstoles Sur-Este
+TB132809203	TB112809203	Móstoles Sur-Oeste			m_28_092_0	Madrid - Móstoles - Móstoles Sur-Oeste
+TB132809206	TB112809206	Norte-Universidad			m_28_092_0	Madrid - Móstoles - Norte-Universidad
+TB132809205	TB112809205	PAU-4			m_28_092_0	Madrid - Móstoles - PAU-4
+TM132809501	TM112809501	Navalagamella			m_28_095_4	Madrid - Navalagamella - Navalagamella
+TM132809601	TM112809601	Navalcarnero			m_28_096_7	Madrid - Navalcarnero - Navalcarnero
+TC132810001	TB112810001	Senda de Valmores			m_28_100_6	Madrid - Nuevo Baztán - Senda de Valmores
+TM132810401	TM112810401	Paracuellos de Jarama			m_28_104_9	Madrid - Paracuellos de Jarama - Paracuellos de Jarama
+TM132810601	TM112810601	Parla			m_28_106_5	Madrid - Parla - Parla
+TM132810801	TM112810801	Pedrezuela			m_28_108_7	Madrid - Pedrezuela - Pedrezuela
+TM132811301	TM112811301	Pinto			m_28_113_2	Madrid - Pinto - Pinto
+TM132811501	TM112811501	Pozuelo de Alarcón			m_28_115_0	Madrid - Pozuelo de Alarcón - Pozuelo de Alarcón
+TM132812301	TM112812301	Rivas			m_28_123_0	Madrid - Rivas-Vaciamadrid - Rivas
+TM132812901	TM112812901	San Agustín de Guadalix			m_28_129_6	Madrid - San Agustín del Guadalix - San Agustín de Guadalix
+TM132813001	TM112813001	San Fernando de Henares			m_28_130_0	Madrid - San Fernando de Henares - San Fernando de Henares
+TB132813101	TM112813101	San Lorenzo del Escorial			m_28_131_7	Madrid - San Lorenzo de El Escorial - San Lorenzo del Escorial
+TM132813201	TM112813201	San Martín de la Vega			m_28_132_2	Madrid - San Martín de la Vega - San Martín de la Vega
+TM132813301	TM112813301	San Martin de Valdeiglesias			m_28_133_8	Madrid - San Martín de Valdeiglesias - San Martin de Valdeiglesias
+TM132813401	TM112813401	San Sebastian de los Reyes			m_28_134_3	Madrid - San Sebastián de los Reyes - San Sebastian de los Reyes
+TM132813501	TM112813501	Santa Maria de la Alameda			m_28_135_6	Madrid - Santa María de la Alameda - Santa Maria de la Alameda
+TM132814101	TM112814101	Sevilla la Nueva			m_28_141_5	Madrid - Sevilla la Nueva - Sevilla la Nueva
+TM132814401	TM112814401	Soto del Real			m_28_144_1	Madrid - Soto del Real - Soto del Real
+TM132814501	TM112814501	Talamanca de Jarama			m_28_145_4	Madrid - Talamanca de Jarama - Talamanca de Jarama
+TM132814801	TM112814801	Torrejon de Ardoz			m_28_148_9	Madrid - Torrejón de Ardoz - Torrejon de Ardoz
+TM132894901	TM112814901	Torrejon de la Calzada			m_28_149_2	Madrid - Torrejón de la Calzada - Torrejon de la Calzada
+TB132890301	TM112890301	Tres Cantos			m_28_903_6	Madrid - Tres Cantos - Tres Cantos
+TM132816001	TM112816001	Valdemorillo			m_28_160_3	Madrid - Valdemorillo - Valdemorillo
+TM132816101	TM112816101	Valdemoro			m_28_161_0	Madrid - Valdemoro - Valdemoro
+TM132816401	TM112816401	Valdetorres del Jarama			m_28_164_6	Madrid - Valdetorres de Jarama - Valdetorres del Jarama
+TM132816701	TM114716701	Velilla			m_28_167_8	Madrid - Velilla de San Antonio - Velilla
+TM132817001	TM112817001	Villaconejos			m_28_170_1	Madrid - Villaconejos - Villaconejos
+TM132817201	TM112817201	Villalbilla			m_28_172_3	Madrid - Villalbilla - Villalbilla
+TM132817601	TM112817601	Villanueva de la Cañada			m_28_176_0	Madrid - Villanueva de la Cañada - Villanueva de la Cañada
+TM132817801	TM112817801	Villanueva de Perales			m_28_178_2	Madrid - Villanueva de Perales - Villanueva de Perales
+TM132817701	TM112817701	Villanueva del Pardillo			m_28_177_6	Madrid - Villanueva del Pardillo - Villanueva del Pardillo
+TM132818001	TM112818001	Villarejo de Salvanés			m_28_180_9	Madrid - Villarejo de Salvanés - Villarejo de Salvanés
+TM132818101	TM112818101	Villaviciosa de Odón			m_28_181_6	Madrid - Villaviciosa de Odón - Villaviciosa de Odón
+TM012900701	TM012900701	Podemos Alhaurín de la Torre			m_29_007_5	Málaga - Alhaurín de la Torre - Podemos Alhaurín de la Torre
+TM012900801	TM012900801	Círculo Podemos Alhaurín el Grande			m_29_008_1	Málaga - Alhaurín el Grande - Círculo Podemos Alhaurín el Grande
+TM012902001	TM012902001	Podemos Arriate en común			m_29_020_6	Málaga - Arriate - Podemos Arriate en común
+TM012902501	TM012902501	Podemos Benalmádena			m_29_025_2	Málaga - Benalmádena - Podemos Benalmádena
+TM012906704	TM012903801	Podemos Cártama			m_29_038_5	Málaga - Cártama - Podemos Cártama
+TM012905102	TM012905101	Círculo Podemos Estepona			m_29_051_6	Málaga - Estepona - Círculo Podemos Estepona
+TM012905401	TM012905401	Círculo Podemos Fuengirola			m_29_054_2	Málaga - Fuengirola - Círculo Podemos Fuengirola
+TB012906709	TB012906709	Círculo Distrito 10			m_29_067_2	Málaga - Málaga - Círculo Distrito 10
+TB012906708	TB012906708	Círculo Distrito 4-Bailén Miraflores			m_29_067_2	Málaga - Málaga - Círculo Distrito 4-Bailén Miraflores
+TB012906707	TB012906707	Círculo Distrito 5			m_29_067_2	Málaga - Málaga - Círculo Distrito 5
+TB012906701	TB012906701	Círculo Distrito 6 Cruz de Humilladero - Carranque			m_29_067_2	Málaga - Málaga - Círculo Distrito 6 Cruz de Humilladero - Carranque
+TB012906705	TB012906705	Círculo Distrito 7- Avenida Velázquez			m_29_067_2	Málaga - Málaga - Círculo Distrito 7- Avenida Velázquez
+TB012906710	TB012906710	Círculo Distrito 8 - Churriana			m_29_067_2	Málaga - Málaga - Círculo Distrito 8 - Churriana
+TB012906706	TB012906706	Círculo Distrito 9 - Campanillas			m_29_067_2	Málaga - Málaga - Círculo Distrito 9 - Campanillas
+TB012906703	TB012906703	Círculo Podemos Distrito 1-Centro			m_29_067_2	Málaga - Málaga - Círculo Podemos Distrito 1-Centro
+TB012906702	TB012906702	Círculo Podemos Distrito 3-Ciudad Jardín			m_29_067_2	Málaga - Málaga - Círculo Podemos Distrito 3-Ciudad Jardín
+TB012906704	TB012906704	Círculo Podemos Málaga Este - El Palo			m_29_067_2	Málaga - Málaga - Círculo Podemos Málaga Este - El Palo
+TB012906711	TB012906711	Distrito 11 Teatinos			m_29_067_2	Málaga - Málaga - Distrito 11 Teatinos
+TM012906901	TM012906901	Círculo Podemos Marbella			m_29_069_1	Málaga - Marbella - Círculo Podemos Marbella
+TB012906901	TB012906901	Círculo Podemos San Pedro de Alcántara			m_29_069_1	Málaga - Marbella - Círculo Podemos San Pedro de Alcántara
+TB012907001	TB012907001	Círculo Podemos Cala Mijas			m_29_070_5	Málaga - Mijas - Círculo Podemos Cala Mijas
+TM012907501	TM012907501	Podemos Nerja-Maro			m_29_075_1	Málaga - Nerja - Podemos Nerja-Maro
+TM012908201	TM012908201	Círculo Podemos Rincón de la Victoria			m_29_082_5	Málaga - Rincón de la Victoria - Círculo Podemos Rincón de la Victoria
+TM012908401	TM012908401	Círculo Podemos Ronda			m_29_084_6	Málaga - Ronda - Círculo Podemos Ronda
+TM012906703	TM012990101	Círculo Podemos Torremolinos			m_29_901_8	Málaga - Torremolinos - Círculo Podemos Torremolinos
+TM012909401	TM012909401	Podemos Vélez-Málaga			m_29_094_4	Málaga - Vélez-Málaga - Podemos Vélez-Málaga
+TM195200100	TM195200101	"Círculo Podemos Melilla ""Sí se puede"""			m_52_001_8	"Melilla - Melilla - Círculo Podemos Melilla ""Sí se puede"""
+TM143000301	TM123000301	Podemos Águilas			m_30_003_2	Murcia - Águilas - Podemos Águilas
+TM143000501	TM123000501	Podemos Alcantarilla			m_30_005_0	Murcia - Alcantarilla - Podemos Alcantarilla
+TM143090201	TM123090201	Círculo Los Alcázares			m_30_902_7	Murcia - Alcázares, Los - Círculo Los Alcázares
+TM143000801	TM123000801	Podemos Alhama			m_30_008_5	Murcia - Alhama de Murcia - Podemos Alhama
+TM143000901	TM123000901	Podemos Archena			m_30_009_8	Murcia - Archena - Podemos Archena
+TM143001201	TM123001201	Podemos Bullas			m_30_012_4	Murcia - Bullas - Podemos Bullas
+TM143001301	TM123001301	Podemos Calasparra			m_30_013_0	Murcia - Calasparra - Podemos Calasparra
+TB143001602	TB123001602	Círculo de La Manga			m_30_016_1	Murcia - Cartagena - Círculo de La Manga
+TB143001601	TB123001601	Podemos Cartagena			m_30_016_1	Murcia - Cartagena - Podemos Cartagena
+TB143001603	TB123001603	Podemos Cartagena Norte			m_30_016_1	Murcia - Cartagena - Podemos Cartagena Norte
+TB143001604	TB123001604	Podemos Cartagena Oeste			m_30_016_1	Murcia - Cartagena - Podemos Cartagena Oeste
+TM143001701	TM123001701	Podemos Cehegín			m_30_017_7	Murcia - Cehegín - Podemos Cehegín
+TM143001901	TM123001901	Podemos Cieza			m_30_019_6	Murcia - Cieza - Podemos Cieza
+TM143002001	TM123002001	Círculo Podemos Fortuna			m_30_020_0	Murcia - Fortuna - Círculo Podemos Fortuna
+TM143002201	TM123002201	Podemos Jumilla			m_30_022_2	Murcia - Jumilla - Podemos Jumilla
+TM143002401	TM123002401	Podemos Lorca			m_30_024_3	Murcia - Lorca - Podemos Lorca
+TM143002601	TM123002601	Podemos Mazarrón			m_30_026_9	Murcia - Mazarrón - Podemos Mazarrón
+TM143004301	TM123002701	Podemos Molina			m_30_027_5	Murcia - Molina de Segura - Podemos Molina
+TM143002801	TM123002801	Podemos Moratalla			m_30_028_1	Murcia - Moratalla - Podemos Moratalla
+TB143003005	TB123003005	Círculo Barrios RBG			m_30_030_8	Murcia - Murcia - Círculo Barrios RBG
+TB143003009	TB123003009	Círculo Podemos Betito (Beniaján, San José de la Vega, Torreagüera)			m_30_030_8	Murcia - Murcia - Círculo Podemos Betito (Beniaján, San José de la Vega, Torreagüera)
+TB143003008	TB123003008	Círculo Podemos El Palmar			m_30_030_8	Murcia - Murcia - Círculo Podemos El Palmar
+TB143003004	TB123003004	Podemos La Flota Vistalegre Zaraíche			m_30_030_8	Murcia - Murcia - Podemos La Flota Vistalegre Zaraíche
+TB143003001	TB123003001	Podemos Murcia Ciudad			m_30_030_8	Murcia - Murcia - Podemos Murcia Ciudad
+TB143003007	TB123003007	Podemos Murcia Costera Sur			m_30_030_8	Murcia - Murcia - Podemos Murcia Costera Sur
+TB143003002	TB123003002	Podemos Murcia Huerta Este			m_30_030_8	Murcia - Murcia - Podemos Murcia Huerta Este
+TB143003003	TB123003003	Podemos Murcia Sur			m_30_030_8	Murcia - Murcia - Podemos Murcia Sur
+TB143003006	TB123003006	Podemos Rincón de Seca			m_30_030_8	Murcia - Murcia - Podemos Rincón de Seca
+TM143003501	TM123003501	Círculo Podemos San Javier			m_30_035_4	Murcia - San Javier - Círculo Podemos San Javier
+TM143003801	TM123003801	Podemos Las Torres de Cotillas			m_30_038_9	Murcia - Torres de Cotillas, Las - Podemos Las Torres de Cotillas
+TM143004101	TM123004101	Círculo Podemos La Unión			m_30_041_3	Murcia - Unión, La - Círculo Podemos La Unión
+TM143002701	TM123004301	Podemos Yecla			m_30_043_4	Murcia - Yecla - Podemos Yecla
+TM153110	TM133101001	Círculo de Alsasua			m_31_010_9	Navarra - Altsasu/Alsasua - Círculo de Alsasua
+TM153116	TM133101601	Círculo de Ansoáin			m_31_016_8	Navarra - Ansoáin/Antsoain - Círculo de Ansoáin
+TM1531901	TM133190101	Círculo de Barañáin			m_31_901_9	Navarra - Barañain - Círculo de Barañáin
+TM1531902	TM133190201	Círculo de Berrioplano			m_31_902_4	Navarra - Berrioplano/Berriobeiti - Círculo de Berrioplano
+TM1531903	TM133190301	Círculo de Berriozar			m_31_903_0	Navarra - Berriozar - Círculo de Berriozar
+TM153160	TM133106001	Círculo de Burlada			m_31_060_8	Navarra - Burlada/Burlata - Círculo de Burlada
+TM153177	TM133107701	Círculo de Corella			m_31_077_1	Navarra - Corella - Círculo de Corella
+TM153186	TM133108601	Círculo de Egüés			m_31_086_3	Navarra - Egüés - Círculo de Egüés
+TM1531122	TM133112201	Círculo de Huarte			m_31_122_8	Navarra - Huarte/Uharte - Círculo de Huarte
+TC153188	TC133100001	Círculo Comarcal Lizarraldea		36		Navarra - Lizarraldea/Tierra Estella - Círculo Comarcal Lizarraldea
+TM153188	TM133108801	Círculo de Noáin			m_31_088_5	Navarra - Noáin (Valle de Elorz)/Noain (Elortzibar) - Círculo de Noáin
+TM1531906	TM133190601	Círculo de Orkoien			m_31_906_1	Navarra - Orkoien - Círculo de Orkoien
+TM1531201	TM133120101	Círculo de Pamplona			m_31_201_6	Navarra - Pamplona/Iruña - Círculo de Pamplona
+TM1531227	TM133122701	Círculo de Tafalla			m_31_227_0	Navarra - Tafalla - Círculo de Tafalla
+TM1531232	TM133123201	Círculo de Tudela			m_31_232_5	Navarra - Tudela - Círculo de Tudela
+TM1531258	TM133125801	Círculo de Villava			m_31_258_9	Navarra - Villava/Atarrabia - Círculo de Villava
+TM1531907	TM133190701	Círculo de Zizur			m_31_907_7	Navarra - Zizur Mayor/Zizur Nagusia - Círculo de Zizur
+TM1232009-01	TM103200901	O Barco de Valdeorras			m_32_009_0	Ourense - Barco de Valdeorras, O - O Barco de Valdeorras
+TM1232019-01	TM103201901	O Carballiño			m_32_019_8	Ourense - Carballiño, O - O Carballiño
+TM1232040-01	TM103204001	Leiro			m_32_040_8	Ourense - Leiro - Leiro
+TM1232042-01	TM103204201	Lobios			m_32_042_0	Ourense - Lobios - Lobios
+TM1232054-01	TM103205401	Ourense			m_32_054_8	Ourense - Ourense - Ourense
+TM1232052-01	TC103200001	Ribeira Sacra		47		Ourense - Ribeira Sacra - Ribeira Sacra
+TM1232085-01	TM103208501	Verín			m_32_085_5	Ourense - Verín - Verín
+TM073480044	TM063400401	Círculo Podemos Aguilar de Campoo			m_34_004_0	Palencia - Aguilar de Campoo - Círculo Podemos Aguilar de Campoo
+TC073412338	TC063400001	Círculo Podemos Canal de Castilla Norte		1		Palencia - Alar, Herrera, Osorno - Círculo Podemos Canal de Castilla Norte
+TM073412004	TM063412001	Círculo Podemos Palencia			m_34_120_2	Palencia - Palencia - Círculo Podemos Palencia
+TM073402335	TM063402301	Círculo Podemos Venta de Baños			m_34_023_1	Palencia - Venta de Baños - Círculo Podemos Venta de Baños
+TM1236003-01	TM103600301	Baiona			m_36_003_1	Pontevedra - Baiona - Baiona
+TM1236004-01	TM103600401	Bueu			m_36_004_6	Pontevedra - Bueu - Bueu
+TM1236008-01	TM103600801	Cangas			m_36_008_4	Pontevedra - Cangas - Cangas
+TM1236009-01	TM103600901	Cañiza, A			m_36_009_7	Pontevedra - Cañiza, A - Cañiza, A
+TM1236021-01	TM103602101	Gondomar			m_36_021_6	Pontevedra - Gondomar - Gondomar
+TM1236026-01	TM103602601	Marín			m_36_026_8	Pontevedra - Marín - Marín
+TM1236029-01	TM103602901	Moaña			m_36_029_3	Pontevedra - Moaña - Moaña
+TM1236035-01	TM103603501	Nigran			m_36_035_3	Pontevedra - Nigrán - Nigran
+TM1236042-01	TM103604201	Ponteareas			m_36_042_7	Pontevedra - Ponteareas - Ponteareas
+TM1236038-01	TM103603801	Pontevedra			m_36_038_8	Pontevedra - Pontevedra - Pontevedra
+TM1236039-01	TM103603901	Porriño, o			m_36_039_1	Pontevedra - Porriño, o - Porriño, o
+TM1236045-01	TM103604501	Redondela			m_36_045_1	Pontevedra - Redondela - Redondela
+TM1236049-01	TM103604901	Salceda de Caselas			m_36_049_9	Pontevedra - Salceda de Caselas - Salceda de Caselas
+TM1236050-01	TM103605001	Salvaterra de Miño			m_36_050_2	Pontevedra - Salvaterra de Miño - Salvaterra de Miño
+TM1236051-01	TM103605101	Sanxenxo			m_36_051_9	Pontevedra - Sanxenxo - Sanxenxo
+TM1236053-01	TM103605301	Soutomaior			m_36_053_0	Pontevedra - Soutomaior - Soutomaior
+TM1236054-01	TM103605401	Tomiño			m_36_054_5	Pontevedra - Tomiño - Tomiño
+TM1236055-01	TM103605501	Tui			m_36_055_8	Pontevedra - Tui - Tui
+TM1236057-01	TM103605701	Círculo Vigo			m_36_057_7	Pontevedra - Vigo - Círculo Vigo
+TM1236060-01	TM103606001	Vilagarcia de Arousa			m_36_060_0	Pontevedra - Vilagarcía de Arousa - Vilagarcia de Arousa
+TC073704631	TC063700002	Círculo Podemos Béjar y Comarca		11		Salamanca - Béjar - Círculo Podemos Béjar y Comarca
+TM073706719	TM063706701	Círculo Podemos Cabrerizos			m_37_067_1	Salamanca - Cabrerizos - Círculo Podemos Cabrerizos
+TC073710713	TC063700003	Círculo Podemos Ciudad Rodrigo		19		Salamanca - Ciudad Rodrigo - Círculo Podemos Ciudad Rodrigo
+TC073701025	TC063700001	Círculo Podemos Sierra de Francia		28		Salamanca - La Alberca - Círculo Podemos Sierra de Francia
+TM073727427	TM063727401	Círculo Podemos Salamanca			m_37_274_5	Salamanca - Salamanca - Círculo Podemos Salamanca
+TM073729411	TM063729401	Círculo Podemos Santa Marta de Tormes			m_37_294_1	Salamanca - Santa Marta de Tormes - Círculo Podemos Santa Marta de Tormes
+TM0538401	TM173800101	Círculo Podemos Adeje	i_384		m_38_001_2	Santa Cruz de Tenerife - Adeje - Círculo Podemos Adeje
+TM0538406	TM173800601	Círculo Podemos Arona	i_384		m_38_006_4	Santa Cruz de Tenerife - Arona - Círculo Podemos Arona
+TM0538410	TM173801001	Círculo Podemos Buenavista del Norte	i_384		m_38_010_3	Santa Cruz de Tenerife - Buenavista del Norte - Círculo Podemos Buenavista del Norte
+TM0538417	TM173801701	Círculo Podemos Granadilla de Abona	i_384		m_38_017_8	Santa Cruz de Tenerife - Granadilla de Abona - Círculo Podemos Granadilla de Abona
+TM0538422	TM173802201	Círculo Podemos Icod de los Vinos	i_384		m_38_022_3	Santa Cruz de Tenerife - Icod de los Vinos - Círculo Podemos Icod de los Vinos
+TM0538426	TM173802601	Círculo Podemos La Orotava	i_384		m_38_026_0	Santa Cruz de Tenerife - Orotava, La - Círculo Podemos La Orotava
+TM0538428	TM173802801	Círculo Podemos Puerto de la Cruz	i_384		m_38_028_2	Santa Cruz de Tenerife - Puerto de la Cruz - Círculo Podemos Puerto de la Cruz
+TM0538431	TM173803101	Círculo Podemos El Realejo	i_384		m_38_031_6	Santa Cruz de Tenerife - Realejos, Los - Círculo Podemos El Realejo
+TM0538432	TM173803201	Círculo Podemos El Rosario	i_384		m_38_032_1	Santa Cruz de Tenerife - Rosario, El - Círculo Podemos El Rosario
+TM0538423	TM173802301	Círculo Podemos La Laguna	i_384		m_38_023_9	Santa Cruz de Tenerife - San Cristóbal de La Laguna - Círculo Podemos La Laguna
+TB0538423	TB173802301	Círculo Podemos Taco	i_384		m_38_023_9	Santa Cruz de Tenerife - San Cristóbal de La Laguna - Círculo Podemos Taco
+TM0538435	TM173803501	Círculo Podemos San Miguel de Abona	i_384		m_38_035_5	Santa Cruz de Tenerife - San Miguel de Abona - Círculo Podemos San Miguel de Abona
+TM0538438	TM173803801	Círculo Podemos Santa Cruz de Tenerife	i_384		m_38_038_0	Santa Cruz de Tenerife - Santa Cruz de Tenerife - Círculo Podemos Santa Cruz de Tenerife
+TM0538442	TM173804201	Círculo Podemos Los Silos	i_384		m_38_042_9	Santa Cruz de Tenerife - Silos, Los - Círculo Podemos Los Silos
+TM0538447	TM173804301	Ciruclo Podemos Tacoronte	i_384		m_38_043_5	Santa Cruz de Tenerife - Tacoronte - Ciruclo Podemos Tacoronte
+TM0538446	TM173804601	Círculo Podemos Tegueste	i_384		m_38_046_6	Santa Cruz de Tenerife - Tegueste - Círculo Podemos Tegueste
+TC0538248	TC173800001	Círculo Podemos Valverde-Frontera-El Pinar	i_382	55		Santa Cruz de Tenerife - Valverde-Frontera-El Pinar - Círculo Podemos Valverde-Frontera-El Pinar
+TM074004026	TM064004001	Círculo Podemos Cantalejo			m_40_040_4	Segovia - Cantalejo - Círculo Podemos Cantalejo
+TM074007618	TM064007601	Círculo Podemos El Espinar			m_40_076_6	Segovia - Espinar, El - Círculo Podemos El Espinar
+TM074017003	TM064017001	Círculo Podemos Riaza			m_40_170_6	Segovia - Riaza - Círculo Podemos Riaza
+TM074019430	TM064019401	Círculo Podemos Segovia			m_40_194_5	Segovia - Segovia - Círculo Podemos Segovia
+TM014100401	TM014100401	Alcalá de Guadaíra			m_41_004_2	Sevilla - Alcalá de Guadaíra - Alcalá de Guadaíra
+TM014100501	TM014100501	Alcalá del Río			m_41_005_5	Sevilla - Alcalá del Río - Alcalá del Río
+TM014100701	TM014100701	La Algaba			m_41_007_4	Sevilla - Algaba, La - La Algaba
+TM014101001	TM014101001	Almensilla			m_41_010_7	Sevilla - Almensilla - Almensilla
+TM014101701	TM014101701	Bormujos			m_41_017_2	Sevilla - Bormujos - Bormujos
+TM014101801	TM014101801	Brenes			m_41_018_8	Sevilla - Brenes - Brenes
+TM014102001	TM014102001	Las Cabezas de San Juan			m_41_020_5	Sevilla - Cabezas de San Juan, Las - Las Cabezas de San Juan
+TM014102101	TM014102101	Camas			m_41_021_2	Sevilla - Camas - Camas
+TM014102401	TM014102401	Carmona			m_41_024_8	Sevilla - Carmona - Carmona
+TM014102801	TM014102801	Castilleja de Guzmán			m_41_028_6	Sevilla - Castilleja de Guzmán - Castilleja de Guzmán
+TM014102901	TM014102901	Castilleja de la Cuesta			m_41_029_9	Sevilla - Castilleja de la Cuesta - Castilleja de la Cuesta
+TM014103401	TM014103401	Coria del Río			m_41_034_6	Sevilla - Coria del Río - Coria del Río
+TB014103802	TB014103802	Cantalgallo			m_41_038_4	Sevilla - Dos Hermanas - Cantalgallo
+TB014103801	TB014103801	Centro			m_41_038_4	Sevilla - Dos Hermanas - Centro
+TB014103806	TB014103806	La Moneda			m_41_038_4	Sevilla - Dos Hermanas - La Moneda
+TB014103805	TB014103805	Las Portadas La Motilla			m_41_038_4	Sevilla - Dos Hermanas - Las Portadas La Motilla
+TB014103804	TB014103804	Montequinto			m_41_038_4	Sevilla - Dos Hermanas - Montequinto
+TB014103803	TB014103803	Sur			m_41_038_4	Sevilla - Dos Hermanas - Sur
+TB014103807	TB014103807	Vistazul			m_41_038_4	Sevilla - Dos Hermanas - Vistazul
+TM014103901	TM014103901	Écija			m_41_039_7	Sevilla - Écija - Écija
+TM014104001	TM014104001	Espartinas			m_41_040_1	Sevilla - Espartinas - Espartinas
+TM014104101	TM014104101	Estepa			m_41_041_8	Sevilla - Estepa - Estepa
+TM014104401	TM014104401	Gelves			m_41_044_4	Sevilla - Gelves - Gelves
+TM014104501	TM014104501	Gerena			m_41_045_7	Sevilla - Gerena - Gerena
+TM014104701	TM014104701	Gines			m_41_047_6	Sevilla - Gines - Gines
+TM014104901	TM014104901	Guillena			m_41_049_5	Sevilla - Guillena - Guillena
+TM014105801	TM014105801	Mairena del Alcor			m_41_058_9	Sevilla - Mairena del Alcor - Mairena del Alcor
+TM014105901	TM014105901	Mairena del Aljarafe			m_41_059_2	Sevilla - Mairena del Aljarafe - Mairena del Aljarafe
+TM014106001	TM014106001	Marchena			m_41_060_6	Sevilla - Marchena - Marchena
+TM014106501	TM014106501	Morón de la Frontera			m_41_065_2	Sevilla - Morón de la Frontera - Morón de la Frontera
+TM014106701	TM014106701	Olivares			m_41_067_1	Sevilla - Olivares - Olivares
+TM014106801	TM014106801	Osuna			m_41_068_7	Sevilla - Osuna - Osuna
+TM014106901	TM014106901	Los Palacios y Villafranca			m_41_069_0	Sevilla - Palacios y Villafranca, Los - Los Palacios y Villafranca
+TM014107001	TM014107001	Palomares del Río			m_41_070_4	Sevilla - Palomares del Río - Palomares del Río
+TM014107201	TM014107201	Pedrera			m_41_072_6	Sevilla - Pedrera - Pedrera
+TM014107701	TM014107701	La Puebla de Cazalla			m_41_077_9	Sevilla - Puebla de Cazalla, La - La Puebla de Cazalla
+TM014107901	TM014107901	La Puebla del Río			m_41_079_8	Sevilla - Puebla del Río, La - La Puebla del Río
+TM014108101	TM014108101	La Rinconada			m_41_081_9	Sevilla - Rinconada, La - La Rinconada
+TM014108501	TM014108501	Salteras			m_41_085_8	Sevilla - Salteras - Salteras
+TM014108601	TM014108601	San Juan de Aznalfarache			m_41_086_1	Sevilla - San Juan de Aznalfarache - San Juan de Aznalfarache
+TB014109103	TB014109103	Bellavista			m_41_091_7	Sevilla - Sevilla - Bellavista
+TB014109102	TB014109102	Bermejales			m_41_091_7	Sevilla - Sevilla - Bermejales
+TB014109111	TB014109111	Casco Antiguo			m_41_091_7	Sevilla - Sevilla - Casco Antiguo
+TB014109104	TB014109104	Cerro-Amate			m_41_091_7	Sevilla - Sevilla - Cerro-Amate
+TB014109109	TB014109109	Distrito Norte			m_41_091_7	Sevilla - Sevilla - Distrito Norte
+TB014109108	TB014109108	Distrito Sur			m_41_091_7	Sevilla - Sevilla - Distrito Sur
+TB014109106	TB014109106	Macarena			m_41_091_7	Sevilla - Sevilla - Macarena
+TB014109105	TB014109105	Nervión San Pablo-Santa Justa			m_41_091_7	Sevilla - Sevilla - Nervión San Pablo-Santa Justa
+TB014109107	TB014109107	Parque Alcosa			m_41_091_7	Sevilla - Sevilla - Parque Alcosa
+TB014109112	TB014109112	San Jerónimo			m_41_091_7	Sevilla - Sevilla - San Jerónimo
+TB014109101	TB014109101	Sevilla Este			m_41_091_7	Sevilla - Sevilla - Sevilla Este
+TB014109110	TB014109110	Triana-Los Remedios			m_41_091_7	Sevilla - Sevilla - Triana-Los Remedios
+TM014109301	TM014109301	Tomares			m_41_093_8	Sevilla - Tomares - Tomares
+TM014109401	TM014109401	Umbrete			m_41_094_3	Sevilla - Umbrete - Umbrete
+TM014109501	TM014109501	Utrera			m_41_095_6	Sevilla - Utrera - Utrera
+TM014109601	TM014109601	Valencina de la Concepción			m_41_096_9	Sevilla - Valencina de la Concepción - Valencina de la Concepción
+TM014110201	TM014110201	El Viso del Alcor			m_41_102_0	Sevilla - Viso del Alcor, El - El Viso del Alcor
+TC074211043	TC064200001	Círculo Podemos Moncayo		43		Soria - Olvega-Moncayo - Círculo Podemos Moncayo
+TM074217332	TM064217301	Círculo Podemos Soria			m_42_173_6	Soria - Soria - Círculo Podemos Soria
+TM094300483	TM074300401	Cercle Podem Alcanar			m_43_004_3	Tarragona - Alcanar - Cercle Podem Alcanar
+TM094390447	TM074390401	Cercle Podem L'Aldea			m_43_904_4	Tarragona - Aldea, L' - Cercle Podem L'Aldea
+TM094300996	TM074300901	Cercle Podem Alforja			m_43_009_4	Tarragona - Alforja - Cercle Podem Alforja
+TC094301292	TC074300001	Cercle Podem Altafulla		3		Tarragona - Altafulla - Cercle Podem Altafulla
+TM094301484	TM074301401	Cercle Podem Amposta			m_43_014_1	Tarragona - Amposta - Cercle Podem Amposta
+TM094302843	TM074302801	Cercle Podem La Bisbal del Penedès			m_43_028_7	Tarragona - Bisbal del Penedès, La - Cercle Podem La Bisbal del Penedès
+TM094303744	TM074303701	Cercle Podem Calafell			m_43_037_9	Tarragona - Calafell - Cercle Podem Calafell
+TM094303801	TM074303801	Cercle Podem Cambrils			m_43_038_5	Tarragona - Cambrils - Cercle Podem Cambrils
+TM0943051108	TM074305101	Cercle Podem Cunit			m_43_051_6	Tarragona - Cunit - Cercle Podem Cunit
+TM094390197	TM074390101	Cercle Podem Deltebre			m_43_901_8	Tarragona - Deltebre - Cercle Podem Deltebre
+TM094309281	TM074309201	Cercle Podem Miami Platja - Mont-roig del Camp			m_43_092_3	Tarragona - Mont-roig del Camp - Cercle Podem Miami Platja - Mont-roig del Camp
+TM094312346	TM074312301	Cercle Podem Reus			m_43_123_3	Tarragona - Reus - Cercle Podem Reus
+TM094312586	TM074312501	Cercle Podem Riba-Roja d'Ebre			m_43_125_1	Tarragona - Riba-Roja d'Ebre - Cercle Podem Riba-Roja d'Ebre
+TM0943131109	TM074313101	Cercle Podem Roda de Bera			m_43_131_0	Tarragona - Roda de Berà - Cercle Podem Roda de Bera
+TM094390545	TM074390501	Cercle Podem Salou			m_43_905_7	Tarragona - Salou - Cercle Podem Salou
+TM094313685	TM074313601	Cercle Podem La Ràpita			m_43_136_2	Tarragona - Sant Carles de la Ràpita - Cercle Podem La Ràpita
+TM094314582	TM074314501	Cercle Podem La Selva del Camp			m_43_145_7	Tarragona - Selva del Camp, La - Cercle Podem La Selva del Camp
+TB094314808	TB074314802	Cercle Podem Tarragona Barris Ponent			m_43_148_2	Tarragona - Tarragona - Cercle Podem Tarragona Barris Ponent
+TB094314802	TB074314801	Cercle Podem Tarragona Centre			m_43_148_2	Tarragona - Tarragona - Cercle Podem Tarragona Centre
+TB094314816	TB074314803	Cercle Podem Tarragona Sant Pere I Sant Pau			m_43_148_2	Tarragona - Tarragona - Cercle Podem Tarragona Sant Pere I Sant Pau
+TM0943153102	TM074315301	Cercle Podem Torredembarra			m_43_153_6	Tarragona - Torredembarra - Cercle Podem Torredembarra
+TM0943155105	TM074315501	Cercle Podem Tortosa			m_43_155_4	Tarragona - Tortosa - Cercle Podem Tortosa
+TM0943161101	TM074316101	Cercle Podem Valls			m_43_161_3	Tarragona - Valls - Cercle Podem Valls
+TM094316342	TM074316301	Cercle Podem El Vendrell			m_43_163_4	Tarragona - Vendrell, El - Cercle Podem El Vendrell
+TM024401301	TM024401301	Alcañiz			m_44_013_1	Teruel - Alcañiz - Alcañiz
+TM024402501	TM024402501	Andorra			m_44_025_7	Teruel - Andorra - Andorra
+TC024415801	TC024400001	Gúdar-Javalambre		26		Teruel - Gúdar-Javalambre - Gúdar-Javalambre
+TM024421601	TM024421601	Teruel			m_44_216_0	Teruel - Teruel - Teruel
+TC024405001	TC024422801	Jiloca			m_44_228_0	Teruel - Torremocha de Jiloca - Jiloca
+TM084501400	TM054501401	Círculo Podemos Añover de Tajo			m_45_014_9	Toledo - Añover de Tajo - Círculo Podemos Añover de Tajo
+TM084502300	TM054502301	Círculo Podemos Burguillos de Toledo			m_45_023_2	Toledo - Burguillos de Toledo - Círculo Podemos Burguillos de Toledo
+TM084503400	TM054503401	Círculo Podemos Camuñas			m_45_034_5	Toledo - Camuñas - Círculo Podemos Camuñas
+TM084503800	TM054503801	Círculo Podemos Carranque			m_45_038_3	Toledo - Carranque - Círculo Podemos Carranque
+TM084504100	TM054504101	Círculo Podemos Casarrubios-Calypo			m_45_041_7	Toledo - Casarrubios del Monte - Círculo Podemos Casarrubios-Calypo
+TM084505600	TM054505601	Círculo Podemos Chozas de Canales			m_45_056_6	Toledo - Chozas de Canales - Círculo Podemos Chozas de Canales
+TM084506400	TM054506401	Círculo Podemos Esquivias			m_45_064_8	Toledo - Esquivias - Círculo Podemos Esquivias
+TM084507100	TM054507101	Círculo Podemos La Guardia			m_45_071_0	Toledo - Guardia, La - Círculo Podemos La Guardia
+TM084508100	TM054508101	Círculo Podemos Illescas			m_45_081_8	Toledo - Illescas - Círculo Podemos Illescas
+TM084508500	TM054508501	Círculo Podemos Lominchar			m_45_085_7	Toledo - Lominchar - Círculo Podemos Lominchar
+TM084509900	TM054509901	Círculo Podemos Méntrida			m_45_099_3	Toledo - Méntrida - Círculo Podemos Méntrida
+TM084511900	TM054511901	Círculo Podemos Numancia de la Sagra-Azaña			m_45_119_9	Toledo - Numancia de la Sagra - Círculo Podemos Numancia de la Sagra-Azaña
+TM084512100	TM054512101	Círculo Podemos Ocaña			m_45_121_0	Toledo - Ocaña - Círculo Podemos Ocaña
+TM084512700	TM054512701	Círculo Podemos Palomeque			m_45_127_8	Toledo - Palomeque - Círculo Podemos Palomeque
+TM084514300	TM054514301	Círculo Podemos Quismondo			m_45_143_7	Toledo - Quismondo - Círculo Podemos Quismondo
+TM084516100	TM054516101	Círculo Podemos Seseña			m_45_161_1	Toledo - Seseña - Círculo Podemos Seseña
+TM084516300	TM054516301	Círculo Podemos Sonseca			m_45_163_2	Toledo - Sonseca - Círculo Podemos Sonseca
+TM084516500	TM054516501	Círculo Podemos Talavera de la Reina			m_45_165_0	Toledo - Talavera de la Reina - Círculo Podemos Talavera de la Reina
+TM084516800	TM054516801	Círculo Podemos Toledo			m_45_168_5	Toledo - Toledo - Círculo Podemos Toledo
+TM084517300	TM054517301	Círculo Podemos Torrijos			m_45_173_0	Toledo - Torrijos - Círculo Podemos Torrijos
+TM084517600	TM054517601	Círculo Podemos Ugena			m_45_176_1	Toledo - Ugena - Círculo Podemos Ugena
+TM084518300	TM054518301	Círculo Podemos Las Ventas de Retamosa			m_45_183_8	Toledo - Ventas de Retamosa, Las - Círculo Podemos Las Ventas de Retamosa
+TM084519900	TM054519901	Círculo Podemos El Viso de San Juan			m_45_199_2	Toledo - Viso de San Juan, El - Círculo Podemos El Viso de San Juan
+TM084520500	TM054520501	Círculo Podemos Yuncos			m_45_205_2	Toledo - Yuncos - Círculo Podemos Yuncos
+TM1046005	TM084600501	Podem Alaquàs			m_46_005_7	Valencia - Alaquàs - Podem Alaquàs
+TM1046006	TM084600601	Podemos Albaida			m_46_006_0	Valencia - Albaida - Podemos Albaida
+TM1046007	TM084600701	Podem Albal			m_46_007_6	Valencia - Albal - Podem Albal
+TM1046011	TM084601101	Podemos Alberic			m_46_011_6	Valencia - Alberic - Podemos Alberic
+TM1046013	TM084601301	Podemos Alboraya			m_46_013_7	Valencia - Alboraya - Podemos Alboraya
+TM1046015	TM084601501	Círculo Podemos Alcàsser			m_46_015_5	Valencia - Alcàsser - Círculo Podemos Alcàsser
+TM1046021	TM084602101	Círculo Podem Aldaia			m_46_021_4	Valencia - Aldaia - Círculo Podem Aldaia
+TM1046022	TM084602201	Podemos Alfafar			m_46_022_9	Valencia - Alfafar - Podemos Alfafar
+TM1046029	TM084602901	Podemos Algemesí			m_46_029_1	Valencia - Algemesí - Podemos Algemesí
+TM1046031	TM084603101	Círculo Alginet			m_46_031_2	Valencia - Alginet - Círculo Alginet
+TM1046032	TM084603201	Podemos Almàssera			m_46_032_7	Valencia - Almàssera - Podemos Almàssera
+TM1046035	TM084603501	Círculo Almussafes			m_46_035_1	Valencia - Almussafes - Círculo Almussafes
+TM1046017	TM084601701	Círculo Podemos Alzira			m_46_017_4	valencia - Alzira - Círculo Podemos Alzira
+TM1046055	TM084605501	Podem Beniarjó			m_46_055_6	Valencia - Beniarjó - Podem Beniarjó
+TM1046067	TM084606701	Podem Benissanó			m_46_067_3	Valencia - Benisanó - Podem Benissanó
+TM1046070	TM084607001	Podem Bétera			m_46_070_6	Valencia - Bétera - Podem Bétera
+TM1046077	TM084607701	Podemos Buñol			m_46_077_1	Valencia - Buñol - Podemos Buñol
+TM1046078	TM084607801	Círculo Podemos Burjassot			m_46_078_7	Valencia - Burjassot - Círculo Podemos Burjassot
+TM104608301	TM084608301	Círculo Podemos Carcaixent			m_46_083_2	Valencia - Carcaixent - Círculo Podemos Carcaixent
+TM1046094	TM084609401	Podemos Catarroja			m_46_094_5	Valencia - Catarroja - Podemos Catarroja
+TM1046109	TM084610901	Círculo Podem Cheste			m_46_109_4	Valencia - Cheste - Círculo Podem Cheste
+TM104611101	TM084611101	Círculo Podemos Chiva – Xiva			m_46_111_5	Valencia - Chiva - Círculo Podemos Chiva – Xiva
+TC1046213	TC084600001	Círculo Comarcal Utiel-Requena		21		Valencia - Comarca Utiel-Requena - Círculo Comarcal Utiel-Requena
+TM1046105	TM084610501	Podem Cullera			m_46_105_6	Valencia - Cullera - Podem Cullera
+TM1046126	TM084612601	Podem Foios			m_46_126_5	Valencia - Foios - Podem Foios
+TM1046131	TM084613101	Círculo Podemos Gandía			m_46_131_1	Valencia - Gandia - Círculo Podemos Gandía
+TM1046135	TM084613501	Círculo Podem Godella			m_46_135_0	Valencia - Godella - Círculo Podem Godella
+TM1046136	TM084613601	Círculo Podemos Godelleta			m_46_136_3	Valencia - Godelleta - Círculo Podemos Godelleta
+TM1046155	TM084615501	Círculo Podemos Llaurí			m_46_155_5	Valencia - Llaurí - Círculo Podemos Llaurí
+TM1046147	TM084614701	Podem Lliria			m_46_147_7	Valencia - Llíria - Podem Lliria
+TM1046159	TM084615901	Círculo Podemos Manises			m_46_159_3	Valencia - Manises - Círculo Podemos Manises
+TM1046163	TM084616301	Podem Massalfasar			m_46_163_5	Valencia - Massalfassar - Podem Massalfasar
+TM1046164	TM084616401	Podem Massamagrell			m_46_164_0	Valencia - Massamagrell - Podem Massamagrell
+TM1046166	TM084616601	Podemos Meliana			m_46_166_6	Valencia - Meliana - Podemos Meliana
+TM1046169	TM084616901	Círculo Podem Mislata			m_46_169_1	Valencia - Mislata - Círculo Podem Mislata
+TM1046171	TM084617101	Podem Montcada			m_46_171_2	Valencia - Moncada - Podem Montcada
+TM1046177	TM084617701	Podem Museros			m_46_177_0	Valencia - Museros - Podem Museros
+TM1046178	TM084617801	Podemos Náquera			m_46_178_6	Valencia - Náquera - Podemos Náquera
+TM1046184	TM084618401	Podem Ontinyent			m_46_184_6	Valencia - Ontinyent - Podem Ontinyent
+TM1046186	TM084618601	Podemos Paiporta			m_46_186_2	Valencia - Paiporta - Podemos Paiporta
+TM1046190	TM084619001	Podemos Paterna			m_46_190_1	Valencia - Paterna - Podemos Paterna
+TM1046194	TM084619401	Círculo Podemos Picassent			m_46_194_4	valencia - Picassent - Círculo Podemos Picassent
+TM1046202	TM084620201	Círculo La Pobla de Vallbona			m_46_202_1	Valencia - Pobla de Vallbona, La - Círculo La Pobla de Vallbona
+TM1046205	TM084620501	Podem Puçol			m_46_205_5	Valencia - Puçol - Podem Puçol
+TM1046204	TM084620401	Podem El Puig			m_46_204_2	Valencia - Puig de Santa Maria, el - Podem El Puig
+TM1046102	TM084610201	Podemos Quart de Poblet			m_46_102_2	Valencia - Quart de Poblet - Podemos Quart de Poblet
+TM1046214	TM084621401	Podem Riba-Roja			m_46_214_0	Valencia - Riba-roja de Túria - Podem Riba-Roja
+TM1046216	TM084621601	Podem Rocafort			m_46_216_6	Valencia - Rocafort - Podem Rocafort
+TM1046220	TM084622001	Podem Morvedre			m_46_220_5	Valencia - Sagunto/Sagunt - Podem Morvedre
+TM1046903	TM084690301	Círculo Podemos San Antonio de Benagéber			m_46_903_0	Valencia - San Antonio de Benagéber - Círculo Podemos San Antonio de Benagéber
+TM1046230	TM084623001	Podemos Silla			m_46_230_3	Valencia - Silla - Podemos Silla
+TM1046233	TM084623301	Podem Sollana			m_46_233_1	Valencia - Sollana - Podem Sollana
+TM1046235	TM084623501	Podem Sueca			m_46_235_9	Valencia - Sueca - Podem Sueca
+TM1046237	TM084623701	Podemos Tabernes Blanques			m_46_237_8	Valencia - Tavernes Blanques - Podemos Tabernes Blanques
+TM1046244	TM084624401	Círculo Podemos Torrent			m_46_244_4	Valencia - Torrent - Círculo Podemos Torrent
+TB104625012	TB084625013	Círculo Podem Malilla			m_46_250_8	Valencia - Valencia - Círculo Podem Malilla
+TB104625003	TB084625003	Monteolivete con Podemos			m_46_250_8	Valencia - Valencia - Monteolivete con Podemos
+TB104625001	TB084625001	Podem Algirós			m_46_250_8	Valencia - Valencia - Podem Algirós
+TB104625011	TB084625012	Podem Benicalap-Campanar			m_46_250_8	Valencia - Valencia - Podem Benicalap-Campanar
+TB104625005	TB084625005	Podem Benimaclet			m_46_250_8	Valencia - Valencia - Podem Benimaclet
+TB104625006	TB084625006	Podem Extramurs			m_46_250_8	Valencia - Valencia - Podem Extramurs
+TB104625002	TB084625002	Podem La Malva-Rosa			m_46_250_8	Valencia - Valencia - Podem La Malva-Rosa
+TB104625014	TB084625010	Podem Orriols-Torrefiel			m_46_250_8	Valencia - Valencia - Podem Orriols-Torrefiel
+TB104625004	TB084625004	Podem Russafa			m_46_250_8	Valencia - Valencia - Podem Russafa
+TB104625009	TB084625009	Podemos Benimamet			m_46_250_8	Valencia - Valencia - Podemos Benimamet
+TB10462509	TM084625001	Podemos Benimamet			m_46_250_8	Valencia - Valencia - Podemos Benimamet
+TB104625013	TB084625014	Podemos Ciutat Vella			m_46_250_8	Valencia - Valencia - Podemos Ciutat Vella
+TB104625008	TB084625008	Podemos Olivereta			m_46_250_8	Valencia - Valencia - Podemos Olivereta
+TB104625007	TB084625007	Podemos Patraix			m_46_250_8	Valencia - Valencia - Podemos Patraix
+TB104625010	TB084625011	Podemos Zaidia			m_46_250_8	Valencia - Valencia - Podemos Zaidia
+TM1046256	TM084625601	Podemos Villamarxant			m_46_256_7	Valencia - Vilamarxant - Podemos Villamarxant
+TM1046258	TM084625801	Círculo Villar del Arzobispo			m_46_258_9	Valencia - Villar del Arzobispo - Círculo Villar del Arzobispo
+TM1046145	TM084614501	Círculo Podemos Xàtiva			m_46_145_8	Valencia - Xàtiva - Círculo Podemos Xàtiva
+TM1046110	TM084611001	Círculo Podem Xirivella			m_46_110_8	Valencia - Xirivella - Círculo Podem Xirivella
+TM1046165	TM084616501	Podemos Massanasa			m_46_165_3	Valenciana - Massanassa - Podemos Massanasa
+TM074701045	TM064701001	Círculo Podemos Arroyo de la Encomienda			m_47_010_5	Valladolid - Arroyo de la Encomienda - Círculo Podemos Arroyo de la Encomienda
+TM074707606	TM064707601	Círculo Podemos Laguna de Duero			m_47_076_1	Valladolid - Laguna de Duero - Círculo Podemos Laguna de Duero
+TM074708546	TM064708501	Círculo Podemos Medina del Campo			m_47_085_6	Valladolid - Medina del Campo - Círculo Podemos Medina del Campo
+TM074718615	TM064718601	Círculo Podemos Valladolid			m_47_186_8	Valladolid - Valladolid - Círculo Podemos Valladolid
+TM074914316	TM064914301	Círculo Podemos Sanabria			m_49_143_5	Zamora - Palacios de Sanabria - Círculo Podemos Sanabria
+TC074921941	TC064900001	Círculo Podemos Comarca de Toro		50		Zamora - Toro - Círculo Podemos Comarca de Toro
+TM074927514	TM064927501	Círculo Podemos Zamora Centro			m_49_275_5	Zamora - Zamora - Círculo Podemos Zamora Centro
+TM025000801	TM025000801	Alagón			m_50_008_0	Zaragoza - Alagón - Alagón
+TC025007401	TC025000003	Caspe y comarca		7		Zaragoza - Bajo Aragón-Caspe - Caspe y comarca
+TC025008901	TC025000004	Bajo Huerva		9		Zaragoza - Bajo Huerva - Bajo Huerva
+TC025006701	TC025000002	Calatayud		14		Zaragoza - Calatayud - Calatayud
+TC025009501	TC025000005	Cinco Villas		18		Zaragoza - Cinco Villas - Cinco Villas
+TM025020401	TM025020401	Pedrola			m_50_204_0	Zaragoza - Pedrola - Pedrola
+TM025021901	TM025021901	La Puebla de Alfindén			m_50_219_9	Zaragoza - Puebla de Alfindén, La - La Puebla de Alfindén
+TC025025101	TC025000006	Tarazona y Moncayo		49		Zaragoza - Tarazona y Moncayo - Tarazona y Moncayo
+TM025027201	TM025027201	Utebo			m_50_272_4	Zaragoza - Utebo - Utebo
+TC025002501	TC025000001	Valdejalón		51		Zaragoza - Valdejalón - Valdejalón
+TB025029701	TB025029701	Barrios del Sur de Zaragoza			m_50_297_3	Zaragoza - Zaragoza - Barrios del Sur de Zaragoza
+TB025029702	TB025029702	Casco Histórico de Zaragoza			m_50_297_3	Zaragoza - Zaragoza - Casco Histórico de Zaragoza
+TB025029703	TB025029703	Casetas			m_50_297_3	Zaragoza - Zaragoza - Casetas
+TB025029704	TB025029704	Distrito Universidad de Zaragoza			m_50_297_3	Zaragoza - Zaragoza - Distrito Universidad de Zaragoza
+TB025029705	TB025029705	Margen Izquierda de Zaragoza			m_50_297_3	Zaragoza - Zaragoza - Margen Izquierda de Zaragoza
+TB025029706	TB025029706	Miralbueno			m_50_297_3	Zaragoza - Zaragoza - Miralbueno
+TB025029707	TB025029707	Torrero-La Paz			m_50_297_3	Zaragoza - Zaragoza - Torrero-La Paz
+TM025029701	TM025029701	Zaragoza			m_50_297_3	Zaragoza - Zaragoza - Zaragoza
+TB025029708	TB025029708	Zaragoza Oeste			m_50_297_3	Zaragoza - Zaragoza - Zaragoza Oeste
