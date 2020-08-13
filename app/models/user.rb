@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   has_many :microcredit_loans
   has_many :user_verifications
 
+  belongs_to :circle
+
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
   validates :email, email: true
@@ -176,7 +178,7 @@ class User < ActiveRecord::Base
   scope :has_collaboration_bank_national, -> { joins(:collaborations).where('collaborations.payment_type' => 2) }
   scope :has_collaboration_bank_international, -> { joins(:collaborations).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
-  scope :has_circle, -> { where("circle_original_code IS NOT NULL") }
+  scope :has_circle, -> { where("circle_id IS NOT NULL") }
   scope :wants_information_by_sms, -> {where(wants_information_by_sms: true)}
 
   ransacker :vote_province, formatter: proc { |value|
@@ -633,7 +635,7 @@ class User < ActiveRecord::Base
         self.vote_town = self.town
         self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
-      self.circle_changed_at = Time.now if self.circle_original_code_changed?
+      self.circle_changed_at = Time.now if self.circle_id_changed?
       self.militant = self.still_militant?
       true
     end
@@ -835,7 +837,7 @@ class User < ActiveRecord::Base
   end
 
   def in_circle?
-    self.circle_original_code.present?
+    self.circle_id.present?
   end
 
   def has_min_monthly_collaboration?

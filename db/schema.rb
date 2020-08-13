@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200811112700) do
+ActiveRecord::Schema.define(version: 20200813082435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -668,8 +668,8 @@ ActiveRecord::Schema.define(version: 20200811112700) do
     t.string   "vote_district"
     t.string   "gender"
     t.boolean  "wants_information_by_sms", default: true
-    t.string   "circle_original_code"
     t.datetime "circle_changed_at"
+    t.integer  "circle_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

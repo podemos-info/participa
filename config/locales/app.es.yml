@@ -307,7 +307,7 @@ es:
         vote_town: "Municipio de origen"
         province_town: "Provincia de origen"
         postal_code: "Código postal"
-        circle_original_code: "Círculo"
+        circle_id: "Círculo"
         country: "País"
         password: "Contraseña"
         password_confirmation: "Contraseña (repetir)"

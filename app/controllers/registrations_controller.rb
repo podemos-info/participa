@@ -106,7 +106,7 @@ class RegistrationsController < Devise::RegistrationsController
     fields += %w[vote_province vote_town] if current_user.can_change_vote_location?
     fields += %w[first_name last_name born_at] unless locked_personal_data?
     fields += %w[wants_information_by_sms]
-    fields += %w[circle_original_code]
+    fields += %w[circle_id]
     params.require(:user).permit(*fields)
   end
 
