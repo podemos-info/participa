@@ -93,7 +93,7 @@ class Election < ActiveRecord::Base
         when 3 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_town_numeric}
         when 4 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_island_numeric}
         when 5 then user.country!="ES" && valid_locations.any?
-        when 6 then user.still_militant? && user.circle.present? && valid_locations.any? {|l| l.location == user.circle.original_code}
+        when 6 then user.still_militant? && user.circle.present? && valid_locations.any? {|l| l.location == user.circle_id.to_s}
       end
     end
   end
@@ -164,7 +164,7 @@ class Election < ActiveRecord::Base
       when 4
         user.vote_island_numeric
       when 6
-        user.circle.original_code
+        user.circle_id
       else
         "00"
     end
