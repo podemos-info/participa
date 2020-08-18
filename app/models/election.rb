@@ -118,7 +118,7 @@ class Election < ActiveRecord::Base
         when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
         when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
         when 5 then base.where.not(country:"ES").count
-        when 6 then base.ransack( {circle_original_code_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
+        when 6 then base.where( circle_id: self.election_locations.map{|l| l.location.to_i}).count
       end
     end
   end
@@ -143,7 +143,7 @@ class Election < ActiveRecord::Base
         when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
         when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
         when 5 then base.where.not(country:"ES").count
-        when 6 then base.ransack( {circle_original_code_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
+        when 6 then base.where( circle_id: self.election_locations.map{|l| l.location.to_i}).count
       end
     end
   end
