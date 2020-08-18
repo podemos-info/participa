@@ -328,6 +328,8 @@ es:
     election:
       no_location: "No puedes participar en esta votación."
       close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
+      already_voted: "Esta persona ya ha emitido su voto en esta votación."
+      token_error: "Ha ocurrido un error al comprobar que el usuario puede votar, inténtalo nuevamente."
     no_election:
       header: "No hay votaciones activas en este momento"
       message: "Gracias por tu confianza."
