@@ -152,7 +152,7 @@ ActiveAdmin.register User do
       end
       row :admin
       row "Círculo" do #row "#{t('activerecord.attributes.user.circle')}" do
-      Circle.where(id: user.circle_id).first.original_name if user.circle_id.present?
+        user.circle.original_name if user.circle_id.present?
       end
       row :created_at
       row :updated_at
@@ -289,7 +289,9 @@ ActiveAdmin.register User do
     column :vote_town
     column :current_sign_in_ip
     column :last_sign_in_ip
-    column :circle_id
+    column ("Círculo") do  |u|
+      u.circle.original_name if u.circle_id.present?
+    end
     column :created_at
     column :deleted_at
   end
