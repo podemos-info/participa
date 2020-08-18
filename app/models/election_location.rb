@@ -69,6 +69,9 @@ class ElectionLocation < ActiveRecord::Base
           island[1]
         when 5 then
           "Exterior"
+        when 6 then
+          circle = Circle.where(id:location.to_i).first
+          circle.name
       end + " (#{location})"
     rescue
       location
