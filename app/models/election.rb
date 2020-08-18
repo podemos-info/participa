@@ -1,7 +1,7 @@
 class Election < ActiveRecord::Base
   include FlagShihTzu
 
-  SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]
+  SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5], ["Círculos", 6]]
 
   has_flags 1 => :requires_sms_check,
             2 => :show_on_index,
@@ -63,6 +63,7 @@ class Election < ActiveRecord::Base
                   when 2 then " en #{user.vote_province_name}"
                   when 3 then " en #{user.vote_town_name}"
                   when 4 then " en #{user.vote_island_name}"
+                  when 6 then " en #{user.circle.name}"
                 end
       if not has_valid_location_for? user, check_created_at: false
         suffix = " (no hay votación#{suffix})"
@@ -92,6 +93,7 @@ class Election < ActiveRecord::Base
         when 3 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_town_numeric}
         when 4 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_island_numeric}
         when 5 then user.country!="ES" && valid_locations.any?
+        when 6 then user.still_militant? && user.circle.present? && valid_locations.any? {|l| l.location == user.circle.original_code}
       end
     end
   end
@@ -116,6 +118,7 @@ class Election < ActiveRecord::Base
         when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
         when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
         when 5 then base.where.not(country:"ES").count
+        when 6 then base.ransack( {circle_original_code_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
       end
     end
   end
@@ -140,6 +143,7 @@ class Election < ActiveRecord::Base
         when 3 then base.where(vote_town: self.election_locations.map {|l| "m_#{l.location[0..1]}_#{l.location[2..4]}_#{l.location[5]}" }).count
         when 4 then base.ransack( {vote_island_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
         when 5 then base.where.not(country:"ES").count
+        when 6 then base.ransack( {circle_original_code_in: self.election_locations.map {|l| "i_#{l.location}" } .join(",")}).result.count
       end
     end
   end
@@ -159,6 +163,8 @@ class Election < ActiveRecord::Base
         user.vote_town_numeric
       when 4
         user.vote_island_numeric
+      when 6
+        user.circle.original_code
       else
         "00"
     end

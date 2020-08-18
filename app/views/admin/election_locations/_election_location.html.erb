@@ -17,6 +17,8 @@
             <%= f.input :location, as: :select, collection: Podemos::GeoExtra::ISLANDS.values.uniq.map {|u| [ u[1], u[0][2..-1] ]} %>
         <% when 5 then %>
             <%= f.input :location, as: :select, collection: [[ "Exterior", "00"]] %>
+        <% when 6 then %>
+            <%= f.input :location, as: :select, collection: Circle.all.order('original_name ASC').pluck( :original_name, :original_code), data: {allowClear: true, placeholder: "Selecciona tu círculo (Listado de Círculos que estaban activos hasta la entrada en vigor de los nuevos documentos.)"} %>
       <% end %>
     <%= f.input :agora_version %>
     <%= f.input :new_agora_version %>
