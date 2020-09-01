@@ -11,7 +11,7 @@
         <p>Un partido no es nada sin sus militantes. Gracias por apoyar Podemos.</p>
       <% else %>
         <h2>¡Hola, <%= current_user.first_name %>!</h2>
-          <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo Censo de Militantes. Los y las militantes de Podemos, siempre según los nuevos documentos y a través de su Círculo activo, son ahora protagonistas exclusivos a la hora de:</p>
+          <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo censo de militantes. Los y las militantes de Podemos, siempre según los nuevos documentos y a través de su Círculo activo, son ahora protagonistas exclusivos a la hora de:</p>
           <%= raw t('militant.features') %>
 
           <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
@@ -24,15 +24,15 @@
             <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-          <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello puedes hacer clic en tus <%= link_to "Datos personales", edit_user_registration_path %> y seleccionar el Círculo en el que militas en el campo correspondiente. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen.</p>
+        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello puedes hacer clic en tus <%= link_to "Datos personales", edit_user_registration_path %> y seleccionar el Círculo en el que militas en el campo correspondiente. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. Si has marcado que tu Círculo no está activo o está en construcción, por favor indícanos en <a href="https://participa.podemos.info/solicitud-activacion-circulo">este formulario</a> de qué Círculo se trata. </p>
           <% if current_user.in_circle? %>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <% else %>
               <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-          <p> 3.- Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3€ al mes. Si puedes pagar dicha cuota, haz clic <%= link_to "aquí", new_collaboration_path %> o en la sección "Colabora" del menú superior y rellena los campos para establecer una colaboración periódica.</p>
-          <p>Si debido a tu situación personal te encuentras dentro de alguno de los supuestos de exención voluntaria del pago de la cuota, por favor rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> para que estimemos poder eximirte de su pago y reconocerte como militante en caso de que cumplas con las otras dos condiciones anteriores. Si ya has rellenado el formulario, por favor, espera a que contactemos contigo.</p>
+          <p> 3.- Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3 € al mes. Si puedes pagar dicha cuota, haz clic <%= link_to "aquí", new_collaboration_path %> o en la sección "Colabora" del menú superior, y rellena los campos para establecer una colaboración periódica.</p>
+          <p>Si debido a tu situación personal te encuentras dentro de alguno de los supuestos de exención voluntaria del pago de la cuota, por favor, rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> en el que te facilitamos un modelo de declaración jurada al respecto para que lo completes.</p>
           <%if current_user.has_min_monthly_collaboration? %>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <% elsif current_user.collaborations.where.not(frequency:0).where(status:[0,2]).exists?%>
