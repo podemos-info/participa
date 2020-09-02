@@ -831,7 +831,7 @@ class User < ActiveRecord::Base
 
   def can_change_circle?
     # use database version if vote_town has changed
-    return true unless self.circle_changed_at.present?
+    return true unless self.circle.present? && self.circle.is_active?
     max_days = Rails.application.secrets.users["allow_circle_changed_at_days"].present? ? Rails.application.secrets.users["allow_circle_changed_at_days"].to_i.days: 365
     self.circle_changed_at <= (Time.now - max_days) or !self.persisted?
   end
