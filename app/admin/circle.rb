@@ -14,4 +14,19 @@ ActiveAdmin.register Circle do
     end
     redirect_to collection_path, notice: "¡Fichero importado correctamente!"
   end
+
+  controller do
+    DEFAULT_CIRCLE = "IP000000001"
+
+    before_destroy :change_children_circle
+
+    def change_children_circle(resource)
+      default_id = Circle.where(code: DEFAULT_CIRCLE).pluck(:id).first
+
+      resource.users.each do |u|
+        u.update(circle_id: default_id)
+      end
+    end
+  end
+
 end
