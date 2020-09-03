@@ -135,19 +135,6 @@
   </fieldset>
 
   <fieldset>
-    <div class="inputlabel-box">
-      <% if resource.errors.include?(:circle_id) %>
-        <%= field_notice_box %>
-      <% end %>
-      Listado de Círculos que estaban activos hasta la entrada en vigor de los nuevos documentos:
-      <%= label :user, :circle_id, class: "control-label", required: false do %>
-        <%=t("activerecord.attributes.user.circle") %>
-      <% end %>
-      <%= select_tag "user[circle_id]", options_from_collection_for_select(get_circles, "id", "original_name", @user[:circle_id]), { disabled: !resource.can_change_circle? && !@user.is_admin?, required: false, data: {allowClear: true},include_blank: "Selecciona tu círculo."} %>
-    </div>
-  </fieldset>
-
-  <fieldset>
 
     <% if action == "new" %>
     <div class="inputlabel-box">
