@@ -63,6 +63,8 @@ class User < ActiveRecord::Base
   validate :validates_unconfirmed_phone_format
   validate :validates_unconfirmed_phone_uniqueness
 
+  MIN_MILITANT_AMOUNT = Rails.application.secrets.users["min_militant_amount"].present? ? Rails.application.secrets.users["min_militant_amount"].to_i : 3
+
   def validate_born_at
     errors.add(:born_at, "debes ser mayor de 18 años") if born_at && born_at > Date.today - 18.years
   end
@@ -843,8 +845,7 @@ class User < ActiveRecord::Base
   end
 
   def has_min_monthly_collaboration?
-    min_amount = Rails.application.secrets.users["min_militant_amount"].present? ? Rails.application.secrets.users["min_militant_amount"].to_i : 3
-    self.collaborations.where.not(frequency:0).where("amount >= ?",min_amount).where(status:3).exists?
+    self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:3).exists?
   end
 
   def still_militant?
@@ -896,7 +897,7 @@ class User < ActiveRecord::Base
         new_record.payment_type ||= 0
         new_record.amount = 0
       else
-        last_valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?",min_amount).where(status:3).last
+        last_valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:3).last
         date_collaboration ||= last_valid_collaboration.created_at
         new_record.payment_type ||= 1
         new_record.amount = last_valid_collaboration.amount
