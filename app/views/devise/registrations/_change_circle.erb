@@ -5,12 +5,22 @@
       <% if resource.errors.include?(:circle_id) %>
         <%= field_notice_box %>
       <% end %>
-      Listado de Círculos que estaban activos hasta la entrada en vigor de los nuevos documentos:
+
       <%= label :user, :circle_id, class: "control-label", required: false do %>
         <%=t("activerecord.attributes.user.circle") %>
       <% end %>
       <%= select_tag "user[circle_id]", options_from_collection_for_select(get_circles, "id", "original_name", @user[:circle_id]), { disabled: !resource.can_change_circle? && !@user.is_admin?, required: false, data: {allowClear: true},include_blank: "Selecciona tu círculo."} %>
-      <p class="text-xl">(Una vez guardado el círculo no podrá ser cambiado en un período de un año, asegurate de que realmente te estas inscribiendo en el círculo que deseas.)</p>
+    </div>
+    <div class="">
+      <% if @user.errors.include?(:checked_circle) %>
+        <%= field_notice_box %>
+      <% end %>
+      <div class="input-box">
+        <%= f.check_box :checked_circle, class: 'checkbox' %>
+        <%= f.label :checked_circle, class: 'text-xl' do %>
+          <%= raw t 'podemos.user.circle_check_box_text' %>
+        <% end %>
+      </div>
     </div>
 
     <div class="inputlabel-box">
@@ -21,9 +31,7 @@
                   input_html: { class: 'input-m' } %>
     </div>
     <%= f.actions class: 'enter' do %>
-      <% confirm_data = {confirm: "Si guardas los datos ahora no podrás volver a cambiar el círculo hasta dentro de un año, ¿seguro que quieres inscribirte en el círculo seleccionado?"} %>
-      <%= f.submit t("devise.buttons.edit"), class: "button", data: confirm_data %>
-
+      <%= f.submit t("devise.buttons.edit"), class: "button" %>
   <% end %>
   </fieldset>
 <% end %>

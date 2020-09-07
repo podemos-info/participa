@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, date: true, allow_blank: true # gem date_validator
   validate :validate_born_at
+  validates :checked_circle, acceptance: true
 
   validates :email, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
@@ -164,6 +165,7 @@ class User < ActiveRecord::Base
   attr_accessor :sms_user_token_given
   attr_accessor :login
   attr_accessor :skip_before_save
+  attr_accessor :checked_circle
 
   scope :all_with_deleted, -> { where "deleted_at IS null OR deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
