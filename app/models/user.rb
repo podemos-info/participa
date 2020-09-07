@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
   has_many :user_verifications
+  has_many :militant_records
 
   belongs_to :circle
 
@@ -847,7 +848,9 @@ class User < ActiveRecord::Base
   end
 
   def still_militant?
-     self.verified? && self.in_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration?)
+    result = self.verified? && self.in_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration?)
+    self.militant_records_management result
+    result
   end
 
   def get_not_militant_detail
@@ -860,6 +863,53 @@ class User < ActiveRecord::Base
     result.compact.flatten.join(", ").sub(/.*\K, /, ' y ')
   end
 
+  def militant_records_management(is_militant)
+    last_record = self.militant_records.last if self.militant_records.any?
+    last_record ||= MilitantRecord.new
+    new_record = MilitantRecord.new
+    new_record.user_id = self.id
+    now = DateTime.now
+    if self.verified?
+      new_record.begin_verified = last_record.begin_verified unless last_record.end_verified.present?
+      new_record.begin_verified ||= self.user_verifications.pluck(:updated_at).last
+      new_record.end_verified = nil
+    else
+      new_record.begin_verified = last_record.begin_verified || nil
+      new_record.end_verified = now if new_record.begin_verified.present?
+    end
+    if self.in_circle?
+      new_record.begin_in_circle = last_record.begin_in_circle unless last_record.end_in_circle.present?
+      new_record.begin_in_circle ||= self.circle_changed_at
+      new_record.circle_name = last_record.circle_name if last_record.circle_name.present? && last_record.end_in_circle.nil?
+      new_record.circle_name ||= self.circle.name
+      new_record.end_in_circle = nil
+    else
+      new_record.begin_in_circle = last_record.begin_in_circle if last_record.begin_in_circle.present?
+      new_record.circle_name = last_record.circle_name if last_record.circle_name.present?
+      new_record.end_in_circle = now if new_record.begin_in_circle.present?
+    end
+    if self.exempt_from_payment? || self.has_min_monthly_collaboration?
+      date_collaboration = last_record.begin_payment unless  last_record.end_payment.present?
+      new_record.payment_type = last_record.payment_type unless last_record.end_payment.present?
+      if self.exempt_from_payment?
+        date_collaboration ||= now
+        new_record.payment_type ||= 0
+        new_record.amount = 0
+      else
+        last_valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?",min_amount).where(status:3).last
+        date_collaboration ||= last_valid_collaboration.created_at
+        new_record.payment_type ||= 1
+        new_record.amount = last_valid_collaboration.amount
+      end
+      new_record.begin_payment = date_collaboration
+      new_record.end_payment = nil
+    else
+      new_record.begin_payment = last_record.begin_payment if last_record.begin_payment.present?
+      new_record.end_in_circle = now if new_record.begin_payment.present?
+    end
+    new_record.is_militant = is_militant
+    new_record.save if new_record.diff?(last_record)
+  end
   private
 
   def last_vote_location_change

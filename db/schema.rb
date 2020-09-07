@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200813082435) do
+ActiveRecord::Schema.define(version: 20200903131006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20200813082435) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -446,6 +452,22 @@ ActiveRecord::Schema.define(version: 20200813082435) do
   end
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true, using: :btree
+
+  create_table "militant_records", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "begin_verified"
+    t.datetime "end_verified"
+    t.datetime "begin_in_circle"
+    t.datetime "end_in_circle"
+    t.datetime "begin_payment"
+    t.datetime "end_payment"
+    t.string   "circle_name"
+    t.integer  "payment_type"
+    t.integer  "amount"
+    t.boolean  "is_militant"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "notice_registrars", force: :cascade do |t|
     t.string   "registration_id"
