@@ -23,7 +23,8 @@ ActiveAdmin.register Circle do
     def change_children_circle(resource)
       default_id = Circle.where(code: DEFAULT_CIRCLE).pluck(:id).first
 
-      resource.users.each do |u|
+      users = User.where(circle_id:default_id)
+      users.each do |u|
         u.update(circle_id: default_id)
       end
     end
