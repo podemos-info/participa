@@ -1,4 +1,5 @@
 class CollaborationsController < ApplicationController
+  include Redirectable
   helper_method :force_single?, :active_frequencies, :payment_types
   helper_method :pending_single_orders
 
@@ -83,6 +84,7 @@ class CollaborationsController < ApplicationController
         @collaboration.set_warning! "Marcada como alerta porque se ha visitado la página de que la colaboración está pagada pero no consta el pago."
       else
         @collaboration.set_active!
+        redirect_to session.delete(:return_to)||root_path
       end
     end
   end

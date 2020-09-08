@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-
+  include Redirectable
   prepend_before_filter :load_user_location
   helper_method :locked_personal_data?
 
