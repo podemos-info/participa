@@ -362,6 +362,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
       change_circle: "Selecciona tu círculo"
       circle: "Círculo"
       circle_check_box_text: "<strong>Comprueba bien el Círculo que has elegido. ¿Estás seguro/a de que es al que deseas adscribir tu militancia en Podemos?</strong>"
+      circle_check_box_text2: "Sí, estoy seguro/a"
     devise:
       mailer:
         hello: "Hola"
@@ -1065,4 +1066,4 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
     circle: 'Círculo'
     region_area: 'Comarca'
   non_militant:
-    features: "<p>Quién conformará los órganos locales de los que nos dotemos en cada municipio (mediante Plenario o Consejo de Círculos), así como la línea política que sigamos a escala local y las cuestiones fundamentales para Podemos en su municipio.</p><p>Qué enlaces formarán las nuevas Redes provinciales, insulares o de otro ámbito territorial de Círculos. Estas redes, formadas por militantes llegados de los Círculos, elegirán quiénes serán parte de un tercio del Consejo Ciudadano Autonómico y podrán designar asimismo a una persona responsable de su ámbito territorial.</p>"
+    features: "<p>- Quién conformará los órganos locales de los que nos dotemos en cada municipio (mediante Plenario o Consejo de Círculos), así como la línea política que sigamos a escala local y las cuestiones fundamentales para Podemos en su municipio.</p><p>- Qué enlaces formarán las nuevas Redes provinciales, insulares o de otro ámbito territorial de Círculos. Estas redes, formadas por militantes llegados de los Círculos, elegirán quiénes serán parte de un tercio del Consejo Ciudadano Autonómico y podrán designar asimismo a una persona responsable de su ámbito territorial.</p>"
