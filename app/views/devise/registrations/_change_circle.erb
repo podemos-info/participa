@@ -15,10 +15,13 @@
       <% if @user.errors.include?(:checked_circle) %>
         <%= field_notice_box %>
       <% end %>
+      <%= f.label :checked_circle, class: 'text-xl' do %>
+        <%= raw t 'podemos.user.circle_check_box_text' %>
+      <% end %>
       <div class="input-box">
         <%= f.check_box :checked_circle, class: 'checkbox' %>
         <%= f.label :checked_circle, class: 'text-xl' do %>
-          <%= raw t 'podemos.user.circle_check_box_text' %>
+          <%= raw t 'podemos.user.circle_check_box_text2' %>
         <% end %>
       </div>
     </div>
