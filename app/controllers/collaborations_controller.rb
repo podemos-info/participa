@@ -1,6 +1,7 @@
 class CollaborationsController < ApplicationController
   include Redirectable
   helper_method :force_single?, :active_frequencies, :payment_types
+  helper_method :only_recurrent?
   helper_method :pending_single_orders
 
   before_action :authenticate_user!
