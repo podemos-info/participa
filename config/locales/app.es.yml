@@ -361,7 +361,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
       wants_info_by_sms_text: "Deseo recibir notificaciones por SMS"
       change_circle: "Selecciona tu círculo"
       circle: "Círculo"
-      circle_check_box_text: "<strong>Comprueba bien el Círculo que has elegido. ¿Estás seguro/a de que es al que deseas adscribir tu militancia en Podemos?</strong>"
+      circle_check_box_text: "<strong>Comprueba bien el Círculo que has elegido. ¿Estás seguro/a de que es al que deseas adscribir tu militancia?</strong>"
       circle_check_box_text2: "Sí, estoy seguro/a"
     devise:
       mailer:
