@@ -851,7 +851,7 @@ class User < ActiveRecord::Base
   end
 
   def still_militant?
-    result = (self.verified? ||self.user_verifications.last.status == "pending") && self.in_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0,2]).exists?)
+    result = (self.verified? ||(self.user_verifications.any? && self.user_verifications.last.status == "pending")) && self.in_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0,2]).exists?)
     self.militant_records_management result
     result
   end
