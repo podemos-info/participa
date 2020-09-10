@@ -178,6 +178,27 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Condiciones de uso del correo electrónico PODEMOS", url: form_url(80) }
   end
 
+  def verify_sign_url(url)
+    host = Rails.application.secrets.production["host"]
+    secret = Rails.application.secrets.forms["secret"]
+    uri   = URI(url)
+    params_hash = URI::decode_www_form(uri.query).to_h
+    timestamp =params_hash['timestamp']
+
+    data = "#{uri.scheme}://"
+    data += "#{uri.userinfo}@" if uri.userinfo.present?
+    data += "#{host}"
+    data += "#{uri.path}"
+    data += "?participa_user_id=#{current_user.id}"
+    data += "&exemption=#{params_hash['exemption']}"
+
+    signature = Base64.urlsafe_encode64(OpenSSL::HMAC.digest("SHA256", secret, "#{timestamp}::#{data}"))[0..27]
+
+    puts "AQUIII #{signature}"
+    puts "AQUIII #{data}"
+    signature == params_hash['signature']
+  end
+
   private
 
   def form_url(id_form)
