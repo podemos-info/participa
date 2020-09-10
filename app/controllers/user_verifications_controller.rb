@@ -17,7 +17,7 @@ class UserVerificationsController < ApplicationController
         redirect_to(edit_user_registration_path ,flash: { notice: [t('podemos.user_verification.documentation_received'), t('podemos.user_verification.please_check_details')].join("<br>")})
       else
         redirect_to(create_vote_path(election_id: params[:election_id])) and return if params[:election_id]
-        redirect_to(root_path, flash: { notice: t('podemos.user_verification.documentation_received')})
+        redirect_to(session.delete(:return_to)||root_path, flash: { notice: t('podemos.user_verification.documentation_received')})
       end
     else
       render :new
