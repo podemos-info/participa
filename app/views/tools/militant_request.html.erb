@@ -18,7 +18,7 @@
           <%= raw t('militant.circle_net_close_date') %>
           <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
           <p>1.- Verificar tu inscripción en Podemos. Si aún no lo has hecho, puedes hacer clic <%= link_to "aquí", new_user_verification_path %> y seguir los pasos necesarios para verificar tu identidad.</p>
-          <%if current_user.verified? || current_user.user_verifications.last.status == "pending"%>
+          <%if current_user.verified? || (current_user.user_verifications.any? && current_user.user_verifications.last.status == "pending")%>
             <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <% else %>
             <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
