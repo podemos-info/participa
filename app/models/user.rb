@@ -167,7 +167,6 @@ class User < ActiveRecord::Base
   attr_accessor :skip_before_save
   attr_accessor :checked_circle
   attr_accessor :participa_user_id
-  attr_accessor :exemption
 
   scope :all_with_deleted, -> { where "deleted_at IS null OR deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
@@ -914,13 +913,6 @@ class User < ActiveRecord::Base
     end
     new_record.is_militant = is_militant
     new_record.save if new_record.diff?(last_record)
-  end
-
-  def get_militant_info
-    if PageController.verify_sign_url(request.original_url)
-      current_user.update(exempt_from_payment: exemption)
-      redirect_to(session.delete(:return_to)||root_path, flash: { notice: "El formulario ha sido rellenado y procesado correctamente" })
-    end
   end
 
   private

@@ -178,7 +178,7 @@ Rails.application.routes.draw do
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
       get '/registrations/vote/municipies', to: 'registrations#vote_municipies'
       get '/tools/militant_request', to: 'tools#militant_request', as: 'tools_militant_request'
-      get '/tools/militant_request/get_external_info', to:'user#get_militant_info', as: 'user_get_militant_info'
+      get '/tools/militant_request/get_external_info', to:'militant#get_militant_info', as: 'user_get_militant_info'
       authenticated :user do
         root to: 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'

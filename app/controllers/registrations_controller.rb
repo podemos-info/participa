@@ -108,7 +108,6 @@ class RegistrationsController < Devise::RegistrationsController
     fields += %w[wants_information_by_sms]
     fields += %w[circle_id]
     fields += %w[checked_circle]
-    fields += %w[participa_user_id exemption]
     params.require(:user).permit(*fields)
   end
 
