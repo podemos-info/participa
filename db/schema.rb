@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200416090947) do
+ActiveRecord::Schema.define(version: 20200903131006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(version: 20200416090947) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
@@ -47,6 +53,18 @@ ActiveRecord::Schema.define(version: 20200416090947) do
 
   add_index "categories_posts", ["category_id"], name: "index_categories_posts_on_category_id", using: :btree
   add_index "categories_posts", ["post_id"], name: "index_categories_posts_on_post_id", using: :btree
+
+  create_table "circles", force: :cascade do |t|
+    t.string   "original_name"
+    t.string   "original_code"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "code"
+    t.string   "name"
+    t.string   "island_code"
+    t.integer  "region_area_id"
+    t.string   "town"
+  end
 
   create_table "collaborations", force: :cascade do |t|
     t.integer  "user_id"
@@ -435,6 +453,22 @@ ActiveRecord::Schema.define(version: 20200416090947) do
 
   add_index "microcredits", ["slug"], name: "index_microcredits_on_slug", unique: true, using: :btree
 
+  create_table "militant_records", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "begin_verified"
+    t.datetime "end_verified"
+    t.datetime "begin_in_circle"
+    t.datetime "end_in_circle"
+    t.datetime "begin_payment"
+    t.datetime "end_payment"
+    t.string   "circle_name"
+    t.integer  "payment_type"
+    t.integer  "amount"
+    t.boolean  "is_militant"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "notice_registrars", force: :cascade do |t|
     t.string   "registration_id"
     t.boolean  "status"
@@ -645,7 +679,7 @@ ActiveRecord::Schema.define(version: 20200416090947) do
     t.integer  "failed_attempts",          default: 0,    null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "circle"
+    t.string   "old_circle_data"
     t.datetime "deleted_at"
     t.string   "unconfirmed_phone"
     t.boolean  "wants_participation"
@@ -656,6 +690,8 @@ ActiveRecord::Schema.define(version: 20200416090947) do
     t.string   "vote_district"
     t.string   "gender"
     t.boolean  "wants_information_by_sms", default: true
+    t.datetime "circle_changed_at"
+    t.integer  "circle_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

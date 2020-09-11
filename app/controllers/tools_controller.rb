@@ -4,6 +4,7 @@ class ToolsController < ApplicationController
   before_action :get_promoted_forms
 
   def index
+    session.delete(:return_to) if session.has_key?(:return_to)
   end
 
   private

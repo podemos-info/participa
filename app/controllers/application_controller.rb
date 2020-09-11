@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
     }
 
     # reset session value
+    session.delete(:return_to) if session.has_key?(:return_to)
     session[:no_unresolved_issues] = false
 
     issue = user.get_unresolved_issue

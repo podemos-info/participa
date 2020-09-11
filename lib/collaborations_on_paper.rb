@@ -99,7 +99,7 @@ class CollaborationsOnPaper
     @fields[:document_vatid] = user1.document_vatid if user1 && vatid_invalid?(user1) && validate_collaboration_full_name(user1)
     @fields[:email] = user2.email if user2 && validate_collaboration_full_name(user2)
     @fields[:user] = user1 || user2
-    return add_error(:vatid_invalid) unless (user1 || user2) || (@fields[:document_vatid] && validate_nif(@fields[:document_vatid]))
+    return add_error(:vatid_invalid) unless (user1 || user2) || (@fields[:document_vatid] && (validate_nif(@fields[:document_vatid]) || validate_nie(@fields[:document_vatid])))
 
     add_collaboration
   end
