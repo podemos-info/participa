@@ -98,6 +98,7 @@ Rails.application.routes.draw do
     get '/votos/:election_id/:election_location_id/:token', to: 'vote#election_location_votes_count', as: 'election_location_votes_count'
     match '/paper_vote/:election_id/:election_location_id/:token', to: 'vote#paper_vote', as: 'election_location_paper_vote', via: %w(get post)
 
+    get '/tools/militant_request/get_external_info', to:'militant#get_militant_info', as: 'user_get_militant_info'
     devise_for :users, controllers: {
       registrations: 'registrations',
       passwords:     'passwords',
@@ -178,7 +179,6 @@ Rails.application.routes.draw do
       get '/registrations/regions/municipies', to: 'registrations#regions_municipies'
       get '/registrations/vote/municipies', to: 'registrations#vote_municipies'
       get '/tools/militant_request', to: 'tools#militant_request', as: 'tools_militant_request'
-      get '/tools/militant_request/get_external_info', to:'militant#get_militant_info', as: 'user_get_militant_info'
       authenticated :user do
         root to: 'tools#index', as: :authenticated_root
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
