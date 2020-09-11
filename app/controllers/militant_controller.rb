@@ -31,9 +31,6 @@ class MilitantController < ActionController::Base
     data += "&exemption=#{params_hash['exemption']}"
 
     signature = Base64.urlsafe_encode64(OpenSSL::HMAC.digest("SHA256", secret, "#{timestamp}::#{data}"))[0..27]
-
-    puts "AQUIII #{signature}"
-    puts "AQUIII #{data}"
     [signature == params_hash['signature'],data]
   end
 end
