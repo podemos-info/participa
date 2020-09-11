@@ -24,7 +24,7 @@
             <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello haz clic en  <strong><%= link_to "Círculo", edit_user_registration_path(anchor:"circle") %></strong> y selecciona el tuyo. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. Si has marcado que tu Círculo no está activo o está en construcción, por favor indícanos en <a href="https://participa.podemos.info/solicitud-activacion-circulo">este formulario</a> de qué Círculo se trata. </p>
+        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello haz clic en  <strong><%= link_to "Círculo", edit_user_registration_path(anchor:"circle") %></strong> y selecciona el tuyo. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. Si has marcado que tu Círculo no está activo o está en construcción, por favor indícanos en <a href="https://participa.podemos.info/solicitud-creacion-circulo">este formulario</a> de qué Círculo se trata. </p>
           <% if current_user.in_circle? %>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <% else %>
