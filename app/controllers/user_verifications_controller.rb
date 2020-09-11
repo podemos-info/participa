@@ -1,5 +1,4 @@
 class UserVerificationsController < ApplicationController
-  include Redirectable
   before_action :check_valid_and_verified, only: [:new, :create]
 
   def new
@@ -17,7 +16,7 @@ class UserVerificationsController < ApplicationController
         redirect_to(edit_user_registration_path ,flash: { notice: [t('podemos.user_verification.documentation_received'), t('podemos.user_verification.please_check_details')].join("<br>")})
       else
         redirect_to(create_vote_path(election_id: params[:election_id])) and return if params[:election_id]
-        redirect_to(session.delete(:return_to)||root_path, flash: { notice: t('podemos.user_verification.documentation_received')})
+        redirect_to(root_path, flash: { notice: t('podemos.user_verification.documentation_received')})
       end
     else
       render :new
@@ -330,9 +329,9 @@ class UserVerificationsController < ApplicationController
   private
   def check_valid_and_verified
     if current_user.has_not_future_verified_elections?
-      redirect_to(session.delete(:return_to)||root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') })
+      redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_not_valid_to_verify') })
     elsif current_user.verified? && current_user.photos_necessary?
-      redirect_to(session.delete(:return_to)||root_path, flash: { notice: t('podemos.user_verification.user_already_verified') })
+      redirect_to(root_path, flash: { notice: t('podemos.user_verification.user_already_verified') })
     end
   end
   def user_verification_params

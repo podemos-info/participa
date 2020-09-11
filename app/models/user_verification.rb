@@ -30,8 +30,6 @@ class UserVerification < ActiveRecord::Base
     end
   end
 
-  after_commit :verify_user_militant_status
-
   enum status: {pending: 0, accepted: 1, issues: 2, rejected: 3, accepted_by_email: 4, discarded: 5, paused: 6}
 
   scope :verifying, -> { where status: [0, 2, 6] }
@@ -87,10 +85,5 @@ class UserVerification < ActiveRecord::Base
     else
       nil
     end
-  end
-
-  def verify_user_militant_status
-    u = self.user
-    u.update(militant: u.still_militant?)
   end
 end

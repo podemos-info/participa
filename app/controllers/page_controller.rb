@@ -3,7 +3,7 @@ class PageController < ApplicationController
   include ERB::Util
 
   before_action :authenticate_user!, except: [ :privacy_policy, :faq, :guarantees, :funding, :guarantees_form, :show_form,
-                                              :old_circles_data_validation, :primarias_andalucia, :listas_primarias_andaluzas,
+                                              :circles_validation, :primarias_andalucia, :listas_primarias_andaluzas,
                                               :responsables_organizacion_municipales, :count_votes,
                                               :responsables_municipales_andalucia, :plaza_podemos_municipal,
                                               :portal_transparencia_cc_estatal, :mujer_igualdad, :alta_consulta_ciudadana,
@@ -12,6 +12,7 @@ class PageController < ApplicationController
                                               :comparte_cambio_valoracion_usuarios, :avales_candidaturas_primarias, :iniciativa_ciudadana]
 
   before_filter :set_metas
+
   def set_metas
     @current_elections = Election.active
     election = @current_elections.select {|election| election.meta_description if !election.meta_description.blank? } .first
@@ -54,7 +55,7 @@ class PageController < ApplicationController
     render :form_iframe, locals: { title: "Comunicación a Comisiones de Garantías Democráticas", url: form_url(77), return_path: guarantees_path }
   end
 
-  def old_circles_data_validation
+  def circles_validation
     render :form_iframe, locals: { title: "Validación de Círculos", url: form_url(45) }
   end
 
