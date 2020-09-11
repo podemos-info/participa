@@ -1,5 +1,7 @@
 class CollaborationsController < ApplicationController
+  include Redirectable
   helper_method :force_single?, :active_frequencies, :payment_types
+  helper_method :only_recurrent?
   helper_method :pending_single_orders
 
   before_action :authenticate_user!
@@ -83,6 +85,7 @@ class CollaborationsController < ApplicationController
         @collaboration.set_warning! "Marcada como alerta porque se ha visitado la página de que la colaboración está pagada pero no consta el pago."
       else
         @collaboration.set_active!
+        redirect_to session.delete(:return_to)||root_path
       end
     end
   end
@@ -99,9 +102,13 @@ class CollaborationsController < ApplicationController
     params["force_single"].present? && params["force_single"] == "true"
   end
 
+  def only_recurrent?
+    params["only_recurrent"].present? && params["only_recurrent"] =="true"
+  end
+
   def active_frequencies
     return Collaboration::FREQUENCIES.to_a.select {|k, v| k == "Puntual" } if force_single?
-    return Collaboration::FREQUENCIES.to_a.select {|k, v| k != "Puntual" } if current_user.recurrent_collaboration
+    return Collaboration::FREQUENCIES.to_a.select {|k, v| k != "Puntual" } if current_user.recurrent_collaboration || only_recurrent?
     Collaboration::FREQUENCIES.to_a
   end
 

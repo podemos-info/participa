@@ -5,14 +5,16 @@ class User < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
 
-  has_flags 1 => :banned,
-            2 => :superadmin,
-            3 => :verified,
-            4 => :finances_admin,
-            5 => :impulsa_author,
-            6 => :impulsa_admin,
-            7 => :verifier,
-            8 => :paper_authority
+  has_flags  1 => :banned,
+             2 => :superadmin,
+             3 => :verified,
+             4 => :finances_admin,
+             5 => :impulsa_author,
+             6 => :impulsa_admin,
+             7 => :verifier,
+             8 => :paper_authority,
+             9 => :militant,
+            10 => :exempt_from_payment
 
   # Include default devise modules. Others available are:
   # :omniauthable
@@ -34,6 +36,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :participation_team
   has_many :microcredit_loans
   has_many :user_verifications
+  has_many :militant_records
+
+  belongs_to :circle
 
   validates :first_name, :last_name, :document_type, :document_vatid, presence: true
   validates :address, :postal_code, :town, :province, :country, :born_at, presence: true
@@ -47,6 +52,7 @@ class User < ActiveRecord::Base
   validates :document_vatid, valid_nie: true, if: :is_document_nie?
   validates :born_at, date: true, allow_blank: true # gem date_validator
   validate :validate_born_at
+  validates :checked_circle, acceptance: true
 
   validates :email, uniqueness: {case_sensitive: false, scope: :deleted_at }
   validates :document_vatid, uniqueness: {case_sensitive: false, scope: :deleted_at }
@@ -57,6 +63,8 @@ class User < ActiveRecord::Base
   validate :validates_phone_format
   validate :validates_unconfirmed_phone_format
   validate :validates_unconfirmed_phone_uniqueness
+
+  MIN_MILITANT_AMOUNT = Rails.application.secrets.users["min_militant_amount"].present? ? Rails.application.secrets.users["min_militant_amount"].to_i : 3
 
   def validate_born_at
     errors.add(:born_at, "debes ser mayor de 18 años") if born_at && born_at > Date.today - 18.years
@@ -157,8 +165,10 @@ class User < ActiveRecord::Base
   attr_accessor :sms_user_token_given
   attr_accessor :login
   attr_accessor :skip_before_save
+  attr_accessor :checked_circle
+  attr_accessor :participa_user_id
 
-  scope :all_with_deleted, -> { where "deleted_at IS null AND deleted_at IS NOT null"  }
+  scope :all_with_deleted, -> { where "deleted_at IS null OR deleted_at IS NOT null"  }
   scope :wants_newsletter, -> {where(wants_newsletter: true)}
   scope :created, -> { where(deleted_at: nil)  }
   scope :deleted, -> { where.not(deleted_at: nil) }
@@ -174,7 +184,7 @@ class User < ActiveRecord::Base
   scope :has_collaboration_bank_national, -> { joins(:collaborations).where('collaborations.payment_type' => 2) }
   scope :has_collaboration_bank_international, -> { joins(:collaborations).where('collaborations.payment_type' => 3) }
   scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
-  scope :has_circle, -> { where("circle IS NOT NULL") }
+  scope :has_circle, -> { where("circle_id IS NOT NULL") }
   scope :wants_information_by_sms, -> {where(wants_information_by_sms: true)}
 
   ransacker :vote_province, formatter: proc { |value|
@@ -631,6 +641,9 @@ class User < ActiveRecord::Base
         self.vote_town = self.town
         self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
+      self.circle_changed_at = Time.now if self.circle_id_changed?
+      self.militant = self.still_militant?
+      true
     end
   end
 
@@ -821,6 +834,87 @@ class User < ActiveRecord::Base
     url = "#{Rails.application.secrets.users["sendy_page"]}?zaz="
     url+= encrypt_data(email)
   end
+
+  def can_change_circle?
+    # use database version if vote_town has changed
+    return true # permitted change of Circle without limitation until new order
+    return true unless self.circle.present? && self.circle.is_active?
+    max_days = Rails.application.secrets.users["allow_circle_changed_at_days"].present? ? Rails.application.secrets.users["allow_circle_changed_at_days"].to_i.days: 365
+    self.circle_changed_at <= (Time.now - max_days) or !self.persisted?
+  end
+
+  def in_circle?
+    self.circle_id.present?
+  end
+
+  def has_min_monthly_collaboration?
+    self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:3).exists?
+  end
+
+  def still_militant?
+    result = (self.verified? ||(self.user_verifications.any? && self.user_verifications.last.status == "pending")) && self.in_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0,2]).exists?)
+    self.militant_records_management result
+    result
+  end
+
+  def get_not_militant_detail
+    return if self.militant?
+    result =[]
+
+    result.push("No esta verificado") unless self.verified?
+    result.push("No esta inscrito en un circulo") unless self.in_circle?
+    result.push("No tiene colaboración económica periódica suscrita, no está exento de pago") unless self.exempt_from_payment? || self.has_min_monthly_collaboration?
+    result.compact.flatten.join(", ").sub(/.*\K, /, ' y ')
+  end
+
+  def militant_records_management(is_militant)
+    last_record = self.militant_records.last if self.militant_records.any?
+    last_record ||= MilitantRecord.new
+    new_record = MilitantRecord.new
+    new_record.user_id = self.id
+    now = DateTime.now
+    if self.verified?
+      new_record.begin_verified = last_record.begin_verified unless last_record.end_verified.present?
+      new_record.begin_verified ||= self.user_verifications.pluck(:updated_at).last
+      new_record.end_verified = nil
+    else
+      new_record.begin_verified = last_record.begin_verified || nil
+      new_record.end_verified = now if new_record.begin_verified.present?
+    end
+    if self.in_circle?
+      new_record.begin_in_circle = last_record.begin_in_circle unless last_record.end_in_circle.present?
+      new_record.begin_in_circle ||= self.circle_changed_at
+      new_record.circle_name = last_record.circle_name if last_record.circle_name.present? && last_record.end_in_circle.nil?
+      new_record.circle_name ||= self.circle.name
+      new_record.end_in_circle = nil
+    else
+      new_record.begin_in_circle = last_record.begin_in_circle if last_record.begin_in_circle.present?
+      new_record.circle_name = last_record.circle_name if last_record.circle_name.present?
+      new_record.end_in_circle = now if new_record.begin_in_circle.present?
+    end
+    if self.exempt_from_payment? || self.has_min_monthly_collaboration?
+      date_collaboration = last_record.begin_payment unless  last_record.end_payment.present?
+      new_record.payment_type = last_record.payment_type unless last_record.end_payment.present?
+      if self.exempt_from_payment?
+        date_collaboration ||= now
+        new_record.payment_type ||= 0
+        new_record.amount = 0
+      else
+        last_valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:3).last
+        date_collaboration ||= last_valid_collaboration.created_at
+        new_record.payment_type ||= 1
+        new_record.amount = last_valid_collaboration.amount
+      end
+      new_record.begin_payment = date_collaboration
+      new_record.end_payment = nil
+    else
+      new_record.begin_payment = last_record.begin_payment if last_record.begin_payment.present?
+      new_record.end_in_circle = now if new_record.begin_payment.present?
+    end
+    new_record.is_militant = is_militant
+    new_record.save if new_record.diff?(last_record)
+  end
+
   private
 
   def last_vote_location_change

@@ -67,7 +67,7 @@ class MicrocreditLoan < ActiveRecord::Base
     self.iban_account.upcase! if self.iban_account.present?
   end
 
-  def set_user_data _user
+  def set_user_data(_user)
     self.first_name = _user[:first_name]
     self.last_name = _user[:last_name]
     self.email = _user[:email]
@@ -155,7 +155,7 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def validates_not_passport
-    if self.user and self.user.is_passport? 
+    if self.user&.is_passport?
       self.errors.add(:user, "No puedes suscribir un microcrédito si no dispones de DNI o NIE.")
     end
   end
@@ -190,8 +190,8 @@ class MicrocreditLoan < ActiveRecord::Base
   end
 
   def calculate_bic
-    bic = Podemos::SpanishBIC[iban_account[4..7].to_i] if iban_account and !iban_account.empty? and iban_account[0..1]=="ES"
-    bic = iban_bic.gsub(" ","") if not bic and iban_bic and !iban_bic.empty?
+    bic = Podemos::SpanishBIC[iban_account[4..7].to_i] if iban_account && !iban_account.empty? && iban_account[0..1]=="ES"
+    bic = iban_bic.gsub(" ","") if !bic && iban_bic && !iban_bic.empty?
     bic
   end
 
@@ -216,25 +216,23 @@ class MicrocreditLoan < ActiveRecord::Base
 
   def check_user_limits
     limit = self.microcredit.loans.not_discarded.not_returned.where(ip:self.ip).count>Rails.application.secrets.microcredit_loans["max_loans_per_ip"]
-    if not limit
-      loans = self.microcredit.loans.not_discarded.not_returned.where(document_vatid:self.document_vatid).pluck(:amount)
-      limit = ((loans.length>=Rails.application.secrets.microcredit_loans["max_loans_per_user"]) or (loans.sum + self.amount>Rails.application.secrets.microcredit_loans["max_loans_sum_amount"])) if not limit and self.amount
+    unless limit
+      loans = self.microcredit.loans.not_discarded.not_returned.where(document_vatid: self.document_vatid).pluck(:amount)
+      limit = ((loans.length >= Rails.application.secrets.microcredit_loans["max_loans_per_user"]) or (loans.sum + self.amount > Rails.application.secrets.microcredit_loans["max_loans_sum_amount"])) if not limit and self.amount
     end
 
     self.errors.add(:user, "Lamentablemente, no es posible suscribir este microcrédito.") if limit
   end
 
   def check_microcredit_active
-    if self.confirmed_at.nil? && !self.microcredit.is_active?
-      self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.")
-    end
+    self.errors.add(:microcredit, "La campaña de microcréditos no está activa en este momento.") if self.confirmed_at.nil? && !self.microcredit.is_active?
   end
 
   def self.get_loans_stats(ids)
     base = MicrocreditLoan.where(microcredit_id: ids)
     query = base.ignore_discarded
     query_discarded = base.discarded
-    stats = {
+    {
       count: query.count,
       count_confirmed: query.confirmed.count,
       count_counted: query.counted.count,
@@ -258,7 +256,7 @@ class MicrocreditLoan < ActiveRecord::Base
      Digest::SHA1.hexdigest "#{id}-#{created_at}-#{document_vatid.upcase}"
   end
 
-  def renew! new_campaign
+  def renew!(new_campaign)
     ActiveRecord::Base.transaction do
       new_loan = self.dup
       new_loan.microcredit = new_campaign
@@ -278,30 +276,30 @@ class MicrocreditLoan < ActiveRecord::Base
     return false if self.confirmed_at.nil? || !self.returned_at.nil?
     self.returned_at = DateTime.now
     save!
-    return true
+    true
   end
 
   def confirm!
-    return false if !self.confirmed_at.nil?
+    return false unless self.confirmed_at.nil?
     self.discarded_at = nil
     self.confirmed_at = DateTime.now
     self.save!
     self.update_counted_at
-    return true
+    true
   end
 
   def unconfirm!
     return false if self.confirmed_at.nil?
     self.confirmed_at = nil
     save!
-    return true
+    true
   end
 
   def discard!
-    return false if !self.discarded_at.nil?
+    return false unless self.discarded_at.nil?
     self.discarded_at = DateTime.now
     self.confirmed_at = nil
     self.save!
-    return true
+    true
   end
 end

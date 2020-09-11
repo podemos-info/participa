@@ -167,14 +167,14 @@ class VoteController < ApplicationController
   def check_not_voted(user = current_user)
     return true unless user.has_already_voted_in(election.id)
 
-    flash[:error] = "Esta persona ya ha emitido su voto en esta votación."
+    flash[:error] = t("podemos.election.already_voted")
     false
   end
 
   def check_validation_token(received_token)
     return true if validation_token_for_paper_vote_user == received_token
 
-    flash[:error] = "Ha ocurrido un error al comprobar que el usuario puede votar, inténtalo nuevamente."
+    flash[:error] = t("podemos.election.token_error")
     false
   end
 end

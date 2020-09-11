@@ -1,0 +1,47 @@
+<% content_for :title, "Militancia" %>
+<div class="content-content cols">
+  <div class="row">
+    <div class="col-b-4a12">
+      <% if current_user.militant? %>
+        <h2>¡Hola, <%= current_user.first_name %>!</h2>
+        <h3></h3>
+        <p>Ya eres militante de Podemos. A través de tu Círculo activo, según los documentos de la Tercera Asamblea Ciudadana de Podemos, tienes los siguientes derechos:</p>
+        <%= raw t('militant.features') %>
+        <%= raw t('militant.circle_net_close_date') %>
+        <p>Consulta cualquier duda a tu Secretaría de Organización Autonómica o a tu Secretaría de Círculos.</p>
+        <p>Más información en <a href='https://www.podemos.info/militantes'>podemos.info/militantes</a></p>
+        <p><strong>Gracias por tu compromiso y por dar un paso al frente para construir Podemos y cambiar las cosas.</strong></p>
+      <% else %>
+        <h2>¡Hola, <%= current_user.first_name %>!</h2>
+          <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo censo de militantes. Los y las militantes de Podemos, siempre según los nuevos documentos y a través de su Círculo activo, son ahora protagonistas exclusivos a la hora de decidir:</p>
+          <%= raw t('non_militant.features') %>
+          <%= raw t('militant.circle_net_close_date') %>
+          <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
+        <p>1.- Verificar tu inscripción en Podemos. Si aún no lo has hecho, puedes hacer clic <strong><%= link_to "aquí", new_user_verification_path %></strong> y seguir los pasos necesarios para verificar tu identidad.</p>
+          <%if current_user.verified? || (current_user.user_verifications.any? && current_user.user_verifications.last.status == "pending")%>
+            <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
+          <% else %>
+            <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
+          <% end %>
+
+        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello haz clic en  <strong><%= link_to "Círculo", edit_user_registration_path(anchor:"circle") %></strong> y selecciona el tuyo. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. Si has marcado que tu Círculo no está activo o está en construcción, por favor indícanos en <a href="https://participa.podemos.info/solicitud-creacion-circulo">este formulario</a> de qué Círculo se trata. </p>
+          <% if current_user.in_circle? %>
+              <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
+          <% else %>
+              <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
+          <% end %>
+
+        <p> 3.- Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3 € al mes. Si puedes pagar dicha cuota, haz clic <strong><%= link_to "aquí", new_collaboration_path(only_recurrent:true) %></strong>, y rellena los campos para establecer una colaboración periódica.</p>
+          <p>Si debido a tu situación personal te encuentras dentro de alguno de los supuestos de exención voluntaria del pago de la cuota, por favor, rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> en el que te facilitamos un modelo de declaración jurada al respecto para que lo completes.</p>
+          <%if current_user.has_min_monthly_collaboration? || current_user.collaborations.where.not(frequency:0).where(status:[0,2]).exists?%>
+              <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
+          <%elsif current_user.exempt_from_payment? %>
+              <p class="text-purple">Estás exento de pagar la cuota <%= fa_icon("check-circle") %></p>
+          <% else %>
+              <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
+          <% end %>
+        <p>Si necesitas ayuda, escribe un correo electrónico a <a href="mailto:soportemilitantes@podemos.info">soportemilitantes@podemos.info</a>.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

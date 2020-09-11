@@ -307,6 +307,7 @@ es:
         vote_town: "Municipio de origen"
         province_town: "Provincia de origen"
         postal_code: "Código postal"
+        circle_id: "Círculo"
         country: "País"
         password: "Contraseña"
         password_confirmation: "Contraseña (repetir)"
@@ -327,6 +328,8 @@ es:
     election:
       no_location: "No puedes participar en esta votación."
       close_message: "Ha llegado la fecha límite para votar. La votación está cerrada."
+      already_voted: "Esta persona ya ha emitido su voto en esta votación."
+      token_error: "Ha ocurrido un error al comprobar que el usuario puede votar, inténtalo nuevamente."
     no_election:
       header: "No hay votaciones activas en este momento"
       message: "Gracias por tu confianza."
@@ -356,6 +359,10 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
       newsletters_connection_not_active: "No hemos podido acceder a la información sobre su suscripción a nuestros boletines, vuelva a intentarlo más tarde."
       wants_info_by_sms: "Recepción de SMS"
       wants_info_by_sms_text: "Deseo recibir notificaciones por SMS"
+      change_circle: "Selecciona tu círculo"
+      circle: "Círculo"
+      circle_check_box_text: "<strong>Comprueba bien el Círculo que has elegido. ¿Estás seguro/a de que es al que deseas adscribir tu militancia?</strong>"
+      circle_check_box_text2: "Sí, estoy seguro/a"
     devise:
       mailer:
         hello: "Hola"
@@ -1052,3 +1059,11 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       Z: Zeta
   microcredit_options_detail:
     title: "Desglose del Microcrédito"
+  militant:
+    features: "<p>- A elegir y conformar en exclusiva los órganos locales de Podemos en el municipio: la Portavocía Municipal y el Consejo de Coordinación o ejecutiva en los municipios que se organicen en Plenario; y, además, el Consejo de Círculos allá donde exista.</p> <p>- A participar de forma directa, a través de tu Círculo, y en su caso en Plenario, en la toma de decisiones fundamentales para Podemos en tu municipio.</p> <p>- A elegir y también a optar a ser enlace de tu Círculo, por un lado para el Consejo de Círculos a nivel local allá donde exista; y por otro, para las nuevas Redes de Círculos provinciales, insulares, autonómicas o de otro ámbito territorial que decida tu Asamblea Ciudadana Autonómica.</p> <p>- A ser, en su caso, responsable provincial, insular o de otro ámbito territorial equiparable de los enlaces de Círculos, dentro de la Red de la que formases parte.</p> <p>- A optar, desde esas Redes de Círculos, a ser integrante de tu Consejo Ciudadano Autonómico por periodo de un año.</p>"
+    circle_net_close_date: "<p>El censo electoral para elegir las primeras Redes de Círculos y los órganos municipales en 2020 quedará cerrado el 15 de octubre a las 23.59 horas.</p>"
+  circle:
+    circle: 'Círculo'
+    region_area: 'Comarca'
+  non_militant:
+    features: "<p>- Quién conformará los órganos locales de los que nos dotemos en cada municipio (mediante Plenario o Consejo de Círculos), así como la línea política que sigamos a escala local y las cuestiones fundamentales para Podemos en su municipio.</p><p>- Qué enlaces formarán las nuevas Redes provinciales, insulares o de otro ámbito territorial de Círculos. Estas redes, formadas por militantes llegados de los Círculos, elegirán quiénes serán parte de un tercio del Consejo Ciudadano Autonómico y podrán designar asimismo a una persona responsable de su ámbito territorial.</p>"
