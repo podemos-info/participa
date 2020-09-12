@@ -1,6 +1,6 @@
 ActiveAdmin.register VoteCircle do
   menu :parent => "Users"
-  #permit_params :original_code, :original_name
+  permit_params :original_code, :original_name,:code,:name,:island_code,:town
   sidebar "Añadir Circulos desde fichero", 'data-panel' => :collapsed, :only => :index, priority: 1 do
     render('upload_vote_circles')
   end
