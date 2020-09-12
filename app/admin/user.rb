@@ -17,14 +17,14 @@ ActiveAdmin.register User do
   scope :has_collaboration_bank_national
   scope :has_collaboration_bank_international
   scope :participation_team
-  scope :has_circle
+  scope :has_vote_circle
   scope :banned
   scope :verified
   scope :not_verified
   scope :militant
   scope :exempt_from_payment
 
-  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :circle_id, :wants_information_by_sms, :exempt_from_payment
+  permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :vote_circle_id, :wants_information_by_sms, :exempt_from_payment
 
   index download_links: -> { Rails.env.production? && current_user.is_admin? && current_user.superadmin? } do
     selectable_column
@@ -151,8 +151,8 @@ ActiveAdmin.register User do
         end
       end
       row :admin
-      row "Círculo" do #row "#{t('activerecord.attributes.user.circle')}" do
-        user.circle.original_name if user.circle_id.present?
+      row "Círculo" do #row "#{t('activerecord.attributes.user.vote_circle')}" do
+        user.vote_circle.original_name if user.vote_circle_id.present?
       end
       row :created_at
       row :updated_at
@@ -247,7 +247,7 @@ ActiveAdmin.register User do
   filter :postal_code
   filter :province
   filter :country
-  filter :circle_id
+  filter :vote_circle_id
   filter :vote_autonomy_in, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse), label: "Vote autonomy"
   filter :vote_province_in, as: :select, collection: Carmen::Country.coded("ES").subregions.map{|x|[x.name, "p_#{(x.index).to_s.rjust(2,"0")}"]}, label: "Vote province"
   filter :vote_island_in, as: :select, collection: Podemos::GeoExtra::ISLANDS.values.uniq.map(&:reverse), label: "Vote island"
@@ -290,7 +290,7 @@ ActiveAdmin.register User do
     column :current_sign_in_ip
     column :last_sign_in_ip
     column ("Círculo") do  |u|
-      u.circle.original_name if u.circle_id.present?
+      u.vote_circle.original_name if u.vote_circle_id.present?
     end
     column :created_at
     column :deleted_at
@@ -557,7 +557,7 @@ ActiveAdmin.register User do
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
       csv << ["ID", "Código de identificacion", "Nombre", "País", "Comunidad Autónoma", "Municipio", "Código postal", "Teléfono", "Círculo", "Email", "Equipos"]
       User.participation_team.where("participation_team_at>?", date).each do |user|
-        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.circle.original_name, user.email, user.participation_team.map { |team| team.name }.join(",") ]
+        csv << [ user.id, "#{user.postal_code}#{user.phone}", user.first_name, user.country_name, user.autonomy_name, user.town_name, user.postal_code, user.phone, user.vote_circle.original_name, user.email, user.participation_team.map { |team| team.name }.join(",") ]
       end
     end
 

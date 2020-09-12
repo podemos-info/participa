@@ -1,4 +1,4 @@
-class Circle < ActiveRecord::Base
+class VoteCircle < ActiveRecord::Base
   TERRITORY_PREFIX = "T"
 
   def is_active?
