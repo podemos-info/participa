@@ -69,6 +69,9 @@ class ElectionLocation < ActiveRecord::Base
           island[1]
         when 5 then
           "Exterior"
+        when 6 then
+          vote_circle = VoteCircle.where(id:location.to_i).first
+          "#{I18n.t("vote_circle.vote_circle")} #{ vote_circle.name}"
       end + " (#{location})"
     rescue
       location
