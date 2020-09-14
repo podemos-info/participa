@@ -54,18 +54,6 @@ ActiveRecord::Schema.define(version: 20200912054313) do
   add_index "categories_posts", ["category_id"], name: "index_categories_posts_on_category_id", using: :btree
   add_index "categories_posts", ["post_id"], name: "index_categories_posts_on_post_id", using: :btree
 
-  create_table "circles", force: :cascade do |t|
-    t.string   "original_name"
-    t.string   "original_code"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "code"
-    t.string   "name"
-    t.string   "island_code"
-    t.integer  "region_area_id"
-    t.string   "town"
-  end
-
   create_table "collaborations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "amount"
