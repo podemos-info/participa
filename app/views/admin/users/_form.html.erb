@@ -28,7 +28,7 @@
 
     <%= f.input :vote_district %>
     <%= f.input :postal_code %>
-    <%= f.input  :circle_id , :as=> :select, :collection=> Circle.all.order('original_name ASC').pluck( :original_name, :id),:input_html=> { disabled: !@user.can_change_circle? && !@user.is_admin?, required: false}, data: {allowClear: true, placeholder: "Selecciona tu círculo (Listado de Círculos que estaban activos hasta la entrada en vigor de los nuevos documentos.)"} %>
+    <%= f.input :vote_circle_id , :as=> :select, :collection=> VoteCircle.all.order('original_name ASC').pluck(:original_name, :id), :input_html=> {disabled: !@user.can_change_vote_circle? && !@user.is_admin?, required: false}, data: {allowClear: true, placeholder: "Selecciona tu círculo (Listado de Círculos que estaban activos hasta la entrada en vigor de los nuevos documentos.)"} %>
     <%= f.input :wants_newsletter %>
   <% end %>
   <%= f.actions %>
