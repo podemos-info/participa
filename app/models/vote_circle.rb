@@ -1,5 +1,5 @@
 class VoteCircle < ActiveRecord::Base
   def is_active?
-    true
+    self.code.present?
   end
 end
