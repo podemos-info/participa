@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200903131006) do
+ActiveRecord::Schema.define(version: 20200912054313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -457,16 +457,16 @@ ActiveRecord::Schema.define(version: 20200903131006) do
     t.integer  "user_id"
     t.datetime "begin_verified"
     t.datetime "end_verified"
-    t.datetime "begin_in_circle"
-    t.datetime "end_in_circle"
     t.datetime "begin_payment"
     t.datetime "end_payment"
-    t.string   "circle_name"
     t.integer  "payment_type"
     t.integer  "amount"
     t.boolean  "is_militant"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "vote_circle_name"
+    t.datetime "begin_in_vote_circle"
+    t.datetime "end_in_vote_circle"
   end
 
   create_table "notice_registrars", force: :cascade do |t|
@@ -690,8 +690,8 @@ ActiveRecord::Schema.define(version: 20200903131006) do
     t.string   "vote_district"
     t.string   "gender"
     t.boolean  "wants_information_by_sms", default: true
-    t.datetime "circle_changed_at"
-    t.integer  "circle_id"
+    t.integer  "vote_circle_id"
+    t.datetime "vote_circle_changed_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -716,6 +716,18 @@ ActiveRecord::Schema.define(version: 20200903131006) do
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "vote_circles", force: :cascade do |t|
+    t.string   "original_name"
+    t.string   "original_code"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "code"
+    t.string   "name"
+    t.string   "island_code"
+    t.integer  "region_area_id"
+    t.string   "town"
+  end
 
   create_table "votes", force: :cascade do |t|
     t.integer  "user_id"

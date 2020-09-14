@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :circle do
+  factory :vote_circle do
     name "MyString"
   end
 end

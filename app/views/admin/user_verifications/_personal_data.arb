@@ -107,7 +107,7 @@ panel "Detalles del usuario" do
       #   end
       # end
       # row :admin
-      # row :circle
+      # row :vote_circle
       # row :created_at
       # row :updated_at
       # row :confirmation_sent_at

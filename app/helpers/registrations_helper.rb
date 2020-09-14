@@ -32,7 +32,7 @@ module RegistrationsHelper
     end
   end
 
-  def get_circles
-    Circle.all.sort
+  def get_vote_circles
+    VoteCircle.all.sort
   end
 end
