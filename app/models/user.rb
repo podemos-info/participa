@@ -864,7 +864,7 @@ class User < ActiveRecord::Base
 
     result.push("No esta verificado") unless self.verified?
     result.push("No esta inscrito en un circulo") unless self.in_vote_circle?
-    result.push("No tiene colaboración económica periódica suscrita, no está exento de pago") unless self.exempt_from_payment? || self.has_min_monthly_collaboration?
+    result.push("No tiene colaboración económica periódica suscrita, no está exento de pago") unless self.exempt_from_payment? || self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?
     result.compact.flatten.join(", ").sub(/.*\K, /, ' y ')
   end
 
