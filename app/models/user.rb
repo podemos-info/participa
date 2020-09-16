@@ -922,7 +922,10 @@ class User < ActiveRecord::Base
       new_record.end_in_vote_circle = now if new_record.begin_payment.present?
     end
     new_record.is_militant = is_militant
-    new_record.save if new_record.diff?(last_record)
+    if new_record.diff?(last_record)
+      new_record.save
+      #UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+    end
   end
 
   private
