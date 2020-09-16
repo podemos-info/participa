@@ -910,6 +910,7 @@ class User < ActiveRecord::Base
         new_record.amount = 0
       else
         last_valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:3).last
+        last_valid_collaboration ||= self.collaborations.where.not(frequency:0).where(status:[0, 2]).last
         date_collaboration ||= last_valid_collaboration.created_at
         new_record.payment_type ||= 1
         new_record.amount = last_valid_collaboration.amount
