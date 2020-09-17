@@ -25,5 +25,14 @@ class UsersMailer < ActionMailer::Base
       subject: '[participa.podemos.info] Has intentado registrarte de nuevo'
     )
   end
+
+  def new_militant_email(user_id)
+  @user_email = User.find(user_id).email
+  mail(
+    from: "soportemilitantes@podemos.info",
+    to: @user_email,
+    subject: 'Enhorabuena, ya eres militante de Podemos'
+  )
+  end
 end
   

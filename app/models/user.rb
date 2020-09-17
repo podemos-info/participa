@@ -852,8 +852,16 @@ class User < ActiveRecord::Base
     self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:3).exists?
   end
 
+  def verified_for_militant?
+    self.verified? ||(self.user_verifications.any? && self.user_verifications.last.status == "pending")
+  end
+
+  def collaborator_for_militant?
+    (self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?)
+  end
+
   def still_militant?
-    result = (self.verified? ||(self.user_verifications.any? && self.user_verifications.last.status == "pending")) && self.in_vote_circle? && (self.exempt_from_payment? || self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?)
+    result = self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
     self.militant_records_management result
     result
   end
@@ -862,9 +870,9 @@ class User < ActiveRecord::Base
     return if self.militant?
     result =[]
 
-    result.push("No esta verificado") unless self.verified?
+    result.push("No esta verificado") unless self.verified_for_militant?
     result.push("No esta inscrito en un circulo") unless self.in_vote_circle?
-    result.push("No tiene colaboración económica periódica suscrita, no está exento de pago") unless self.exempt_from_payment? || self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?
+    result.push("No tiene colaboración económica periódica suscrita, no está exento de pago") unless self.exempt_from_payment? || self.collaborator_for_militant?
     result.compact.flatten.join(", ").sub(/.*\K, /, ' y ')
   end
 
@@ -874,7 +882,7 @@ class User < ActiveRecord::Base
     new_record = MilitantRecord.new
     new_record.user_id = self.id
     now = DateTime.now
-    if self.verified?
+    if self.verified_for_militant?
       new_record.begin_verified = last_record.begin_verified unless last_record.end_verified.present?
       new_record.begin_verified ||= self.user_verifications.pluck(:updated_at).last
       new_record.end_verified = nil
@@ -893,7 +901,7 @@ class User < ActiveRecord::Base
       new_record.vote_circle_name = last_record.vote_circle_name if last_record.vote_circle_name.present?
       new_record.end_in_vote_circle = now if new_record.begin_in_vote_circle.present?
     end
-    if self.exempt_from_payment? || self.has_min_monthly_collaboration?
+    if self.exempt_from_payment? || self.collaborator_for_militant?
       date_collaboration = last_record.begin_payment unless  last_record.end_payment.present?
       new_record.payment_type = last_record.payment_type unless last_record.end_payment.present?
       if self.exempt_from_payment?
@@ -902,6 +910,7 @@ class User < ActiveRecord::Base
         new_record.amount = 0
       else
         last_valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:3).last
+        last_valid_collaboration ||= self.collaborations.where.not(frequency:0).where(status:[0, 2]).last
         date_collaboration ||= last_valid_collaboration.created_at
         new_record.payment_type ||= 1
         new_record.amount = last_valid_collaboration.amount
@@ -913,7 +922,10 @@ class User < ActiveRecord::Base
       new_record.end_in_vote_circle = now if new_record.begin_payment.present?
     end
     new_record.is_militant = is_militant
-    new_record.save if new_record.diff?(last_record)
+    if new_record.diff?(last_record)
+      new_record.save
+      #UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+    end
   end
 
   private
