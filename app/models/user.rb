@@ -860,9 +860,9 @@ class User < ActiveRecord::Base
     (self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?)
   end
 
-  def still_militant?
+  def still_militant?(send_email = true)
     result = self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
-    self.militant_records_management result
+    self.militant_records_management result,send_email
     result
   end
 
@@ -876,7 +876,7 @@ class User < ActiveRecord::Base
     result.compact.flatten.join(", ").sub(/.*\K, /, ' y ')
   end
 
-  def militant_records_management(is_militant)
+  def militant_records_management(is_militant,send_email)
     last_record = self.militant_records.last if self.militant_records.any?
     last_record ||= MilitantRecord.new
     new_record = MilitantRecord.new
@@ -924,7 +924,7 @@ class User < ActiveRecord::Base
     new_record.is_militant = is_militant
     if new_record.diff?(last_record)
       new_record.save
-      UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+      UsersMailer.new_militant_email(self.id).deliver_now  if is_militant && send_email
     end
   end
 
