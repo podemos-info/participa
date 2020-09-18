@@ -924,7 +924,7 @@ class User < ActiveRecord::Base
     new_record.is_militant = is_militant
     if new_record.diff?(last_record)
       new_record.save
-      #UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+      UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
     end
   end
 
