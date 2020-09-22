@@ -17,21 +17,21 @@
           <%= raw t('non_militant.features') %>
           <%= raw t('militant.vote_circle_net_close_date') %>
           <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
-        <p>1.- Verificar tu inscripción en Podemos. Si aún no lo has hecho, puedes hacer clic <strong><%= link_to "aquí", new_user_verification_path %></strong> y seguir los pasos necesarios para verificar tu identidad.</p>
+        <p>1.- Verificar tu inscripción en Podemos. Si aún no lo has hecho, <strong><%= link_to "puedes hacer clic aquí", new_user_verification_path %></strong> y seguir los pasos necesarios para verificar tu identidad.</p>
           <%if current_user.verified_for_militant? %>
             <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <% else %>
             <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. Para ello haz clic en  <strong><%= link_to "Círculo", edit_user_registration_path(anchor:"circle") %></strong> y selecciona el tuyo. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. Si has marcado que tu Círculo no está activo o está en construcción, por favor indícanos en <a href="https://participa.podemos.info/solicitud-creacion-circulo">este formulario</a> de qué Círculo se trata. </p>
+        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. <strong><%= link_to "Para ello haz clic en Círculo", edit_user_registration_path(anchor:"circle") %></strong> y selecciona el tuyo. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. Si has marcado que tu Círculo no está activo o está en construcción, por favor indícanos en <a href="https://participa.podemos.info/solicitud-creacion-circulo">este formulario</a> de qué Círculo se trata. </p>
           <% if current_user.in_vote_circle? %>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <% else %>
               <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-        <p> 3.- Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3 € al mes. Si puedes pagar dicha cuota, haz clic <strong><%= link_to "aquí", new_collaboration_path(only_recurrent:true) %></strong>, y rellena los campos para establecer una colaboración periódica.</p>
+        <p> 3.- Contribuir al sostenimiento de Podemos con el pago de una cuota popular de militante de al menos 3 € al mes. <strong><%= link_to "Si puedes pagar dicha cuota, haz clic aquí", new_collaboration_path(only_recurrent:true) %></strong>, y rellena los campos para establecer una colaboración periódica.</p>
           <p>Si debido a tu situación personal te encuentras dentro de alguno de los supuestos de exención voluntaria del pago de la cuota, por favor, rellena <a href='https://participa.podemos.info/solicitud-exencion-cuota-militancia'>este formulario</a> en el que te facilitamos un modelo de declaración jurada al respecto para que lo completes.</p>
           <%if current_user.collaborator_for_militant?%>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
