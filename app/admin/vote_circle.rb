@@ -1,4 +1,5 @@
 ActiveAdmin.register VoteCircle do
+  DEFAULT_VOTE_CIRCLE = "IP000000001"
   menu :parent => "Users"
   permit_params :original_code, :original_name,:code,:name,:island_code,:town
   sidebar "Añadir Circulos desde fichero", 'data-panel' => :collapsed, :only => :index, priority: 1 do
@@ -16,8 +17,6 @@ ActiveAdmin.register VoteCircle do
   end
 
   controller do
-    DEFAULT_VOTE_CIRCLE = "IP000000001"
-
     before_destroy :change_children_vote_circle
 
     def change_children_vote_circle(resource)

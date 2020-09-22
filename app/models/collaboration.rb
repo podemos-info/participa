@@ -595,5 +595,6 @@ class Collaboration < ActiveRecord::Base
   def verify_user_militant_status
     u = self.user
     u.update(militant: u.still_militant?)
+    u.process_militant_data
   end
 end

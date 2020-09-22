@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   before_validation :check_unconfirmed_phone
   before_update :_clear_caches
   before_save :before_save
+  after_commit :process_militant_data
 
   acts_as_paranoid
   has_paper_trail
@@ -860,14 +861,14 @@ class User < ActiveRecord::Base
     (self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?)
   end
 
-  def still_militant?(send_email = true)
-    result = self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
-    self.militant_records_management result,send_email
-    result
+  def still_militant?
+    self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
   end
 
   def get_not_militant_detail
-    return if self.militant?
+    is_militant = self.still_militant?
+    return if self.militant? && is_militant
+    self.update(militant:is_militant) && return if is_militant
     result =[]
 
     result.push("No esta verificado") unless self.verified_for_militant?
@@ -876,7 +877,7 @@ class User < ActiveRecord::Base
     result.compact.flatten.join(", ").sub(/.*\K, /, ' y ')
   end
 
-  def militant_records_management(is_militant,send_email)
+  def militant_records_management(is_militant)
     last_record = self.militant_records.last if self.militant_records.any?
     last_record ||= MilitantRecord.new
     new_record = MilitantRecord.new
@@ -922,12 +923,14 @@ class User < ActiveRecord::Base
       new_record.end_in_vote_circle = now if new_record.begin_payment.present?
     end
     new_record.is_militant = is_militant
-    if new_record.diff?(last_record)
-      new_record.save
-      UsersMailer.new_militant_email(self.id).deliver_now  if is_militant && send_email
-    end
+    new_record.save if new_record.diff?(last_record)
   end
 
+  def process_militant_data
+    is_militant = self.still_militant?
+    self.militant_records_management is_militant
+    UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+  end
   private
 
   def last_vote_location_change

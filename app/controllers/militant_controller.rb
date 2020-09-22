@@ -10,6 +10,7 @@ class MilitantController < ActionController::Base
       if current_user
         current_user.update(exempt_from_payment: exemption)
         current_user.update(militant:current_user.still_militant?)
+        current_user.process_militant_data
         #redirect_to(session.delete(:return_to)||root_path, flash: { notice: "El formulario ha sido rellenado y procesado correctamente" })
         @result = "OK#{exemption} #{data}"
       else
