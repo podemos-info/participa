@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   before_validation :check_unconfirmed_phone
   before_update :_clear_caches
   before_save :before_save
-  after_commit :process_militant_data
+  after_commit :process_militant_data_if_is_necessary
 
   acts_as_paranoid
   has_paper_trail
@@ -930,6 +930,9 @@ class User < ActiveRecord::Base
     is_militant = self.still_militant?
     self.militant_records_management is_militant
     UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+  end
+  def process_militant_data_if_is_necessary
+    process_militant_data if self.vote_circle_id_changed?
   end
   private
 
