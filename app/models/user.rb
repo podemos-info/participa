@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
   before_validation :check_unconfirmed_phone
   before_update :_clear_caches
   before_save :before_save
-  after_commit :process_militant_data_if_is_necessary
 
   acts_as_paranoid
   has_paper_trail
@@ -643,8 +642,11 @@ class User < ActiveRecord::Base
         self.vote_town = self.town
         self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
       end
-      self.vote_circle_changed_at = Time.now if self.vote_circle_id_changed?
       self.militant = self.still_militant?
+      if self.vote_circle_id_changed?
+        self.vote_circle_changed_at = Time.now
+        process_militant_data
+      end
       true
     end
   end
@@ -930,9 +932,6 @@ class User < ActiveRecord::Base
     is_militant = self.still_militant?
     self.militant_records_management is_militant
     UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
-  end
-  def process_militant_data_if_is_necessary
-    process_militant_data if self.vote_circle_id_changed?
   end
   private
 
