@@ -59,17 +59,17 @@ namespace :podemos do
     progress.inc
 
     countries = Hash[Carmen::Country.all.select{|c| c.code !="ES" && c.code !="TC" && c.code != "TM"}.map do |c| [c.code, [c.name, [0] * 4].flatten] end]
-    #countries[UNKNOWN] = [0]* num_columns
+    countries[UNKNOWN] =[ UNKNOWN, [0]* num_columns].flatten
     progress.inc
 
     autonomies = Hash[ Podemos::GeoExtra::AUTONOMIES.map do |k, v| [ v[0],[v[1], [0]* num_columns].flatten] end ]
     #autonomies[FOREIGN] = [0]* num_columns
-    #autonomies[UNKNOWN] = [0]* num_columns
+    autonomies[UNKNOWN] = [UNKNOWN,[0]* num_columns].flatten
     autonomies_hash = Podemos::GeoExtra::AUTONOMIES
     progress.inc
 
     provinces = Hash[ spain.map do |p| [ "p_%02d" % + p.index,["",p.name, [0]* num_columns ].flatten] end ]
-    #provinces[UNKNOWN] = [0]* num_columns
+    provinces[UNKNOWN] = [UNKNOWN, UNKNOWN, [0]* num_columns].flatten
     progress.inc
 
     #islands = Hash[ Podemos::GeoExtra::ISLANDS.map do |k, v| [ v[1], [0]* num_columns ] end ]
@@ -78,11 +78,10 @@ namespace :podemos do
     towns = Hash[ provinces_coded.map do |p|
                     spain.coded(p).subregions.map do |t| [ t.code, ["","","",[0]* num_columns ].flatten] end
                   end.flatten(1) ]
-    #towns[UNKNOWN] = [0]* num_columns
+    towns[UNKNOWN] = [UNKNOWN, UNKNOWN, UNKNOWN, [0]* num_columns].flatten
     towns_names = Hash[ *provinces_coded.map do |p|
                     spain.coded(p).subregions.map do |t| [ t.code, t.name] end
                   end.flatten ]
-    #towns_names[UNKNOWN] = UNKNOWN
     progress.inc
 
     regions =  Hash[VoteCircle.where.not(region_area_id:nil).order(:region_area_id).pluck(:region_area_id,:name).map do |i,n| ["r_#{i.to_s.rjust(2,"0") }",["","",n,[0]* num_columns].flatten] end ]
@@ -125,8 +124,10 @@ namespace :podemos do
       dc = calc_muni_dc("#{full_code[4..5]}#{full_code[6..8]}")
       town = "m_#{full_code[4..5]}_#{full_code[6..8]}_#{dc}"
       ccaa = town == empty_town ? u.autonomy_code : "c_#{full_code[2..3]}"
+      ccaa = UNKNOWN if ccaa.empty?
       town = u.vote_town if town == empty_town
-      prov = "p_#{town[2..3]}"
+      town = UNKNOWN if town.empty?
+      prov = town.empty? ? UNKNOWN : "p_#{town[2..3]}"
       count = full_code[9..-1]
       reg ="r_#{count}"
 
@@ -138,10 +139,11 @@ namespace :podemos do
       end
 
       circles[full_code][4] += 1
-
-      autonomies[ccaa][1] += 1 if ccaa != "c_00"
-      autonomies[ccaa][2] += 1 if ccaa != "c_00" && full_code =="IP000000001"
-      autonomies[ccaa][3] += 1 if ccaa != "c_00" && full_code =="IP000000002"
+      if autonomies[ccaa].present?
+        autonomies[ccaa][1] += 1 if ccaa != "c_00"
+        autonomies[ccaa][2] += 1 if ccaa != "c_00" && full_code =="IP000000001"
+        autonomies[ccaa][3] += 1 if ccaa != "c_00" && full_code =="IP000000002"
+      end
 
       provinces[prov][2] += 1 if prov != "p_00"
       provinces[prov][3] += 1 if prov != "p_00" && full_code =="IP000000001"
@@ -152,11 +154,14 @@ namespace :podemos do
         regions[reg][1] = provinces[u.province_code][0]
         regions[reg][3] +=1
       end
-      towns[town][3] += 1 if town != empty_town
-      towns[town][4] += 1 if town != empty_town && full_code =="IP000000001"
-      towns[town][5] += 1 if town != empty_town && full_code =="IP000000002"
-      progress.inc
+
+      if towns[town].present?
+        towns[town][3] += 1 if town != empty_town
+        towns[town][4] += 1 if town != empty_town && full_code =="IP000000001"
+        towns[town][5] += 1 if town != empty_town && full_code =="IP000000002"
+      end
     end
+    progress.inc
 
     # set count of circles and missing territory names per territory
     countries.keys.each do |k|
