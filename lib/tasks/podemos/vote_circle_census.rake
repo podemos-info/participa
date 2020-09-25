@@ -40,6 +40,8 @@ namespace :podemos do
 
     update_militants_not_flagged
 
+    ip01 = "IP000000001"
+    ip02 = "IP000000002"
     if args.year.nil?
         users = User.militant
         date = Date.today        
@@ -65,7 +67,6 @@ namespace :podemos do
     autonomies = Hash[ Podemos::GeoExtra::AUTONOMIES.map do |k, v| [ v[0],[v[1], [0]* num_columns].flatten] end ]
     #autonomies[FOREIGN] = [0]* num_columns
     autonomies["c_#{UNKNOWN}"] = [UNKNOWN,[0]* num_columns].flatten
-    autonomies_hash = Podemos::GeoExtra::AUTONOMIES
     progress.inc
 
     provinces = Hash[spain.map do |p| [ "p_%02d" % + p.index,["",p.name, [0]* num_columns ].flatten] end ]
@@ -91,7 +92,6 @@ namespace :podemos do
 
     circles = Hash[VoteCircle.all.order(:code).pluck(:code,:name).map do|i,n| [i,["","","",n,0]] end ]
     circles.each do |full_code,v|
-      empty_town="m_#{UNKNOWN}"
       type_circle = full_code[0..1]
       ccaa = if autonomies.keys.include? "c_#{full_code[2..3]}" then "c_#{full_code[2..3]}" else "c_#{UNKNOWN}" end
       prov = if provinces.keys.include? "p_#{full_code[4..5]}" then "p_#{full_code[4..5]}" else "p_#{UNKNOWN}" end
@@ -123,9 +123,9 @@ namespace :podemos do
       type_circle = full_code[0..1]
       dc = calc_muni_dc("#{full_code[4..5]}#{full_code[6..8]}")
       town = "m_#{full_code[4..5]}_#{full_code[6..8]}_#{dc}"
-      ccaa = town == empty_town ? u.autonomy_code : "c_#{full_code[2..3]}"
-      ccaa = if autonomies.keys.include? ccaa then ccaa else "c_#{UNKNOWN}" end
-      town = u.vote_town if town == empty_town
+      ccaa = town == empty_town || [ip01,ip02].include?(full_code) ? u.autonomy_code : "c_#{full_code[2..3]}"
+      ccaa = if autonomies.keys & [ccaa] then ccaa else "c_#{UNKNOWN}" end
+      town = u.vote_town if town == empty_town || [ip01,ip02].include?(full_code)
       town = if towns.keys.include? town then town else "m_#{UNKNOWN}" end
       prov = town.empty? ? "p_#{UNKNOWN}" : "p_#{town[2..3]}"
       prov = if provinces.keys.include? prov then prov else "p_#{UNKNOWN}" end
@@ -135,20 +135,19 @@ namespace :podemos do
       #countries[if countries.include? u.country_name then u.country_name else UNKNOWN end][0] += 1 if u.country != SPAIN
       if is_exterior?(type_circle)
         countries[type_circle][1] +=1
-        countries[type_circle][2] += 1 if full_code =="IP000000001"
-        countries[type_circle][3] += 1 if full_code =="IP000000002"
+        countries[type_circle][2] += 1 if full_code == ip01
+        countries[type_circle][3] += 1 if full_code == ip02
       end
 
       circles[full_code][4] += 1
-      if autonomies[ccaa].present?
-        autonomies[ccaa][1] += 1
-        autonomies[ccaa][2] += 1 if full_code =="IP000000001"
-        autonomies[ccaa][3] += 1 if full_code =="IP000000002"
-      end
+
+      autonomies[ccaa][1] += 1
+      autonomies[ccaa][2] += 1 if full_code == ip01
+      autonomies[ccaa][3] += 1 if full_code == ip02
 
       provinces[prov][2] += 1
-      provinces[prov][3] += 1 if full_code =="IP000000001"
-      provinces[prov][4] += 1 if full_code =="IP000000002"
+      provinces[prov][3] += 1 if full_code == ip01
+      provinces[prov][4] += 1 if full_code == ip02
 
       if type_circle =="TC"
         regions[reg][0] = Podemos::GeoExtra::AUTONOMIES[u.province_code][1]
@@ -156,11 +155,9 @@ namespace :podemos do
         regions[reg][3] +=1
       end
 
-      if towns[town].present?
         towns[town][3] += 1
-        towns[town][4] += 1 if full_code =="IP000000001"
-        towns[town][5] += 1 if full_code =="IP000000002"
-      end
+        towns[town][4] += 1 if full_code == ip01
+        towns[town][5] += 1 if full_code == ip02
     end
     progress.inc
 
@@ -197,7 +194,7 @@ namespace :podemos do
     folder = "tmp/census_militants"
     suffix = date.strftime
     headers = ["militantes", "militantes_circulo_construccion", "militantes_no_circulo", "n_circulos"]
-    export_raw_data "militantes_exterior.#{suffix}", countries.sort, headers: ["País | #{suffix}"] + headers, folder: folder do |d| d.flatten end
+    export_raw_data "militantes_exterior.#{suffix}", countries.sort, headers: ["País | #{suffix}"] + headers, folder: folder do |k,d| d.flatten end
     progress.inc
     export_raw_data "militantes_ccaa.#{suffix}", autonomies.sort, headers: ["Comunidad autonoma | #{suffix}"] + headers, folder: folder do |k,d| d.flatten end
     progress.inc
@@ -207,7 +204,7 @@ namespace :podemos do
       d.flatten
     end
     progress.inc
-    export_raw_data "militantes_municipio.#{suffix}", towns.sort, headers: ["Comunidad autonoma" ,"Provincia","Municipio | #{suffix}"] + headers, folder:folder do |d| [ d[0], towns_names[d[0]] ] + d[1].flatten end
+    export_raw_data "militantes_municipio.#{suffix}", towns.sort, headers: ["Comunidad autonoma" ,"Provincia","Municipio | #{suffix}"] + headers, folder:folder do |d| d[1].flatten end
     progress.inc
     export_raw_data "militantes_circulo.#{suffix}", circles.sort, headers: ["Comunidad autonoma" ,"Provincia","Municipio", "Círculo | #{suffix}"] + headers, folder: folder do |k,d| d.flatten end
     progress.inc
