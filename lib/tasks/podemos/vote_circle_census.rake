@@ -85,7 +85,7 @@ namespace :podemos do
                   end.flatten ]
     progress.inc
 
-    regions =  Hash[VoteCircle.where.not(region_area_id:nil).order(:region_area_id).pluck(:code,:name).map do |i,n| ["r_#{i}",["","",n,[0]* num_columns].flatten] end ]
+    regions =  Hash[VoteCircle.where("code like 'TC%'").order(:region_area_id).pluck(:code,:name).map do |i,n| ["r_#{i}",["","",n,[0]* num_columns].flatten] end ]
     progress.inc
 
     circles_territory = Hash.new { |k, v| k[v] = 0 }
