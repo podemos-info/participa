@@ -151,17 +151,17 @@ namespace :podemos do
       if type_circle =="TC"
         cod_prov_reg = "p_#{full_code[4..5]}"
         if provinces.keys.include? cod_prov_reg
-          prov_reg = provinces[cod_prov_reg][0]
+          prov_reg = provinces[cod_prov_reg][1]
           ccaa_reg = Podemos::GeoExtra::AUTONOMIES[cod_prov_reg][1]
         elsif  provinces.keys.include? u.province.code
-          prov_reg = provinces[u.province.code]
+          prov_reg = provinces[u.province.code][1]
           ccaa_reg = Podemos::GeoExtra::AUTONOMIES[u.province_code][1]
         else
           prov_reg = UNKNOWN
           ccaa_reg = UNKNOWN
         end
-        regions[reg][0] = prov_reg
-        regions[reg][1] = ccaa_reg
+        regions[reg][0] = ccaa_reg
+        regions[reg][1] = prov_reg
         regions[reg][3] +=1
       end
 
@@ -191,14 +191,14 @@ namespace :podemos do
        #   regions[k][4] = circles_territory[k]
        cod_prov_reg = "p_#{k[4..5]}"
        if provinces.keys.include? cod_prov_reg
-         prov_reg = provinces[cod_prov_reg][0]
+         prov_reg = provinces[cod_prov_reg][1]
          ccaa_reg = Podemos::GeoExtra::AUTONOMIES[cod_prov_reg][1]
        else
          prov_reg = UNKNOWN
          ccaa_reg = UNKNOWN
        end
-       regions[k][0] =  prov_reg if regions[k][0].blank?
-       regions[k][1] =  ccaa_reg if regions[k][1].blank?
+       regions[k][0] =  ccaa_reg if regions[k][0].blank?
+       regions[k][1] =  prov_reg if regions[k][1].blank?
      end
 
 
