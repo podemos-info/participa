@@ -5,12 +5,11 @@
       <% if resource.errors.include?(:vote_circle_id) %>
         <%= field_notice_box %>
       <% end %>
-      <span class="form-wrapper">
+
       <%= label :user, :vote_circle_id, class: "control-label", required: false do %>
         <%=t("activerecord.attributes.user.vote_circle") %>
       <% end %>
-      <%= select_tag "user[vote_circle_id]", options_from_collection_for_select(get_vote_circles, "id", "original_name", @user[:vote_circle_id]), {disabled: !resource.can_change_vote_circle? && !@user.is_admin?, required: false, data: {allowClear: true}, include_blank: "Selecciona tu círculo."} %>
-      </span>
+      <%= select_tag "user[vote_circle_id]", options_from_collection_for_select(get_vote_circles, "id", "original_name", @user[:vote_circle_id]), {disabled: !resource.can_change_vote_circle? && !@user.is_admin?, required: false, data: {allowClear: true}, include_blank: "Selecciona tu círculo.", autocomplete: :off} %>
     </div>
     <div class="">
       <% if @user.errors.include?(:checked_vote_circle) %>
