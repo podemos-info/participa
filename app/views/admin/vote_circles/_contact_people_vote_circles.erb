@@ -1,0 +1,14 @@
+<%= semantic_form_for :vote_circles, :url => { :action => "contact_people_vote_circles" } do |f| %>
+  <span class="form-wrapper">
+    <%= label :vote_circle_autonomy, class: "control-label", required: false do %>
+        <%="Seleciiona una CCAA" %>
+      <% end %>
+    <% autonomies = Hash[ Podemos::GeoExtra::AUTONOMIES.map do |k, v| [ v[1],v[0] ] end ] %>
+    <%= select_tag "vote_circle_autonomy", options_for_select(autonomies), {required: false , data: {allowClear: true}, include_blank: "Todas las CCAAs" } %></li>
+  </span>
+  <div class="buttons">
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button %>
+    <% end %>
+  </div>
+<% end %>
