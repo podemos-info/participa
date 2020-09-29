@@ -21,7 +21,7 @@ ActiveAdmin.register VoteCircle do
 
   collection_action :contact_people_vote_circles,:method => :post do
     csv =CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
-      header =["ccaa","prov","muni","nombre_pila","telefono","email"]
+      header =["ccaa","prov","muni","nombre_pila","telefono","email","opcion_elegida"]
       csv << header
 
       ccaa = params["vote_circle_autonomy"] unless params["vote_circle_autonomy"].blank?
@@ -30,10 +30,10 @@ ActiveAdmin.register VoteCircle do
       data=[]
       users.each do |u|
         next if ccaa && ccaa != u.autonomy_code
-        data.push([u.autonomy_name, u.province_name, u.town_name,u.first_name,u.phone,u.email])
+        data.push([u.autonomy_name, u.province_name, u.town_name,u.first_name,u.phone,u.email,u.vote_circle.name])
       end
-      data.sort_by do |row|
-        [row[0], row[1], row[2], row[3], row[4], row[5]]
+      data2 = data.sort_by { |row| [row[6], row[0], row[1], row[2], row[3], row[4], row[5]] }
+      data2.each do |row|
         csv << row
       end
     end
@@ -41,7 +41,7 @@ ActiveAdmin.register VoteCircle do
     if csv.count("\n") > 1
       send_data csv.encode('utf-8'),
                 type: 'text/tsv; charset=utf-8; header=present',
-                disposition: "attachment; filename=personas_contacto_circulos.#{Date.today.to_s}.csv"
+                disposition: "attachment; filename=personas_contacto_circulos_#{}.#{Date.today.to_s}.csv"
     else
       redirect_to collection_path, flash: {warning: "¡No se han encontrado registros que cumplan esa condición!"}
     end
