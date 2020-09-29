@@ -5,10 +5,10 @@ ActiveAdmin.register VoteCircle do
   sidebar "Añadir Circulos desde fichero", 'data-panel' => :collapsed, :only => :index, priority: 1 do
     render('upload_vote_circles')
   end
-  sidebar "Descarga Personas de Contacto de Circulos inexistentes, inactivos o en construcción", 'data-panel' => :collapsed, :only => :index, priority: 2 do
+  sidebar "Contacto con personas en círculos inexistentes o en construcción", 'data-panel' => :collapsed, :only => :index, priority: 2 do
     render('contact_people_vote_circles')
   end
-  sidebar "Descarga Personas de Contacto de Circulos con menos de 5 miembros", 'data-panel' => :collapsed, :only => :index, priority: 3 do
+  sidebar "Descarga Personas de Contacto de círculos con menos de 5 miembros", 'data-panel' => :collapsed, :only => :index, priority: 3 do
     render('people_in_tiny_vote_circles')
   end
 
