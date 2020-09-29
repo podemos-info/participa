@@ -8,6 +8,10 @@ ActiveAdmin.register VoteCircle do
   sidebar "Descarga Personas de Contacto de Circulos inexistentes, inactivos o en construcción", 'data-panel' => :collapsed, :only => :index, priority: 2 do
     render('contact_people_vote_circles')
   end
+  sidebar "Descarga Personas de Contacto de Circulos con menos de 5 miembros", 'data-panel' => :collapsed, :only => :index, priority: 3 do
+    render('people_in_tiny_vote_circles')
+  end
+
   index download_links: -> { current_user.is_admin? && current_user.superadmin? }
 
 
@@ -42,6 +46,34 @@ ActiveAdmin.register VoteCircle do
       send_data csv.encode('utf-8'),
                 type: 'text/tsv; charset=utf-8; header=present',
                 disposition: "attachment; filename=personas_contacto_circulos_#{}.#{Date.today.to_s}.csv"
+    else
+      redirect_to collection_path, flash: {warning: "¡No se han encontrado registros que cumplan esa condición!"}
+    end
+  end
+
+  collection_action :people_in_tiny_vote_circles,:method => :post do
+    csv =CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      header =["ccaa","prov","muni","círculo","nombre_pila","telefono","email"]
+      csv << header
+      data = []
+      max_users = 5
+      internal_ids = VoteCircle.where("code like 'IP%'").pluck(:id)
+      vote_circles = User.militant.where.not(vote_circle_id:nil).where.not(vote_circle_id:internal_ids).group(:vote_circle_id).count(:id)
+      ids = vote_circles.select {|k,v| v < max_users}.keys
+      users = User.militant.where(vote_circle_id:ids)
+      users.find_each do |u|
+        data.push([u.autonomy_name, u.province_name, u.town_name,u.vote_circle.name,u.first_name,u.phone,u.email])
+      end
+      data2 = data.sort_by { |row| [row[0], row[1], row[2], row[3], row[4], row[5],row[6]] }
+      data2.each do |row|
+        csv << row
+      end
+    end
+
+    if csv.count("\n") > 1
+      send_data csv.encode('utf-8'),
+                type: 'text/tsv; charset=utf-8; header=present',
+                disposition: "attachment; filename=personas_circulos_minis#{}.#{Date.today.to_s}.csv"
     else
       redirect_to collection_path, flash: {warning: "¡No se han encontrado registros que cumplan esa condición!"}
     end
