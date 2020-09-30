@@ -154,13 +154,15 @@ namespace :podemos do
           prov_reg = provinces[cod_prov_reg][1]
           ccaa_reg = Podemos::GeoExtra::AUTONOMIES[cod_prov_reg][1]
         elsif  provinces.keys.include? u.province.code
+          cod_prov_reg = provinces[u.province.code][0]
           prov_reg = provinces[u.province.code][1]
           ccaa_reg = Podemos::GeoExtra::AUTONOMIES[u.province_code][1]
         else
+          cod_prov_reg = UNKNOWN
           prov_reg = UNKNOWN
           ccaa_reg = UNKNOWN
         end
-        provinces[prov_reg][2] += 1
+        provinces[cod_prov_reg][2] += 1
         regions[reg][0] = ccaa_reg
         regions[reg][1] = prov_reg
         regions[reg][3] +=1
