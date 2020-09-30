@@ -160,6 +160,7 @@ namespace :podemos do
           prov_reg = UNKNOWN
           ccaa_reg = UNKNOWN
         end
+        provinces[prov_reg][2] += 1
         regions[reg][0] = ccaa_reg
         regions[reg][1] = prov_reg
         regions[reg][3] +=1
@@ -206,7 +207,7 @@ namespace :podemos do
       if towns_names[k].present?
         prov = "p_#{k[2..3]}"
         towns[k][0] = Podemos::GeoExtra::AUTONOMIES[prov][1]
-        towns[k][1] = provinces[prov][0]
+        towns[k][1] = provinces[prov][1]
         towns[k][2] =towns_names[k]
         towns[k][6] = circles_territory[k]
       end
