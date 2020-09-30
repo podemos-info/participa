@@ -160,6 +160,7 @@ namespace :podemos do
           prov_reg = UNKNOWN
           ccaa_reg = UNKNOWN
         end
+        provinces[prov_reg][2] += 1
         regions[reg][0] = ccaa_reg
         regions[reg][1] = prov_reg
         regions[reg][3] +=1
