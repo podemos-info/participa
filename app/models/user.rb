@@ -856,7 +856,8 @@ class User < ActiveRecord::Base
   end
 
   def verified_for_militant?
-    self.verified? ||(self.user_verifications.any? && self.user_verifications.last.status == "pending")
+    status = self.user_verifications.last.status if self.user_verifications.any?
+    self.verified? || (self.user_verifications.any? && (status == "pending" || status == "accepted"))
   end
 
   def collaborator_for_militant?
