@@ -856,7 +856,8 @@ class User < ActiveRecord::Base
   end
 
   def verified_for_militant?
-    self.verified? ||(self.user_verifications.any? && self.user_verifications.last.status == "pending")
+    status = self.user_verifications.last.status if self.user_verifications.any?
+    self.verified? || (self.user_verifications.any? && (status == "pending" || status == "accepted"))
   end
 
   def collaborator_for_militant?
@@ -865,6 +866,11 @@ class User < ActiveRecord::Base
 
   def still_militant?
     self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
+  end
+
+  def militant_at?(date)
+    in_circle_at = self.vote_circle_changed_at
+
   end
 
   def get_not_militant_detail
