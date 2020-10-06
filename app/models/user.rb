@@ -867,6 +867,11 @@ class User < ActiveRecord::Base
     self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
   end
 
+  def militant_at?(date)
+    in_circle_at = self.vote_circle_changed_at
+
+  end
+
   def get_not_militant_detail
     is_militant = self.still_militant?
     return if self.militant? && is_militant
