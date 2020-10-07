@@ -842,7 +842,7 @@ class User < ActiveRecord::Base
   def can_change_vote_circle?
     # use database version if vote_town has changed
     has_limit_date = Rails.application.secrets.users["date_close_vote_circle_unlimited_changes"].present?
-    return true unless has_limit_date ||(has_limit_date && Time.zone.now >=Time.zone.parse(Rails.application.secrets.users["date_close_vote_circle_unlimited_changes"]))
+    return true unless has_limit_date && Time.zone.now >=Time.zone.parse(Rails.application.secrets.users["date_close_vote_circle_unlimited_changes"])
     return true unless self.vote_circle.present? && self.vote_circle.is_active?
     max_days = Rails.application.secrets.users["allow_vote_circle_changed_at_days"].present? ? Rails.application.secrets.users["allow_vote_circle_changed_at_days"].to_i.days: 365
     self.vote_circle_changed_at <= (Time.now - max_days) or !self.persisted?
