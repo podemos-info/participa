@@ -861,7 +861,7 @@ class User < ActiveRecord::Base
   end
 
   def collaborator_for_militant?
-    (self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?)
+    (self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:[0, 2]).exists?)
   end
 
   def still_militant?
