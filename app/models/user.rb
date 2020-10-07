@@ -861,16 +861,34 @@ class User < ActiveRecord::Base
   end
 
   def collaborator_for_militant?
-    (self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where(status:[0, 2]).exists?)
+    (self.has_min_monthly_collaboration? || self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:[0, 2]).exists?)
   end
 
   def still_militant?
     self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
   end
 
-  def militant_at?(date)
-    in_circle_at = self.vote_circle_changed_at
+  def militant_at?(date,extra = 15)
+    in_circle_at = Time.zone.parse(self.vote_circle_changed_at.to_s) if self.vote_circle_id.present?
+    verified_at = nil
+    collaborator_at = nil
+    if self.user_verifications.any?
+      status = self.user_verifications.last.status
+      verified_at = Time.zone.parse(self.user_verifications.last.updated_at.to_s) if self.verified? || (self.user_verifications.any? && (status == "pending" || status == "accepted"))
+    end
+    valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:[0, 2,3])
+    if valid_collaboration.exists?
+      collaborator_at = Time.zone.parse(valid_collaboration.last.created_at.to_s)
+    elsif self.exempt_from_payment?
+      last_record = MilitantRecord.where(user_id:self.id).where.(payment_type:0).where.not(begin_payment:nil).last
+      collaborator_at = Time.zone.parse(last_record.begin_payment.to_s) if last_record.present?
+    end
 
+    return false unless in_circle_at.present? && verified_at.present? && collaborator_at.present?
+    dates = [in_circle_at, verified_at, collaborator_at]
+    min_date =Time.zone.parse(date.to_s)
+    max_date = min_date + extra.days
+    (dates.min <= min_date && dates.max <= max_date)
   end
 
   def get_not_militant_detail
