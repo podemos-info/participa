@@ -461,7 +461,8 @@ class Collaboration < ActiveRecord::Base
           self.calculate_iban, self.ccc_full, self.calculate_bic, 
           order.amount/100, order.due_code, order.url_source, self.id, 
           self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
-          self.frequency_name, col_user.full_name.mb_chars.upcase.to_s ]
+          self.frequency_name, col_user.full_name.mb_chars.upcase.to_s,
+          col_user.still_militant?]
     end
   end
 
