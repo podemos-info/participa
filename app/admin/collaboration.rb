@@ -219,6 +219,12 @@ ActiveAdmin.register Collaboration do
       end
       row :frequency_name
       row :status_name
+      row :es_militante do |collaboration|
+        collaboration.get_user.still_militant? if  collaboration.get_user
+      end
+      row :circulo do |collaboration|
+        collaboration.get_user.vote_circle.original_name if collaboration.get_user && collaboration.get_user.vote_circle_id.present?
+      end
       row :created_at
       row :updated_at
       row :deleted_at
