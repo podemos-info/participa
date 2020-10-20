@@ -34,14 +34,17 @@ namespace :podemos do
 
         if user.militant?
           code = user.vote_circle.code
-          if code[0, 2] == "IP"
+          codetype = code[0, 2]
+          prov = code[4, 2]
+          town = code[6, 3]
+          if codetype == "IP"
             row << "mc_"
-          elsif code[0] != "T"
+          elsif codetype != "TB" && codetype != "TC" && codetype != "TM"
             row << "mce_"
-          elsif code[6, 3].to_i == 0
-            row << "mc_#{code[4, 2]}_"
+          elsif town.to_i == 0
+            row << "mc_#{prov}_"
           else
-            row << "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+            row << "mc_#{prov}_#{town}_#{code[9, 2]}"
           end   
         end
 
