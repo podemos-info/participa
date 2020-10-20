@@ -32,6 +32,19 @@ namespace :podemos do
           row << "t_rural"
         end
 
+        if user.militant?
+          code = user.vote_circle.code
+          if code[0, 2] == "IP"
+            row << "mc_"
+          elsif code[0] != "T"
+            row << "mce_"
+          elsif code[6, 3].to_i == 0
+            row << "mc_#{code[4, 2]}_"
+          else
+            row << "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+          end   
+        end
+
         writer << row
       end
     end
