@@ -881,7 +881,7 @@ class User < ActiveRecord::Base
     if valid_collaboration.exists?
       collaborator_at = Time.zone.parse(valid_collaboration.last.created_at.to_s)
     elsif self.exempt_from_payment?
-      last_record = MilitantRecord.where(user_id:self.id).where.(payment_type:0).where.not(begin_payment:nil).last
+      last_record = MilitantRecord.where(user_id:self.id).where(payment_type:0).where.not(begin_payment:nil).last
       collaborator_at = Time.zone.parse(last_record.begin_payment.to_s) if last_record.present?
     end
 
