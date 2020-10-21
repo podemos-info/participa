@@ -5,9 +5,21 @@ namespace :podemos do
 
     sendy_lists.add_list "A - España", "m_"
     sendy_lists.add_list "A - Extranjero", "e_"
+    sendy_lists.add_list "A - Militantes España", "mc_"
+    sendy_lists.add_list "A - Militantes Extranjero", "mce_"
 
     # 50 provinces + 2 autonomous cities
     (01..52).each {|n| sendy_province "%02d" % n, sendy_lists}
+
+    lists_created = []
+    User.militant.each do |militant|
+      name = militant.vote_circle.name
+      code = militant.vote_circle.code
+      unless lists_created.include?(code) or code[4, 2].to_i == 0
+        lists_created << code
+        sendy_lists.add_list "C - Militantes #{name}", "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+      end
+    end
 
     sendy_lists.close
   end
@@ -105,6 +117,7 @@ namespace :podemos do
 
     province_name = Carmen::Country.coded("ES").subregions.coded(prefix).name
     sendy_lists.add_list "B - #{province_name}", "m_#{number_province}"
+    sendy_lists.add_list "B - Militantes #{province_name}", "mc_#{number_province}"
 
     municipies.each do |mun|
       c = mun[0]
