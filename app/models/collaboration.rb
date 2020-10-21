@@ -183,7 +183,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def ccc_full 
-    "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}" if ccc_account
+    "#{"%04d" % ccc_entity}#{"%04d" % ccc_office}#{"%02d" % ccc_dc}#{"%010d" % ccc_account}" if ccc_entity && ccc_office && ccc_dc && ccc_account
   end
 
   def pretty_ccc_full 
@@ -462,7 +462,7 @@ class Collaboration < ActiveRecord::Base
           order.amount/100, order.due_code, order.url_source, self.id, 
           self.created_at.strftime("%d-%m-%Y"), order.reference, order.payable_at.strftime("%d-%m-%Y"), 
           self.frequency_name, col_user.full_name.mb_chars.upcase.to_s,
-          col_user.still_militant?]
+          col_user.respond_to?(:still_militant?) ? col_user.still_militant? : false]
     end
   end
 
@@ -480,6 +480,13 @@ class Collaboration < ActiveRecord::Base
 
     def to_s
       "#{full_name} (#{document_vatid} - #{email})"
+    end
+
+    def still_militant?
+      false
+    end
+    def vote_circle_id
+      nil
     end
   end
 

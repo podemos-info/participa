@@ -220,7 +220,7 @@ ActiveAdmin.register Collaboration do
       row :frequency_name
       row :status_name
       row :es_militante do |collaboration|
-        collaboration.get_user.still_militant? if  collaboration.get_user
+        collaboration.get_user.still_militant? if collaboration.user_id.present? && collaboration.get_user
       end
       row :circulo do |collaboration|
         collaboration.get_user.vote_circle.original_name if collaboration.get_user && collaboration.get_user.vote_circle_id.present?
