@@ -874,8 +874,9 @@ class User < ActiveRecord::Base
     verified_at = nil
     collaborator_at = nil
     if self.user_verifications.any?
-      status = self.user_verifications.last.status
-      verified_at = Time.zone.parse(self.user_verifications.last.updated_at.to_s) if self.verified? || (self.user_verifications.any? && (status == "pending" || status == "accepted"))
+      last_verification = self.user_verifications.last
+      status = last_verification.status
+      verified_at = Time.zone.parse(last_verification.updated_at.to_s) if self.verified? || (status == "pending" || status == "accepted")
     end
     valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:[0, 2,3])
     if valid_collaboration.exists?
