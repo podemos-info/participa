@@ -210,6 +210,24 @@ class User < ActiveRecord::Base
     parent.table[:vote_town]
   end
 
+  ransacker :user_vote_circle_province_id, formatter: proc { |value|
+    VoteCircle.where("code like ?", value).map { |vote_circle| vote_circle.id }.uniq
+   } do |parent|
+    parent.table[:vote_circle_id]
+  end
+
+  ransacker :user_vote_circle_autonomy_id, formatter: proc { |value|
+    VoteCircle.where("code like ?", value).map { |vote_circle| vote_circle.id }.uniq
+   } do |parent|
+     parent.table[:vote_circle_id]
+  end
+
+  ransacker :user_vote_circle_id, formatter: proc { |value|
+    VoteCircle.where(id: value).map { |vote_circle| vote_circle.id }.uniq
+  } do |parent|
+    parent.table[:vote_circle_id]
+  end
+
   GENDER = { "F" => "Femenino", "M" => "Masculino", "O" => "Otro", "N" => "No contesta" }
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
