@@ -12,6 +12,9 @@ ActiveAdmin.register VoteCircle do
     render('people_in_tiny_vote_circles')
   end
 
+  filter :vote_circle_autonomy_id_in, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse).map{|c| [c[0],"__#{c[1][2,2]}%"]}, label: "Circle autonomy"
+  filter :vote_circle_province_id_in, as: :select, collection: Carmen::Country.coded("ES").subregions.map{|x|[x.name, "____#{(x.index).to_s.rjust(2,"0")}%"]}, label: "Circle province"
+
   index download_links: -> { current_user.is_admin? && current_user.superadmin? }
 
 

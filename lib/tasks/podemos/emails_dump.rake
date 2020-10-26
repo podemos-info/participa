@@ -32,7 +32,7 @@ namespace :podemos do
           row << "t_rural"
         end
 
-        if user.militant_at?('2020-10-15')
+        if user.militant? && user.militant_at?('2020-10-15')
           code = user.vote_circle.code
           codetype = code[0, 2]
           prov = code[4, 2]
@@ -45,7 +45,7 @@ namespace :podemos do
             row << "mc_#{prov}_"
           else
             row << "mc_#{prov}_#{town}_#{code[9, 2]}"
-          end   
+          end
         end
 
         writer << row
