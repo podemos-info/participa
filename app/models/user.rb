@@ -977,6 +977,11 @@ class User < ActiveRecord::Base
     self.militant_records_management is_militant
     UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
   end
+
+  def self.census_vote_circle
+    ids = User.militant.select{ |u| u.id if u.militant_at?('2020-09-15')}
+    User.where(id:ids)
+  end
   private
 
   def last_vote_location_change
