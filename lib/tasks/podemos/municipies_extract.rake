@@ -13,16 +13,48 @@ namespace :podemos do
 
     lists_created = []
     User.militant.each do |militant|
-      name = militant.vote_circle.name
       code = militant.vote_circle.code
       unless lists_created.include?(code) or code[4, 2].to_i == 0
+        name = militant.vote_circle.original_name
+        name = name.gsub(/- (.+), (.*) -/,'- \2 \1 -')
+        name = name.gsub(/- (.*)\/.* -/, '- \1 -')
+        name = name.reverse.sub("- ".reverse, "- Militantes ".reverse).reverse
+        name = name.gsub(/'/) { |x| "\\#{x}" }
         lists_created << code
-        sendy_lists.add_list "C - Militantes #{name}", "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+        sendy_lists.add_list "C - #{name}", "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
       end
     end
 
     sendy_lists.close
   end
+
+
+  desc "[podemos] Update names to militant lists in Sendy"
+  task :update_name_militant_lists => :environment do
+
+    lists_created = []
+    User.militant.each do |militant|
+      code = militant.vote_circle.code
+      unless lists_created.include?(code) or code[4, 2].to_i == 0
+        lists_created << code
+
+        oldcode = "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+        code = "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2].to_i}"
+        name = militant.vote_circle.original_name
+        name = name.gsub(/- (.+), (.*) -/,'- \2 \1 -')
+        name = name.gsub(/- (.*)\/.* -/, '- \1 -')
+        name = name.reverse.sub("- ".reverse, "- Militantes ".reverse).reverse
+        name = "C - #{name} - #{oldcode}".gsub(/'/) { |x| "\\#{x}" }
+
+        sql = "UPDATE lists SET name='#{name}' WHERE name LIKE '% - #{oldcode}' OR name LIKE '% - #{code}';"
+
+        puts "#{sql}"
+
+      end
+    end
+
+  end
+
 
   desc "[podemos] Extract municipies information from INE"
   # http://www.ine.es/jaxi/menu.do?type=pcaxis&path=/t20/e245/codmun&file=inebase 

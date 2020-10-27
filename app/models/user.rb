@@ -210,6 +210,24 @@ class User < ActiveRecord::Base
     parent.table[:vote_town]
   end
 
+  ransacker :user_vote_circle_province_id, formatter: proc { |value|
+    VoteCircle.where("code like ?", value).map { |vote_circle| vote_circle.id }.uniq
+   } do |parent|
+    parent.table[:vote_circle_id]
+  end
+
+  ransacker :user_vote_circle_autonomy_id, formatter: proc { |value|
+    VoteCircle.where("code like ?", value).map { |vote_circle| vote_circle.id }.uniq
+   } do |parent|
+     parent.table[:vote_circle_id]
+  end
+
+  ransacker :user_vote_circle_id, formatter: proc { |value|
+    VoteCircle.where(id: value).map { |vote_circle| vote_circle.id }.uniq
+  } do |parent|
+    parent.table[:vote_circle_id]
+  end
+
   GENDER = { "F" => "Femenino", "M" => "Masculino", "O" => "Otro", "N" => "No contesta" }
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
@@ -874,8 +892,9 @@ class User < ActiveRecord::Base
     verified_at = nil
     collaborator_at = nil
     if self.user_verifications.any?
-      status = self.user_verifications.last.status
-      verified_at = Time.zone.parse(self.user_verifications.last.updated_at.to_s) if self.verified? || (self.user_verifications.any? && (status == "pending" || status == "accepted"))
+      last_verification = self.user_verifications.last
+      status = last_verification.status
+      verified_at = Time.zone.parse(last_verification.updated_at.to_s) if self.verified? || (status == "pending" || status == "accepted")
     end
     valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:[0, 2,3])
     if valid_collaboration.exists?
@@ -957,6 +976,11 @@ class User < ActiveRecord::Base
     is_militant = self.still_militant?
     self.militant_records_management is_militant
     UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+  end
+
+  def self.census_vote_circle
+    ids = User.militant.select{ |u| u.id if u.militant_at?('2020-09-15')}
+    User.where(id:ids)
   end
   private
 

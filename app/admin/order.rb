@@ -187,7 +187,7 @@ ActiveAdmin.register Order do
       order.redsys_order_id if order.is_credit_card?
     end
     column :es_militante do |order|
-      order.parent.get_user.still_militant? if order.parent && order.parent.get_user
+      order.parent.get_user.militant? if order.parent && order.parent.get_user &&  order.parent.get_user.respond_to?("militant?")
     end
     column :circulo do |order|
       order.parent.get_user.vote_circle.original_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id.present?

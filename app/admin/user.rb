@@ -24,6 +24,7 @@ ActiveAdmin.register User do
   scope :militant
   scope :exempt_from_payment
   scope :militant_and_exempt_from_payment
+  scope :census_vote_circle
 
   permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :vote_circle_id, :wants_information_by_sms, :exempt_from_payment
 
@@ -265,6 +266,9 @@ ActiveAdmin.register User do
   filter :wants_participation
   filter :participation_team_id, as: :select, collection: ParticipationTeam.all
   filter :votes_election_id, as: :select, collection: Election.all
+  filter :user_vote_circle_autonomy_id_in, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse).map{|c| [c[0],"__#{c[1][2,2]}%"]}, label: "Circle autonomy"
+  filter :user_vote_circle_province_id_in, as: :select, collection: Carmen::Country.coded("ES").subregions.map{|x|[x.name, "____#{(x.index).to_s.rjust(2,"0")}%"]}, label: "Circle province"
+  filter :user_vote_circle_id_in, as: :select, collection: VoteCircle.all.order(:original_name).map{|c| [c.original_name, c.id]}, label: "Circle name"
 
   form partial: "form"
 
