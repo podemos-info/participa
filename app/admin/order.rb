@@ -142,36 +142,35 @@ ActiveAdmin.register Order do
   end
   
   csv do
-    order_user = order.parent.get_user if order.parent
     column :id
     column :colaboracion do |order|
       order.parent_id
     end
     column :user_id
     column :full_name do |order|
-      order_user.full_name if order_user
+      order.parent.get_user.full_name if order.parent and order.parent.get_user
     end
     column :dni do |order|
-      order_user.document_vatid.upcase if order_user and order_user.document_vatid.present?
+      order.parent.get_user.document_vatid.upcase if order.parent and order.parent.get_user and order.parent.get_user.document_vatid
     end
     column :address do |order|
-      order_user.address if order_user
+      order.parent.get_user.address if order.parent and order.parent.get_user
     end
 
     column :order_type do |order|
       order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
     end
     column :town do |order|
-      order_user.town_name if order_user
+      order.parent.get_user.town_name if order.parent and order.parent.get_user
     end
     column :province do |order|
-      order_user.province_name if order_user
+      order.parent.get_user.province_name if order.parent and order.parent.get_user
     end
     column :island do |order|
-      order_user.island_name if order_user
+      order.parent.get_user.island_name if order.parent and order.parent.get_user
     end
     column :autonomy do |order|
-      order_user.autonomy_name if order_user
+      order.parent.get_user.autonomy_name if order.parent and order.parent.get_user
     end
 
     column :status_name
@@ -188,10 +187,10 @@ ActiveAdmin.register Order do
       order.redsys_order_id if order.is_credit_card?
     end
     column :es_militante do |order|
-      order_user.still_militant? if order_user
+      order.parent.get_user.militant? if order.parent && order.parent.get_user &&  order.parent.get_user.respond_to?("militant?")
     end
     column :circulo do |order|
-      order_user.vote_circle.original_name if order_user && order_user.vote_circle_id.present?
+      order.parent.get_user.vote_circle.original_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id.present?
     end
   end
 end
