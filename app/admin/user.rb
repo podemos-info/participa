@@ -24,7 +24,6 @@ ActiveAdmin.register User do
   scope :militant
   scope :exempt_from_payment
   scope :militant_and_exempt_from_payment
-  scope :census_vote_circle
 
   permit_params :email, :phone, :unconfirmed_phone, :password, :password_confirmation, :first_name, :last_name, :gender, :document_type, :document_vatid, :born_at, :address, :town, :postal_code, :province, :country, :vote_province, :vote_town, :wants_newsletter, :vote_district, :vote_circle_id, :wants_information_by_sms, :exempt_from_payment
 
