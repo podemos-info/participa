@@ -33,6 +33,8 @@ module RegistrationsHelper
   end
 
   def get_vote_circles
-    VoteCircle.all.sort
+    result = VoteCircle.all.where("code like 'IP%'").sort
+    result += VoteCircle.all.where.not("code like 'IP%'").order(:original_name)
+    result
   end
 end
