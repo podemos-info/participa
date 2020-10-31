@@ -14,14 +14,21 @@ namespace :podemos do
     lists_created = []
     User.militant.each do |militant|
       code = militant.vote_circle.code
-      unless lists_created.include?(code) or code[4, 2].to_i == 0
+      unless lists_created.include?(code)
         name = militant.vote_circle.original_name
         name = name.gsub(/- (.+), (.*) -/,'- \2 \1 -')
         name = name.gsub(/- (.*)\/.* -/, '- \1 -')
         name = name.reverse.sub("- ".reverse, "- Militantes ".reverse).reverse
         name = name.gsub(/'/) { |x| "\\#{x}" }
+        name.delete! '"'
         lists_created << code
-        sendy_lists.add_list "C - #{name}", "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+        if (code[0, 2] == "TC")
+          sendy_lists.add_list "C - #{name}", "mcc_#{code[4, 2]}_#{code[9, 2]}"
+        elsif (code[0, 2] != "TB" && code[0, 2] != "TM")
+          sendy_lists.add_list "A - #{name}", "mce_#{code[0, 2]}_#{code[9, 2]}"
+        else
+          sendy_lists.add_list "D - #{name}", "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+        end
       end
     end
 
@@ -38,15 +45,23 @@ namespace :podemos do
       unless lists_created.include?(code) or code[4, 2].to_i == 0
         lists_created << code
 
-        oldcode = "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
-        code = "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2].to_i}"
+        if (code[0, 2] == "TC")
+          codestring = "mcc_#{code[4, 2]}_#{code[9, 2]}"
+        else
+          codestring = "mc_#{code[4, 2]}_#{code[6, 3]}_#{code[9, 2]}"
+        end
         name = militant.vote_circle.original_name
         name = name.gsub(/- (.+), (.*) -/,'- \2 \1 -')
         name = name.gsub(/- (.*)\/.* -/, '- \1 -')
         name = name.reverse.sub("- ".reverse, "- Militantes ".reverse).reverse
-        name = "C - #{name} - #{oldcode}".gsub(/'/) { |x| "\\#{x}" }
+        name = "#{name} - #{codestring}".gsub(/'/) { |x| "\\#{x}" }
+        if (code[0, 2] == "TC")
+          name = "C - #{name}"
+        else
+          name = "D - #{name}"
+        end
 
-        sql = "UPDATE lists SET name='#{name}' WHERE name LIKE '% - #{oldcode}' OR name LIKE '% - #{code}';"
+        sql = "UPDATE lists SET name='#{name}' WHERE name LIKE '% - #{codestring}';"
 
         puts "#{sql}"
 
