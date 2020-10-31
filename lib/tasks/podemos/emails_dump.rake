@@ -39,8 +39,10 @@ namespace :podemos do
           town = code[6, 3]
           if codetype == "IP"
             row << "mc_"
-          elsif codetype != "TB" && codetype != "TC" && codetype != "TM"
-            row << "mce_"
+          elsif codetype == "TC"
+            row << "mcc_#{prov}_#{code[9, 2]}"
+          elsif codetype != "TB" && codetype != "TM"
+            row << "mce_#{codetype.downcase}_#{code[9, 2]}"
           elsif town.to_i == 0
             row << "mc_#{prov}_"
           else
