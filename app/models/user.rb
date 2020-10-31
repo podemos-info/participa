@@ -975,8 +975,9 @@ class User < ActiveRecord::Base
 
   def process_militant_data
     is_militant = self.still_militant?
+    lmr = self.militant_records.last
+    UsersMailer.new_militant_email(self.id).deliver_now  if is_militant && (lmr.blank? || (lmr.present? && lmr.is_militant == false))
     self.militant_records_management is_militant
-    UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
   end
 
   def self.census_vote_circle
