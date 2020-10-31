@@ -32,20 +32,22 @@ namespace :podemos do
           row << "t_rural"
         end
 
-        if user.militant? && user.militant_at?('2020-10-15')
+        if user.militant? && user.militant_at?('2020-10-16')
           code = user.vote_circle.code
           codetype = code[0, 2]
           prov = code[4, 2]
           town = code[6, 3]
           if codetype == "IP"
             row << "mc_"
-          elsif codetype != "TB" && codetype != "TC" && codetype != "TM"
-            row << "mce_"
+          elsif codetype == "TC"
+            row << "mcc_#{prov}_#{code[9, 2]}"
+          elsif codetype != "TB" && codetype != "TM"
+            row << "mce_#{codetype.downcase}_#{code[9, 2]}"
           elsif town.to_i == 0
             row << "mc_#{prov}_"
           else
             row << "mc_#{prov}_#{town}_#{code[9, 2]}"
-          end   
+          end
         end
 
         writer << row
