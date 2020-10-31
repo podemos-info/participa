@@ -939,11 +939,18 @@ class User < ActiveRecord::Base
       new_record.end_verified = now if new_record.begin_verified.present?
     end
     if self.in_vote_circle?
-      new_record.begin_in_vote_circle = last_record.begin_in_vote_circle unless last_record.end_in_vote_circle.present?
-      new_record.begin_in_vote_circle ||= self.vote_circle_changed_at
-      new_record.vote_circle_name = last_record.vote_circle_name if last_record.vote_circle_name.present? && last_record.end_in_vote_circle.nil?
-      new_record.vote_circle_name ||= self.vote_circle.name
-      new_record.end_in_vote_circle = nil
+      if self.vote_circle.name.downcase.strip == last_record.vote_circle_name.downcase.strip
+        new_record.begin_in_vote_circle = last_record.begin_in_vote_circle unless last_record.end_in_vote_circle.present?
+        new_record.begin_in_vote_circle ||= self.vote_circle_changed_at
+        new_record.vote_circle_name = last_record.vote_circle_name if last_record.vote_circle_name.present? && last_record.end_in_vote_circle.nil?
+        new_record.vote_circle_name ||= self.vote_circle.name
+        new_record.end_in_vote_circle = nil
+      else
+        last_record.update(end_in_vote_circle:self.vote_circle_changed_at)
+        new_record.begin_in_vote_circle = self.vote_circle_changed_at
+        new_record.vote_circle_name = self.vote_circle.name
+        new_record.end_in_vote_circle = nil
+      end
     else
       new_record.begin_in_vote_circle = last_record.begin_in_vote_circle if last_record.begin_in_vote_circle.present?
       new_record.vote_circle_name = last_record.vote_circle_name if last_record.vote_circle_name.present?
