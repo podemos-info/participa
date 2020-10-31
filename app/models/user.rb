@@ -210,6 +210,24 @@ class User < ActiveRecord::Base
     parent.table[:vote_town]
   end
 
+  ransacker :user_vote_circle_province_id, formatter: proc { |value|
+    VoteCircle.where("code like ?", value).map { |vote_circle| vote_circle.id }.uniq
+   } do |parent|
+    parent.table[:vote_circle_id]
+  end
+
+  ransacker :user_vote_circle_autonomy_id, formatter: proc { |value|
+    VoteCircle.where("code like ?", value).map { |vote_circle| vote_circle.id }.uniq
+   } do |parent|
+     parent.table[:vote_circle_id]
+  end
+
+  ransacker :user_vote_circle_id, formatter: proc { |value|
+    VoteCircle.where(id: value).map { |vote_circle| vote_circle.id }.uniq
+  } do |parent|
+    parent.table[:vote_circle_id]
+  end
+
   GENDER = { "F" => "Femenino", "M" => "Masculino", "O" => "Otro", "N" => "No contesta" }
   DOCUMENTS_TYPE = [["DNI", 1], ["NIE", 2], ["Pasaporte", 3]]
 
@@ -869,7 +887,7 @@ class User < ActiveRecord::Base
     self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
   end
 
-  def militant_at?(date,extra = 15)
+  def militant_at?(date,extra = 14)
     in_circle_at = Time.zone.parse(self.vote_circle_changed_at.to_s) if self.vote_circle_id.present?
     verified_at = nil
     collaborator_at = nil
@@ -887,10 +905,11 @@ class User < ActiveRecord::Base
     end
 
     return false unless in_circle_at.present? && verified_at.present? && collaborator_at.present?
-    dates = [in_circle_at, verified_at, collaborator_at]
+    dates_1 = [in_circle_at, collaborator_at]
+    dates_2 = [in_circle_at, verified_at, collaborator_at]
     min_date =Time.zone.parse(date.to_s)
     max_date = min_date + extra.days
-    (dates.min <= min_date && dates.max <= max_date)
+    (dates_1.min < min_date && dates_2.max < max_date)
   end
 
   def get_not_militant_detail
@@ -958,6 +977,11 @@ class User < ActiveRecord::Base
     is_militant = self.still_militant?
     self.militant_records_management is_militant
     UsersMailer.new_militant_email(self.id).deliver_now  if is_militant
+  end
+
+  def self.census_vote_circle
+    ids = User.militant.select{ |u| u.id if u.militant_at?('2020-09-15')}
+    User.where(id:ids)
   end
   private
 
