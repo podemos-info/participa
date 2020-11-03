@@ -12,8 +12,12 @@
     <%= form_tag do |f| %>
       <%= hidden_field_tag 'validation_token', validation_token_for_paper_vote_user %>
       <%= hidden_field_tag 'user_id', paper_vote_user.id %>
-      <%= submit_tag("Vota", class: "button") %>
-      <p><%= link_to "Cancelar", "" %></p>
+      <% if election.scope == 6 %>
+        <p><%= link_to "Volver", "",class: "button" %></p>
+      <% else %>
+          <%= submit_tag("Vota", class: "button") %>
+          <p><%= link_to "Cancelar", "" %></p>
+      <% end %>
     <% end %>
     </center>
   <% else %>
