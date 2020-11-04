@@ -3,7 +3,11 @@
 <div class="content-content">
   <h2>Mesa de votación presencial</h2>
   <p><strong>Territorio:</strong> <%= election_location.territory %></p>
-  <p><strong>Votos emitidos:</strong> <%= paper_authority_votes_count %></p>
+  <% if election.scope != 6 %>
+    <p><strong>Votos emitidos:</strong> <%= paper_authority_votes_count %></p>
+  <% else %>
+    <p><strong>Personas participantes:</strong> <%= paper_authority_votes_count %></p>
+  <% end %>
 
   <% if paper_vote_user %>
     <h3>Registrar voto</h3>
@@ -12,8 +16,13 @@
     <%= form_tag do |f| %>
       <%= hidden_field_tag 'validation_token', validation_token_for_paper_vote_user %>
       <%= hidden_field_tag 'user_id', paper_vote_user.id %>
-      <%= submit_tag("Vota", class: "button") %>
-      <p><%= link_to "Cancelar", "" %></p>
+      <% if election.scope == 6 %>
+        <%= submit_tag("Participa", class: "button") %>
+        <p><%= link_to "Volver", "" %></p>
+      <% else %>
+          <%= submit_tag("Vota", class: "button") %>
+          <p><%= link_to "Cancelar", "" %></p>
+      <% end %>
     <% end %>
     </center>
   <% else %>

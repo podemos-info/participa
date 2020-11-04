@@ -90,7 +90,7 @@ class VoteController < ApplicationController
   end
 
   def paper_authority_votes_count
-    @paper_authority_votes_count ||= current_user.paper_authority_votes.where(election: election).count
+    @paper_authority_votes_count ||= Vote.where(election: election, paper_authority_id: current_user.id).count
   end
 
   def paper_vote_user
@@ -119,7 +119,11 @@ class VoteController < ApplicationController
 
   def save_paper_vote_for_user(user)
     if election.votes.create(user_id: user.id, paper_authority: current_user)
-      flash[:notice] = "El voto ha sido registrado."
+      if election.scope == 6
+        flash[:notice] = "Identificación registrada."
+      else
+        flash[:notice] = "El voto ha sido registrado."
+      end
     else
       flash[:error] = "No se ha podido registrar el voto. Inténtalo nuevamente o consulta con la persona que administra el sistema."
     end
@@ -166,8 +170,11 @@ class VoteController < ApplicationController
 
   def check_not_voted(user = current_user)
     return true unless user.has_already_voted_in(election.id)
-
-    flash[:error] = t("podemos.election.already_voted")
+    if election.scope == 6
+      flash[:error] = t("podemos.election.already_identified")
+    else
+      flash[:error] = t("podemos.election.already_voted")
+    end
     false
   end
 
