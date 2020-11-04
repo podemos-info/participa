@@ -11,7 +11,7 @@
       <%= link_to "Versiones anteriores", {:version => (params[:version] || @versions.length).to_i - 1}%>
       <br>
     <% end %>
-    <% if params[:version] %>
+    <% if params[:version] && params[:version].to_i < @versions.length.to_i%>
       <h3>Esta es la version Nº <%= "#{params[:version]}"%></h3>
 
       <b>Modificado el:</b>

@@ -523,7 +523,8 @@ ActiveAdmin.register User do
     def show
       @user = User.with_deleted.find(params[:id])
       @versions = @user.versions
-      @user = @user.versions[params[:version].to_i].reify if params[:version]
+      user_version = @user.versions[params[:version].to_i] if params[:version]
+      @user = user_version.reify if user_version.present?
       show! #it seems to need this
     end
 
