@@ -111,15 +111,17 @@ show do
     end
     column class: "column attachments" do
       [:front, :back].each do |attachment|
-        div class: "attachment" do
-          a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
-            image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
-          end
-          div class: "rotate" do
-            span "ROTAR"
-            [0, 90, 180, 270].reverse.each do |degrees|
-              a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
-                fa_icon "id-card-o"
+        if user_verification.send("#{attachment}_vatid_file_name")
+          div class: "attachment" do
+            a class: "preview", target: "_blank", href: view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :original) do
+              image_tag view_image_admin_user_verification_path(user_verification, attachment: attachment, size: :thumb)
+            end
+            div class: "rotate" do
+              span "ROTAR"
+              [0, 90, 180, 270].reverse.each do |degrees|
+                a class: "degrees-#{degrees}", href: rotate_admin_user_verification_path(user_verification, attachment: attachment, degrees: degrees), "data-method" => :patch do
+                  fa_icon "id-card-o"
+                end
               end
             end
           end
@@ -218,8 +220,11 @@ end
     return unless params[:attachment].present? && params[:size].present? && params[:id].present?
     verification = UserVerification.find(params[:id])
     attachment = "#{params[:attachment]}_vatid"
+    filename =  verification.send("#{params[:attachment]}_vatid_file_name")
+    return unless filename
     size = params[:size].to_sym
-    send_file verification.send(attachment).path(size), disposition: 'inline'
+    file = verification.send(attachment).path(size)
+    send_file file, disposition: 'inline' if file
   end
 
   controller do
