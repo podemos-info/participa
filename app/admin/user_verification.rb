@@ -218,6 +218,8 @@ end
     return unless params[:attachment].present? && params[:size].present? && params[:id].present?
     verification = UserVerification.find(params[:id])
     attachment = "#{params[:attachment]}_vatid"
+    filename =  verification.send("#{params[:attachment]}_vatid_file_name")
+    return unless filename
     size = params[:size].to_sym
     file = verification.send(attachment).path(size)
     send_file file, disposition: 'inline' if file
