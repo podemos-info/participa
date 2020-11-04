@@ -219,7 +219,8 @@ end
     verification = UserVerification.find(params[:id])
     attachment = "#{params[:attachment]}_vatid"
     size = params[:size].to_sym
-    send_file verification.send(attachment).path(size), disposition: 'inline'
+    file = verification.send(attachment).path(size)
+    send_file file, disposition: 'inline' if file
   end
 
   controller do
