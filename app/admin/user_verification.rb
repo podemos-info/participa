@@ -215,7 +215,7 @@ end
   end
 
   member_action :view_image do
-    return unless params[:attachment].present? && params[:size].present?
+    return unless params[:attachment].present? && params[:size].present? && params[:id].present?
     verification = UserVerification.find(params[:id])
     attachment = "#{params[:attachment]}_vatid"
     size = params[:size].to_sym
