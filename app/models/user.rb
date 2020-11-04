@@ -939,7 +939,7 @@ class User < ActiveRecord::Base
       new_record.end_verified = now if new_record.begin_verified.present?
     end
     if self.in_vote_circle?
-      if self.vote_circle && self.vote_circle.name.present && last_record.vote_circle_name.present? && self.vote_circle.name.downcase.strip == last_record.vote_circle_name.downcase.strip
+      if self.vote_circle && self.vote_circle.name.present? && last_record.vote_circle_name.present? && self.vote_circle.name.downcase.strip == last_record.vote_circle_name.downcase.strip
         new_record.begin_in_vote_circle = last_record.begin_in_vote_circle unless last_record.end_in_vote_circle.present?
         new_record.begin_in_vote_circle ||= self.vote_circle_changed_at
         new_record.vote_circle_name = last_record.vote_circle_name if last_record.vote_circle_name.present? && last_record.end_in_vote_circle.nil?
