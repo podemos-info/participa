@@ -204,4 +204,5 @@ Rails.application.routes.draw do
     mount Resque::Server.new, at: '/admin/resque', as: :resque
   end
 
+  get '*path' ,to: redirect("/#{I18n.locale}") # this line must be always the last line
 end
