@@ -166,8 +166,11 @@ class VoteController < ApplicationController
 
   def check_not_voted(user = current_user)
     return true unless user.has_already_voted_in(election.id)
-
-    flash[:error] = t("podemos.election.already_voted")
+    if election.scope == 6
+      flash[:error] = t("podemos.election.already_identified")
+    else
+      flash[:error] = t("podemos.election.already_voted")
+    end
     false
   end
 
