@@ -90,7 +90,7 @@ class VoteController < ApplicationController
   end
 
   def paper_authority_votes_count
-    @paper_authority_votes_count ||= current_user.paper_authority_votes.where(election: election).count
+    @paper_authority_votes_count ||= Vote.where(election: election, paper_authority_id: current_user.id).count
   end
 
   def paper_vote_user
