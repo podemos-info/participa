@@ -81,10 +81,10 @@ Rails.application.routes.draw do
     get '/cuentas-consejos-autonomicos-33', to: 'page#cuentas_consejos_autonomicos', as: 'cuentas_consejos_autonomicos'
     get '/condiciones-uso-correo-34', to: 'page#condiciones_uso_correo', as: 'condiciones_uso_correo'
 
-    get '/propuestas', to: 'proposals#index', as: 'proposals'
-    get '/propuestas/info', to: 'proposals#info', as: 'proposals_info'
-    get '/propuestas/:id', to: 'proposals#show', as: 'proposal'
-    post '/apoyar/:proposal_id', to: 'supports#create', as: 'proposal_supports'
+    #get '/propuestas', to: 'proposals#index', as: 'proposals'
+    #get '/propuestas/info', to: 'proposals#info', as: 'proposals_info'
+    #get '/propuestas/:id', to: 'proposals#show', as: 'proposal'
+    #post '/apoyar/:proposal_id', to: 'supports#create', as: 'proposal_supports'
 
     get :notices, to: 'notice#index', as: 'notices'
     get '/vote/create/:election_id', to: 'vote#create', as: :create_vote
