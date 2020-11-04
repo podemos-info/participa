@@ -25,6 +25,7 @@ class AudioCaptchaController < ApplicationController
   end
 
   def captcha_value_spelling
+    return unless captcha_value
     @captcha_value_spelling ||= captcha_value.chars.map {|letter| I18n.t("simple_captcha.letters.#{letter}")} .join " "
   end
 
