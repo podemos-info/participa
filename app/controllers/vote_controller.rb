@@ -119,7 +119,11 @@ class VoteController < ApplicationController
 
   def save_paper_vote_for_user(user)
     if election.votes.create(user_id: user.id, paper_authority: current_user)
-      flash[:notice] = "El voto ha sido registrado."
+      if election.scope == 6
+        flash[:notice] = "Identificación registrada."
+      else
+        flash[:notice] = "El voto ha sido registrado."
+      end
     else
       flash[:error] = "No se ha podido registrar el voto. Inténtalo nuevamente o consulta con la persona que administra el sistema."
     end
