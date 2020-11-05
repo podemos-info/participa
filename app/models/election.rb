@@ -8,6 +8,9 @@ class Election < ActiveRecord::Base
             3 => :ignore_multiple_territories,
             4 => :requires_vatid_check
 
+  has_attached_file :census_file, path: ":rails_root/non-public/system/:class/:attachment/:id_partition/:filename"
+  validates_attachment_content_type :census_file, content_type:  ["text/plain", "text/csv"], message: "No reconocido como CSV"
+  validates_attachment_size :census_file, less_than: 10.megabyte
   validates :title, :starts_at, :ends_at, :agora_election_id, :scope, presence: true
   has_many :votes
   has_many :election_locations, dependent: :destroy
@@ -77,6 +80,32 @@ class Election < ActiveRecord::Base
     not ((self.scope==5 and user.country=="ES") or (self.scope==4 and not user.vote_in_spanish_island?))
   end
 
+  def check_valid_location_from_csv(user, valid_locations)
+    return false unless self.census_file.file?
+    result = false
+    data =CSV.parse(Paperclip.io_adapters.for(self.census_file).read,headers:true)
+    data.each do |r|
+      if user && r["user_id"] == user.id.to_s
+        result = r["vote_circle_id"].present? && valid_locations.any? {|l| l.location == r["vote_circle_id"]}
+        break
+      end
+    end
+    result
+  end
+
+  def get_user_location_from_csv(user)
+    return false unless self.census_file.file?
+    result = false
+    data =CSV.parse(Paperclip.io_adapters.for(self.census_file).read,headers:true)
+    data.each do |r|
+      if user && r["user_id"] == user.id.to_s
+        result = r["vote_circle_id"] if r["vote_circle_id"]
+        break
+      end
+    end
+    result
+  end
+
   def has_valid_location_for?(_user, check_created_at: true, valid_locations: nil)
     users = []
     valid_locations ||= election_locations
@@ -93,7 +122,12 @@ class Election < ActiveRecord::Base
         when 3 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_town_numeric}
         when 4 then user.has_vote_town? && valid_locations.any? {|l| l.location == user.vote_island_numeric}
         when 5 then user.country!="ES" && valid_locations.any?
-        when 6 then user.vote_circle.present? && valid_locations.any? {|l| l.location == user.vote_circle_id.to_s} && user.still_militant?  && (self.user_created_at_max ? user.militant_at?(self.user_created_at_max) : true)
+      when 6 then
+        if self.census_file.file?
+          check_valid_location_from_csv user, valid_locations
+        else
+          user.vote_circle.present? && valid_locations.any? {|l| l.location == user.vote_circle_id.to_s} && user.still_militant?  && (self.user_created_at_max ? user.militant_at?(self.user_created_at_max) : true)
+        end
       end
     end
   end
@@ -164,7 +198,11 @@ class Election < ActiveRecord::Base
       when 4
         user.vote_island_numeric
       when 6
-        user.vote_circle_id
+        if self.census_file.file?
+          get_user_location_from_csv user
+        else
+          user.vote_circle_id
+        end
       else
         "00"
     end
