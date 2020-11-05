@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200912054313) do
+ActiveRecord::Schema.define(version: 20201105121837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,7 +134,11 @@ ActiveRecord::Schema.define(version: 20200912054313) do
     t.string   "counter_key"
     t.string   "external_link"
     t.string   "voter_id_template"
-    t.integer  "election_type",       default: 0, null: false
+    t.integer  "election_type",            default: 0, null: false
+    t.string   "census_file_file_name"
+    t.string   "census_file_content_type"
+    t.integer  "census_file_file_size"
+    t.datetime "census_file_updated_at"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

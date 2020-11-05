@@ -93,12 +93,30 @@ class VoteController < ApplicationController
     @paper_authority_votes_count ||= Vote.where(election: election, paper_authority_id: current_user.id).count
   end
 
+  def get_paper_vote_user_from_csv()
+    return unless election.census_file.present?
+    result = nil
+    data =CSV.parse(Paperclip.io_adapters.for(election.census_file).read,headers:true)
+    data.each do |r|
+      if params[:validation_token] && r["user_id"] == params[:user_id]
+        result = User.find_by_id(params[:user_id])
+      elsif params[:document_vatid] && params[:document_type] && r["dni"].downcase == params[:document_vatid].downcase
+        result = User.where("lower(document_vatid) = ?", params[:document_vatid].downcase).find_by(document_type: params[:document_type])
+      end
+      break if result
+    end
+    result
+  end
   def paper_vote_user
-    @paper_vote_user ||= if params[:validation_token]
+    if election.scope == 6 && election.census_file.file?
+      @paper_vote_user ||= get_paper_vote_user_from_csv
+    else
+      @paper_vote_user ||= if params[:validation_token]
                            paper_voters.find(params[:user_id])
                          elsif params[:document_vatid] && params[:document_type]
                            paper_voters.where("lower(document_vatid) = ?", params[:document_vatid].downcase).find_by(document_type: params[:document_type])
                          end
+    end
   end
 
   def validation_token_for_paper_vote_user
