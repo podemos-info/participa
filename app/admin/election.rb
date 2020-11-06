@@ -1,7 +1,7 @@
 ActiveAdmin.register Election do
   menu :parent => "Participación"
 
-  permit_params :title, :info_url, :election_type, :agora_election_id, :scope, :server, :starts_at, :ends_at, :close_message, :locations,
+  permit_params :title, :info_url, :election_type, :agora_election_id, :scope, :census_file, :server, :starts_at, :ends_at, :close_message, :locations,
                 :user_created_at_max, :priority, :info_text, :requires_vatid_check, :requires_sms_check, :show_on_index,
                 :ignore_multiple_territories, :meta_description, :meta_image, :external_link, :voter_id_template
 
@@ -52,6 +52,9 @@ ActiveAdmin.register Election do
       row :agora_election_id if !election.external?
       row :voter_id_template
       row :scope_name
+      row :census_file do |election|
+        link_to(election.census_file_file_name, election.census_file.url) if election.census_file.exists?
+      end
       row :starts_at
       row :ends_at
       row :user_created_at_max
@@ -143,6 +146,7 @@ ActiveAdmin.register Election do
       f.input :external_link
 
       f.input :scope, as: :select, collection: Election::SCOPE
+      f.input :census_file, as: :file
       f.input :locations, as: :text, :input_html => { :class => 'autogrow', :rows => 10, :cols => 10  } if !resource.persisted?
       f.input :starts_at
       f.input :ends_at
