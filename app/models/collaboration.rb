@@ -73,6 +73,10 @@ class Collaboration < ActiveRecord::Base
   before_save :check_spanish_bic
   before_save do
     self.iban_account.upcase! if self.iban_account.present?
+    if self.payment_type != 1 && (self.redsys_identifier.present? || self.redsys_expiration.present?)
+      self.redsys_identifier = nil
+      self.redsys_expiration = nil
+    end
   end
   after_commit :verify_user_militant_status
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201105121837) do
+ActiveRecord::Schema.define(version: 20201110125929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20201105121837) do
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
-    t.integer  "status",                  default: 0
+    t.integer  "status",                  default: 2
     t.string   "redsys_identifier"
     t.datetime "redsys_expiration"
     t.string   "non_user_document_vatid"
