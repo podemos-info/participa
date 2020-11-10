@@ -34,6 +34,45 @@ namespace :podemos do
     type_circle != "IP" && type_circle != "TB" && type_circle != "TC" && type_circle != "TM"
   end
 
+  def get_census_vote_circles
+    header = ["user_id","ccaa_code","CCAA","prov_code","Provincia","reg_code","Comarca","town_code","Municipio","id_circulo","código_circulo","circulo","Nombre","Apellidos","DNI","Telefono","Email"]
+    data = []
+    User.militant.find_each do |u|
+      if u.militant_at?('2020-10-16')
+        circle_has_town = u.vote_circle.town.present?
+        mk_muni_code = "m_#{u.vote_circle.code[4,2]}_000_0"
+        is_internal_code = (mk_muni_code =="m_00_000_0")
+        if is_internal_code
+          muni_code = ""
+          town_code = ""
+          town_name = ""
+          province_code= ""
+          province_name = ""
+          autonomy_code = ""
+          autonomy_name = ""
+          region_code = ""
+          region_name = ""
+        else
+          muni_code = circle_has_town ? u.vote_circle.town : mk_muni_code
+          country = Carmen::Country.coded("ES")
+          town_code = muni_code[5..7].to_i > 0 ? muni_code[5..7] : "000"
+          town_name = ""
+          province_code= "p_#{muni_code[2,2]}"
+          province_name = country.subregions[muni_code[2,2].to_i-1].name
+          autonomy_code = Podemos::GeoExtra::AUTONOMIES[province_code][0]
+          autonomy_name = Podemos::GeoExtra::AUTONOMIES[province_code][1]
+          region_code = "#{autonomy_code[2,2]}#{province_code[2,2]}#{town_code}"
+          region_name = ""
+        end
+        circle_code = u.vote_circle.code
+        circle_name = u.vote_circle.name
+        data.push([u.id,autonomy_code,autonomy_name,province_code,province_name,region_code,region_name, town_code, town_name,u.vote_circle_id, circle_code, circle_name, u.first_name,u.last_name,u.document_vatid,u.phone,u.email])
+      end
+    end
+    folder = "tmp/census_militants"
+    export_raw_data "census_vote_circles#{Date.today}", data, headers:header, folder: folder do |r| r end
+  end
+
   desc "[podemos] Dump counters for users attributes"
   task :vote_circle_census, [:year,:month,:day] => :environment do |t, args|
     args.with_defaults(:year => nil, :month=>nil, :day=>nil)
@@ -231,6 +270,9 @@ namespace :podemos do
     export_raw_data "militantes_municipio.#{suffix}", towns.sort, headers: ["Comunidad autonoma" ,"Provincia","Municipio | #{suffix}"] + headers, folder:folder do |d| d[1].flatten end
     progress.inc
     export_raw_data "militantes_circulo.#{suffix}", circles.sort, headers: ["Comunidad autonoma" ,"Provincia","Municipio", "Círculo | #{suffix}"] + headers, folder: folder do |k,d| d.flatten end
+    progress.inc
+    puts ("Generando fichero de censo de círculos, tardará unos 20 minutos")
+    get_census_vote_circles
     progress.inc
   end
 end
