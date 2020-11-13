@@ -246,6 +246,9 @@ class Collaboration < ActiveRecord::Base
 
   def create_order date, maybe_first=false
     is_first = false
+    amount = 0
+    reference_text = ""
+
     if maybe_first and not self.has_confirmed_payment?
       if self.first_order.nil?
         is_first = true
@@ -253,13 +256,23 @@ class Collaboration < ActiveRecord::Base
         return self.first_order
       end
     end
+
+    if self.frequency == 1
+      last_returned_order = self.order.where("payed_at > ?",'2020-09-30').where("payed_at > ?",(DateTime.now - 3.months)).returned.order(payed_at:'ASC').last
+
+      if last_returned_order
+        amount = last_returned_order.amount if last_returned_order.present?
+        reference_text = last_returned_order.reference.strip + ", "
+        end
+    end
     date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
-    reference_text ="Colaboración "
+    reference_text += self.user.present? && self.user.militant? ? "Cuota " : "Colaboración "
     reference_text += "Puntual " if self.frequency == 0
-    amount = self.frequency == 0 ? self.amount : self.amount * self.frequency
+    reference_text += I18n.localize(date, :format => "%B %Y")
+    amount += self.frequency == 0 ? self.amount : self.amount * self.frequency
     order = Order.new user: self.user,
              parent:self,
-             reference: reference_text + I18n.localize(date, :format => "%B %Y"),
+             reference: reference_text,
              first: is_first,
              amount: amount,
              payable_at: date,
