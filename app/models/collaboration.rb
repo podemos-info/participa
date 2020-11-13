@@ -258,7 +258,7 @@ class Collaboration < ActiveRecord::Base
     end
 
     if self.frequency == 1
-      last_returned_order = self.order.where("payed_at > ?",(DateTime.now - 3.months)).returned.order(payed_at:'ASC').last
+      last_returned_order = self.order.where("payed_at > ?",'2020-09-30').where("payed_at > ?",(DateTime.now - 3.months)).returned.order(payed_at:'ASC').last
 
       if last_returned_order
         amount = last_returned_order.amount if last_returned_order.present?
