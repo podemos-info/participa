@@ -266,7 +266,7 @@ class Collaboration < ActiveRecord::Base
         end
     end
     date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
-    reference_text += self.user.present? && self.user.militant? ? "Cuota " : "Colaboración "
+    reference_text += self.user.present? && self.user.militant? && self.frequency != 0 ? "Cuota " : "Colaboración "
     reference_text += "Puntual " if self.frequency == 0
     reference_text += I18n.localize(date, :format => "%B %Y")
     amount += self.frequency == 0 ? self.amount : self.amount * self.frequency
