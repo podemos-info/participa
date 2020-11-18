@@ -266,7 +266,7 @@ class Collaboration < ActiveRecord::Base
         end
     end
     date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
-    reference_text += self.user.present? && self.user.militant? ? "Cuota " : "Colaboración "
+    reference_text += self.user.present? && self.user.militant? && self.frequency != 0 ? "Cuota " : "Colaboración "
     reference_text += "Puntual " if self.frequency == 0
     reference_text += I18n.localize(date, :format => "%B %Y")
     amount += self.frequency == 0 ? self.amount : self.amount * self.frequency
@@ -317,39 +317,37 @@ class Collaboration < ActiveRecord::Base
     # should have a solid test base before doing this change and review where .order
     # is called. 
 
+    oids= self.order.pluck(:id).last(MAX_RETURNED_ORDERS)
+    returned_orders = self.order.where(id:oids).returned.count
+    militant = self.get_user.militant? || false
+
     if self.is_payable?
       if error
         self.set_error! "Marcada como error porque se ha devuelto una orden con código asociado a error en la colaboración."
       elsif warn
         self.set_warning! "Marcada como alerta porque se ha devuelto una orden con código asociado a alerta en la colaboración."
-      elsif self.order.count >= MAX_RETURNED_ORDERS
+      elsif returned_orders >= MAX_RETURNED_ORDERS
         last_order = self.last_order_for(Date.today)
         if last_order
-          last_month = last_order.payable_at.unique_month 
+          last_month = last_order.payable_at.unique_month
         else
           last_month = self.created_at.unique_month
         end
         self.set_error! "Marcada como error porque se ha superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
-      # added in diferent block code to maintain code coherence and to allow future code refactor
-
-      # send diferent mail in diferent
-      #if !self.send_email_at and self.user
-      #  if self.payment_type == 1 # paid with CreditCard
-      #    if warn
-      #      collaborations_mailer.creditcard_expired_email(self.user).deliver
-      #    elsif error
-      #      collaborations_mailer.creditcard_error_email(self.user).deliver
-      #    end
-      #  else
-      #    if self.order.count == 1
-      #      collaborations_mailer.receipt_returned_email(self.user).deliver
-      #    else
-      #      collaborations_mailer.receipt_suspended_email(self.user).deliver
-      #    end
-      #  end
-      #end
     end
+    if returned_orders <= MAX_RETURNED_ORDERS
+      if militant
+        CollaborationsMailer.order_returned_militant(self).deliver_now
+      else
+        CollaborationsMailer.order_returned_user(self).deliver_now
+      end
+    else
+      type = militant ? "cuota" : "colaboración"
+      relation = militant ? "compañero/a" : "colaborador/a"
+      CollaborationsMailer.collaboration_suspended(self,type,relation).deliver_now
+    end
+
   end
 
   def has_warnings?
