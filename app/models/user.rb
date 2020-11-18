@@ -900,9 +900,12 @@ class User < ActiveRecord::Base
     valid_collaboration = self.collaborations.where.not(frequency:0).where("amount >= ?", MIN_MILITANT_AMOUNT).where(status:[0, 2,3])
     if valid_collaboration.exists?
       collaborator_at = Time.zone.parse(valid_collaboration.last.created_at.to_s)
-    elsif self.exempt_from_payment?
+    end
+    if self.exempt_from_payment?
       last_record = MilitantRecord.where(user_id:self.id).where(payment_type:0).where.not(begin_payment:nil).last
-      collaborator_at = Time.zone.parse(last_record.begin_payment.to_s) if last_record.present?
+      exempt_at = Time.zone.parse(last_record.begin_payment.to_s) if last_record.present?
+      collaborator_at = [collaborator_at, exempt_at].min if collaborator_at
+      collaborator_at ||= exempt_at
     end
 
     return false unless in_circle_at.present? && verified_at.present? && collaborator_at.present?
