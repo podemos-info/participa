@@ -75,11 +75,12 @@ class CollaborationsMailer < ActionMailer::Base
     )
   end
 
-  def collaboration_suspended(collaboration,type,relation)
+  def collaboration_suspended(collaboration,type,relation,extra)
     @brand_config = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]
     @user = collaboration.get_user
     @type = type
     @relation = relation
+    @extra = extra
     mail(
       from: 'colaboraciones@podemos.info',
       to: @user.email,
