@@ -32,7 +32,7 @@ namespace :podemos do
           row << "t_rural"
         end
 
-        if user.militant? && user.militant_at?('2020-10-16')
+        if user.militant?
           code = user.vote_circle.code
           codetype = code[0, 2]
           prov = code[4, 2]
