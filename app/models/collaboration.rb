@@ -317,7 +317,7 @@ class Collaboration < ActiveRecord::Base
     # should have a solid test base before doing this change and review where .order
     # is called. 
 
-    oids= self.order.last(MAX_RETURNED_ORDERS).pluck(:id)
+    oids= self.order.pluck(:id).last(MAX_RETURNED_ORDERS)
     returned_orders = self.order.where(id:oids).returned.count
     militant = self.get_user.militant? || false
 
@@ -336,7 +336,7 @@ class Collaboration < ActiveRecord::Base
         self.set_error! "Marcada como error porque se ha superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
       end
     end
-    if returned_orders < MAX_RETURNED_ORDERS
+    if returned_orders <= MAX_RETURNED_ORDERS
       if militant
         CollaborationsMailer.order_returned_militant(self).deliver_now
       else
@@ -344,7 +344,8 @@ class Collaboration < ActiveRecord::Base
       end
     else
       type = militant ? "cuota" : "colaboración"
-      CollaborationsMailer.collaboration_suspended(self,type).deliver_now
+      relation = militant ? "compañero/a" : "colaborador/a"
+      CollaborationsMailer.collaboration_suspended(self,type,relation).deliver_now
     end
 
   end
