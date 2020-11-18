@@ -1,7 +1,4 @@
 class CollaborationsMailer < ActionMailer::Base
-  include Resque::Mailer
-  default from: 'administracion@podemos.info'
-
   def creditcard_error_email(user)
     @brand_config = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]
     @user = user
@@ -48,5 +45,45 @@ class CollaborationsMailer < ActionMailer::Base
       ) do |format|
       format.text
       end
+  end
+
+  def order_returned_militant(collaboration)
+    @brand_config = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]
+    @user = collaboration.get_user
+    @order = collaboration.order.returned.last
+    @payment_day = Order.payment_day
+    @month = I18n.localize(@order.created_at, :format => "%B")
+    @date = I18n.localize(@order.created_at, :format => "%B %Y")
+    mail(
+      from: 'colaboraciones@podemos.info',
+      to: @user.email,
+      subject: "Devolución cuota #{@date}"
+    )
+  end
+
+  def order_returned_user(collaboration)
+    @brand_config = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]
+    @user = collaboration.get_user
+    @order = collaboration.order.returned.last
+    @payment_day = Order.payment_day
+    @month = I18n.localize(@order.created_at, :format => "%B")
+    @date = I18n.localize(@order.created_at, :format => "%B %Y")
+    mail(
+      from: 'colaboraciones@podemos.info',
+      to: @user.email,
+      subject: "Devolución colaboración #{@date}"
+    )
+  end
+
+  def collaboration_suspended(collaboration,type,relation)
+    @brand_config = Rails.application.secrets.microcredits["brands"][Rails.application.secrets.microcredits["default_brand"]]
+    @user = collaboration.get_user
+    @type = type
+    @relation = relation
+    mail(
+      from: 'colaboraciones@podemos.info',
+      to: @user.email,
+      subject: "Suspensión #{type}"
+    )
   end
 end
