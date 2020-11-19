@@ -903,8 +903,8 @@ class User < ActiveRecord::Base
     end
     if self.exempt_from_payment?
       last_record = MilitantRecord.where(user_id:self.id).where(payment_type:0).where.not(begin_payment:nil).last
-      exempt_at = Time.zone.parse(last_record.begin_payment.to_s) if last_record.present?
-      collaborator_at = [collaborator_at, exempt_at].min if collaborator_at
+      exempt_at = Time.zone.parse(last_record.begin_payment.to_s) if last_record.present? && last_record.begin_payment.present?
+      collaborator_at = [collaborator_at, exempt_at].min if collaborator_at && exempt_at
       collaborator_at ||= exempt_at
     end
 
