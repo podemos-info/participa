@@ -345,7 +345,8 @@ class Collaboration < ActiveRecord::Base
     else
       type = militant ? "cuota" : "colaboración"
       relation = militant ? "compañero/a" : "colaborador/a"
-      CollaborationsMailer.collaboration_suspended(self,type,relation).deliver_now
+      extra = militant ? ", y por lo tanto su condición como militante" : ""
+      CollaborationsMailer.collaboration_suspended(self,type,relation,extra).deliver_now
     end
 
   end
