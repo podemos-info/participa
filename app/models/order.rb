@@ -169,7 +169,7 @@ class Order < ActiveRecord::Base
   end
 
   def processed! code=nil
-    error_codes = ['AC01', 'AC04', 'AC06', 'RC01', 'SL01']
+    error_codes = ['AC01', 'AC04', 'AC06', 'SL01']
     self.payment_response = code if code
     self.status = 5
     self.status = 4 if code && error_codes.include?(code.strip.upcase)
