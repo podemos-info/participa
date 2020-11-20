@@ -379,7 +379,7 @@ ActiveAdmin.register Collaboration do
         if order
           if order.payment_identifier.upcase == "#{iban}/#{bic}"
             if order.is_paid?
-              if order.mark_as_returned! code
+              if order.processed! code
                 result = :ok
               else
                 result = :no_mark
