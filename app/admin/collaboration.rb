@@ -377,7 +377,7 @@ ActiveAdmin.register Collaboration do
 
         order= Order.find(order_id)
         if order
-          if order.payment_identifier.upcase == "#{iban}/#{bic}"
+          if order.payment_identifier.gsub(' ','').upcase == "#{iban}/#{bic}"
             if order.is_paid?
               if order.processed! code
                 result = :ok
