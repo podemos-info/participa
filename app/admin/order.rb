@@ -119,7 +119,7 @@ ActiveAdmin.register Order do
 
   member_action :return_order do
     if resource.is_paid?
-      resource.mark_as_returned!
+      resource.processed!
     end
     redirect_to admin_order_path(id: resource.id)
   end

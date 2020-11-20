@@ -168,16 +168,18 @@ class Order < ActiveRecord::Base
     end 
   end
 
-  def mark_as_returned! code=nil
+  def processed! code=nil
+    error_codes = ['AC01', 'AC04', 'AC06', 'RC01', 'SL01']
     self.payment_response = code if code
     self.status = 5
+    self.status = 4 if code && error_codes.include?(code.strip.upcase)
     if self.save
       if self.parent and not self.parent.deleted?
         reason = SEPA_RETURNED_REASONS[self.payment_response]
         if reason
-          self.parent.returned_order! reason[:error], reason[:warn]
+          self.parent.processed_order! reason[:error], reason[:warn], (status == 4)
         else
-          self.parent.returned_order!
+          self.parent.processed_order!
         end
       end
       true

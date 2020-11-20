@@ -311,7 +311,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   MAX_RETURNED_ORDERS = 2
-  def returned_order! error=nil, warn=false
+  def processed_order! error=nil, warn=false, is_error=false
     # FIXME: this should be orders for the inflextions
     # http://guides.rubyonrails.org/association_basics.html#the-has-many-association
     # should have a solid test base before doing this change and review where .order
@@ -326,27 +326,28 @@ class Collaboration < ActiveRecord::Base
         self.set_error! "Marcada como error porque se ha devuelto una orden con código asociado a error en la colaboración."
       elsif warn
         self.set_warning! "Marcada como alerta porque se ha devuelto una orden con código asociado a alerta en la colaboración."
-      elsif returned_orders >= MAX_RETURNED_ORDERS
+      elsif returned_orders >= MAX_RETURNED_ORDERS || is_error
         last_order = self.last_order_for(Date.today)
         if last_order
           last_month = last_order.payable_at.unique_month
         else
           last_month = self.created_at.unique_month
         end
-        self.set_error! "Marcada como error porque se ha superado el límite de órdenes devueltas consecutivas." if Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS
+        msg_error = is_error ? "Marcada como error por respuesta directa del banco" : "Marcada como error porque se ha superado el límite de órdenes devueltas consecutivas."
+        self.set_error! msg_error if (Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS) || is_error
       end
     end
-    if returned_orders <= MAX_RETURNED_ORDERS
+    if returned_orders > MAX_RETURNED_ORDERS || is_error
+      type = militant ? "cuota" : "colaboración"
+      relation = militant ? "compañero/a" : "colaborador/a"
+      extra = militant ? ", y por lo tanto su condición como militante" : ""
+      CollaborationsMailer.collaboration_suspended(self, type, relation, extra).deliver_now
+    else
       if militant
         CollaborationsMailer.order_returned_militant(self).deliver_now
       else
         CollaborationsMailer.order_returned_user(self).deliver_now
       end
-    else
-      type = militant ? "cuota" : "colaboración"
-      relation = militant ? "compañero/a" : "colaborador/a"
-      extra = militant ? ", y por lo tanto su condición como militante" : ""
-      CollaborationsMailer.collaboration_suspended(self,type,relation,extra).deliver_now
     end
 
   end
