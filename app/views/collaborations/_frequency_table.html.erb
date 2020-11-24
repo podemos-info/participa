@@ -15,7 +15,7 @@
   <tfoot>
     <tr>
       <th>Total</th>
-      <th><%= number_to_euro(@orders.map {|o| o[-1].amount} .sum) %></th>
+      <th><%= number_to_euro(@orders.map {|o| o[-1].was_returned? ? 0 : o[-1].amount} .sum) %></th>
     </tr>
   </tfoot>
 </table>
