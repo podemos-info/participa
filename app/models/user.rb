@@ -187,6 +187,8 @@ class User < ActiveRecord::Base
   scope :has_vote_circle, -> { where("vote_circle_id IS NOT NULL") }
   scope :wants_information_by_sms, -> {where(wants_information_by_sms: true)}
   scope :militant_and_exempt_from_payment, -> {militant.exempt_from_payment}
+  scope :exterior, -> { where.not(country: "ES") }
+  scope :spain, -> { where(country: "ES") }
 
   ransacker :vote_province, formatter: proc { |value|
     values = value.split(",")
@@ -877,7 +879,7 @@ class User < ActiveRecord::Base
 
   def verified_for_militant?
     status = self.user_verifications.last.status if self.user_verifications.any?
-    self.verified? || (self.user_verifications.any? && (status == "pending" || status == "accepted"))
+    self.verified? || (self.user_verifications.any? && (status == "pending" || status == "accepted" || status == "accepted_by_email"))
   end
 
   def collaborator_for_militant?
