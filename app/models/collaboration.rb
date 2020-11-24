@@ -244,7 +244,7 @@ class Collaboration < ActiveRecord::Base
     self.order.sort {|a,b| b.payable_at <=> a.payable_at }.detect {|o| o.payable_at.unique_month <= date.unique_month and (o.is_payable? or o.is_paid?) }
   end
 
-  def create_order date, maybe_first=false
+  def create_order date, maybe_first=false,add_amount=true
     is_first = false
     amount = 0
     reference_text = ""
@@ -260,7 +260,7 @@ class Collaboration < ActiveRecord::Base
     if self.frequency == 1
       last_returned_order = self.order.where("payed_at > ?",'2020-09-30').where("payed_at > ?",(DateTime.now - 3.months)).returned.order(payed_at:'ASC').last
 
-      if last_returned_order
+      if last_returned_order && add_amount
         amount = last_returned_order.amount if last_returned_order.present?
         reference_text = last_returned_order.reference.strip + ", "
         end
@@ -417,6 +417,7 @@ class Collaboration < ActiveRecord::Base
     current = date_start
 
     orders = []
+    add_amount = true
     while current<=date_end
       # month orders sorted by creation date
       month_orders = saved_orders[current.unique_month].sort_by { |o| o.created_at }
@@ -427,11 +428,12 @@ class Collaboration < ActiveRecord::Base
       # if collaboration is active, should create orders, this month should have an order and it doesn't have a valid saved order, create it (not persistent)
 
       if self.deleted_at.nil? and create_orders and self.must_have_order? current and valid_orders.empty?
-        order = self.create_order current, orders.empty?
+        order = self.create_order current, orders.empty?, add_amount
         month_orders << order if order
       end
       orders << month_orders if month_orders.length>0
       current += 1.month
+      add_amount = false
     end
     orders
   end
