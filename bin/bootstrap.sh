@@ -25,7 +25,7 @@ if [ ! -d ~/.rvm ] ; then
 fi
 
 source ~/.rvm/scripts/rvm
-rvm use --install 2.4.2
+rvm use --install 2.4.4
 ruby --version
 gem install bundler
 
