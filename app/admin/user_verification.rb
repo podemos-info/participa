@@ -10,7 +10,7 @@ ActiveAdmin.register UserVerification do
 
   actions :index, :show, :edit, :update
   action_item "Procesar", only: :index do
-    link_to "Procesar", params.merge(:action => :get_first_free)
+    link_to "Procesar", params.permit(:id).merge(:action => :get_first_free)
   end
 
   scope "Todas", :all, if: proc {current_user.is_admin?}
@@ -75,19 +75,19 @@ ActiveAdmin.register UserVerification do
     column "estado" do |verification|
       case UserVerification.statuses[verification.status]
         when UserVerification.statuses[:pending]
-          status_tag("Pendiente", :warning)
+          status_tag("Pendiente", class: "warning")
         when UserVerification.statuses[:accepted]
-          status_tag("Verificada", :ok)
+          status_tag("Verificada", class: "ok")
         when UserVerification.statuses[:accepted_by_email]
-          status_tag("Verificada por Email", :ok)
+          status_tag("Verificada por Email", class: "ok")
         when UserVerification.statuses[:issues]
-          status_tag("con Problemas", :important)
+          status_tag("con Problemas", class: "important")
         when UserVerification.statuses[:rejected]
-          status_tag("Rechazada", :error)
+          status_tag("Rechazada", class: "error")
         when UserVerification.statuses[:discarded]
-          status_tag("Descartada", :error)
+          status_tag("Descartada", class: "error")
         when UserVerification.statuses[:paused]
-          status_tag("Pausada", :error)
+          status_tag("Pausada", class: "error")
       end
     end
     column "Quiere tarjeta", :wants_card if current_user.is_admin?

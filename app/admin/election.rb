@@ -29,16 +29,16 @@ ActiveAdmin.register Election do
   show do
     attributes_table do
       row :requires_sms_check do
-        status_tag("SMS CHECK", :ok)
+        status_tag("SMS CHECK", class: "ok")
       end if election.requires_sms_check
       row :requires_vatid_check do
-        status_tag("DNI CHECK", :ok)
+        status_tag("DNI CHECK", class: "ok")
       end if election.requires_vatid_check
       row :show_on_index do
-        status_tag("SHOW ON INDEX", :ok)
+        status_tag("SHOW ON INDEX", class: "ok")
       end if election.show_on_index
       row :ignore_multiple_territories do
-        status_tag("IGNORE MULTIPLE TERRITORIES", :ok)
+        status_tag("IGNORE MULTIPLE TERRITORIES", class: "ok")
       end if election.ignore_multiple_territories
       row :title
       row :info_url
@@ -90,7 +90,7 @@ ActiveAdmin.register Election do
             span link_to "Modificar", edit_admin_election_election_location_path(el.election, el)
             span link_to "Borrar", admin_election_election_location_path(el.election, el), method: :delete, data: { confirm: "¿Estas segura de borrar esta ubicación?" }
             span link_to "TSV", download_voting_definition_admin_election_path(el) if el.has_voting_info && !election.external?
-            status_tag("VERSION NUEVA", :error) if el.new_version_pending
+            status_tag("VERSION NUEVA", class: "error") if el.new_version_pending
           end
         end
       end
@@ -187,9 +187,9 @@ ActiveAdmin.register Election do
 end
 
 ActiveAdmin.register ElectionLocation do
-  menu false
-  belongs_to :election
   navigation_menu :default
+  menu false
+  belongs_to :election, optional: true
 
   permit_params :election_id, :location, :agora_version, :new_agora_version, :override, :title, :layout, :description, :share_text, :theme, :has_voting_info,
                 election_location_questions_attributes: [ :id, :_destroy, :title, :description, :voting_system, :layout, :winners, :minimum, :maximum, :random_order, :totals, :options, options_headers: [] ]

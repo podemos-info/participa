@@ -102,9 +102,10 @@ ActiveAdmin.register ImpulsaEdition do
 end
 
 ActiveAdmin.register ImpulsaEditionTopic do
-  menu false
-  belongs_to :impulsa_edition
   navigation_menu :default
+  menu false
+  belongs_to :impulsa_edition, optional: true
+
 
   permit_params :impulsa_edition_id, :name
 

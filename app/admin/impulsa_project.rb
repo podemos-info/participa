@@ -1,10 +1,10 @@
 ActiveAdmin.register ImpulsaProject do
-  menu false
-  belongs_to :impulsa_edition
   navigation_menu :default
+  menu false
+  belongs_to :impulsa_edition, optional: true
 
   permit_params do
-    ps = [:review, :validable, :name, :impulsa_edition_category_id, :evaluation_result]
+    ps = [:id, :review, :validable, :name, :impulsa_edition_category_id, :evaluation_result]
     all_fields = resource.wizard_step_admin_params
 
     if params[:review]=="true"
@@ -17,8 +17,8 @@ ActiveAdmin.register ImpulsaProject do
     end
     ps
   end
-
-  filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
+  #filter :impulsa_edition_category, as: :select, collection: -> { parent.impulsa_edition_categories}
+  filter :impulsa_edition_category, as: :select, collection: -> { ImpulsaEditionCategory.pluck(:name)}
   filter :name
   filter :user_id
   filter :id_in, as: :string, label: "Lista de IDs de proyectos", required: false
@@ -35,9 +35,9 @@ ActiveAdmin.register ImpulsaProject do
     column :state do |impulsa_project|
       div impulsa_project.state
       if impulsa_project.wizard_has_errors?
-        status_tag("#{impulsa_project.wizard_count_errors} errores", :error)
+        status_tag("#{impulsa_project.wizard_count_errors} errores", class: "error")
       else
-        status_tag("OK", :ok)
+        status_tag("OK", class: "ok")
       end
     end
     column :evaluation_result
@@ -104,7 +104,7 @@ ActiveAdmin.register ImpulsaProject do
         row :user do
           attributes_table_for impulsa_project.user do
             row :status do
-                impulsa_project.user.deleted? ? status_tag("BORRADO", :error) : ""
+                impulsa_project.user.deleted? ? status_tag("BORRADO", class: "error") : ""
             end
             row :full_name do
               if can?(:read, impulsa_project.user)
@@ -380,8 +380,8 @@ ActiveAdmin.register ImpulsaProject do
   end
 
   controller do
-    before_filter :update_scopes, :only => :index
-    before_filter :multiple_id_search, :only => :index
+    before_action :update_scopes, :only => :index, raise: false
+    before_action :multiple_id_search, :only => :index, raise: false
 
     def multiple_id_search
       params[:q][:id_in] = params[:q][:id_in].split unless params[:q].nil? or params[:q][:id_in].nil?

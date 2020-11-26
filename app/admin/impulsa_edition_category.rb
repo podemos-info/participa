@@ -1,7 +1,7 @@
 ActiveAdmin.register ImpulsaEditionCategory do
-  menu false
-  belongs_to :impulsa_edition
   navigation_menu :default
+  menu false
+  belongs_to :impulsa_edition, optional: true
 
   permit_params :impulsa_edition_id, :name, :has_votings, :category_type, :winners, :prize, :only_authors, :coofficial_language, :wizard_raw, :evaluation_raw, territories: []
 
@@ -27,8 +27,8 @@ ActiveAdmin.register ImpulsaEditionCategory do
             end
           end
         end .flatten
-        status_tag("Campos duplicados", :warn) if all_fields.count > all_fields.uniq.count
-        status_tag("Votacion", :ok) if impulsa_edition_category.has_votings
+        status_tag("Campos duplicados", class: "warn") if all_fields.count > all_fields.uniq.count
+        status_tag("Votacion", class: "ok") if impulsa_edition_category.has_votings
       end
     end
   end

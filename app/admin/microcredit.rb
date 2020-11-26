@@ -118,7 +118,7 @@ ActiveAdmin.register Microcredit do
           ].join("<br/>").html_safe
       end
       row :mailing do
-        status_tag("es Mailing", :ok)
+        status_tag("es Mailing", class: "ok")
       end
       row :reset_at
       row :created_at
@@ -272,9 +272,9 @@ ActiveAdmin.register Microcredit do
 end
 
 ActiveAdmin.register MicrocreditOption do
-  menu false
-  belongs_to :microcredit
   navigation_menu :default
+  menu false
+  belongs_to :microcredit, optional: true
 
   permit_params :microcredit_id, :name, :parent_id, :intern_code
 

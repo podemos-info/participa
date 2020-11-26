@@ -16,8 +16,8 @@ ActiveAdmin.register Post do
     end
     column :created_at
     column :status do |post|
-      status_tag("Publicado", :ok) if post.published?
-      status_tag("Borrado", :error) if post.deleted?
+      status_tag("Publicado", class: "ok") if post.published?
+      status_tag("Borrado", class: "error") if post.deleted?
     end
     actions
   end
@@ -26,8 +26,8 @@ ActiveAdmin.register Post do
     attributes_table do
       row :id
       row :status do
-        status_tag("Publicado", :ok) if post.published?
-        status_tag("Borrado", :error) if post.deleted?
+        status_tag("Publicado", class: "ok") if post.published?
+        status_tag("Borrado", class: "error") if post.deleted?
       end
       row :title
       row :content do
