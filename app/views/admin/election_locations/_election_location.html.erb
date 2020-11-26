@@ -23,9 +23,9 @@
     <%= f.input :override %>
     <%= f.input :has_voting_info, as: :hidden %>
     <li><% if @election_location.has_voting_info %>
-      <%= link_to "Eliminar información de votación", params.merge(has_voting_info:false), class: 'button', data: { confirm: "Esto borrará la información necesaria para generar el TSV de la votación. ¿Estas segura de borrar la información de esta votación?" } %>
+      <%= link_to "Eliminar información de votación", params.permit(:id).merge(has_voting_info:false), class: 'button', data: { confirm: "Esto borrará la información necesaria para generar el TSV de la votación. ¿Estas segura de borrar la información de esta votación?" } %>
     <% else %>
-      <%= link_to "Añadir información de votación", params.merge(has_voting_info:true), class: 'button' %>
+      <%= link_to "Añadir información de votación", params.permit(:id).merge(has_voting_info:true), class: 'button' %>
     <% end %></li>
   <% end %>
 
