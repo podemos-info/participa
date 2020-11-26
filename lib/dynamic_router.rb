@@ -2,7 +2,7 @@
 class DynamicRouter
 
   def self.load
-    if ActiveRecord::Base.connection.table_exists? 'pages'
+    if ActiveRecord::Base.connection.data_source_exists? 'pages'
       Rails.application.routes.draw do
         scope "/(:locale)", locale: /es|ca|eu/ do 
           Page.all.each do |pag|
