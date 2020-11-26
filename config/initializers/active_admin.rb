@@ -52,7 +52,7 @@ ActiveAdmin.setup do |config|
   # Active Admin will automatically call an authentication
   # method in a before filter of all controller actions to
   # ensure that there is a currently logged in admin user.
-  #
+
   # This setting changes the method which Active Admin calls
   # within the application controller.
   config.authentication_method = :authenticate_admin_user!
@@ -118,10 +118,10 @@ ActiveAdmin.setup do |config|
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  # config.allow_comments = false
+  # config.comments = false
   #
   # You can disable the menu item for the comments index page:
-  config.show_comments_in_menu = false
+  config.comments_menu = false
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
@@ -139,7 +139,7 @@ ActiveAdmin.setup do |config|
   # You can add before, after and around filters to all of your
   # Active Admin resources and pages from here.
   #
-  # config.before_filter :do_something_awesome
+  # config.before_action :do_something_awesome
 
 
   # == Setting a Favicon
@@ -163,15 +163,15 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
-  config.register_stylesheet 'podemos_forms.css'
+  #config.register_stylesheet 'podemos_forms.css'
   #
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
   #
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
-  config.register_stylesheet 'admin/podemos.css'
-  config.register_javascript 'admin/podemos.js'
+  #config.register_stylesheet 'admin/podemos.css'
+  #config.register_javascript 'admin/podemos.js'
 
 
   # == CSV options
@@ -242,7 +242,6 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
-
 end
 
 ActiveAdmin::Views::SidebarSection.class_eval do
