@@ -1,4 +1,4 @@
-class CreateImpulsaEditionCategories < ActiveRecord::Migration
+class CreateImpulsaEditionCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :impulsa_edition_categories do |t|
       t.references :impulsa_edition, index: true, foreign_key: true

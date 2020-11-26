@@ -1,4 +1,4 @@
-class CreateElections < ActiveRecord::Migration
+class CreateElections < ActiveRecord::Migration[4.2]
   def change
     create_table :elections do |t|
       t.string :title

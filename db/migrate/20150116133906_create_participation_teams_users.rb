@@ -1,4 +1,4 @@
-class CreateParticipationTeamsUsers < ActiveRecord::Migration
+class CreateParticipationTeamsUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :participation_teams_users, id: false do |t|
       t.integer :participation_team_id

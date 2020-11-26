@@ -1,4 +1,4 @@
-class CreateUserVerifications < ActiveRecord::Migration
+class CreateUserVerifications < ActiveRecord::Migration[4.2]
   def change
     create_table :user_verifications do |t|
       t.references :user, null: false

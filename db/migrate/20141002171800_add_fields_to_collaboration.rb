@@ -1,4 +1,4 @@
-class AddFieldsToCollaboration < ActiveRecord::Migration
+class AddFieldsToCollaboration < ActiveRecord::Migration[4.2]
   def change
     add_column :collaborations, :payment_type, :integer
     add_column :collaborations, :ccc_entity, :integer

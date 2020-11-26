@@ -1,4 +1,4 @@
-class AddSmsValidationToUser < ActiveRecord::Migration
+class AddSmsValidationToUser < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :phone, :string
     add_column :users, :sms_confirmation_token, :string

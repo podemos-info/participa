@@ -1,4 +1,4 @@
-class ModifyTranslationFieldsToImpulsaProject < ActiveRecord::Migration
+class ModifyTranslationFieldsToImpulsaProject < ActiveRecord::Migration[4.2]
   def change
     add_column :impulsa_projects, :coofficial_translation, :boolean
     add_column :impulsa_projects, :coofficial_name, :string

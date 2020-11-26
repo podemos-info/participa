@@ -1,4 +1,4 @@
-class AddElectionTypeToElections < ActiveRecord::Migration
+class AddElectionTypeToElections < ActiveRecord::Migration[4.2]
   def up
     add_column :elections, :election_type, :integer, default: 0, null: true
 

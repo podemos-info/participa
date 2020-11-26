@@ -1,4 +1,4 @@
-class CreateImpulsaProjects < ActiveRecord::Migration
+class CreateImpulsaProjects < ActiveRecord::Migration[4.2]
   def change
     create_table :impulsa_projects do |t|
       t.references :impulsa_edition_category, index: true, foreign_key: true

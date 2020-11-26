@@ -1,4 +1,4 @@
-class CreateMicrocredits < ActiveRecord::Migration
+class CreateMicrocredits < ActiveRecord::Migration[4.2]
   def change
     create_table :microcredits do |t|
       t.string :title

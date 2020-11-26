@@ -1,4 +1,4 @@
-class AddNonUserInfoToCollaborations < ActiveRecord::Migration
+class AddNonUserInfoToCollaborations < ActiveRecord::Migration[4.2]
   def change
     add_column :collaborations, :non_user_document_vatid, :string
     add_column :collaborations, :non_user_email, :string

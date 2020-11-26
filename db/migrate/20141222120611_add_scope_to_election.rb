@@ -1,4 +1,4 @@
-class AddScopeToElection < ActiveRecord::Migration
+class AddScopeToElection < ActiveRecord::Migration[4.2]
   def up
     add_column :elections, :scope, :int
 

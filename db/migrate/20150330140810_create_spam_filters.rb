@@ -1,4 +1,4 @@
-class CreateSpamFilters < ActiveRecord::Migration
+class CreateSpamFilters < ActiveRecord::Migration[4.2]
   def change
     create_table :spam_filters do |t|
       t.string :name

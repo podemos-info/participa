@@ -1,4 +1,4 @@
-class CreateMicrocreditLoans < ActiveRecord::Migration
+class CreateMicrocreditLoans < ActiveRecord::Migration[4.2]
   def change
     create_table :microcredit_loans do |t|
       t.integer :microcredit_id

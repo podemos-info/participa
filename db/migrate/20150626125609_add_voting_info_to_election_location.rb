@@ -1,4 +1,4 @@
-class AddVotingInfoToElectionLocation < ActiveRecord::Migration
+class AddVotingInfoToElectionLocation < ActiveRecord::Migration[4.2]
   def change
     add_column :election_locations, :title, :text
     add_column :election_locations, :layout, :string

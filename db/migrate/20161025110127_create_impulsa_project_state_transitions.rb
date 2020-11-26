@@ -1,4 +1,4 @@
-class CreateImpulsaProjectStateTransitions < ActiveRecord::Migration
+class CreateImpulsaProjectStateTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :impulsa_project_state_transitions do |t|
       t.references :impulsa_project, index: true, foreign_key: true

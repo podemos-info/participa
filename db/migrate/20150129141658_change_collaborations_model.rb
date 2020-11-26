@@ -1,4 +1,4 @@
-class ChangeCollaborationsModel < ActiveRecord::Migration
+class ChangeCollaborationsModel < ActiveRecord::Migration[4.2]
   def change
     # redsys payment data moved to orders
     remove_column :collaborations, :redsys_order, :string

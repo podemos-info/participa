@@ -1,4 +1,4 @@
-class AddMetaFieldsToModels < ActiveRecord::Migration
+class AddMetaFieldsToModels < ActiveRecord::Migration[4.2]
   def change
     add_column :elections, :meta_description, :string
     add_column :elections, :meta_image, :string

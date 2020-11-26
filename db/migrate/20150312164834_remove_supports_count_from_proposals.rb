@@ -1,4 +1,4 @@
-class RemoveSupportsCountFromProposals < ActiveRecord::Migration
+class RemoveSupportsCountFromProposals < ActiveRecord::Migration[4.2]
   def change
     remove_column :proposals, :supports_count
   end

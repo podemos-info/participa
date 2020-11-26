@@ -1,4 +1,4 @@
-class AddMissingFieldsToImpulsaProject < ActiveRecord::Migration
+class AddMissingFieldsToImpulsaProject < ActiveRecord::Migration[4.2]
   def change
     add_column :impulsa_projects, :total_budget, :integer
     add_column :impulsa_projects, :coofficial_territorial_context, :text

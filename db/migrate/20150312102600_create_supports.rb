@@ -1,4 +1,4 @@
-class CreateSupports < ActiveRecord::Migration
+class CreateSupports < ActiveRecord::Migration[4.2]
   def change
     create_table :supports do |t|
       t.integer :user_id

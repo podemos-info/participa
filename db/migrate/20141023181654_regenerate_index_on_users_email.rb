@@ -1,4 +1,4 @@
-class RegenerateIndexOnUsersEmail < ActiveRecord::Migration
+class RegenerateIndexOnUsersEmail < ActiveRecord::Migration[4.2]
   # remove unique index for email, see paranoia/acts_as_paranoid on user.email
   # and uniqueness rules for deleted_at
   def up 

@@ -1,4 +1,4 @@
-class AddEvaluationsToImpulsa < ActiveRecord::Migration
+class AddEvaluationsToImpulsa < ActiveRecord::Migration[4.2]
   def change
     add_column :impulsa_edition_categories, :evaluation, :text
     add_column :impulsa_projects, :evaluator1_evaluation, :text

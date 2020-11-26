@@ -1,4 +1,4 @@
-class CreateImpulsaEditions < ActiveRecord::Migration
+class CreateImpulsaEditions < ActiveRecord::Migration[4.2]
   def change
     create_table :impulsa_editions do |t|
       t.string :name, null: false

@@ -1,4 +1,4 @@
-class AddMissingInfoToImpulsaProjects < ActiveRecord::Migration
+class AddMissingInfoToImpulsaProjects < ActiveRecord::Migration[4.2]
   def change
     add_column :impulsa_projects, :organization_type, :integer
     add_column :impulsa_projects, :alternative_career, :text

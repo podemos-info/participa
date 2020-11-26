@@ -1,4 +1,4 @@
-class AddWizardsToImpulsa < ActiveRecord::Migration
+class AddWizardsToImpulsa < ActiveRecord::Migration[4.2]
   def change
     add_column :impulsa_edition_categories, :wizard, :text
     add_column :impulsa_projects, :wizard_values, :text

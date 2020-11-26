@@ -1,4 +1,4 @@
-class CreateCategoriesPosts < ActiveRecord::Migration
+class CreateCategoriesPosts < ActiveRecord::Migration[4.2]
   def change
     create_table :categories_posts do |t|
       t.references :post, index: true

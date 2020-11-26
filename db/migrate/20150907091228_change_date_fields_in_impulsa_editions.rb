@@ -1,4 +1,4 @@
-class ChangeDateFieldsInImpulsaEditions < ActiveRecord::Migration
+class ChangeDateFieldsInImpulsaEditions < ActiveRecord::Migration[4.2]
   def self.up
     change_column :impulsa_editions, :start_at, :datetime
     change_column :impulsa_editions, :new_projects_until, :datetime

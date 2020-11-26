@@ -1,4 +1,4 @@
-class AlterImpulsaAttachments < ActiveRecord::Migration
+class AlterImpulsaAttachments < ActiveRecord::Migration[4.2]
   def change
     remove_attachment :impulsa_editions, :legal
     add_column :impulsa_editions, :legal, :text

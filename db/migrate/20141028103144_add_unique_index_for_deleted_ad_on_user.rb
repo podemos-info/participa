@@ -1,4 +1,4 @@
-class AddUniqueIndexForDeletedAdOnUser < ActiveRecord::Migration
+class AddUniqueIndexForDeletedAdOnUser < ActiveRecord::Migration[4.2]
   def up
     add_index :users, [ :deleted_at, :email ], :unique => true
     add_index :users, [ :deleted_at, :phone ], :unique => true

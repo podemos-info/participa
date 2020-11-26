@@ -1,4 +1,4 @@
-class CreateMicrocreditOptions < ActiveRecord::Migration
+class CreateMicrocreditOptions < ActiveRecord::Migration[4.2]
   def change
     create_table :microcredit_options do |t|
       t.belongs_to :microcredit, index: true

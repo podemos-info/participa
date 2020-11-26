@@ -1,4 +1,4 @@
-class CreateElectionLocationQuestion < ActiveRecord::Migration
+class CreateElectionLocationQuestion < ActiveRecord::Migration[4.2]
   def change
     create_table :election_location_questions do |t|
       t.references :election_location

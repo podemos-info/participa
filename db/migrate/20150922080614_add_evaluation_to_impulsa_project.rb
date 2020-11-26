@@ -1,4 +1,4 @@
-class AddEvaluationToImpulsaProject < ActiveRecord::Migration
+class AddEvaluationToImpulsaProject < ActiveRecord::Migration[4.2]
   def change
     add_reference :impulsa_projects, :evaluator1, references: :users
     add_column :impulsa_projects, :evaluator1_invalid_reasons, :text
