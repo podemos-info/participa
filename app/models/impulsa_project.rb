@@ -1,4 +1,4 @@
-class ImpulsaProject < ActiveRecord::Base
+class ImpulsaProject < ApplicationRecord
   include ImpulsaProjectStates
   include ImpulsaProjectWizard
   include ImpulsaProjectEvaluation
@@ -35,6 +35,7 @@ class ImpulsaProject < ActiveRecord::Base
   end
 
   def files_folder
-    "#{Rails.application.root}/non-public/system/impulsa_projects/#{id}/"
+    #"#{Rails.application.root}/non-public/system/impulsa_projects/#{id}/"
+    "#{Rails.application.root}/non-public/system/impulsa_projects/"
   end
 end

@@ -1,4 +1,4 @@
-class ReportGroup < ActiveRecord::Base
+class ReportGroup < ApplicationRecord
   def process row
     begin
       get_proc.call row

@@ -1,4 +1,4 @@
-class UserVerification < ActiveRecord::Base
+class UserVerification < ApplicationRecord
   belongs_to :user, -> { with_deleted }
 
   has_paper_trail
@@ -53,7 +53,7 @@ class UserVerification < ActiveRecord::Base
     if current
       current.assign_attributes(params)
     else
-      current = UserVerification.new params.merge(user: user)
+      current = UserVerification.new params.permit(:id).merge(user: user)
     end
     current
   end

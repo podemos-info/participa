@@ -1,4 +1,4 @@
-class Microcredit < ActiveRecord::Base
+class Microcredit < ApplicationRecord
   include FlagShihTzu
 
   has_flags 1 => :mailing

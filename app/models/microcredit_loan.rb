@@ -1,4 +1,4 @@
-class MicrocreditLoan < ActiveRecord::Base
+class MicrocreditLoan < ApplicationRecord
   apply_simple_captcha
   acts_as_paranoid
 

@@ -1,4 +1,4 @@
-class MicrocreditOption < ActiveRecord::Base
+class MicrocreditOption < ApplicationRecord
   belongs_to :microcredit
   belongs_to :parent, class_name: "MicrocreditOption"
   has_many :children, foreign_key: :parent_id, class_name: "MicrocreditOption", inverse_of: :parent

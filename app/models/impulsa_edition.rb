@@ -1,4 +1,4 @@
-class ImpulsaEdition < ActiveRecord::Base
+class ImpulsaEdition < ApplicationRecord
   store :legal, accessors: I18n.available_locales.map {|l| "legal_#{l}"}, coder: YAML
 
   has_many :impulsa_edition_categories

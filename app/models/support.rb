@@ -1,4 +1,4 @@
-class Support < ActiveRecord::Base
+class Support < ApplicationRecord
   belongs_to :user
   belongs_to :proposal, counter_cache: true
 

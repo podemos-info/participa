@@ -1,5 +1,5 @@
 require 'fileutils'
-class Collaboration < ActiveRecord::Base
+class Collaboration < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   acts_as_paranoid

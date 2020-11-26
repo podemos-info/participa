@@ -1,2 +1,2 @@
-class NoticeRegistrar < ActiveRecord::Base
+class NoticeRegistrar < ApplicationRecord
 end

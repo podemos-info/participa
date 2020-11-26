@@ -1,4 +1,4 @@
-class ElectionLocation < ActiveRecord::Base
+class ElectionLocation < ApplicationRecord
   belongs_to :election
   has_many :election_location_questions, -> { order(:id) }, dependent: :destroy
 

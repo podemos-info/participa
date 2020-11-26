@@ -1,5 +1,5 @@
 require 'numeric'
-class Proposal < ActiveRecord::Base
+class Proposal < ApplicationRecord
   has_many :supports, dependent: :destroy
 
   scope :reddit,  -> { where(reddit_threshold: true) }

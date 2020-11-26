@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   apply_simple_captcha
 
   include FlagShihTzu

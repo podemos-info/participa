@@ -1,4 +1,4 @@
-class SpamFilter < ActiveRecord::Base
+class SpamFilter < ApplicationRecord
   scope :active, -> { where(active:true) }
 
   after_initialize do |filter|

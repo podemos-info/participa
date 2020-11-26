@@ -1,4 +1,4 @@
-class Notice < ActiveRecord::Base
+class Notice < ApplicationRecord
 
   validates :title, :body, presence: true
   default_scope { order('created_at DESC') }

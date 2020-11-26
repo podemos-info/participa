@@ -1,4 +1,4 @@
-class Election < ActiveRecord::Base
+class Election < ApplicationRecord
   include FlagShihTzu
 
   SCOPE = [["Estatal", 0], ["Comunidad", 1], ["Provincial", 2], ["Municipal", 3], ["Insular", 4], ["Extranjeros", 5]]

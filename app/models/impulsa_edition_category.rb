@@ -1,4 +1,4 @@
-class ImpulsaEditionCategory < ActiveRecord::Base
+class ImpulsaEditionCategory < ApplicationRecord
   include FlagShihTzu
 
   has_flags 1 => :has_votings
