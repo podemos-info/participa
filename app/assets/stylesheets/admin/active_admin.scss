@@ -1,5 +1,5 @@
 //= require font-awesome
-
+@import "podemos_forms.css.scss";
 .attributes_table table th {
     padding-left: 10px;
     padding-right: 10px;
@@ -21,7 +21,7 @@
       content: " \2796 "
     }
     & a {
-        padding: 0px 10px;
+        padding: 0 10px;
         color: inherit;
     }
     &.panel-collapsed {
@@ -57,7 +57,6 @@ li.small_input, li.small_inputs ol li {
   clear: none;
   text-align: center;
   &.first {
-    margin-left: 20%;
     margin-left: calc(20% + 6px);
   }
   &.last + li {
@@ -127,7 +126,7 @@ li h3 {
       }
     }
     .rotate {
-      margin: 0px;
+      margin: 0;
       padding: 5px;
       background-color: #612D62;
       color: white;
