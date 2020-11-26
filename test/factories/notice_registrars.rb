@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :notice_registrar do
-    registration_id "MyString"
-    status false
+    registration_id { "MyString" }
+    status { false }
   end
 end

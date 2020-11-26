@@ -10,7 +10,7 @@ FactoryBot.define do
   factory :microcredit_loan do
     association :microcredit
     association :user
-    amount 100
+    amount { 100 }
     ip
   end
 

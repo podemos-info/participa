@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :spam_filter do
-    name "Test"
-    code "true"
-    data ""
-    query ""
-    active true
+    name { "Test" }
+    code { "true" }
+    data { "" }
+    query { "" }
+    active { true }
   end
 end

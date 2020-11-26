@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :proposal do
-    title 'Change the world'
-    description 'We should do this'
-    reddit_threshold true
+    title { 'Change the world' }
+    description { 'We should do this' }
+    reddit_threshold { true }
   end
 end

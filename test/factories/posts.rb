@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :post do
-    title "MyString"
-    content "MyText"
-    slug "MyString"
-    status 1
+    title { "MyString" }
+    content { "MyText" }
+    slug { "MyString" }
+    status { 1 }
   end
 end
