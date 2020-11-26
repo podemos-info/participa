@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  protect_from_forgery except: :callback_redsys
+  protect_from_forgery prepend: true, except: :callback_redsys
 
   def callback_redsys
     request_params = params

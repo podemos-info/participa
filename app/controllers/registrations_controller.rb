@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
 
-  prepend_before_filter :load_user_location
+  prepend_before_action :load_user_location
   helper_method :locked_personal_data?
 
   def load_user_location

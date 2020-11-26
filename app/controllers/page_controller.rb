@@ -11,7 +11,7 @@ class PageController < ApplicationController
                                               :apoderados_campana_autonomica_andalucia, :comparte_cambio_valoracion_propietarios,
                                               :comparte_cambio_valoracion_usuarios, :avales_candidaturas_primarias, :iniciativa_ciudadana]
 
-  before_filter :set_metas
+  before_action :set_metas, raise: false
 
   def set_metas
     @current_elections = Election.active

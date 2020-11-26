@@ -1,6 +1,6 @@
 class Api::V1Controller < ApplicationController
 
-  skip_before_filter :verify_authenticity_token 
+  skip_before_action :verify_authenticity_token, raise:false
 
   def gcm_registrate
     NoticeRegistrar.find_or_create_by(gcm_params)

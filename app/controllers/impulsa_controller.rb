@@ -1,7 +1,7 @@
 class ImpulsaController < ApplicationController
-  before_action :authenticate_user!, except: [ :index ]
-  before_action :set_variables
-  before_action :check_project, except: [ :index ]
+  before_action :authenticate_user!, except: [ :index ], raise: false
+  before_action :set_variables, raise: false
+  before_action :check_project, except: [ :index ], raise:false
  
   def index
     @upcoming = ImpulsaEdition.upcoming.first if @edition.nil?

@@ -2,16 +2,16 @@ class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery prepend: true, with: :exception
 
-  before_filter :banned_user
-  before_filter :unresolved_issues
+  before_action :banned_user
+  before_action :unresolved_issues
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_user_location!, if: :storable_location?
   before_action :set_locale
-  before_filter :allow_iframe_requests
-  before_filter :admin_logger
-  before_filter :set_metas
+  before_action :allow_iframe_requests
+  before_action :admin_logger
+  before_action :set_metas
 
   def set_metas
     @current_elections = Election.active

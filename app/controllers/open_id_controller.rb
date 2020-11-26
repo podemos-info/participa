@@ -12,7 +12,7 @@ class OpenIdController < ApplicationController
 
   SERVER_APPROVALS = []
 
-  protect_from_forgery except: :create
+  protect_from_forgery prepend: true, except: :create
   before_action :authenticate_user!, except: [:create, :discover, :user, :xrds]
 
   def discover
