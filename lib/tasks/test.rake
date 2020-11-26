@@ -1,6 +1,6 @@
 
 namespace :test do
-  Rails::TestTask.new("features" => "test:prepare") do |t|
+  Rake::TestTask.new("features" => "test:prepare") do |t|
     t.pattern = "test/features/**/*_test.rb"
   end
 end
