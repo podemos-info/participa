@@ -14,18 +14,18 @@ panel "Detalles del usuario" do
         span link_to 'Ver usuario en Participa', edit_admin_user_path(User.find(user_verification.user.id)), :target => "_blank"
       end
       # row "Estado" do
-      #   status_tag("Verificado", :ok) if user_verification.user.verified?
-      #   status_tag("Baneado", :error) if user_verification.user.banned?
-      #   user_verification.user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", :error) : ""
+      #   status_tag("Verificado", class: "ok") if user_verification.user.verified?
+      #   status_tag("Baneado", class: "error") if user_verification.user.banned?
+      #   user_verification.user.deleted? ? status_tag("¡Atención! este usuario está borrado, no podrá iniciar sesión", class: "error") : ""
       #   if user_verification.user.confirmed_at?
-      #     status_tag("El usuario ha confirmado por email", :ok)
+      #     status_tag("El usuario ha confirmado por email", class: "ok")
       #   else
-      #     status_tag("El usuario NO ha confirmado por email", :error)
+      #     status_tag("El usuario NO ha confirmado por email", class: "error")
       #   end
       #   if user_verification.user.sms_confirmed_at?
-      #     status_tag("El usuario ha confirmado por SMS", :ok)
+      #     status_tag("El usuario ha confirmado por SMS", class: "ok")
       #   else
-      #     status_tag("El usuario NO ha confirmado por SMS", :error)
+      #     status_tag("El usuario NO ha confirmado por SMS", class: "error")
       #   end
       #   if user_verification.user.errors.any? # If there are errors, do something
       #     user_verification.user.errors.each do |attribute, message|
@@ -44,9 +44,9 @@ panel "Detalles del usuario" do
       # end
       # row :validations_status do
       #   if user_verification.user.valid?
-      #     status_tag("El usuario supera todas las validaciones", :ok)
+      #     status_tag("El usuario supera todas las validaciones", class: "ok")
       #   else
-      #     status_tag("El usuario no supera alguna validación", :error)
+      #     status_tag("El usuario no supera alguna validación", class: "error")
       #     ul
       #     user_verification.user.errors.full_messages.each do |mes|
       #       li mes
@@ -92,7 +92,7 @@ panel "Detalles del usuario" do
       #   if user_verification.user.in_spanish_island?
       #     user_verification.user.island_name
       #   else
-      #     status_tag("NO", :error)
+      #     status_tag("NO", class: "error")
       #   end
       # end
       # row :vote_place do
@@ -103,7 +103,7 @@ panel "Detalles del usuario" do
       #   if user_verification.user.vote_in_spanish_island?
       #     user_verification.user.vote_island_name
       #   else
-      #     status_tag("NO", :error)
+      #     status_tag("NO", class: "error")
       #   end
       # end
       # row :admin
