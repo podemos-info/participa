@@ -272,9 +272,8 @@ GEM
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
-    paper_trail (4.2.0)
+    paper_trail (5.2.3)
       activerecord (>= 3.0, < 6.0)
-      activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
     paperclip (5.2.1)
       activemodel (>= 4.2.0)
@@ -518,7 +517,7 @@ DEPENDENCIES
   minitest-rails-capybara
   minitest-reporters
   norma43!
-  paper_trail (~> 4.2.0)
+  paper_trail (~> 5.2.3)
   paperclip (~> 5.2.1)
   paranoia (~> 2.2)
   pg
