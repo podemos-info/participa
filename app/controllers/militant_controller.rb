@@ -38,7 +38,8 @@ class MilitantController < ActionController::Base
     data += "#{host}"
     data += "#{uri.path}"
     data += "?participa_user_id=#{current_user_id}"
-    data += "&exemption=#{params_hash['exemption']}"
+    data += "&exemption=#{params_hash['exemption']}" if params_hash['exemption'].present?
+    data += "&collaborate=#{params_hash['collaborate']}"  if params_hash['collaborate'].present?
 
     signature = Base64.urlsafe_encode64(OpenSSL::HMAC.digest("SHA256", secret, "#{timestamp}::#{data}"))[0..27]
     [signature == params_hash['signature'],data]
