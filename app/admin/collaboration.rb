@@ -793,27 +793,27 @@ ActiveAdmin.register Collaboration do
 
     # ---------------------- Generate Circle Data ---------------------------------------------------------------------------------
 
-    towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
+    circle_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
     query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is not null").group(:town_code,:vote_circle_id, Order.unique_month('payable_at')).order(:town_code, "users.vote_circle_id", Order.unique_month('payable_at')).pluck('town_code', 'vote_circle_id', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.vote_circle_id as vc')
     query.each do|c,vc,m,t,v|
       num_month = m.to_i
-      if (towns_data[c][vc][num_month] == 0)
-        towns_data[c][vc][num_month] = [t,v]
+      if (circle_data[c][vc][num_month] == 0)
+        circle_data[c][vc][num_month] = [t,v]
       else
-        towns_data[c][vc][num_month][0] += t
-        towns_data[c][vc][num_month][1] += v
+        circle_data[c][vc][num_month][0] += t
+        circle_data[c][vc][num_month][1] += v
       end
     end
 
     provinces.each_with_index do |province,i|
       prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
       province.subregions.each do |town|
-        towns_data[town.code].keys.each do |vc|
+        circle_data[town.code].keys.each do |vc|
           row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vc,"" ]
           sum_row = 0
           months.keys.each do |month|
-            amount_month = towns_data[town.code][vc][month][1]/100
-            row.push(towns_data[town.code][vc][month][0])
+            amount_month = circle_data[town.code][vc][month][1]/100
+            row.push(circle_data[town.code][vc][month][0])
             row.push(amount_month)
             sum_row += amount_month
           end
