@@ -809,7 +809,8 @@ ActiveAdmin.register Collaboration do
       prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
       province.subregions.each do |town|
         circle_data[town.code].keys.each do |vc|
-          row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vc,"" ]
+          vote_circle = VoteCircle.find(vc)
+          row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vote_circle.original_name,"" ]
           sum_row = 0
           months.keys.each do |month|
             amount_month = circle_data[town.code][vc][month][1]/100
