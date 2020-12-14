@@ -170,6 +170,20 @@ ActiveAdmin.register Collaboration do
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_cp, date: Date.today-1.month) }
         """.html_safe
       end
+
+      li do
+        """por Círculo:
+	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_circle, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_circle, date: Date.today-1.month) }
+        """.html_safe
+      end
+
+      li do
+        """por Círculo y Código Postal:
+	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_circle_and_cp, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_circle_and_cp, date: Date.today-1.month) }
+        """.html_safe
+      end
     end
   end
   
@@ -702,6 +716,154 @@ ActiveAdmin.register Collaboration do
         end
       end
     end
+    send_data file_csv.encode('utf-8'),
+              type: 'text/tsv; charset=utf-8; header=present',
+              disposition: "attachment; filename=podemos.user_for_cp_cc.#{Date.today.to_s}.csv"
+  end
+
+  collection_action :download_for_circle, :method => :get do
+    date =Date.parse params[:date]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    provinces = Carmen::Country.coded("ES").subregions
+    towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
+
+    Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is not null").group(:town_code,:vote_circle_id, Order.unique_month('payable_at')).order(:town_code, "users.vote_circle_id", Order.unique_month('payable_at')).pluck('town_code', 'vote_circle_id', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.vote_circle_id as vc').each do|c,vc,m,t,v|
+      num_month = m.to_i
+      if (towns_data[c][vc][num_month] == 0)
+        towns_data[c][vc][num_month] = [t,v]
+      else
+        towns_data[c][vc][num_month][0] += t
+        towns_data[c][vc][num_month][1] += v
+      end
+    end
+
+    file_csv=CSV.generate(encoding: 'utf-8', col_sep: "\t") do |writer|
+      header1 =["Comunidad Autónoma", "Provincia", "Municipio","Círculo","Código Postal"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      writer << header1
+
+      header2 =["","","","",""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      writer << header2
+      provinces.each_with_index do |province,i|
+        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+        province.subregions.each do |town|
+          towns_data[town.code].keys.each do |vc|
+            row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vc,"" ]
+            sum_row=0
+            months.keys.each do |month|
+              amount_month = towns_data[town.code][vc][month][1]/100
+              row.push(towns_data[town.code][vc][month][0])
+              row.push(amount_month)
+              sum_row += amount_month
+            end
+            writer << row if sum_row > 0
+          end
+        end
+      end
+    end
+    send_data file_csv.encode('utf-8'),
+              type: 'text/tsv; charset=utf-8; header=present',
+              disposition: "attachment; filename=podemos.user_for_cp_cc.#{Date.today.to_s}.csv"
+  end
+
+  collection_action :download_for_circle_and_cp, :method => :get do
+    date =Date.parse params[:date]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    provinces = Carmen::Country.coded("ES").subregions
+    output_data = []
+
+    # ---------------------- Generate Circle Data ---------------------------------------------------------------------------------
+
+    circle_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
+    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is not null").group(:town_code,:vote_circle_id, Order.unique_month('payable_at')).order(:town_code, "users.vote_circle_id", Order.unique_month('payable_at')).pluck('town_code', 'vote_circle_id', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.vote_circle_id as vc')
+    query.each do|c,vc,m,t,v|
+      num_month = m.to_i
+      if (circle_data[c][vc][num_month] == 0)
+        circle_data[c][vc][num_month] = [t,v]
+      else
+        circle_data[c][vc][num_month][0] += t
+        circle_data[c][vc][num_month][1] += v
+      end
+    end
+
+    provinces.each_with_index do |province,i|
+      prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+      province.subregions.each do |town|
+        circle_data[town.code].keys.each do |vc|
+          vote_circle = VoteCircle.find(vc)
+          row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vote_circle.original_name,"" ]
+          sum_row = 0
+          months.keys.each do |month|
+            amount_month = circle_data[town.code][vc][month][1]/100
+            row.push(circle_data[town.code][vc][month][0])
+            row.push(amount_month)
+            sum_row += amount_month
+          end
+          output_data << row
+        end
+      end
+    end
+
+    # ----------------------- Generate Postal Code data ---------------------------------------------------------------------------
+
+    towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
+    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is null").group(:town_code,:postal_code, Order.unique_month('payable_at')).order(:town_code, "users.postal_code", Order.unique_month('payable_at')).pluck('town_code', 'postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc')
+    query.each do|c,cp,m,t,v|
+      num_month = m.to_i
+      if (towns_data[c][cp][num_month] == 0)
+        towns_data[c][cp][num_month] = [t,v]
+      else
+        towns_data[c][cp][num_month][0] += t
+        towns_data[c][cp][num_month][1] += v
+      end
+    end
+
+    provinces.each_with_index do |province,i|
+      prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+      province.subregions.each do |town|
+        towns_data[town.code].keys.each do |cp|
+          row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,"",cp ]
+          sum_row = 0
+          months.keys.each do |month|
+            amount_month = towns_data[town.code][cp][month][1]/100
+            row.push(towns_data[town.code][cp][month][0])
+            row.push(amount_month)
+            sum_row += amount_month
+          end
+          output_data << row if sum_row > 0
+        end
+      end
+    end
+
+    #---------------------- Send CSV FILE -----------------------------------------------------------------------------
+
+    file_csv=CSV.generate(encoding: 'utf-8', col_sep: "\t") do |writer|
+      header1 =["Comunidad Autónoma", "Provincia", "Municipio", "Círculo", "Código Postal"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      writer << header1
+
+      header2 =["","","","",""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      writer << header2
+
+      output_data.each do |row|
+        writer << row
+      end
+    end
+
     send_data file_csv.encode('utf-8'),
               type: 'text/tsv; charset=utf-8; header=present',
               disposition: "attachment; filename=podemos.user_for_cp_cc.#{Date.today.to_s}.csv"
