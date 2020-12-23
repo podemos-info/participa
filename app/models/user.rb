@@ -890,7 +890,7 @@ class User < ActiveRecord::Base
     self.verified_for_militant? && self.in_vote_circle? && (self.exempt_from_payment? || self.collaborator_for_militant?)
   end
 
-  def militant_at?(date,extra = 14)
+  def militant_at?(date)
     in_circle_at = Time.zone.parse(self.vote_circle_changed_at.to_s) if self.vote_circle_id.present?
     verified_at = nil
     collaborator_at = nil
@@ -912,10 +912,8 @@ class User < ActiveRecord::Base
 
     return false unless in_circle_at.present? && verified_at.present? && collaborator_at.present?
     dates_1 = [in_circle_at, collaborator_at]
-    dates_2 = [in_circle_at, verified_at, collaborator_at]
     min_date =Time.zone.parse(date.to_s)
-    max_date = min_date + extra.days
-    (dates_1.min < min_date && dates_2.max < max_date)
+    (dates_1.min <= min_date)
   end
 
   def get_not_militant_detail
