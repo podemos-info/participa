@@ -866,7 +866,8 @@ class User < ActiveRecord::Base
     return true unless self.vote_circle.present? && self.vote_circle.is_active?
     max = Rails.application.secrets.users["allow_vote_circle_changed_at_days"].present? ? Rails.application.secrets.users["allow_vote_circle_changed_at_days"].to_i.days: 365
     return true unless self.vote_circle_changed_at.present?
-    (Time.zone.parse(self.vote_circle_changed_at.to_s) <= (Time.zone.now - max.days)) || !self.persisted?
+    reset_date = Rails.application.secrets.users["reset_vote_circle_changed_at"] if Rails.application.secrets.users["reset_vote_circle_changed_at"].present?
+    (reset_date.present? && Time.zone.parse(self.vote_circle_changed_at.to_s) <= (Time.zone.parse(reset_date)))||(Time.zone.parse(self.vote_circle_changed_at.to_s) <= (Time.zone.now - max.days)) || !self.persisted?
   end
 
   def in_vote_circle?
