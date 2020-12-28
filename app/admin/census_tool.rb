@@ -20,12 +20,4 @@ ActiveAdmin.register_page "CensusTool" do
     redirect_to admin_censustool_path, flash: message
 
   end
-
-  controller do
-    private
-
-    def authorize_access!
-      authorize! :read, Microcredit
-    end
-  end
 end
