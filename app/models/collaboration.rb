@@ -265,11 +265,22 @@ class Collaboration < ActiveRecord::Base
       if last_returned_order && add_amount
         amount = last_returned_order.amount if last_returned_order.present?
         reference_text = last_returned_order.reference.strip + ", "
-        end
+      end
     end
-    date = date.change(day: Order.payment_day) if not (is_first and self.is_credit_card?)
+    date = date.change(day: Order.payment_day) unless is_first and self.is_credit_card?
     reference_text += self.user.present? && self.user.militant? && self.frequency != 0 ? "Cuota " : "Colaboración "
-    reference_text += "Puntual " if self.frequency == 0
+
+    case frequency
+    when 0
+      reference_text += "Puntual "
+    when 3
+      reference_text += "Trimestral "
+    when 12
+      reference_text += "Anual "
+    else
+      reference_text += ""
+    end
+
     reference_text += I18n.localize(date, :format => "%B %Y")
     amount += self.frequency == 0 ? self.amount : self.amount * self.frequency
     order = Order.new user: self.user,
