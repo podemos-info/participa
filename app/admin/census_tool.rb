@@ -1,6 +1,6 @@
 ActiveAdmin.register_page "CensusTool" do
   menu :parent => "Users"
-  content do
+  content title:"Herramienta de control de Censo" do
     panel "" do
       render "admin/census_tool/census_tool", width: "100%"
     end
