@@ -198,6 +198,7 @@ Rails.application.routes.draw do
     DynamicRouter.load
   end
   # /admin
+  post '/admin/censustool', to: 'admin/censustool#search_document_vatid', as: :admin_censustool_search_document_vatid
   ActiveAdmin.routes(self)
 
   constraints CanAccessResque.new do
