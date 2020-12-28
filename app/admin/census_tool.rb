@@ -9,7 +9,6 @@ ActiveAdmin.register_page "CensusTool" do
   page_action :search_document_vatid, method: [:post] do
     dt = params["document_type"]
     dn = params["document_vatid"]
-    puts("AQUIII #{dt}, #{dn}")
     paper_vote_user = User.confirmed.not_banned.where("lower(document_vatid) = ?", dn.downcase).find_by(document_type: dt)
     if paper_vote_user
       message= { notice: "#{paper_vote_user.first_name}, con #{paper_vote_user.document_type_name} #{paper_vote_user.document_vatid}, puede participar." }
