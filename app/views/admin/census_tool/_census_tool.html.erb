@@ -1,9 +1,7 @@
 <% content_for :title, "Herramienta de control de censo" %>
 
 <div class="content-content">
-  <h2>Herramienta de control de censo</h2>
-  <p><strong>Círculo:</strong> <%= current_user.vote_circle.original_name %></p>
-
+  <h2><strong>Círculo:</strong> <%= current_user.vote_circle.original_name %></h2>
 
   <h3>Localizar inscrito</h3>
   <%= form_tag do |f| %>
