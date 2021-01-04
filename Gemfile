@@ -67,6 +67,7 @@ gem 'rubypress'
 gem 'digest-crc'
 gem 'xmlrpc'
 gem "espeak-ruby", require: "espeak"
+gem 'grape'
 
 group :development, :test do
   gem 'capistrano', '~> 3.10.2'
