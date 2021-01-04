@@ -47,6 +47,8 @@ class Ability
       can [:show, :update], User, id: user.id
       can :show, Notice
 
+      can :manage, ActiveAdmin::Page, name: "CensusTool" if user.paper_authority?
+
       cannot :admin, :all
     end
 
