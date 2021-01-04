@@ -259,7 +259,7 @@ class Collaboration < ActiveRecord::Base
 
     if self.frequency == 1
       month = DateTime.now.month - 1
-      min_date = DateTime.parse("2020-#{month}-01 00:00")
+      min_date = DateTime.parse("#{DateTime.now.year}-#{month}-01 00:00")
       last_returned_order = self.order.where("payed_at > ?",'2020-09-30').where("payed_at >= ?",(min_date)).returned.order(payed_at:'ASC').last
 
       if last_returned_order && add_amount
