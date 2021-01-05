@@ -352,11 +352,12 @@ class Collaboration < ActiveRecord::Base
         self.set_error! msg_error if (Date.today.unique_month - 1 - last_month >= self.frequency*MAX_RETURNED_ORDERS) || is_error
       end
     end
-    if returned_orders > MAX_RETURNED_ORDERS || is_error
-      type = militant ? "cuota" : "colaboración"
-      relation = militant ? "compañero/a" : "colaborador/a"
-      extra = militant ? ", y por lo tanto su condición como militante" : ""
-      CollaborationsMailer.collaboration_suspended(self, type, relation, extra).deliver_now
+    if returned_orders >= MAX_RETURNED_ORDERS || is_error
+      if militant
+        CollaborationsMailer.collaboration_suspended_militant(self).deliver_now
+      else
+        CollaborationsMailer.collaboration_suspended_user(self).deliver_now
+      end
     else
       if militant
         CollaborationsMailer.order_returned_militant(self).deliver_now
