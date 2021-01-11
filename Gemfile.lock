@@ -371,7 +371,7 @@ GEM
       ffi (~> 1.0)
     rb-readline (0.5.5)
     rdoc (4.3.0)
-    redcarpet (3.3.2)
+    redcarpet (3.5.1)
     redis (3.3.5)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
