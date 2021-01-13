@@ -186,7 +186,8 @@ class User < ActiveRecord::Base
   scope :participation_team, -> { includes(:participation_team).where.not(participation_team_at: nil) }
   scope :has_vote_circle, -> { where("vote_circle_id IS NOT NULL") }
   scope :wants_information_by_sms, -> {where(wants_information_by_sms: true)}
-  scope :militant_and_exempt_from_payment, -> {militant.exempt_from_payment}
+  scope :militant_and_exempt_from_payment, -> {created.militant.exempt_from_payment}
+  scope :active_militant, -> {created.militant}
   scope :exterior, -> { where.not(country: "ES") }
   scope :spain, -> { where(country: "ES") }
 
