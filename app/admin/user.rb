@@ -21,7 +21,7 @@ ActiveAdmin.register User do
   scope :banned
   scope :verified
   scope :not_verified
-  scope :militant
+  scope "Militant",:active_militant
   scope :exempt_from_payment
   scope :militant_and_exempt_from_payment
 
