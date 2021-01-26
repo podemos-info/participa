@@ -181,6 +181,21 @@ ActiveAdmin.register Order do
     column :reference
     column :amount
     column :first
+    column :frequency do |order|
+      freq = order.parent.frequency if order.parent && order.parent.frequency
+      case freq
+      when 0
+        "Puntual"
+      when 1
+        "Mensual"
+      when 3
+        "Trimestral"
+      when 12
+        "Anual"
+      else
+        freq
+      end
+    end
     column :payment_type_name
     column :payment_identifier
     column :redsys_id do |order|
