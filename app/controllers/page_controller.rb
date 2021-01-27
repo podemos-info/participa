@@ -209,7 +209,8 @@ class PageController < ApplicationController
       vote_autonomy_since: current_user.vote_autonomy_since.to_i,
       vote_province_since: current_user.vote_province_since.to_i,
       vote_island_since: current_user.vote_island_since.to_i,
-      vote_town_since: current_user.vote_town_since.to_i
+      vote_town_since: current_user.vote_town_since.to_i,
+      exempt_from_payment: current_user.exempt_from_payment? ? 1 : 0
     }
 
     url + params.map { |param, value| "&participa_user_#{param}=#{u(value)}" } .join
