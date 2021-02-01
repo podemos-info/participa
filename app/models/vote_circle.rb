@@ -32,6 +32,9 @@ class VoteCircle < ActiveRecord::Base
       result = "#{circle_type}#{ccaa}#{prov}#{mun}#{ind}"
     elsif circle_type =="TC"
       result = get_next_circle_region_id muni_code
+    elsif circle_type =="00"
+      # exterior circle creation not contemplated
+      result = "00"
     end
     result
   end
