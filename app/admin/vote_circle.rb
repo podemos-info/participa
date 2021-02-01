@@ -27,7 +27,7 @@ ActiveAdmin.register VoteCircle do
   form do |f|
     f.semantic_errors
     f.inputs 'Details' do
-      input :circle_type, as: :select, collection: [['Comarcal','TC'], ['Municipal','TM'], ['Barrial','TB']], selected: 'TM', include_blank: false
+      input :circle_type, as: :select, collection: [['Comarcal','TC'], ['Municipal','TM'], ['Barrial','TB'], ['Exterior',['00']]], selected: 'TM', include_blank: false
       input :original_name
       label "Dejar en blanco el código para que se calcule automáticamente"
       input :original_code
@@ -109,8 +109,12 @@ ActiveAdmin.register VoteCircle do
 
     def before_save(resource)
       circle_type = params["vote_circle"]["circle_type"]
-      resource.code = resource.get_code_circle resource.town,circle_type if resource.code.empty?
-      resource.original_code = resource.code if resource.original_code.strip.empty?
+      if circle_type == "00"
+        resource.code = resource.original_code
+      else
+        resource.code = resource.get_code_circle resource.town,circle_type unless resource.code.present?
+        resource.original_code = resource.code if resource.original_code.strip.empty?
+      end
     end
 
     def change_children_vote_circle(resource)
