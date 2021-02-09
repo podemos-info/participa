@@ -56,4 +56,9 @@ class VoteCircle < ActiveRecord::Base
     ind = last_code.present? ? (last_code[9..-1].to_i + 1).to_s.rjust(2,"0") : "01"
     "TC#{region_code}#{ind}"
   end
+
+  def self.in_spain?
+    circle_type =self.code[0,2]
+    circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
+  end
 end
