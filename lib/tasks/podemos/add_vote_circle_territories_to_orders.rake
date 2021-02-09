@@ -8,7 +8,7 @@ namespace :podemos do
     os = Order.where("created_at between ? and ?",min_date,max_date).order(created_at:"ASC")
     os.each do |o|
       next unless o.user_id
-      u = User.find(o.user_id)
+      u = User.with_deleted.find(o.user_id)
       u.version_at(o.created_at)
       if u.vote_circle_id.present?
         circle = u.vote_circle
