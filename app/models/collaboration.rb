@@ -286,16 +286,19 @@ class Collaboration < ActiveRecord::Base
     reference_text += I18n.localize(date, :format => "%B %Y")
     amount += self.frequency == 0 ? self.amount : self.amount * self.frequency
     order = Order.new user: self.user,
-             parent:self,
-             reference: reference_text,
-             first: is_first,
-             amount: amount,
-             payable_at: date,
-             payment_type:self.is_credit_card? ? 1 : 3,
-             payment_identifier: self.payment_identifier,
-             autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_autonomy_code : nil,
-             town_code:  self.for_town_cc.present? ? self.get_vote_town : nil,
-             island_code: self.for_island_cc ? self.get_vote_island_code : nil
+      parent:self,
+      reference: reference_text,
+      first: is_first,
+      amount: amount,
+      payable_at: date,
+      payment_type:self.is_credit_card? ? 1 : 3,
+      payment_identifier: self.payment_identifier,
+      autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_autonomy_code : nil,
+      town_code:  self.for_town_cc.present? ? self.get_vote_town : nil,
+      island_code: self.for_island_cc ? self.get_vote_island_code : nil,
+      vote_circle_autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_circle_autonomy_code : nil,
+      vote_circle_town_code:  self.for_town_cc.present? ? self.get_vote_circle_town : nil,
+      vote_circle_island_code: self.for_island_cc ? self.get_vote_circle_island_code : nil
     order
   end
 
@@ -577,6 +580,66 @@ class Collaboration < ActiveRecord::Base
       Podemos::GeoExtra::ISLANDS[self.get_non_user.ine_town][0]
     end
   end
+
+  def get_vote_circle_town
+    town_code = nil
+    if self.user
+      u = self.user
+      if u.vote_circle_id.present?
+        circle = u.vote_circle
+        if circle.town.present?
+          town_code = circle.town
+        end
+      end
+      town_code ||= u.vote_town
+    else
+      town_code = self.get_non_user.ine_town
+    end
+    town_code
+  end
+
+  def get_vote_circle_autonomy_code
+    autonomy_code = nil
+    if self.user
+      u = self.user
+      if u.vote_circle_id.present?
+        circle = u.vote_circle
+        if circle.town.present?
+          autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{circle.town[2,2]}"][0]
+        elsif circle.in_spain?
+          autonomy_code = "c_#{circle.code[2,2]}"
+        end
+      end
+      autonomy_code ||= u.vote_autonomy_code
+    else
+      return nil unless self.get_non_user.respond_to?('ine_town')
+      vote_province_code = "p_" + self.get_non_user.ine_town.slice(2,2)
+      autonomy_code = Podemos::GeoExtra::AUTONOMIES[vote_province_code][0]
+    end
+    autonomy_code
+  end
+
+  def get_vote_circle_island_code
+    island_code
+    if self.user
+      u =self.user
+      if u.vote_circle_id.present?
+        circle = u.vote_circle
+        if circle.town.present?
+          island = Podemos::GeoExtra::ISLANDS[circle.town]
+          island_code = circle.island_code
+          island_code = island.present? ? island[0] : u.vote_island_code unless island_code.present?
+        elsif circle.in_spain?
+          island_code = circle.island_code
+        end
+      end
+      island_code ||= u.vote_island_code
+    else
+      island_code = Podemos::GeoExtra::ISLANDS[self.get_non_user.ine_town][0]
+    end
+    island_code
+  end
+
   def get_non_user
     @non_user
   end
