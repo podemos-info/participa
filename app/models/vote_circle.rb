@@ -39,6 +39,11 @@ class VoteCircle < ActiveRecord::Base
     result
   end
 
+  def self.in_spain?
+    circle_type =self.code[0,2]
+    circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
+  end
+
   private
 
   def get_next_circle_id(territory_code,circle_type = "TM")
@@ -55,10 +60,5 @@ class VoteCircle < ActiveRecord::Base
     last_code = VoteCircle.where("code like ?","TC#{region_code}%").order(:code).pluck(:code).last
     ind = last_code.present? ? (last_code[9..-1].to_i + 1).to_s.rjust(2,"0") : "01"
     "TC#{region_code}#{ind}"
-  end
-
-  def self.in_spain?
-    circle_type =self.code[0,2]
-    circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
   end
 end
