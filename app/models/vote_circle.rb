@@ -39,7 +39,7 @@ class VoteCircle < ActiveRecord::Base
     result
   end
 
-  def self.in_spain?
+  def in_spain?
     circle_type =self.code[0,2]
     circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
   end
