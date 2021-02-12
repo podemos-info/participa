@@ -30,10 +30,6 @@ namespace :podemos do
     puts("actualizado el flag de militancia en #{ids2.count} registros")
   end
 
-  def is_exterior?(type_circle)
-    type_circle != "IP" && type_circle != "TB" && type_circle != "TC" && type_circle != "TM"
-  end
-
   def get_census_vote_circles
     header = ["user_id","ccaa_code","CCAA","prov_code","Provincia","reg_code","Comarca","town_code","Municipio","id_circulo","código_circulo","circulo","Nombre","Apellidos","DNI","Telefono","Email"]
     data = []
@@ -171,7 +167,7 @@ namespace :podemos do
       reg = "r_#{full_code}"
 
       #countries[if countries.include? u.country_name then u.country_name else UNKNOWN end][0] += 1 if u.country != SPAIN
-      if is_exterior?(type_circle)
+      if u.vote_circle.is_exterior?
         countries[type_circle][1] +=1
         countries[type_circle][2] += 1 if full_code == ip01
         countries[type_circle][3] += 1 if full_code == ip02

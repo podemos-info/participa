@@ -144,20 +144,20 @@ ActiveAdmin.register Collaboration do
     ul do
       li do
         """Autonómica:
-        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today) }
-        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today-1.month) }
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_vote_circle_autonomy, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_vote_circle_autonomy, date: Date.today-1.month) }
         """.html_safe
       end
       li do
         """Municipal:
-        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today) }
-        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today-1.month) }
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_vote_circle_town, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_vote_circle_town, date: Date.today-1.month) }
         """.html_safe
       end
       li do
         """Insular:
-        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
-        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today-1.month) }
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_vote_circle_island, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_vote_circle_island, date: Date.today-1.month) }
         """.html_safe
       end
     end
@@ -625,6 +625,141 @@ ActiveAdmin.register Collaboration do
     send_data csv.encode('utf-8'),
       type: 'text/tsv; charset=utf-8; header=present',
       disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
+  end
+
+  collection_action :download_for_vote_circle_town, :method => :get do
+    date = Date.parse params[:date]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+
+    provinces = Carmen::Country.coded("ES").subregions
+    towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+    Order.paid.group(:vote_circle_town_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, Order.unique_month('payable_at')).pluck('vote_circle_town_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
+      towns_data[c][m.to_i]=[t,v]
+    end
+
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      header1 =["Comunidad Autónoma", "Provincia", "Municipio"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      csv << header1
+
+      header2 =["","",""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      csv << header2
+      provinces.each_with_index do |province,i|
+        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+        province.subregions.each do |town|
+          row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name ]
+          months.keys.each do |month|
+            row.push(towns_data[town.code][month][0])
+            row.push(towns_data[town.code][month][1]/100)
+          end
+          csv << row
+        end
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+              type: 'text/tsv; charset=utf-8; header=present',
+              disposition: "attachment; filename=podemos.for_town_cc.#{Date.today.to_s}.csv"
+  end
+
+  collection_action :download_for_vote_circle_autonomy, :method => :get do
+    date = Date.parse params[:date]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+
+    autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
+    autonomies["~"] = "Sin asignación"
+    autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+
+    Order.paid.where(vote_circle_town_code:nil, vote_circle_island_code:nil).group('vote_circle_autonomy_code',Order.unique_month('payable_at')).order('vote_circle_autonomy_code', Order.unique_month('payable_at')).pluck('vote_circle_autonomy_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
+      autonomies_data[c||"~"][m.to_i]=[t,v]
+    end
+
+    csv =CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      header1 =["Comunidad Autónoma"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      csv << header1
+
+      header2 =[""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      csv << header2
+
+      autonomies.sort.each do |autonomy_code,autonomy|
+        row=[autonomy]
+        months.keys.each do |month|
+          row.push(autonomies_data[autonomy_code][month][0])
+          row.push(autonomies_data[autonomy_code][month][1]/100)
+        end
+        csv << row
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+              type: 'text/tsv; charset=utf-8; header=present',
+              disposition: "attachment; filename=podemos.for_autonomy_cc.#{Date.today.to_s}.csv"
+  end
+
+  collection_action :download_for_vote_circle_island, :method => :get do
+    date = Date.parse params[:date]
+    months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+
+    islands = Hash.new {|h,k| h[k] = [] }
+    Podemos::GeoExtra::ISLANDS.each do |town, info|
+      islands["p_#{town[2..3]}"] << info
+    end
+    islands.each {|prov, info| info.uniq! }
+
+    provinces = Carmen::Country.coded("ES").subregions
+
+    island_data = Hash.new {|h,k| h[k] = Hash.new 0 }
+    Order.paid.where(vote_circle_town_code:nil).group('vote_circle_island_code',Order.unique_month('payable_at')).order('vote_circle_island_code', Order.unique_month('payable_at')).pluck('vote_circle_island_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
+      island_data[c][m.to_i]=[t,v]
+    end
+
+    csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
+      header1 =["Comunidad Autónoma", "Provincia", "Isla"]
+      months.values.each do |m|
+        header1.push(m)
+        header1.push("")
+      end
+      csv << header1
+
+      header2 =["","",""]
+      months.values.each do |m|
+        header2.push("Num. Colaboraciones")
+        header2.push("Suma Importes")
+      end
+      csv << header2
+
+      provinces.each_with_index do |province,i|
+        prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
+        islands[prov_code].each do |island_code, island_name|
+          row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, island_name ]
+          months.keys.each do |month|
+            puts("#{island_code} #{month}")
+            row.push(island_data[island_code][month][0])
+            row.push(island_data[island_code][month][1]/100)
+          end
+          csv << row
+        end
+      end
+    end
+
+    send_data csv.encode('utf-8'),
+              type: 'text/tsv; charset=utf-8; header=present',
+              disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
   end
 
   collection_action :download_for_town, :method => :get do
