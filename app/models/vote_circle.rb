@@ -44,6 +44,11 @@ class VoteCircle < ActiveRecord::Base
     circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
   end
 
+  def is_exterior?
+    circle_type =self.code[0,2]
+    circle_type != "IP" && circle_type != "TB" && circle_type != "TC" && circle_type != "TM"
+  end
+
   private
 
   def get_next_circle_id(territory_code,circle_type = "TM")
