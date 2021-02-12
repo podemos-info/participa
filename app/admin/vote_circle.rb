@@ -26,8 +26,9 @@ ActiveAdmin.register VoteCircle do
 
   form do |f|
     f.semantic_errors
+    circle_type = :original_code.present? ? resource.get_type_circle_from_original_code : "TM"
     f.inputs 'Details' do
-      input :circle_type, as: :select, collection: [['Comarcal','TC'], ['Municipal','TM'], ['Barrial','TB'], ['Exterior',['00']]], selected: 'TM', include_blank: false
+      input :circle_type, as: :select, collection: [['Comarcal','TC'], ['Municipal','TM'], ['Barrial','TB'], ['Exterior','00']], selected: circle_type, include_blank: false
       input :original_name
       label "Dejar en blanco el código para que se calcule automáticamente"
       input :original_code
