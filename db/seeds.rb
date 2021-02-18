@@ -4,6 +4,8 @@ def assign_vote_circle_territories
   region_type = VoteCircleType.where("name like '_omarc%'").pluck(:id).first
   exterior_type = VoteCircleType.where("name like '_xter%'").pluck(:id).first
   spain_types = [["TB%",neighborhood_type],["TM%",town_type],["TC%",region_type]]
+  internal_type = ["IP%"]
+  known_types  = spain_types + internal_type
   spain_code ="ES"
   spain_types.each do |type,type_code|
     VoteCircle.all.where("code like ?",type).where(country_code:nil, autonomy_code: nil,province_code: nil).find_each do |vc|
@@ -40,7 +42,9 @@ def assign_vote_circle_territories
     end
   end
 
-  exterior_circles = VoteCircle.all.where("code not like all(array[?])",spain_types).where(country_code:nil, autonomy_code: nil,province_code: nil)
+  # internal circles do not need territorial codes
+
+  exterior_circles = VoteCircle.all.where("code not like all(array[?])",known_types).where(country_code:nil, autonomy_code: nil,province_code: nil)
   exterior_circles.find_each do |vc|
     vc.town = nil
     vc.province_code = nil
@@ -51,6 +55,6 @@ def assign_vote_circle_territories
   end
 end
 
-VoteCircleType.create([{name: "Barrial"}, {name: "Municipal"}, {name: "Comarcal"}, {name: "Exterior"}]) if VoteCircleType.all.count == 0
+VoteCircleType.create([{name: "Barrial"}, {name: "Municipal"}, {name: "Comarcal"}, {name: "Exterior"}, {name: "Cod.Interno"}]) if VoteCircleType.all.count == 0
 
 assign_vote_circle_territories
