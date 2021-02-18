@@ -14,14 +14,14 @@ namespace :podemos do
         circle = u.vote_circle
         if circle.town.present?
           town_code = circle.town
-          autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{circle.town[2,2]}"][0]
+          autonomy_code = circle.autonomy_code
           island = Podemos::GeoExtra::ISLANDS[circle.town]
           island_code = circle.island_code
           island_code = island.present? ? island[0] : o.island_code unless island_code.present?
         else
           if circle.in_spain?
             town_code = o.town_code
-            autonomy_code = "c_#{circle.code[2,2]}"
+            autonomy_code = circle.autonomy_code
             island_code = circle.island_code
             island_code = o.island_code unless island_code.present?
           else
