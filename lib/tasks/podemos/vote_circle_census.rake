@@ -69,6 +69,10 @@ namespace :podemos do
     export_raw_data "census_vote_circles#{Date.today}", data, headers:header, folder: folder do |r| r end
   end
 
+  def is_exterior?(type_circle)
+    type_circle != "IP" && type_circle != "TB" && type_circle != "TC" && type_circle != "TM"
+  end
+
   desc "[podemos] Dump counters for users attributes"
   task :vote_circle_census, [:year,:month,:day] => :environment do |t, args|
     args.with_defaults(:year => nil, :month=>nil, :day=>nil)
