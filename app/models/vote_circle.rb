@@ -57,6 +57,32 @@ class VoteCircle < ActiveRecord::Base
     self.in_spain? ? self.original_code[0,2] : "00"
   end
 
+  def island_name
+    return "" unless self.town && Podemos::GeoExtra::ISLANDS[self.town]
+    Podemos::GeoExtra::ISLANDS[self.town][1]
+  end
+
+  def town_name
+    if self.town
+      prov = Carmen::Country.coded("ES").subregions[self.town[2,2].to_i-1]
+      prov.subregions.coded(self.town).name
+    else
+      ""
+    end
+  end
+
+  def province_name
+    self.province_code ? Carmen::Country.coded("ES").subregions[self.province_code[2,2].to_i-1].name : ""
+  end
+
+  def autonomy_name
+    self.province_code ? Podemos::GeoExtra::AUTONOMIES[self.province_code][1] :""
+  end
+
+  def country_name
+    Carmen::Country.coded(self.country_code).name
+  end
+
   private
 
   def get_next_circle_id(territory_code,circle_type = "TM")
