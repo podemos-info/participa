@@ -620,7 +620,7 @@ class Collaboration < ActiveRecord::Base
   end
 
   def get_vote_circle_island_code
-    island_code
+    island_code = nil
     if self.user
       u =self.user
       if u.vote_circle_id.present?
