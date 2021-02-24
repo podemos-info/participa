@@ -30,7 +30,7 @@ namespace :podemos do
             island_code = o.island_code
           end
         end
-        circle_code = circle.id
+        circle_code = circle.code =~/\AIP/ ? nil : circle.id
       else
         town_code = o.town_code
         autonomy_code = o.autonomy_code
