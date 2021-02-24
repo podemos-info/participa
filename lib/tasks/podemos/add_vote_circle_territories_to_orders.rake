@@ -30,11 +30,14 @@ namespace :podemos do
             island_code = o.island_code
           end
         end
+        circle_code = circle.id
       else
         town_code = o.town_code
         autonomy_code = o.autonomy_code
         island_code = o.island_code
+        circle_code = nil
       end
+      o.vote_circle_id = circle_code
       o.vote_circle_town_code = town_code if o.town_code.present?
       o.vote_circle_autonomy_code = autonomy_code if o.autonomy_code.present?
       o.vote_circle_island_code = island_code if o.island_code.present?
