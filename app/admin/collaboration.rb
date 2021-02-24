@@ -896,7 +896,7 @@ ActiveAdmin.register Collaboration do
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
 
-    Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is not null").group(:town_code,:vote_circle_id, Order.unique_month('payable_at')).order(:town_code, "users.vote_circle_id", Order.unique_month('payable_at')).pluck('town_code', 'vote_circle_id', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.vote_circle_id as vc').each do|c,vc,m,t,v|
+    Order.paid.where("orders.town_code is not null and orders.amount > 0").where("vote_circle_id is not null").group(:town_code,'vote_circle_id', Order.unique_month('payable_at')).order(:town_code, "vote_circle_id", Order.unique_month('payable_at')).pluck('town_code', 'vote_circle_id', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc').each do|c,vc,m,t,v|
       num_month = m.to_i
       if (towns_data[c][vc][num_month] == 0)
         towns_data[c][vc][num_month] = [t,v]
