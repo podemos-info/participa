@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210216162710) do
+ActiveRecord::Schema.define(version: 20210224102745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -500,6 +500,7 @@ ActiveRecord::Schema.define(version: 20210216162710) do
     t.string   "vote_circle_autonomy_code"
     t.string   "vote_circle_town_code"
     t.string   "vote_circle_island_code"
+    t.integer  "vote_circle_id"
   end
 
   add_index "orders", ["parent_id"], name: "index_orders_on_parent_id", using: :btree
