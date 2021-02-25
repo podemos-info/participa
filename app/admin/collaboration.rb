@@ -844,7 +844,7 @@ ActiveAdmin.register Collaboration do
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
 
-    Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").group(:town_code,:postal_code, Order.unique_month('payable_at')).order(:town_code, "users.postal_code", Order.unique_month('payable_at')).pluck('town_code', 'postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc').each do|c,cp,m,t,v|
+    Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.vote_circle_town_code is not null and orders.amount > 0").group(:vote_circle_town_code,:postal_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, "users.postal_code", Order.unique_month('payable_at')).pluck('vote_circle_town_code', 'postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc').each do|c,cp,m,t,v|
       num_month = m.to_i
       if (towns_data[c][cp][num_month] == 0)
         towns_data[c][cp][num_month] = [t,v]
@@ -985,8 +985,8 @@ ActiveAdmin.register Collaboration do
     # ----------------------- Generate Postal Code data ---------------------------------------------------------------------------
 
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
-    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is null").group(:town_code,:postal_code, Order.unique_month('payable_at')).order(:town_code, "users.postal_code", Order.unique_month('payable_at')).pluck('town_code', 'postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc')
-    query.each do|c,cp,m,t,v|
+    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.vote_circle_town_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").group(:vote_circle_town_code,:postal_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, "users.postal_code", Order.unique_month('payable_at')).pluck(:vote_circle_town_code, 'users.postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc')
+    query.each do|c,cp,m,t,v,pc|
       num_month = m.to_i
       if (towns_data[c][cp][num_month] == 0)
         towns_data[c][cp][num_month] = [t,v]
