@@ -920,11 +920,12 @@ ActiveAdmin.register Collaboration do
         header2.push("Suma Importes")
       end
       writer << header2
+      vote_circles_data = VoteCircle.all.pluck(:id,:original_name).to_h
       provinces.each_with_index do |province,i|
         prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
         province.subregions.each do |town|
           towns_data[town.code].keys.each do |vc|
-            row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vc,"" ]
+            row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vote_circles_data[vc],"" ]
             sum_row=0
             months.keys.each do |month|
               amount_month = towns_data[town.code][vc][month][1]/100
