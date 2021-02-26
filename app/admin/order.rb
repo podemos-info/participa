@@ -197,13 +197,13 @@ ActiveAdmin.register Order do
       case type
       when "I"
         text = "Isla "
-        text += has_circle ? circle.island_name : user.island_name
+        text += has_circle ? circle.island_name : user.island_name.present? ? user.island_name : ""
       when "M"
         text = "Municipal "
-        text += has_circle ? circle.town_name : user.town_name
+        text += has_circle ? circle.town_name : user.town_name.present? ? user.town_name : ""
       when "A"
         text = "Autonomico "
-        text += has_circle ? circle.autonomy_name : user.autonomy_name
+        text += has_circle ? circle.autonomy_name : user.autonomy_name.present? ? user.autonomy_name : ""
       else
         text = "Estatal"
       end
