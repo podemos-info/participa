@@ -298,7 +298,8 @@ class Collaboration < ActiveRecord::Base
       island_code: self.for_island_cc ? self.get_vote_island_code : nil,
       vote_circle_autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_circle_autonomy_code : nil,
       vote_circle_town_code:  self.for_town_cc.present? ? self.get_vote_circle_town : nil,
-      vote_circle_island_code: self.for_island_cc ? self.get_vote_circle_island_code : nil
+      vote_circle_island_code: self.for_island_cc ? self.get_vote_circle_island_code : nil,
+      vote_circle_id: self.get_vote_circle_id
     order
   end
 
@@ -638,6 +639,10 @@ class Collaboration < ActiveRecord::Base
       island_code = Podemos::GeoExtra::ISLANDS[self.get_non_user.ine_town][0]
     end
     island_code
+  end
+
+  def get_vote_circle_id
+    self.user.vote_circle_id if self.user && self.user.vote_circle_id.present?
   end
 
   def get_non_user
