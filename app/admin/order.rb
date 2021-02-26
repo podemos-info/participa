@@ -160,6 +160,9 @@ ActiveAdmin.register Order do
     column :order_type do |order|
       order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
     end
+    column :vote_circle do |order|
+      order.parent.get_user.vote_circle.original_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id
+    end
     column :town do |order|
       order.parent.get_user.town_name if order.parent and order.parent.get_user
     end
@@ -171,6 +174,40 @@ ActiveAdmin.register Order do
     end
     column :autonomy do |order|
       order.parent.get_user.autonomy_name if order.parent and order.parent.get_user
+    end
+    column :vote_circle_town do |order|
+      order.parent.get_user.vote_circle.town_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id
+    end
+    column :vote_circle_island do |order|
+      order.parent.get_user.vote_circle.island_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id
+    end
+    column :vote_circle_autonomy do |order|
+      order.parent.get_user.vote_circle.autonomy_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id
+    end
+    column :vote_circle_country do |order|
+      order.parent.get_user.vote_circle.country_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id
+    end
+
+    column :territorio_destino do |order|
+      return "" unless order.parent && order.parent.get_user && order.parent.get_user
+      user = order.parent.get_user
+      type = order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
+      has_circle = user.vote_circle_id.present?
+      circle = user.vote_circle if has_circle
+      case type
+      when "I"
+        text = "Isla "
+        text += has_circle ? circle.island_name : user.island_name
+      when "M"
+        text = "Municipal "
+        text += has_circle ? circle.town_name : user.town_name
+      when "A"
+        text = "Autonomico "
+        text += has_circle ? circle.autonomy_name : user.autonomy_name
+      else
+        text = "Estatal"
+      end
+      text
     end
 
     column :status_name
