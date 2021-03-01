@@ -47,6 +47,11 @@ class VoteCircle < ActiveRecord::Base
      [[VoteCircle.kinds[:barrial], VoteCircle.kinds[:municipal], VoteCircle.kinds[:comarcal]]].include? self.kind
    end
 
+  def code_in_spain?
+    circle_type =self.code[0,2]
+    circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
+  end
+
   def is_exterior?
     self.kind == kinds[:exterior]
   end
