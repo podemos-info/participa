@@ -63,7 +63,8 @@ class VoteCircle < ActiveRecord::Base
   def town_name
     if self.town
       prov = Carmen::Country.coded("ES").subregions[self.town[2,2].to_i-1]
-      prov.subregions.coded(self.town).name
+      carmen_town = prov.subregions.coded(self.town.strip)
+      carmen_town.present? ? carmen_town.name : "#{self.town} no es un municipio válido"
     else
       ""
     end
