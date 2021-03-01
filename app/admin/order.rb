@@ -189,21 +189,21 @@ ActiveAdmin.register Order do
     end
 
     column :territorio_destino do |order|
-      return "" unless order.parent && order.parent.get_user && order.parent.get_user
+      return "" unless order.parent && order.parent.get_user
       user = order.parent.get_user
-      type = order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
+      type_order = order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
       has_circle = user.vote_circle_id.present?
       circle = user.vote_circle if has_circle
-      case type
+      case type_order
       when "I"
         text = "Isla "
-        text += has_circle ? circle.island_name : user.island_name.present? ? user.island_name : ""
+        text += has_circle ? circle.island_name : user.island_name
       when "M"
         text = "Municipal "
-        text += has_circle ? circle.town_name : user.town_name.present? ? user.town_name : ""
+        text += has_circle ? circle.town_name : user.town_name
       when "A"
-        text = "Autonomico "
-        text += has_circle ? circle.autonomy_name : user.autonomy_name.present? ? user.autonomy_name : ""
+        text = "Autonómico "
+        text += has_circle ? circle.autonomy_name : user.autonomy_name
       else
         text = "Estatal"
       end
