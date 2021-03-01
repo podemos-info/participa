@@ -724,7 +724,7 @@ ActiveRecord::Schema.define(version: 20210224102745) do
     t.string   "island_code"
     t.integer  "region_area_id"
     t.string   "town"
-    t.decimal  "kind"
+    t.integer  "kind"
     t.string   "country_code"
     t.string   "autonomy_code"
     t.string   "province_code"
