@@ -207,7 +207,7 @@ ActiveAdmin.register Order do
       else
         text = "Estatal"
       end
-      text
+      text.html_safe
     end
 
     column :status_name
