@@ -564,6 +564,18 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
+  def get_vote_town_name
+    if self.user
+      self.user.vote_town_name
+    elsif self.get_non_user.ine_town
+      prov = Carmen::Country.coded("ES").subregions[self.get_non_user.ine_town[2,2].to_i-1]
+      carmen_town = prov.subregions.coded(self.get_non_user.ine_town.strip)
+      carmen_town.present? ? carmen_town.name : "#{self.get_non_user.ine_town} no es un municipio válido"
+    else
+      ""
+    end
+  end
+
   def get_vote_autonomy_code
     if self.user
       self.user.vote_autonomy_code
@@ -574,11 +586,29 @@ class Collaboration < ActiveRecord::Base
     end
   end
 
+  def get_vote_autonomy_name
+    if self.user
+      self.user.vote_autonomy_name
+    else
+      return nil unless self.get_non_user.respond_to?('ine_town')
+      vote_province_code = "p_" + self.get_non_user.ine_town.slice(2,2)
+      Podemos::GeoExtra::AUTONOMIES[vote_province_code][1]
+    end
+  end
+
   def get_vote_island_code
     if self.user
       self.user.vote_island_code
     else
       Podemos::GeoExtra::ISLANDS[self.get_non_user.ine_town][0]
+    end
+  end
+
+  def get_vote_island_name
+    if self.user
+      self.user.vote_island_code
+    else
+      Podemos::GeoExtra::ISLANDS[self.get_non_user.ine_town][1]
     end
   end
 
