@@ -197,13 +197,13 @@ ActiveAdmin.register Order do
       case type_order
       when "I"
         text = "Isla "
-        text += has_circle ? circle.island_name : user.island_name
+        text += has_circle ? circle.island_name : order.parent.get_vote_island_name
       when "M"
         text = "Municipal "
-        text += has_circle ? circle.town_name : user.town_name
+        text += has_circle ? circle.town_name : order.parent.get_vote_town_name
       when "A"
         text = "Autonómico "
-        text += has_circle ? circle.autonomy_name : user.autonomy_name
+        text += has_circle ? circle.autonomy_name : order.parent.get_vote_autonomy_name
       else
         text = "Estatal"
       end
