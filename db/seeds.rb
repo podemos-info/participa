@@ -1,15 +1,29 @@
 def assign_vote_circle_territories
-  neighborhood_type = VoteCircleType.where("name like '_arri%'").pluck(:id).first
-  town_type = VoteCircleType.where("name like '_unici%'").pluck(:id).first
-  region_type = VoteCircleType.where("name like '_omarc%'").pluck(:id).first
-  exterior_type = VoteCircleType.where("name like '_xter%'").pluck(:id).first
+  internal_type = 0
+  neighborhood_type = 1
+  town_type = 2
+  region_type = 3
+  exterior_type = 4
+
   spain_types = [["TB%",neighborhood_type],["TM%",town_type],["TC%",region_type]]
-  internal_type = ["IP%"]
-  known_types  = spain_types + internal_type
+  internal = ["IP%", internal_type]
+  known_types  = ["TB%", "TM%", "TC%", "IP%"]
   spain_code ="ES"
+
+  internal_circles = VoteCircle.all.where("code like ?",internal[0]).where(country_code:nil, autonomy_code: nil,province_code: nil)
+  internal_circles.find_each do |vc|
+    vc.kind = internal[1]
+    vc.town = nil
+    vc.province_code = nil
+    vc.autonomy_code = nil
+    vc.island_code = nil
+    vc.country_code = nil
+    vc.save!
+  end
+
   spain_types.each do |type,type_code|
     VoteCircle.all.where("code like ?",type).where(country_code:nil, autonomy_code: nil,province_code: nil).find_each do |vc|
-      vc.vote_circle_type_id = type_code
+      vc.kind = type_code
       if vc.town.present?
         town_code = vc.town
         province_code = "p_#{vc.town[2,2]}"
@@ -42,10 +56,9 @@ def assign_vote_circle_territories
     end
   end
 
-  # internal circles do not need territorial codes
-
   exterior_circles = VoteCircle.all.where("code not like all(array[?])",known_types).where(country_code:nil, autonomy_code: nil,province_code: nil)
   exterior_circles.find_each do |vc|
+    vc.kind = exterior_type
     vc.town = nil
     vc.province_code = nil
     vc.autonomy_code = nil
@@ -54,7 +67,5 @@ def assign_vote_circle_territories
     vc.save!
   end
 end
-
-VoteCircleType.create([{name: "Barrial"}, {name: "Municipal"}, {name: "Comarcal"}, {name: "Exterior"}, {name: "Cod.Interno"}]) if VoteCircleType.all.count == 0
 
 assign_vote_circle_territories
