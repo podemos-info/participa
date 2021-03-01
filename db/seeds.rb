@@ -33,7 +33,7 @@ def assign_vote_circle_territories
         island_code = island.present? ? island[0] : nil unless island_code.present?
         country_code = spain_code
       else
-        if vc.in_spain?
+        if vc.code_in_spain?
           town_code = nil
           autonomy_code = "c_#{vc.code[2,2]}"
           province_code = "p_#{vc.code[4,2]}"
