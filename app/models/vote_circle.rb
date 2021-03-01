@@ -44,7 +44,7 @@ class VoteCircle < ActiveRecord::Base
   end
 
    def in_spain?
-     [[kinds[:barrial], kinds[:municipal], kinds[:comarcal]]].include? self.kind
+     [[VoteCircle.kinds[:barrial], VoteCircle.kinds[:municipal], VoteCircle.kinds[:comarcal]]].include? self.kind
    end
 
   def is_exterior?
