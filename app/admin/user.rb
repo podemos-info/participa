@@ -308,10 +308,12 @@ ActiveAdmin.register User do
     link_to('Recuperar usuario borrado', recover_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer recuperar este usuario?" }) if user.deleted?
   end
 
-  action_item(:ban, only: :show) do
+  action_item(:ban, only: :show, form:{comment: :text}) do
     if can? :ban, User
       if user.banned?
         link_to('Desbanear usuario', ban_admin_user_path(user), method: :delete)
+      elsif user.deleted?
+        link_to('Banear usuario Borrado', modal_ban_deleted_admin_user_path(user), method: :post)
       else
         link_to('Banear usuario', ban_admin_user_path(user), method: :post, data: { confirm: "¿Estas segura de querer banear a este usuario?" })
       end
@@ -416,6 +418,17 @@ ActiveAdmin.register User do
   member_action :ban, if: proc{ can? :ban, User }, :method => [:post, :delete] do
     User.ban_users([ params[:id] ], request.post?)
     flash[:notice] = "El usuario ha sido modificado"
+    redirect_to action: :show
+  end
+
+  member_action :modal_ban_deleted ,title: "Banear usuario borrado", if: proc{ can? :ban, User }, :method => [:post, :delete]
+
+  member_action :ban_deleted, if: proc{ can? :ban, User }, :method => [:post, :delete] do
+    comment = params["users"]["manual_comment"]
+    user = User.with_deleted.find(params[:id])
+    ActiveAdmin::Comment.create(author:current_user,resource:user,namespace:'admin',body:comment)
+    User.ban_users([ params[:id] ], request.post?)
+    flash[:notice] = "El usuario ha sido modificado con el comentario '#{comment}'"
     redirect_to action: :show
   end
 
