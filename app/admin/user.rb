@@ -424,11 +424,16 @@ ActiveAdmin.register User do
   member_action :modal_ban_deleted ,title: "Banear usuario borrado", if: proc{ can? :ban, User }, :method => [:post, :delete]
 
   member_action :ban_deleted, if: proc{ can? :ban, User }, :method => [:post, :delete] do
-    comment = params["users"]["manual_comment"]
+    comment = params["users"]["manual_comment"].strip
     user = User.with_deleted.find(params[:id])
-    ActiveAdmin::Comment.create(author:current_user,resource:user,namespace:'admin',body:comment)
+    message = "El usuario ha sido modificado"
+    unless comment.empty?
+      ActiveAdmin::Comment.create(author:current_user,resource:user,namespace:'admin',body:comment)
+      message += " con el comentario '#{comment}'"
+    end
     User.ban_users([ params[:id] ], request.post?)
-    flash[:notice] = "El usuario ha sido modificado con el comentario '#{comment}'"
+
+    flash[:notice] = message
     redirect_to action: :show
   end
 
