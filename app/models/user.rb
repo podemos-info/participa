@@ -652,8 +652,8 @@ class User < ActiveRecord::Base
   end
 
   def self.ban_users ids, value
-    t = User.arel_table
-    User.where(id:ids).where(t[:admin].eq(false).or(t[:admin].eq(nil))).update_all User.set_flag_sql(:banned, value)
+    t = User.with_deleted.arel_table
+    User.with_deleted.where(id:ids).where(t[:admin].eq(false).or(t[:admin].eq(nil))).update_all User.set_flag_sql(:banned, value)
   end
 
   def before_save

@@ -116,6 +116,20 @@ ActiveAdmin.register VoteCircle do
         resource.code = resource.get_code_circle resource.town,circle_type unless resource.code.present?
         resource.original_code = resource.code if resource.original_code.strip.empty?
       end
+      kind = 2
+      case circle_type
+      when "IP"
+        kind = 0
+      when "TB"
+        kind = 1
+      when "TM"
+        kind = 2
+      when "TC"
+        kind = 3
+      else
+        kind = 4
+      end
+      resource.kind = kind
     end
 
     def change_children_vote_circle(resource)

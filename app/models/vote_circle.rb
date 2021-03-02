@@ -1,6 +1,10 @@
 class VoteCircle < ActiveRecord::Base
   include TerritoryDetails
 
+  enum kind: { interno: 0, barrial: 1, municipal: 2, comarcal: 3, exterior: 4 }
+
+  scope :in_spain,-> {where(kind: [kinds[:barrial], kinds[:municipal], kinds[:comarcal]]) }
+
   attr_accessor :circle_type
 
   ransacker :vote_circle_province_id, formatter: proc { |value|
@@ -39,18 +43,17 @@ class VoteCircle < ActiveRecord::Base
     result
   end
 
-  def in_spain?
+   def in_spain?
+     [[VoteCircle.kinds[:barrial], VoteCircle.kinds[:municipal], VoteCircle.kinds[:comarcal]]].include? self.kind
+   end
+
+  def code_in_spain?
     circle_type =self.code[0,2]
     circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
   end
 
   def is_exterior?
-    circle_type =self.code[0,2]
-    circle_type != "IP" && circle_type != "TB" && circle_type != "TC" && circle_type != "TM"
-  end
-
-  def get_type_circle
-    self.in_spain? ? self.code[0,2] : "00"
+    self.kind == kinds[:exterior]
   end
 
   def get_type_circle_from_original_code
@@ -65,7 +68,8 @@ class VoteCircle < ActiveRecord::Base
   def town_name
     if self.town
       prov = Carmen::Country.coded("ES").subregions[self.town[2,2].to_i-1]
-      prov.subregions.coded(self.town).name
+      carmen_town = prov.subregions.coded(self.town.strip)
+      carmen_town.present? ? carmen_town.name : "#{self.town} no es un municipio válido"
     else
       ""
     end
@@ -80,7 +84,7 @@ class VoteCircle < ActiveRecord::Base
   end
 
   def country_name
-    Carmen::Country.coded(self.country_code).name
+    Carmen::Country.coded(self.country_code) ? Carmen::Country.coded(self.country_code).name : ""
   end
 
   private

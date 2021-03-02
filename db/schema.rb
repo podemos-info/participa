@@ -501,6 +501,7 @@ ActiveRecord::Schema.define(version: 20210224102745) do
     t.string   "vote_circle_town_code"
     t.string   "vote_circle_island_code"
     t.integer  "vote_circle_id"
+    t.string   "target_territory"
   end
 
   add_index "orders", ["parent_id"], name: "index_orders_on_parent_id", using: :btree
@@ -713,23 +714,17 @@ ActiveRecord::Schema.define(version: 20210224102745) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
-  create_table "vote_circle_types", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "vote_circles", force: :cascade do |t|
     t.string   "original_name"
     t.string   "original_code"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "code"
     t.string   "name"
     t.string   "island_code"
     t.integer  "region_area_id"
     t.string   "town"
-    t.decimal  "vote_circle_type_id"
+    t.integer  "kind"
     t.string   "country_code"
     t.string   "autonomy_code"
     t.string   "province_code"

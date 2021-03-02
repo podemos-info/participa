@@ -1,0 +1,16 @@
+<%= semantic_form_for :users, :url => { :action => "ban_deleted" } do |f| %>
+  <fieldset>
+    <%= label :manual_comment, class: "control-label", required: true do %>
+      <%= "Comentario"%>
+    <% end %>
+    <div class="inputlabel-box">
+      <%= f.input :manual_comment,label:"", :as=> :text %>
+    </div>
+  </fieldset>
+  <div class="buttons">
+    <%= f.actions do %>
+      <%= f.action :submit, label: 'Confirmar', :as => :button %>
+      <%= link_to "Cancelar", action: "show"%>
+    <% end %>
+  </div>
+<% end %>

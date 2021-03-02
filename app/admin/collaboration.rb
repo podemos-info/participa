@@ -832,7 +832,7 @@ ActiveAdmin.register Collaboration do
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
 
-    Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").group(:town_code,:postal_code, Order.unique_month('payable_at')).order(:town_code, "users.postal_code", Order.unique_month('payable_at')).pluck('town_code', 'postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc').each do|c,cp,m,t,v|
+    Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.vote_circle_town_code is not null and orders.amount > 0").group(:vote_circle_town_code,:postal_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, "users.postal_code", Order.unique_month('payable_at')).pluck('vote_circle_town_code', 'postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc').each do|c,cp,m,t,v|
       num_month = m.to_i
       if (towns_data[c][cp][num_month] == 0)
         towns_data[c][cp][num_month] = [t,v]
@@ -884,7 +884,8 @@ ActiveAdmin.register Collaboration do
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
 
-    Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is not null").group(:town_code,:vote_circle_id, Order.unique_month('payable_at')).order(:town_code, "users.vote_circle_id", Order.unique_month('payable_at')).pluck('town_code', 'vote_circle_id', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.vote_circle_id as vc').each do|c,vc,m,t,v|
+    query = Order.paid.where.not(vote_circle_id: nil, vote_circle_town_code: nil).where("amount > 0").group(:vote_circle_town_code, :vote_circle_id, Order.unique_month('payable_at')).order(:vote_circle_town_code, :vote_circle_id, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, :vote_circle_id, Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc')
+    query.each do|c,vc,m,t,v|
       num_month = m.to_i
       if (towns_data[c][vc][num_month] == 0)
         towns_data[c][vc][num_month] = [t,v]
@@ -908,11 +909,12 @@ ActiveAdmin.register Collaboration do
         header2.push("Suma Importes")
       end
       writer << header2
+      vote_circles_data = VoteCircle.all.pluck(:id,:original_name).to_h
       provinces.each_with_index do |province,i|
         prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
         province.subregions.each do |town|
           towns_data[town.code].keys.each do |vc|
-            row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vc,"" ]
+            row=[ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vote_circles_data[vc],"" ]
             sum_row=0
             months.keys.each do |month|
               amount_month = towns_data[town.code][vc][month][1]/100
@@ -939,7 +941,7 @@ ActiveAdmin.register Collaboration do
     # ---------------------- Generate Circle Data ---------------------------------------------------------------------------------
 
     circle_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
-    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is not null").group(:town_code,:vote_circle_id, Order.unique_month('payable_at')).order(:town_code, "users.vote_circle_id", Order.unique_month('payable_at')).pluck('town_code', 'vote_circle_id', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.vote_circle_id as vc')
+    query = Order.paid.where.not(vote_circle_id: nil, vote_circle_town_code: nil).where("amount > 0").group(:vote_circle_town_code,:vote_circle_id, Order.unique_month('payable_at')).order(:vote_circle_town_code, :vote_circle_id, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, :vote_circle_id, Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc')
     query.each do|c,vc,m,t,v|
       num_month = m.to_i
       if (circle_data[c][vc][num_month] == 0)
@@ -971,8 +973,8 @@ ActiveAdmin.register Collaboration do
     # ----------------------- Generate Postal Code data ---------------------------------------------------------------------------
 
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
-    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.town_code is not null and orders.amount > 0").where("users.vote_circle_id is null").group(:town_code,:postal_code, Order.unique_month('payable_at')).order(:town_code, "users.postal_code", Order.unique_month('payable_at')).pluck('town_code', 'postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc')
-    query.each do|c,cp,m,t,v|
+    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.vote_circle_town_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").group(:vote_circle_town_code,:postal_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, "users.postal_code", Order.unique_month('payable_at')).pluck(:vote_circle_town_code, 'users.postal_code', Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, users.postal_code as pc')
+    query.each do|c,cp,m,t,v,pc|
       num_month = m.to_i
       if (towns_data[c][cp][num_month] == 0)
         towns_data[c][cp][num_month] = [t,v]
