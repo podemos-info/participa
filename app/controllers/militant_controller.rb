@@ -1,5 +1,5 @@
 class MilitantController < ActionController::Base
-
+  #TODO : refactorize code and use API::V2Controller instead
   def get_militant_info
     pc =PageController.new
     @result = ""
@@ -40,6 +40,9 @@ class MilitantController < ActionController::Base
     data += "?participa_user_id=#{current_user_id}"
     data += "&exemption=#{params_hash['exemption']}" if params_hash['exemption'].present?
     data += "&collaborate=#{params_hash['collaborate']}"  if params_hash['collaborate'].present?
+    # data += "?#{param_list[0]}=#{current_user_id}" if params_hash[param_list[0]].present? #participa_user_id
+    # data += "&#{param_list[1]}=#{params_hash[param_list[1]]}" if params_hash[param_list[1]].present? #exemption
+    # data += "&#{param_list[2]}=#{params_hash[param_list[2]]}"  if params_hash[param_list[1]].present? #collaborate
 
     signature = Base64.urlsafe_encode64(OpenSSL::HMAC.digest("SHA256", secret, "#{timestamp}::#{data}"))[0..27]
     [signature == params_hash['signature'],data]
