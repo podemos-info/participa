@@ -2,6 +2,17 @@
 module Podemos
 	class GeoExtra
 		ISLANDS = {
+			'i_71' => [ 'i_71', 'Formentera'],
+			'i_72' => [ 'i_72', 'Ibiza'],
+			'i_73' => [ 'i_73', 'Mallorca'],
+			'i_74' => [ 'i_74', 'Menorca'],
+			'i_382' => [ 'i_382', 'El Hierro'],
+			'i_351' => [ 'i_351', 'Fuerteventura'],
+			'i_352' => [ 'i_352', 'Gran Canaria'],
+			'i_381' => [ 'i_381', 'La Gomera'],
+			'i_383' => [ 'i_383', 'La Palma'],
+			'i_353' => [ 'i_353', 'Lanzarote'],
+			'i_384' => [ 'i_384', 'Tenerife'],
 			'm_07_024_4' => [ 'i_71', 'Formentera'],
 			'm_07_026_0' => [ 'i_72', 'Ibiza'],
 			'm_07_046_6' => [ 'i_72', 'Ibiza'],
