@@ -52,10 +52,6 @@ class VoteCircle < ActiveRecord::Base
     circle_type == "TB" || circle_type == "TM" || circle_type == "TC"
   end
 
-  def is_exterior?
-    self.kind == kinds[:exterior]
-  end
-
   def get_type_circle_from_original_code
     self.in_spain? ? self.original_code[0,2] : "00"
   end
