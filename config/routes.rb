@@ -15,6 +15,13 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :api do
+    scope :v2 do
+      get 'get_data', to: 'v2#get_data'
+
+    end
+  end
   scope "/(:locale)", locale: /es|ca|eu/ do
 
     if Rails.application.secrets.openid.try(:[], "enabled")
@@ -205,5 +212,5 @@ Rails.application.routes.draw do
     mount Resque::Server.new, at: '/admin/resque', as: :resque
   end
 
-  get '*path' ,to: redirect("/#{I18n.locale}") # this line must be always the last line
+  #get '*path' ,to: redirect("/#{I18n.locale}") # this line must be always the last line
 end
