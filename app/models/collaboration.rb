@@ -606,7 +606,7 @@ class Collaboration < ActiveRecord::Base
 
   def get_vote_island_name
     if self.user
-      self.user.vote_island_code
+      self.user.vote_island_name
     else
       Podemos::GeoExtra::ISLANDS[self.get_non_user.ine_town][1]
     end

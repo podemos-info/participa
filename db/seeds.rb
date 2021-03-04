@@ -69,3 +69,30 @@ def assign_vote_circle_territories
 end
 
 assign_vote_circle_territories
+
+def assign_orders_target_territory(order)
+  return "" unless order.parent && order.parent.get_user
+  user = order.parent.get_user
+  type_order = order.island_code ? "I" : order.town_code ? "M" : order.autonomy_code ? "A" : "E"
+  has_circle = user.vote_circle_id.present? && !user.vote_circle.interno?
+  type_order = "E" if has_circle && user.vote_circle.exterior?
+  circle = user.vote_circle if has_circle
+  case type_order
+  when "I"
+    text = "Isla "
+    text += has_circle && circle.island_code.present? ? circle.island_name : order.parent.get_vote_island_name
+  when "M"
+    text = "Municipal "
+    text += has_circle && circle.town.present? ? circle.town_name : order.parent.get_vote_town_name
+  when "A"
+    text = "Autonómico "
+    text += has_circle && circle.autonomy_code.present? ? circle.autonomy_name : order.parent.get_vote_autonomy_name
+  else
+    text = "Estatal"
+  end
+  text.html_safe
+end
+
+# Order.where(target_territory:nil).find_each do |order|
+#   assign_orders_target_territory order
+# end
