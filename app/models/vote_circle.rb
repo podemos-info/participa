@@ -58,7 +58,7 @@ class VoteCircle < ActiveRecord::Base
 
   def island_name
     return "" unless (self.island_code && Podemos::GeoExtra::ISLANDS[self.island_code]) || (self.town && Podemos::GeoExtra::ISLANDS[self.town])
-    code = self.town if self.town
+    code = self.town if self.town && self.town.present?
     code ||= self.island_code if self.island_code
     Podemos::GeoExtra::ISLANDS[code][1]
   end
