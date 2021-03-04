@@ -171,7 +171,7 @@ namespace :podemos do
       reg = "r_#{full_code}"
 
       #countries[if countries.include? u.country_name then u.country_name else UNKNOWN end][0] += 1 if u.country != SPAIN
-      if u.vote_circle.is_exterior?
+      if u.vote_circle.exterior?
         countries[type_circle][1] +=1
         countries[type_circle][2] += 1 if full_code == ip01
         countries[type_circle][3] += 1 if full_code == ip02
