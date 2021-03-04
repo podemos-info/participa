@@ -14,6 +14,7 @@
         <h2>¡Hola, <%= current_user.first_name %>!</h2>
           <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo censo de militantes. Los y las militantes de Podemos, siempre según los nuevos documentos y a través de su Círculo activo, son ahora protagonistas exclusivos a la hora de decidir:</p>
           <%= raw t('non_militant.features') %>
+
           <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
         <p>1.- Verificar tu inscripción en Podemos. Si aún no lo has hecho, <strong><%= link_to "puedes hacer clic aquí", new_user_verification_path %></strong> y seguir los pasos necesarios para verificar tu identidad.</p>
           <%if current_user.verified_for_militant? %>
