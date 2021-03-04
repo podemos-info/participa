@@ -300,6 +300,8 @@ class Collaboration < ActiveRecord::Base
       vote_circle_town_code:  self.for_town_cc.present? ? self.get_vote_circle_town : nil,
       vote_circle_island_code: self.for_island_cc ? self.get_vote_circle_island_code : nil,
       vote_circle_id: self.get_vote_circle_id
+
+    order.target_territory = order.generate_target_territory
     order
   end
 
