@@ -7,7 +7,6 @@
         <h3></h3>
         <p>Ya eres militante de Podemos. A través de tu Círculo activo, según los documentos de la Tercera Asamblea Ciudadana de Podemos, tienes los siguientes derechos:</p>
         <%= raw t('militant.features') %>
-        <%= raw t('militant.vote_circle_net_close_date') %>
         <p>Consulta cualquier duda a tu Secretaría de Organización Autonómica o a tu Secretaría de Círculos.</p>
         <p>Más información en <a href='https://www.podemos.info/militantes'>podemos.info/militantes</a></p>
         <p><strong>Gracias por tu compromiso y por dar un paso al frente para construir Podemos y cambiar las cosas.</strong></p>
@@ -15,7 +14,7 @@
         <h2>¡Hola, <%= current_user.first_name %>!</h2>
           <p>Si lo deseas, además de estar inscrit<% if (current_user.gender == 'M')%>o<% elsif current_user.gender == 'F'%>a<% else %>o/a<%end%> en Podemos, puedes darte de alta en el nuevo censo de militantes. Los y las militantes de Podemos, siempre según los nuevos documentos y a través de su Círculo activo, son ahora protagonistas exclusivos a la hora de decidir:</p>
           <%= raw t('non_militant.features') %>
-          <%= raw t('militant.vote_circle_net_close_date') %>
+
           <h3>Para ser militante de Podemos debes cumplir tres condiciones:</h3>
         <p>1.- Verificar tu inscripción en Podemos. Si aún no lo has hecho, <strong><%= link_to "puedes hacer clic aquí", new_user_verification_path %></strong> y seguir los pasos necesarios para verificar tu identidad.</p>
           <%if current_user.verified_for_militant? %>
@@ -24,7 +23,7 @@
             <p class="text-orange">No cumples con esta condición <%= fa_icon("times-circle") %></p>
           <% end %>
 
-        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. <strong><%= link_to "Para ello haz clic en Círculo", edit_user_registration_path(anchor:"circle") %></strong> y selecciona el tuyo. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. Si has marcado que tu Círculo no está activo o está en construcción, por favor indícanos en <a href="https://participa.podemos.info/solicitud-creacion-circulo">este formulario</a> de qué Círculo se trata. </p>
+        <p> 2.- Adscribir tu participación en Podemos como militante a un Círculo concreto. <strong><%= link_to "Para ello haz clic en Círculo", edit_user_registration_path(anchor:"circle") %></strong> y selecciona el tuyo. Tu Círculo deberá tener el estatus de activo para participar en los distintos procesos que se organicen. </p>
           <% if current_user.in_vote_circle? %>
               <p class="text-green">Ya cumples con esta condición <%= fa_icon("check-circle") %></p>
           <% else %>
