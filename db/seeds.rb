@@ -70,7 +70,7 @@ end
 
 assign_vote_circle_territories
 
- Order.where(target_territory:nil).find_each do |order|
+ Order.where("payed_at > ?",Date.parse("2020-09-30")).where(target_territory:nil).find_each do |order|
    order.target_territory = order.generate_target_territory
    order.save!
  end
