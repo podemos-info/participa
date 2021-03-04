@@ -72,9 +72,11 @@ class Api::V2Controller < ActionController::Base
     when "island"
       territory||= app_user.vote_island_code
       vc_query = VoteCircle.where(island_code: territory).pluck(:id,:original_name)
-    else
+      when "circle"
       territory||= app_user.vote_circle_id
       vc_query = VoteCircle.where(id: territory).pluck(:id,:original_name)
+    else
+      vc_query = VoteCircle.none
     end
     if vc_query.any?
       data = []
@@ -85,7 +87,7 @@ class Api::V2Controller < ActionController::Base
       end
       @result = data
     else
-      @result = "Data not found"
+      @result = []
     end
     @result
   end
