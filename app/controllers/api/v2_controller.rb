@@ -83,7 +83,7 @@ class Api::V2Controller < ActionController::Base
       vc_hash = vc_query.to_h
       vc_ids = vc_hash.keys
       User.militant.where(vote_circle_id: vc_ids).find_each do |u|
-        data << {first_name: u.first_name,phone: u.phone,autonomy_name: u.autonomy_name,province_name: u.province_name,island_name: u.island_name,town_name: u.town_name,circle_name: u.vote_circle.original_name}
+        data << {first_name: u.first_name,phone: u.phone,country_name: u.country_name, autonomy_name: u.autonomy_name,province_name: u.province_name,island_name: u.island_name,town_name: u.town_name,circle_name: u.vote_circle.original_name}
       end
       @result = data
     else
