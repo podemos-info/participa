@@ -74,7 +74,7 @@ class Api::V2Controller < ActionController::Base
       territory||= app_user.vote_island_code
       vc_query = VoteCircle.where(island_code: territory).pluck(:id,:original_name)
     when "circle"
-      territory = VoteCircle.exterior.pluck(:id) if params[:range_name].downcase == RANGE_NAMES[:exterior]
+      territory = VoteCircle.exterior.pluck(:id) if params[:range_name] && params[:range_name].downcase == RANGE_NAMES[:exterior]
       territory||= app_user.vote_circle_id
       vc_query = VoteCircle.where(id: territory).pluck(:id,:original_name)
     else
