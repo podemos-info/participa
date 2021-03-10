@@ -69,7 +69,7 @@ class Api::V2Controller < ActionController::Base
       vc_query = VoteCircle.where(province_code: territory).pluck(:id,:original_name)
     when "town"
       territory||= app_user.vote_town
-      vc_query = VoteCircle.where(town_code: territory).pluck(:id,:original_name)
+      vc_query = VoteCircle.where(town: territory).pluck(:id,:original_name)
     when "island"
       territory||= app_user.vote_island_code
       vc_query = VoteCircle.where(island_code: territory).pluck(:id,:original_name)
