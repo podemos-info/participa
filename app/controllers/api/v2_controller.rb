@@ -62,16 +62,16 @@ class Api::V2Controller < ActionController::Base
     query = User.none
     case params[:territory]
     when "autonomy"
-      territory||= app_user.vote_autonomy_code
+      territory||= app_user.vote_circle.autonomy_code
       vc_query = VoteCircle.where(autonomy_code: territory).pluck(:id,:original_name)
     when "province"
-      territory||= app_user.vote_province_code
+      territory||= app_user.vote_circle.province_code
       vc_query = VoteCircle.where(province_code: territory).pluck(:id,:original_name)
     when "town"
-      territory||= app_user.vote_town
+      territory||= app_user.vote_circle.town
       vc_query = VoteCircle.where(town: territory).pluck(:id,:original_name)
     when "island"
-      territory||= app_user.vote_island_code
+      territory||= app_user.vote_circle.island_code
       vc_query = VoteCircle.where(island_code: territory).pluck(:id,:original_name)
     when "circle"
       territory = VoteCircle.exterior.pluck(:id) if params[:range_name] && params[:range_name].downcase == RANGE_NAMES[:exterior]
