@@ -666,7 +666,6 @@ ActiveAdmin.register Collaboration do
     months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     provinces = Carmen::Country.coded("ES").subregions
-    towns["~"] = "Municipio desconocido"
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
     Order.paid.group(:vote_circle_town_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, Order.unique_month('payable_at'),:target_territory).pluck('vote_circle_town_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount',:target_territory).each do|c,m,t,v,tt|
       towns_data[c||'~'][m.to_i]=[t,v,tt]
@@ -697,6 +696,13 @@ ActiveAdmin.register Collaboration do
           csv << row
         end
       end
+      #add unknown town records
+      row=[ 'Desconocida', "Desconocida", "Desconocido" ]
+      months.keys.each do |month|
+        row.push(towns_data['~'][month][0])
+        row.push(towns_data['~'][month][1]/100)
+      end
+      csv << row
     end
 
     send_data csv.encode('utf-8'),
@@ -802,7 +808,6 @@ ActiveAdmin.register Collaboration do
     months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
     provinces = Carmen::Country.coded("ES").subregions
-    towns["~"] = "Municipio desconocido"
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
     Order.paid.group(:town_code, Order.unique_month('payable_at')).order(:town_code, Order.unique_month('payable_at')).pluck('town_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
       towns_data[c||'~'][m.to_i]=[t,v]
@@ -833,6 +838,14 @@ ActiveAdmin.register Collaboration do
           csv << row
         end
       end
+
+      #add unknown town records
+      row=[ 'Desconocida', "Desconocida", "Desconocido" ]
+      months.keys.each do |month|
+        row.push(towns_data['~'][month][0])
+        row.push(towns_data['~'][month][1]/100)
+      end
+      csv << row
     end
 
     send_data csv.encode('utf-8'),
