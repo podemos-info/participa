@@ -3,6 +3,7 @@ class UsersMailer < ActionMailer::Base
 
   def microcredit_email(microcredit, loan, brand_config)
     @microcredit = microcredit
+    @microcredit.title = @microcredit.title.gsub('#','')
     @loan = loan
     @brand_config = brand_config
     pdf_name = "IngresoMicrocreditos#{@brand_config["name"]}.pdf"
