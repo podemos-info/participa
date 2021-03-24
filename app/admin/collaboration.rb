@@ -655,7 +655,7 @@ ActiveAdmin.register Collaboration do
 
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-    Order.paid.group(:vote_circle_town_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, Order.unique_month('payable_at'),:target_territory).pluck('vote_circle_town_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount',:target_territory).each do|c,m,t,v,tt|
+    Order.paid.group(:vote_circle_town_code, Order.unique_month('payable_at')).order(:vote_circle_town_code, Order.unique_month('payable_at')).pluck('vote_circle_town_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v,tt|
       towns_data[c||'~'][m.to_i]=[t,v,tt]
     end
 
@@ -798,7 +798,7 @@ ActiveAdmin.register Collaboration do
     provinces = Carmen::Country.coded("ES").subregions
     towns_data = Hash.new {|h,k| h[k] = Hash.new 0 }
     Order.paid.group(:town_code, Order.unique_month('payable_at')).order(:town_code, Order.unique_month('payable_at')).pluck('town_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
-      towns_data[c||'~'][m.to_i]=[t,v]
+      towns_data[c][m.to_i]=[t,v]
     end
 
     csv = CSV.generate(encoding: 'utf-8', col_sep: "\t") do |csv|
