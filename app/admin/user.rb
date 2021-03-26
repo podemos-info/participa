@@ -157,7 +157,7 @@ ActiveAdmin.register User do
       end
       row :admin
       row "Círculo" do #row "#{t('activerecord.attributes.user.vote_circle')}" do
-        user.vote_circle.original_name if user.vote_circle_id.present?
+        user.vote_circle.original_name if user.vote_circle.present?
       end
       row :created_at
       row :updated_at
