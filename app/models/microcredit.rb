@@ -19,6 +19,7 @@ class Microcredit < ActiveRecord::Base
   # example: "100€: 100\r500€: 22\r1000€: 10"
   validates :limits, format: { with: /\A(\D*\d+\D*\d+\D*)+\z/, message: "Introduce pares (monto, cantidad)"}
   validate :check_limits_with_phase
+  validate :check_bank_counted_amount,  :on => :update
 
   scope :active, -> {where("? between starts_at and ends_at", DateTime.now)}
   scope :upcoming_finished, -> { where("ends_at > ? AND starts_at < ?", 7.days.ago, 1.day.from_now).order(:title)}
@@ -250,4 +251,9 @@ class Microcredit < ActiveRecord::Base
     return "#{I18n.t('microcredit.index.will_start')} #{I18n.t('microcredit.index.immediatly')}" if seconds_diff.between?(1,59)
   end
 
+  def check_bank_counted_amount
+    if self.bank_counted_amount < bank_counted_amount_was
+      self.errors.add("Saldo erróneo", "No puedes establecer un saldo bancario inferior al que ya había.")
+    end
+  end
 end
