@@ -1,7 +1,7 @@
 ActiveAdmin.register VoteCircle do
   DEFAULT_VOTE_CIRCLE = "IP000000001"
   menu :parent => "Users"
-  permit_params :original_code, :original_name,:code,:name,:island_code,:town, :vote_circle_autonomy, :circle_type
+  permit_params :original_code, :original_name,:code,:name,:island_code,:town, :vote_circle_autonomy, :kind
   sidebar "Añadir Circulos desde fichero", 'data-panel' => :collapsed, :only => :index, priority: 1 do
     render('upload_vote_circles')
   end
@@ -26,9 +26,8 @@ ActiveAdmin.register VoteCircle do
 
   form do |f|
     f.semantic_errors
-    circle_type = :original_code.present? ? resource.get_type_circle_from_original_code : "TM"
     f.inputs 'Details' do
-      input :circle_type, as: :select, collection: [['Comarcal','TC'], ['Municipal','TM'], ['Barrial','TB'], ['Exterior','00']], selected: circle_type, include_blank: false
+      input :kind, as: :select, collection: VoteCircle.kinds.map{|k,v| [k.capitalize,VoteCircle.kinds.key(v)]}, selected: resource.kind, include_blank: false, label: 'tipo de círculo'
       input :original_name
       label "Dejar en blanco el código para que se calcule automáticamente"
       input :original_code
@@ -105,32 +104,7 @@ ActiveAdmin.register VoteCircle do
   end
 
   controller do
-    before_save :before_save
     before_destroy :change_children_vote_circle
-
-    def before_save(resource)
-      circle_type = params["vote_circle"]["circle_type"]
-      if circle_type == "00"
-        resource.code = resource.original_code
-      else
-        resource.code = resource.get_code_circle resource.town,circle_type unless resource.code.present?
-        resource.original_code = resource.code if resource.original_code.strip.empty?
-      end
-      kind = 2
-      case circle_type
-      when "IP"
-        kind = 0
-      when "TB"
-        kind = 1
-      when "TM"
-        kind = 2
-      when "TC"
-        kind = 3
-      else
-        kind = 4
-      end
-      resource.kind = kind
-    end
 
     def change_children_vote_circle(resource)
       default_id = VoteCircle.where(code: DEFAULT_VOTE_CIRCLE).pluck(:id).first
