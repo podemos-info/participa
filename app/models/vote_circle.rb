@@ -20,7 +20,7 @@ class VoteCircle < ActiveRecord::Base
   end
 
   def is_active?
-    self.code.present?
+    !self.interno?
   end
 
   def get_code_circle(muni_code,circle_type ="TM")
