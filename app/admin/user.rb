@@ -271,7 +271,7 @@ ActiveAdmin.register User do
   filter :votes_election_id, as: :select, collection: Election.all
   filter :user_vote_circle_autonomy_id_in, as: :select, collection: Podemos::GeoExtra::AUTONOMIES.values.uniq.map(&:reverse).map{|c| [c[0],"__#{c[1][2,2]}%"]}, label: "Circle autonomy"
   filter :user_vote_circle_province_id_in, as: :select, collection: Carmen::Country.coded("ES").subregions.map{|x|[x.name, "____#{(x.index).to_s.rjust(2,"0")}%"]}, label: "Circle province"
-  filter :user_vote_circle_id_in, as: :select, collection: VoteCircle.all.order(:original_name).map{|c| [c.original_name, c.id]}, label: "Circle name"
+  filter :user_vote_circle_id_in, as: :select, collection: proc { VoteCircle.all.order(:original_name).map { |c| [c.original_name, c.id] }}, label: "Circle name"
 
   form partial: "form"
 
