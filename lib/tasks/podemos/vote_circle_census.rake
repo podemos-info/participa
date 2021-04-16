@@ -33,8 +33,9 @@ namespace :podemos do
   def get_census_vote_circles
     header = ["user_id","ccaa_code","CCAA","prov_code","Provincia","reg_code","Comarca","town_code","Municipio","id_circulo","código_circulo","circulo","Nombre","Apellidos","DNI","Telefono","Email"]
     data = []
+    date_limit = Date.today.to_s
     User.militant.find_each do |u|
-      if u.militant_at?('2020-10-16')
+      if u.militant_at?(date_limit)
         circle_has_town = u.vote_circle.town.present?
         mk_muni_code = "m_#{u.vote_circle.code[4,2]}_000_0"
         is_internal_code = (mk_muni_code =="m_00_000_0")
