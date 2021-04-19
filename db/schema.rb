@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200813082435) do
+ActiveRecord::Schema.define(version: 20200416090947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20200813082435) do
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -45,18 +45,6 @@ ActiveRecord::Schema.define(version: 20200813082435) do
     t.index ["post_id"], name: "index_categories_posts_on_post_id", using: :btree
   end
 
-  create_table "circles", force: :cascade do |t|
-    t.string   "original_name"
-    t.string   "original_code"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "code"
-    t.string   "name"
-    t.string   "island_code"
-    t.integer  "region_area_id"
-    t.string   "town"
-  end
-
   create_table "collaborations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "amount"
@@ -67,7 +55,7 @@ ActiveRecord::Schema.define(version: 20200813082435) do
     t.integer  "ccc_entity"
     t.integer  "ccc_office"
     t.integer  "ccc_dc"
-    t.integer  "ccc_account"
+    t.bigint   "ccc_account"
     t.string   "iban_account"
     t.string   "iban_bic"
     t.datetime "deleted_at"
@@ -153,8 +141,8 @@ ActiveRecord::Schema.define(version: 20200813082435) do
 
   create_table "impulsa_edition_categories", force: :cascade do |t|
     t.integer  "impulsa_edition_id"
-    t.string   "name"
-    t.integer  "category_type"
+    t.string   "name",                                              null: false
+    t.integer  "category_type",                                     null: false
     t.integer  "winners"
     t.integer  "prize"
     t.string   "territories"
@@ -185,10 +173,8 @@ ActiveRecord::Schema.define(version: 20200813082435) do
   end
 
   create_table "impulsa_edition_topics", force: :cascade do |t|
-    t.integer  "impulsa_edition_id"
-    t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer "impulsa_edition_id"
+    t.string  "name"
     t.index ["impulsa_edition_id"], name: "index_impulsa_edition_topics_on_impulsa_edition_id", using: :btree
   end
 
@@ -235,10 +221,8 @@ ActiveRecord::Schema.define(version: 20200813082435) do
   end
 
   create_table "impulsa_project_topics", force: :cascade do |t|
-    t.integer  "impulsa_project_id"
-    t.integer  "impulsa_edition_topic_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer "impulsa_project_id"
+    t.integer "impulsa_edition_topic_id"
     t.index ["impulsa_edition_topic_id"], name: "index_impulsa_project_topics_on_impulsa_edition_topic_id", using: :btree
     t.index ["impulsa_project_id"], name: "index_impulsa_project_topics_on_impulsa_project_id", using: :btree
   end
@@ -640,7 +624,7 @@ ActiveRecord::Schema.define(version: 20200813082435) do
     t.integer  "failed_attempts",          default: 0,    null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "old_circle_data"
+    t.string   "circle"
     t.datetime "deleted_at"
     t.string   "unconfirmed_phone"
     t.boolean  "wants_participation"
@@ -651,8 +635,6 @@ ActiveRecord::Schema.define(version: 20200813082435) do
     t.string   "vote_district"
     t.string   "gender"
     t.boolean  "wants_information_by_sms", default: true
-    t.datetime "circle_changed_at"
-    t.integer  "circle_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["deleted_at", "document_vatid"], name: "index_users_on_deleted_at_and_document_vatid", unique: true, using: :btree
     t.index ["deleted_at", "email"], name: "index_users_on_deleted_at_and_email", unique: true, using: :btree
@@ -688,6 +670,13 @@ ActiveRecord::Schema.define(version: 20200813082435) do
     t.index ["deleted_at"], name: "index_votes_on_deleted_at", using: :btree
   end
 
+  add_foreign_key "impulsa_edition_categories", "impulsa_editions"
+  add_foreign_key "impulsa_edition_topics", "impulsa_editions"
+  add_foreign_key "impulsa_project_state_transitions", "impulsa_projects"
+  add_foreign_key "impulsa_project_topics", "impulsa_edition_topics"
+  add_foreign_key "impulsa_project_topics", "impulsa_projects"
+  add_foreign_key "impulsa_projects", "impulsa_edition_categories"
+  add_foreign_key "impulsa_projects", "users"
   add_foreign_key "microcredit_loans", "microcredit_options"
   add_foreign_key "user_verifications", "users", column: "author_id"
 end

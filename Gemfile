@@ -89,5 +89,15 @@ group :development, :test do
   gem 'simplecov'
   gem 'spring'
   gem 'webmock'
+  gem 'minitest-reporters'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'launchy'
+  gem 'database_cleaner'
+  gem 'minitest-rails-capybara'
+  gem 'cucumber-rails', require: false
+  gem 'shoulda-matchers', '~> 4.0'
+  gem 'rails-controller-testing'
+  gem 'selenium-webdriver'
 end
 
