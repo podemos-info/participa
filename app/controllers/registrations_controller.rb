@@ -63,6 +63,17 @@ class RegistrationsController < Devise::RegistrationsController
     flash[key] = message if message.present?
   end
 
+
+  def qr_code
+    @qrcode = RQRCode::QRCode.new("50452516S")
+    @svg = @qrcode.as_svg(
+      offset:0,
+      color: '000',
+      shape_rendering: 'crispEdges',
+      module_size: 6
+    )
+  end
+
   private
 
   def locked_personal_data?
@@ -110,5 +121,4 @@ class RegistrationsController < Devise::RegistrationsController
     fields += %w[checked_vote_circle]
     params.require(:user).permit(*fields)
   end
-
 end
