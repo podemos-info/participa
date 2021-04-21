@@ -206,6 +206,13 @@ ActiveAdmin.register Collaboration do
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_circle_and_cp, date: Date.today-1.month) }
         """.html_safe
       end
+
+      li do
+        """por Municipio y municipio de asignación:
+	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_special_for_town, date: Date.today) }
+        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_special_for_town, date: Date.today-1.month) }
+        """.html_safe
+      end
     end
   end
   
@@ -1048,7 +1055,7 @@ ActiveAdmin.register Collaboration do
               disposition: "attachment; filename=podemos.user_for_cp_cc.#{Date.today.to_s}.csv"
   end
 
-  collection_action :download_especial_for_town, :method => :get do
+  collection_action :download_special_for_town, :method => :get do
     date = Date.parse params[:date]
     months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
@@ -1092,7 +1099,7 @@ ActiveAdmin.register Collaboration do
               disposition: "attachment; filename=podemos.for_town_cc.#{Date.today.to_s}.csv"
   end
 
-  collection_action :download_especial_for_autonomy, :method => :get do
+  collection_action :download_special_for_autonomy, :method => :get do
     date = Date.parse params[:date]
     months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
@@ -1134,7 +1141,7 @@ ActiveAdmin.register Collaboration do
               disposition: "attachment; filename=podemos.for_autonomy_cc.#{Date.today.to_s}.csv"
   end
 
-  collection_action :download_especial_for_island, :method => :get do
+  collection_action :download_special_for_island, :method => :get do
     date = Date.parse params[:date]
     months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
@@ -1185,7 +1192,7 @@ ActiveAdmin.register Collaboration do
               disposition: "attachment; filename=podemos.for_island_cc.#{Date.today.to_s}.csv"
   end
 
-  collection_action :download_especial_for_country, :method => :get do
+  collection_action :download_special_for_country, :method => :get do
     date = Date.parse params[:date]
     months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
 
