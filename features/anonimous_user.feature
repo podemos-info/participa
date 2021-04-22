@@ -5,7 +5,8 @@ Feature: Anonimous user features
     Given I am on the homepage
     When I click "Colabora periódicamente"
     Then I should see the "Necesitas iniciar sesión o registrarte para continuar." text
-
+   
+   @javascript
    Scenario: can send microcredit
      Given there are a microcredit campaing
      And I am on the homepage
