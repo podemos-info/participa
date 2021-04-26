@@ -939,6 +939,7 @@ PODEMOS cumple con todas las medidas de seguridad para la protección de datos p
       has_collaboration_bank_international: "Con colaboración económica (banco internacional)"
       participation_team: "En equipos de participación"
       has_vote_cirlce: "En Círculo"
+    empty: "vacío"
   microcredit:
     common:
       title: "Microcréditos %{name}"
