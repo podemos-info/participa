@@ -1,4 +1,9 @@
+require 'pp'
+
 Given('there are a microcredit campaing') do
+  Kernel.puts($driver)
+  log("probando")
+  log($driver.class)
   FactoryBot.create(:microcredit)
 end
 

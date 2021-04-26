@@ -9,6 +9,7 @@ Feature: Anonimous user features
    @javascript
    Scenario: can send microcredit
      Given there are a microcredit campaing
+     Then I maximize browser window
      And I am on the homepage
      When I click "Microcréditos"
      And I click "Quiero colaborar"

@@ -5,7 +5,7 @@
 # files.
 
 require 'cucumber/rails'
-
+require 'selenium-webdriver'
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
@@ -56,3 +56,19 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+Capybara.javascript_driver = :selenium
+Capybara.server = :puma
+# YO siempre he trabajado con servidor selenium 
+#Capybara.server = :selenium esto funciona en mi maquina con el servidor selenium up. No tengo claro si es un requisito para que funcione selenium web driver
+Capybara.default_driver = :selenium
+
+Capybara.register_driver :firefox do |app|
+  # optional
+  client = Selenium::WebDriver::Remote::Http::Default.new
+  # optional
+  #client.timeout = 120
+  Capybara::Selenium::Driver.new(app, :browser => :firefox, :http_client => client)
+end
+#set default js driver
+#tambien he probado con esto:
+#Capybara.javascript_driver = :firefox
