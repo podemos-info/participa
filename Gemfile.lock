@@ -285,7 +285,7 @@ GEM
     kgio (2.11.3)
     launchy (2.5.0)
       addressable (~> 2.7)
-    libv8-node (15.14.0.0-x86_64-linux)
+    libv8-node (15.14.0.1-x86_64-linux)
     loofah (2.9.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)

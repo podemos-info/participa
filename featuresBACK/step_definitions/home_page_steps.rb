@@ -1,7 +1,10 @@
 # features/step_definitions/home_page_steps.rb
+require 'selenium-cucumber'
+$browser_type = ENV['BROWSER'] || 'ff'
+$driver = Selenium::WebDriver.for(:"#{$browser_type}")
 
 Given(/^I am on the homepage$/) do
-  visit root_path
+  navigate_to("/")
 end
 
 Then(/^I should see the "(.*?)" /) do |title|
