@@ -866,13 +866,13 @@ ActiveAdmin.register Collaboration do
   collection_action :download_for_circle_and_cp_autonomy, :method => :get do
     date =Date.parse params[:date]
     months = Hash[(0..6).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
-    provinces = Carmen::Country.coded("ES").subregions
+    autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
     output_data = []
 
     # ---------------------- Generate Circle Data ---------------------------------------------------------------------------------
 
     circle_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k]= 0}}}}
-    query = Order.paid.where("target_territory like ?",'Autonómico%').where.not(vote_circle_id: nil, vote_circle_autonomy_code: nil).where("amount > 0").group(:vote_circle_town_code,:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc')
+    query = Order.paid.where("target_territory like ?",'Autonómico%').where.not(vote_circle_id: nil, vote_circle_autonomy_code: nil).where("amount > 0").group(:vote_circle_autonomy_code,:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_autonomy_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_autonomy_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc')
     query.each do|c,vc,tt,m,t,v|
       num_month = m.to_i
       if circle_data[c][vc][tt][num_month] == 0
@@ -883,15 +883,14 @@ ActiveAdmin.register Collaboration do
       end
     end
 
-    provinces.each_with_index do |province,i|
-      prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
-      province.subregions.each do |town|
-        circle_data[town.code].keys.each do |vc|
+    autonomies.sort.each do |autonomy_code,autonomy|
+
+        circle_data[autonomy_code].keys.each do |vc|
           vote_circle = VoteCircle.find(vc)
-          tts = circle_data[town.code][vc].keys
+          tts = circle_data[autonomy_code][vc].keys
           tts = [""] if tts.count == 0
           tts.each do |tt|
-            row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vote_circle.original_name,"",tt ]
+            row = [ autonomy,vote_circle.original_name,"",tt ]
             sum_row = 0
             months.keys.each do |month|
               amount_month = circle_data[town.code][vc][tt][month][1]/100
@@ -902,7 +901,6 @@ ActiveAdmin.register Collaboration do
             output_data << row
           end
         end
-      end
     end
 
     # ----------------------- Generate Postal Code data ---------------------------------------------------------------------------
@@ -940,7 +938,7 @@ ActiveAdmin.register Collaboration do
       end
     end
 
-    headers = ["Comunidad Autónoma", "Provincia", "Municipio", "Círculo", "Código Postal","Territorio de Asignación"]
+    headers = ["Comunidad Autónoma", "Círculo", "Código Postal","Territorio de Asignación"]
     send_csv_file(headers,months,output_data,"podemos.user_for_cp_cc.#{Date.today.to_s}.csv")
   end
 
