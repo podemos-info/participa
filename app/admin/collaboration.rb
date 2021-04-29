@@ -208,28 +208,28 @@ ActiveAdmin.register Collaboration do
     ul do
       li do
         """por Código Postal:
-	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_cp, date: Date.today) }
+	      #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_cp, date: Date.today) }
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_cp, date: Date.today-1.month) }
         """.html_safe
       end
 
       li do
         """por Círculo:
-	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_circle, date: Date.today) }
+	      #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_circle, date: Date.today) }
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_circle, date: Date.today-1.month) }
         """.html_safe
       end
 
       li do
         """por Círculo y Código Postal:
-	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_circle_and_cp, date: Date.today) }
+	      #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_circle_and_cp, date: Date.today) }
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_circle_and_cp, date: Date.today-1.month) }
         """.html_safe
       end
 
       li do
         """por Círculo, Código Postal y territorio de asignación:
-	    #{link_to Date.today.strftime("%b").downcase, params.merge(action: :new_download_for_circle_and_cp, date: Date.today) }
+        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :new_download_for_circle_and_cp, date: Date.today) }
         #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :new_download_for_circle_and_cp, date: Date.today-1.month) }
         """.html_safe
       end
@@ -928,7 +928,7 @@ ActiveAdmin.register Collaboration do
     # ---------------------- Generate Circle Data ---------------------------------------------------------------------------------
 
     circle_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k]= 0}}}}
-    query = Order.paid.where.not(vote_circle_id: nil, vote_circle_town_code: nil).where("amount > 0").group(:vote_circle_town_code,:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc')
+    query = Order.paid.where("target_territory like ?",'Municipal%').where.not(vote_circle_id: nil, vote_circle_town_code: nil).where("amount > 0").group(:vote_circle_town_code,:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc')
     query.each do|c,vc,tt,m,t,v|
       num_month = m.to_i
       if circle_data[c][vc][tt][num_month] == 0
@@ -964,7 +964,7 @@ ActiveAdmin.register Collaboration do
     # ----------------------- Generate Postal Code data ---------------------------------------------------------------------------
 
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k]= 0}}}}
-    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.vote_circle_town_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").group(:vote_circle_town_code, 'users.postal_code', :target_territory, Order.unique_month('payable_at')).order(:vote_circle_town_code, 'users.postal_code',:target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, 'users.postal_code',:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
+    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Municipal%').where("orders.vote_circle_town_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").group(:vote_circle_town_code, 'users.postal_code', :target_territory, Order.unique_month('payable_at')).order(:vote_circle_town_code, 'users.postal_code',:target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, 'users.postal_code',:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
     query.each do|c,cp,tt,m,t,v|
       num_month = m.to_i
       if towns_data[c][cp][tt][num_month] == 0
