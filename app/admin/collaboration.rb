@@ -957,6 +957,27 @@ ActiveAdmin.register Collaboration do
         end
       end
     end
+    # add unknown towns
+    t_ids = []
+    t_ids << provinces.map{ |p| p.subregions.map {|e| e.code}}
+    t_ids = t_ids.flatten
+    tdk = towns_data.keys
+    tdk = tdk - t_ids
+    tdk.each do |town_code|
+      tts = towns_data[town_code].keys
+      tts = [""] if tts.count == 0
+      tts.each do |tt|
+        row = [ "Desconocida", "Desconocida", town_code,tt ]
+        sum_row = 0
+        months.keys.each do |month|
+          amount_month = towns_data[town_code][tt][month][1]/100
+          row.push(towns_data[town_code][tt][month][0])
+          row.push(amount_month)
+          sum_row += amount_month
+        end
+        output_data << row
+      end
+    end
 
     headers = ["Comunidad Autónoma", "Provincia", "Municipio", "Municipio Asignación"]
     send_csv_file(headers, months, output_data,"special.town.#{Date.today.to_s}.csv")
