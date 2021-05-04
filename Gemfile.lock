@@ -612,6 +612,7 @@ DEPENDENCIES
   carmen-rails
   cocoon
   coffee-rails (~> 4.1.0)
+  cucumber
   cucumber-rails
   d3-rails
   database_cleaner
@@ -656,6 +657,7 @@ DEPENDENCIES
   rb-readline
   resque
   resque_mailer
+  rspec
   rspec-rails
   ruby-openid
   ruby-prof

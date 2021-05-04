@@ -1,9 +1,9 @@
-require 'pp'
 require 'selenium-cucumber'
-require 'factory_bot_rails' 
 
-$browser_type = ENV['BROWSER'] || 'ff'
-$driver = Selenium::WebDriver.for(:"#{$browser_type}")
+
+# Do Not Remove This File
+# Add your custom steps here
+# $driver is instance of webdriver use this instance to write your custom code
 
 Given('there are a microcredit campaing') do
   FactoryBot.create(:microcredit)
@@ -14,5 +14,9 @@ When('I click {string}') do |string|
 end
 
 When('I fill {string}') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('I Should see {string}') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
