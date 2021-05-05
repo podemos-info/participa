@@ -14,7 +14,9 @@ Feature: Anonimous user features
      And I navigate to "http://localhost:3000"
      When I click on link having text "Microcréditos"
      And I wait for 10 sec
-     And I click on link having text "Quiero colaborar"
-     And I click on link having text "Continuar sin identificarse"
+     And I wait 30 seconds for element having class "buttonbox" to display
+     And I forcefully click on element having class "button"
+     And I wait 30 seconds for element having class "modal-dialog" to display
+     And I click on element having id "close-botton"
      And I fill "Microcreditos form"
      Then I Should see "Microcréditos Podemos"
