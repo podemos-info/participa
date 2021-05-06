@@ -65,13 +65,9 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   def qr_code
-    @qrcode = RQRCode::QRCode.new("50452516S")
-    @svg = @qrcode.as_svg(
-      offset:0,
-      color: '000',
-      shape_rendering: 'crispEdges',
-      module_size: 6
-    )
+    @user = current_user
+    @svg = current_user.qr_svg
+    @date_end = current_user.qr_expire_date.to_s
   end
 
   private
