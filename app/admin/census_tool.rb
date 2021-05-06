@@ -12,7 +12,7 @@ ActiveAdmin.register_page "CensusTool" do
     dn = params["document_vatid"]
     qr_hash = params["user_qr_hash"]
     paper_vote_user = User.confirmed.not_banned.militant.where(vote_circle_id:current_user.vote_circle_id).where("lower(document_vatid) = ?", dn.downcase).find_by(document_type: dt)
-    if paper_vote_user && check_verified_user_hash(dn,qr_hash)
+    if paper_vote_user && (qr_hash.empty? || check_verified_user_hash(dn,qr_hash))
       message= { notice: "#{paper_vote_user.first_name}, con #{paper_vote_user.document_type_name} #{paper_vote_user.document_vatid}, puede participar." }
 
     else
