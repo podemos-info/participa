@@ -23,4 +23,5 @@
 //= require Chart
 //= require imagesloaded.pkgd.min
 //= require isotope.pkgd.min
+//= require zxing
 //= require_tree .

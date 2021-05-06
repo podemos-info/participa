@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210224102745) do
+ActiveRecord::Schema.define(version: 20210504145810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -689,6 +689,9 @@ ActiveRecord::Schema.define(version: 20210224102745) do
     t.boolean  "wants_information_by_sms", default: true
     t.integer  "vote_circle_id"
     t.datetime "vote_circle_changed_at"
+    t.string   "qr_hash"
+    t.string   "qr_secret"
+    t.datetime "qr_created_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

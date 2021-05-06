@@ -63,6 +63,13 @@ class RegistrationsController < Devise::RegistrationsController
     flash[key] = message if message.present?
   end
 
+
+  def qr_code
+    @user = current_user
+    @svg = current_user.qr_svg
+    @date_end = current_user.qr_expire_date.to_s
+  end
+
   private
 
   def locked_personal_data?
@@ -110,5 +117,4 @@ class RegistrationsController < Devise::RegistrationsController
     fields += %w[checked_vote_circle]
     params.require(:user).permit(*fields)
   end
-
 end
