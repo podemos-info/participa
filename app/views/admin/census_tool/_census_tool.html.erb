@@ -4,7 +4,8 @@
   <h2><strong>Círculo:</strong> <%= current_user.vote_circle.original_name %></h2>
 
   <h3>Localizar inscrito</h3>
-  <%= form_tag do |f| %>
+  <!--%= render partial: 'admin/census_tool/qr_scanner' %-->
+  <%= form_tag({},{id:"form_qr_code"}) do |f| %>
     <fieldset>
       <div>
         <%= content_tag(:span, "", class: "no-label", style: "display:inline-block") %>
@@ -15,7 +16,8 @@
       </div>
       <div class="inputlabel-box">
         <%= label_tag(:document_vatid, "Documento") %>
-        <%= text_field_tag(:document_vatid, "", autocomplete: "off", required: true, class: "input-s form-control") %>
+        <%= text_field_tag(:document_vatid, "", autocomplete: "off", required: true) %>
+        <%= hidden_field_tag 'user_qr_hash' %>
       </div>
     </fieldset>
     <%= submit_tag("Buscar", class: "button") %>
