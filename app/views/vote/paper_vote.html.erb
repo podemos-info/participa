@@ -27,7 +27,6 @@
     </center>
   <% else %>
     <h3>Localizar votante</h3>
-    <%= render partial: 'qr_scanner' %>
     <%= form_tag do |f| %>
       <fieldset>
         <div>
@@ -40,7 +39,6 @@
         <div class="inputlabel-box">
           <%= label_tag(:document_vatid, "Documento") %>
           <%= text_field_tag(:document_vatid, "", autocomplete: "off", required: true, class: "input-s form-control") %>
-          <%= hidden_field_tag 'user_qr_hash' %>
         </div>
       </fieldset>
       <%= submit_tag("Buscar", class: "button") %>

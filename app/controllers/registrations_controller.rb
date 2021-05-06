@@ -68,6 +68,7 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @svg = current_user.qr_svg
     @date_end = current_user.qr_expire_date.to_s
+    render "devise/registrations/qr_code", layout: false
   end
 
   private

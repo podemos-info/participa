@@ -1,0 +1,75 @@
+<div>
+  <div>
+    <a class="button" id="startButton">Start</a>
+    <a class="button" id="resetButton">Reset</a>
+  </div>
+
+  <div>
+    <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+  </div>
+
+  <div id="sourceSelectPanel" style="display:none">
+    <label for="sourceSelect">Selecciona una cámara:</label>
+    <select id="sourceSelect">
+    </select>
+  </div>
+
+  <label>error:</label>
+  <pre><code id="error_text"></code></pre>
+</div>
+
+<script type="text/javascript">
+  function decodeOnce(codeReader, selectedDeviceId) {
+    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((hash_text) => {
+      let words = hash_text.text.split('+');
+      document.getElementById('document_vatid').value = words[0];
+      document.getElementById('user_qr_hash').value = words[1];
+      document.getElementById('form_qr_code').submit();
+    }).catch((err) => {
+      console.error(err)
+      document.getElementById('error_text').textContent = err
+    })
+  }
+
+  window.addEventListener('load', function () {
+    let selectedDeviceId;
+    const codeReader = new ZXing.BrowserQRCodeReader()
+    console.log('ZXing code reader initialized')
+
+    codeReader.getVideoInputDevices()
+      .then((videoInputDevices) => {
+        const sourceSelect = document.getElementById('sourceSelect')
+        selectedDeviceId = videoInputDevices[0].deviceId
+        if (videoInputDevices.length >= 1) {
+          videoInputDevices.forEach((element) => {
+            const sourceOption = document.createElement('option')
+            sourceOption.text = element.label
+            sourceOption.value = element.deviceId
+            sourceSelect.appendChild(sourceOption)
+          })
+
+          sourceSelect.onchange = () => {
+            selectedDeviceId = sourceSelect.value;
+          };
+
+          const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+          sourceSelectPanel.style.display = 'block'
+        }
+
+        document.getElementById('startButton').addEventListener('click', () => {
+          decodeOnce(codeReader, selectedDeviceId);
+           console.log(`Started decode from camera with id ${selectedDeviceId}`)
+        })
+
+        document.getElementById('resetButton').addEventListener('click', () => {
+          codeReader.reset()
+          document.getElementById('document_vatid').textContent = '';
+          console.log('Reset.')
+        })
+
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  })
+</script>
