@@ -1005,18 +1005,14 @@ class User < ActiveRecord::Base
     [hash,secret,date]
   end
 
-  def set_qr_code!
+  def create_qr_code!
     hash,secret,date = generate_qr_code
     self.update(qr_hash: hash, qr_secret: secret, qr_created_at: date)
   end
 
-  def qr_svg
-    generate = false
-    # if date < date_end
-    #
-    # end
-    if generate
-      self.set_qr_code!
+  def qr_svg(generate = false)
+    if generate || self.qr_created_at.nil? || self.qr_expired?
+      self.create_qr_code!
     end
     qrcode = RQRCode::QRCode.new("#{self.document_vatid}+#{self.qr_hash}")
     qrcode.as_svg(
@@ -1027,10 +1023,17 @@ class User < ActiveRecord::Base
     )
   end
 
+  def qr_life
+    Rails.application.secrets[:qr_lifetime].send(Rails.application.secrets[:qr_life_units])
+  end
+
   def qr_expire_date
     date = self.qr_created_at
-    date_end = date + Rails.application.secrets[:qr_lifetime].send(Rails.application.secrets[:qr_life_units])
-    date_end.strftime("%F %T")
+    date + qr_life
+  end
+
+  def qr_expired?
+    Time.zone.now > qr_expire_date
   end
   def is_qr_hash_correct?(qr_hash)
     Digest::SHA256.hexdigest(self.qr_secret) == qr_hash
