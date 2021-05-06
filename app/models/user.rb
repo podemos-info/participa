@@ -1010,7 +1010,7 @@ class User < ActiveRecord::Base
     self.update(qr_hash: hash, qr_secret: secret, qr_created_at: date)
   end
 
-  def generate_qr_svg
+  def qr_svg
     generate = false
     # if date < date_end
     #
