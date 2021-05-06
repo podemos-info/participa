@@ -67,7 +67,7 @@ class RegistrationsController < Devise::RegistrationsController
   def qr_code
     @user = current_user
     @svg = current_user.qr_svg
-    @date_end = current_user.qr_expire_date.to_s
+    @date_end = current_user.qr_expire_date.strftime("%F %T")
     render "devise/registrations/qr_code", layout: false
   end
 
