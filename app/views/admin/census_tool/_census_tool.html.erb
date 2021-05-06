@@ -4,7 +4,6 @@
   <h2><strong>Círculo:</strong> <%= current_user.vote_circle.original_name %></h2>
 
   <h3>Localizar inscrito</h3>
-  <!--%= render partial: 'admin/census_tool/qr_scanner' %-->
   <%= form_tag({},{id:"form_qr_code"}) do |f| %>
     <fieldset>
       <div>
