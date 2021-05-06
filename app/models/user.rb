@@ -997,6 +997,44 @@ class User < ActiveRecord::Base
     ids = User.militant.select{ |u| u.id if u.militant_at?('2020-09-15')}
     User.where(id:ids)
   end
+
+  def generate_qr_code
+    secret = self.qr_secret || SecureRandom.hex(32).upcase
+    date = Time.zone.now
+    hash = Digest::SHA256.hexdigest(secret)
+    [hash,secret,date]
+  end
+
+  def set_qr_code!
+    hash,secret,date = generate_qr_code
+    self.update(qr_hash: hash, qr_secret: secret, qr_created_at: date)
+  end
+
+  def generate_qr_svg
+    generate = false
+    # if date < date_end
+    #
+    # end
+    if generate
+      self.set_qr_code!
+    end
+    qrcode = RQRCode::QRCode.new("#{self.document_vatid}+#{self.qr_hash}")
+    qrcode.as_svg(
+      offset:0,
+      color: '000',
+      shape_rendering: 'crispEdges',
+      module_size: 6
+    )
+  end
+
+  def qr_expire_date
+    date = self.qr_created_at
+    date_end = date + Rails.application.secrets[:qr_lifetime].send(Rails.application.secrets[:qr_life_units])
+    date_end.strftime("%F %T")
+  end
+  def is_qr_hash_correct?(qr_hash)
+    Digest::SHA256.hexdigest(self.qr_secret) == qr_hash
+  end
   private
 
   def last_vote_location_change
