@@ -27,9 +27,13 @@
 <!--script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script-->
 <script type="text/javascript">
   function decodeOnce(codeReader, selectedDeviceId) {
-    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((document_vatid) => {
-      console.log(document_vatid)
-      document.getElementById('document_vatid').value = document_vatid.text
+    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((hash_text) => {
+      //document.getElementById('document_vatid').value = document_vatid.text
+      let words = hash_text.text.split('+')
+      console.log(words[0])
+      console.log(words[1])
+      document.getElementById('document_vatid').value = words[0]
+      document.getElementById('user_qr_hash').value = words[1]
     }).catch((err) => {
       console.error(err)
       document.getElementById('result').textContent = err
@@ -45,15 +49,6 @@
       }
 
       if (err) {
-        // As long as this error belongs into one of the following categories
-        // the code reader is going to continue as excepted. Any other error
-        // will stop the decoding loop.
-        //
-        // Excepted Exceptions:
-        //
-        //  - NotFoundException
-        //  - ChecksumException
-        //  - FormatException
 
         if (err instanceof ZXing.NotFoundException) {
           console.log('No QR code found.')
