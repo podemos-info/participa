@@ -163,6 +163,9 @@ ActiveAdmin.register Order do
     column :vote_circle do |order|
       order.parent.get_user.vote_circle.original_name if order.parent && order.parent.get_user && order.parent.get_user.vote_circle_id
     end
+    column :postal_code do |order|
+      order.parent.get_user.postal_code if order.parent && order.parent.get_user && order.parent.get_user.postal_code
+    end
     column :town do |order|
       order.parent.get_user.town_name if order.parent and order.parent.get_user
     end

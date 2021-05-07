@@ -7,7 +7,7 @@
     <%= link_to "Datos personales", edit_user_registration_path %>
   </li>
   <li>
-    <%= link_to "Código QR", qr_code_path %>
+    <%= link_to "Código QR", qr_code_path if Rails.application.secrets[:qr_enabled] %>
   </li>
   <li>
     <%= link_to "Financiación", funding_path %>

@@ -65,6 +65,7 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   def qr_code
+    redirect_to root_path and return unless Rails.application.secrets[:qr_enabled]
     @user = current_user
     @svg = current_user.qr_svg
     @date_end = current_user.qr_expire_date.strftime("%F %T")
@@ -118,4 +119,5 @@ class RegistrationsController < Devise::RegistrationsController
     fields += %w[checked_vote_circle]
     params.require(:user).permit(*fields)
   end
+
 end
