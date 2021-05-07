@@ -1,0 +1,55 @@
+<style>
+  .full-height {
+      height:100%;
+  }
+  .full-width {
+      width:100%;
+  }
+  .center {
+      margin: auto;
+  }
+  .box_qr_code {
+      width: 294px;
+      border: 3px solid white;
+      padding: 10px;
+  }
+</style>
+
+<div class="">
+  <div class="footer-contact">
+    <h2 class="footer-logo">
+      <%= image_tag "logo.podemos-220-p.png", alt: "PODEMOS" %>
+    </h2>
+    <h6>Carnet virtual de militante</h6>
+  </div>
+</div>
+  <div>
+    <p>Nombre:<br><%=@user.full_name %></p>
+    <p>DNI/NIE/Pasaporte:<br><%=@user.document_vatid %></p>
+  </div>
+  <div class="box_qr_code"><%= @svg.html_safe %></div>
+  <div>
+    <p>El código caduca en:</p>
+    <p id="countdown"></p>
+  </div>
+
+<script>
+  var countDownDate = new Date("<%=@date_end %>").getTime();
+  var x = setInterval(function() {
+
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("countdown").innerHTML = "QR EXPIRADO, pulse el botón para generar un nuevo código QR";
+    }
+  }, 1000);
+</script>

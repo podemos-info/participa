@@ -29,6 +29,9 @@
             <%= nav_menu_link_to "Datos personales", "user", edit_user_registration_path, [edit_user_registration_path], title: "Datos personales" %>
           </li>
           <li>
+            <%= nav_menu_link_to "Código QR", "qrcode", qr_code_path, [qr_code_path], title: "Código QR", layout: false if Rails.application.secrets[:qr_enabled]%>
+          </li>
+          <li>
             <%= nav_menu_link_to "Colabora", "euro", new_collaboration_path, [new_collaboration_path], title: "Colabora"  %>
           </li>
           <li>
