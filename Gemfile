@@ -68,8 +68,10 @@ gem 'digest-crc'
 gem 'xmlrpc'
 gem "espeak-ruby", require: "espeak"
 gem 'grape'
+gem 'rqrcode'
 
 group :development, :test do
+  gem 'puma'
   gem 'capistrano', '~> 3.10.2'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
