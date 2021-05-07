@@ -2,7 +2,7 @@ ActiveAdmin.register_page "CensusTool" do
   menu :parent => "Users"
   content title:"Herramienta de control de Censo" do
     panel "" do
-      render partial: 'admin/census_tool/qr_scanner'
+      render partial: 'admin/census_tool/qr_scanner' if Rails.application.secrets[:qr_enabled]
       render partial: "admin/census_tool/census_tool" #, layout:false, width: "100%"
     end
   end
