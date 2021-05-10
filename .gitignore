@@ -38,3 +38,4 @@ non-public/
 config/secrets-local.yml
 /.ruby-version
 /.rbenv-gemsets
+app/assets/fonts/
