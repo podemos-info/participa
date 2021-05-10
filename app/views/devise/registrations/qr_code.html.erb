@@ -1,38 +1,94 @@
 <style>
-  .full-height {
-      height:100%;
+  @font-face {
+      font-family: 'Centra-Medium';
+      src: url(<%= asset_path("CentraNo1-Medium.ttf") %>) format("truetype");
+      font-weight: normal;
+      font-style: normal;
   }
-  .full-width {
-      width:100%;
+
+  @font-face {
+      font-family: 'Centra-Bold';
+      src: url(<%= asset_path("CentraNo1-Bold.ttf") %>) format("truetype");
+      font-weight: bold;
+      font-style: normal;
   }
-  .center {
+
+  .qr_bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+  }
+  .qr_line{
+      width: 14em;
+  }
+  .qr_container{
+      position: relative;
+      top: 0;
       margin: auto;
+      max-width: 33%;
+      min-width: 300px;
+      min-height: 570px;
+  }
+  .qr_logo{
+    display: block;
+    width: 80%;
+    margin: auto;
+    padding-top: 1.5em;
+  }
+
+  .qr_foot_logo{
+    font-family: "Centra-Medium";
+    font-size: 20px;
+    margin: auto;
+    padding-top: 5px;
+    color: #eec575;
+    text-align: center;
+  }
+  .qr_label{
+      font-family: "Centra-Medium";
+      font-size: 30px;
+      width:80%;
+      color: #eec575;
+      text-align: left;
+  }
+
+  .qr_text{
+      font-family: "Centra-Bold";
+      font-size: 30px;
+      width:80%;
+      color: white;
+      text-align: left;
   }
   .box_qr_code {
-      width: 294px;
+      display: block;
+      width: 30%;
+      background-color: white;
+      margin:auto;
+      min-width: 294px;
       border: 3px solid white;
       padding: 10px;
   }
 </style>
-
-<div class="">
-  <div class="footer-contact">
-    <h2 class="footer-logo">
-      <%= image_tag "logo.podemos-220-p.png", alt: "PODEMOS" %>
-    </h2>
-    <h6>Carnet virtual de militante</h6>
+<%= image_tag "qr_bg.jpg", alt: "PODEMOS", class:"qr_bg" %>
+<div class="qr_container">
+  <%= image_tag "logo.podemos-220-w.png", alt: "PODEMOS", class:"qr_logo" %>
+  <div class="qr_foot_logo">Carnet virtual de militante</div>
+  <p class="qr_label">Nombre:<br><span class="qr_text"><%=@user.full_name %></span>
+    <br>
+    <span><%= image_tag "qr-line-or-gr.png", class:"qr_line" %></span>
+  </p>
+  <p class="qr_label">DNI/NIE/Pasaporte:<br><span class="qr_text"><%=@user.document_vatid %></span>
+    <br>
+    <span><%= image_tag "qr-line-gr-or.png", class:"qr_line" %></span>
+  </p>
+  <div class="box_qr_code">
+    <%= @svg.html_safe %>
   </div>
+  <p class="qr_label">El código caduca en:<br>
+  <span id="countdown" class="qr_text"></span></p>
 </div>
-  <div>
-    <p>Nombre:<br><%=@user.full_name %></p>
-    <p>DNI/NIE/Pasaporte:<br><%=@user.document_vatid %></p>
-  </div>
-  <div class="box_qr_code"><%= @svg.html_safe %></div>
-  <div>
-    <p>El código caduca en:</p>
-    <p id="countdown"></p>
-  </div>
-
 <script>
   var countDownDate = new Date("<%=@date_end %>").getTime();
   var x = setInterval(function() {
