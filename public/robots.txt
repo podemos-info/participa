@@ -2,7 +2,7 @@ User-agent: *
 Disallow: /
 
 User-agent: *
-Allow: /soporte-votaciones
+Allow: /ayuda-para-acceder
 Allow: /es/users/password/new
 Allow: /es/comision-de-garantias-democraticas
 Allow: /es/colabora

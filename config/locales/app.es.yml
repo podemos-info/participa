@@ -13,7 +13,7 @@ es:
         message_html: "No pudimos encontrar esa página. Vuelvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a>."
       "500":
         title: "Error en el servidor"
-        message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='https://participa.podemos.info/soporte-votaciones/'>el formulario de soporte</a>."
+        message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='https://participa.podemos.info/ayuda-para-acceder/'>el formulario de soporte</a>."
     messages:
       not_valid_spanish_vat: El número de identificación fiscal no es válido
       not_valid_nif: El DNI no es válido
@@ -369,7 +369,7 @@ De conformidad con lo dispuesto en el artículo 16.3 de la Ley Orgánica de Prot
         hello: "Hola"
         welcome: "Bienvenida"
         lock:
-          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, <a href='https://participa.podemos.info/soporte-votaciones/'>reporta la incidencia</a> para recibir ayuda."
+          p1: "Tu cuenta ha sido bloqueada por un número excesivo de intentos de inicio de sesión fallidos. Si no has sido tú, <a href='https://participa.podemos.info/ayuda-para-acceder/'>reporta la incidencia</a> para recibir ayuda."
           p2: "Haz click en el link de aquí abajo para desbloquear tu cuenta:"
           p3: "Si no funciona el enlace prueba copiando y pegándolo en la barra de direcciones de tu navegador."
         confirm:
@@ -466,7 +466,7 @@ mes, trimestre o año, dependiendo de la frecuencia de pago elegida.'
 <p><b> ¿Es seguro el sistema de inscripción? </b> </p>
 <p> Totalmente. Hemos intentado buscar el equilibrio entre seguridad y facilidad del proceso, cada inscripción es asociada a un teléfono móvil al que se envía automáticamente el código de verificación personal. Nuestros equipos informáticos han trabajado en el desarrollo de un sistema seguro, fiable y de fácil acceso para todas y todos.  </p>
 <p> *El usuario y contraseña de este portal de votaciones es distinto al de Plaza Podemos y Appgree.  </p>
-<p><a href='/soporte-votaciones/'>¿Problemas con la inscripción?</a></p>
+<p><a href='/ayuda-para-acceder/'>¿Problemas con la inscripción?</a></p>
 <p><strong>Si no recibes el correo electrónico para completar la inscripción, recuerda comprobar
 si ha llegado a la carpeta de <em>correo electrónico no deseado</em>, <em>promociones</em> o <em>spam</em>.</strong></p>
 "
