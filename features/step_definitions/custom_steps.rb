@@ -13,10 +13,7 @@ When('I click {string}') do |string|
   click_link string
 end
 
-When('I fill {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I Should see {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+When('i click on select2 search') do
+  element = $driver.find_elements(:css, '#select2-drop .select2-search')
+  $driver.action.click(element)
 end
