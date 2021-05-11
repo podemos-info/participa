@@ -9,6 +9,9 @@
           <%= form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
             <fieldset>
               <legend>
+              ¿Ya eres inscrita o inscrito?
+              </legend>
+              <legend>
                 <%= t('devise.links.sign_in') %>
               </legend>
               <div>
@@ -32,7 +35,7 @@
               </div>
             </fieldset>
             <p>
-              <a style="font-size:1.3em;" href="/soporte-votaciones">Ayuda para acceder a votar</a>
+              <a style="font-size:1.3em;" href="/ayuda-para-acceder">Ayuda para acceder</a>
             </p>
             <p>
               <%= link_to t("devise.links.forgot_password"), new_password_path(resource_name) %>
@@ -43,34 +46,16 @@
 
       <div class="col-bhome-1a6">
         <article class="intro">
-        <p>Bienvenido/a al Portal de Participación de Podemos.</p>
-        <p><em class="podemos">Podemos</em> nace con la voluntad de construir una forma nueva de hacer política, y para ello estamos construyendo una estructura transparente, ciudadana, abierta, democrática y eficaz. Una organización que responda al impulso democratizador de Podemos, en la que discutamos, debatamos y decidamos entre todos y todas.</p>
-
-        <% if @upcoming_election %>
-          <% cache("current_active_census", expires_in: 5.minutes) do %>
-            <% if @upcoming_election.meta_description %>
-              <p><%=@upcoming_election.meta_description%></p>
-            <% else %>
-              <p>Accede al portal de participación y vota en "<%=@upcoming_election.title%>". Del <%=l(@upcoming_election.starts_at, format: if @upcoming_election.starts_at.month==@upcoming_election.ends_at.month then "%-d" else "%-d de %B" end )%> al <%=l(@upcoming_election.ends_at, format: "%-d de %B")%>.</p>
-            <% end %>
-            <% if @upcoming_election.user_created_at_max %>
-              <p>El censo válido para esta votación está cerrado desde el día <%=l(@upcoming_election.user_created_at_max, format: "%-d de %B de %Y a las %H:%M horas")%>.</p>
-            <% end %>
-            <p class="total">Personas inscritas activas: <span><%=number_with_delimiter @upcoming_election.current_active_census%></span></p>
-            <p>Censo total llamado al voto: <%=number_with_delimiter @upcoming_election.current_total_census%></p>
-          <% end %>
-        <% else %>
-          <p class="total">Ya somos
-          <span>
-            <% cache("total_users", expires_in: 30.minutes) do %>
-              <%= number_with_delimiter User.confirmed.count %>
-            <% end %>
-          </span>
-          personas inscritas.</p>
-        <% end %>
+          <p><strong>Inscríbete y hazte militante ¡Participa en Podemos! </strong></p>
+          <p>Bienvenido, bienvenida al Portal de Participación de Podemos. En esta página tienes toda la información para inscribirte y hacerte militante de nuestra organización. Conoce las diversas formas de participación para formar parte del cambio:</p>
+          <p><strong>INSCRIPCIÓN.</strong> Si eres mayor de edad, inscríbete en Podemos dando clic al botón verde. Como persona inscrita podrás participar en asambleas ciudadanas estatal y autonómicas y así como en consultas políticas de relevancia que se realicen en la organización a cualquier nivel, y recibirás los boletines que enviemos.</p>
           <div class="buttonbox">
             <%= link_to "Inscripción", new_user_registration_path, class: 'button intro-indent' %>
           </div>
+          <p><strong>MILITANTES.</strong> Ser militante en Podemos supone dar un paso adelante y una mayor implicación a la hora de construir la organización. <strong>Puedes hacerte militante una vez seas inscrita o inscrito, siguiendo las instrucciones dentro de tu sesión de Participa.</strong>
+            </br>Desde la Tercera Asamblea Estatal, la militancia de Podemos es la encargada de dirigir la organización a escala local, participando asimismo en las Redes de Círculos a escala provincial, insular o comarcal.
+          </p>
+
         </article><!--.intro-->
 
       </div><!--.col-b-1a3-->

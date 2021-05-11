@@ -119,4 +119,5 @@ class RegistrationsController < Devise::RegistrationsController
     fields += %w[checked_vote_circle]
     params.require(:user).permit(*fields)
   end
+
 end
