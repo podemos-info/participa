@@ -1,35 +1,35 @@
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
 <style>
   @font-face {
-      font-family: 'Centra-Medium';
-      src: url(<%= asset_path("CentraNo1-Medium.ttf") %>) format("truetype");
-      font-weight: normal;
-      font-style: normal;
+    font-family: 'Centra-Medium';
+    src: url(<%= asset_path("CentraNo1-Medium.ttf") %>) format("truetype");
+    font-weight: normal;
+    font-style: normal;
   }
 
   @font-face {
-      font-family: 'Centra-Bold';
-      src: url(<%= asset_path("CentraNo1-Bold.ttf") %>) format("truetype");
-      font-weight: bold;
-      font-style: normal;
+    font-family: 'Centra-Bold';
+    src: url(<%= asset_path("CentraNo1-Bold.ttf") %>) format("truetype");
+    font-weight: bold;
+    font-style: normal;
   }
 
   .qr_bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
   }
   .qr_line{
-      width: 14em;
+    width: 14em;
   }
   .qr_container{
-      position: relative;
-      top: 0;
-      margin: auto;
-      max-width: 33%;
-      min-width: 300px;
-      min-height: 570px;
+    position: relative;
+    top: 0;
+    margin: auto;
+    max-width: 33%;
+    min-width: 300px;
+    min-height: 570px;
   }
   .qr_logo{
     display: block;
@@ -48,7 +48,7 @@
   }
   .qr_label{
       font-family: "Centra-Medium";
-      font-size: 30px;
+      font-size: 25px;
       width:80%;
       color: #eec575;
       text-align: left;
@@ -56,7 +56,7 @@
 
   .qr_text{
       font-family: "Centra-Bold";
-      font-size: 30px;
+      font-size: 25px;
       width:80%;
       color: white;
       text-align: left;
@@ -70,7 +70,7 @@
       border: 3px solid white;
       padding: 10px;
   }
-</style>
+</style >
 <%= image_tag "qr_bg.jpg", alt: "PODEMOS", class:"qr_bg" %>
 <div class="qr_container">
   <%= image_tag "logo.podemos-220-w.png", alt: "PODEMOS", class:"qr_logo" %>
