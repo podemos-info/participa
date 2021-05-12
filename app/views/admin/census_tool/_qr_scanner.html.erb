@@ -17,7 +17,12 @@
   <label>error:</label>
   <pre><code id="error_text"></code></pre>
 </div>
-
+<audio class="hide" id="correct-audio" controls preload="none">
+  <source src="../audios/pause.wav" type="audio/wav">
+</audio>
+<audio class="hide" id="wrong-audio" controls preload="none">
+  <source src="../audios/wrongBuzzer.wav" type="audio/wav">
+</audio>
 <script type="text/javascript">
   function decodeOnce(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((hash_text) => {
@@ -71,5 +76,18 @@
       .catch((err) => {
         console.error(err)
       })
+
+    let params = new URLSearchParams(window.location.search);
+    let result = "";
+    if (params.has('result')){
+      result = params.get('result');
+    }
+
+    if (result==='correct'){
+      $('#correct-audio').trigger('play');
+    }else if (result==='wrong'){
+      $('#wrong-audio').trigger('play');
+    }
+
   })
 </script>
