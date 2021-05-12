@@ -2,7 +2,7 @@ ActiveAdmin.register VoteCircle do
   DEFAULT_VOTE_CIRCLE = "IP000000001"
   menu :parent => "Users"
   permit_params :original_code, :original_name,:code,:name,:island_code,:town, :vote_circle_autonomy, :kind
-  sidebar "Añadir Circulos desde fichero", 'data-panel' => :collapsed, :only => :index, priority: 1 do
+  sidebar "Añadir Círculos desde fichero", 'data-panel' => :collapsed, :only => :index, priority: 1 do
     render('upload_vote_circles')
   end
   sidebar "Contacto con personas en círculos inexistentes o en construcción", 'data-panel' => :collapsed, :only => :index, priority: 2 do
@@ -113,6 +113,10 @@ ActiveAdmin.register VoteCircle do
       users.each do |u|
         u.update(vote_circle_id: default_id)
       end
+    end
+
+    def assign_vote_circle_code(resource)
+      resource.code = resource.original_code if resource.code.nil?
     end
   end
 
