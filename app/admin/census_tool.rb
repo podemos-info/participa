@@ -8,6 +8,7 @@ ActiveAdmin.register_page "CensusTool" do
   end
 
   page_action :search_document_vatid, method: [:post] do
+    sv = params["decoding_index"]
     dt = params["document_type"]
     dn = params["document_vatid"]
     qr_hash = params["user_qr_hash"]
@@ -19,7 +20,7 @@ ActiveAdmin.register_page "CensusTool" do
       message = { qr_wrong: "No se ha encontrado la persona buscada." }
       result = "wrong"
     end
-    redirect_to admin_censustool_path(result: result), flash: message
+    redirect_to admin_censustool_path(result: result, decoding_index: sv), flash: message
   end
 
   controller do

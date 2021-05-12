@@ -1,7 +1,7 @@
 <div>
   <div>
-    <a class="button" id="startButton">Start</a>
-    <a class="button" id="resetButton">Reset</a>
+    <a class="button" id="startButton">Empezar</a>
+    <a class="button" id="resetButton">Resetear</a>
   </div>
 
   <div>
@@ -13,8 +13,14 @@
     <select id="sourceSelect">
     </select>
   </div>
+  <div>
+    <label for="decoding-style"> Tipo de escaneo:</label>
+    <select id="decoding-style" size="1" >
+      <option value="una vez">De uno en uno</option>
+      <option value="continuamente">Continuamente</option>
+    </select>
+  </div>
 
-  <label>error:</label>
   <pre><code id="error_text"></code></pre>
 </div>
 <audio class="hide" id="correct-audio" controls preload="none">
@@ -24,15 +30,52 @@
   <source src="../audios/wrongBuzzer.wav" type="audio/wav">
 </audio>
 <script type="text/javascript">
+  let params = new URLSearchParams(window.location.search);
+  let result = "";
+  let decoding_index = ""
+  if (params.has('decoding_index')){
+    decoding_index = params.get('decoding_index');
+    document.getElementById('decoding-style').selectedIndex = decoding_index;
+  }
+
   function decodeOnce(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((hash_text) => {
       let words = hash_text.text.split('+');
       document.getElementById('document_vatid').value = words[0];
       document.getElementById('user_qr_hash').value = words[1];
+      document.getElementById('decoding_index').value = document.getElementById('decoding-style').selectedIndex;
       document.getElementById('form_qr_code').submit();
     }).catch((err) => {
       console.error(err)
-      document.getElementById('error_text').textContent = err
+      document.getElementById('error_text').textContent = "error: " + err
+    })
+  }
+
+  function decodeContinuously(codeReader, selectedDeviceId) {
+    codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (hash_text, err) => {
+      if (hash_text) {
+        let words = hash_text.text.split('+');
+        document.getElementById('document_vatid').value = words[0];
+        document.getElementById('user_qr_hash').value = words[1];
+        document.getElementById('decoding_index').value = document.getElementById('decoding-style').selectedIndex;
+        document.getElementById('form_qr_code').submit();
+      }
+
+      if (err) {
+
+        if (err instanceof ZXing.NotFoundException) {
+          console.log('No QR code found.')
+        }
+
+        if (err instanceof ZXing.ChecksumException) {
+          console.log('A code was found, but it\'s read value was not valid.')
+        }
+
+        if (err instanceof ZXing.FormatException) {
+          console.log('A code was found, but it was in a invalid format.')
+        }
+      }
+      document.getElementById('error_text').textContent = "error: " + err
     })
   }
 
@@ -61,8 +104,19 @@
           sourceSelectPanel.style.display = 'block'
         }
 
+        if (decoding_index == 1) {
+          decodeContinuously(codeReader, selectedDeviceId);
+        }
+
         document.getElementById('startButton').addEventListener('click', () => {
-          decodeOnce(codeReader, selectedDeviceId);
+          //decodeOnce(codeReader, selectedDeviceId);
+          const decodingStyle = document.getElementById('decoding-style').value;
+
+          if (decodingStyle == "una vez") {
+            decodeOnce(codeReader, selectedDeviceId);
+          } else {
+            decodeContinuously(codeReader, selectedDeviceId);
+          }
            console.log(`Started decode from camera with id ${selectedDeviceId}`)
         })
 
@@ -77,8 +131,6 @@
         console.error(err)
       })
 
-    let params = new URLSearchParams(window.location.search);
-    let result = "";
     if (params.has('result')){
       result = params.get('result');
     }
