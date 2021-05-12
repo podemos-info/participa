@@ -105,6 +105,7 @@ ActiveAdmin.register VoteCircle do
 
   controller do
     before_destroy :change_children_vote_circle
+    before_save :assign_vote_circle_code
 
     def change_children_vote_circle(resource)
       default_id = VoteCircle.where(code: DEFAULT_VOTE_CIRCLE).pluck(:id).first
