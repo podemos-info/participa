@@ -128,7 +128,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    unless signed_in? && (current_user.is_admin? || current_user.finances_admin? || current_user.impulsa_admin? ||current_user.verifier?)
+    unless signed_in? && (current_user.is_admin? || current_user.finances_admin? || current_user.impulsa_admin? ||current_user.verifier?|| current_user.paper_authority?)
       redirect_to root_url, flash: { error: t('podemos.unauthorized') }
     end
   end
