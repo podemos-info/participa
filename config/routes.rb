@@ -191,7 +191,7 @@ Rails.application.routes.draw do
         get 'password/new', to: 'legacy_password#new', as: 'new_legacy_password'
         post 'password/update', to: 'legacy_password#update', as: 'update_legacy_password'
         delete 'password/recover', to: 'registrations#recover_and_logout'
-        get 'qr_code', to: 'registrations#qr_code'
+        get 'carnet_digital_con_qr', to: 'registrations#qr_code', as: 'qr_code'
       end
 
       unauthenticated do

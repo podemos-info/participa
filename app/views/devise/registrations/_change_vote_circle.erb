@@ -1,7 +1,7 @@
 <%= content_tag(:h2, t("podemos.user.change_vote_circle"))%>
 <%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name)+"#circle", html: {novalidate: :true}) do |f| %>
   <fieldset xmlns="http://www.w3.org/1999/html">
-    <p>Los cambios de Círculo (máximo, uno al año) estarán disponibles a partir del día 23 de diciembre</p>
+    <p>Sólo se puede realizar un cambio de círculo al año como máximo</p>
     <div class="inputlabel-box">
       <% if resource.errors.include?(:vote_circle_id) %>
         <%= field_notice_box %>

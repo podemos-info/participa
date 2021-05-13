@@ -17,6 +17,7 @@
         <%= label_tag(:document_vatid, "Documento") %>
         <%= text_field_tag(:document_vatid, "", autocomplete: "off", required: true) %>
         <%= hidden_field_tag 'user_qr_hash' %>
+        <%= hidden_field_tag 'decoding_index' %>
       </div>
     </fieldset>
     <%= submit_tag("Buscar", class: "button") %>

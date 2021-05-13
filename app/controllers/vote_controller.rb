@@ -73,8 +73,7 @@ class VoteController < ApplicationController
 
       return redirect_to(:back) unless paper_vote_user? && check_valid_user(paper_vote_user) &&
                                        check_valid_location(paper_vote_user, [election_location]) &&
-                                       check_verification(paper_vote_user) && check_not_voted(paper_vote_user) &&
-                                       check_verified_user_hash(params[:document_vatid], params[:user_qr_hash])
+                                       check_verification(paper_vote_user) && check_not_voted(paper_vote_user)
     end
 
     render 'paper_vote', locals: { can_vote: can_vote }

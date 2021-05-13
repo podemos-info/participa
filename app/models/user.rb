@@ -1038,6 +1038,9 @@ class User < ActiveRecord::Base
   def is_qr_hash_correct?(qr_hash)
     Digest::SHA256.hexdigest(self.qr_secret) == qr_hash
   end
+  def can_show_qr?
+    Rails.application.secrets[:qr_enabled] && self.militant?
+  end
   private
 
   def last_vote_location_change

@@ -13,23 +13,22 @@
     font-weight: bold;
     font-style: normal;
   }
-
   .qr_bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+      position: fixed;
+      top: 0;
+      left: 50%;
+      width: 500px;
+      margin-left: -250px;
+      height: auto;
   }
   .qr_line{
     width: 14em;
   }
-  .qr_container{
+  .qr_container {
     position: relative;
-    top: 0;
-    margin: auto;
-    max-width: 33%;
-    min-width: 300px;
-    min-height: 570px;
+    left: 50%;
+    width: 350px;
+    margin-left: -175px;
   }
   .qr_logo{
     display: block;
@@ -70,6 +69,28 @@
       border: 3px solid white;
       padding: 10px;
   }
+
+
+  .qr_back {
+    font-family: "Centra-Bold";
+    font-size: 25px;
+    margin: auto;
+    width: 20%;
+    display: block;
+    padding: 1em 3em 1em 2em;
+    background: #97c2b8;
+    color: #fff;
+    border: 0;
+    border-radius: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+  }
+  .qr_back:hover{
+      background:#269283;
+  }
+
 </style >
 <%= image_tag "qr_bg.jpg", alt: "PODEMOS", class:"qr_bg" %>
 <div class="qr_container">
@@ -87,7 +108,11 @@
     <%= @svg.html_safe %>
   </div>
   <p class="qr_label">El código caduca en:<br>
-  <span id="countdown" class="qr_text"></span></p>
+    <span id="countdown" class="qr_text"></span>
+  </p>
+  <div>
+    <%= link_to fa_icon("chevron-circle-left", text:'Volver'), :back, class: "qr_back" %>
+  </div>
 </div>
 <script>
   var countDownDate = new Date("<%=@date_end %>").getTime();
@@ -105,7 +130,7 @@
 
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("countdown").innerHTML = "QR EXPIRADO, pulse el botón para generar un nuevo código QR";
+      document.getElementById("countdown").innerHTML = "QR EXPIRADO, sal y vuelve a entrar para generar uno nuevo.";
     }
   }, 1000);
 </script>

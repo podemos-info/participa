@@ -164,3 +164,20 @@ li h3 {
   }
 }
 ul.pagination{ li{ display: inline; } }
+
+/* line 13, /home/user/.rbenv/versions/2.4.2/gemsets/participa/gems/activeadmin-1.0.0.pre1/app/assets/stylesheets/active_admin/components/_flash_messages.scss */
+body.logged_in .flash.flash_qr_success {
+  background-color: #dce9dd;
+  background-image: linear-gradient(180deg, #dce9dd, #ccdfcd);
+  border-bottom: 1px solid #adcbaf;
+  color: #416347;
+  font-size: 3em;
+}
+/* line 18, /home/user/.rbenv/versions/2.4.2/gemsets/participa/gems/activeadmin-1.0.0.pre1/app/assets/stylesheets/active_admin/components/_flash_messages.scss */
+body.logged_in .flash.flash_qr_wrong {
+  background-color: #f5e4e4;
+  background-image: linear-gradient(180deg, #f5e4e4, #f1dcdc);
+  border-bottom: 1px solid #e0c2c0;
+  color: #b33c33;
+  font-size: 3em;
+}
