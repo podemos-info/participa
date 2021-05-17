@@ -81,25 +81,29 @@
   <%= content_tag(:h3, "Financiación territorial") %>
     <p>Deseo colaborar con el Consejo Ciudadano</p>
     <div class="inputlabel-box">
-      <div class="input-box js-collaboration-assignment-town">
-        <label class="text-xl">
-        <%= f.radio_button :territorial_assignment, :town, class:"checkbox"%>
-        <p>Municipal donde estoy inscrito/a</p>
-        </label>
-      </div>
-        <% if current_user.vote_in_spanish_island? then%>
-      <div class="input-box js-collaboration-assignment-island">
-        <label class="text-xl">
-        <%= f.radio_button :territorial_assignment, :island, class:"checkbox"%>
-        <p>Insular donde estoy inscrito/a</p>
-        </label>
-      </div>
-        <% end %>
-      <div class="input-box js-collaboration-assignment-autonomy">
-        <label class="text-xl"><%= f.radio_button :territorial_assignment, :autonomy, class:"checkbox"%>
-        <p>Autonómico donde estoy inscrito/a</p>
-        </label>
-      </div> 
+      <% if current_user.in_spain? || (current_user.vote_circle_id && current_user.vote_circle.in_spain?) then%>
+        <div class="input-box js-collaboration-assignment-town">
+          <label class="text-xl">
+          <%= f.radio_button :territorial_assignment, :town, class:"checkbox"%>
+          <p>Municipal donde estoy inscrito/a</p>
+          </label>
+        </div>
+      <% end %>
+      <% if current_user.vote_in_spanish_island? then%>
+        <div class="input-box js-collaboration-assignment-island">
+          <label class="text-xl">
+          <%= f.radio_button :territorial_assignment, :island, class:"checkbox"%>
+          <p>Insular donde estoy inscrito/a</p>
+          </label>
+        </div>
+      <% end %>
+      <% if current_user.in_spain? || (current_user.vote_circle_id && current_user.vote_circle.in_spain?) then%>
+        <div class="input-box js-collaboration-assignment-autonomy">
+          <label class="text-xl"><%= f.radio_button :territorial_assignment, :autonomy, class:"checkbox"%>
+          <p>Autonómico donde estoy inscrito/a</p>
+          </label>
+        </div>
+      <% end %>>
       <div class="input-box js-collaboration-assignment-country">
         <label class="text-xl"><%= f.radio_button :territorial_assignment, :country, class:"checkbox"%>
         <p>Estatal</p>
