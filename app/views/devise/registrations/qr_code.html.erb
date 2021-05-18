@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
++<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
 <style>
   @font-face {
     font-family: 'Centra-Medium';
@@ -19,7 +19,7 @@
       left: 50%;
       width: 500px;
       margin-left: -250px;
-      height: auto;
+      height: 710px;
   }
   .qr_line{
     width: 14em;
@@ -53,11 +53,28 @@
       text-align: left;
   }
 
+  .qr_label_counter{
+      font-family: "Centra-Medium";
+      font-size: 8px;
+      width:80%;
+      color: black;
+      text-align: left;
+      padding-top: 6em;
+  }
+
   .qr_text{
       font-family: "Centra-Bold";
       font-size: 25px;
       width:80%;
       color: white;
+      text-align: left;
+  }
+
+  .qr_text_counter{
+      font-family: "Centra-Bold";
+      font-size: 8px;
+      width:80%;
+      color: black;
       text-align: left;
   }
   .box_qr_code {
@@ -107,8 +124,8 @@
   <div class="box_qr_code">
     <%= @svg.html_safe %>
   </div>
-  <p class="qr_label">El código caduca en:<br>
-    <span id="countdown" class="qr_text"></span>
+  <p class="qr_label_counter">El código caduca en:<br>
+    <span id="countdown" class="qr_text_counter"></span>
   </p>
   <div>
     <%= link_to fa_icon("chevron-circle-left", text:'Volver'), :back, class: "qr_back" %>
