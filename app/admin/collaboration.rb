@@ -718,7 +718,12 @@ ActiveAdmin.register Collaboration do
     autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
 
     Order.paid.where("target_territory like 'Autonómico%'").where(town_code:nil, vote_circle_town_code:nil, island_code:nil, vote_circle_island_code:nil).group('vote_circle_autonomy_code',Order.unique_month('payable_at')).order('vote_circle_autonomy_code', Order.unique_month('payable_at')).pluck('vote_circle_autonomy_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
-      autonomies_data[c||"~"][m.to_i]=[t,v]
+      autonomies_data[c][m.to_i]=[t,v]
+    end
+    Order.paid.where(town_code:nil, vote_circle_town_code:nil, island_code:nil, vote_circle_island_code:nil, vote_circle_autonomy_code:nil).group(:autonomy_code,Order.unique_month('payable_at')).order(:autonomy_code, Order.unique_month('payable_at')).pluck('autonomy_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
+      circle_data = autonomies_data[c||"~"][m.to_i]
+      result = circle_data[0] + t,circle_data[1] + v
+      autonomies_data[c||"~"][m.to_i] = result
     end
 
     output_data = []
