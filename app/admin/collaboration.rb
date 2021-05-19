@@ -706,7 +706,7 @@ ActiveAdmin.register Collaboration do
     end
     Order.paid.where("target_territory like 'Municipal%'").where(vote_circle_town_code:nil).where.not(town_code:nil).group(:town_code, Order.unique_month('payable_at')).order(:town_code, Order.unique_month('payable_at')).pluck('town_code', Order.unique_month('payable_at'), 'count(id) as count_id', 'sum(amount) as sum_amount').each do|c,m,t,v|
       circle_data = towns_data[c][m.to_i]
-      result = circle_data[0] + 500 + t,circle_data[1] + v
+      result = circle_data[0] + t,circle_data[1] + v
       towns_data[c||'~'][m.to_i] = result
     end
 
