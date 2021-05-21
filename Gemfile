@@ -33,7 +33,7 @@ gem 'active_skin'
 gem 'mailcatcher' # for staging too
 gem 'resque'
 gem 'resque_mailer' # for automated email sending in background
-gem 'aws-ses', '~> 0.6.0', :require => 'aws/ses'
+gem 'aws-sdk-rails'
 gem 'kaminari'
 gem 'pushmeup'
 gem 'date_validator'
