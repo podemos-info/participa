@@ -49,6 +49,11 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def destroy
+    UsersMailer.cancel_account_email(current_user.id).deliver_now
+    super
+  end
+
   def recover_and_logout
     # Allow user to reset their password from his profile
     #
@@ -119,5 +124,4 @@ class RegistrationsController < Devise::RegistrationsController
     fields += %w[checked_vote_circle]
     params.require(:user).permit(*fields)
   end
-
 end
