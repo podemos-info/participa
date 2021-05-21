@@ -35,5 +35,15 @@ class UsersMailer < ActionMailer::Base
     subject: 'Enhorabuena, ya eres militante de Podemos'
   )
   end
+
+  def cancel_account_email(user_id)
+    @user = User.find(user_id)
+    mail(
+      from: Rails.application.secrets["default_from_email"],
+      to: @user.email,
+      bcc: 'bajas@podemos.info',
+      subject: 'Te has dado de baja de Podemos'
+    )
+  end
 end
   
