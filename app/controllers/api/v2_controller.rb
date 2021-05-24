@@ -56,27 +56,39 @@ class Api::V2Controller < ActionController::Base
   end
 
   def get_militants_from_territory(params)
-    app_user = params[:user]
+    app_circle = params[:user].vote_circle
 
+    get_militants(app_circle, params)
+  end
+
+  def get_militants_from_circle_territory(params)
+    app_circle = VoteCircle.find(params[:vote_circle_id].to_i)
+
+    get_militants(app_circle, params)
+  end
+
+  private
+
+  def get_militants(app_circle, params)
     territory = nil
     query = User.none
     case params[:territory]
     when "autonomy"
-      territory||= app_user.vote_circle.autonomy_code
-      vc_query = VoteCircle.where(autonomy_code: territory).pluck(:id,:original_name)
+      territory ||= app_circle.autonomy_code
+      vc_query = VoteCircle.where(autonomy_code: territory).pluck(:id, :original_name)
     when "province"
-      territory||= app_user.vote_circle.province_code
-      vc_query = VoteCircle.where(province_code: territory).pluck(:id,:original_name)
+      territory ||= app_circle.province_code
+      vc_query = VoteCircle.where(province_code: territory).pluck(:id, :original_name)
     when "town"
-      territory||= app_user.vote_circle.town
-      vc_query = VoteCircle.where(town: territory).pluck(:id,:original_name)
+      territory ||= app_circle.town
+      vc_query = VoteCircle.where(town: territory).pluck(:id, :original_name)
     when "island"
-      territory||= app_user.vote_circle.island_code
-      vc_query = VoteCircle.where(island_code: territory).pluck(:id,:original_name)
+      territory ||= app_circle.island_code
+      vc_query = VoteCircle.where(island_code: territory).pluck(:id, :original_name)
     when "circle"
       territory = VoteCircle.exterior.pluck(:id) if params[:range_name] && params[:range_name].downcase == RANGE_NAMES[:exterior]
-      territory||= app_user.vote_circle_id
-      vc_query = VoteCircle.where(id: territory).pluck(:id,:original_name)
+      territory ||= app_circle.id
+      vc_query = VoteCircle.where(id: territory).pluck(:id, :original_name)
     else
       vc_query = VoteCircle.none
     end
@@ -85,7 +97,7 @@ class Api::V2Controller < ActionController::Base
       vc_hash = vc_query.to_h
       vc_ids = vc_hash.keys
       User.militant.where(vote_circle_id: vc_ids).find_each do |u|
-        data << {first_name: u.first_name,phone: u.phone,country_name: u.country_name, autonomy_name: u.autonomy_name,province_name: u.province_name,island_name: u.island_name,town_name: u.town_name,circle_name: u.vote_circle.original_name}
+        data << { first_name: u.first_name, phone: u.phone, country_name: u.country_name, autonomy_name: u.autonomy_name, province_name: u.province_name, island_name: u.island_name, town_name: u.town_name, circle_name: u.vote_circle.original_name }
       end
       @result = data
     else
@@ -93,10 +105,6 @@ class Api::V2Controller < ActionController::Base
     end
     @result
   end
-
-  private
-
-
 
   def api_logger
     @@api_logger ||= Logger.new("#{Rails.root}/log/api.log").tap do |logger|
