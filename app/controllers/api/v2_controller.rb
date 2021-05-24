@@ -3,7 +3,7 @@ class Api::V2Controller < ActionController::Base
 
   respond_to :json
   before_action :log_api_call
-  COMMANDS = ["militants_from_territory", "militant_from_vote_circle_territory"]
+  COMMANDS = %w[militants_from_territory militants_from_vote_circle_territory]
   RANGE_NAMES = {exterior: 'exterior'}
 
   def get_data
