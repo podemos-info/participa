@@ -3,13 +3,20 @@ class Api::V2Controller < ActionController::Base
 
   respond_to :json
   before_action :log_api_call
-  COMMANDS = ["militants_from_territory"]
+  COMMANDS = ["militants_from_territory", "militant_from_vote_circle_territory"]
   RANGE_NAMES = {exterior: 'exterior'}
 
-  def get_data()
-    params.permit(:action, :email, :territory,:timestamp, :command, :signature, :range_name)
+  def get_data
+    params.permit(:action, :email, :territory,:timestamp, :command, :signature, :range_name, :vote_circle_id)
     @result = ""
-    url_verified, data = self.verify_sign_url(request.original_url,["email", "territory", "timestamp","range_name","command"])
+    param_list =""
+    case params[:command]
+    when COMMANDS[0]
+      param_list = %w[email territory timestamp range_name command]
+    when COMMANDS[1]
+      param_list = %w[vote_circle_id territory timestamp range_name command]
+    end
+    url_verified, data = self.verify_sign_url(request.original_url,param_list)
     if url_verified
       columns = [:first_name,:phone,:autonomy_name,:province_name,:island_name,:town_name].join(',')
       vc_data = []
@@ -20,9 +27,17 @@ class Api::V2Controller < ActionController::Base
         @result = nil
         @result += "Email parameter missing " unless params[:email].present?
         @result += "Territory parameter missing " unless params[:territory].present?
-        params[:user] = User.find_by_email(params[:email].strip) unless @result
+        user = User.find_by_email(params[:email].strip) unless @result
+        params[:app_circle] = user.vote_circle unless @result || user.nil?
         @result += "User email unknown" unless params[:user].present? && params[:user].present?
-        @result ||= get_militants_from_territory params
+        @result ||= get_militants params
+      when "militants_from_circle_territory"
+        @result = nil
+        @result += "Territory parameter missing " unless params[:territory].present?
+        @result += "Vote_circle_id parameter missing " unless params[:vote_circle_id].present?
+        vote_circle = VoteCircle.find(params[:vote_circle_id.to_i]) unless @result
+        params[:app_circle] = vote_circle unless @result
+        @result ||= get_militants params
       else
         @result = "unknown command"
       end
@@ -54,24 +69,12 @@ class Api::V2Controller < ActionController::Base
     signature = signature[0..len] unless len.nil?
     [signature == params_hash['signature'],data]
   end
-
-  def get_militants_from_territory(params)
-    app_circle = params[:user].vote_circle
-
-    get_militants(app_circle, params)
-  end
-
-  def get_militants_from_circle_territory(params)
-    app_circle = VoteCircle.find(params[:vote_circle_id].to_i)
-
-    get_militants(app_circle, params)
-  end
-
   private
 
-  def get_militants(app_circle, params)
+  def get_militants(params)
     territory = nil
     query = User.none
+    app_circle = params[:app_circle]
     case params[:territory]
     when "autonomy"
       territory ||= app_circle.autonomy_code
