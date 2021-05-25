@@ -11,9 +11,16 @@ ActiveAdmin.register_page "CensusTool" do
     sv = params["decoding_index"]
     dt = params["document_type"]
     dn = params["document_vatid"]
+    id = params["user_id"].to_i
     qr_hash = params["user_qr_hash"]
-    paper_vote_user = User.confirmed.not_banned.militant.where(vote_circle_id:current_user.vote_circle_id).where("lower(document_vatid) = ?", dn.downcase).find_by(document_type: dt)
-    if paper_vote_user && (qr_hash.empty? || check_verified_user_hash(dn,qr_hash))
+    paper_vote_user = User.confirmed.not_banned.militant.where(vote_circle_id:current_user.vote_circle_id)
+    if dn.present?
+      paper_vote_user = paper_vote_user.where("lower(document_vatid) = ?", dn.downcase).find_by(document_type: dt)
+    else
+      paper_vote_user = paper_vote_user.find(id)
+    end
+    puts("AQUIII #{paper_vote_user.id}, #{(qr_hash.empty? && id.empty?)}, #{check_verified_user_hash(id,qr_hash)}")
+    if paper_vote_user && ((qr_hash.empty? && id.empty?) || check_verified_user_hash(id,qr_hash))
       message= { qr_success: "#{paper_vote_user.first_name}, con #{paper_vote_user.document_type_name} #{paper_vote_user.document_vatid}, puede participar." }
       result = "correct"
     else
@@ -24,8 +31,8 @@ ActiveAdmin.register_page "CensusTool" do
   end
 
   controller do
-    def check_verified_user_hash(document_vatid,received_hash)
-      user = User.find_by_document_vatid(document_vatid)
+    def check_verified_user_hash(id,received_hash)
+      user = User.find(id)
       user ? user.is_qr_hash_correct?(received_hash) : false
     end
   end

@@ -1014,7 +1014,7 @@ class User < ActiveRecord::Base
     if generate || self.qr_created_at.nil? || self.qr_expired?
       self.create_qr_code!
     end
-    qrcode = RQRCode::QRCode.new("#{self.document_vatid}+#{self.qr_hash}")
+    qrcode = RQRCode::QRCode.new("#{self.id}+#{self.qr_hash}")
     qrcode.as_svg(
       offset:0,
       color: '000',

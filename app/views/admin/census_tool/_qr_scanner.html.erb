@@ -41,7 +41,7 @@
   function decodeOnce(codeReader, selectedDeviceId) {
     codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((hash_text) => {
       let words = hash_text.text.split('+');
-      document.getElementById('document_vatid').value = words[0];
+      document.getElementById('user_id').value = words[0];
       document.getElementById('user_qr_hash').value = words[1];
       document.getElementById('decoding_index').value = document.getElementById('decoding-style').selectedIndex;
       document.getElementById('form_qr_code').submit();
@@ -55,7 +55,7 @@
     codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (hash_text, err) => {
       if (hash_text) {
         let words = hash_text.text.split('+');
-        document.getElementById('document_vatid').value = words[0];
+        document.getElementById('user_id').value = words[0];
         document.getElementById('user_qr_hash').value = words[1];
         document.getElementById('decoding_index').value = document.getElementById('decoding-style').selectedIndex;
         document.getElementById('form_qr_code').submit();
