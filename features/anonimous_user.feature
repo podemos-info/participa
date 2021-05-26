@@ -81,9 +81,33 @@ Feature: Anonimous user features
      And I enter "Albacete" into input field having css "#s2id_autogen7_search"
      And i click on select2 search
      And I click on element having class "select2-result-label"
-     And I wait for 45 seconds
+     And I wait for 5 seconds
      And I click on element having css "#s2id_user_town a"
      And I wait for 5 seconds
      And I enter "Albacete" into input field having css "#select2-drop input"
      And I click on element having class "select2-result-label"
 
+     And I enter "250" into input field having name "user[postal_code]"
+     And I enter "plaza españa 1" into input field having name "user[address]"
+     And I wait for 5 sec
+
+     And I enter "pepito@palotes.de" into input field having name "user[email]"
+     And I enter "pepito@palotes.de" into input field having name "user[email_confirmation]"
+
+     And I enter "000000" into input field having name "user[password]"
+     And I enter "000000" into input field having name "user[password_confirmation]"
+     
+     And I forcefully click on element having id "user_terms_of_service"
+
+     And I forcefully click on element having id "user_over_18"
+     And I enter "00000000" into input field having name "user[captcha]"
+
+     And I scroll to end of page
+
+     And I click on element having name "commit"
+     And I wait for 100 sec
+
+     Then element having class "box-ok" should have partial text as "Se te ha enviado un mensaje con un enlace de confirmación. Por favor visita el enlace en las próximas horas para activar tu cuenta."
+     And email to "pepito@palotes.de" must be send
+     And verification link email must enable user
+     And pepito@palotes.de con log in
