@@ -931,10 +931,10 @@ ActiveAdmin.register Collaboration do
     # -------------------------- Add Non User data --------------------------------------------------------------------------------
     c_ids = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Autonómico%').where("orders.vote_circle_autonomy_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").where("users.id is null").pluck(:parent_id).uniq!
     Collaboration.where(id:c_ids).each do |collaboration|
-      query = Order.paid.where(parent_id: collaboration).group(:target_territory, Order.unique_month('payable_at')).order('users.vote_town', 'users.postal_code',:target_territory, Order.unique_month('payable_at')).pluck(:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount').pluck(:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
+      query = Order.paid.where(parent_id: collaboration.id).group(:target_territory, Order.unique_month('payable_at')).order(:target_territory, Order.unique_month('payable_at')).pluck(:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
       query.each do|tt,m,t,v|
         non_user = collaboration.get_non_user
-        c = non_user.ine_code
+        c = non_user.ine_town
         cp = non_user.postal_code
         num_month = m.to_i
         if towns_data[c][cp][tt][num_month] == 0
