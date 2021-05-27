@@ -982,7 +982,7 @@ ActiveAdmin.register Collaboration do
     # ---------------------- Generate Circle Data ---------------------------------------------------------------------------------
 
     circle_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k]= 0}}}}
-    query = Order.paid.where("target_territory like ?",'Estatal%').where.not(vote_circle_id: nil, vote_circle_country_code: nil).where("amount > 0").group(:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount, vote_circle_id as vc')
+    query = Order.paid.where("target_territory like ?",'Estatal%').where.not(vote_circle_id: nil).where( vote_circle_autonomy_code: nil, vote_circle_island_code: nil, vote_circle_town_code: nil).where("amount > 0").group(:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount, vote_circle_id as vc')
     query.each do|vc,tt,m,t,v|
       num_month = m.to_i
       if circle_data[vc][tt][num_month] == 0
@@ -1012,7 +1012,7 @@ ActiveAdmin.register Collaboration do
     # ----------------------- Generate Postal Code data ---------------------------------------------------------------------------
 
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k]= 0}}}}
-    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Estatal%').where("orders.vote_circle_country_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").group('users.vote_town', 'users.postal_code', :target_territory, Order.unique_month('payable_at')).order('users.vote_town', 'users.postal_code',:target_territory, Order.unique_month('payable_at')).pluck('users.vote_town', 'users.postal_code',:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
+    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Estatal%').where( vote_circle_autonomy_code: nil, vote_circle_island_code: nil, vote_circle_town_code: nil).where("orders.amount > 0").where("orders.vote_circle_id is null").group('users.vote_town', 'users.postal_code', :target_territory, Order.unique_month('payable_at')).order('users.vote_town', 'users.postal_code',:target_territory, Order.unique_month('payable_at')).pluck('users.vote_town', 'users.postal_code',:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
     query.each do|c,cp,tt,m,t,v|
       num_month = m.to_i
       if towns_data[c][cp][tt][num_month] == 0
@@ -1024,7 +1024,7 @@ ActiveAdmin.register Collaboration do
     end
 
     # -------------------------- Add Non User data --------------------------------------------------------------------------------
-    c_ids = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Estatal%').where("orders.vote_circle_autonomy_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").where("users.id is null").pluck(:parent_id).uniq!
+    c_ids = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Estatal%').where( vote_circle_autonomy_code: nil, vote_circle_island_code: nil, vote_circle_town_code: nil).where("orders.amount > 0 and orders.vote_circle_id is null and users.id is null").pluck(:parent_id).uniq!
     Collaboration.where(id:c_ids).each do |collaboration|
       query = Order.paid.where(parent_id: collaboration.id).group(:target_territory, Order.unique_month('payable_at')).order(:target_territory, Order.unique_month('payable_at')).pluck(:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
       query.each do|tt,m,t,v|
