@@ -1062,6 +1062,27 @@ ActiveAdmin.register Collaboration do
       end
     end
 
+    # add non standard town_codes found
+    towns = towns_data.keys
+    towns_exterior = towns.reject {|t| t =~ /m_\d{2}_\d{3}_\d/}
+    towns_exterior.each do |town_code|
+      towns_data[town_code].keys.each do |cp|
+        tts = towns_data[town_code][cp].keys
+        tts = [""] if tts.count == 0
+        tts.each do |tt|
+          row = [ town_code, town_code, town_code,"",cp,tt ]
+          sum_row = 0
+          months.keys.each do |month|
+            amount_month = towns_data[town_code][cp][tt][month][1]/100
+            row.push(towns_data[town_code][cp][tt][month][0])
+            row.push(amount_month)
+            sum_row += amount_month
+          end
+          output_data << row if sum_row > 0
+        end
+      end
+    end
+
     headers = ["Comunidad Autónoma", "Provincia", "Municipio", "Círculo", "Código Postal","Territorio de Asignación"]
     send_csv_file(headers,months,output_data,"podemos.user_for_country_cp.#{Date.today.to_s}.csv")
   end
