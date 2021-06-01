@@ -1026,17 +1026,20 @@ ActiveAdmin.register Collaboration do
     # -------------------------- Add Non User data --------------------------------------------------------------------------------
     c_ids = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Estatal%').where( vote_circle_autonomy_code: nil, vote_circle_island_code: nil, vote_circle_town_code: nil).where("orders.amount > 0 and orders.vote_circle_id is null and users.id is null").pluck(:parent_id).uniq!
     Collaboration.where(id:c_ids).each do |collaboration|
-      query = Order.paid.where(parent_id: collaboration.id).group(:target_territory, Order.unique_month('payable_at')).order(:target_territory, Order.unique_month('payable_at')).pluck(:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
+      query = Order.paid.where(parent_id: collaboration.id).where("orders.target_territory like ?",'Estatal%').group(:target_territory, Order.unique_month('payable_at')).order(:target_territory, Order.unique_month('payable_at')).pluck(:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
       query.each do|tt,m,t,v|
         non_user = collaboration.get_non_user
-        c = non_user.ine_town
-        cp = non_user.postal_code
+        c = non_user.ine_town || non_user.town_name || "desconocido"
+        cp = non_user.postal_code || "desconocido"
+        deleted_month = collaboration.deleted_at.unique_month.to_i if collaboration.deleted_at
         num_month = m.to_i
-        if towns_data[c][cp][tt][num_month] == 0
-          towns_data[c][cp][tt][num_month] = [t,v]
-        else
-          towns_data[c][cp][tt][num_month][0] += t
-          towns_data[c][cp][tt][num_month][1] += v
+        if deleted_month.nil? || deleted_month > num_month
+          if towns_data[c][cp][tt][num_month] == 0
+            towns_data[c][cp][tt][num_month] = [t,v]
+          else
+            towns_data[c][cp][tt][num_month][0] += t
+            towns_data[c][cp][tt][num_month][1] += v
+          end
         end
       end
     end
@@ -1065,6 +1068,7 @@ ActiveAdmin.register Collaboration do
     # add non standard town_codes found
     towns = towns_data.keys
     towns_exterior = towns.reject {|t| t =~ /m_\d{2}_\d{3}_\d/}
+    #towns_exterior -=[nil]
     towns_exterior.each do |town_code|
       towns_data[town_code].keys.each do |cp|
         tts = towns_data[town_code][cp].keys
