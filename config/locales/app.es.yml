@@ -10,7 +10,7 @@ es:
     show:
       "404":
         title: "Página no encontrada"
-        message_html: "No pudimos encontrar esa página. Vuelvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a>."
+        message_html: "No pudimos encontrar esa página. Vuelvelo a intentarlo más tarde o <a href='/'>prueba desde la página principal</a> entrando con tu cuenta."
       "500":
         title: "Error en el servidor"
         message_html: "Hubo un error en el servidor. Puedes avisarnos en <a href='https://participa.podemos.info/ayuda-para-acceder/'>el formulario de soporte</a>."

@@ -782,7 +782,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_circle_and_cp_town, :method => :get do
     date =Date.parse params[:date]
-    months = Hash[(0..6).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..7).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
     provinces = Carmen::Country.coded("ES").subregions
     output_data = []
 
@@ -863,7 +863,7 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_circle_and_cp_autonomy, :method => :get do
     date =Date.parse params[:date]
-    months = Hash[(0..6).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..7).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
     provinces = Carmen::Country.coded("ES").subregions
     autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
     output_data = []
@@ -961,51 +961,48 @@ ActiveAdmin.register Collaboration do
 
   collection_action :download_for_circle_and_cp_country, :method => :get do
     date =Date.parse params[:date]
-    months = Hash[(0..6).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
+    months = Hash[(0..7).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
     provinces = Carmen::Country.coded("ES").subregions
+    autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
+    countries = Hash[ Carmen::Country.all.map do |c| [ c.code,c.name ] end ]
     output_data = []
 
     # ---------------------- Generate Circle Data ---------------------------------------------------------------------------------
 
     circle_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k]= 0}}}}
-    query = Order.paid.where("target_territory like ?",'Municipal%').where.not(vote_circle_id: nil, vote_circle_town_code: nil).where("amount > 0").group(:vote_circle_town_code,:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, :vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id, sum(orders.amount) as sum_amount, vote_circle_id as vc')
-    query.each do|c,vc,tt,m,t,v|
+    query = Order.paid.where("target_territory like ?",'Estatal%').where.not(vote_circle_id: nil).where( vote_circle_autonomy_code: nil, vote_circle_island_code: nil, vote_circle_town_code: nil).where("amount > 0").group(:vote_circle_id,:target_territory, Order.unique_month('payable_at')).order(:vote_circle_id, :target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_id, :target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount, vote_circle_id as vc')
+    query.each do|vc,tt,m,t,v|
       num_month = m.to_i
-      if circle_data[c][vc][tt][num_month] == 0
-        circle_data[c][vc][tt][num_month] = [t,v]
+      if circle_data[vc][tt][num_month] == 0
+        circle_data[vc][tt][num_month] = [t,v]
       else
-        circle_data[c][vc][tt][num_month][0] += t
-        circle_data[c][vc][tt][num_month][1] += v
+        circle_data[vc][tt][num_month][0] += t
+        circle_data[vc][tt][num_month][1] += v
       end
     end
 
-    provinces.each_with_index do |province,i|
-      prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
-      province.subregions.each do |town|
-        circle_data[town.code].keys.each do |vc|
-          vote_circle = VoteCircle.find(vc)
-          tts = circle_data[town.code][vc].keys
-          tts = [""] if tts.count == 0
-          tts.each do |tt|
-            row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,vote_circle.original_name,"",tt ]
-            sum_row = 0
-            months.keys.each do |month|
-              amount_month = circle_data[town.code][vc][tt][month][1]/100
-              row.push(circle_data[town.code][vc][tt][month][0])
-              row.push(amount_month)
-              sum_row += amount_month
-            end
-            output_data << row
-          end
+    VoteCircle.all.sort.each do |vc|
+      tts = circle_data[vc.id].keys
+      tts = [""] if tts.count == 0
+      tts.each do |tt|
+        row = [ "","","",vc.original_name,"",tt ]
+        sum_row = 0
+        months.keys.each do |month|
+          amount_month = circle_data[vc.id][tt][month][1]/100
+          row.push(circle_data[vc.id][tt][month][0])
+          row.push(amount_month)
+          sum_row += amount_month
         end
+        output_data << row
       end
     end
 
     # ----------------------- Generate Postal Code data ---------------------------------------------------------------------------
 
     towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k]= 0}}}}
-    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Municipal%').where("orders.vote_circle_town_code is not null and orders.amount > 0").where("orders.vote_circle_id is null").group(:vote_circle_town_code, 'users.postal_code', :target_territory, Order.unique_month('payable_at')).order(:vote_circle_town_code, 'users.postal_code',:target_territory, Order.unique_month('payable_at')).pluck(:vote_circle_town_code, 'users.postal_code',:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
+    query = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Estatal%').where( vote_circle_autonomy_code: nil, vote_circle_island_code: nil, vote_circle_town_code: nil).where("orders.amount > 0").where("orders.vote_circle_id is null").group('users.vote_town', 'users.postal_code', :target_territory, Order.unique_month('payable_at')).order('users.vote_town', 'users.postal_code',:target_territory, Order.unique_month('payable_at')).pluck('users.vote_town', 'users.postal_code',:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
     query.each do|c,cp,tt,m,t,v|
+      next unless cp
       num_month = m.to_i
       if towns_data[c][cp][tt][num_month] == 0
         towns_data[c][cp][tt][num_month] = [t,v]
@@ -1015,9 +1012,37 @@ ActiveAdmin.register Collaboration do
       end
     end
 
+    # -------------------------- Add Non User data --------------------------------------------------------------------------------
+    non_user_base = Order.paid.joins("LEFT JOIN users on orders.user_id = users.id").where("orders.target_territory like ?",'Estatal%').where( vote_circle_autonomy_code: nil, vote_circle_island_code: nil, vote_circle_town_code: nil).where("orders.amount > 0 and orders.vote_circle_id is null and users.id is null")
+    c_ids = non_user_base.pluck(:parent_id)
+    Collaboration.with_deleted.where(id:c_ids).each do |collaboration|
+      query = non_user_base.where(parent_id:collaboration.id).group(:target_territory, Order.unique_month('payable_at')).order(:target_territory, Order.unique_month('payable_at')).pluck(:target_territory, Order.unique_month('payable_at'), 'count(orders.id) as count_id', 'sum(orders.amount) as sum_amount')
+      query.each do|tt,m,t,v|
+        non_user = collaboration.get_non_user
+        c = non_user.ine_town
+        c = non_user.town_name unless c.present?
+        c = "desconocido" unless c.present?
+        cp = non_user.postal_code
+        cp = "desconocido" unless cp.present?
+        deleted_month = collaboration.deleted_at.unique_month.to_i if collaboration.deleted_at
+        num_month = m.to_i
+        if deleted_month.nil? || deleted_month >= num_month
+          if towns_data[c][cp][tt][num_month] == 0
+            towns_data[c][cp][tt][num_month] = [t,v]
+          else
+            towns_data[c][cp][tt][num_month][0] += t
+            towns_data[c][cp][tt][num_month][1] += v
+          end
+        end
+      end
+    end
+
+    # prepare rows to export
+    towns_keys =[]
     provinces.each_with_index do |province,i|
       prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
       province.subregions.each do |town|
+        towns_keys << town.code
         towns_data[town.code].keys.each do |cp|
           tts = towns_data[town.code][cp].keys
           tts = [""] if tts.count == 0
@@ -1036,160 +1061,33 @@ ActiveAdmin.register Collaboration do
       end
     end
 
-    headers = ["Comunidad Autónoma", "Provincia", "Municipio", "Círculo", "Código Postal","Territorio de Asignación"]
-    send_csv_file(headers,months,output_data,"podemos.user_for_cp_cc.#{Date.today.to_s}.csv")
-  end
+    # add non standard town_codes found
+    #towns = towns_data.keys
+    towns_exterior = towns_data.keys - towns_keys #towns.reject {|t| t =~ /m_\d{2}_\d{3}_\d/}
+    #towns_exterior -=[nil]
+    towns_exterior.each do |town_code|
+      towns_data[town_code].keys.each do |cp|
+        tts = towns_data[town_code][cp].keys
+        tts = [""] if tts.count == 0
+        tts.each do |tt|
+          cp_txt = cp
+          cp_txt = "desconocido" unless cp.present?
+          row = [ town_code, town_code, town_code,"",cp_txt,tt ]
+          sum_row = 0
+          months.keys.each do |month|
+            amount_month = towns_data[town_code][cp][tt][month][1]/100
+            row.push(towns_data[town_code][cp][tt][month][0])
+            row.push(amount_month)
+            sum_row += amount_month
+          end
+          output_data << row if sum_row > 0
+        end
+      end
+    end
 
-  # collection_action :download_special_for_town, :method => :get do
-  #   date = Date.parse params[:date]
-  #   months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
-  #   provinces = Carmen::Country.coded("ES").subregions
-  #   output_data = []
-  #
-  #   # ---------------------- Generate Towns Data ---------------------------------------------------------------------------------
-  #
-  #   towns_data = Hash.new {|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = 0}}}
-  #   query = Order.paid.where("target_territory like ?",'Municipal%').group( :town_code, :target_territory, Order.unique_month('payable_at')).order(:town_code, :target_territory, Order.unique_month('payable_at')).pluck(:town_code, :target_territory,  Order.unique_month('payable_at'), 'count(id) as count_id', 'sum(amount) as sum_amount')
-  #   query.each do|c,tt,m,t,v|
-  #     num_month = m.to_i
-  #     if towns_data[c][tt][num_month] == 0
-  #       towns_data[c][tt][num_month] = [t,v]
-  #     else
-  #       towns_data[c][tt][num_month][0] += t
-  #       towns_data[c][tt][num_month][1] += v
-  #     end
-  #   end
-  #
-  #   provinces.each_with_index do |province,i|
-  #     prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
-  #     province.subregions.each do |town|
-  #       tts = towns_data[town.code].keys
-  #       tts = [""] if tts.count == 0
-  #       tts.each do |tt|
-  #         row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, town.name,tt ]
-  #         sum_row = 0
-  #         months.keys.each do |month|
-  #           amount_month = towns_data[town.code][tt][month][1]/100
-  #           row.push(towns_data[town.code][tt][month][0])
-  #           row.push(amount_month)
-  #           sum_row += amount_month
-  #         end
-  #         output_data << row
-  #       end
-  #     end
-  #   end
-  #   # add unknown towns
-  #   t_ids = []
-  #   t_ids << provinces.map{ |p| p.subregions.map {|e| e.code}}
-  #   t_ids = t_ids.flatten
-  #   tdk = towns_data.keys
-  #   tdk = tdk - t_ids
-  #   tdk.each do |town_code|
-  #     tts = towns_data[town_code].keys
-  #     tts = [""] if tts.count == 0
-  #     tts.each do |tt|
-  #       row = [ "Desconocida", "Desconocida", town_code,tt ]
-  #       sum_row = 0
-  #       months.keys.each do |month|
-  #         amount_month = towns_data[town_code][tt][month][1]/100
-  #         row.push(towns_data[town_code][tt][month][0])
-  #         row.push(amount_month)
-  #         sum_row += amount_month
-  #       end
-  #       output_data << row
-  #     end
-  #   end
-  #
-  #   headers = ["Comunidad Autónoma", "Provincia", "Municipio", "Municipio Asignación"]
-  #   send_csv_file(headers, months, output_data,"special.town.#{Date.today.to_s}.csv")
-  # end
-  #
-  # collection_action :download_special_for_autonomy, :method => :get do
-  #   date = Date.parse params[:date]
-  #   months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
-  #
-  #   autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
-  #   autonomies["~"] = "Sin asignación"
-  #   autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-  #
-  #   Order.paid.where(town_code:nil, island_code:nil).group('autonomy_code',Order.unique_month('payable_at')).order('autonomy_code', Order.unique_month('payable_at')).pluck('autonomy_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
-  #     autonomies_data[c||"~"][m.to_i]=[t,v]
-  #   end
-  #
-  #   output_data = []
-  #   autonomies.sort.each do |autonomy_code,autonomy|
-  #     row = [autonomy]
-  #     months.keys.each do |month|
-  #       row.push(autonomies_data[autonomy_code][month][0])
-  #       row.push(autonomies_data[autonomy_code][month][1]/100)
-  #     end
-  #     output_data << row
-  #   end
-  #
-  #   headers = ["Comunidad Autónoma"]
-  #   send_csv_file(headers,months,output_data,"podemos.for_autonomy_cc.#{Date.today.to_s}.csv")
-  # end
-  #
-  # collection_action :download_special_for_island, :method => :get do
-  #   date = Date.parse params[:date]
-  #   months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
-  #
-  #   islands = Hash.new {|h,k| h[k] = [] }
-  #   Podemos::GeoExtra::ISLANDS.each do |town, info|
-  #     islands["p_#{town[2..3]}"] << info
-  #   end
-  #   islands.each {|_, info| info.uniq! }
-  #
-  #   provinces = Carmen::Country.coded("ES").subregions
-  #
-  #   island_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-  #   Order.paid.where(town_code:nil).group('island_code',Order.unique_month('payable_at')).order('island_code', Order.unique_month('payable_at')).pluck('island_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
-  #     island_data[c][m.to_i]=[t,v]
-  #   end
-  #
-  #   output_data = []
-  #   provinces.each_with_index do |province,i|
-  #     prov_code = "p_#{(i+1).to_s.rjust(2, "0")}"
-  #     islands[prov_code].each do |island_code, island_name|
-  #       row = [ Podemos::GeoExtra::AUTONOMIES[prov_code][1], province.name, island_name ]
-  #       months.keys.each do |month|
-  #         puts("#{island_code} #{month}")
-  #         row.push(island_data[island_code][month][0])
-  #         row.push(island_data[island_code][month][1]/100)
-  #       end
-  #       output_data << row
-  #     end
-  #   end
-  #
-  #   headers = ["Comunidad Autónoma", "Provincia", "Isla"]
-  #   send_csv_file(headers,months,output_data,"podemos.for_island_cc.#{Date.today.to_s}.csv")
-  # end
-  #
-  # collection_action :download_special_for_country, :method => :get do
-  #   date = Date.parse params[:date]
-  #   months = Hash[(0..5).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
-  #
-  #   autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
-  #   autonomies["~"] = "Sin asignación"
-  #   autonomies_data = Hash.new {|h,k| h[k] = Hash.new 0 }
-  #
-  #   Order.paid.where(town_code:nil, island_code:nil).group('autonomy_code',Order.unique_month('payable_at')).order('autonomy_code', Order.unique_month('payable_at')).pluck('autonomy_code', Order.unique_month('payable_at'), 'count(id) as count_id, sum(amount) as sum_amount').each do|c,m,t,v|
-  #     autonomies_data[c||"~"][m.to_i]=[t,v]
-  #   end
-  #
-  #   output_data = []
-  #   autonomies.sort.each do |autonomy_code,autonomy|
-  #     row = [autonomy]
-  #     months.keys.each do |month|
-  #       row.push(autonomies_data[autonomy_code][month][0])
-  #       row.push(autonomies_data[autonomy_code][month][1]/100)
-  #     end
-  #     output_data << row
-  #   end
-  #
-  #   headers = ["País"]
-  #   send_csv_file(headers,months,output_data,"podemos.for_countries_cc.#{Date.today.to_s}.csv")
-  # end
+    headers = ["Comunidad Autónoma", "Provincia", "Municipio", "Círculo", "Código Postal","Territorio de Asignación"]
+    send_csv_file(headers,months,output_data,"podemos.user_for_country_cp.#{Date.today.to_s}.csv")
+  end
 
   batch_action :error_batch, if: proc{ params[:scope]=="suspects" } do |ids|
     ok = true

@@ -4,6 +4,7 @@ class VoteCircle < ActiveRecord::Base
   enum kind: { interno: 0, barrial: 1, municipal: 2, comarcal: 3, exterior: 4 }
 
   scope :in_spain,-> {where(kind: [kinds[:barrial], kinds[:municipal], kinds[:comarcal]]) }
+  scope :not_interno,-> {where.not(kind: kinds[:interno]) }
 
   attr_accessor :circle_type
 
