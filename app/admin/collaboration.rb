@@ -993,7 +993,7 @@ ActiveAdmin.register Collaboration do
       end
     end
 
-    VoteCircle.not_interno.sort.each do |vc|
+    VoteCircle.all.sort.each do |vc|
       tts = circle_data[vc.id].keys
       tts = [""] if tts.count == 0
       tts.each do |tt|
