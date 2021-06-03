@@ -485,7 +485,7 @@ EOL
     has_active_circle = user.has_active_circle?
     type_order = "E" if has_active_circle && user.vote_circle.exterior?
     circle = user.vote_circle if has_active_circle
-    type_order = circle.island_code ? "I" : circle.town_code ? "M" : circle.autonomy_code ? "A" : "E"  if circle
+    type_order = circle.island_code ? "I" : circle.town ? "M" : circle.autonomy_code ? "A" : "E"  if circle
     case type_order
     when "I"
       text = "Isla "
