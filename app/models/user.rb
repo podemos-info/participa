@@ -658,17 +658,22 @@ class User < ActiveRecord::Base
 
   def before_save
     unless @skip_before_save
-      # Spanish users can't set a different town for vote, except when blocked
-      if self.in_spain? and self.can_change_vote_location?
-        self.vote_town = self.town
-        self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
+      if User.with_deleted.banned.where(document_vatid: self.document_vatid).any?
+        self.errors.add("Información insuficiente:",I18n.t("podemos.banned", full_name: self.full_name))
+        false
+      else
+        # Spanish users can't set a different town for vote, except when blocked
+        if self.in_spain? and self.can_change_vote_location?
+          self.vote_town = self.town
+          self.vote_district = nil if self.vote_town_changed? # remove this when the user is allowed to choose district
+        end
+        self.militant = self.still_militant?
+        if self.vote_circle_id_changed?
+          self.vote_circle_changed_at = Time.now
+          process_militant_data
+        end
+        true
       end
-      self.militant = self.still_militant?
-      if self.vote_circle_id_changed?
-        self.vote_circle_changed_at = Time.now
-        process_militant_data
-      end
-      true
     end
   end
 
