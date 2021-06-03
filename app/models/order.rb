@@ -482,7 +482,7 @@ EOL
     return "" unless self.parent && self.parent.get_user
     user = self.parent.get_user
     type_order = self.island_code ? "I" : self.town_code ? "M" : self.autonomy_code ? "A" : "E"
-    has_active_circle = user.has_active_circle?
+    has_active_circle = self.parent.user_id.present? && user.has_active_circle?
     type_order = "E" if has_active_circle && user.vote_circle.exterior?
     circle = user.vote_circle if has_active_circle
     type_order = circle.island_code ? "I" : circle.town ? "M" : circle.autonomy_code ? "A" : "E"  if circle
