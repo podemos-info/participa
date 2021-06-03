@@ -1041,6 +1041,10 @@ class User < ActiveRecord::Base
   def can_show_qr?
     Rails.application.secrets[:qr_enabled] && self.militant?
   end
+
+  def has_active_circle?
+    self.vote_circle_id.present? && !self.vote_circle.interno?
+  end
   private
 
   def last_vote_location_change
