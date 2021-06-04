@@ -285,6 +285,13 @@ class Collaboration < ActiveRecord::Base
 
     reference_text += I18n.localize(date, :format => "%B %Y")
     amount += self.frequency == 0 ? self.amount : self.amount * self.frequency
+    autonomy_code_value = self.for_autonomy_cc.present? ? self.get_vote_autonomy_code : nil
+    town_code_value = self.for_town_cc.present? ? self.get_vote_town : nil
+    island_code_value = self.for_island_cc ? self.get_vote_island_code : nil
+    vote_circle_autonomy_code_value = self.for_autonomy_cc.present? ? self.get_vote_circle_autonomy_code : nil
+    vote_circle_town_code_value =  self.for_town_cc.present? ? self.get_vote_circle_town : nil
+    vote_circle_island_code_value = self.for_island_cc ? self.get_vote_circle_island_code : nil
+
     order = Order.new user: self.user,
       parent:self,
       reference: reference_text,
@@ -293,12 +300,12 @@ class Collaboration < ActiveRecord::Base
       payable_at: date,
       payment_type:self.is_credit_card? ? 1 : 3,
       payment_identifier: self.payment_identifier,
-      autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_autonomy_code : nil,
-      town_code:  self.for_town_cc.present? ? self.get_vote_town : nil,
-      island_code: self.for_island_cc ? self.get_vote_island_code : nil,
-      vote_circle_autonomy_code: self.for_autonomy_cc.present? ? self.get_vote_circle_autonomy_code : nil,
-      vote_circle_town_code:  self.for_town_cc.present? ? self.get_vote_circle_town : nil,
-      vote_circle_island_code: self.for_island_cc ? self.get_vote_circle_island_code : nil,
+      autonomy_code: autonomy_code_value,
+      town_code:  town_code_value,
+      island_code: island_code_value,
+      vote_circle_autonomy_code: vote_circle_autonomy_code_value,
+      vote_circle_town_code:  vote_circle_town_code_value,
+      vote_circle_island_code: vote_circle_island_code_value,
       vote_circle_id: self.get_vote_circle_id
 
     order.target_territory = order.generate_target_territory

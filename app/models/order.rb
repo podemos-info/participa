@@ -482,19 +482,19 @@ EOL
     return "" unless self.parent && self.parent.get_user
     user = self.parent.get_user
     type_order = self.island_code ? "I" : self.town_code ? "M" : self.autonomy_code ? "A" : "E"
-    has_circle = user.vote_circle_id.present? && !user.vote_circle.interno?
-    type_order = "E" if has_circle && user.vote_circle.exterior?
-    circle = user.vote_circle if has_circle
+    has_active_circle = self.parent.user_id.present? && user.has_active_circle?
+    type_order = "E" if has_active_circle && user.vote_circle.exterior?
+    circle = user.vote_circle if has_active_circle
     case type_order
     when "I"
       text = "Isla "
-      text += has_circle && circle.island_code.present? ? circle.island_name : self.parent.get_vote_island_name
+      text += has_active_circle && circle.island_code.present? ? circle.island_name : self.parent.get_vote_island_name
     when "M"
       text = "Municipal "
-      text += has_circle && circle.town.present? ? circle.town_name : self.parent.get_vote_town_name
+      text += has_active_circle && circle.town.present? ? circle.town_name : self.parent.get_vote_town_name
     when "A"
       text = "Autonómico "
-      text += has_circle && circle.autonomy_code.present? ? circle.autonomy_name : self.parent.get_vote_autonomy_name
+      text += has_active_circle && circle.autonomy_code.present? ? circle.autonomy_name : self.parent.get_vote_autonomy_name
     else
       text = "Estatal"
     end
