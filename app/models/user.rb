@@ -1050,6 +1050,11 @@ class User < ActiveRecord::Base
   def has_active_circle?
     self.vote_circle_id.present? && !self.vote_circle.interno?
   end
+
+  def has_comarcal_circle?
+    self.vote_circle_id.present? && self.vote_circle.comarcal?
+  end
+
   private
 
   def last_vote_location_change
