@@ -24,20 +24,20 @@ class Api::V2Controller < ActionController::Base
       return @result unless params[:command].present? && COMMANDS.include?(command)
       case command
       when COMMANDS[0]
-        @result = nil
+        @result = ""
         @result += "Email parameter missing " unless params[:email].present?
         @result += "Territory parameter missing " unless params[:territory].present?
         user = User.find_by_email(params[:email].strip) unless @result
         params[:app_circle] = user.vote_circle unless @result || user.nil?
         @result += "User email unknown" unless params[:user].present? && params[:user].present?
-        @result ||= get_militants params
+        @result = get_militants params unless @result.present?
       when COMMANDS[1]
-        @result = nil
+        @result = ""
         @result += "Territory parameter missing " unless params[:territory].present?
         @result += "Vote_circle_id parameter missing " unless params[:vote_circle_id].present?
         vote_circle = VoteCircle.find(params[:vote_circle_id].to_i) unless @result
         params[:app_circle] = vote_circle unless @result
-        @result ||= get_militants params
+        @result = get_militants params unless @result.present?
       else
         @result = "unknown command"
       end
