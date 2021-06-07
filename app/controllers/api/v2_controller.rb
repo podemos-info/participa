@@ -35,9 +35,11 @@ class Api::V2Controller < ActionController::Base
         @result = ""
         @result += "Territory parameter missing " unless params[:territory].present?
         @result += "Vote_circle_id parameter missing " unless params[:vote_circle_id].present?
-        vote_circle = VoteCircle.find(params[:vote_circle_id].to_i) unless @result
-        params[:app_circle] = vote_circle unless @result
-        @result = get_militants params unless @result.present?
+        unless @result.present?
+          vote_circle = VoteCircle.find(params[:vote_circle_id].to_i)
+          params[:app_circle] = vote_circle
+          @result = get_militants params
+        end
       else
         @result = "unknown command"
       end
