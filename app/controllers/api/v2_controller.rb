@@ -79,16 +79,16 @@ class Api::V2Controller < ActionController::Base
     app_circle = params[:app_circle]
     case params[:territory]
     when "autonomy"
-      territory ||= app_circle.autonomy_code
+      territory = app_circle.autonomy_code
       vc_query = VoteCircle.where(autonomy_code: territory).pluck(:id, :original_name)
     when "province"
-      territory ||= app_circle.province_code
+      territory = app_circle.province_code
       vc_query = VoteCircle.where(province_code: territory).pluck(:id, :original_name)
     when "town"
-      territory ||= app_circle.town
+      territory = app_circle.town
       vc_query = VoteCircle.where(town: territory).pluck(:id, :original_name)
     when "island"
-      territory ||= app_circle.island_code
+      territory = app_circle.island_code
       vc_query = VoteCircle.where(island_code: territory).pluck(:id, :original_name)
     when "circle"
       territory = VoteCircle.exterior.pluck(:id) if params[:range_name] && params[:range_name].downcase == RANGE_NAMES[:exterior]
@@ -97,7 +97,7 @@ class Api::V2Controller < ActionController::Base
     else
       vc_query = VoteCircle.none
     end
-    if vc_query.any?
+    if territory.present? && vc_query.any?
       data = []
       vc_hash = vc_query.to_h
       vc_ids = vc_hash.keys
