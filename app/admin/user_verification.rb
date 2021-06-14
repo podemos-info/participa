@@ -210,7 +210,7 @@ end
   member_action :rotate, method: :patch do
     verification = UserVerification.find(params[:id])
     attachment = "#{params[:attachment]}_vatid"
-    degrees = -params[:degrees].to_i
+    degrees = params[:degrees].to_i
     verification.rotate[attachment] = degrees
     verification.send(attachment).reprocess!
     redirect_to :back
