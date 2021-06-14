@@ -23,21 +23,23 @@ class Api::V2Controller < ActionController::Base
       command = params[:command].strip.downcase
       return @result unless params[:command].present? && COMMANDS.include?(command)
       case command
-      when "militants_from_territory"
-        @result = nil
+      when COMMANDS[0]
+        @result = ""
         @result += "Email parameter missing " unless params[:email].present?
         @result += "Territory parameter missing " unless params[:territory].present?
         user = User.find_by_email(params[:email].strip) unless @result
         params[:app_circle] = user.vote_circle unless @result || user.nil?
         @result += "User email unknown" unless params[:user].present? && params[:user].present?
-        @result ||= get_militants params
-      when "militants_from_circle_territory"
-        @result = nil
+        @result = get_militants params unless @result.present?
+      when COMMANDS[1]
+        @result = ""
         @result += "Territory parameter missing " unless params[:territory].present?
         @result += "Vote_circle_id parameter missing " unless params[:vote_circle_id].present?
-        vote_circle = VoteCircle.find(params[:vote_circle_id.to_i]) unless @result
-        params[:app_circle] = vote_circle unless @result
-        @result ||= get_militants params
+        unless @result.present?
+          vote_circle = VoteCircle.find(params[:vote_circle_id].to_i)
+          params[:app_circle] = vote_circle
+          @result = get_militants params
+        end
       else
         @result = "unknown command"
       end
@@ -77,16 +79,16 @@ class Api::V2Controller < ActionController::Base
     app_circle = params[:app_circle]
     case params[:territory]
     when "autonomy"
-      territory ||= app_circle.autonomy_code
+      territory = app_circle.autonomy_code
       vc_query = VoteCircle.where(autonomy_code: territory).pluck(:id, :original_name)
     when "province"
-      territory ||= app_circle.province_code
+      territory = app_circle.province_code
       vc_query = VoteCircle.where(province_code: territory).pluck(:id, :original_name)
     when "town"
-      territory ||= app_circle.town
+      territory = app_circle.town
       vc_query = VoteCircle.where(town: territory).pluck(:id, :original_name)
     when "island"
-      territory ||= app_circle.island_code
+      territory = app_circle.island_code
       vc_query = VoteCircle.where(island_code: territory).pluck(:id, :original_name)
     when "circle"
       territory = VoteCircle.exterior.pluck(:id) if params[:range_name] && params[:range_name].downcase == RANGE_NAMES[:exterior]
@@ -95,7 +97,7 @@ class Api::V2Controller < ActionController::Base
     else
       vc_query = VoteCircle.none
     end
-    if vc_query.any?
+    if territory.present? && vc_query.any?
       data = []
       vc_hash = vc_query.to_h
       vc_ids = vc_hash.keys
