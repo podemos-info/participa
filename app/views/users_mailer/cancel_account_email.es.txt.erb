@@ -1,6 +1,6 @@
-Hola <%= @user.first_name %>:
+Hola <%= @user.full_name %>, con email <%= @user.email %> y documento <%= @user.document_vatid %>:
 
-A través de este correo te confirmamos tu baja como inscrito/a de Podemos. Si no has sido tú, por favor ponte en contacto con protecciondedatos@podemos.info.
+A través de este correo te confirmamos tu baja como inscrito/a de Podemos en fecha <%= Date.today.strftime("%d/%m/%Y") %>. Si no has sido tú, por favor ponte en contacto con protecciondedatos@podemos.info.
 
 Un cordial saludo,
 
