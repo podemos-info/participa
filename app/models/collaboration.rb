@@ -651,11 +651,7 @@ class Collaboration < ActiveRecord::Base
       u = self.user
       if u.vote_circle_id.present?
         circle = u.vote_circle
-        if circle.town.present?
-          autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{circle.town[2,2]}"][0]
-        elsif circle.in_spain?
-          autonomy_code = "c_#{circle.code[2,2]}"
-        end
+        autonomy_code = circle.get_autonomy_code
       end
       autonomy_code ||= u.vote_autonomy_code
     else

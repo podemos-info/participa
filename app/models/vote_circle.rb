@@ -44,6 +44,18 @@ class VoteCircle < ActiveRecord::Base
     result
   end
 
+  def get_autonomy_code
+    autonomy_code = nil
+
+    if self.town.present?
+      autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{self.town[2,2]}"][0]
+    elsif circle.in_spain?
+      autonomy_code = "c_#{self.code[2,2]}"
+    end
+
+    autonomy_code
+  end
+
    def in_spain?
      [[VoteCircle.kinds[:barrial], VoteCircle.kinds[:municipal], VoteCircle.kinds[:comarcal]]].include? self.kind
    end
