@@ -49,7 +49,7 @@ class VoteCircle < ActiveRecord::Base
 
     if self.town.present?
       autonomy_code = Podemos::GeoExtra::AUTONOMIES["p_#{self.town[2,2]}"][0]
-    elsif circle.in_spain?
+    elsif self.in_spain?
       autonomy_code = "c_#{self.code[2,2]}"
     end
 
