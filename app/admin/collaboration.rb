@@ -1005,7 +1005,7 @@ ActiveAdmin.register Collaboration do
           row.push(amount_month)
           sum_row += amount_month
         end
-        output_data << row
+        output_data << row if sum_row > 0
       end
     end
 
