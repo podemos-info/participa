@@ -292,6 +292,13 @@ class Collaboration < ActiveRecord::Base
     vote_circle_town_code_value =  self.for_town_cc.present? ? self.get_vote_circle_town : nil
     vote_circle_island_code_value = self.for_island_cc ? self.get_vote_circle_island_code : nil
 
+    if self.user_id.present? && self.user.has_comarcal_circle?
+      town_code_value = nil
+      autonomy_code_value = self.get_vote_circle_autonomy_code
+      vote_circle_town_code_value = nil
+      vote_circle_autonomy_code_value = self.get_vote_circle_autonomy_code
+    end
+
     order = Order.new user: self.user,
       parent:self,
       reference: reference_text,
