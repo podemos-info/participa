@@ -70,12 +70,12 @@ end
 
 assign_vote_circle_territories
 
-Order.where("payed_at > ?",Date.parse("2020-09-30")) do |order|
+Order.where("payed_at > ?",Date.parse("2020-09-30")).find_each do |order|
   if order.user_id.present? && order.user.has_comarcal_circle?
     order.town_code = nil
-    order.autonomy_code = order.get_vote_circle_autonomy_code
+    order.autonomy_code = order.parent.get_vote_circle_autonomy_code
     order.vote_circle_town_code = nil
-    order.vote_circle_autonomy_code = order.get_vote_circle_autonomy_code
+    order.vote_circle_autonomy_code = order.parent.get_vote_circle_autonomy_code
   end
   order.save!
 end
