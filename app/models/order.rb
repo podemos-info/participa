@@ -482,10 +482,10 @@ EOL
     return "" unless self.parent && self.parent.get_user
     user = self.parent.get_user
     type_order = self.island_code ? "I" : self.town_code ? "M" : self.autonomy_code ? "A" : "E"
-    has_active_circle = self.parent.user_id.present? && user.has_active_circle?
-    type_order = "E" if has_active_circle && user.vote_circle.exterior?
-    type_order = "A" if has_active_circle && user.has_comarcal_circle?
-    circle = user.vote_circle if has_active_circle
+    circle = VoteCircle.find(self.vote_circle_id) if self.vote_circle_id.present?
+    has_active_circle = circle.present? && !circle.interno?
+    type_order = "E" if has_active_circle && circle.exterior?
+    type_order = "A" if has_active_circle && circle.comarcal?
     case type_order
     when "I"
       text = "Isla "
