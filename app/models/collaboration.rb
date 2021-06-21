@@ -651,7 +651,7 @@ class Collaboration < ActiveRecord::Base
       u = self.user
       if u.vote_circle_id.present?
         circle = u.vote_circle
-        autonomy_code = circle.get_autonomy_code
+        autonomy_code = circle.autonomy_code
       end
       autonomy_code ||= u.vote_autonomy_code
     else
