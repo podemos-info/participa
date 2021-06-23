@@ -75,8 +75,10 @@ Order.where("payed_at > ?",Date.parse("2020-09-30")).find_each do |order|
   if circle.present? && circle.comarcal?
     autonomy_code = circle.autonomy_code
     order.town_code = nil
+    order.island_code = nil
     order.autonomy_code = autonomy_code
     order.vote_circle_town_code = nil
+    order.vote_circle_island_code = nil
     order.vote_circle_autonomy_code = autonomy_code
   end
   order.save!
