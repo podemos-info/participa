@@ -10,7 +10,7 @@ def assign_vote_circle_territories
   known_types  = ["TB%", "TM%", "TC%", "IP%"]
   spain_code ="ES"
 
-  internal_circles = VoteCircle.all.where("code like ?",internal[0]).where(country_code:nil, autonomy_code: nil,province_code: nil)
+  internal_circles = VoteCircle.all.where("code like ?",internal[0]) #.where(country_code:nil, autonomy_code: nil,province_code: nil)
   internal_circles.find_each do |vc|
     vc.kind = internal[1]
     vc.town = nil
@@ -70,7 +70,21 @@ end
 
 assign_vote_circle_territories
 
- Order.where("payed_at > ?",Date.parse("2020-09-30")).where(target_territory:nil).find_each do |order|
+Order.where("payed_at > ?",Date.parse("2020-09-30")).find_each do |order|
+  circle = VoteCircle.find(order.vote_circle_id) if order.vote_circle_id.present?
+  if circle.present? && circle.comarcal?
+    autonomy_code = circle.autonomy_code
+    order.town_code = nil
+    order.island_code = nil
+    order.autonomy_code = autonomy_code
+    order.vote_circle_town_code = nil
+    order.vote_circle_island_code = nil
+    order.vote_circle_autonomy_code = autonomy_code
+  end
+  order.save!
+end
+
+ Order.where("payed_at > ?",Date.parse("2020-09-30")).find_each do |order| #.where(target_territory:nil).find_each do |order|
    order.target_territory = order.generate_target_territory
    order.save!
  end

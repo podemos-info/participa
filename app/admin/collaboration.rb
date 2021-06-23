@@ -862,7 +862,7 @@ ActiveAdmin.register Collaboration do
   end
 
   collection_action :download_for_circle_and_cp_autonomy, :method => :get do
-    date =Date.parse params[:date]
+    date = Date.parse params[:date]
     months = Hash[(0..7).map{|i| [(date-i.months).unique_month, (date-i.months).strftime("%b").downcase]}.reverse]
     provinces = Carmen::Country.coded("ES").subregions
     autonomies = Hash[Podemos::GeoExtra::AUTONOMIES.values]
@@ -993,7 +993,7 @@ ActiveAdmin.register Collaboration do
           row.push(amount_month)
           sum_row += amount_month
         end
-        output_data << row
+        output_data << row if sum_row > 0
       end
     end
 
