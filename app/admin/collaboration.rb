@@ -160,27 +160,27 @@ ActiveAdmin.register Collaboration do
       end
     end
 
-    h4 "Asignación territorial (base territorio inscrito)"
-    ul do
-      li do
-        """Autonómica:
-        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today) }
-        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today-1.month) }
-        """.html_safe
-      end
-      li do
-        """Municipal:
-        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today) }
-        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today-1.month) }
-        """.html_safe
-      end
-      li do
-        """Insular:
-        #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
-        #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today-1.month) }
-        """.html_safe
-      end
-    end
+    # h4 "Asignación territorial (base territorio inscrito)"
+    # ul do
+    #   li do
+    #     """Autonómica:
+    #     #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today) }
+    #     #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_autonomy, date: Date.today-1.month) }
+    #     """.html_safe
+    #   end
+    #   li do
+    #     """Municipal:
+    #     #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today) }
+    #     #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_town, date: Date.today-1.month) }
+    #     """.html_safe
+    #   end
+    #   li do
+    #     """Insular:
+    #     #{link_to Date.today.strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today) }
+    #     #{link_to (Date.today-1.month).strftime("%b").downcase, params.merge(action: :download_for_island, date: Date.today-1.month) }
+    #     """.html_safe
+    #   end
+    # end
 
     h4 "Asignación territorial (Base círculo Inscrito y territorio si no círculo)"
     ul do
