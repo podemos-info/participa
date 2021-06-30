@@ -128,7 +128,6 @@ ActiveAdmin.register VoteCircle do
       known_types  = ["TB%", "TM%", "TC%", "IP%"]
       spain_code ="ES"
 
-      vc.kind = type_code
       if vc.town.present?
         town_code = vc.town
         province_code = "p_#{vc.town[2,2]}"
