@@ -279,7 +279,9 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mimemagic (0.3.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -314,7 +316,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
-    nio4r (2.5.7)
+    nio4r (2.5.8)
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
@@ -331,7 +333,7 @@ GEM
       activerecord (>= 4.0, < 6.1)
     pg (0.18.2)
     phonelib (0.6.37)
-    puma (5.2.2)
+    puma (5.5.1)
       nio4r (~> 2.0)
     pushmeup (0.3.0)
       httparty
