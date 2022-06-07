@@ -1,16 +1,16 @@
 GIT
-  remote: git://github.com/podemos-info/norma43.git
-  revision: 98e537e2e5a60394e53b7447221187d0e497cf2c
-  specs:
-    norma43 (0.3.2)
-
-GIT
   remote: https://github.com/cowboyd/therubyracer.git
   revision: 56da5e54751feca3a1ae056001c8cc469fdd641e
   specs:
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
+
+GIT
+  remote: https://github.com/podemos-info/norma43.git
+  revision: 98e537e2e5a60394e53b7447221187d0e497cf2c
+  specs:
+    norma43 (0.3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -244,7 +244,7 @@ GEM
     jbuilder (2.3.0)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     jquery-fileupload-rails (0.4.6)
       actionpack (>= 3.1)
       railties (>= 3.1)
@@ -279,7 +279,9 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mimemagic (0.3.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
